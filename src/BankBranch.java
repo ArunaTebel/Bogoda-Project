@@ -1,16 +1,16 @@
 
 public class BankBranch {
 
-    private int branchCode;
+    private String branchCode;
     private String branchName;
 
-    BankBranch(String branchName, int branchCode) {
+    BankBranch(String branchName, String branchCode) {
         this.branchName = branchName;
         this.branchCode = branchCode;
     }
 
     BankBranch() {
-        branchCode = 0;
+        branchCode = null;
         branchName = null;
     }
 
@@ -18,7 +18,7 @@ public class BankBranch {
         this.branchName = branchName;
     }
 
-    public void setBranchCode(int branchCode) {
+    public void setBranchCode(String branchCode) {
         this.branchCode = branchCode;
     }
 
@@ -26,7 +26,7 @@ public class BankBranch {
         return branchName;
     }
 
-    public int getBranchCode() {
+    public String getBranchCode() {
         return branchCode;
     }
 

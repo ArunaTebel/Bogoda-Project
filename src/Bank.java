@@ -1,24 +1,25 @@
 
 public class Bank {
 
-    private int bankCode;
+    private String bankCode;
     private String bankName;
 
-    Bank(String bankName, int bankCode) {
+    Bank(String bankName, String bankCode) {
         this.bankName = bankName;
         this.bankCode = bankCode;
     }
 
     Bank() {
-        bankCode = 0;
+        bankCode = null;
         bankName = null;
     }
 
-    public void setBankName(String bankName) {
+    public void setBankName(String bankName, String bankCode) {
         this.bankName = bankName;
+        this.bankCode = bankCode;
     }
 
-    public void setBankCode(int bankCode) {
+    public void setBankCode(String bankCode) {
         this.bankCode = bankCode;
     }
 
@@ -26,7 +27,7 @@ public class Bank {
         return bankName;
     }
 
-    public int getBankCode() {
+    public String getBankCode() {
         return bankCode;
     }
 

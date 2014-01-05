@@ -3,15 +3,22 @@ public class Account {
 
     private String accountName;
     private String accountClass;
-    private int accountCode;
+    private String accountCode;
     private double openingBal;
 
-    //private double closingBal;
-    Account(String accountName, String accountClass, int accountCode, double openingBal) {
+    //private double closingBal;  // think this is not needed
+    Account(String accountName, String accountClass, String accountCode, double openingBal) {
         this.accountName = accountName;
         this.accountClass = accountClass;
         this.accountCode = accountCode;;
         this.openingBal = openingBal;
+    }
+
+    Account() {
+        accountName = null;
+        accountClass = null;
+        accountCode = null;
+        openingBal = 0;
     }
 
     public void setAccountName(String accountName) {
@@ -22,7 +29,7 @@ public class Account {
         this.accountClass = accountClass;
     }
 
-    public void setAccountCode(int accountCode) {
+    public void setAccountCode(String accountCode) {
         this.accountCode = accountCode;
     }
 
@@ -38,7 +45,7 @@ public class Account {
         return accountClass;
     }
 
-    public int getAccountCode() {
+    public String getAccountCode() {
         return accountCode;
     }
 
