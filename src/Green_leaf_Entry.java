@@ -1,20 +1,20 @@
 
-public class Supplier {
+public class Green_leaf_Entry {
 
-    //Supplier's identification code. This code is used to access details of the supplier.
-    private final int code;
-    //Supplier details
+    
+    //Green leaf entry
+    
     private String name, sinhala_name, other_name, estate_name, address, tel_no,
             fax_no, e_mail, pay_type, bank, branch, acc_no, cat_code, trans_code,
             dob, doc, t_con_no, full_land, tea_land;
 
     //This constructor will be called when the customer is registered
-    public Supplier(int code, String name, String sinhala_name, String other_name, String estate_name,
+    public Green_leaf_Entry(int code, String name, String sinhala_name, String other_name, String estate_name,
             String address, String tel_no, String fax_no, String e_mail, String pay_type,
             String bank, String branch, String acc_no, String cat_code, String trans_code,
             String dob, String doc, String t_con_no, String full_land, String tea_land) {
 
-        this.code = code;
+         
         this.name = name;
         this.sinhala_name = sinhala_name;
         this.other_name = other_name;
@@ -37,8 +37,8 @@ public class Supplier {
     }
 
     //This constructor will be created when the supplier details have to be edited or supplier has to be deleted
-    public Supplier() {
-        this.code = 0;
+    public Green_leaf_Entry() {
+       
         this.name = null;
         this.sinhala_name = null;
         this.other_name = null;
