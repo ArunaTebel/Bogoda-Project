@@ -30,10 +30,7 @@
                       </Group>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jComboBox1" alignment="1" min="-2" pref="79" max="-2" attributes="0"/>
-                          <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                              <Component id="jComboBox3" min="-2" pref="79" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="jComboBox3" alignment="1" min="-2" pref="79" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -140,7 +137,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButton7">
       <Properties>
-        <Property name="text" type="java.lang.String" value="New"/>
+        <Property name="text" type="java.lang.String" value="Veiw"/>
       </Properties>
     </Component>
     <Container class="javax.swing.JPanel" name="jPanel1">
@@ -148,7 +145,7 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="760" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="758" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
