@@ -1,4 +1,6 @@
 
+import java.awt.Color;
+import java.awt.Container;
 import java.awt.Frame;
 import java.awt.Toolkit;
 
@@ -7,26 +9,17 @@ import java.awt.Toolkit;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Pramo
  */
 public class MainWindow extends javax.swing.JFrame {
-    
-     
 
-
-      
-    
-     
     public MainWindow() {
         initComponents();
-        
-        
-      
+
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -45,6 +38,10 @@ public class MainWindow extends javax.swing.JFrame {
         jButton12 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         Main_Content = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
         jButton13 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
@@ -130,15 +127,46 @@ public class MainWindow extends javax.swing.JFrame {
 
         Main_Content.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        jLabel2.setText("jLabel2");
+
+        jLabel3.setText("jLabel2");
+
+        jLabel4.setText("jLabel2");
+
+        jLabel5.setText("jLabel2");
+
         javax.swing.GroupLayout Main_ContentLayout = new javax.swing.GroupLayout(Main_Content);
         Main_Content.setLayout(Main_ContentLayout);
         Main_ContentLayout.setHorizontalGroup(
             Main_ContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(Main_ContentLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(Main_ContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Main_ContentLayout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(434, 434, 434))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Main_ContentLayout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(469, 469, 469))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Main_ContentLayout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addGap(285, 285, 285))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Main_ContentLayout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addGap(309, 309, 309))))
         );
         Main_ContentLayout.setVerticalGroup(
             Main_ContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 539, Short.MAX_VALUE)
+            .addGroup(Main_ContentLayout.createSequentialGroup()
+                .addGap(167, 167, 167)
+                .addComponent(jLabel2)
+                .addGap(19, 19, 19)
+                .addComponent(jLabel4)
+                .addGap(25, 25, 25)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel5)
+                .addContainerGap(261, Short.MAX_VALUE))
         );
 
         jButton13.setText("Welcome User!  Today is 20** January ** ");
@@ -264,14 +292,16 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         pGreenLeaf pgreenleaf = new pGreenLeaf();
+
         Main_Content.removeAll();
-        Main_Content.add( pgreenleaf);
-        pgreenleaf.revalidate();
-        pgreenleaf.repaint();
-        
-       
-        
-        
+
+        pgreenleaf.setSize(Main_Content.getSize());
+
+        Main_Content.add(pgreenleaf);
+        validate();
+        repaint();
+
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
@@ -304,14 +334,11 @@ public class MainWindow extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                
-                  
-                  MainWindow jf= new MainWindow();
-        jf.setVisible(true);
-        jf.setExtendedState(MainWindow.MAXIMIZED_BOTH);
-                  
-               
-               
+
+                MainWindow jf = new MainWindow();
+                jf.setVisible(true);
+                jf.setExtendedState(MainWindow.MAXIMIZED_BOTH);
+
             }
         });
     }
@@ -332,6 +359,10 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
