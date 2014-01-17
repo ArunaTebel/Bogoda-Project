@@ -137,9 +137,11 @@ public class pGreenLeaf extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       GLmanual_entry glmnEntry = new GLmanual_entry();
+      
+         //System.out.println(" ok ");
+        GLmanual_entry glmnEntry = new GLmanual_entry();
        
-        System.out.println(" ok 1");
+       // System.out.println(" ok 1");
         GL_content.removeAll();
 
         glmnEntry.setSize(GL_content.getSize());
