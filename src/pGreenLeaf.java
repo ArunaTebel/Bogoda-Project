@@ -139,14 +139,14 @@ public class pGreenLeaf extends javax.swing.JPanel {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
       
          //System.out.println(" ok ");
-        GLmanual_entry glmnEntry = new GLmanual_entry();
+        GLcash_advance cashadvance = new GLcash_advance();
        
        // System.out.println(" ok 1");
         GL_content.removeAll();
 
-        glmnEntry.setSize(GL_content.getSize());
+        cashadvance.setSize(GL_content.getSize());
 
-        GL_content.add(glmnEntry);
+        GL_content.add(cashadvance);
         validate();
         repaint(); 
         System.out.println("ok");
