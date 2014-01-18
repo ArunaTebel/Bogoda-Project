@@ -1,81 +1,68 @@
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Date;
 
 public class Supplier {
-    
-    public static void main(String[] args) {
-        editDetails(1);
-    }
 
-    //Supplier's identification code. This code is used to access details of the supplier.
-    private final int code;
+    /*Supplier's identification code. This code is used to access details of the
+     supplier..*/
+    private final int code, bank, branch;
+    private final double transRate;
     //Supplier details
-    private String name, sinhala_name, other_name, estate_name, address, tel_no,
-            fax_no, e_mail, pay_type, bank, branch, acc_no, cat_code, trans_code,
-            dob, doc, t_con_no, full_land, tea_land;
+    private final String name, sinhala_name, estate_name, address, tel_no,
+            pay_type, acc_no, cat_code;
+    private final Date doc;
+    //retreiving the database connection
+    DatabaseManager dbCon = DatabaseManager.getDbCon();
 
     //This constructor will be called when the customer is registered
-    public Supplier(int code, String name, String sinhala_name, String other_name, String estate_name,
-            String address, String tel_no, String fax_no, String e_mail, String pay_type,
-            String bank, String branch, String acc_no, String cat_code, String trans_code,
-            String dob, String doc, String t_con_no, String full_land, String tea_land) {
+    public Supplier(int code, String name, String sinhala_name, String estate_name,
+            String address, String tel_no, String pay_type,
+            int bank, int branch, String acc_no, String cat_code,
+            Date doc, double transRate) {
 
         this.code = code;
         this.name = name;
         this.sinhala_name = sinhala_name;
-        this.other_name = other_name;
         this.estate_name = estate_name;
         this.address = address;
         this.tel_no = tel_no;
-        this.fax_no = fax_no;
-        this.e_mail = e_mail;
         this.pay_type = pay_type;
         this.bank = bank;
         this.branch = branch;
         this.acc_no = acc_no;
         this.cat_code = cat_code;
-        this.trans_code = trans_code;
-        this.dob = dob;
         this.doc = doc;
-        this.t_con_no = t_con_no;
-        this.full_land = full_land;
-        this.tea_land = tea_land;
+        this.transRate = transRate;
     }
 
-    //This constructor will be created when the supplier details have to be edited or supplier has to be deleted
+    /*This constructor will be created when the supplier details have to be edited 
+     or supplier has to be deleted*/
     public Supplier() {
         this.code = 0;
         this.name = null;
         this.sinhala_name = null;
-        this.other_name = null;
         this.estate_name = null;
         this.address = null;
         this.tel_no = null;
-        this.fax_no = null;
-        this.e_mail = null;
         this.pay_type = null;
-        this.bank = null;
-        this.branch = null;
+        this.bank = 0;
+        this.branch = 0;
         this.acc_no = null;
         this.cat_code = null;
-        this.trans_code = null;
-        this.dob = null;
         this.doc = null;
-        this.t_con_no = null;
-        this.full_land = null;
-        this.tea_land = null;
+        this.transRate = 0;
     }
 
     //Editing details of an existing entry of a customer
-    public static void editDetails(int code) {
+    public void editDetails(int code) {
         /*
          UPDATE THE RELEVANT ENTRY ACCORDING TO THE 'code' IN THE DATABASE
          */
-        DatabaseManager dbCon = DatabaseManager.getDbCon();
         try {
             ResultSet rs = dbCon.query("SELECT * FROM suppliers WHERE `sup_id`=" + code);
-            while (rs.next()) {                
+            while (rs.next()) {
                 System.out.println(rs.getString("sup_name"));
             }
         } catch (SQLException ex) {
@@ -88,5 +75,14 @@ public class Supplier {
         /*
          GET THE RELEVANT ENTRY ACCORDING TO THE 'code' FROM THE DATABASE, AND DELETE THE ROW
          */
+    }
+
+    public void addToDatabase() {
+        try {
+            dbCon.insert("INSERT INTO suppliers (sup_id, sup_name, sup_sin_name, sup_estate_name, sup_address, sup_tel, sup_pay_type, bank_id, branch_id, sup_acc_no, cat_id, sup_doc, trans_rate) "
+                    + "VALUES (" + code + "," + "'" + name + "'" + "," + "'" + sinhala_name + "'" + "," + "'" + estate_name + "'" + "," + "'" + address + "'" + "," + "'" + tel_no + "'" + "," + "'" + pay_type + "'" + "," + bank + "," + branch + "," + "'" + acc_no + "'" + "," + "'" + cat_code + "'" + "," + "'" + doc + "'" +  "," + transRate +")");
+        } catch (SQLException ex) {
+            MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
+        }
     }
 }
