@@ -56,6 +56,11 @@ public class pGreenLeaf extends javax.swing.JPanel {
         });
 
         jButton3.setText("Other Advances");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Installments");
 
@@ -195,6 +200,18 @@ public class pGreenLeaf extends javax.swing.JPanel {
         validate();
         repaint();        
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        GL_Other_Advances otheradd = new GL_Other_Advances();
+
+        GL_content.removeAll();
+
+        otheradd.setSize(GL_content.getSize());
+
+        GL_content.add(otheradd);
+        validate();
+        repaint(); 
+    }//GEN-LAST:event_jButton3ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
