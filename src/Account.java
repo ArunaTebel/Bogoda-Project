@@ -10,7 +10,7 @@ public class Account {
     Account(String accountName, String accountClass, String accountCode, double openingBal) {
         this.accountName = accountName;
         this.accountClass = accountClass;
-        this.accountCode = accountCode;;
+        this.accountCode = accountCode;
         this.openingBal = openingBal;
     }
 
