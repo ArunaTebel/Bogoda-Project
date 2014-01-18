@@ -15,6 +15,13 @@ public class GLcash_advance extends javax.swing.JPanel {
      */
     public GLcash_advance() {
         initComponents();
+          
+        String selection = (String) cash_cheque_combo.getSelectedItem();
+
+        if (selection.equalsIgnoreCase("Cash")) {
+
+            Cheque_pay.removeAll();
+        }
     }
 
     /**
@@ -47,7 +54,8 @@ public class GLcash_advance extends javax.swing.JPanel {
         jButton5 = new javax.swing.JButton();
         jLabel16 = new javax.swing.JLabel();
         Cheque_pay = new javax.swing.JPanel();
-        jComboBox2 = new javax.swing.JComboBox();
+        jTextField1 = new javax.swing.JTextField();
+        cash_cheque_combo = new javax.swing.JComboBox();
         jLabel7 = new javax.swing.JLabel();
 
         jComboBox1.setEditable(true);
@@ -112,18 +120,31 @@ public class GLcash_advance extends javax.swing.JPanel {
 
         Cheque_pay.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        jTextField1.setText("jTextField1");
+
         javax.swing.GroupLayout Cheque_payLayout = new javax.swing.GroupLayout(Cheque_pay);
         Cheque_pay.setLayout(Cheque_payLayout);
         Cheque_payLayout.setHorizontalGroup(
             Cheque_payLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 229, Short.MAX_VALUE)
+            .addGroup(Cheque_payLayout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(142, Short.MAX_VALUE))
         );
         Cheque_payLayout.setVerticalGroup(
             Cheque_payLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 260, Short.MAX_VALUE)
+            .addGroup(Cheque_payLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(220, Short.MAX_VALUE))
         );
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cash_cheque_combo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Cash", "Cheque" }));
+        cash_cheque_combo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cash_cheque_comboActionPerformed(evt);
+            }
+        });
 
         jLabel7.setText("Payment");
 
@@ -175,11 +196,11 @@ public class GLcash_advance extends javax.swing.JPanel {
                                             .addComponent(jLabel7))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(cash_cheque_combo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addGap(83, 83, 83)
                                 .addComponent(Cheque_pay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(251, Short.MAX_VALUE))))
+                        .addContainerGap(249, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -212,7 +233,7 @@ public class GLcash_advance extends javax.swing.JPanel {
                             .addComponent(jLabel16))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cash_cheque_combo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -223,16 +244,31 @@ public class GLcash_advance extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void cash_cheque_comboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cash_cheque_comboActionPerformed
+
+        String selection = (String) cash_cheque_combo.getSelectedItem();
+
+        if (selection.equalsIgnoreCase("Cash")) {
+
+            Cheque_pay.removeAll();
+        }
+
+        if (selection.equalsIgnoreCase("Cheque")) {
+            System.out.println("ok cheque");
+            Cheque_pay.removeAll();
+        }
+    }//GEN-LAST:event_cash_cheque_comboActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Cheque_pay;
+    private javax.swing.JComboBox cash_cheque_combo;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JComboBox jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
@@ -246,6 +282,7 @@ public class GLcash_advance extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField8;
     // End of variables declaration//GEN-END:variables
