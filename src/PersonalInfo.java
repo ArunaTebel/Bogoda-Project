@@ -1,3 +1,7 @@
+
+import java.sql.Date;
+import java.sql.SQLException;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -13,18 +17,18 @@ public class PersonalInfo {
     private String name;
     private int code;
     private String NIC;
-    private String DOB;
+    private Date DOB;
     private String telNo;
     private String bloodGrp;
     private boolean registerOrNot;
     private boolean checkrollOrStaff;
-    private String joinedDate;
-    private String permanentDate;
-    private double basicSallary;//only for staff
+    private Date joinedDate;
+    private Date permanentDate;
+    private double basicSalary;//only for staff
     
-    public PersonalInfo(String name,int code,String NIC,String DOB,String telNo,String bloodGrp,
-            boolean registerOrNot,boolean checkrollOrStaff,String joinedDate,String permanentDate,
-            double basicSallary){
+    public PersonalInfo(String name,int code,String NIC,Date DOB,String telNo,String bloodGrp,
+            boolean registerOrNot,boolean checkrollOrStaff,Date joinedDate,Date permanentDate,
+            double basicSalary){
     
         this.name=name;
         this.code=code;
@@ -36,7 +40,7 @@ public class PersonalInfo {
         this.checkrollOrStaff=checkrollOrStaff;
         this.joinedDate=joinedDate;
         this.permanentDate=permanentDate;
-        this.basicSallary=basicSallary;
+        this.basicSalary=basicSalary;
         
     }
     
@@ -52,7 +56,7 @@ public class PersonalInfo {
         this.checkrollOrStaff=false;
         this.joinedDate=null;
         this.permanentDate=null;
-        this.basicSallary=0;
+        this.basicSalary=0;
     }
     
      public void setName(String name){
@@ -64,7 +68,7 @@ public class PersonalInfo {
      public void setNIC(String NIC){
          this.NIC=NIC;
      }
-     public void setDOB(String DOB){
+     public void setDOB(Date DOB){
          this.DOB=DOB;
      }
      public void setTelNo(String telNo){
@@ -73,10 +77,10 @@ public class PersonalInfo {
      public void setBloodGrp(String bloodGrp){
          this.bloodGrp=bloodGrp;
      }
-     public void setJoinedDate(String joinedDate){
+     public void setJoinedDate(Date joinedDate){
          this.joinedDate=joinedDate;
      }
-     public void setPermanentDate(String permanentDate){
+     public void setPermanentDate(Date permanentDate){
          this.permanentDate=permanentDate;
      }
      public void setRegisterOrNot(boolean registerOrNot){
@@ -85,8 +89,8 @@ public class PersonalInfo {
      public void setCheckrollOrStaff(boolean checkrollOrStaff){
          this.checkrollOrStaff=checkrollOrStaff;
      }
-     public void setBasicSallary(double basicSallary){
-         this.basicSallary=basicSallary;
+     public void setBasicSallary(double basicSalary){
+         this.basicSalary=basicSalary;
      }
     
      //getters
@@ -99,7 +103,7 @@ public class PersonalInfo {
      public String getNIC(){
          return NIC;
      }
-     public String getDOB(){
+     public Date getDOB(){
          return DOB;
      }
      public String getTelNo(){
@@ -108,10 +112,10 @@ public class PersonalInfo {
      public String getBloodGrp(){
          return bloodGrp;
      }
-     public String getJoinedDate(){
+     public Date getJoinedDate(){
          return joinedDate;
      }
-     public String getPermanentDate(){
+     public Date getPermanentDate(){
          return permanentDate;
      }
      public boolean getRegisterOrNot(){
@@ -121,12 +125,25 @@ public class PersonalInfo {
          return checkrollOrStaff;
      }
      public double getBasicSallary(){
-         return basicSallary;
+         return basicSalary;
      }
-    
-    
-    
-    
+     public void addToDataBase() {
+        DatabaseManager dbCon = DatabaseManager.getDbCon();
+        try {
+            dbCon.insert("INSERT INTO personal_info(name,code,nic,dob,tel_no,blood_group,register_or_not,checkroll_or_staff,joined_date,permanent_date,basic_salary) VALUES('" + name + "','" + code + "','"+NIC+"','"+DOB+"','"+telNo+"','"+bloodGrp+"','"+registerOrNot+"','"+checkrollOrStaff+"','"+joinedDate+"','"+permanentDate+"','"+basicSalary+"')");
+        } catch (SQLException ex) {
+            MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
+        }
 
+    }
+
+    public void removeFromDataBase() {
+
+    }
+
+    public void editDataBase() {
+
+    }
+    
     
 }
