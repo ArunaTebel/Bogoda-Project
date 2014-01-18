@@ -88,22 +88,6 @@
                   </Group>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="sup_name_sinhala" min="-2" pref="315" max="-2" attributes="0"/>
-                          <Component id="payment_method" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="estate" min="-2" pref="32" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="view_estate_codes" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="tel" alignment="0" min="-2" pref="130" max="-2" attributes="0"/>
-                          <Component id="address" alignment="0" min="-2" pref="488" max="-2" attributes="0"/>
-                          <Group type="102" attributes="0">
-                              <Component id="dc1" min="-2" pref="32" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="dc2" min="-2" pref="32" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="dc3" min="-2" pref="32" max="-2" attributes="0"/>
-                          </Group>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
@@ -115,6 +99,29 @@
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
                               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="sup_name_sinhala" min="-2" pref="315" max="-2" attributes="0"/>
+                                  <Component id="payment_method" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="estate" min="-2" pref="32" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="view_estate_codes" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="tel" alignment="0" min="-2" pref="130" max="-2" attributes="0"/>
+                                  <Component id="address" alignment="0" min="-2" pref="488" max="-2" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <Component id="dc1" min="-2" pref="32" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="dc2" min="-2" pref="32" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="dc3" min="-2" pref="32" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="datePicker" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -192,7 +199,7 @@
                   <Component id="jLabel19" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="view_branch_codes" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="32" max="32767" attributes="0"/>
+              <EmptySpace pref="31" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
                   <Component id="acc_no" min="-2" max="-2" attributes="0"/>
@@ -219,8 +226,9 @@
                   <Component id="dc1" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="dc2" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="dc3" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="datePicker" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -455,5 +463,7 @@
         </Component>
       </SubComponents>
     </Container>
+    <Component class="org.jdesktop.swingx.JXDatePicker" name="datePicker">
+    </Component>
   </SubComponents>
 </Form>
