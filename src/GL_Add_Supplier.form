@@ -199,7 +199,7 @@
                   <Component id="jLabel19" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="view_branch_codes" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="31" max="32767" attributes="0"/>
+              <EmptySpace pref="30" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
                   <Component id="acc_no" min="-2" max="-2" attributes="0"/>
@@ -228,7 +228,7 @@
                   <Component id="dc3" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="datePicker" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
