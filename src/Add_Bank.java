@@ -170,7 +170,7 @@ public class Add_Bank extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        bankObject.setBankCode(codetxt.getText());
+        bankObject.setBankCode(Integer.parseInt(codetxt.getText()));
         bankObject.setBankName(nametxt.getText());
         bankObject.addToDataBase();
     }//GEN-LAST:event_jButton1ActionPerformed
