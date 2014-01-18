@@ -21,7 +21,7 @@ public class GLcash_advance extends javax.swing.JPanel {
         if (selection.equalsIgnoreCase("Cash")) {
 
             Cheque_pay.removeAll();
-            jTextField1.setText("Got it");
+            jTextField3.setText("Got it");
         }
     }
 
