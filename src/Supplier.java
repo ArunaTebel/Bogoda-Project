@@ -1,5 +1,12 @@
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class Supplier {
+    
+    public static void main(String[] args) {
+        editDetails(1);
+    }
 
     //Supplier's identification code. This code is used to access details of the supplier.
     private final int code;
@@ -61,10 +68,19 @@ public class Supplier {
     }
 
     //Editing details of an existing entry of a customer
-    public void editDetails(int code) {
+    public static void editDetails(int code) {
         /*
          UPDATE THE RELEVANT ENTRY ACCORDING TO THE 'code' IN THE DATABASE
          */
+        DatabaseManager dbCon = DatabaseManager.getDbCon();
+        try {
+            ResultSet rs = dbCon.query("SELECT * FROM suppliers WHERE `sup_id`=" + code);
+            while (rs.next()) {                
+                System.out.println(rs.getString("sup_name"));
+            }
+        } catch (SQLException ex) {
+            MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
+        }
     }
 
     //Deletion of a supplier entry
