@@ -108,7 +108,7 @@ public class GLcash_advance extends javax.swing.JPanel {
 
         jButton4.setText("Cancel");
 
-        jButton5.setText("jButton1");
+        jButton5.setText("Quit");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
