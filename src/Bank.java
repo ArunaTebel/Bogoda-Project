@@ -43,7 +43,7 @@ public class Bank {
         try {
             dbCon.insert("INSERT INTO bank(Code,BankName) VALUES('" + bankCode + "','" + bankName + "')");
         } catch (SQLException ex) {
-            MessageBox.showMessage(ex.getMessage(), "SQL Error", bankCode);
+            MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
         }
 
     }
