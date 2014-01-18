@@ -1,10 +1,11 @@
 
+import java.sql.Date;
 import java.sql.SQLException;
 
 
 public class GreenLeaf {
 
-    private String date;
+    private Date date;
     private int transaction_id;
     private int supplierCode;
     private int categoryCode;
@@ -19,7 +20,7 @@ public class GreenLeaf {
     private int leafCategory;
     private int intselfTransport;
 
-    GreenLeaf(String date,int transaction_id, int supplierCode, int categoryCode, int noOfSacks, double totalWeight, double sacksWeight, double water, double coarseLeaf, double other, boolean selfTransport,double netQuantity,int leafCategory) {
+    GreenLeaf(Date date,int transaction_id, int supplierCode, int categoryCode, int noOfSacks, double totalWeight, double sacksWeight, double water, double coarseLeaf, double other, boolean selfTransport,double netQuantity,int leafCategory) {
         this.date = date;
         this.transaction_id=transaction_id;
         this.supplierCode = supplierCode;
@@ -61,7 +62,7 @@ public class GreenLeaf {
 
     // Setters
     
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
     public void setTransactionId(int transaction_id){
@@ -121,7 +122,7 @@ public class GreenLeaf {
     
     // Getters
     
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
     public int getTransactionId(){

@@ -1,3 +1,10 @@
+
+import java.awt.event.ItemEvent;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -61,6 +68,8 @@ public class GLmanual_entry extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
+        datePicker = new org.jdesktop.swingx.JXDatePicker();
+        name = new javax.swing.JLabel();
 
         jLabel1.setText("User ID");
 
@@ -71,7 +80,12 @@ public class GLmanual_entry extends javax.swing.JPanel {
         jLabel4.setText("Leaf Category");
 
         supplier_id.setEditable(true);
-        supplier_id.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        supplier_id.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5" }));
+        supplier_id.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                supplier_idItemStateChanged(evt);
+            }
+        });
         supplier_id.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 supplier_idActionPerformed(evt);
@@ -194,7 +208,10 @@ public class GLmanual_entry extends javax.swing.JPanel {
                                 .addGap(198, 198, 198))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addGap(32, 32, 32)
+                                        .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel1)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -202,7 +219,9 @@ public class GLmanual_entry extends javax.swing.JPanel {
                                         .addGap(18, 18, 18)
                                         .addComponent(self_transport)
                                         .addGap(107, 107, 107)
-                                        .addComponent(jLabel5))
+                                        .addComponent(jLabel5)
+                                        .addGap(48, 48, 48)
+                                        .addComponent(datePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                         .addGroup(layout.createSequentialGroup()
                                             .addComponent(jLabel3)
@@ -269,9 +288,12 @@ public class GLmanual_entry extends javax.swing.JPanel {
                             .addComponent(jLabel1)
                             .addComponent(supplier_id, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5)
-                            .addComponent(self_transport))
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel2)
+                            .addComponent(self_transport)
+                            .addComponent(datePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel2)
+                            .addComponent(name, javax.swing.GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
@@ -347,6 +369,8 @@ public class GLmanual_entry extends javax.swing.JPanel {
         globject.setWater(Double.parseDouble(water.getText()));
         globject.setCoarseLeaf(Double.parseDouble(coarse_leaf.getText()));
         globject.setLeafCategory(Integer.parseInt(leaf_category.getText()));
+        java.sql.Date date = new java.sql.Date(datePicker.getDate().getTime());
+        globject.setDate(date);
         globject.calcNetQuantity();
         globject.setSelfTransport(self_transport.isSelected());
         globject.setIntselfTransport(globject.getSelfTransport());
@@ -361,10 +385,28 @@ public class GLmanual_entry extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField7ActionPerformed
 
+    private void supplier_idItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_supplier_idItemStateChanged
+        DatabaseManager dbm = DatabaseManager.getDbCon();
+        String Name = null;
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+          int item = Integer.parseInt(evt.getItem().toString());
+            try {
+              ResultSet query = dbm.query("SELECT * FROM suppliers WHERE sup_id ="+item+"");
+              while(query.next()){
+                  Name = query.getString("sup_name");
+              }
+            } catch (SQLException ex) {
+            }
+          name.setText(""+Name);
+          
+          // do something with object
+       }    }//GEN-LAST:event_supplier_idItemStateChanged
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField category_code;
     private javax.swing.JTextField coarse_leaf;
+    private org.jdesktop.swingx.JXDatePicker datePicker;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -390,6 +432,7 @@ public class GLmanual_entry extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField leaf_category;
+    private javax.swing.JLabel name;
     private javax.swing.JTextField no_of_sacks;
     private javax.swing.JTextField other;
     private javax.swing.JTextField sacks_weight;
