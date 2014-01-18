@@ -41,7 +41,7 @@ public class Bank {
     public void addToDataBase() {
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         try {
-            dbCon.insert("INSERT INTO bank(Code,BankName) VALUES('" + bankCode + "','" + bankName + "')");
+            dbCon.insert("INSERT INTO bank(bank_id,bank_name) VALUES('" + bankCode + "','" + bankName + "')");
         } catch (SQLException ex) {
             MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
         }

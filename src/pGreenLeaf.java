@@ -33,7 +33,7 @@ public class pGreenLeaf extends javax.swing.JPanel {
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox();
+        Add_combo = new javax.swing.JComboBox();
         jButton6 = new javax.swing.JButton();
         jComboBox3 = new javax.swing.JComboBox();
         jButton7 = new javax.swing.JButton();
@@ -61,10 +61,10 @@ public class pGreenLeaf extends javax.swing.JPanel {
 
         jButton5.setText("Loans");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "---------", "Supplier", "Category", "Transport Code", "Leaf Rate", "----------" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        Add_combo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "---------", "Supplier", "Category", "Transport Code", "Leaf Rate", "----------" }));
+        Add_combo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                Add_comboActionPerformed(evt);
             }
         });
 
@@ -106,7 +106,7 @@ public class pGreenLeaf extends javax.swing.JPanel {
                             .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Add_combo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jComboBox3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(0, 0, 0)
                 .addComponent(GL_content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -125,7 +125,7 @@ public class pGreenLeaf extends javax.swing.JPanel {
                 .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Add_combo, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, 0)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -152,9 +152,21 @@ public class pGreenLeaf extends javax.swing.JPanel {
         System.out.println("ok");
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    private void Add_comboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Add_comboActionPerformed
+        String selection = (String) Add_combo.getSelectedItem();
+        if (selection.equalsIgnoreCase("Supplier")) {
+            
+            GL_Add_Supplier Addsupp = new GL_Add_Supplier();
+
+       GL_content.removeAll();
+
+        Addsupp.setSize(GL_content.getSize());
+
+        GL_content.add(Addsupp);
+        validate();
+        repaint();
+        }
+    }//GEN-LAST:event_Add_comboActionPerformed
 
     private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
         // TODO add your handling code here:
@@ -174,6 +186,7 @@ public class pGreenLeaf extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox Add_combo;
     private javax.swing.JPanel GL_content;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -182,7 +195,6 @@ public class pGreenLeaf extends javax.swing.JPanel {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
-    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JComboBox jComboBox3;
     // End of variables declaration//GEN-END:variables
 
