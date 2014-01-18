@@ -156,13 +156,13 @@ public class pGreenLeaf extends javax.swing.JPanel {
         String selection = (String) Add_combo.getSelectedItem();
         if (selection.equalsIgnoreCase("Supplier")) {
             
-//            GL_Add_Supplier Addsupp = new GL_Add_Supplier();
+          GL_Add_Supplier Addsupp = new GL_Add_Supplier();
 
        GL_content.removeAll();
 
-//        Addsupp.setSize(GL_content.getSize());
+       Addsupp.setSize(GL_content.getSize());
 
-//        GL_content.add(Addsupp);
+       GL_content.add(Addsupp);
         validate();
         repaint();
         }
