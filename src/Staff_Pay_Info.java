@@ -9,15 +9,15 @@
  * @author acer
  */
 public class Staff_Pay_Info {
-    private double basic;
+    
     private double ETF_allowance;  // %
     private double EPF_allowance;   // %
     private double welfareAllowance;
     private double OTRate;
     
-    public Staff_Pay_Info(double basic,double ETF_allowance,double EPF_allowance,
+    public Staff_Pay_Info(double ETF_allowance,double EPF_allowance,
             double welfareAllowance,double OTRate){
-        this.basic=basic;
+        
         this.ETF_allowance=ETF_allowance;
         this.EPF_allowance=EPF_allowance;
         this.welfareAllowance=welfareAllowance;
@@ -25,7 +25,7 @@ public class Staff_Pay_Info {
     }
     
     public Staff_Pay_Info(){
-        this.basic=0;
+        
         this.ETF_allowance=0;
         this.EPF_allowance=0;
         this.welfareAllowance=0;
@@ -33,9 +33,7 @@ public class Staff_Pay_Info {
     }
     
     //setters
-    public void setBasic(double basic){
-        this.basic=basic;
-    }
+    
     public void setETFAllowance(double ETF_allowance ){
         this.ETF_allowance=ETF_allowance;
     }
@@ -50,9 +48,7 @@ public class Staff_Pay_Info {
     }
     
     //getters
-    public double getBasic(){
-        return basic;
-    }
+    
     public double getETFAllowance(){
         return ETF_allowance;
     }
