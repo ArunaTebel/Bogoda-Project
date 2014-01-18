@@ -237,6 +237,11 @@ public class MainWindow extends javax.swing.JFrame {
         jMenu4.setText("Bank Detail");
 
         jMenuItem7.setText("Bank");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
         jMenu4.add(jMenuItem7);
 
         jMenuItem8.setText("Branch");
@@ -314,6 +319,18 @@ public class MainWindow extends javax.swing.JFrame {
         validate();
         repaint();
     }//GEN-LAST:event_jMenuItem8ActionPerformed
+
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+         Add_Bank addbank = new Add_Bank();
+
+        Main_Content.removeAll();
+
+        addbank.setSize(Main_Content.getSize());
+
+        Main_Content.add(addbank);
+        validate();
+        repaint();
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     /**
      * @param args the command line arguments
