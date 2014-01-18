@@ -20,9 +20,11 @@ public class PersonalInfo {
     private boolean checkrollOrStaff;
     private String joinedDate;
     private String permanentDate;
+    private double basicSallary;//only for staff
     
     public PersonalInfo(String name,int code,String NIC,String DOB,String telNo,String bloodGrp,
-            boolean registerOrNot,boolean checkrollOrStaff,String joinedDate,String permanentDate){
+            boolean registerOrNot,boolean checkrollOrStaff,String joinedDate,String permanentDate,
+            double basicSallary){
     
         this.name=name;
         this.code=code;
@@ -34,6 +36,8 @@ public class PersonalInfo {
         this.checkrollOrStaff=checkrollOrStaff;
         this.joinedDate=joinedDate;
         this.permanentDate=permanentDate;
+        this.basicSallary=basicSallary;
+        
     }
     
      public PersonalInfo(){
@@ -48,6 +52,7 @@ public class PersonalInfo {
         this.checkrollOrStaff=false;
         this.joinedDate=null;
         this.permanentDate=null;
+        this.basicSallary=0;
     }
     
      public void setName(String name){
@@ -74,13 +79,50 @@ public class PersonalInfo {
      public void setPermanentDate(String permanentDate){
          this.permanentDate=permanentDate;
      }
-     public void setName(boolean registerOrNot){
+     public void setRegisterOrNot(boolean registerOrNot){
          this.registerOrNot=registerOrNot;
      }
-     public void setCode(boolean checkrollOrStaff){
+     public void setCheckrollOrStaff(boolean checkrollOrStaff){
          this.checkrollOrStaff=checkrollOrStaff;
      }
+     public void setBasicSallary(double basicSallary){
+         this.basicSallary=basicSallary;
+     }
     
+     //getters
+     public String getName(){
+         return name;
+     }
+     public int getCode(){
+         return code;
+     }
+     public String getNIC(){
+         return NIC;
+     }
+     public String getDOB(){
+         return DOB;
+     }
+     public String getTelNo(){
+         return telNo;
+     }
+     public String getBloodGrp(){
+         return bloodGrp;
+     }
+     public String getJoinedDate(){
+         return joinedDate;
+     }
+     public String getPermanentDate(){
+         return permanentDate;
+     }
+     public boolean getRegisterOrNot(){
+         return registerOrNot;
+     }
+     public boolean checkrollOrStaff(){
+         return checkrollOrStaff;
+     }
+     public double getBasicSallary(){
+         return basicSallary;
+     }
     
     
     
