@@ -50,21 +50,21 @@ public class pPRCR extends javax.swing.JPanel {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jButton1.setText("Manual Entry");
+        jButton1.setText("Work Entry");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Cash Advances");
+        jButton2.setText("Salary");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Other Advances");
+        jButton3.setText(" Advances");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -75,7 +75,7 @@ public class pPRCR extends javax.swing.JPanel {
 
         jButton5.setText("Loans");
 
-        Add_combo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "---------", "Staff pay info", "Chkroll pay info", "Transport Code", "Leaf Rate", "----------" }));
+        Add_combo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "---------", "Employee", "Staff pay info", "Chkroll pay info", "Leaf Rate", "----------" }));
         Add_combo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Add_comboActionPerformed(evt);
@@ -202,6 +202,19 @@ public class pPRCR extends javax.swing.JPanel {
             Addcheck.setSize(GL_content.getSize());
 
             GL_content.add(Addcheck);
+            validate();
+            repaint();
+        }
+        
+         if (selection.equalsIgnoreCase("Employee")) {
+
+            PRCR_Add_Employee Addemploye = new PRCR_Add_Employee();
+
+            GL_content.removeAll();
+
+            Addemploye.setSize(GL_content.getSize());
+
+            GL_content.add(Addemploye);
             validate();
             repaint();
         }
