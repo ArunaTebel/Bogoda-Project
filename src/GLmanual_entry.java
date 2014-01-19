@@ -373,7 +373,14 @@ public class GLmanual_entry extends javax.swing.JPanel {
     }//GEN-LAST:event_self_transportActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+
+        
+
+
+
+
+
+// TODO add your handling code here:
          globject.setSupplierCode(Integer.parseInt(supplier_id.getSelectedItem().toString()));
         globject.setCategoryCode(Integer.parseInt(category_code.getSelectedItem().toString()));
         globject.setNoOfSacks(Integer.parseInt(no_of_sacks.getText()));
