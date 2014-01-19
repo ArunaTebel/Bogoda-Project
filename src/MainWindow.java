@@ -64,8 +64,10 @@ public class MainWindow extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Management System. Bogoda Tea Factory");
 
+        jPanel1.setBackground(new java.awt.Color(51, 51, 51));
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        jPanel3.setBackground(new java.awt.Color(153, 153, 153));
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jButton8.setText("jButton8");
@@ -142,8 +144,10 @@ public class MainWindow extends javax.swing.JFrame {
             .addGap(0, 539, Short.MAX_VALUE)
         );
 
+        jButton13.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
+        jButton13.setForeground(new java.awt.Color(215, 215, 215));
         jButton13.setText("Welcome User!  Today is 20** January ** ");
-        jButton13.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jButton13.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jButton13.setVerifyInputWhenFocusTarget(false);
 
         jButton2.setText("Green Leaf");
@@ -305,6 +309,7 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        jButton13.setBackground(new java.awt.Color(51, 102, 0));
         pGreenLeaf pgreenleaf = new pGreenLeaf();
 
         Main_Content.removeAll();
@@ -343,6 +348,7 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+      jButton13.setBackground(new java.awt.Color(204, 0, 103));
         pAccounts paccunts = new pAccounts();
 
         Main_Content.removeAll();
@@ -355,6 +361,8 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+        jButton13.setBackground(new java.awt.Color(0, 51, 102));
         pPRCR prcr = new pPRCR();
 
         Main_Content.removeAll();
