@@ -8,16 +8,16 @@ public class Bank {
     Connection conn = null;
     Statement stmt = null;
 
-    private String bankCode;
+    private int bankCode;
     private String bankName;
 
-    Bank(String bankName, String bankCode) {
+    Bank(String bankName, int bankCode) {
         this.bankName = bankName;
         this.bankCode = bankCode;
     }
 
     Bank() {
-        bankCode = null;
+        bankCode = 0;
         bankName = null;
     }
 
@@ -26,7 +26,7 @@ public class Bank {
 
     }
 
-    public void setBankCode(String bankCode) {
+    public void setBankCode(int bankCode) {
         this.bankCode = bankCode;
     }
 
@@ -34,7 +34,7 @@ public class Bank {
         return bankName;
     }
 
-    public String getBankCode() {
+    public int getBankCode() {
         return bankCode;
     }
 
@@ -43,7 +43,7 @@ public class Bank {
         try {
             dbCon.insert("INSERT INTO bank(bank_id,bank_name) VALUES('" + bankCode + "','" + bankName + "')");
         } catch (SQLException ex) {
-            MessageBox.showMessage(ex.getMessage(), "SQL Error", bankCode);
+            MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
         }
 
     }

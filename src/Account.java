@@ -5,13 +5,15 @@ public class Account {
     private String accountClass;
     private String accountCode;
     private double openingBal;
+    private double currentBal;
 
     //private double closingBal;  // think this is not needed
-    Account(String accountName, String accountClass, String accountCode, double openingBal) {
+    Account(String accountName, String accountClass, String accountCode, double openingBal,double currentBal) {
         this.accountName = accountName;
         this.accountClass = accountClass;
         this.accountCode = accountCode;
         this.openingBal = openingBal;
+        this.currentBal=currentBal;
     }
 
     Account() {
@@ -19,6 +21,7 @@ public class Account {
         accountClass = null;
         accountCode = null;
         openingBal = 0;
+        currentBal=0;
     }
 
     public void setAccountName(String accountName) {
