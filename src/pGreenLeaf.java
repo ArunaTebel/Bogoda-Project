@@ -66,7 +66,7 @@ public class pGreenLeaf extends javax.swing.JPanel {
 
         jButton5.setText("Loans");
 
-        Add_combo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "---------", "Supplier", "Category", "Transport Code", "Leaf Rate", "----------" }));
+        Add_combo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "---------", "Supplier", "Category", "Transport Code", "Leaf category", "----------" }));
         Add_combo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Add_comboActionPerformed(evt);
@@ -174,6 +174,19 @@ public class pGreenLeaf extends javax.swing.JPanel {
         if (selection.equalsIgnoreCase("Category")) {
             
           Add_category Addcat = new Add_category();
+
+       GL_content.removeAll();
+
+       Addcat.setSize(GL_content.getSize());
+
+       GL_content.add(Addcat);
+        validate();
+        repaint();
+        }
+        
+        if (selection.equalsIgnoreCase("Leaf category")) {
+            
+          GL_Add_leafcategory Addcat = new GL_Add_leafcategory();
 
        GL_content.removeAll();
 
