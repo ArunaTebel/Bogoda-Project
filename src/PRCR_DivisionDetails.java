@@ -11,19 +11,19 @@ import java.sql.SQLException;
  *
  * @author acer
  */
-public class WorkCodeDetails {
+public class PRCR_DivisionDetails {
     private String code;
-    private String work;
+    private String division;
     private String description;
     
-    public WorkCodeDetails(String code,String work,String description){
+    public PRCR_DivisionDetails(String code,String division,String description){
         this.code=code;
-        this.work=work;
+        this.division=division;
         this.description=description;
     }
-    public WorkCodeDetails(){
+    public PRCR_DivisionDetails(){
         this.code=null;
-        this.work=null;
+        this.division=null;
         this.description=null;
     }
     
@@ -31,8 +31,8 @@ public class WorkCodeDetails {
     public void setCode(String code){
         this.code=code;
     }
-    public void setWork(String work){
-        this.work=work;
+    public void setDivision(String division){
+        this.division=division;
     }
     public void setDescription(String description){
         this.description=description;
@@ -42,8 +42,8 @@ public class WorkCodeDetails {
     public String getCode(){
         return code;
     }
-    public String getWork(){
-        return work;
+    public String getDivision(){
+        return division;
     }
     public String getDescription(){
         return description;
@@ -53,7 +53,7 @@ public class WorkCodeDetails {
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         try {
             
-            dbCon.insert("INSERT INTO workcode_details(work,code,description) VALUES('" + work + "','" + code + "','"+description+"')");
+            dbCon.insert("INSERT INTO division_details(division,code,description) VALUES('" + division + "','" + code + "','"+description+"')");
             
         } catch (SQLException ex) {
             MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
