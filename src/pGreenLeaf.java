@@ -63,10 +63,15 @@ public class pGreenLeaf extends javax.swing.JPanel {
         });
 
         jButton4.setText("Installments");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton5.setText("Loans");
 
-        Add_combo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "---------", "Supplier", "Category", "Transport Code", "Leaf category", "----------" }));
+        Add_combo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "---------", "Supplier", "Category", "Leaf category", "----------" }));
         Add_combo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Add_comboActionPerformed(evt);
@@ -225,6 +230,18 @@ public class pGreenLeaf extends javax.swing.JPanel {
         validate();
         repaint(); 
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        GL_InstAdvances Instadvncs = new GL_InstAdvances();
+
+        GL_content.removeAll();
+
+        Instadvncs.setSize(GL_content.getSize());
+
+        GL_content.add(Instadvncs);
+        validate();
+        repaint(); 
+    }//GEN-LAST:event_jButton4ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

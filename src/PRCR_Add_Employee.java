@@ -17,13 +17,7 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
     public PRCR_Add_Employee() {
         initComponents();
 
-        String selection = (String) staffOrCheckroll.getSelectedItem();
-
-        if (selection.equalsIgnoreCase("Staff")) {
-
-            Checkroll_pay.setVisible(false);
-
-        }
+        
     }
 
     /**
@@ -69,8 +63,6 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
         welfare = new javax.swing.JCheckBox();
         basicSalary = new javax.swing.JTextField();
         jLabel28 = new javax.swing.JLabel();
-        Checkroll_pay = new javax.swing.JPanel();
-        jLabel26 = new javax.swing.JLabel();
         staffOrCheckroll = new javax.swing.JComboBox();
         jLabel22 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -209,27 +201,6 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
-        Checkroll_pay.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        jLabel26.setText("Telephone");
-
-        javax.swing.GroupLayout Checkroll_payLayout = new javax.swing.GroupLayout(Checkroll_pay);
-        Checkroll_pay.setLayout(Checkroll_payLayout);
-        Checkroll_payLayout.setHorizontalGroup(
-            Checkroll_payLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(Checkroll_payLayout.createSequentialGroup()
-                .addGap(129, 129, 129)
-                .addComponent(jLabel26)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        Checkroll_payLayout.setVerticalGroup(
-            Checkroll_payLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(Checkroll_payLayout.createSequentialGroup()
-                .addGap(44, 44, 44)
-                .addComponent(jLabel26)
-                .addContainerGap(65, Short.MAX_VALUE))
-        );
-
         staffOrCheckroll.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Staff", "Checkroll" }));
         staffOrCheckroll.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -268,7 +239,6 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
                         .addGap(20, 20, 20)
                         .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(Checkroll_pay, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                             .addGap(110, 110, 110)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -364,9 +334,7 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
                     .addComponent(bloodGrp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Staff_pay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Checkroll_pay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(69, Short.MAX_VALUE))
+                .addContainerGap(202, Short.MAX_VALUE))
             .addComponent(jSeparator1)
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -380,14 +348,14 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
         String selection = (String) staffOrCheckroll.getSelectedItem();
 
         if (selection.equalsIgnoreCase("Staff")) {
-            Checkroll_pay.setVisible(false);
+         
             Staff_pay.setVisible(true);
 
         }
 
         if (selection.equalsIgnoreCase("Checkroll")) {
             Staff_pay.setVisible(false);
-            Checkroll_pay.setVisible(true);
+            
 
         }
     }//GEN-LAST:event_staffOrCheckrollActionPerformed
@@ -425,7 +393,6 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel Checkroll_pay;
     private javax.swing.JTextField DOB1;
     private javax.swing.JTextField DOB2;
     private javax.swing.JTextField DOB3;
@@ -450,7 +417,6 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel4;
