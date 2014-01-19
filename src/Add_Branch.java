@@ -166,7 +166,7 @@ public class Add_Branch extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        branch.setBranchCode(codetxt.getText());
+        branch.setBranchCode(Integer.parseInt(codetxt.getText()));
         branch.setBranchName(nametxt.getText());
         branch.addToDataBase();
         

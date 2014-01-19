@@ -11,16 +11,16 @@ public class BankBranch {
     Connection conn=null;
     Statement stmt=null;
 
-    private String branchCode;
+    private int branchCode;
     private String branchName;
 
-    BankBranch(String branchName, String branchCode) {
+    BankBranch(String branchName, int branchCode) {
         this.branchName = branchName;
         this.branchCode = branchCode;
     }
 
     BankBranch() {
-        branchCode = null;
+        branchCode = 0;
         branchName = null;
     }
 
@@ -28,7 +28,7 @@ public class BankBranch {
         this.branchName = branchName;
     }
 
-    public void setBranchCode(String branchCode) {
+    public void setBranchCode(int branchCode) {
         this.branchCode = branchCode;
     }
 
@@ -36,7 +36,7 @@ public class BankBranch {
         return branchName;
     }
 
-    public String getBranchCode() {
+    public int getBranchCode() {
         return branchCode;
     }
     public void addToDataBase() {
@@ -44,7 +44,7 @@ public class BankBranch {
         try {
             dbCon.insert("INSERT INTO bank_branch(branch_id,branch_name) VALUES('" + branchCode + "','" + branchName + "')");
         } catch (SQLException ex) {
-            MessageBox.showMessage(ex.getMessage(), "SQL Error", branchCode);
+            MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
         }
 
     }
