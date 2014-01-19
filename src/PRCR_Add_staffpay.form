@@ -30,8 +30,8 @@
                               </Group>
                               <EmptySpace pref="38" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="codetxt" alignment="1" min="-2" pref="47" max="-2" attributes="0"/>
-                                  <Component id="nametxt" alignment="1" min="-2" pref="47" max="-2" attributes="0"/>
+                                  <Component id="EPF" alignment="1" min="-2" pref="47" max="-2" attributes="0"/>
+                                  <Component id="ETF" alignment="1" min="-2" pref="47" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
@@ -41,8 +41,8 @@
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="codetxt2" max="32767" attributes="0"/>
-                                  <Component id="codetxt1" max="32767" attributes="0"/>
+                                  <Component id="OTRate" max="32767" attributes="0"/>
+                                  <Component id="welfare" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -72,13 +72,13 @@
                       <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="nametxt" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="ETF" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="codetxt" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="EPF" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Component id="jLabel2" alignment="1" min="-2" max="-2" attributes="0"/>
@@ -89,13 +89,13 @@
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="codetxt1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="welfare" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="codetxt2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="OTRate" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="184" max="32767" attributes="0"/>
@@ -179,12 +179,12 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JTextField" name="nametxt">
+    <Component class="javax.swing.JTextField" name="ETF">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nametxtActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ETFActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="codetxt">
+    <Component class="javax.swing.JTextField" name="EPF">
     </Component>
     <Container class="javax.swing.JPanel" name="jPanel2">
       <Properties>
@@ -248,7 +248,7 @@
         <Property name="text" type="java.lang.String" value="Welfare Allowance"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="codetxt1">
+    <Component class="javax.swing.JTextField" name="welfare">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
@@ -270,7 +270,7 @@
         <Property name="text" type="java.lang.String" value="Overtime Rate"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="codetxt2">
+    <Component class="javax.swing.JTextField" name="OTRate">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel8">
       <Properties>
