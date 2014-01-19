@@ -1,4 +1,5 @@
 
+//import com.sun.imageio.plugins.common.BogusColorSpace;
 import java.sql.Date;
 import java.sql.SQLException;
 
@@ -17,17 +18,20 @@ public class PersonalInfo {
     private String name;
     private int code;
     private String NIC;
-    private Date DOB;
+    private String DOB;
     private String telNo;
     private String bloodGrp;
-    private boolean registerOrNot;
-    private boolean checkrollOrStaff;
+    private String registerOrNot;
+    private String checkrollOrStaff;
     private Date joinedDate;
     private Date permanentDate;
     private double basicSalary;//only for staff
+    private String ETF; //this variable is used to check whether employee has ETF or not
+    private String EPF;
+    private String welfare;
     
-    public PersonalInfo(String name,int code,String NIC,Date DOB,String telNo,String bloodGrp,
-            boolean registerOrNot,boolean checkrollOrStaff,Date joinedDate,Date permanentDate,
+    public PersonalInfo(String name,int code,String NIC,String DOB,String telNo,String bloodGrp,
+            String registerOrNot,String checkrollOrStaff,Date joinedDate,Date permanentDate,
             double basicSalary){
     
         this.name=name;
@@ -52,11 +56,14 @@ public class PersonalInfo {
         this.DOB=null;
         this.telNo=null;
         this.bloodGrp=null;
-        this.registerOrNot=false;
-        this.checkrollOrStaff=false;
+        this.registerOrNot=null;
+        this.checkrollOrStaff=null;
         this.joinedDate=null;
         this.permanentDate=null;
         this.basicSalary=0;
+        this.EPF=null;
+        this.ETF=null;
+        this.welfare=null;
     }
     
      public void setName(String name){
@@ -68,7 +75,7 @@ public class PersonalInfo {
      public void setNIC(String NIC){
          this.NIC=NIC;
      }
-     public void setDOB(Date DOB){
+     public void setDOB(String DOB){
          this.DOB=DOB;
      }
      public void setTelNo(String telNo){
@@ -83,15 +90,45 @@ public class PersonalInfo {
      public void setPermanentDate(Date permanentDate){
          this.permanentDate=permanentDate;
      }
-     public void setRegisterOrNot(boolean registerOrNot){
-         this.registerOrNot=registerOrNot;
+     public void setRegisterOrNot(boolean BregisterOrNot){
+         if(BregisterOrNot==true){
+         this.registerOrNot="Registered";}
+         else{
+         this.registerOrNot="Not Registered";
+         }
+         
      }
-     public void setCheckrollOrStaff(boolean checkrollOrStaff){
+     public void setCheckrollOrStaff(String checkrollOrStaff){
          this.checkrollOrStaff=checkrollOrStaff;
      }
      public void setBasicSallary(double basicSalary){
          this.basicSalary=basicSalary;
      }
+     public void setETF(boolean BooETF){
+         if(BooETF==true){
+             this.ETF="ETF-Yes";
+         }
+         else{
+             this.ETF="ETF-No";
+         }
+     }
+     public void setEPF(boolean BooEPF){
+         if(BooEPF==true){
+             this.EPF="EPF-Yes";
+         }
+         else{
+             this.EPF="EPF-No";
+         }
+     }
+     public void setWelfare(boolean Bwelfare){
+         if(Bwelfare==true){
+             this.welfare="Welfare-Yes";
+         }
+         else{
+             this.welfare="Welfare-No";
+         }
+     }
+     
     
      //getters
      public String getName(){
@@ -103,7 +140,7 @@ public class PersonalInfo {
      public String getNIC(){
          return NIC;
      }
-     public Date getDOB(){
+     public String getDOB(){
          return DOB;
      }
      public String getTelNo(){
@@ -118,19 +155,31 @@ public class PersonalInfo {
      public Date getPermanentDate(){
          return permanentDate;
      }
-     public boolean getRegisterOrNot(){
+     public String getRegisterOrNot(){
          return registerOrNot;
      }
-     public boolean checkrollOrStaff(){
+     public String checkrollOrStaff(){
          return checkrollOrStaff;
      }
      public double getBasicSallary(){
          return basicSalary;
      }
+     public String getETF(){
+         return ETF;
+     }
+     public String getEPF(){
+         return EPF;
+     }
+     public String getWelfare(){
+         return welfare;
+     }
+     
      public void addToDataBase() {
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         try {
-            dbCon.insert("INSERT INTO personal_info(name,code,nic,dob,tel_no,blood_group,register_or_not,checkroll_or_staff,joined_date,permanent_date,basic_salary) VALUES('" + name + "','" + code + "','"+NIC+"','"+DOB+"','"+telNo+"','"+bloodGrp+"','"+registerOrNot+"','"+checkrollOrStaff+"','"+joinedDate+"','"+permanentDate+"','"+basicSalary+"')");
+            System.out.println("database");
+            dbCon.insert("INSERT INTO personal_info(name,code,nic,dob,tel_no,blood_group,register_or_not,checkroll_or_staff,joined_date,permanent_date,basic_salary,etf_enable,epf_enable,welfare_enable) VALUES('" + name + "','" + code + "','"+NIC+"','"+DOB+"','"+telNo+"','"+bloodGrp+"','"+registerOrNot+"','"+checkrollOrStaff+"','"+joinedDate+"','"+permanentDate+"','"+basicSalary+"','"+ETF+"','"+EPF+"','"+welfare+"')");
+            System.out.println("added to database");
         } catch (SQLException ex) {
             MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
         }
