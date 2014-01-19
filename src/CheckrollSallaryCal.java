@@ -155,13 +155,13 @@ public class CheckrollSallaryCal {
     }
 
     public void setIncentive1Amount() {//
-        incentive1Amount = getWorkdays() * getIncentive12Rate();
+        incentive1Amount = getWorkdays() * getIncentive1Rate();
     }
 
     public void setIncentive2Amount() {
 
         if (workdays > getMargin()) {//done
-            incentive2Amount = getWorkdays() * getIncentive12Rate();
+            incentive2Amount = getWorkdays() * getIncentive2Rate();
         } else {
             incentive2Amount = 0;
         }
@@ -324,7 +324,7 @@ public class CheckrollSallaryCal {
         return incentive1Rate;
     }
 
-    public double getIncentive12Rate() {
+    public double getIncentive2Rate() {
         setIncentive2rate();
         return incentive2Rate;
     }
