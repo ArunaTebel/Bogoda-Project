@@ -9,6 +9,8 @@
  * @author Pramo
  */
 public class ACC_Add_account extends javax.swing.JPanel {
+    
+    Account aobject = new Account();
 
     /**
      * Creates new form ACC_Add_account
@@ -28,12 +30,12 @@ public class ACC_Add_account extends javax.swing.JPanel {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        nametxt = new javax.swing.JTextField();
-        codetxt = new javax.swing.JTextField();
-        codetxt1 = new javax.swing.JTextField();
+        account_name = new javax.swing.JTextField();
+        account_code = new javax.swing.JTextField();
+        opening_balance = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jButton7 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox();
+        account_class = new javax.swing.JComboBox();
         jLabel5 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -50,9 +52,9 @@ public class ACC_Add_account extends javax.swing.JPanel {
 
         jLabel2.setText("Account code");
 
-        nametxt.addActionListener(new java.awt.event.ActionListener() {
+        account_name.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nametxtActionPerformed(evt);
+                account_nameActionPerformed(evt);
             }
         });
 
@@ -60,7 +62,7 @@ public class ACC_Add_account extends javax.swing.JPanel {
 
         jButton7.setText("View");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Current Assets", "Fixed Assets", "Current Liability", "Fixed Liability", "Expense", "Income", "Equity" }));
+        account_class.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Current Assets", "Fixed Assets", "Current Liability", "Fixed Liability", "Expense", "Income", "Equity" }));
 
         jLabel5.setText("Rs");
 
@@ -152,7 +154,7 @@ public class ACC_Add_account extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(codetxt1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(opening_balance, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(10, 10, 10)
                                 .addComponent(jLabel5)
                                 .addGap(0, 0, Short.MAX_VALUE))
@@ -163,12 +165,12 @@ public class ACC_Add_account extends javax.swing.JPanel {
                                     .addComponent(jLabel3))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(nametxt, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(account_name, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(codetxt, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(account_code, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
                                         .addComponent(jButton7))
-                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(account_class, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 262, Short.MAX_VALUE)
                                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap())
@@ -185,14 +187,14 @@ public class ACC_Add_account extends javax.swing.JPanel {
                         .addGap(33, 33, 33)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
-                            .addComponent(nametxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(account_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(account_class, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(11, 11, 11)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(codetxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(account_code, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton7)
                             .addComponent(jLabel2)))
                     .addGroup(layout.createSequentialGroup()
@@ -200,7 +202,7 @@ public class ACC_Add_account extends javax.swing.JPanel {
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(codetxt1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(opening_balance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 180, Short.MAX_VALUE)
@@ -210,21 +212,23 @@ public class ACC_Add_account extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void nametxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nametxtActionPerformed
+    private void account_nameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_account_nameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_nametxtActionPerformed
+    }//GEN-LAST:event_account_nameActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-       // bankObject.setBankCode(Integer.parseInt(codetxt.getText()));
-        //bankObject.setBankName(nametxt.getText());
-        //bankObject.addToDataBase();
+        aobject.setAccountName(account_name.getText());
+        aobject.setAccountCode(Integer.parseInt(account_code.getText()));
+        aobject.setAccountClass(account_class.getSelectedItem().toString());
+        aobject.setOpeningBal(Double.parseDouble(opening_balance.getText()));
+        aobject.addToDataBase();
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField codetxt;
-    private javax.swing.JTextField codetxt1;
+    private javax.swing.JComboBox account_class;
+    private javax.swing.JTextField account_code;
+    private javax.swing.JTextField account_name;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -232,7 +236,6 @@ public class ACC_Add_account extends javax.swing.JPanel {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
-    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -241,6 +244,6 @@ public class ACC_Add_account extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField nametxt;
+    private javax.swing.JTextField opening_balance;
     // End of variables declaration//GEN-END:variables
 }

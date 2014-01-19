@@ -1,13 +1,15 @@
 
+import java.sql.SQLException;
+
 public class Account {
 
     private String accountName;
     private String accountClass;
-    private String accountCode;
+    private int accountCode;
     private double openingBal;
 
     //private double closingBal;  // think this is not needed
-    Account(String accountName, String accountClass, String accountCode, double openingBal) {
+    Account(String accountName, String accountClass, int accountCode, double openingBal) {
         this.accountName = accountName;
         this.accountClass = accountClass;
         this.accountCode = accountCode;
@@ -17,7 +19,7 @@ public class Account {
     Account() {
         accountName = null;
         accountClass = null;
-        accountCode = null;
+        accountCode = 0;
         openingBal = 0;
     }
 
@@ -29,7 +31,7 @@ public class Account {
         this.accountClass = accountClass;
     }
 
-    public void setAccountCode(String accountCode) {
+    public void setAccountCode(int accountCode) {
         this.accountCode = accountCode;
     }
 
@@ -45,7 +47,7 @@ public class Account {
         return accountClass;
     }
 
-    public String getAccountCode() {
+    public int getAccountCode() {
         return accountCode;
     }
 
@@ -54,6 +56,12 @@ public class Account {
     }
 
     public void addToDataBase() {
+        DatabaseManager dbCon = DatabaseManager.getDbCon();
+        try {
+            dbCon.insert("INSERT INTO account_names(account_name,account_id,account_class,opening_balance) VALUES('" + accountName + "','" + accountCode + "','" + accountClass + "','" + openingBal + "')");
+        } catch (SQLException ex) {
+            MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
+        }
 
     }
 
