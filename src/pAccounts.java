@@ -151,7 +151,7 @@ public class pAccounts extends javax.swing.JPanel {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 
         //System.out.println(" ok ");
-        GLcash_advance cashadvance = new GLcash_advance();
+        PRCR_Add_Employee cashadvance = new PRCR_Add_Employee();
 
         // System.out.println(" ok 1");
         GL_content.removeAll();

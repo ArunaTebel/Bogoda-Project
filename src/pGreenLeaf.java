@@ -166,6 +166,18 @@ public class pGreenLeaf extends javax.swing.JPanel {
         validate();
         repaint();
         }
+        if (selection.equalsIgnoreCase("Category")) {
+            
+          Add_category Addcat = new Add_category();
+
+       GL_content.removeAll();
+
+       Addcat.setSize(GL_content.getSize());
+
+       GL_content.add(Addcat);
+        validate();
+        repaint();
+        }
     }//GEN-LAST:event_Add_comboActionPerformed
 
     private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
