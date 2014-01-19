@@ -154,6 +154,11 @@ public class MainWindow extends javax.swing.JFrame {
         });
 
         jButton1.setText("Payroll-Checkroll");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Accounts");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -348,6 +353,18 @@ public class MainWindow extends javax.swing.JFrame {
         validate();
         repaint();
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        pPRCR prcr = new pPRCR();
+
+        Main_Content.removeAll();
+
+        prcr.setSize(Main_Content.getSize());
+
+        Main_Content.add(prcr);
+        validate();
+        repaint();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
