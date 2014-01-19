@@ -13,6 +13,7 @@ public class PRCR_Add_Chekrlpay extends javax.swing.JPanel {
     /**
      * Creates new form PRCR_Add_Chekrlpay
      */
+    Checkroll_Pay_Info cpiObject=new Checkroll_Pay_Info();
     public PRCR_Add_Chekrlpay() {
         initComponents();
     }
@@ -28,40 +29,42 @@ public class PRCR_Add_Chekrlpay extends javax.swing.JPanel {
 
         jLabel3 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        codetxt1 = new javax.swing.JTextField();
+        incentive_2 = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        codetxt = new javax.swing.JTextField();
+        incentive_1 = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
-        codetxt2 = new javax.swing.JTextField();
-        nametxt = new javax.swing.JTextField();
-        codetxt3 = new javax.swing.JTextField();
+        OTRateBefore = new javax.swing.JTextField();
+        normalDayRate = new javax.swing.JTextField();
+        OTRateAfter = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        codetxt4 = new javax.swing.JTextField();
+        welfareAllowance = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        codetxt5 = new javax.swing.JTextField();
+        EPFallowance = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
-        codetxt6 = new javax.swing.JTextField();
-        nametxt1 = new javax.swing.JTextField();
+        holidayRate = new javax.swing.JTextField();
+        ETFallowance = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        codetxt7 = new javax.swing.JTextField();
+        margin = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
+        sundayRate = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
 
         jLabel3.setText("Incentive 2");
 
@@ -107,7 +110,7 @@ public class PRCR_Add_Chekrlpay extends javax.swing.JPanel {
 
         jLabel2.setText("Incentive 1");
 
-        jLabel1.setText("Normal Day Rate");
+        jLabel1.setText("Sunday Rate");
 
         jLabel7.setText("Overtime Rate");
 
@@ -143,9 +146,9 @@ public class PRCR_Add_Chekrlpay extends javax.swing.JPanel {
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
-        nametxt.addActionListener(new java.awt.event.ActionListener() {
+        normalDayRate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nametxtActionPerformed(evt);
+                normalDayRateActionPerformed(evt);
             }
         });
 
@@ -153,9 +156,9 @@ public class PRCR_Add_Chekrlpay extends javax.swing.JPanel {
 
         jLabel9.setText("%");
 
-        codetxt4.addActionListener(new java.awt.event.ActionListener() {
+        welfareAllowance.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                codetxt4ActionPerformed(evt);
+                welfareAllowanceActionPerformed(evt);
             }
         });
 
@@ -169,9 +172,9 @@ public class PRCR_Add_Chekrlpay extends javax.swing.JPanel {
 
         jLabel14.setText("Holliday Rate");
 
-        nametxt1.addActionListener(new java.awt.event.ActionListener() {
+        ETFallowance.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nametxt1ActionPerformed(evt);
+                ETFallowanceActionPerformed(evt);
             }
         });
 
@@ -183,9 +186,17 @@ public class PRCR_Add_Chekrlpay extends javax.swing.JPanel {
 
         jLabel19.setText("After 6");
 
-        jLabel4.setText("Margine");
+        jLabel4.setText("Margin");
 
         jLabel5.setText("days");
+
+        sundayRate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sundayRateActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setText("Normal Day Rate");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -214,28 +225,31 @@ public class PRCR_Add_Chekrlpay extends javax.swing.JPanel {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel19)
                                     .addComponent(jLabel18)))
-                            .addComponent(jLabel8))
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel6))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(codetxt6, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(holidayRate, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(codetxt5, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(nametxt1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(codetxt4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(EPFallowance, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(ETFallowance, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(welfareAllowance, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel9)
                                     .addComponent(jLabel13)
                                     .addComponent(jLabel12)))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(codetxt, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(nametxt, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(codetxt1, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(codetxt2, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(codetxt3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(sundayRate, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(incentive_1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(normalDayRate, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(incentive_2, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(OTRateBefore, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(OTRateAfter, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -246,7 +260,7 @@ public class PRCR_Add_Chekrlpay extends javax.swing.JPanel {
                                         .addGap(36, 36, 36)
                                         .addComponent(jLabel4)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(codetxt7, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(margin, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jLabel5)))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -260,7 +274,9 @@ public class PRCR_Add_Chekrlpay extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(67, 67, 67)
+                                .addGap(42, 42, 42)
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel2)))
@@ -277,40 +293,42 @@ public class PRCR_Add_Chekrlpay extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel14))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(63, 63, 63)
-                        .addComponent(nametxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(39, 39, 39)
+                        .addComponent(normalDayRate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(codetxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(sundayRate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(4, 4, 4)
+                        .addComponent(incentive_1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(codetxt1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(incentive_2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4)
-                            .addComponent(codetxt7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(margin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(codetxt2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(OTRateBefore, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel16)
                             .addComponent(jLabel18))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(codetxt3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(OTRateAfter, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel17)
                             .addComponent(jLabel19))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(nametxt1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(ETFallowance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel9))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(codetxt5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(EPFallowance, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel12))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(codetxt4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(welfareAllowance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel13))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(codetxt6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(holidayRate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -319,34 +337,45 @@ public class PRCR_Add_Chekrlpay extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        // bankObject.setBankCode(Integer.parseInt(codetxt.getText()));
-        //bankObject.setBankName(nametxt.getText());
-        //bankObject.addToDataBase();
+        cpiObject.setNormalDayRate(Double.parseDouble(normalDayRate.getText()));
+        cpiObject.setsundayRate(Double.parseDouble(sundayRate.getText()));
+        cpiObject.setIncentive1(Double.parseDouble(incentive_1.getText()));
+        cpiObject.setIncentive2(Double.parseDouble(incentive_2.getText()));
+        cpiObject.setMargin(Integer.parseInt(margin.getText()));
+        cpiObject.setOTRateBefore(Double.parseDouble(OTRateBefore.getText()));
+        cpiObject.setOTRateAfter(Double.parseDouble(OTRateAfter.getText()));
+        cpiObject.setEPFallowance(Double.parseDouble(EPFallowance.getText()));
+        cpiObject.setETFallowance(Double.parseDouble(ETFallowance.getText()));
+        cpiObject.setWelfareAllowance(Double.parseDouble(welfareAllowance.getText()));
+        cpiObject.setHolidayRate(Double.parseDouble(holidayRate.getText()));
+        cpiObject.addTodatabase();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void nametxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nametxtActionPerformed
+    private void normalDayRateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_normalDayRateActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_nametxtActionPerformed
+    }//GEN-LAST:event_normalDayRateActionPerformed
 
-    private void nametxt1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nametxt1ActionPerformed
+    private void ETFallowanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ETFallowanceActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_nametxt1ActionPerformed
+    }//GEN-LAST:event_ETFallowanceActionPerformed
 
-    private void codetxt4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codetxt4ActionPerformed
+    private void welfareAllowanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_welfareAllowanceActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_codetxt4ActionPerformed
+    }//GEN-LAST:event_welfareAllowanceActionPerformed
+
+    private void sundayRateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sundayRateActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_sundayRateActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField codetxt;
-    private javax.swing.JTextField codetxt1;
-    private javax.swing.JTextField codetxt2;
-    private javax.swing.JTextField codetxt3;
-    private javax.swing.JTextField codetxt4;
-    private javax.swing.JTextField codetxt5;
-    private javax.swing.JTextField codetxt6;
-    private javax.swing.JTextField codetxt7;
+    private javax.swing.JTextField EPFallowance;
+    private javax.swing.JTextField ETFallowance;
+    private javax.swing.JTextField OTRateAfter;
+    private javax.swing.JTextField OTRateBefore;
+    private javax.swing.JTextField holidayRate;
+    private javax.swing.JTextField incentive_1;
+    private javax.swing.JTextField incentive_2;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -367,13 +396,16 @@ public class PRCR_Add_Chekrlpay extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField nametxt;
-    private javax.swing.JTextField nametxt1;
+    private javax.swing.JTextField margin;
+    private javax.swing.JTextField normalDayRate;
+    private javax.swing.JTextField sundayRate;
+    private javax.swing.JTextField welfareAllowance;
     // End of variables declaration//GEN-END:variables
 }

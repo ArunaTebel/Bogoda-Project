@@ -44,17 +44,18 @@
                               </Group>
                           </Group>
                           <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="codetxt6" min="-2" pref="47" max="-2" attributes="0"/>
+                          <Component id="holidayRate" min="-2" pref="47" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                      <Component id="codetxt5" alignment="1" min="-2" pref="47" max="-2" attributes="0"/>
-                                      <Component id="nametxt1" alignment="1" min="-2" pref="47" max="-2" attributes="0"/>
+                                      <Component id="EPFallowance" alignment="1" min="-2" pref="47" max="-2" attributes="0"/>
+                                      <Component id="ETFallowance" alignment="1" min="-2" pref="47" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="codetxt4" alignment="1" min="-2" pref="47" max="-2" attributes="0"/>
+                                  <Component id="welfareAllowance" alignment="1" min="-2" pref="47" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -64,12 +65,15 @@
                               </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="codetxt" alignment="1" min="-2" pref="47" max="-2" attributes="0"/>
-                                  <Component id="nametxt" alignment="1" min="-2" pref="47" max="-2" attributes="0"/>
-                                  <Component id="codetxt1" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="codetxt2" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="codetxt3" alignment="0" min="-2" pref="47" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="sundayRate" min="-2" pref="47" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                      <Component id="incentive_1" alignment="1" min="-2" pref="47" max="-2" attributes="0"/>
+                                      <Component id="normalDayRate" alignment="1" min="-2" pref="47" max="-2" attributes="0"/>
+                                      <Component id="incentive_2" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="OTRateBefore" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="OTRateAfter" alignment="0" min="-2" pref="47" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
@@ -83,7 +87,7 @@
                                       <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
                                       <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="codetxt7" min="-2" pref="47" max="-2" attributes="0"/>
+                                      <Component id="margin" min="-2" pref="47" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                                   </Group>
@@ -105,7 +109,9 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jPanel2" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+                              <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
@@ -125,46 +131,48 @@
                       <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
-                      <Component id="nametxt" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
+                      <Component id="normalDayRate" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="codetxt" min="-2" max="-2" attributes="0"/>
+                      <Component id="sundayRate" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+                      <Component id="incentive_1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="codetxt1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="incentive_2" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="codetxt7" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="margin" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="codetxt2" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="OTRateBefore" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel16" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel18" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="codetxt3" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
+                          <Component id="OTRateAfter" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
                           <Component id="jLabel17" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel19" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="nametxt1" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="ETFallowance" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="codetxt5" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="EPFallowance" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="codetxt4" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="welfareAllowance" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="codetxt6" min="-2" max="-2" attributes="0"/>
+                      <Component id="holidayRate" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace pref="57" max="32767" attributes="0"/>
@@ -186,7 +194,7 @@
         <Property name="orientation" type="int" value="1"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="codetxt1">
+    <Component class="javax.swing.JTextField" name="incentive_2">
     </Component>
     <Container class="javax.swing.JPanel" name="jPanel1">
       <Properties>
@@ -257,10 +265,10 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Normal Day Rate"/>
+        <Property name="text" type="java.lang.String" value="Sunday Rate"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="codetxt">
+    <Component class="javax.swing.JTextField" name="incentive_1">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel7">
       <Properties>
@@ -324,14 +332,14 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JTextField" name="codetxt2">
+    <Component class="javax.swing.JTextField" name="OTRateBefore">
     </Component>
-    <Component class="javax.swing.JTextField" name="nametxt">
+    <Component class="javax.swing.JTextField" name="normalDayRate">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nametxtActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="normalDayRateActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="codetxt3">
+    <Component class="javax.swing.JTextField" name="OTRateAfter">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel8">
       <Properties>
@@ -343,9 +351,9 @@
         <Property name="text" type="java.lang.String" value="%"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="codetxt4">
+    <Component class="javax.swing.JTextField" name="welfareAllowance">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="codetxt4ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="welfareAllowanceActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel10">
@@ -368,18 +376,18 @@
         <Property name="text" type="java.lang.String" value="%"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="codetxt5">
+    <Component class="javax.swing.JTextField" name="EPFallowance">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel14">
       <Properties>
         <Property name="text" type="java.lang.String" value="Holliday Rate"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="codetxt6">
+    <Component class="javax.swing.JTextField" name="holidayRate">
     </Component>
-    <Component class="javax.swing.JTextField" name="nametxt1">
+    <Component class="javax.swing.JTextField" name="ETFallowance">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nametxt1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ETFallowanceActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel16">
@@ -404,14 +412,24 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Margine"/>
+        <Property name="text" type="java.lang.String" value="Margin"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="codetxt7">
+    <Component class="javax.swing.JTextField" name="margin">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>
         <Property name="text" type="java.lang.String" value="days"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="sundayRate">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="sundayRateActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel6">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Normal Day Rate"/>
       </Properties>
     </Component>
   </SubComponents>
