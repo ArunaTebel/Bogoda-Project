@@ -39,38 +39,13 @@ public class BankBranch {
     public String getBranchCode() {
         return branchCode;
     }
-    public void OpenDatabase() {
-
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://localhost/bogoda", "root", "");
-            System.out.println("Connected");
-
-        } catch (Exception e) {
-            System.out.println("Error in connection");
-        }
-    }
-
-    public void CloseDatabase() {
-        try {
-            conn.close();
-        } catch (SQLException e) {
-
-            e.printStackTrace();
-        }
-    }
-
     public void addToDataBase() {
-        OpenDatabase();
-         try {
-            Statement st = conn.createStatement();
-           // System.out.println(amount + accountType);
-            st.executeUpdate("INSERT INTO bankbranch(Code,BranchName) VALUES('" + branchCode + "','" + branchName + "')");
-            JOptionPane.showConfirmDialog(null, "Your Data Has been Inserted", "Result", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE);
-        } catch (Exception e) {
-            JOptionPane.showConfirmDialog(null, "Problem in Database connectivity  dsd or Data", "Result", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE);
+        DatabaseManager dbCon = DatabaseManager.getDbCon();
+        try {
+            dbCon.insert("INSERT INTO bank_branch(branch_id,branch_name) VALUES('" + branchCode + "','" + branchName + "')");
+        } catch (SQLException ex) {
+            MessageBox.showMessage(ex.getMessage(), "SQL Error", branchCode);
         }
-         CloseDatabase();
 
     }
 
