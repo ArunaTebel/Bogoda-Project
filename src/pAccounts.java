@@ -134,15 +134,15 @@ public class pAccounts extends javax.swing.JPanel {
 
     private void Add_comboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Add_comboActionPerformed
         String selection = (String) Add_combo.getSelectedItem();
-        if (selection.equalsIgnoreCase("Supplier")) {
+        if (selection.equalsIgnoreCase("Accounts")) {
 
-            GL_Add_Supplier Addsupp = new GL_Add_Supplier();
+            ACC_Add_account AddAcc = new ACC_Add_account();
 
             GL_content.removeAll();
 
-            Addsupp.setSize(GL_content.getSize());
+            AddAcc.setSize(GL_content.getSize());
 
-            GL_content.add(Addsupp);
+            GL_content.add(AddAcc);
             validate();
             repaint();
         }
