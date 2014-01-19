@@ -61,6 +61,7 @@ public class GLmanual_entry extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
+        datePicker = new org.jdesktop.swingx.JXDatePicker();
 
         jLabel1.setText("User ID");
 
@@ -202,7 +203,9 @@ public class GLmanual_entry extends javax.swing.JPanel {
                                         .addGap(18, 18, 18)
                                         .addComponent(self_transport)
                                         .addGap(107, 107, 107)
-                                        .addComponent(jLabel5))
+                                        .addComponent(jLabel5)
+                                        .addGap(48, 48, 48)
+                                        .addComponent(datePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                         .addGroup(layout.createSequentialGroup()
                                             .addComponent(jLabel3)
@@ -269,7 +272,8 @@ public class GLmanual_entry extends javax.swing.JPanel {
                             .addComponent(jLabel1)
                             .addComponent(supplier_id, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5)
-                            .addComponent(self_transport))
+                            .addComponent(self_transport)
+                            .addComponent(datePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -347,6 +351,8 @@ public class GLmanual_entry extends javax.swing.JPanel {
         globject.setWater(Double.parseDouble(water.getText()));
         globject.setCoarseLeaf(Double.parseDouble(coarse_leaf.getText()));
         globject.setLeafCategory(Integer.parseInt(leaf_category.getText()));
+        java.sql.Date date = new java.sql.Date(datePicker.getDate().getTime());
+        globject.setDate(date);
         globject.calcNetQuantity();
         globject.setSelfTransport(self_transport.isSelected());
         globject.setIntselfTransport(globject.getSelfTransport());
@@ -365,6 +371,7 @@ public class GLmanual_entry extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField category_code;
     private javax.swing.JTextField coarse_leaf;
+    private org.jdesktop.swingx.JXDatePicker datePicker;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
