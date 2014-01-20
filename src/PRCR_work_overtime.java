@@ -13,6 +13,7 @@ public class PRCR_work_overtime extends javax.swing.JPanel {
     /**
      * Creates new form PRCR_work_overtime
      */
+    DatabaseManager dbm =DatabaseManager.getDbCon();
     public PRCR_work_overtime() {
         initComponents();
     }
@@ -27,7 +28,7 @@ public class PRCR_work_overtime extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        table = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jButton6 = new javax.swing.JButton();
@@ -43,10 +44,9 @@ public class PRCR_work_overtime extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         jXDatePicker1 = new org.jdesktop.swingx.JXDatePicker();
         jSeparator1 = new javax.swing.JSeparator();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox2 = new javax.swing.JCheckBox();
+        after6 = new javax.swing.JCheckBox();
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -103,13 +103,18 @@ public class PRCR_work_overtime extends javax.swing.JPanel {
                 "Code", "Name", "Hours"
             }
         ));
-        jTable1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        jTable1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setPreferredWidth(50);
-            jTable1.getColumnModel().getColumn(1).setPreferredWidth(150);
-            jTable1.getColumnModel().getColumn(2).setPreferredWidth(50);
+        table.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        table.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        table.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tableFocusLost(evt);
+            }
+        });
+        jScrollPane1.setViewportView(table);
+        if (table.getColumnModel().getColumnCount() > 0) {
+            table.getColumnModel().getColumn(0).setPreferredWidth(50);
+            table.getColumnModel().getColumn(1).setPreferredWidth(150);
+            table.getColumnModel().getColumn(2).setPreferredWidth(50);
         }
 
         jLabel2.setText("Work Code");
@@ -208,11 +213,15 @@ public class PRCR_work_overtime extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jXDatePicker1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jXDatePicker1ActionPerformed(evt);
+            }
+        });
+
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
-        jCheckBox1.setText("Sunday");
-
-        jCheckBox2.setText("After 6");
+        after6.setText("after 6");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -220,7 +229,7 @@ public class PRCR_work_overtime extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -236,12 +245,9 @@ public class PRCR_work_overtime extends javax.swing.JPanel {
                         .addGap(8, 8, 8)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jCheckBox1)
-                                .addGap(18, 18, 18)
-                                .addComponent(jCheckBox2))
-                            .addComponent(jXDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(jXDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(after6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 203, Short.MAX_VALUE))
@@ -258,12 +264,9 @@ public class PRCR_work_overtime extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
-                            .addComponent(jXDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(9, 9, 9)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jCheckBox1)
-                            .addComponent(jCheckBox2))
-                        .addGap(18, 18, 18)
+                            .addComponent(jXDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(after6))
+                        .addGap(49, 49, 49)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
                             .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -276,35 +279,51 @@ public class PRCR_work_overtime extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        //Include the code to get name in sinhala
-        /* piObject.setName(name.getText());
-        piObject.setCode(Integer.parseInt(code.getText()));
-        piObject.setNIC(NIC.getText());
-        piObject.setDOB(DOB1.getText()+"/"+DOB2.getText()+"/"+DOB3.getText());
-        piObject.setTelNo(telNo.getText());
-        piObject.setBloodGrp(bloodGrp.getSelectedItem().toString());
-        piObject.setRegisterOrNot(registerOrNot.isSelected());//NC
-        piObject.setCheckrollOrStaff(staffOrCheckroll.getSelectedItem().toString());//NC
-        java.sql.Date joinedD = new java.sql.Date(joinedDate.getDate().getTime());
-        piObject.setJoinedDate(joinedD);
-        java.sql.Date permanentD = new java.sql.Date(permanentDate.getDate().getTime());
-        piObject.setPermanentDate(permanentD);
-        piObject.setBasicSallary(Double.parseDouble(basicSalary.getText()));
-        piObject.setETF(ETF.isSelected());
-        piObject.setEPF(EPF.isSelected());
-        piObject.setWelfare(welfare.isSelected());
-        System.out.println("saved");
-        piObject.addToDataBase();*/
+        
+        if (after6.isSelected() == false) {
+            int rows = 0;
+            for (; rows < table.getRowCount(); rows++) {
+                if (table.getValueAt(rows, 0) != null) {
+                    int hours = 0;
+                    
+                    System.out.println(table.getValueAt(rows, 0));
+                    hours = Integer.parseInt(dbm.checknReturnData("overtime_4to6", "emp_code", table.getValueAt(rows, 0), "hours"));
+                    hours=hours+Integer.parseInt((String) table.getValueAt(rows, 2));
+                    dbm.updateDatabase("overtime_4to6", "emp_code", table.getValueAt(rows, 0), "hours",hours);
+
+                }
+            }
+        }
+        else{
+            int rows = 0;
+            for (; rows < table.getRowCount(); rows++) {
+                if (table.getValueAt(rows, 0) != null) {
+                    int hours = 0;
+                    System.out.println(table.getValueAt(rows, 0));
+                    hours = Integer.parseInt(dbm.checknReturnData("overtime_after6", "emp_code", table.getValueAt(rows, 0), "hours"));
+                    hours=hours+Integer.parseInt((String) table.getValueAt(rows, 2));
+                    dbm.updateDatabase("overtime_after6", "emp_code", table.getValueAt(rows, 0), "hours",hours);
+
+                }
+            }
+        }
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void tableFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tableFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tableFocusLost
+
+    private void jXDatePicker1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jXDatePicker1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jXDatePicker1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox after6;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JComboBox jComboBox2;
     private javax.swing.JComboBox jComboBox3;
@@ -316,7 +335,7 @@ public class PRCR_work_overtime extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jTable1;
     private org.jdesktop.swingx.JXDatePicker jXDatePicker1;
+    private javax.swing.JTable table;
     // End of variables declaration//GEN-END:variables
 }
