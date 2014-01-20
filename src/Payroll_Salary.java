@@ -15,7 +15,7 @@ import java.util.logging.Logger;
  * @author Acer
  */
 public class Payroll_Salary {
-    private String employCode;
+    private int employCode;
     private String name;
     private double basic;
     private double etfPer;
@@ -26,8 +26,8 @@ public class Payroll_Salary {
     
     DatabaseManager dbm = DatabaseManager.getDbCon();
     
-    public Payroll_Salary(){
-        this.employCode = null;
+    public Payroll_Salary(int employCode){
+        this.employCode = employCode;
         this.name = null;
         this.basic = 0;
         this.etfPer = 0;
@@ -63,5 +63,39 @@ public class Payroll_Salary {
         } catch (SQLException ex) {
             Logger.getLogger(CheckrollSallaryCal.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    public void setOtRate(){
+        try {
+            ResultSet rs = dbm.query("SELECT ot_rate FROM staff_pay_info");
+            rs.next();
+            this.welfarePer = rs.getDouble("ot_rate");
+        } catch (SQLException ex) {
+            Logger.getLogger(CheckrollSallaryCal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public void setName(){
+        this.name = dbm.checknReturnData("staffpay_personalinfo", "employee_code", employCode, "employee_name");
+    }
+    public void setBasic(){
+        this.basic = Double.parseDouble(dbm.checknReturnData("staffpay_personalinfo", "employee_code", employCode, "basic"));
+    }
+    public void setOtHours(){
+        this.otHours = Integer.parseInt(dbm.checknReturnData("staffpay_personalinfo", "employee_code", employCode, "ot_hours"));
+    }
+    
+    public double getEtfAmount(){
+        return basic*etfPer;
+    }
+    public double getEpfAmount(){
+        return basic*epfPer;
+    }
+    public double getWelfareAmount(){
+        return basic*welfarePer;
+    }
+    public double getOtAmount(){
+        return otRate*otHours;
+    }
+    public double getFullPay(){
+        return (this.basic-getEtfAmount()-getEpfAmount()-getWelfareAmount()+getOtAmount());
     }
 }
