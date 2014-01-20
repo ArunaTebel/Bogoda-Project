@@ -26,8 +26,8 @@ public class Payroll_Salary {
     
     DatabaseManager dbm = DatabaseManager.getDbCon();
     
-    public Payroll_Salary(int employCode){
-        this.employCode = employCode;
+    public Payroll_Salary(){
+        this.employCode = 0;
         this.name = null;
         this.basic = 0;
         this.etfPer = 0;
@@ -37,7 +37,10 @@ public class Payroll_Salary {
         this.otHours = 0;
     }
     
-    public void setEtfPer(){
+    public void setEmployCode(int employCode){
+        this.employCode = employCode;
+    }
+    public double setEtfPer(){
         try {
             ResultSet rs = dbm.query("SELECT etf FROM staff_pay_info");
             rs.next();
@@ -45,8 +48,9 @@ public class Payroll_Salary {
         } catch (SQLException ex) {
             Logger.getLogger(CheckrollSallaryCal.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return this.etfPer;
     } 
-    public void setEpfPer(){
+    public double setEpfPer(){
         try {
             ResultSet rs = dbm.query("SELECT epf FROM staff_pay_info");
             rs.next();
@@ -54,8 +58,9 @@ public class Payroll_Salary {
         } catch (SQLException ex) {
             Logger.getLogger(CheckrollSallaryCal.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return this.epfPer;
     }
-    public void setWelfarePer(){
+    public double setWelfarePer(){
         try {
             ResultSet rs = dbm.query("SELECT welfare FROM staff_pay_info");
             rs.next();
@@ -63,34 +68,39 @@ public class Payroll_Salary {
         } catch (SQLException ex) {
             Logger.getLogger(CheckrollSallaryCal.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return this.welfarePer;
     }
-    public void setOtRate(){
+    public double setOtRate(){
         try {
             ResultSet rs = dbm.query("SELECT ot_rate FROM staff_pay_info");
             rs.next();
-            this.welfarePer = rs.getDouble("ot_rate");
+            this.otRate = rs.getDouble("ot_rate");
         } catch (SQLException ex) {
             Logger.getLogger(CheckrollSallaryCal.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return this.otRate;
     }
-    public void setName(){
+    public String setName(){
         this.name = dbm.checknReturnData("staffpay_personalinfo", "employee_code", employCode, "employee_name");
+        return this.name;
     }
-    public void setBasic(){
+    public double setBasic(){
         this.basic = Double.parseDouble(dbm.checknReturnData("staffpay_personalinfo", "employee_code", employCode, "basic"));
+        return this.basic;
     }
-    public void setOtHours(){
+    public int setOtHours(){
         this.otHours = Integer.parseInt(dbm.checknReturnData("staffpay_personalinfo", "employee_code", employCode, "ot_hours"));
+        return this.otHours;
     }
     
     public double getEtfAmount(){
-        return basic*etfPer;
+        return basic*etfPer*0.01;
     }
     public double getEpfAmount(){
-        return basic*epfPer;
+        return basic*epfPer*0.01;
     }
     public double getWelfareAmount(){
-        return basic*welfarePer;
+        return basic*welfarePer*0.01;
     }
     public double getOtAmount(){
         return otRate*otHours;
