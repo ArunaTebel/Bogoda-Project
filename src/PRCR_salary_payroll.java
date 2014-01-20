@@ -132,7 +132,7 @@ public class PRCR_salary_payroll extends javax.swing.JPanel {
 
         jTextField9.setBackground(new java.awt.Color(204, 204, 255));
 
-        jLabel11.setText("Wellfare");
+        jLabel11.setText("Welfare");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
