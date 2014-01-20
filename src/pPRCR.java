@@ -140,13 +140,13 @@ public class pPRCR extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        GLmanual_entry glmnEntry = new GLmanual_entry();
+        PRCR_work_entry workEntry = new PRCR_work_entry();
 
         GL_content.removeAll();
 
-        glmnEntry.setSize(GL_content.getSize());
+        workEntry.setSize(GL_content.getSize());
 
-        GL_content.add(glmnEntry);
+        GL_content.add(workEntry);
         validate();
         repaint();
     }//GEN-LAST:event_jButton1ActionPerformed
