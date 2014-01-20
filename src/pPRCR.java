@@ -75,7 +75,7 @@ public class pPRCR extends javax.swing.JPanel {
 
         jButton5.setText("Loans");
 
-        Add_combo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "---------", "Employee", "Staff pay info", "Chkroll pay info", "Leaf Rate", "----------" }));
+        Add_combo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "---------", "Employee", "Staff pay info", "Chkroll pay info", "Work code details", "Division details", "Leaf Rate", "----------" }));
         Add_combo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Add_comboActionPerformed(evt);
@@ -215,6 +215,30 @@ public class pPRCR extends javax.swing.JPanel {
             Addemploye.setSize(GL_content.getSize());
 
             GL_content.add(Addemploye);
+            validate();
+            repaint();
+        }
+         if (selection.equalsIgnoreCase("Work code details")) {
+
+            PRCR_Add_Workcode Addwrkcd = new PRCR_Add_Workcode();
+
+            GL_content.removeAll();
+
+            Addwrkcd.setSize(GL_content.getSize());
+
+            GL_content.add(Addwrkcd);
+            validate();
+            repaint();
+        }
+         if (selection.equalsIgnoreCase("Division details")) {
+
+            PRCR_Add_Division Adddv = new PRCR_Add_Division();
+
+            GL_content.removeAll();
+
+            Adddv.setSize(GL_content.getSize());
+
+            GL_content.add(Adddv);
             validate();
             repaint();
         }

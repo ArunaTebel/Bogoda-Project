@@ -177,9 +177,9 @@ public class PersonalInfo {
      public void addToDataBase() {
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         try {
-            System.out.println("database");
+            
             dbCon.insert("INSERT INTO personal_info(name,code,nic,dob,tel_no,blood_group,register_or_not,checkroll_or_staff,joined_date,permanent_date,basic_salary,etf_enable,epf_enable,welfare_enable) VALUES('" + name + "','" + code + "','"+NIC+"','"+DOB+"','"+telNo+"','"+bloodGrp+"','"+registerOrNot+"','"+checkrollOrStaff+"','"+joinedDate+"','"+permanentDate+"','"+basicSalary+"','"+ETF+"','"+EPF+"','"+welfare+"')");
-            System.out.println("added to database");
+            
         } catch (SQLException ex) {
             MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
         }

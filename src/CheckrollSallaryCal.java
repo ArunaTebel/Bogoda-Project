@@ -1,14 +1,28 @@
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
+//not completed
 /**
  *
  * @author acer
  */
 public class CheckrollSallaryCal {
+    
+    public static void main(String[] args) {
+        CheckrollSallaryCal abc = new CheckrollSallaryCal();
+        abc.setNormalDaysRate();
+        
+    }
+    
+    DatabaseManager dbm = DatabaseManager.getDbCon();
 
     private int normalDays;//Total worked normal days Calculate using database
     private double normalDaysAmount;
@@ -20,6 +34,7 @@ public class CheckrollSallaryCal {
     private double totalIncentiveAmount;//total amount added from incentive1 and incentive2
     private double incentive1Rate;//read from database
     private double incentive2Rate;//read from database
+    private int margin;
     private double incentive1Amount;
     private double incentive2Amount;
     private double OTBeforeRate;
@@ -69,11 +84,19 @@ public class CheckrollSallaryCal {
     }
 
     public void setNormalDaysRate() {
-        //should be read from database
+        try {
+            
+            ResultSet rs = dbm.query("SELECT normalday_rate FROM checkroll_pay_info");
+            rs.next();
+            normalDaysRate = rs.getDouble("normalday_rate");
+            System.out.println(normalDaysRate);
+        } catch (SQLException ex) {
+            Logger.getLogger(CheckrollSallaryCal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void setNormalDaysAmount() {
-        normalDaysAmount = getNormaDays() * getNormaldaysRate();
+        normalDaysAmount = getNormalDays() * getNormaldaysRate();
     }
 
     public void setSundays() {
@@ -81,7 +104,14 @@ public class CheckrollSallaryCal {
     }
 
     public void setSundayRate() {
-        //should be read from database
+        try {
+            
+            ResultSet rs= dbm.query("SELECT sunday_rate FROM checkroll_pay_info");
+            rs.next();
+            sundayRate=rs.getDouble("sunday_rate");
+        } catch (SQLException ex) {
+            Logger.getLogger(CheckrollSallaryCal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void setSundayAmount() {
@@ -89,25 +119,49 @@ public class CheckrollSallaryCal {
     }
 
     public void setWorkdays() {
-        workdays = getSundays() + getNormaDays();
+        workdays = getSundays() + getNormalDays();
     }
 
     public void setIncentive1Rate() {
-        //should be read from database
+        try {
+            ResultSet rs= dbm.query("SELECT incentive_1 FROM checkroll_pay_info");
+            rs.next();
+            incentive1Rate=rs.getDouble("incentive_1");
+        } catch (SQLException ex) {
+            Logger.getLogger(CheckrollSallaryCal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void setIncentive2rate() {
-        //should be read from database
+        try {
+            ResultSet rs= dbm.query("SELECT incentive_2 FROM checkroll_pay_info");
+            rs.next();
+            incentive2Rate=rs.getDouble("incentive_2");
+        } catch (SQLException ex) {
+            Logger.getLogger(CheckrollSallaryCal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+    }
+    public void setMargin(){
+        try {
+            ResultSet rs= dbm.query("SELECT margin FROM checkroll_pay_info");
+            rs.next();
+            margin=rs.getInt("margin");
+        } catch (SQLException ex) {
+            Logger.getLogger(CheckrollSallaryCal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    
     }
 
     public void setIncentive1Amount() {//
-        incentive1Amount = getWorkdays() * getIncentive12Rate();
+        incentive1Amount = getWorkdays() * getIncentive1Rate();
     }
 
     public void setIncentive2Amount() {
 
-        if (workdays > 20) {//check this again whether its 20 or not
-            incentive2Amount = getWorkdays() * getIncentive12Rate();
+        if (workdays > getMargin()) {//done
+            incentive2Amount = getWorkdays() * getIncentive2Rate();
         } else {
             incentive2Amount = 0;
         }
@@ -119,7 +173,13 @@ public class CheckrollSallaryCal {
     }
 
     public void setOTBeforeRate() {
-        //read from database
+        try {
+            ResultSet rs= dbm.query("SELECT otrate_before FROM checkroll_pay_info");
+            rs.next();
+            OTBeforeRate=rs.getDouble("otrate_before");
+        } catch (SQLException ex) {
+            Logger.getLogger(CheckrollSallaryCal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void setOTBeforeHours() {
@@ -132,7 +192,13 @@ public class CheckrollSallaryCal {
     }
 
     public void setOTAfterRate() {
-        //read from database
+        try {
+            ResultSet rs= dbm.query("SELECT otrate_after FROM checkroll_pay_info");
+            rs.next();
+            OTAfterRate=rs.getDouble("otrate_after");
+        } catch (SQLException ex) {
+            Logger.getLogger(CheckrollSallaryCal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void setOTAfterHours() {
@@ -148,7 +214,13 @@ public class CheckrollSallaryCal {
     }
 
     public void setEPFRate() {
-        //read from database
+        try {
+            ResultSet rs= dbm.query("SELECT epf FROM checkroll_pay_info");
+            rs.next();
+            EPFRate=rs.getDouble("epf");
+        } catch (SQLException ex) {
+            Logger.getLogger(CheckrollSallaryCal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void setEPFContribution() {
@@ -156,7 +228,13 @@ public class CheckrollSallaryCal {
     }
 
     public void setETFRate() {
-        //read from database
+        try {
+            ResultSet rs= dbm.query("SELECT etf FROM checkroll_pay_info");
+            rs.next();
+            ETFRate=rs.getDouble("etf");
+        } catch (SQLException ex) {
+            Logger.getLogger(CheckrollSallaryCal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void setETFContribution() {
@@ -164,7 +242,13 @@ public class CheckrollSallaryCal {
     }
 
     public void setWelfareRate() {
-        //read from database
+        try {
+            ResultSet rs= dbm.query("SELECT welfare FROM checkroll_pay_info");
+            rs.next();
+            welfareRate=rs.getDouble("welfare");
+        } catch (SQLException ex) {
+            Logger.getLogger(CheckrollSallaryCal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void setWelfareContribution() {
@@ -200,7 +284,7 @@ public class CheckrollSallaryCal {
     }
 
     //getters
-    public int getNormaDays() {//nc
+    public int getNormalDays() {//nc
         setNormalDays();
         return normalDays;
     }
@@ -240,11 +324,16 @@ public class CheckrollSallaryCal {
         return incentive1Rate;
     }
 
-    public double getIncentive12Rate() {
+    public double getIncentive2Rate() {
         setIncentive2rate();
         return incentive2Rate;
     }
 
+    public int getMargin(){
+        setMargin();
+        return margin;
+    }
+    
     public double getIncentive1Amount() {
         setIncentive1Amount();
         return incentive1Amount;
