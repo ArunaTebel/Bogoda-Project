@@ -173,7 +173,7 @@ public class Checkroll_Salary {
         return this.otBHours;
     }
     public int setOtAHours(){
-        this.otAHours = Integer.parseInt(dbm.checknReturnData("checkroll_personalinfo", "code", employCode, "ot_before_hours"));
+        this.otAHours = Integer.parseInt(dbm.checknReturnData("checkroll_personalinfo", "code", employCode, "ot_after_hours"));
         return this.otAHours;
     }
     

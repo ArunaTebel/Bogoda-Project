@@ -1,9 +1,11 @@
+
+import javax.swing.JOptionPane;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Pramo
@@ -32,7 +34,7 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
         sunday = new javax.swing.JCheckBox();
         jComboBox1 = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
-        jXDatePicker1 = new org.jdesktop.swingx.JXDatePicker();
+        date = new org.jdesktop.swingx.JXDatePicker();
         jScrollPane1 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
@@ -213,7 +215,7 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
                         .addGap(8, 8, 8)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jXDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(sunday))
                     .addGroup(layout.createSequentialGroup()
@@ -238,7 +240,7 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
-                            .addComponent(jXDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(sunday))
                         .addGap(10, 10, 10)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -253,35 +255,41 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        java.sql.Date tdate = new java.sql.Date(date.getDate().getTime());
         if (sunday.isSelected() == false) {
             int rows = 0;
             for (; rows < table.getRowCount(); rows++) {
                 if (table.getValueAt(rows, 0) != null) {
                     int normaldays = 0;
                     System.out.println(table.getValueAt(rows, 0));
-                    normaldays = Integer.parseInt(dbm.checknReturnData("normaldays_attendance", "emp_code", table.getValueAt(rows, 0), "no_of_normaldays"));
+                    normaldays = Integer.parseInt(dbm.checknReturnData("checkroll_personalinfo", "code", table.getValueAt(rows, 0), "normal_days"));
                     normaldays++;
-                    dbm.updateDatabase("normaldays_attendance", "emp_code", table.getValueAt(rows, 0), "no_of_normaldays", normaldays);
+                    dbm.updateDatabase("checkroll_personalinfo", "code", table.getValueAt(rows, 0), "normal_days", normaldays);
 
                 }
             }
+            JOptionPane.showMessageDialog(null, "Details are saved for the \n" + tdate, "Message", JOptionPane.INFORMATION_MESSAGE);
+
         } else {
             int rows = 0;
             for (; rows < table.getRowCount(); rows++) {
                 if (table.getValueAt(rows, 0) != null) {
-                    int sundays= 0;
+                    int sundays = 0;
                     System.out.println(table.getValueAt(rows, 0));
-                    sundays = Integer.parseInt(dbm.checknReturnData("sundays_attendance", "emp_code", table.getValueAt(rows, 0), "no_of_sundays"));
+                    sundays = Integer.parseInt(dbm.checknReturnData("checkroll_personalinfo", "code", table.getValueAt(rows, 0), "sundays"));
                     sundays++;
-                    dbm.updateDatabase("sundays_attendance", "emp_code", table.getValueAt(rows, 0), "no_of_sundays", sundays);
+                    dbm.updateDatabase("checkroll_personalinfo", "code", table.getValueAt(rows, 0), "sundays", sundays);
 
                 }
             }
+            JOptionPane.showMessageDialog(null, "Details are saved for the \n" + tdate, "Message", JOptionPane.INFORMATION_MESSAGE);
+
         }
     }//GEN-LAST:event_jButton6ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private org.jdesktop.swingx.JXDatePicker date;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
@@ -295,7 +303,6 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private org.jdesktop.swingx.JXDatePicker jXDatePicker1;
     private javax.swing.JCheckBox sunday;
     private javax.swing.JTable table;
     // End of variables declaration//GEN-END:variables

@@ -290,9 +290,9 @@ public class PRCR_work_overtime extends javax.swing.JPanel {
                     int hours = 0;
                     
                     System.out.println(table.getValueAt(rows, 0));
-                    hours = Integer.parseInt(dbm.checknReturnData("overtime_4to6", "emp_code", table.getValueAt(rows, 0), "hours"));
+                    hours = Integer.parseInt(dbm.checknReturnData("checkroll_personalinfo", "code", table.getValueAt(rows, 0), "ot_before_hours"));
                     hours=hours+Integer.parseInt((String) table.getValueAt(rows, 2));
-                    dbm.updateDatabase("overtime_4to6", "emp_code", table.getValueAt(rows, 0), "hours",hours);
+                    dbm.updateDatabase("checkroll_personalinfo", "code", table.getValueAt(rows, 0), "ot_before_hours",hours);
 
                 }
             }
@@ -305,9 +305,9 @@ public class PRCR_work_overtime extends javax.swing.JPanel {
                 if (table.getValueAt(rows, 0) != null) {
                     int hours = 0;
                     System.out.println(table.getValueAt(rows, 0));
-                    hours = Integer.parseInt(dbm.checknReturnData("overtime_after6", "emp_code", table.getValueAt(rows, 0), "hours"));
+                    hours = Integer.parseInt(dbm.checknReturnData("checkroll_personalinfo", "code", table.getValueAt(rows, 0), "ot_after_hours"));
                     hours=hours+Integer.parseInt((String) table.getValueAt(rows, 2));
-                    dbm.updateDatabase("overtime_after6", "emp_code", table.getValueAt(rows, 0), "hours",hours);
+                    dbm.updateDatabase("checkroll_personalinfo", "code", table.getValueAt(rows, 0), "ot_after_hours",hours);
 
                 }
             }
