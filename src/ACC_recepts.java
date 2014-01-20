@@ -621,33 +621,13 @@ public class ACC_recepts extends javax.swing.JPanel {
         raobject.setChequeDate(date2);
         
         raobject.setDebitAmount(Double.parseDouble(debitAmount.getText()));
-        
-        raobject.addToDebitDataBase();
-        
-        dbm.updateDatabase("account_names","", raobject, TOOL_TIP_TEXT_KEY, date2);
-        
-       /* double currentBalance=0;
-         try {
-            ResultSet query = dbm.query("SELECT * FROM account_names WHERE account_id =" + raobject.getDebit_accountCode() + "");
-            while (query.next()) {
-                 currentBalance=query.getDouble("current_balance");
-            }
-        } catch (SQLException ex) {
+        boolean addToDebitDataBase = raobject.addToDebitDataBase();
+        if(addToDebitDataBase==true){
+           
+        double updated_current_balance = Double.parseDouble(dbm.checknReturnData("account_names","account_id",raobject.getDebit_accountCode(),"current_balance"))+raobject.getDebitAmount();
+        dbm.updateDatabase("account_names","account_id",raobject.getDebit_accountCode(),"current_balance",updated_current_balance);
         }
-        int accountId= raobject.getDebit_accountCode();
-        try {
-          
-            dbm.insert("UPDATE account_names SET current_balance='"+ (raobject.getDebitAmount()+ currentBalance)+"' WHERE account_id='"+accountId+"'");
-            
-            
-            
-            
-        } catch (SQLException ex) {
-            MessageBox.showMessage(ex.getMessage(), "SQL ERROR", "error");
-        }*/
-        
-        
-       // adding the relevant value to the current balance of the account
+        // adding the relevant value to the current balance of the account
 
     }//GEN-LAST:event_jButton6ActionPerformed
 
