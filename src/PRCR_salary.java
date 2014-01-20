@@ -57,6 +57,11 @@ public class PRCR_salary extends javax.swing.JPanel {
         jButton2.setBackground(new java.awt.Color(0, 0, 102));
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("CheckRoll");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -81,7 +86,9 @@ public class PRCR_salary extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-          PRCR_salary_payroll salpayroll = new PRCR_salary_payroll();
+         jButton1.setBackground(new java.awt.Color(0, 0, 0));
+         jButton2.setBackground(new java.awt.Color(0, 0, 102));
+        PRCR_salary_payroll salpayroll = new PRCR_salary_payroll();
 
         Salary_main.removeAll();
 
@@ -91,6 +98,11 @@ public class PRCR_salary extends javax.swing.JPanel {
         validate();
         repaint();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+          jButton2.setBackground(new java.awt.Color(0, 0, 0));
+         jButton1.setBackground(new java.awt.Color(0, 0, 102));
+    }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
