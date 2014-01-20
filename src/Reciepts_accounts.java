@@ -276,8 +276,5 @@ public class Reciepts_accounts {
         return creditTotal;
     }  
    
-    
-    
-    
-
+   
 }
