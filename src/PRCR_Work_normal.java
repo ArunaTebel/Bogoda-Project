@@ -13,6 +13,7 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
     /**
      * Creates new form PRCR_Work_normal
      */
+    DatabaseManager dbm=DatabaseManager.getDbCon();
     public PRCR_Work_normal() {
         initComponents();
     }
@@ -32,7 +33,7 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         jXDatePicker1 = new org.jdesktop.swingx.JXDatePicker();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        table = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -52,7 +53,7 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
 
         jLabel3.setText("Date");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -109,12 +110,12 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
                 "Code", "Name"
             }
         ));
-        jTable1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        jTable1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setPreferredWidth(50);
-            jTable1.getColumnModel().getColumn(1).setPreferredWidth(150);
+        table.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        table.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jScrollPane1.setViewportView(table);
+        if (table.getColumnModel().getColumnCount() > 0) {
+            table.getColumnModel().getColumn(0).setPreferredWidth(50);
+            table.getColumnModel().getColumn(1).setPreferredWidth(150);
         }
 
         jLabel2.setText("Work Code");
@@ -251,25 +252,17 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        //Include the code to get name in sinhala
-        /* piObject.setName(name.getText());
-        piObject.setCode(Integer.parseInt(code.getText()));
-        piObject.setNIC(NIC.getText());
-        piObject.setDOB(DOB1.getText()+"/"+DOB2.getText()+"/"+DOB3.getText());
-        piObject.setTelNo(telNo.getText());
-        piObject.setBloodGrp(bloodGrp.getSelectedItem().toString());
-        piObject.setRegisterOrNot(registerOrNot.isSelected());//NC
-        piObject.setCheckrollOrStaff(staffOrCheckroll.getSelectedItem().toString());//NC
-        java.sql.Date joinedD = new java.sql.Date(joinedDate.getDate().getTime());
-        piObject.setJoinedDate(joinedD);
-        java.sql.Date permanentD = new java.sql.Date(permanentDate.getDate().getTime());
-        piObject.setPermanentDate(permanentD);
-        piObject.setBasicSallary(Double.parseDouble(basicSalary.getText()));
-        piObject.setETF(ETF.isSelected());
-        piObject.setEPF(EPF.isSelected());
-        piObject.setWelfare(welfare.isSelected());
-        System.out.println("saved");
-        piObject.addToDataBase();*/
+        int rows=0;
+        for(;rows<table.getRowCount();rows++){
+            if(table.getValueAt(rows, 0)!= null){
+                int normaldays=0;
+                System.out.println(table.getValueAt(rows, 0));
+                normaldays=Integer.parseInt(dbm.checknReturnData("normaldays_attendance","emp_code", table.getValueAt(rows,0), "no_of_normaldays"));
+                normaldays++;
+                dbm.updateDatabase("normaldays_attendance","emp_code" ,table.getValueAt(rows,0),"no_of_normaldays",normaldays);
+                
+            }
+        }
     }//GEN-LAST:event_jButton6ActionPerformed
 
 
@@ -288,7 +281,7 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jTable1;
     private org.jdesktop.swingx.JXDatePicker jXDatePicker1;
+    private javax.swing.JTable table;
     // End of variables declaration//GEN-END:variables
 }
