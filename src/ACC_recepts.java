@@ -605,16 +605,16 @@ public class ACC_recepts extends javax.swing.JPanel {
 
         DatabaseManager dbm = DatabaseManager.getDbCon();
       
-        raobject.setDebit_accountName(dbm.checknreturndata("account_names","account_id", raobject.getDebit_accountCode(),"account_name"));
+        raobject.setDebit_accountName(dbm.checknReturnData("account_names","account_id", raobject.getDebit_accountCode(),"account_name"));
         raobject.setDebit_description(debit_description.getText());
         raobject.setBankCode(Integer.parseInt(bankCode.getSelectedItem().toString()));
 
        
-        raobject.setBankName(dbm.checknreturndata("bank","bank_id",raobject.getBankCode(),"bank_name"));
+        raobject.setBankName(dbm.checknReturnData("bank","bank_id",raobject.getBankCode(),"bank_name"));
         raobject.setBranchCode(Integer.parseInt(branchCode.getSelectedItem().toString()));
         
       
-        raobject.setBranchName(dbm.checknreturndata("bank_branch","branch_id",raobject.getBranchCode(),"branch_name"));
+        raobject.setBranchName(dbm.checknReturnData("bank_branch","branch_id",raobject.getBranchCode(),"branch_name"));
         raobject.setChequeNo(chequeNo.getText());
         
         java.sql.Date date2 = new java.sql.Date(chequeDate.getDate().getTime());
@@ -624,10 +624,10 @@ public class ACC_recepts extends javax.swing.JPanel {
         
         raobject.addToDebitDataBase();
         
-        double currentBalance=0;
-       
+        dbm.updateDatabase("account_names","", raobject, TOOL_TIP_TEXT_KEY, date2);
         
-        try {
+       /* double currentBalance=0;
+         try {
             ResultSet query = dbm.query("SELECT * FROM account_names WHERE account_id =" + raobject.getDebit_accountCode() + "");
             while (query.next()) {
                  currentBalance=query.getDouble("current_balance");
@@ -644,7 +644,8 @@ public class ACC_recepts extends javax.swing.JPanel {
             
         } catch (SQLException ex) {
             MessageBox.showMessage(ex.getMessage(), "SQL ERROR", "error");
-        }
+        }*/
+        
         
        // adding the relevant value to the current balance of the account
 

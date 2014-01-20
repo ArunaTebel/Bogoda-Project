@@ -63,7 +63,8 @@ public final class DatabaseManager {
         return result;
     }
     
-    public String checknreturndata(String table_name,String table_column_giving,Object row_element,String table_column_need){
+    
+    public String checknReturnData(String table_name,String table_column_giving,Object row_element,String table_column_need){
         DatabaseManager dbm = DatabaseManager.getDbCon();
          try {
             ResultSet query = dbm.query("SELECT * FROM "+table_name+" WHERE "+table_column_giving+" =" + row_element + "");
@@ -74,5 +75,16 @@ public final class DatabaseManager {
             
         }
         return null;
+    }
+    
+    public void updateDatabase(String table_name,String table_column_giving,Object row_element,String table_column_need,Object update_element){
+        DatabaseManager dbm = DatabaseManager.getDbCon();
+        try {
+          
+            dbm.insert("UPDATE "+table_name+" SET "+table_column_need+" ='"+update_element+"' WHERE "+table_column_giving+"='"+row_element+"'");
+           
+        } catch (SQLException ex) {
+            MessageBox.showMessage(ex.getMessage(), "SQL ERROR", "error");
+        }
     }
 }
