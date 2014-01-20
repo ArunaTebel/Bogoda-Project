@@ -151,17 +151,17 @@ public class pAccounts extends javax.swing.JPanel {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 
         //System.out.println(" ok ");
-        PRCR_Add_Employee cashadvance = new PRCR_Add_Employee();
+        ACC_payments payments = new ACC_payments();
 
         // System.out.println(" ok 1");
         GL_content.removeAll();
 
-        cashadvance.setSize(GL_content.getSize());
+        payments.setSize(GL_content.getSize());
 
-        GL_content.add(cashadvance);
+        GL_content.add(payments);
         validate();
         repaint();
-        System.out.println("ok");
+        
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

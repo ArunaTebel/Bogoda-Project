@@ -199,6 +199,8 @@ public class ACC_recepts extends javax.swing.JPanel {
 
         jLabel13.setText("Difference");
 
+        jTextField13.setBackground(new java.awt.Color(255, 204, 204));
+
         jLabel14.setText("Total");
 
         jLabel17.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N

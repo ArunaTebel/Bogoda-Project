@@ -188,6 +188,8 @@ public class ACC_payments extends javax.swing.JPanel {
 
         jLabel13.setText("Difference");
 
+        jTextField13.setBackground(new java.awt.Color(255, 204, 204));
+
         jLabel14.setText("Total");
 
         jLabel17.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -575,7 +577,7 @@ public class ACC_payments extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void debit_accountCodeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_debit_accountCodeItemStateChanged
-        DatabaseManager dbm = DatabaseManager.getDbCon();
+        /*DatabaseManager dbm = DatabaseManager.getDbCon();
         String Name = null;
         if (evt.getStateChange() == ItemEvent.SELECTED) {
             int item = Integer.parseInt(evt.getItem().toString());
@@ -587,11 +589,11 @@ public class ACC_payments extends javax.swing.JPanel {
             } catch (SQLException ex) {
             }
             debit_accountName.setText(""+Name);
-        }
+        }*/
     }//GEN-LAST:event_debit_accountCodeItemStateChanged
 
     private void bankCodeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_bankCodeItemStateChanged
-        DatabaseManager dbm = DatabaseManager.getDbCon();
+       /* DatabaseManager dbm = DatabaseManager.getDbCon();
         String Name = null;
         if (evt.getStateChange() == ItemEvent.SELECTED) {
             int item = Integer.parseInt(evt.getItem().toString());
@@ -603,11 +605,11 @@ public class ACC_payments extends javax.swing.JPanel {
             } catch (SQLException ex) {
             }
             bankName.setText(""+Name);
-        }
+        }*/
     }//GEN-LAST:event_bankCodeItemStateChanged
 
     private void branchCodeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_branchCodeItemStateChanged
-        DatabaseManager dbm = DatabaseManager.getDbCon();
+        /*DatabaseManager dbm = DatabaseManager.getDbCon();
         String Name = null;
         if (evt.getStateChange() == ItemEvent.SELECTED) {
             int item = Integer.parseInt(evt.getItem().toString());
@@ -619,7 +621,7 @@ public class ACC_payments extends javax.swing.JPanel {
             } catch (SQLException ex) {
             }
             branchName.setText(""+Name);
-        }
+        }*/
     }//GEN-LAST:event_branchCodeItemStateChanged
 
     private void payTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_payTypeActionPerformed
@@ -638,7 +640,7 @@ public class ACC_payments extends javax.swing.JPanel {
     }//GEN-LAST:event_payTypeActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        raobject.setRefNo(Integer.parseInt(refNo.getText()));
+       /* raobject.setRefNo(Integer.parseInt(refNo.getText()));
         raobject.setRecieptNo(Integer.parseInt(recieptNo.getText()));
         java.sql.Date date1 = new java.sql.Date(date.getDate().getTime());
         raobject.setDate(date1);
@@ -666,7 +668,7 @@ public class ACC_payments extends javax.swing.JPanel {
 
             double updated_current_balance = Double.parseDouble(dbm.checknReturnData("account_names","account_id",raobject.getDebit_accountCode(),"current_balance"))+raobject.getDebitAmount();
             dbm.updateDatabase("account_names","account_id",raobject.getDebit_accountCode(),"current_balance",updated_current_balance);
-        }
+        }*/
         // adding the relevant value to the current balance of the account
     }//GEN-LAST:event_jButton6ActionPerformed
 
