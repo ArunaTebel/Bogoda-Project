@@ -102,6 +102,15 @@ public class PRCR_salary extends javax.swing.JPanel {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
           jButton2.setBackground(new java.awt.Color(0, 0, 0));
          jButton1.setBackground(new java.awt.Color(0, 0, 102));
+          PRCR_salary_checkrollpay salchkroll = new PRCR_salary_checkrollpay();
+
+        Salary_main.removeAll();
+
+        salchkroll.setSize(Salary_main.getSize());
+
+        Salary_main.add(salchkroll);
+        validate();
+        repaint();
     }//GEN-LAST:event_jButton2ActionPerformed
 
 
