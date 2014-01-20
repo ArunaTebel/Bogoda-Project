@@ -7,13 +7,15 @@ public class Account {
     private String accountClass;
     private int accountCode;
     private double openingBal;
+    private double currentBalance;
 
     //private double closingBal;  // think this is not needed
-    Account(String accountName, String accountClass, int accountCode, double openingBal) {
+    Account(String accountName, String accountClass, int accountCode, double openingBal,double currentBalance) {
         this.accountName = accountName;
         this.accountClass = accountClass;
         this.accountCode = accountCode;
         this.openingBal = openingBal;
+        this.currentBalance=currentBalance;
     }
 
     Account() {
@@ -21,8 +23,11 @@ public class Account {
         accountClass = null;
         accountCode = 0;
         openingBal = 0;
+        currentBalance=0;
     }
-
+    
+    // Setters
+    
     public void setAccountName(String accountName) {
         this.accountName = accountName;
     }
@@ -38,7 +43,12 @@ public class Account {
     public void setOpeningBal(double openingBal) {
         this.openingBal = openingBal;
     }
-
+    public void setCurrentBalance(double currentBalance){
+        this.currentBalance=currentBalance;
+    }
+    
+    // Getters
+    
     public String getAccountname() {
         return accountName;
     }
@@ -58,7 +68,7 @@ public class Account {
     public void addToDataBase() {
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         try {
-            dbCon.insert("INSERT INTO account_names(account_name,account_id,account_class,opening_balance) VALUES('" + accountName + "','" + accountCode + "','" + accountClass + "','" + openingBal + "')");
+            dbCon.insert("INSERT INTO account_names(account_name,account_id,account_class,opening_balance,current_balance) VALUES('" + accountName + "','" + accountCode + "','" + accountClass + "','" + openingBal + "','"+currentBalance+ "')");
         } catch (SQLException ex) {
             MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
         }

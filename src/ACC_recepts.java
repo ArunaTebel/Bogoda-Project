@@ -642,6 +642,8 @@ public class ACC_recepts extends javax.swing.JPanel {
         raobject.setDebitAmount(Double.parseDouble(debitAmount.getText()));
         
         raobject.addToDebitDataBase();
+        
+       // adding the relevant value to the current balance of the account
 
     }//GEN-LAST:event_jButton6ActionPerformed
 
