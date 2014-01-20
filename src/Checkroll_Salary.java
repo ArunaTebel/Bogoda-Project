@@ -70,7 +70,7 @@ public class Checkroll_Salary {
         try {
             ResultSet rs = dbm.query("SELECT sunday_rate FROM checkroll_pay_info");
             rs.next();
-            this.dayRate = rs.getDouble("sunday_rate");
+            this.sundayRate = rs.getDouble("sunday_rate");
         } catch (SQLException ex) {
             Logger.getLogger(CheckrollSallaryCal.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -154,7 +154,7 @@ public class Checkroll_Salary {
         } catch (SQLException ex) {
             Logger.getLogger(CheckrollSallaryCal.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return this.dayRate;
+        return this.margin4Incentive;
     } 
     public String setName(){
         this.name = dbm.checknReturnData("checkroll_personalinfo", "code", employCode, "name");
@@ -178,28 +178,28 @@ public class Checkroll_Salary {
     }
     
     public double getNormalDayAmount(){
-        if(this.numOfdays>=this.margin4Incentive)
-            return numOfdays*(incentive1+incentive2+dayRate);
+        if(this.setNumOfDays()>=this.setMargin())
+            return setNumOfDays()*(setIncentive1()+setIncentive2()+setDayRate());
         else 
-            return numOfdays*(incentive1+dayRate);
+            return setNumOfDays()*(setIncentive1()+setDayRate());
     }
     public double getSundayAmount(){
-        return numOfSundays*sundayRate;
+        return setNumOfSundays()*setSundayRate();
     }
     public double getEtfAmount(){
-        return (getNormalDayAmount()+getSundayAmount())*etfPer*0.01;
+        return (getNormalDayAmount()+getSundayAmount())*setEtfPer()*0.01;
     }
     public double getEpfAmount(){
-        return (getNormalDayAmount()+getSundayAmount())*epfPer*0.01;
+        return (getNormalDayAmount()+getSundayAmount())*setEpfPer()*0.01;
     }
     public double getWelfareAmount(){
-        return (getNormalDayAmount()+getSundayAmount())*welfarePer*0.01;
+        return (getNormalDayAmount()+getSundayAmount())*setWelfarePer()*0.01;
     }
     public double getOtBAmount(){
-        return otBHours*otBRate;
+        return setOtBHours()*setOtBRate();
     }
     public double getOtAAmount(){
-        return otAHours*otARate;
+        return setOtAHours()*setOtARate();
     }
     public double getFullPay(){
         return (getNormalDayAmount()+getSundayAmount()+getOtAAmount()+getOtBAmount()-getEpfAmount()-getEtfAmount()-getWelfareAmount());

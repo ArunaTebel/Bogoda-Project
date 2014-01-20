@@ -94,18 +94,18 @@ public class Payroll_Salary {
     }
     
     public double getEtfAmount(){
-        return basic*etfPer*0.01;
+        return setBasic()*setEtfPer()*0.01;
     }
     public double getEpfAmount(){
-        return basic*epfPer*0.01;
+        return setBasic()*setEpfPer()*0.01;
     }
     public double getWelfareAmount(){
-        return basic*welfarePer*0.01;
+        return setBasic()*setWelfarePer()*0.01;
     }
     public double getOtAmount(){
-        return otRate*otHours;
+        return setOtRate()*setOtHours();
     }
     public double getFullPay(){
-        return (this.basic-getEtfAmount()-getEpfAmount()-getWelfareAmount()+getOtAmount());
+        return (setBasic()-getEtfAmount()-getEpfAmount()-getWelfareAmount()+getOtAmount());
     }
 }
