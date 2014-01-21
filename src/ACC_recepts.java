@@ -604,36 +604,17 @@ public class ACC_recepts extends javax.swing.JPanel {
         raobject.setDebit_accountCode(Integer.parseInt(debit_accountCode.getSelectedItem().toString()));
 
         DatabaseManager dbm = DatabaseManager.getDbCon();
-        
-        try {
-            ResultSet query = dbm.query("SELECT * FROM account_names WHERE account_id =" + raobject.getDebit_accountCode() + "");
-            while (query.next()) {
-                raobject.setDebit_accountName(query.getString("account_name"));
-            }
-        } catch (SQLException ex) {
-        }
-        
+      
+        raobject.setDebit_accountName(dbm.checknreturndata("account_names","account_id", raobject.getDebit_accountCode(),"account_name"));
         raobject.setDebit_description(debit_description.getText());
         raobject.setBankCode(Integer.parseInt(bankCode.getSelectedItem().toString()));
 
-        try {
-            ResultSet query = dbm.query("SELECT * FROM bank WHERE bank_id =" + raobject.getBankCode() + "");
-            while (query.next()) {
-                raobject.setBankName(query.getString("bank_name"));
-            }
-        } catch (SQLException ex) {
-        }
-        
+       
+        raobject.setBankName(dbm.checknreturndata("bank","bank_id",raobject.getBankCode(),"bank_name"));
         raobject.setBranchCode(Integer.parseInt(branchCode.getSelectedItem().toString()));
         
-        try {
-            ResultSet query = dbm.query("SELECT * FROM bank_branch WHERE branch_id =" + raobject.getBranchCode() + "");
-            while (query.next()) {
-                raobject.setBranchName(query.getString("branch_name"));
-            }
-        } catch (SQLException ex) {
-        }
-        
+      
+        raobject.setBranchName(dbm.checknreturndata("bank_branch","branch_id",raobject.getBranchCode(),"branch_name"));
         raobject.setChequeNo(chequeNo.getText());
         
         java.sql.Date date2 = new java.sql.Date(chequeDate.getDate().getTime());
