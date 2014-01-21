@@ -126,20 +126,20 @@ public final class DatabaseManager {
         return null;
     }
     
-    public int[] search_PRCR(String table_name,String column_1,String column_2,Object element_1,Object element_2,String needed_column){
+    public String[] search_PRCR(String table_name,String column_1,String column_2,Object element_1,Object element_2,String needed_column){
         DatabaseManager dbm = DatabaseManager.getDbCon();
-        int workcodes[] = null;
+        String workcodes[] = null;
         try {
             ResultSet query = dbm.query("SELECT * FROM " + table_name + " WHERE " + column_1 + " =" + element_1 + " AND " + column_2 +" =" + element_2);
             int Fetchsize = query.getFetchSize();
-            workcodes = new int[Fetchsize]; 
+            workcodes = new String[Fetchsize]; 
             int i = 0;
             while (query.next()) {
-                workcodes[i] = Integer.parseInt(query.getString(needed_column));
+                workcodes[i] = query.getString(needed_column);
                 i++;
             }
         }catch (SQLException ex) {
-           
+          
         }
         return workcodes;
     }

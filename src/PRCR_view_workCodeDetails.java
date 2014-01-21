@@ -14,7 +14,7 @@ public class PRCR_view_workCodeDetails extends javax.swing.JPanel {
      * Creates new form PRCR_salary_payroll
      */
     
-    Payroll_Salary spiObject = new Payroll_Salary();
+    PRCR_Search spiObject = new PRCR_Search();
     
     public PRCR_view_workCodeDetails() {
         initComponents();
@@ -32,17 +32,17 @@ public class PRCR_view_workCodeDetails extends javax.swing.JPanel {
         jSeparator1 = new javax.swing.JSeparator();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        code = new javax.swing.JComboBox();
+        workCode = new javax.swing.JComboBox();
         jButton2 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        code1 = new javax.swing.JComboBox();
+        divisionCode = new javax.swing.JComboBox();
         jButton3 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        empCodes = new javax.swing.JTextArea();
         jPanel1 = new javax.swing.JPanel();
-        DOB1 = new javax.swing.JTextField();
-        DOB3 = new javax.swing.JTextField();
-        DOB2 = new javax.swing.JTextField();
+        day = new javax.swing.JTextField();
+        month = new javax.swing.JTextField();
+        year = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
@@ -51,16 +51,16 @@ public class PRCR_view_workCodeDetails extends javax.swing.JPanel {
 
         jButton1.setText("View");
 
-        code.setEditable(true);
-        code.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        code.addActionListener(new java.awt.event.ActionListener() {
+        workCode.setEditable(true);
+        workCode.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        workCode.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                codeActionPerformed(evt);
+                workCodeActionPerformed(evt);
             }
         });
-        code.addFocusListener(new java.awt.event.FocusAdapter() {
+        workCode.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                codeFocusLost(evt);
+                workCodeFocusLost(evt);
             }
         });
 
@@ -73,45 +73,45 @@ public class PRCR_view_workCodeDetails extends javax.swing.JPanel {
 
         jLabel2.setText("Division Code");
 
-        code1.setEditable(true);
-        code1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        code1.addActionListener(new java.awt.event.ActionListener() {
+        divisionCode.setEditable(true);
+        divisionCode.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        divisionCode.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                code1ActionPerformed(evt);
+                divisionCodeActionPerformed(evt);
             }
         });
-        code1.addFocusListener(new java.awt.event.FocusAdapter() {
+        divisionCode.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                code1FocusLost(evt);
+                divisionCodeFocusLost(evt);
             }
         });
 
         jButton3.setText("View");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        empCodes.setColumns(20);
+        empCodes.setRows(5);
+        jScrollPane1.setViewportView(empCodes);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        DOB1.setText("DD");
-        DOB1.addActionListener(new java.awt.event.ActionListener() {
+        day.setText("DD");
+        day.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DOB1ActionPerformed(evt);
+                dayActionPerformed(evt);
             }
         });
 
-        DOB3.setText("MM");
-        DOB3.addActionListener(new java.awt.event.ActionListener() {
+        month.setText("MM");
+        month.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DOB3ActionPerformed(evt);
+                monthActionPerformed(evt);
             }
         });
 
-        DOB2.setText("YY");
-        DOB2.addActionListener(new java.awt.event.ActionListener() {
+        year.setText("YY");
+        year.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DOB2ActionPerformed(evt);
+                yearActionPerformed(evt);
             }
         });
 
@@ -125,11 +125,11 @@ public class PRCR_view_workCodeDetails extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(DOB2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(year, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(DOB3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(month, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(DOB1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(day, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(14, 14, 14))
         );
         jPanel1Layout.setVerticalGroup(
@@ -137,9 +137,9 @@ public class PRCR_view_workCodeDetails extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(DOB2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(DOB3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(DOB1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(year, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(month, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(day, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel13))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -163,11 +163,11 @@ public class PRCR_view_workCodeDetails extends javax.swing.JPanel {
                             .addComponent(jLabel1)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(code, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(workCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel2)
                                         .addGap(18, 18, 18)
-                                        .addComponent(code1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(divisionCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jButton3)
@@ -190,12 +190,12 @@ public class PRCR_view_workCodeDetails extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel2)
-                                    .addComponent(code1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(divisionCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jButton1))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel1)
-                                    .addComponent(code, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(workCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jButton3)))
                             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -207,48 +207,52 @@ public class PRCR_view_workCodeDetails extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void codeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codeActionPerformed
+    private void workCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_workCodeActionPerformed
         // TODO add your handling code here:
         
-    }//GEN-LAST:event_codeActionPerformed
+    }//GEN-LAST:event_workCodeActionPerformed
 
-    private void codeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_codeFocusLost
+    private void workCodeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_workCodeFocusLost
         // TODO add your handling code here:
         
-    }//GEN-LAST:event_codeFocusLost
+    }//GEN-LAST:event_workCodeFocusLost
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-    
+        spiObject.setDate(day.getText(), month.getText(), year.getText());
+        spiObject.setWorkCode(workCode.getSelectedItem().toString());
+        spiObject.setDivisionCode(divisionCode.getSelectedItem().toString());
+        String codes[] = spiObject.searchAndReturn();
+        for (String code : codes) {
+            empCodes.setText(code);
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void code1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_code1ActionPerformed
+    private void divisionCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_divisionCodeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_code1ActionPerformed
+    }//GEN-LAST:event_divisionCodeActionPerformed
 
-    private void code1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_code1FocusLost
+    private void divisionCodeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_divisionCodeFocusLost
         // TODO add your handling code here:
-    }//GEN-LAST:event_code1FocusLost
+    }//GEN-LAST:event_divisionCodeFocusLost
 
-    private void DOB3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DOB3ActionPerformed
+    private void monthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_monthActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_DOB3ActionPerformed
+    }//GEN-LAST:event_monthActionPerformed
 
-    private void DOB2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DOB2ActionPerformed
+    private void yearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yearActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_DOB2ActionPerformed
+    }//GEN-LAST:event_yearActionPerformed
 
-    private void DOB1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DOB1ActionPerformed
+    private void dayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dayActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_DOB1ActionPerformed
+    }//GEN-LAST:event_dayActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField DOB1;
-    private javax.swing.JTextField DOB2;
-    private javax.swing.JTextField DOB3;
-    private javax.swing.JComboBox code;
-    private javax.swing.JComboBox code1;
+    private javax.swing.JTextField day;
+    private javax.swing.JComboBox divisionCode;
+    private javax.swing.JTextArea empCodes;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -258,6 +262,8 @@ public class PRCR_view_workCodeDetails extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextField month;
+    private javax.swing.JComboBox workCode;
+    private javax.swing.JTextField year;
     // End of variables declaration//GEN-END:variables
 }
