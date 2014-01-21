@@ -95,15 +95,25 @@ public class PRCR_view_workCodeDetails extends javax.swing.JPanel {
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         DOB1.setText("YY");
+        DOB1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DOB1ActionPerformed(evt);
+            }
+        });
 
-        DOB3.setText("DD");
+        DOB3.setText("MM");
         DOB3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 DOB3ActionPerformed(evt);
             }
         });
 
-        DOB2.setText("MM");
+        DOB2.setText("YY");
+        DOB2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DOB2ActionPerformed(evt);
+            }
+        });
 
         jLabel13.setText("Date");
 
@@ -147,8 +157,7 @@ public class PRCR_view_workCodeDetails extends javax.swing.JPanel {
                         .addGap(4, 4, 4)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
@@ -164,8 +173,8 @@ public class PRCR_view_workCodeDetails extends javax.swing.JPanel {
                                     .addComponent(jButton3)
                                     .addComponent(jButton1))))
                         .addGap(54, 54, 54)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(150, 150, 150))))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -224,6 +233,14 @@ public class PRCR_view_workCodeDetails extends javax.swing.JPanel {
     private void DOB3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DOB3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_DOB3ActionPerformed
+
+    private void DOB2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DOB2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_DOB2ActionPerformed
+
+    private void DOB1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DOB1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_DOB1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
