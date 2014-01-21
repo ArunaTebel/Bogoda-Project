@@ -39,7 +39,7 @@
                       </Group>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="Add_combo" alignment="1" min="-2" pref="79" max="-2" attributes="0"/>
-                          <Component id="jComboBox3" alignment="1" min="-2" pref="79" max="-2" attributes="0"/>
+                          <Component id="View_Combo" alignment="1" min="-2" pref="79" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -67,7 +67,7 @@
               </Group>
               <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jComboBox3" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                  <Component id="View_Combo" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                   <Component id="jButton7" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="0" pref="226" max="32767" attributes="0"/>
@@ -155,12 +155,12 @@
         <Property name="text" type="java.lang.String" value="Veiw"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="jComboBox3">
+    <Component class="javax.swing.JComboBox" name="View_Combo">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="6">
             <StringItem index="0" value="---------"/>
-            <StringItem index="1" value="Supplier"/>
+            <StringItem index="1" value="Work Code Details"/>
             <StringItem index="2" value="Category"/>
             <StringItem index="3" value="Transport Code"/>
             <StringItem index="4" value="Leaf Rate"/>
@@ -169,7 +169,7 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBox3ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="View_ComboActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

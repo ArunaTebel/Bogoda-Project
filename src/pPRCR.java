@@ -35,7 +35,7 @@ public class pPRCR extends javax.swing.JPanel {
         Add_combo = new javax.swing.JComboBox();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
-        jComboBox3 = new javax.swing.JComboBox();
+        View_Combo = new javax.swing.JComboBox();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 51, 153), 3));
 
@@ -86,10 +86,10 @@ public class pPRCR extends javax.swing.JPanel {
 
         jButton7.setText("Veiw");
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "---------", "Supplier", "Category", "Transport Code", "Leaf Rate", "----------" }));
-        jComboBox3.addActionListener(new java.awt.event.ActionListener() {
+        View_Combo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "---------", "Work Code Details", "Category", "Transport Code", "Leaf Rate", "----------" }));
+        View_Combo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox3ActionPerformed(evt);
+                View_ComboActionPerformed(evt);
             }
         });
 
@@ -110,7 +110,7 @@ public class pPRCR extends javax.swing.JPanel {
                             .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(Add_combo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(View_Combo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(GL_content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -132,7 +132,7 @@ public class pPRCR extends javax.swing.JPanel {
                     .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, 0)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(View_Combo, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 226, Short.MAX_VALUE))
             .addComponent(GL_content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -244,14 +244,26 @@ public class pPRCR extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_Add_comboActionPerformed
 
-    private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox3ActionPerformed
+    private void View_ComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_View_ComboActionPerformed
+       String selection = (String) View_Combo.getSelectedItem();
+        if (selection.equalsIgnoreCase("Work Code Details")) {
 
+            PRCR_view_workCodeDetails workcode = new PRCR_view_workCodeDetails();
 
+            GL_content.removeAll();
+
+            workcode.setSize(GL_content.getSize());
+
+            GL_content.add(workcode);
+            validate();
+            repaint();
+    }//GEN-LAST:event_View_ComboActionPerformed
+
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox Add_combo;
     private javax.swing.JPanel GL_content;
+    private javax.swing.JComboBox View_Combo;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -259,6 +271,5 @@ public class pPRCR extends javax.swing.JPanel {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
-    private javax.swing.JComboBox jComboBox3;
     // End of variables declaration//GEN-END:variables
 }
