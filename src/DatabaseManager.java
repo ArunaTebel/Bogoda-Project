@@ -77,7 +77,7 @@ public final class DatabaseManager {
         return null;
     }
     
-    public void updateDatabase(String table_name,String table_column_giving,Object row_element,String table_column_need,Object update_element){
+    public boolean updateDatabase(String table_name,String table_column_giving,Object row_element,String table_column_need,Object update_element){
         DatabaseManager dbm = DatabaseManager.getDbCon();
         try {
           
@@ -85,6 +85,8 @@ public final class DatabaseManager {
            
         } catch (SQLException ex) {
             MessageBox.showMessage(ex.getMessage(), "SQL ERROR", "error");
+            return false;
         }
+        return true;
     }
 }
