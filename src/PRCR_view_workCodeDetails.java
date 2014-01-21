@@ -219,13 +219,10 @@ public class PRCR_view_workCodeDetails extends javax.swing.JPanel {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        spiObject.setDate(day.getText(), month.getText(), year.getText());
+        spiObject.setDate(day.getText(), month.getText(), year.getText());    
         spiObject.setWorkCode(workCode.getSelectedItem().toString());
         spiObject.setDivisionCode(divisionCode.getSelectedItem().toString());
-        String codes[] = spiObject.searchAndReturn();
-        for (String code : codes) {
-            empCodes.setText(code);
-        }
+        empCodes.setText(spiObject.searchAndReturn());
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void divisionCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_divisionCodeActionPerformed

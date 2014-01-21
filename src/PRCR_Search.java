@@ -23,15 +23,25 @@ public class PRCR_Search {
     
     public void setDate(String day,String month,String year){
         this.date  = "d_" + year + "_" + month + "_" + day;
+        System.out.println(this.date);
     }
     public void setWorkCode(String work_code){
         this.work_code = work_code;
+        System.out.println(this.work_code);
     }
     public void setDivisionCode(String division_code){
         this.division_code = division_code;
+        System.out.println(this.division_code);
     }
     
-    public String[] searchAndReturn(){
-        return dbm.search_PRCR(this.date, "work_code", "division", this.work_code, this.division_code, "emp_code"); 
+    public String searchAndReturn(){
+        /*String codes[] = dbm.search_PRCR(this.date, "work_code", "division", this.work_code, this.division_code, "emp_code"); 
+        int i;
+        String s = " ";
+        for(i=0;i<codes.length;i++){
+            s = s + codes[i] + " ";
+        }
+        return s;*/
+        return dbm.checknReturnData(this.date, "work_code", this.work_code, "emp_code");
     }
 }
