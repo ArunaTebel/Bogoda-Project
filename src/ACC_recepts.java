@@ -643,6 +643,28 @@ public class ACC_recepts extends javax.swing.JPanel {
         
         raobject.addToDebitDataBase();
         
+        double currentBalance=0;
+       
+        
+        try {
+            ResultSet query = dbm.query("SELECT * FROM account_names WHERE account_id =" + raobject.getDebit_accountCode() + "");
+            while (query.next()) {
+                 currentBalance=query.getDouble("current_balance");
+            }
+        } catch (SQLException ex) {
+        }
+        int accountId= raobject.getDebit_accountCode();
+        try {
+          
+            dbm.insert("UPDATE account_names SET current_balance='"+ (raobject.getDebitAmount()+ currentBalance)+"' WHERE account_id='"+accountId+"'");
+            
+            
+            
+            
+        } catch (SQLException ex) {
+            MessageBox.showMessage(ex.getMessage(), "SQL ERROR", "error");
+        }
+        
        // adding the relevant value to the current balance of the account
 
     }//GEN-LAST:event_jButton6ActionPerformed
