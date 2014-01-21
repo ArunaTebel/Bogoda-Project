@@ -1,9 +1,15 @@
+
+import java.sql.Date;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Pramo
@@ -18,7 +24,26 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
     public PRCR_Work_normal() {
         initComponents();
     }
-
+    public void addDateTable(Date date){
+    DatabaseManager dbm=DatabaseManager.getDbCon();
+        String sdate=null;
+         //java.sql.Date date=new java.sql.Date(datepicker.getDate().getTime());
+        try {
+            // dbm.newDayTable(date);
+            sdate=date.toString();
+            StringBuilder new_date = new StringBuilder(sdate);
+            new_date.setCharAt(4, '_');
+            new_date.setCharAt(7, '_');
+            System.out.println(sdate);
+            
+            dbm.insert("CREATE TABLE d_"+new_date+"(name VARCHAR(25),"
+                    + "emp_code INT,"
+                    + "work_code VARCHAR(10));");
+        } catch (SQLException ex) {
+            Logger.getLogger(test.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -30,9 +55,9 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
 
         jSeparator1 = new javax.swing.JSeparator();
         sunday = new javax.swing.JCheckBox();
-        jComboBox1 = new javax.swing.JComboBox();
+        workCode = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
-        jXDatePicker1 = new org.jdesktop.swingx.JXDatePicker();
+        date = new org.jdesktop.swingx.JXDatePicker();
         jScrollPane1 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
@@ -49,8 +74,8 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
 
         sunday.setText("Sunday");
 
-        jComboBox1.setEditable(true);
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        workCode.setEditable(true);
+        workCode.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel3.setText("Date");
 
@@ -208,12 +233,12 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
                         .addGap(19, 19, 19)
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(workCode, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(8, 8, 8)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jXDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(sunday))
                     .addGroup(layout.createSequentialGroup()
@@ -238,11 +263,11 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
-                            .addComponent(jXDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(sunday))
                         .addGap(10, 10, 10)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(workCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2))
                         .addGap(18, 18, 18)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -253,40 +278,67 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        java.sql.Date tdate = new java.sql.Date(date.getDate().getTime());
+        addDateTable(tdate);
+        String work_code=null;
+        work_code=(String) workCode.getSelectedItem();
+        String ndate=null;
+        ndate=tdate.toString();
+            StringBuilder ne_date = new StringBuilder(ndate);
+            ne_date.setCharAt(4, '_');
+            ne_date.setCharAt(7, '_');
+            
         if (sunday.isSelected() == false) {
             int rows = 0;
             for (; rows < table.getRowCount(); rows++) {
                 if (table.getValueAt(rows, 0) != null) {
                     int normaldays = 0;
                     System.out.println(table.getValueAt(rows, 0));
-                    normaldays = Integer.parseInt(dbm.checknReturnData("normaldays_attendance", "emp_code", table.getValueAt(rows, 0), "no_of_normaldays"));
+                    normaldays = Integer.parseInt(dbm.checknReturnData("checkroll_personalinfo", "code", table.getValueAt(rows, 0), "normal_days"));
                     normaldays++;
-                    dbm.updateDatabase("normaldays_attendance", "emp_code", table.getValueAt(rows, 0), "no_of_normaldays", normaldays);
-
+                    dbm.updateDatabase("checkroll_personalinfo", "code", table.getValueAt(rows, 0), "normal_days", normaldays);
+                    //updating newly created tables
+                    try {
+                        dbm.insert("INSERT INTO d_"+ne_date+"(name,emp_code,work_code) VALUES('"+rows+"','"+table.getValueAt(rows, 0)+"','"+work_code+"')");
+                    } catch (SQLException ex) {
+                        Logger.getLogger(PRCR_Work_normal.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
                 }
             }
+            JOptionPane.showMessageDialog(null, "Details are saved for the \n" + tdate, "Message", JOptionPane.INFORMATION_MESSAGE);
+
         } else {
             int rows = 0;
             for (; rows < table.getRowCount(); rows++) {
                 if (table.getValueAt(rows, 0) != null) {
-                    int sundays= 0;
+                    int sundays = 0;
                     System.out.println(table.getValueAt(rows, 0));
-                    sundays = Integer.parseInt(dbm.checknReturnData("sundays_attendance", "emp_code", table.getValueAt(rows, 0), "no_of_sundays"));
+                    sundays = Integer.parseInt(dbm.checknReturnData("checkroll_personalinfo", "code", table.getValueAt(rows, 0), "sundays"));
                     sundays++;
-                    dbm.updateDatabase("sundays_attendance", "emp_code", table.getValueAt(rows, 0), "no_of_sundays", sundays);
-
+                    dbm.updateDatabase("checkroll_personalinfo", "code", table.getValueAt(rows, 0), "sundays", sundays);
+                    
+                    
+                    try {
+                        dbm.insert("INSERT INTO d_"+ne_date+"(name,emp_code,work_code) VALUES('"+rows+"','"+table.getValueAt(rows, 0)+"','s')");
+                    } catch (SQLException ex) {
+                        Logger.getLogger(PRCR_Work_normal.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
                 }
             }
+            JOptionPane.showMessageDialog(null, "Details are saved for the \n" + tdate, "Message", JOptionPane.INFORMATION_MESSAGE);
+
         }
     }//GEN-LAST:event_jButton6ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private org.jdesktop.swingx.JXDatePicker date;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
-    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JComboBox jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -295,8 +347,8 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private org.jdesktop.swingx.JXDatePicker jXDatePicker1;
     private javax.swing.JCheckBox sunday;
     private javax.swing.JTable table;
+    private javax.swing.JComboBox workCode;
     // End of variables declaration//GEN-END:variables
 }
