@@ -153,18 +153,18 @@ public class pPRCR extends javax.swing.JPanel {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 
-        //System.out.println(" ok ");
-        GLcash_advance cashadvance = new GLcash_advance();
+        
+        PRCR_salary sal = new PRCR_salary();
 
-        // System.out.println(" ok 1");
+       
         GL_content.removeAll();
 
-        cashadvance.setSize(GL_content.getSize());
+        sal.setSize(GL_content.getSize());
 
-        GL_content.add(cashadvance);
+        GL_content.add(sal);
         validate();
         repaint();
-        System.out.println("ok");
+        
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
