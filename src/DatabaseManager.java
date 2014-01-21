@@ -1,5 +1,6 @@
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -90,4 +91,14 @@ public final class DatabaseManager {
         return true;
     }
     
+    public void newDayTable(Date date){
+        DatabaseManager dbm = DatabaseManager.getDbCon();
+        try {
+            dbm.insert("CREATE TABLE "+date.toString()+"(name varchar(25),"
+                    + "employee_code varchar(10),"
+                    + "workCode varchar(10));");
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
