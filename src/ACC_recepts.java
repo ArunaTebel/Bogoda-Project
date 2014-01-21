@@ -355,13 +355,21 @@ public class ACC_recepts extends javax.swing.JPanel {
         jLabel5.setText("Date");
 
         bankCode.setEditable(true);
+        DatabaseManager dbm = DatabaseManager.getDbCon();
+        bankCode.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("bank","bank_id")));
         bankCode.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 bankCodeItemStateChanged(evt);
             }
         });
+        bankCode.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bankCodeActionPerformed(evt);
+            }
+        });
 
         branchCode.setEditable(true);
+        branchCode.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("bank_branch","branch_id")));
         branchCode.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 branchCodeItemStateChanged(evt);
@@ -437,7 +445,7 @@ public class ACC_recepts extends javax.swing.JPanel {
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 0, 0), 2, true), "DEBIT"));
 
         debit_accountCode.setEditable(true);
-        debit_accountCode.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        debit_accountCode.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("account_names", "account_id")));
         debit_accountCode.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 debit_accountCodeItemStateChanged(evt);
@@ -597,8 +605,24 @@ public class ACC_recepts extends javax.swing.JPanel {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
+    public int stringToIntNum(String s) {
+        if (s.length() == 0) {
+            return 0;
+        } else {
+            return Integer.parseInt(s);
+        }
+    }
 
+    public double stringToDoubleNum(String s) {
+        if (s.length() == 0) {
+            return 0;
+        } else {
+            return Double.parseDouble(s);
+        }
+    }
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+
+        boolean addToDebitDataBase;
         raobject.setRefNo(Integer.parseInt(refNo.getText()));
         raobject.setRecieptNo(Integer.parseInt(recieptNo.getText()));
         java.sql.Date date1 = new java.sql.Date(date.getDate().getTime());
@@ -607,28 +631,39 @@ public class ACC_recepts extends javax.swing.JPanel {
         raobject.setDebit_accountCode(Integer.parseInt(debit_accountCode.getSelectedItem().toString()));
 
         DatabaseManager dbm = DatabaseManager.getDbCon();
-      
-        raobject.setDebit_accountName(dbm.checknReturnData("account_names","account_id", raobject.getDebit_accountCode(),"account_name"));
-        raobject.setDebit_description(debit_description.getText());
-        raobject.setBankCode(Integer.parseInt(bankCode.getSelectedItem().toString()));
 
-       
-        raobject.setBankName(dbm.checknReturnData("bank","bank_id",raobject.getBankCode(),"bank_name"));
-        raobject.setBranchCode(Integer.parseInt(branchCode.getSelectedItem().toString()));
-        
-      
-        raobject.setBranchName(dbm.checknReturnData("bank_branch","branch_id",raobject.getBranchCode(),"branch_name"));
-        raobject.setChequeNo(chequeNo.getText());
-        
-        java.sql.Date date2 = new java.sql.Date(chequeDate.getDate().getTime());
-        raobject.setChequeDate(date2);
-        
+        raobject.setDebit_accountName(dbm.checknReturnData("account_names", "account_id", raobject.getDebit_accountCode(), "account_name"));
+        raobject.setDebit_description(debit_description.getText());
+
         raobject.setDebitAmount(Double.parseDouble(debitAmount.getText()));
-        boolean addToDebitDataBase = raobject.addToDebitDataBase();
-        if(addToDebitDataBase==true){
-           
-        double updated_current_balance = Double.parseDouble(dbm.checknReturnData("account_names","account_id",raobject.getDebit_accountCode(),"current_balance"))+raobject.getDebitAmount();
-        dbm.updateDatabase("account_names","account_id",raobject.getDebit_accountCode(),"current_balance",updated_current_balance);
+        
+        if ("Cheque".equals(raobject.getPayType())) {
+
+            raobject.setBankCode(Integer.parseInt(bankCode.getSelectedItem().toString()));
+
+            raobject.setBankName(dbm.checknReturnData("bank", "bank_id", raobject.getBankCode(), "bank_name"));
+            raobject.setBranchCode(Integer.parseInt(branchCode.getSelectedItem().toString()));
+
+            raobject.setBranchName(dbm.checknReturnData("bank_branch", "branch_id", raobject.getBranchCode(), "branch_name"));
+            raobject.setChequeNo(chequeNo.getText());
+
+            java.sql.Date date2 = new java.sql.Date(chequeDate.getDate().getTime());
+            raobject.setChequeDate(date2);
+
+            addToDebitDataBase = raobject.addToDebitDataBaseBank();
+        } else {
+            raobject.setBankCode(0);
+            raobject.setBankName(null);
+            raobject.setBranchCode(0);
+            raobject.setBranchName(null);
+            raobject.setChequeDate(null);
+            raobject.setChequeNo(null);
+            addToDebitDataBase = raobject.addToDebitDataBaseCash();
+        }
+        if (addToDebitDataBase == true) {
+
+            double updated_current_balance = Double.parseDouble(dbm.checknReturnData("account_names", "account_id", raobject.getDebit_accountCode(), "current_balance")) + raobject.getDebitAmount();
+            dbm.updateDatabase("account_names", "account_id", raobject.getDebit_accountCode(), "current_balance", updated_current_balance);
         }
         // adding the relevant value to the current balance of the account
 
@@ -638,15 +673,15 @@ public class ACC_recepts extends javax.swing.JPanel {
         DatabaseManager dbm = DatabaseManager.getDbCon();
         String Name = null;
         if (evt.getStateChange() == ItemEvent.SELECTED) {
-          int item = Integer.parseInt(evt.getItem().toString());
+            int item = Integer.parseInt(evt.getItem().toString());
             try {
-              ResultSet query = dbm.query("SELECT * FROM bank WHERE bank_id ="+item+"");
-              while(query.next()){
-                  Name = query.getString("bank_name");
-              }
+                ResultSet query = dbm.query("SELECT * FROM bank WHERE bank_id =" + item + "");
+                while (query.next()) {
+                    Name = query.getString("bank_name");
+                }
             } catch (SQLException ex) {
             }
-          bankName.setText(""+Name);
+            bankName.setText("" + Name);
         }
     }//GEN-LAST:event_bankCodeItemStateChanged
 
@@ -654,15 +689,15 @@ public class ACC_recepts extends javax.swing.JPanel {
         DatabaseManager dbm = DatabaseManager.getDbCon();
         String Name = null;
         if (evt.getStateChange() == ItemEvent.SELECTED) {
-          int item = Integer.parseInt(evt.getItem().toString());
+            int item = Integer.parseInt(evt.getItem().toString());
             try {
-              ResultSet query = dbm.query("SELECT * FROM bank_branch WHERE branch_id ="+item+"");
-              while(query.next()){
-                  Name = query.getString("branch_name");
-              }
+                ResultSet query = dbm.query("SELECT * FROM bank_branch WHERE branch_id =" + item + "");
+                while (query.next()) {
+                    Name = query.getString("branch_name");
+                }
             } catch (SQLException ex) {
             }
-          branchName.setText(""+Name);
+            branchName.setText("" + Name);
         }
     }//GEN-LAST:event_branchCodeItemStateChanged
 
@@ -670,17 +705,21 @@ public class ACC_recepts extends javax.swing.JPanel {
         DatabaseManager dbm = DatabaseManager.getDbCon();
         String Name = null;
         if (evt.getStateChange() == ItemEvent.SELECTED) {
-          int item = Integer.parseInt(evt.getItem().toString());
+            int item = Integer.parseInt(evt.getItem().toString());
             try {
-              ResultSet query = dbm.query("SELECT * FROM account_names WHERE account_id ="+item+"");
-              while(query.next()){
-                  Name = query.getString("account_name");
-              }
+                ResultSet query = dbm.query("SELECT * FROM account_names WHERE account_id =" + item + "");
+                while (query.next()) {
+                    Name = query.getString("account_name");
+                }
             } catch (SQLException ex) {
             }
-          debit_accountName.setText(""+Name);
+            debit_accountName.setText("" + Name);
         }
     }//GEN-LAST:event_debit_accountCodeItemStateChanged
+
+    private void bankCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bankCodeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bankCodeActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
