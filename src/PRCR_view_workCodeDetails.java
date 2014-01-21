@@ -94,7 +94,7 @@ public class PRCR_view_workCodeDetails extends javax.swing.JPanel {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        DOB1.setText("YY");
+        DOB1.setText("DD");
         DOB1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 DOB1ActionPerformed(evt);

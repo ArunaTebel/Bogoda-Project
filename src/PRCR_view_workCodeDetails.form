@@ -221,7 +221,7 @@
       <SubComponents>
         <Component class="javax.swing.JTextField" name="DOB1">
           <Properties>
-            <Property name="text" type="java.lang.String" value="YY"/>
+            <Property name="text" type="java.lang.String" value="DD"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="DOB1ActionPerformed"/>
