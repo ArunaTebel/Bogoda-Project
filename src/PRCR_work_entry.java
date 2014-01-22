@@ -46,6 +46,11 @@ public class PRCR_work_entry extends javax.swing.JPanel {
         jButton2.setBackground(new java.awt.Color(0, 0, 102));
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("OverTime");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton1.setBackground(new java.awt.Color(0, 0, 102));
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
@@ -81,6 +86,7 @@ public class PRCR_work_entry extends javax.swing.JPanel {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         
         jButton1.setBackground(new java.awt.Color(0, 0, 0));
+           jButton2.setBackground(new java.awt.Color(0, 0, 102));
         PRCR_Work_normal worknorm = new PRCR_Work_normal();
 
         work_main.removeAll();
@@ -91,6 +97,20 @@ public class PRCR_work_entry extends javax.swing.JPanel {
         validate();
         repaint();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        jButton2.setBackground(new java.awt.Color(0, 0, 0));
+         jButton1.setBackground(new java.awt.Color(0, 0, 102));
+        PRCR_work_overtime workover = new PRCR_work_overtime();
+
+        work_main.removeAll();
+
+        workover.setSize(work_main.getSize());
+
+        work_main.add(workover);
+        validate();
+        repaint();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

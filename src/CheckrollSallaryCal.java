@@ -20,6 +20,7 @@ public class CheckrollSallaryCal {
         CheckrollSallaryCal abc = new CheckrollSallaryCal();
         abc.setNormalDaysRate();
         
+        
     }
     
     DatabaseManager dbm = DatabaseManager.getDbCon();
