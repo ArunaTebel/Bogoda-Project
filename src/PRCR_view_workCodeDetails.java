@@ -223,6 +223,7 @@ public class PRCR_view_workCodeDetails extends javax.swing.JPanel {
         spiObject.setWorkCode(workCode.getSelectedItem().toString());
         spiObject.setDivisionCode(divisionCode.getSelectedItem().toString());
         empCodes.setText(spiObject.searchAndReturn());
+        System.out.println(spiObject.searchAndReturn());
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void divisionCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_divisionCodeActionPerformed

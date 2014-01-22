@@ -35,13 +35,15 @@ public class PRCR_Search {
     }
     
     public String searchAndReturn(){
-        /*String codes[] = dbm.search_PRCR(this.date, "work_code", "division", this.work_code, this.division_code, "emp_code"); 
-        int i;
+        String codes[]; 
+        codes = dbm.search_PRCR(this.date, "work_code", "division", this.work_code, this.division_code, "emp_code");
+        int i = 0;
         String s = " ";
         for(i=0;i<codes.length;i++){
             s = s + codes[i] + " ";
         }
-        return s;*/
-        return dbm.checknReturnData(this.date, "work_code", this.work_code, "emp_code");
+        return s;
+        //System.out.println(this.date); System.out.println(this.work_code);
+        //return dbm.checknReturnData("d_2014_01_07","work_code","work_code","name");
     }
 }

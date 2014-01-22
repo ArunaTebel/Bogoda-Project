@@ -74,7 +74,8 @@ public final class DatabaseManager {
                 return (query.getString(table_column_need));
             }
         } catch (SQLException ex) {
-            
+            System.out.println(ex.getMessage());
+            return ""+ex.getErrorCode();            
         }
         return null;
     }
@@ -128,7 +129,8 @@ public final class DatabaseManager {
     
     public String[] search_PRCR(String table_name,String column_1,String column_2,Object element_1,Object element_2,String needed_column){
         DatabaseManager dbm = DatabaseManager.getDbCon();
-        String workcodes[] = null;
+        //String workcodes[] = null;
+        String workcodes[];
         int i = 0;
         try {
             ResultSet query = dbm.query("SELECT * FROM " + table_name + " WHERE " + column_1 + " ='" + element_1 + " 'AND " + column_2 +" ='" + element_2 + "'");
@@ -141,13 +143,14 @@ public final class DatabaseManager {
             workcodes = new String[i];
             i = 0;
             ResultSet query_1 = dbm.query("SELECT * FROM " + table_name + " WHERE " + column_1 + " ='" + element_1 + " 'AND " + column_2 +" ='" + element_2 + "'");
-            while (query.next()) {
-                workcodes[i] = query.getString(needed_column);
+            while (query_1.next()) {
+                workcodes[i] = query_1.getString(needed_column);
                 i++;
             }
             return workcodes;
         }catch (SQLException ex) {
-          
+            System.out.println(ex.getMessage());
+            //return ""+ex.getErrorCode();
         }
         return null;
     }
