@@ -14,7 +14,16 @@ public class ACC_payments extends javax.swing.JPanel {
      * Creates new form ACC_payments
      */
     public ACC_payments() {
-        initComponents();
+        
+         initComponents();
+        String selection = (String) payType.getSelectedItem();
+
+        if (selection.equalsIgnoreCase("Cash")) {
+
+            Cheque_pay.setVisible(false);
+
+        }
+       
     }
 
     /**

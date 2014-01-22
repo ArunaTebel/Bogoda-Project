@@ -597,8 +597,25 @@ public class ACC_recepts extends javax.swing.JPanel {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
-
+    public int stringToIntNum(String s){
+            if(s.length()==0){
+                return 0;
+            }
+            else{
+                return Integer.parseInt(s);
+            }
+        }
+    public double stringToDoubleNum(String s){
+            if(s.length()==0){
+                return 0;
+            }
+            else{
+                return Double.parseDouble(s);
+            }
+        }
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        
+        boolean addToDebitDataBase;
         raobject.setRefNo(Integer.parseInt(refNo.getText()));
         raobject.setRecieptNo(Integer.parseInt(recieptNo.getText()));
         java.sql.Date date1 = new java.sql.Date(date.getDate().getTime());
@@ -607,9 +624,13 @@ public class ACC_recepts extends javax.swing.JPanel {
         raobject.setDebit_accountCode(Integer.parseInt(debit_accountCode.getSelectedItem().toString()));
 
         DatabaseManager dbm = DatabaseManager.getDbCon();
-      
+        
         raobject.setDebit_accountName(dbm.checknReturnData("account_names","account_id", raobject.getDebit_accountCode(),"account_name"));
         raobject.setDebit_description(debit_description.getText());
+        
+        
+       // if(raobject.getPayType()=="Cheque"){
+            
         raobject.setBankCode(Integer.parseInt(bankCode.getSelectedItem().toString()));
 
        
@@ -624,7 +645,19 @@ public class ACC_recepts extends javax.swing.JPanel {
         raobject.setChequeDate(date2);
         
         raobject.setDebitAmount(Double.parseDouble(debitAmount.getText()));
-        boolean addToDebitDataBase = raobject.addToDebitDataBase();
+       
+        addToDebitDataBase = raobject.addToDebitDataBaseBank();
+        
+        
+     /*   else{
+            raobject.setBankCode(0);
+            raobject.setBankName(null);
+            raobject.setBranchCode(0);
+            raobject.setBranchName(null);
+            raobject.setChequeDate(null);
+            raobject.setChequeNo(null);
+            addToDebitDataBase=raobject.addToDebitDataBaseBank();
+        }*/
         if(addToDebitDataBase==true){
            
         double updated_current_balance = Double.parseDouble(dbm.checknReturnData("account_names","account_id",raobject.getDebit_accountCode(),"current_balance"))+raobject.getDebitAmount();
