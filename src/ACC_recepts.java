@@ -355,13 +355,21 @@ public class ACC_recepts extends javax.swing.JPanel {
         jLabel5.setText("Date");
 
         bankCode.setEditable(true);
+        DatabaseManager dbm = DatabaseManager.getDbCon();
+        bankCode.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("bank","bank_id")));
         bankCode.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 bankCodeItemStateChanged(evt);
             }
         });
+        bankCode.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bankCodeActionPerformed(evt);
+            }
+        });
 
         branchCode.setEditable(true);
+        branchCode.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("bank_branch","branch_id")));
         branchCode.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 branchCodeItemStateChanged(evt);
@@ -437,6 +445,7 @@ public class ACC_recepts extends javax.swing.JPanel {
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 0, 0), 2, true), "DEBIT"));
 
         debit_accountCode.setEditable(true);
+        debit_accountCode.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("account_names", "account_id")));
         debit_accountCode.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 debit_accountCodeItemStateChanged(evt);
@@ -707,6 +716,10 @@ public class ACC_recepts extends javax.swing.JPanel {
             debit_accountName.setText("" + Name);
         }
     }//GEN-LAST:event_debit_accountCodeItemStateChanged
+
+    private void bankCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bankCodeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bankCodeActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -13,8 +13,9 @@ public final class DatabaseManager {
     public Connection conn;
     private Statement statement;
     public static DatabaseManager db;
+    
 
-    private DatabaseManager() {
+    DatabaseManager() {
         String url = "jdbc:mysql://localhost:3306/";
         String dbName = "bogoda";
         String driver = "com.mysql.jdbc.Driver";
@@ -100,5 +101,28 @@ public final class DatabaseManager {
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public String[] getStringArray(String table_name,String column_name){
+        
+        int count=0; 
+        DatabaseManager dbm = DatabaseManager.getDbCon();
+         try {
+            ResultSet query = dbm.query("SELECT "+column_name+" FROM "+table_name+"");
+            while (query.next()) {
+                count++;
+            }
+            String[] array = new String[count];
+            count=0;
+            ResultSet query2 = dbm.query("SELECT "+column_name+" FROM "+table_name+"");
+            while (query2.next()) {
+                array[count]=query2.getString(column_name);
+                count++;
+            }
+            return array;
+        } catch (SQLException ex) {
+            
+        }
+        return null;
     }
 }
