@@ -293,7 +293,7 @@ public class Reciepts_accounts {
      public boolean addToDebitDataBaseCash() {
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         try {
-            dbCon.insert("INSERT INTO account_reciept_debitside(ref_no,reciept_no,date,pay_type,debit_account_id,debit_account_name,debit_description,debit_amount) VALUES('" + refNo + "','" + recieptNo + "','" +date+"','" +payType+"','" +debit_accountCode+"','" +debit_accountName+"','" +debit_description+"','" +"','" + debitAmount+"')");
+            dbCon.insert("INSERT INTO account_reciept_debitside(ref_no,reciept_no,date,pay_type,debit_account_id,debit_account_name,debit_description,debit_amount) VALUES('" + refNo + "','" + recieptNo + "','" +date+"','" +payType+"','" +debit_accountCode+"','" +debit_accountName+"','" +debit_description+"','" + debitAmount+"')");
         } catch (SQLException ex) {
             MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
             return false;
