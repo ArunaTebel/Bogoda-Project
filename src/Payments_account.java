@@ -1,9 +1,14 @@
 
+import java.sql.Date;
+import java.sql.SQLException;
+
+
 public class Payments_account {
+
     int refNo;
     int recieptNo; // auto
-    String date; // this should be automatically diplayed
-    String payType; // this is selected from a combo box... it should contain cash/cheque and credit.. Deafault should be set to cash
+    Date date; // this should be automatically diplayed
+    String payType; // this is selected from a combo box... it should contain cash/cheque and debit.. Deafault should be set to cash
     int credit_accountCode; // set default the account code of cash..
     String credit_accountName;  // this should be automatically filled.. 
     String credit_description;
@@ -12,16 +17,16 @@ public class Payments_account {
     int branchCode;
     String branchName; // this should be automatically filled..
     String chequeNo; // check whether we can use int here..
-    String chequeDate;
+    Date chequeDate;
     double creditAmount;
-    int[] debit_accountCode;// there can be several credit entries
-    String[] debit_accountName;
-    String[] debit_description;
-    double[] debitAmount;
+    int[] debit_accountCode = new int[5];// there can be several debit entries
+    String[] debit_accountName = new String[5];
+    String[] debit_description = new String[5];
+    double[] debitAmount = new double[5];
     double difference; // allow save only if this is zero
-    double debitTotal;
-    
-     public Payments_account() {
+    double debitTotal; // total of all debit entries
+
+    public Payments_account() {
         refNo = 0;
         recieptNo = 0;
         date = null;
@@ -48,13 +53,14 @@ public class Payments_account {
     }
     
     // Setters
+
     public void setRefNo(int refNo) {
         this.refNo = refNo;
     }
     public void setRecieptNo(int recieptNo){
         this.recieptNo=recieptNo;
     }
-    public void setDate(String date){
+    public void setDate(Date date){
         this.date=date;
     }
     public void setPayType(String  payType){
@@ -84,7 +90,7 @@ public class Payments_account {
     public void setChequeNo(String chequeNo){
         this.chequeNo=chequeNo;
     }
-    public void setChequeDate(String chequeDate){
+    public void setChequeDate(Date chequeDate){
         this.chequeDate=chequeDate;
     }
     public void setCreditAmount(double creditAmount){
@@ -99,7 +105,7 @@ public class Payments_account {
     public void setDebit_description1(String debitDescription){
         debit_description[0]=debitDescription;
     }
-    public void setdebitAmount1(double debitAmnt){
+    public void setDebitAmount1(double debitAmnt){
         debitAmount[0]=debitAmnt;
     }
      public void setDebit_accountCode2(int debitAccountCode){
@@ -111,7 +117,7 @@ public class Payments_account {
     public void setDebit_description2(String debitDescription){
         debit_description[1]=debitDescription;
     }
-    public void setdebitAmount2(double debitAmnt){
+    public void setDebitAmount2(double debitAmnt){
         debitAmount[1]=debitAmnt;
     }
      public void setDebit_accountCode3(int debitAccountCode){
@@ -120,7 +126,7 @@ public class Payments_account {
     public void setDebit_accountName3(String debitAccountName){
         debit_accountName[2]=debitAccountName;
     }
-    public void setdebit_description3(String debitDescription){
+    public void setDebit_description3(String debitDescription){
         debit_description[2]=debitDescription;
     }
     public void setDebitAmount3(double debitAmnt){
@@ -171,7 +177,7 @@ public class Payments_account {
     public int getRecieptNo(){
         return recieptNo;
     }
-    public String getDate(){
+    public Date getDate(){
         return date;
     }
     public String getPayType(){
@@ -201,7 +207,7 @@ public class Payments_account {
     public String getChequeNo(){
         return chequeNo;
     }
-    public String getChequeDate(){
+    public Date getChequeDate(){
         return chequeDate;
     }
     public double getCreditAmount(){
@@ -216,7 +222,7 @@ public class Payments_account {
     public String getDebit_description1(){
         return debit_description[0];
     }
-    public double getAmountDebit1(){
+    public double getDebitAmount1(){
         return debitAmount[0];
     }
      public int getDebit_accountCode2(){
@@ -274,9 +280,44 @@ public class Payments_account {
         return debitTotal;
     }  
    
-    
-    
-    
-    
+    public boolean addToCreditDataBaseBank() {
+        DatabaseManager dbCon = DatabaseManager.getDbCon();
+        try {
+            dbCon.insert("INSERT INTO account_payment_creditside(ref_no,reciept_no,date,pay_type,credit_account_id,credit_account_name,credit_description,bank_id,bank_name,branch_id,branch_name,cheque_no,cheque_date,credit_amount) VALUES('" + refNo + "','" + recieptNo + "','" +date+"','" +payType+"','" +credit_accountCode+"','" +credit_accountName+"','" +credit_description+"','" +bankCode+"','" +bankName+"','" +branchCode+"','" +branchName+"','" +chequeNo+"','" +chequeDate+"','" +creditAmount+"')");
+        } catch (SQLException ex) {
+            MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
+            return false;
+        }
+        return true;
+    }
+     public boolean addToCreditDataBaseCash() {
+        DatabaseManager dbCon = DatabaseManager.getDbCon();
+        try {
+            dbCon.insert("INSERT INTO account_payment_creditside(ref_no,reciept_no,date,pay_type,credit_account_id,credit_account_name,credit_description,credit_amount) VALUES('" + refNo + "','" + recieptNo + "','" +date+"','" +payType+"','" +credit_accountCode+"','" +credit_accountName+"','" +credit_description+"','" + creditAmount+"')");
+        } catch (SQLException ex) {
+            MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
+            return false;
+        }
+        return true;
+    }
+   /*   // this has to be coded later
+    public void addToDebitDataBase() {
+        DatabaseManager dbCon = DatabaseManager.getDbCon();
+        try {
+            dbCon.insert("INSERT INTO bank(bank_id,bank_name) VALUES('" + bankCode + "','" + bankName + "')");
+        } catch (SQLException ex) {
+            MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
+        }
+
+    } */
+
+    public void removeFromDataBase() {
+
+    }
+
+    public void editDataBase() {
+
+    }
 }
-    
+   
+
