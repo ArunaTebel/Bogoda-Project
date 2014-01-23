@@ -85,11 +85,10 @@ public class MainWindow extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
-        jMenu4 = new javax.swing.JMenu();
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem8 = new javax.swing.JMenuItem();
-        jMenu5 = new javax.swing.JMenu();
-        jMenu6 = new javax.swing.JMenu();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         jMenuItem5.setText("jMenuItem5");
 
@@ -438,15 +437,13 @@ public class MainWindow extends javax.swing.JFrame {
 
         jMenu3.setText("Add");
 
-        jMenu4.setText("Bank Detail");
-
         jMenuItem7.setText("Bank");
         jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem7ActionPerformed(evt);
             }
         });
-        jMenu4.add(jMenuItem7);
+        jMenu3.add(jMenuItem7);
 
         jMenuItem8.setText("Branch");
         jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
@@ -454,15 +451,16 @@ public class MainWindow extends javax.swing.JFrame {
                 jMenuItem8ActionPerformed(evt);
             }
         });
-        jMenu4.add(jMenuItem8);
+        jMenu3.add(jMenuItem8);
+        jMenu3.add(jSeparator2);
 
-        jMenu3.add(jMenu4);
-
-        jMenu5.setText("Rate Detail");
-        jMenu3.add(jMenu5);
-
-        jMenu6.setText("jMenu6");
-        jMenu3.add(jMenu6);
+        jMenuItem1.setText("Rate Detail");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem1);
 
         jMenuBar1.add(jMenu3);
 
@@ -712,6 +710,20 @@ public class MainWindow extends javax.swing.JFrame {
     private void jButton12FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jButton12FocusGained
         interface_events.Respond_enter(jButton12, null);
     }//GEN-LAST:event_jButton12FocusGained
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        
+        Add_Rate_details rate = new Add_Rate_details();
+
+        Main_Content.removeAll();
+
+        rate.setSize(Main_Content.getSize());
+
+        Main_Content.add(rate);
+        validate();
+        repaint();
+        //rate.focus();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
                            
 
 
@@ -781,10 +793,8 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenu jMenu5;
-    private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
@@ -793,6 +803,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }
