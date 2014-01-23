@@ -50,9 +50,9 @@ public class ACC_payments extends javax.swing.JPanel {
         debit_amount = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jTextField7 = new javax.swing.JTextField();
+        difference = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
-        jTextField13 = new javax.swing.JTextField();
+        total = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
         debit_account_name = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
@@ -90,6 +90,7 @@ public class ACC_payments extends javax.swing.JPanel {
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 102, 0), 2, true), "DEBIT"));
 
@@ -187,6 +188,7 @@ public class ACC_payments extends javax.swing.JPanel {
         debit_account_code_table.setAutoResizeMode(debit_account_code_table.AUTO_RESIZE_OFF);
 
         debit_account_code.setEditable(true);
+        debit_account_code.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "3", "4", "5", "6", " " }));
         debit_account_code.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 debit_account_codeActionPerformed(evt);
@@ -215,6 +217,11 @@ public class ACC_payments extends javax.swing.JPanel {
         });
 
         jButton1.setText("Clear all");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Clear Last ");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -225,7 +232,7 @@ public class ACC_payments extends javax.swing.JPanel {
 
         jLabel13.setText("Difference");
 
-        jTextField13.setBackground(new java.awt.Color(255, 204, 204));
+        total.setBackground(new java.awt.Color(255, 204, 204));
 
         jLabel14.setText("Total");
 
@@ -254,11 +261,11 @@ public class ACC_payments extends javax.swing.JPanel {
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                                         .addComponent(jLabel13)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(difference, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                                         .addComponent(jLabel14)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addComponent(total, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                                 .addComponent(debit_description, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, 0)
@@ -294,11 +301,11 @@ public class ACC_payments extends javax.swing.JPanel {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(1, 1, 1)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(total, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel14))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(difference, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel13)))
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButton2)
@@ -514,7 +521,7 @@ public class ACC_payments extends javax.swing.JPanel {
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
                         .addComponent(date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(216, Short.MAX_VALUE))
+                .addContainerGap(219, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -575,6 +582,13 @@ public class ACC_payments extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
+        jButton5.setText("Send");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -589,10 +603,12 @@ public class ACC_payments extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 44, Short.MAX_VALUE)))
+                        .addGap(0, 47, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(86, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton5)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -613,11 +629,32 @@ public class ACC_payments extends javax.swing.JPanel {
                                 .addGap(116, 116, 116)
                                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(jButton5)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        int i=0;
+        while(debit_account_code_table.getValueAt(i, 0)!=null){
+            i++;
+        }
+        i--;
+        debit_account_code_table.setValueAt(null, i, 0);
+        debit_description_table.setValueAt(null, i, 0);
+        debit_amount_table.setValueAt(null, i, 0);
+        
+        double tot=0;
+         i=0;
+        while(debit_account_code_table.getValueAt(i, 0)!= null){
+            tot=tot+Double.parseDouble((String) debit_amount_table.getValueAt(i, 0));
+            i++;
+        }
+        total.setText(""+tot);
+        difference.setText(""+(Double.parseDouble(creditAmount.getText())-tot));
+        
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void credit_accountCodeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_credit_accountCodeItemStateChanged
@@ -722,20 +759,38 @@ public class ACC_payments extends javax.swing.JPanel {
             paobject.setChequeNo(null);
             addToCreditDataBase = paobject.addToCreditDataBaseCash();
         }
+        // adding the relevant value to the current balance of the account
         if (addToCreditDataBase == true) {
 
             double updated_current_balance = Double.parseDouble(dbm.checknReturnData("account_names", "account_id", paobject.getCredit_accountCode(), "current_balance")) - paobject.getCreditAmount();
             dbm.updateDatabase("account_names", "account_id", paobject.getCredit_accountCode(), "current_balance", updated_current_balance);
         }
-        // adding the relevant value to the current balance of the account
+        
+        
+        //  Debit Side of the payment
+        
+     /* int i=0;
+        while(debit_account_code_table.getValueAt(i, 0)!= null){
+            i++;
+        }
+        String debit_acnt_name;
+        
+        
+        for(int j=0;j<=i-1;j++){
+            debit_acnt_name = dbm.checknReturnData("account_names", "account_id",Integer.parseInt((String) debit_account_code_table.getValueAt(i, 0)), "account_name");
+            paobject.addToDebitDataBase(Integer.parseInt(recieptNo.getText()), Integer.parseInt((String) debit_account_code_table.getValueAt(i, 0)),debit_acnt_name, (String) debit_description_table.getValueAt(i, 0),Double.parseDouble((String) debit_amount_table.getValueAt(i, 0)));
+        } */
     }//GEN-LAST:event_jButton6ActionPerformed
-
+    
+             
+             
+             
     private void debit_account_codeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_debit_account_codeKeyReleased
         
     }//GEN-LAST:event_debit_account_codeKeyReleased
 
     private void debit_account_codeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_debit_account_codeFocusLost
-        
+        debit_account_code_table.setValueAt("23", 0, 0);
     }//GEN-LAST:event_debit_account_codeFocusLost
 
     private void refNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refNoActionPerformed
@@ -753,6 +808,49 @@ public class ACC_payments extends javax.swing.JPanel {
     private void debit_descriptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_debit_descriptionActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_debit_descriptionActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        int i=0;
+        while(debit_account_code_table.getValueAt(i, 0)!=null){
+            i++;
+        }
+       
+        
+        debit_account_code_table.setValueAt(debit_account_code.getSelectedItem().toString(),i, 0);
+        debit_description_table.setValueAt(debit_description.getText(), i, 0);
+        debit_amount_table.setValueAt(debit_amount.getText(), i, 0);
+        debit_account_code.setSelectedIndex(0);
+        debit_amount.setText(null);
+        double tot=0;
+         i=0;
+        while(debit_account_code_table.getValueAt(i, 0)!= null){
+            tot=tot+Double.parseDouble((String) debit_amount_table.getValueAt(i, 0));
+            i++;
+        }
+        total.setText(""+tot);
+        difference.setText(""+(Double.parseDouble(creditAmount.getText())-tot));
+        
+        
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        int i=0;
+        while(debit_account_code_table.getValueAt(i, 0)!=null){
+            debit_account_code_table.setValueAt(null, i, 0);
+            debit_description_table.setValueAt(null, i, 0);
+            debit_amount_table.setValueAt(null, i, 0);
+            i++;
+        }
+        double tot=0;
+         i=0;
+        while(debit_account_code_table.getValueAt(i, 0)!= null){
+            tot=tot+Double.parseDouble((String) debit_amount_table.getValueAt(i, 0));
+            i++;
+        }
+        total.setText(""+tot);
+        difference.setText(""+(Double.parseDouble(creditAmount.getText())-tot));
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -775,10 +873,12 @@ public class ACC_payments extends javax.swing.JPanel {
     private javax.swing.JTable debit_amount_table;
     private javax.swing.JTextField debit_description;
     private javax.swing.JTable debit_description_table;
+    private javax.swing.JTextField difference;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
@@ -803,10 +903,9 @@ public class ACC_payments extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField jTextField13;
-    private javax.swing.JTextField jTextField7;
     private javax.swing.JComboBox payType;
     private javax.swing.JTextField recieptNo;
     private javax.swing.JTextField refNo;
+    private javax.swing.JTextField total;
     // End of variables declaration//GEN-END:variables
 }
