@@ -87,7 +87,7 @@ public class pPRCR extends javax.swing.JPanel {
 
         jButton7.setText("Veiw");
 
-        View_Combo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "---------", "Work Code Details", "Category", "Transport Code", "Leaf Rate", "----------" }));
+        View_Combo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "---------", "Work Code Details", "Note Analysis", "Transport Code", "Leaf Rate", "----------" }));
         View_Combo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 View_ComboActionPerformed(evt);
@@ -265,6 +265,18 @@ public class pPRCR extends javax.swing.JPanel {
             repaint();
     }//GEN-LAST:event_View_ComboActionPerformed
 
+        if (selection.equalsIgnoreCase("Note Analysis")) {
+            PRCR_salary_note_anlysis noteanalysis = new PRCR_salary_note_anlysis();
+
+        GL_content.removeAll();
+
+        noteanalysis.setSize(GL_content.getSize());
+
+        GL_content.add(noteanalysis);
+        validate();
+        repaint();
+            
+        }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox Add_combo;
