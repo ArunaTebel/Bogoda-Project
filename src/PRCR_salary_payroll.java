@@ -1,3 +1,8 @@
+
+import java.awt.event.ItemEvent;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -74,7 +79,13 @@ public class PRCR_salary_payroll extends javax.swing.JPanel {
         });
 
         code.setEditable(true);
-        code.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        DatabaseManager dbm=DatabaseManager.getDbCon();
+        code.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("personal_info", "code")));
+        code.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                codeItemStateChanged(evt);
+            }
+        });
         code.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 codeActionPerformed(evt);
@@ -295,6 +306,22 @@ public class PRCR_salary_payroll extends javax.swing.JPanel {
         otAmount.setText(String.valueOf(spiObject.getOtAmount()));
         fullPay.setText(String.valueOf(spiObject.getFullPay()));
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void codeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_codeItemStateChanged
+DatabaseManager dbm = DatabaseManager.getDbCon();
+        String Name = null;
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            int item = Integer.parseInt(evt.getItem().toString());
+            try {
+                ResultSet query = dbm.query("SELECT * FROM personal_info WHERE code =" + item + "");
+                while (query.next()) {
+                    Name = query.getString("name");
+                }
+            } catch (SQLException ex) {
+            }
+            name.setText("" + Name);
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_codeItemStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
