@@ -769,7 +769,7 @@ public class ACC_payments extends javax.swing.JPanel {
         
         //  Debit Side of the payment
         
-     /* int i=0;
+      int i=0;
         while(debit_account_code_table.getValueAt(i, 0)!= null){
             i++;
         }
@@ -777,9 +777,9 @@ public class ACC_payments extends javax.swing.JPanel {
         
         
         for(int j=0;j<=i-1;j++){
-            debit_acnt_name = dbm.checknReturnData("account_names", "account_id",Integer.parseInt((String) debit_account_code_table.getValueAt(i, 0)), "account_name");
-            paobject.addToDebitDataBase(Integer.parseInt(recieptNo.getText()), Integer.parseInt((String) debit_account_code_table.getValueAt(i, 0)),debit_acnt_name, (String) debit_description_table.getValueAt(i, 0),Double.parseDouble((String) debit_amount_table.getValueAt(i, 0)));
-        } */
+            debit_acnt_name = dbm.checknReturnData("account_names", "account_id",Integer.parseInt((String) debit_account_code_table.getValueAt(j, 0)), "account_name");
+            paobject.addToDebitDataBase(Integer.parseInt(recieptNo.getText()), Integer.parseInt((String) debit_account_code_table.getValueAt(j, 0)),debit_acnt_name, (String) debit_description_table.getValueAt(j, 0),Double.parseDouble((String) debit_amount_table.getValueAt(j, 0)));
+        } 
     }//GEN-LAST:event_jButton6ActionPerformed
     
              
