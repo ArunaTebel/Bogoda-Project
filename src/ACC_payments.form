@@ -262,6 +262,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="debit_description">
           <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="debit_descriptionActionPerformed"/>
             <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="debit_descriptionFocusLost"/>
           </Events>
         </Component>

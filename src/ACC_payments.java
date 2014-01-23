@@ -203,6 +203,11 @@ public class ACC_payments extends javax.swing.JPanel {
             }
         });
 
+        debit_description.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                debit_descriptionActionPerformed(evt);
+            }
+        });
         debit_description.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 debit_descriptionFocusLost(evt);
@@ -743,8 +748,11 @@ public class ACC_payments extends javax.swing.JPanel {
 
     private void debit_descriptionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_debit_descriptionFocusLost
         // TODO add your handling code here:
-        debit_account_code_table.setValueAt("23", 1, 0);
     }//GEN-LAST:event_debit_descriptionFocusLost
+
+    private void debit_descriptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_debit_descriptionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_debit_descriptionActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
