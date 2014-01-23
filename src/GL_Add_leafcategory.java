@@ -27,6 +27,7 @@ public class GL_Add_leafcategory extends javax.swing.JPanel {
 
         jLabel1.setText("Category Name");
 
+        jPanel4.setBackground(new java.awt.Color(0, 102, 0));
         jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 153)));
 
         jButton10.setText("View Category Details");
@@ -59,6 +60,7 @@ public class GL_Add_leafcategory extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jPanel1.setBackground(new java.awt.Color(0, 102, 0));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 51, 153)));
 
         jButton1.setText("Save");

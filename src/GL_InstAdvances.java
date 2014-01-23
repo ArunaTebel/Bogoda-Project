@@ -71,11 +71,12 @@ public class GL_InstAdvances extends javax.swing.JPanel {
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
+        jPanel2.setBackground(new java.awt.Color(0, 102, 0));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 153)));
 
         jButton6.setText("Supplier Status");
 
-        jButton7.setText("Suuplies");
+        jButton7.setText("Supplies");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -114,7 +115,8 @@ public class GL_InstAdvances extends javax.swing.JPanel {
 
         jLabel6.setText("Amount");
 
-        jPanel3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 51, 51), 2, true));
+        jPanel3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 153, 51), 2, true));
+        jPanel3.setForeground(new java.awt.Color(0, 153, 51));
 
         jLabel3.setText("Maximum Allowable Advance");
 
@@ -152,6 +154,7 @@ public class GL_InstAdvances extends javax.swing.JPanel {
 
         jLabel1.setText("User ID");
 
+        jPanel1.setBackground(new java.awt.Color(0, 102, 0));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 51, 153)));
 
         jButton3.setText("Save");
