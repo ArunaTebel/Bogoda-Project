@@ -22,6 +22,7 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
      * Creates new form PRCR_Work_normal
      */
     DatabaseManager dbm = DatabaseManager.getDbCon();
+    private int rows=0;
 
     public PRCR_Work_normal() {
         initComponents();
@@ -65,7 +66,7 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox();
+        empCodeJC = new javax.swing.JComboBox();
         jButton1 = new javax.swing.JButton();
         empName = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -163,12 +164,12 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
 
         jLabel1.setText("Employee Code");
 
-        jComboBox2.setEditable(true);
+        empCodeJC.setEditable(true);
         DatabaseManager dbm=DatabaseManager.getDbCon();
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("personal_info", "code")));
-        jComboBox2.addItemListener(new java.awt.event.ItemListener() {
+        empCodeJC.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("personal_info", "code")));
+        empCodeJC.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jComboBox2ItemStateChanged(evt);
+                empCodeJCItemStateChanged(evt);
             }
         });
 
@@ -193,7 +194,7 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jComboBox2, 0, 59, Short.MAX_VALUE)
+                        .addComponent(empCodeJC, 0, 59, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -206,7 +207,7 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(empCodeJC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -401,10 +402,13 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+ table.setValueAt(empCodeJC.getSelectedItem(), rows, 0);
+        table.setValueAt(empName.getText(), rows, 1);
+        rows++;
+                // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jComboBox2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox2ItemStateChanged
+    private void empCodeJCItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_empCodeJCItemStateChanged
         DatabaseManager dbm = DatabaseManager.getDbCon();
         String Name = null;
         if (evt.getStateChange() == ItemEvent.SELECTED) {
@@ -418,7 +422,7 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
             }
             empName.setText("" + Name);
         }
-    }//GEN-LAST:event_jComboBox2ItemStateChanged
+    }//GEN-LAST:event_empCodeJCItemStateChanged
 
     private void division_jcItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_division_jcItemStateChanged
         DatabaseManager dbma = DatabaseManager.getDbCon();
@@ -460,12 +464,12 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
     private org.jdesktop.swingx.JXDatePicker date;
     private javax.swing.JComboBox division_jc;
     private javax.swing.JLabel division_lb;
+    private javax.swing.JComboBox empCodeJC;
     private javax.swing.JLabel empName;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
-    private javax.swing.JComboBox jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
