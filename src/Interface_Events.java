@@ -92,6 +92,60 @@ public class Interface_Events {
             button2.requestFocusInWindow();
 
         }
+        
+        
+        
+    }
+        
+        
+        
+    public void Change_focus_Up_c(javax.swing.JComboBox combo, java.awt.event.KeyEvent evt) {
+
+        int key;
+        key = evt.getKeyCode();
+        if (key == KeyEvent.VK_UP) {
+            combo.requestFocusInWindow();
+
+        }
+    }
+
+    public void Change_focus_down_c(javax.swing.JComboBox combo, java.awt.event.KeyEvent evt) {
+
+        int key;
+        key = evt.getKeyCode();
+        if (key == KeyEvent.VK_DOWN) {
+            combo.requestFocusInWindow();
+
+        }
 
     }
+
+    public void Change_focus_right_c(javax.swing.JComboBox combo, java.awt.event.KeyEvent evt) {
+
+        int key;
+        key = evt.getKeyCode();
+        if (key == KeyEvent.VK_RIGHT) {
+            combo.requestFocusInWindow();
+
+        }
+
+    }
+
+    public void Change_focus_left_c(javax.swing.JComboBox combo, java.awt.event.KeyEvent evt) {
+
+        int key;
+        key = evt.getKeyCode();
+        if (key == KeyEvent.VK_LEFT) {
+            combo.requestFocusInWindow();
+
+        }
+
+    }
+    
+    
+    
+    
+    
+    
+    
 }

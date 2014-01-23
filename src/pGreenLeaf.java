@@ -12,13 +12,23 @@ import java.awt.Container;
  */
 public class pGreenLeaf extends javax.swing.JPanel {
 
+     Interface_Events interface_events = new Interface_Events();
+    
     /**
      * Creates new form pGreenLeaf
      */
     public pGreenLeaf() {
         initComponents();
+       
+         
     }
-
+    
+    public void focus(){
+    this.requestFocus();
+    jButton1.requestFocus();
+    
+    }
+ 
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -48,11 +58,21 @@ public class pGreenLeaf extends javax.swing.JPanel {
                 jButton1ActionPerformed(evt);
             }
         });
+        jButton1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jButton1KeyReleased(evt);
+            }
+        });
 
         jButton2.setText("Cash Advances");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
+            }
+        });
+        jButton2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jButton2KeyReleased(evt);
             }
         });
 
@@ -62,11 +82,21 @@ public class pGreenLeaf extends javax.swing.JPanel {
                 jButton3ActionPerformed(evt);
             }
         });
+        jButton3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jButton3KeyReleased(evt);
+            }
+        });
 
         jButton4.setText("Installments");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
+            }
+        });
+        jButton4.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jButton4KeyReleased(evt);
             }
         });
 
@@ -76,11 +106,21 @@ public class pGreenLeaf extends javax.swing.JPanel {
                 jButton5ActionPerformed(evt);
             }
         });
+        jButton5.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jButton5KeyReleased(evt);
+            }
+        });
 
         Add_combo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "---------", "Supplier", "Category", "Leaf category", "----------" }));
         Add_combo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Add_comboActionPerformed(evt);
+            }
+        });
+        Add_combo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                Add_comboKeyReleased(evt);
             }
         });
 
@@ -90,6 +130,11 @@ public class pGreenLeaf extends javax.swing.JPanel {
         jComboBox3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox3ActionPerformed(evt);
+            }
+        });
+        jComboBox3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jComboBox3KeyReleased(evt);
             }
         });
 
@@ -267,6 +312,42 @@ public class pGreenLeaf extends javax.swing.JPanel {
         validate();
         repaint(); 
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton1KeyReleased
+       interface_events.Change_focus_down_b_b(jButton2, evt);
+    }//GEN-LAST:event_jButton1KeyReleased
+
+    private void jButton2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton2KeyReleased
+        interface_events.Change_focus_down_b_b(jButton3, evt);
+        interface_events.Change_focus_Up_b_b(jButton1, evt);
+    }//GEN-LAST:event_jButton2KeyReleased
+
+    private void jButton3KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton3KeyReleased
+        interface_events.Change_focus_down_b_b(jButton4, evt);
+        interface_events.Change_focus_Up_b_b(jButton2, evt);
+    }//GEN-LAST:event_jButton3KeyReleased
+
+    private void jButton4KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton4KeyReleased
+        interface_events.Change_focus_down_b_b(jButton5, evt);
+        interface_events.Change_focus_Up_b_b(jButton3, evt);
+    }//GEN-LAST:event_jButton4KeyReleased
+
+    private void jButton5KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton5KeyReleased
+       interface_events.Change_focus_right_c(Add_combo, evt);
+       interface_events.Change_focus_Up_b_b(jButton4, evt);
+       
+    }//GEN-LAST:event_jButton5KeyReleased
+
+    private void Add_comboKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Add_comboKeyReleased
+         interface_events.Change_focus_right_c(jComboBox3, evt);
+         interface_events.Change_focus_left_b_b(jButton5, evt);
+        
+         
+    }//GEN-LAST:event_Add_comboKeyReleased
+
+    private void jComboBox3KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jComboBox3KeyReleased
+        interface_events.Change_focus_left_c(Add_combo, evt);
+    }//GEN-LAST:event_jComboBox3KeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

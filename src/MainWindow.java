@@ -14,12 +14,14 @@ import java.awt.Toolkit;
  * @author Pramo
  */
 public class MainWindow extends javax.swing.JFrame {
+    
+     Interface_Events interface_events = new Interface_Events();
 
     public MainWindow() {
         initComponents();
-        
-        Interface_Events interface_events = new Interface_Events();
-        
+
+       
+
         jButton1.setEnabled(false);
         jButton2.setEnabled(false);
         jButton3.setEnabled(false);
@@ -37,15 +39,9 @@ public class MainWindow extends javax.swing.JFrame {
         jMenu1.setEnabled(false);
         jMenu2.setEnabled(false);
         jMenu3.setEnabled(false);
-         jButton14.requestFocusInWindow();
-         
+        jButton14.requestFocusInWindow();
+
         interface_events.Respond_enter(jButton14, null);
-        
-        
-        
-        
-        
-       
 
     }
 
@@ -107,11 +103,21 @@ public class MainWindow extends javax.swing.JFrame {
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jButton8.setText("jButton8");
+        jButton8.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jButton8KeyReleased(evt);
+            }
+        });
 
         jButton9.setText("jButton8");
         jButton9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton9ActionPerformed(evt);
+            }
+        });
+        jButton9.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jButton9KeyReleased(evt);
             }
         });
 
@@ -121,6 +127,11 @@ public class MainWindow extends javax.swing.JFrame {
                 jButton10ActionPerformed(evt);
             }
         });
+        jButton10.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jButton10KeyReleased(evt);
+            }
+        });
 
         jButton11.setText("jButton8");
         jButton11.addActionListener(new java.awt.event.ActionListener() {
@@ -128,11 +139,21 @@ public class MainWindow extends javax.swing.JFrame {
                 jButton11ActionPerformed(evt);
             }
         });
+        jButton11.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jButton11KeyReleased(evt);
+            }
+        });
 
         jButton12.setText("jButton8");
         jButton12.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton12ActionPerformed(evt);
+            }
+        });
+        jButton12.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jButton12KeyReleased(evt);
             }
         });
 
@@ -227,11 +248,34 @@ public class MainWindow extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
+        jButton2.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jButton2FocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jButton2FocusLost(evt);
+            }
+        });
+        jButton2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jButton2KeyReleased(evt);
+            }
+        });
 
         jButton1.setText("Payroll-Checkroll");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+        jButton1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jButton1FocusGained(evt);
+            }
+        });
+        jButton1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jButton1KeyReleased(evt);
             }
         });
 
@@ -241,14 +285,64 @@ public class MainWindow extends javax.swing.JFrame {
                 jButton4ActionPerformed(evt);
             }
         });
+        jButton4.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jButton4FocusGained(evt);
+            }
+        });
+        jButton4.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jButton4KeyReleased(evt);
+            }
+        });
 
         jButton3.setText("Stock");
+        jButton3.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jButton3FocusGained(evt);
+            }
+        });
+        jButton3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jButton3KeyReleased(evt);
+            }
+        });
 
         jButton5.setText("Production");
+        jButton5.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jButton5FocusGained(evt);
+            }
+        });
+        jButton5.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jButton5KeyReleased(evt);
+            }
+        });
 
         jButton6.setText("Bogoda Stores");
+        jButton6.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jButton6FocusGained(evt);
+            }
+        });
+        jButton6.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jButton6KeyReleased(evt);
+            }
+        });
 
         jButton7.setText("Reports");
+        jButton7.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jButton7FocusGained(evt);
+            }
+        });
+        jButton7.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jButton7KeyReleased(evt);
+            }
+        });
 
         jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 102, 0)));
 
@@ -390,6 +484,8 @@ public class MainWindow extends javax.swing.JFrame {
         Main_Content.add(pgreenleaf);
         validate();
         repaint();
+        pgreenleaf.focus();
+      
 
 
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -407,7 +503,7 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
-         Add_Bank addbank = new Add_Bank();
+        Add_Bank addbank = new Add_Bank();
 
         Main_Content.removeAll();
 
@@ -419,7 +515,7 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-      jButton13.setBackground(new java.awt.Color(204, 0, 103));
+        jButton13.setBackground(new java.awt.Color(204, 0, 103));
         pAccounts paccunts = new pAccounts();
 
         Main_Content.removeAll();
@@ -432,7 +528,7 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+
         jButton13.setBackground(new java.awt.Color(0, 51, 102));
         pPRCR prcr = new pPRCR();
 
@@ -475,6 +571,104 @@ public class MainWindow extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton14ActionPerformed
 
+    private void jButton2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton2KeyReleased
+       interface_events.Change_focus_right_b_b(jButton1, evt);
+       interface_events.Change_focus_down_b_b(jButton8, evt);
+      
+    }//GEN-LAST:event_jButton2KeyReleased
+
+    private void jButton1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton1KeyReleased
+        interface_events.Change_focus_right_b_b(jButton4, evt);
+        interface_events.Change_focus_left_b_b(jButton2, evt);
+    }//GEN-LAST:event_jButton1KeyReleased
+
+    private void jButton4KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton4KeyReleased
+        interface_events.Change_focus_right_b_b(jButton3, evt);
+        interface_events.Change_focus_left_b_b(jButton1, evt);
+    }//GEN-LAST:event_jButton4KeyReleased
+
+    private void jButton3KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton3KeyReleased
+       interface_events.Change_focus_right_b_b(jButton5, evt);
+       interface_events.Change_focus_left_b_b(jButton4, evt);
+    }//GEN-LAST:event_jButton3KeyReleased
+
+    private void jButton5KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton5KeyReleased
+       interface_events.Change_focus_right_b_b(jButton6, evt);
+       interface_events.Change_focus_left_b_b(jButton3, evt);
+    }//GEN-LAST:event_jButton5KeyReleased
+
+    private void jButton6KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton6KeyReleased
+       interface_events.Change_focus_right_b_b(jButton7, evt);
+       interface_events.Change_focus_left_b_b(jButton5, evt);
+       
+    }//GEN-LAST:event_jButton6KeyReleased
+
+    private void jButton7KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton7KeyReleased
+        interface_events.Change_focus_left_b_b(jButton6, evt);
+    }//GEN-LAST:event_jButton7KeyReleased
+
+    private void jButton2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jButton2FocusLost
+        //
+    }//GEN-LAST:event_jButton2FocusLost
+
+    private void jButton1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jButton1FocusGained
+        interface_events.Respond_enter(jButton1, null);
+    }//GEN-LAST:event_jButton1FocusGained
+
+    private void jButton4FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jButton4FocusGained
+                                            
+        interface_events.Respond_enter(jButton4, null);
+                                       
+
+    }//GEN-LAST:event_jButton4FocusGained
+
+    private void jButton3FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jButton3FocusGained
+       interface_events.Respond_enter(jButton3, null);
+    }//GEN-LAST:event_jButton3FocusGained
+
+    private void jButton5FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jButton5FocusGained
+        interface_events.Respond_enter(jButton5, null);
+    }//GEN-LAST:event_jButton5FocusGained
+
+    private void jButton6FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jButton6FocusGained
+        interface_events.Respond_enter(jButton6, null);
+    }//GEN-LAST:event_jButton6FocusGained
+
+    private void jButton7FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jButton7FocusGained
+        interface_events.Respond_enter(jButton7, null);
+    }//GEN-LAST:event_jButton7FocusGained
+
+    private void jButton2FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jButton2FocusGained
+        interface_events.Respond_enter(jButton2, null);
+    }//GEN-LAST:event_jButton2FocusGained
+
+    private void jButton8KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton8KeyReleased
+       interface_events.Change_focus_down_b_b(jButton9, evt);
+       interface_events.Change_focus_Up_b_b(jButton2, evt);
+    }//GEN-LAST:event_jButton8KeyReleased
+
+    private void jButton9KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton9KeyReleased
+       interface_events.Change_focus_down_b_b(jButton10, evt);
+       interface_events.Change_focus_Up_b_b(jButton8, evt);
+    }//GEN-LAST:event_jButton9KeyReleased
+
+    private void jButton10KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton10KeyReleased
+        interface_events.Change_focus_down_b_b(jButton11, evt);
+        interface_events.Change_focus_Up_b_b(jButton9, evt);
+    }//GEN-LAST:event_jButton10KeyReleased
+
+    private void jButton11KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton11KeyReleased
+       interface_events.Change_focus_down_b_b(jButton12, evt);
+       interface_events.Change_focus_Up_b_b(jButton10, evt);
+    }//GEN-LAST:event_jButton11KeyReleased
+
+    private void jButton12KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton12KeyReleased
+       interface_events.Change_focus_Up_b_b(jButton11, evt);
+    }//GEN-LAST:event_jButton12KeyReleased
+                           
+
+
+
     /**
      * @param args the command line arguments
      */
@@ -504,7 +698,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
-            
+
             @Override
             public void run() {
 
