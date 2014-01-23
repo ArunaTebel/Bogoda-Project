@@ -58,6 +58,11 @@ public class pGreenLeaf extends javax.swing.JPanel {
                 jButton1ActionPerformed(evt);
             }
         });
+        jButton1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jButton1FocusGained(evt);
+            }
+        });
         jButton1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jButton1KeyReleased(evt);
@@ -68,6 +73,11 @@ public class pGreenLeaf extends javax.swing.JPanel {
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
+            }
+        });
+        jButton2.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jButton2FocusGained(evt);
             }
         });
         jButton2.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -82,6 +92,11 @@ public class pGreenLeaf extends javax.swing.JPanel {
                 jButton3ActionPerformed(evt);
             }
         });
+        jButton3.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jButton3FocusGained(evt);
+            }
+        });
         jButton3.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jButton3KeyReleased(evt);
@@ -94,6 +109,11 @@ public class pGreenLeaf extends javax.swing.JPanel {
                 jButton4ActionPerformed(evt);
             }
         });
+        jButton4.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jButton4FocusGained(evt);
+            }
+        });
         jButton4.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jButton4KeyReleased(evt);
@@ -104,6 +124,11 @@ public class pGreenLeaf extends javax.swing.JPanel {
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
+            }
+        });
+        jButton5.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jButton5FocusGained(evt);
             }
         });
         jButton5.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -348,6 +373,26 @@ public class pGreenLeaf extends javax.swing.JPanel {
     private void jComboBox3KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jComboBox3KeyReleased
         interface_events.Change_focus_left_c(Add_combo, evt);
     }//GEN-LAST:event_jComboBox3KeyReleased
+
+    private void jButton1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jButton1FocusGained
+        interface_events.Respond_enter(jButton1, evt);
+    }//GEN-LAST:event_jButton1FocusGained
+
+    private void jButton2FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jButton2FocusGained
+        interface_events.Respond_enter(jButton2, evt);
+    }//GEN-LAST:event_jButton2FocusGained
+
+    private void jButton3FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jButton3FocusGained
+       interface_events.Respond_enter(jButton3, evt);
+    }//GEN-LAST:event_jButton3FocusGained
+
+    private void jButton4FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jButton4FocusGained
+        interface_events.Respond_enter(jButton4, evt);
+    }//GEN-LAST:event_jButton4FocusGained
+
+    private void jButton5FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jButton5FocusGained
+        interface_events.Respond_enter(jButton5, evt);
+    }//GEN-LAST:event_jButton5FocusGained
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

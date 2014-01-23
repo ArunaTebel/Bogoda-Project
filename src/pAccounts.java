@@ -10,13 +10,19 @@
  */
 public class pAccounts extends javax.swing.JPanel {
 
-    /**
-     * Creates new form pAccounts
-     */
+    Interface_Events interface_events = new Interface_Events();
+    
+    
     public pAccounts() {
         initComponents();
     }
 
+    
+     public void focus(){
+    this.requestFocus();
+    jButton1.requestFocus();
+    
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -56,6 +62,11 @@ public class pAccounts extends javax.swing.JPanel {
                 jComboBox3ActionPerformed(evt);
             }
         });
+        jComboBox3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jComboBox3KeyReleased(evt);
+            }
+        });
 
         jButton7.setText("Veiw");
 
@@ -67,10 +78,35 @@ public class pAccounts extends javax.swing.JPanel {
                 Add_comboActionPerformed(evt);
             }
         });
+        Add_combo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                Add_comboKeyReleased(evt);
+            }
+        });
 
         jButton4.setText("Reports");
+        jButton4.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jButton4FocusGained(evt);
+            }
+        });
+        jButton4.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jButton4KeyReleased(evt);
+            }
+        });
 
         jButton3.setText("Journals");
+        jButton3.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jButton3FocusGained(evt);
+            }
+        });
+        jButton3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jButton3KeyReleased(evt);
+            }
+        });
 
         jButton2.setText("Payments");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -78,11 +114,31 @@ public class pAccounts extends javax.swing.JPanel {
                 jButton2ActionPerformed(evt);
             }
         });
+        jButton2.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jButton2FocusGained(evt);
+            }
+        });
+        jButton2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jButton2KeyReleased(evt);
+            }
+        });
 
         jButton1.setText("Recepts");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+        jButton1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jButton1FocusGained(evt);
+            }
+        });
+        jButton1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jButton1KeyReleased(evt);
             }
         });
 
@@ -110,9 +166,7 @@ public class pAccounts extends javax.swing.JPanel {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(Add_combo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jComboBox3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, 0)
-                        .addComponent(jLabel1)))
+                    .addComponent(jLabel1))
                 .addGap(0, 0, 0)
                 .addComponent(GL_content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -187,6 +241,50 @@ public class pAccounts extends javax.swing.JPanel {
         validate();
         repaint();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton1KeyReleased
+       interface_events.Change_focus_down_b_b(jButton2, evt);
+    }//GEN-LAST:event_jButton1KeyReleased
+
+    private void jButton2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton2KeyReleased
+        interface_events.Change_focus_down_b_b(jButton3, evt);
+        interface_events.Change_focus_Up_b_b(jButton1, evt);
+    }//GEN-LAST:event_jButton2KeyReleased
+
+    private void jButton3KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton3KeyReleased
+       interface_events.Change_focus_down_b_b(jButton4, evt);
+        interface_events.Change_focus_Up_b_b(jButton2, evt);
+    }//GEN-LAST:event_jButton3KeyReleased
+
+    private void jButton4KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton4KeyReleased
+         interface_events.Change_focus_right_c(Add_combo, evt);
+        interface_events.Change_focus_Up_b_b(jButton3, evt);
+    }//GEN-LAST:event_jButton4KeyReleased
+
+    private void Add_comboKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Add_comboKeyReleased
+        interface_events.Change_focus_right_c(jComboBox3, evt);
+        interface_events.Change_focus_left_b_b(jButton4, evt);
+    }//GEN-LAST:event_Add_comboKeyReleased
+
+    private void jComboBox3KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jComboBox3KeyReleased
+          interface_events.Change_focus_left_c(Add_combo, evt);
+    }//GEN-LAST:event_jComboBox3KeyReleased
+
+    private void jButton1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jButton1FocusGained
+        interface_events.Respond_enter(jButton1, evt);
+    }//GEN-LAST:event_jButton1FocusGained
+
+    private void jButton2FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jButton2FocusGained
+        interface_events.Respond_enter(jButton2, evt);
+    }//GEN-LAST:event_jButton2FocusGained
+
+    private void jButton3FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jButton3FocusGained
+        interface_events.Respond_enter(jButton3, evt);
+    }//GEN-LAST:event_jButton3FocusGained
+
+    private void jButton4FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jButton4FocusGained
+       interface_events.Respond_enter(jButton4, evt);
+    }//GEN-LAST:event_jButton4FocusGained
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
