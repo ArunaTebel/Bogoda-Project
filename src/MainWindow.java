@@ -18,6 +18,33 @@ public class MainWindow extends javax.swing.JFrame {
     public MainWindow() {
         initComponents();
         
+        Interface_Events interface_events = new Interface_Events();
+        
+        jButton1.setEnabled(false);
+        jButton2.setEnabled(false);
+        jButton3.setEnabled(false);
+        jButton4.setEnabled(false);
+        jButton5.setEnabled(false);
+        jButton6.setEnabled(false);
+        jButton7.setEnabled(false);
+        jButton8.setEnabled(false);
+        jButton9.setEnabled(false);
+        jButton10.setEnabled(false);
+        jButton11.setEnabled(false);
+        jButton12.setEnabled(false);
+        jButton13.setEnabled(false);
+        //jButton14.setEnabled(false);
+        jMenu1.setEnabled(false);
+        jMenu2.setEnabled(false);
+        jMenu3.setEnabled(false);
+         jButton14.requestFocusInWindow();
+         
+        interface_events.Respond_enter(jButton14, null);
+        
+        
+        
+        
+        
        
 
     }
@@ -41,7 +68,13 @@ public class MainWindow extends javax.swing.JFrame {
         jButton12 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         Main_Content = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jButton14 = new javax.swing.JButton();
+        jPasswordField1 = new javax.swing.JPasswordField();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
         jButton13 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
@@ -136,26 +169,46 @@ public class MainWindow extends javax.swing.JFrame {
 
         Main_Content.setBackground(new java.awt.Color(51, 51, 51));
         Main_Content.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        Main_Content.setLayout(null);
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bogoda.png"))); // NOI18N
-        jLabel2.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("User Name");
+        Main_Content.add(jLabel4);
+        jLabel4.setBounds(360, 190, 90, 40);
 
-        javax.swing.GroupLayout Main_ContentLayout = new javax.swing.GroupLayout(Main_Content);
-        Main_Content.setLayout(Main_ContentLayout);
-        Main_ContentLayout.setHorizontalGroup(
-            Main_ContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(Main_ContentLayout.createSequentialGroup()
-                .addGap(51, 51, 51)
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(603, 603, 603))
-        );
-        Main_ContentLayout.setVerticalGroup(
-            Main_ContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Main_ContentLayout.createSequentialGroup()
-                .addGap(57, 57, 57)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 478, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0))
-        );
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Password");
+        Main_Content.add(jLabel5);
+        jLabel5.setBounds(360, 230, 90, 40);
+
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("ABCD Company");
+        Main_Content.add(jLabel6);
+        jLabel6.setBounds(110, 410, 90, 40);
+
+        jButton14.setBackground(new java.awt.Color(0, 0, 102));
+        jButton14.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jButton14.setForeground(new java.awt.Color(255, 255, 255));
+        jButton14.setText("Login");
+        jButton14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton14ActionPerformed(evt);
+            }
+        });
+        Main_Content.add(jButton14);
+        jButton14.setBounds(430, 280, 130, 40);
+        Main_Content.add(jPasswordField1);
+        jPasswordField1.setBounds(430, 240, 130, 30);
+        Main_Content.add(jTextField1);
+        jTextField1.setBounds(430, 200, 130, 30);
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bogoda.png"))); // NOI18N
+        jLabel3.setText("jLabel3");
+        jLabel3.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        Main_Content.add(jLabel3);
+        jLabel3.setBounds(80, 50, 680, 480);
 
         jButton13.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
         jButton13.setForeground(new java.awt.Color(215, 215, 215));
@@ -396,6 +449,32 @@ public class MainWindow extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton13ActionPerformed
 
+    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
+        jButton1.setEnabled(true);
+        jButton2.setEnabled(true);
+        jButton3.setEnabled(true);
+        jButton4.setEnabled(true);
+        jButton5.setEnabled(true);
+        jButton6.setEnabled(true);
+        jButton7.setEnabled(true);
+        jButton8.setEnabled(true);
+        jButton9.setEnabled(true);
+        jButton10.setEnabled(true);
+        jButton11.setEnabled(true);
+        jButton12.setEnabled(true);
+        jButton13.setEnabled(true);
+
+        jMenu1.setEnabled(true);
+        jMenu2.setEnabled(true);
+        jMenu3.setEnabled(true);
+
+        Main_Content.removeAll();
+        Main_Content.setBackground(new java.awt.Color(240, 240, 240));
+        jButton13.setBackground(new java.awt.Color(102, 102, 102));
+        jButton2.requestFocusInWindow();
+
+    }//GEN-LAST:event_jButton14ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -444,6 +523,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
+    private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -453,7 +533,10 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -467,6 +550,8 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }
