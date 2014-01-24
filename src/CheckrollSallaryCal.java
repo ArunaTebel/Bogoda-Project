@@ -114,6 +114,14 @@ public class CheckrollSallaryCal {
         this.fineDeductions = 0;
         this.storeDeductions = 0;
         this.pettyCash = 0;
+        this.n_5000=0;
+    this.n_2000=0;
+    this.n_1000=0;
+    this.n_500=0;
+    this.n_100=0;
+    this.n_50=0;
+    this.n_20=0;
+    this.n_10=0;
     }
 
     //setters
