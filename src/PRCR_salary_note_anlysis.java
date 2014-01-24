@@ -13,10 +13,16 @@ public class PRCR_salary_note_anlysis extends javax.swing.JPanel {
     /**
      * Creates new form PRCR_salary_payroll
      */
-    Payroll_Salary spiObject = new Payroll_Salary();
-
+    //Payroll_Salary spiObject = new Payroll_Salary();
     public PRCR_salary_note_anlysis() {
         initComponents();
+    }
+
+    public void setCheckrollTabel() {
+
+    }
+
+    public void setStaffTabel() {
     }
 
     /**
@@ -61,8 +67,8 @@ public class PRCR_salary_note_anlysis extends javax.swing.JPanel {
         jLabel22 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -261,9 +267,222 @@ public class PRCR_salary_note_anlysis extends javax.swing.JPanel {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Name", "Code", "Salary"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(jTable1);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -271,14 +490,14 @@ public class PRCR_salary_note_anlysis extends javax.swing.JPanel {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1)
+                .addComponent(jScrollPane2)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1)
+                .addComponent(jScrollPane2)
                 .addContainerGap())
         );
 
@@ -366,7 +585,7 @@ public class PRCR_salary_note_anlysis extends javax.swing.JPanel {
                         .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 131, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -383,168 +602,30 @@ public class PRCR_salary_note_anlysis extends javax.swing.JPanel {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         if (checkrollOrStaff.getSelectedItem() == "Checkroll") {
-            CheckrollSallaryCal abc = new CheckrollSallaryCal();
-            int columnSize = 0;
-            columnSize = abc.getColumnsize("checkroll_personalinfo", "code");
-            System.out.println(columnSize);
+            PRCR_NoteAnalysis naObject = new PRCR_NoteAnalysis();
+            naObject.setCheckrollNotes();
+            N5000T.setText(Integer.toString(naObject.getN5000()));
+            N2000T.setText(Integer.toString(naObject.getN2000()));
+            N1000T.setText(Integer.toString(naObject.getN1000()));
+            N500T.setText(Integer.toString(naObject.getN500()));
+            N100T.setText(Integer.toString(naObject.getN100()));
+            N50T.setText(Integer.toString(naObject.getN50()));
+            N20T.setText(Integer.toString(naObject.getN20()));
+            N10T.setText(Integer.toString(naObject.getN10()));
+        } else {
 
-            int array[] = new int[columnSize];
-            double arraySal[] = new double[columnSize];
-            array = abc.getIntArray("checkroll_personalinfo", "code");
-
-            for (int i = 0; i < columnSize; i++) {
-                System.out.println(array[i]);
-                abc.setEmployCode(array[i]);
-                arraySal[i] = abc.getFinalSalary();
-                System.out.println(arraySal[i]);
-
-            }
-
-            int arrayN5000[] = new int[columnSize];
-            arrayN5000 = abc.getIntArray("checkroll_personalinfo", "n_5000");
-            int N5000 = 0;
-            for (int i = 0; i < columnSize; i++) {
-                N5000 = N5000 + arrayN5000[i];
-            }
-            N5000T.setText(Integer.toString(N5000));
-
-            int arrayN2000[] = new int[columnSize];
-            arrayN5000 = abc.getIntArray("checkroll_personalinfo", "n_2000");
-            int N2000 = 0;
-            for (int i = 0; i < columnSize; i++) {
-                N2000 = N2000 + arrayN2000[i];
-            }
-            N2000T.setText(Integer.toString(N2000));
-
-            int arrayN1000[] = new int[columnSize];
-            arrayN1000 = abc.getIntArray("checkroll_personalinfo", "n_1000");
-            int N1000 = 0;
-            for (int i = 0; i < columnSize; i++) {
-                N1000 = N1000 + arrayN1000[i];
-            }
-            N1000T.setText(Integer.toString(N1000));
-
-            int arrayN500[] = new int[columnSize];
-            arrayN500 = abc.getIntArray("checkroll_personalinfo", "n_5000");
-            int N500 = 0;
-            for (int i = 0; i < columnSize; i++) {
-                N500 = N500 + arrayN500[i];
-            }
-            N500T.setText(Integer.toString(N500));
-
-            int arrayN100[] = new int[columnSize];
-            arrayN100 = abc.getIntArray("checkroll_personalinfo", "n_100");
-            int N100 = 0;
-            for (int i = 0; i < columnSize; i++) {
-                N100 = N100 + arrayN100[i];
-            }
-            N100T.setText(Integer.toString(N100));
-
-            int arrayN50[] = new int[columnSize];
-            arrayN50 = abc.getIntArray("checkroll_personalinfo", "n_50");
-            int N50 = 0;
-            for (int i = 0; i < columnSize; i++) {
-                N50 = N50 + arrayN50[i];
-            }
-            N50T.setText(Integer.toString(N50));
-
-            int arrayN20[] = new int[columnSize];
-            arrayN20 = abc.getIntArray("checkroll_personalinfo", "n_20");
-            int N20 = 0;
-            for (int i = 0; i < columnSize; i++) {
-                N20 = N20 + arrayN20[i];
-            }
-            N20T.setText(Integer.toString(N20));
-
-            int arrayN10[] = new int[columnSize];
-            arrayN10 = abc.getIntArray("checkroll_personalinfo", "n_10");
-            int N10 = 0;
-            for (int i = 0; i < columnSize; i++) {
-                N10 = N10 + arrayN10[i];
-            }
-            N10T.setText(Integer.toString(N10));
-        }else{
-            Payroll_Salary abc = new Payroll_Salary();
-            int columnSize = 0;
-            columnSize = abc.getColumnsize("staff_personalinfo", "code");
-            System.out.println(columnSize);
-
-            int array[] = new int[columnSize];
-            double arraySal[] = new double[columnSize];
-            array = abc.getIntArray("staff_personalinfo", "code");
-
-            for (int i = 0; i < columnSize; i++) {
-                System.out.println(array[i]);
-                abc.setEmployCode(array[i]);
-                arraySal[i] = abc.getFullPay();
-                System.out.println(arraySal[i]);
-
-            }
-
-            int arrayN5000[] = new int[columnSize];
-            arrayN5000 = abc.getIntArray("staff_personalinfo", "n_5000");
-            int N5000 = 0;
-            for (int i = 0; i < columnSize; i++) {
-                N5000 = N5000 + arrayN5000[i];
-            }
-            N5000T.setText(Integer.toString(N5000));
-
-            int arrayN2000[] = new int[columnSize];
-            arrayN5000 = abc.getIntArray("staff_personalinfo", "n_2000");
-            int N2000 = 0;
-            for (int i = 0; i < columnSize; i++) {
-                N2000 = N2000 + arrayN2000[i];
-            }
-            N2000T.setText(Integer.toString(N2000));
-
-            int arrayN1000[] = new int[columnSize];
-            arrayN1000 = abc.getIntArray("staff_personalinfo", "n_1000");
-            int N1000 = 0;
-            for (int i = 0; i < columnSize; i++) {
-                N1000 = N1000 + arrayN1000[i];
-            }
-            N1000T.setText(Integer.toString(N1000));
-
-            int arrayN500[] = new int[columnSize];
-            arrayN500 = abc.getIntArray("staff_personalinfo", "n_5000");
-            int N500 = 0;
-            for (int i = 0; i < columnSize; i++) {
-                N500 = N500 + arrayN500[i];
-            }
-            N500T.setText(Integer.toString(N500));
-
-            int arrayN100[] = new int[columnSize];
-            arrayN100 = abc.getIntArray("staff_personalinfo", "n_100");
-            int N100 = 0;
-            for (int i = 0; i < columnSize; i++) {
-                N100 = N100 + arrayN100[i];
-            }
-            N100T.setText(Integer.toString(N100));
-
-            int arrayN50[] = new int[columnSize];
-            arrayN50 = abc.getIntArray("staff_personalinfo", "n_50");
-            int N50 = 0;
-            for (int i = 0; i < columnSize; i++) {
-                N50 = N50 + arrayN50[i];
-            }
-            N50T.setText(Integer.toString(N50));
-
-            int arrayN20[] = new int[columnSize];
-            arrayN20 = abc.getIntArray("staff_personalinfo", "n_20");
-            int N20 = 0;
-            for (int i = 0; i < columnSize; i++) {
-                N20 = N20 + arrayN20[i];
-            }
-            N20T.setText(Integer.toString(N20));
-
-            int arrayN10[] = new int[columnSize];
-            arrayN10 = abc.getIntArray("staff_personalinfo", "n_10");
-            int N10 = 0;
-            for (int i = 0; i < columnSize; i++) {
-                N10 = N10 + arrayN10[i];
-            }
-            N10T.setText(Integer.toString(N10));
+            PRCR_NoteAnalysis naObject2 = new PRCR_NoteAnalysis();
+            naObject2.setStaffNotes();
+            N5000T.setText(Integer.toString(naObject2.getN5000()));
+            N2000T.setText(Integer.toString(naObject2.getN2000()));
+            N1000T.setText(Integer.toString(naObject2.getN1000()));
+            N500T.setText(Integer.toString(naObject2.getN500()));
+            N100T.setText(Integer.toString(naObject2.getN100()));
+            N50T.setText(Integer.toString(naObject2.getN50()));
+            N20T.setText(Integer.toString(naObject2.getN20()));
+            N10T.setText(Integer.toString(naObject2.getN10()));
         }
+
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -596,10 +677,10 @@ public class PRCR_salary_note_anlysis extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables

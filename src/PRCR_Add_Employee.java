@@ -406,7 +406,7 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
         else{
             DatabaseManager dbCon = DatabaseManager.getDbCon();
             try {
-                dbCon.insert("INSERT INTO staff_personalinfo(code,basic_salary,ot_before_hours,ot_after_hours) VALUES('" + Integer.parseInt(code.getText()) + "','"+Double.parseDouble(basicSalary.getText())+"','0','0')");
+                dbCon.insert("INSERT INTO staff_personalinfo(code,basic_salary,ot_hours) VALUES('" + Integer.parseInt(code.getText()) + "','"+Double.parseDouble(basicSalary.getText())+"','0')");
             } catch (SQLException ex) {
                 Logger.getLogger(PRCR_Add_Employee.class.getName()).log(Level.SEVERE, null, ex);
             }

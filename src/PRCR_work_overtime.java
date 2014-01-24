@@ -420,7 +420,7 @@ public class PRCR_work_overtime extends javax.swing.JPanel {
                 if (table.getValueAt(rows, 0) != null) {
                     int hours = 0;
                     System.out.println(table.getValueAt(rows, 0));
-                    hours = Integer.parseInt(dbm.checknReturnData("staff_personalinfo", "code", table.getValueAt(rows, 0), "ot_after_hours"));
+                    hours = Integer.parseInt(dbm.checknReturnData("staff_personalinfo", "code", table.getValueAt(rows, 0), "ot_hours"));
                     hours=hours+Integer.parseInt((String) table.getValueAt(rows, 2));
                     dbm.updateDatabase("staff_personalinfo", "code", table.getValueAt(rows, 0), "ot_hours",hours);
 

@@ -80,7 +80,7 @@ public class PRCR_salary_payroll extends javax.swing.JPanel {
 
         code.setEditable(true);
         DatabaseManager dbm=DatabaseManager.getDbCon();
-        code.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("personal_info", "code")));
+        code.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("staff_personalinfo", "code")));
         code.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 codeItemStateChanged(evt);
