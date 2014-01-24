@@ -643,21 +643,28 @@ public class GLmanual_entry extends javax.swing.JPanel {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
 // TODO add your handling code here:
-        globject.setSupplierCode(Integer.parseInt(supplier_id.getSelectedItem().toString()));
-        globject.setCategoryCode(Integer.parseInt(category_code.getSelectedItem().toString()));
-        globject.setNoOfSacks(Integer.parseInt(no_of_sacks.getText()));
-        globject.setTotalWeight(Double.parseDouble(total_kg.getText()));
-        globject.setSacksWeight(Double.parseDouble(sacks_weight.getText()));
-        globject.setOther(Double.parseDouble(other.getText()));
-        globject.setWater(Double.parseDouble(water.getText()));
-        globject.setCoarseLeaf(Double.parseDouble(coarse_leaf.getText()));
-        globject.setLeafCategory(Integer.parseInt(leaf_cat.getSelectedItem().toString()));
+        int i =0;
+        int j =0;
+        while (table.getValueAt(i, 0) != null) {
+            i++;
+        }
+        while(j<i){
+        globject.setSupplierCode(Integer.parseInt(table.getValueAt(j, 0).toString()));
+       globject.setCategoryCode(Integer.parseInt(leaf_cat.getSelectedItem().toString()));
+        globject.setNoOfSacks(Integer.parseInt(table.getValueAt(j, 1).toString()));
+        globject.setTotalWeight(Double.parseDouble(table.getValueAt(j, 2).toString()));
+        globject.setSacksWeight(Double.parseDouble(table.getValueAt(j, 3).toString()));
+        globject.setOther(Double.parseDouble(table.getValueAt(j, 6).toString()));
+        globject.setWater(Double.parseDouble(table.getValueAt(j, 4).toString()));
+        globject.setCoarseLeaf(Double.parseDouble(table.getValueAt(j, 5).toString()));
+       // globject.setLeafCategory(table.getValueAt(j, 8).toString());
         java.sql.Date date = new java.sql.Date(datePicker.getDate().getTime());
         globject.setDate(date);
         globject.calcNetQuantity();
         globject.setSelfTransport(self_transport.isSelected());
         globject.setIntselfTransport(globject.getSelfTransport());
         globject.addToDataBase();
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void supplier_idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supplier_idActionPerformed
