@@ -166,10 +166,15 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
 
         empCodeJC.setEditable(true);
         DatabaseManager dbm=DatabaseManager.getDbCon();
-        empCodeJC.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("personal_info", "code")));
+        empCodeJC.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("checkroll_personalinfo","code")));
         empCodeJC.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 empCodeJCItemStateChanged(evt);
+            }
+        });
+        empCodeJC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                empCodeJCActionPerformed(evt);
             }
         });
 
@@ -408,22 +413,6 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
                 // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void empCodeJCItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_empCodeJCItemStateChanged
-        DatabaseManager dbm = DatabaseManager.getDbCon();
-        String Name = null;
-        if (evt.getStateChange() == ItemEvent.SELECTED) {
-            int item = Integer.parseInt(evt.getItem().toString());
-            try {
-                ResultSet query = dbm.query("SELECT * FROM personal_info WHERE code =" + item + "");
-                while (query.next()) {
-                    Name = query.getString("name");
-                }
-            } catch (SQLException ex) {
-            }
-            empName.setText("" + Name);
-        }
-    }//GEN-LAST:event_empCodeJCItemStateChanged
-
     private void division_jcItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_division_jcItemStateChanged
         DatabaseManager dbma = DatabaseManager.getDbCon();
         String Name = null;
@@ -458,6 +447,26 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
             work_code.setText("" + Name);
         }
     }//GEN-LAST:event_workCodeItemStateChanged
+
+    private void empCodeJCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_empCodeJCActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_empCodeJCActionPerformed
+
+    private void empCodeJCItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_empCodeJCItemStateChanged
+        DatabaseManager dbm = DatabaseManager.getDbCon();
+        String Name = null;
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            int item = Integer.parseInt(evt.getItem().toString());
+            try {
+                ResultSet query = dbm.query("SELECT * FROM personal_info WHERE code =" + item + "");
+                while (query.next()) {
+                    Name = query.getString("name");
+                }
+            } catch (SQLException ex) {
+            }
+            empName.setText("" + Name);
+        }
+    }//GEN-LAST:event_empCodeJCItemStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

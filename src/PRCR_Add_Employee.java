@@ -1,9 +1,13 @@
+
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Pramo
@@ -13,11 +17,11 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
     /**
      * Creates new form PRCR_Add_Employee
      */
-    PersonalInfo piObject=new PersonalInfo();
+    PersonalInfo piObject = new PersonalInfo();
+
     public PRCR_Add_Employee() {
         initComponents();
 
-        
     }
 
     /**
@@ -348,14 +352,13 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
         String selection = (String) staffOrCheckroll.getSelectedItem();
 
         if (selection.equalsIgnoreCase("Staff")) {
-         
+
             Staff_pay.setVisible(true);
 
         }
 
         if (selection.equalsIgnoreCase("Checkroll")) {
             Staff_pay.setVisible(false);
-            
 
         }
     }//GEN-LAST:event_staffOrCheckrollActionPerformed
@@ -373,7 +376,7 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
         piObject.setName(name.getText());
         piObject.setCode(Integer.parseInt(code.getText()));
         piObject.setNIC(NIC.getText());
-        piObject.setDOB(DOB1.getText()+"/"+DOB2.getText()+"/"+DOB3.getText());
+        piObject.setDOB(DOB1.getText() + "/" + DOB2.getText() + "/" + DOB3.getText());
         piObject.setTelNo(telNo.getText());
         piObject.setBloodGrp(bloodGrp.getSelectedItem().toString());
         piObject.setRegisterOrNot(registerOrNot.isSelected());//NC
@@ -382,13 +385,25 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
         piObject.setJoinedDate(joinedD);
         java.sql.Date permanentD = new java.sql.Date(permanentDate.getDate().getTime());
         piObject.setPermanentDate(permanentD);
-        piObject.setBasicSallary(Double.parseDouble(basicSalary.getText()));
+        if (staffOrCheckroll.getSelectedItem() == "Staff") {
+            piObject.setBasicSallary(Double.parseDouble(basicSalary.getText()));
+        }
         piObject.setETF(ETF.isSelected());
         piObject.setEPF(EPF.isSelected());
         piObject.setWelfare(welfare.isSelected());
         System.out.println("saved");
         piObject.addToDataBase();
-        
+
+        if (staffOrCheckroll.getSelectedItem() == "Checkroll") {
+            DatabaseManager dbCon = DatabaseManager.getDbCon();
+            try {
+                dbCon.insert("INSERT INTO checkroll_personalinfo(code,normal_days,sundays,ot_before_hours,ot_after_hours) VALUES('" + Integer.parseInt(code.getText()) + "','0','0','0','0')");
+            } catch (SQLException ex) {
+                Logger.getLogger(PRCR_Add_Employee.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+
     }//GEN-LAST:event_jButton6ActionPerformed
 
 
