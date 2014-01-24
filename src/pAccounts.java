@@ -97,6 +97,11 @@ public class pAccounts extends javax.swing.JPanel {
         });
 
         jButton3.setText("Journals");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         jButton3.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jButton3FocusGained(evt);
@@ -285,6 +290,18 @@ public class pAccounts extends javax.swing.JPanel {
     private void jButton4FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jButton4FocusGained
        interface_events.Respond_enter(jButton4, evt);
     }//GEN-LAST:event_jButton4FocusGained
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+         ACC_journals journals = new ACC_journals();
+
+        GL_content.removeAll();
+
+        journals.setSize(GL_content.getSize());
+
+        GL_content.add(journals);
+        validate();
+        repaint();
+    }//GEN-LAST:event_jButton3ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
