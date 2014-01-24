@@ -188,7 +188,13 @@ public class ACC_recepts extends javax.swing.JPanel {
         credit_account_code_table.setAutoResizeMode(credit_account_code_table.AUTO_RESIZE_OFF);
 
         credit_account_code.setEditable(true);
-        credit_account_code.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        DatabaseManager dbm = DatabaseManager.getDbCon();
+        credit_account_code.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("account_names", "account_id")));
+        credit_account_code.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                credit_account_codeItemStateChanged(evt);
+            }
+        });
 
         jButton1.setText("Clear all");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -362,7 +368,6 @@ public class ACC_recepts extends javax.swing.JPanel {
         jLabel5.setText("Date");
 
         bankCode.setEditable(true);
-        DatabaseManager dbm = DatabaseManager.getDbCon();
         bankCode.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("bank","bank_id")));
         bankCode.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -456,6 +461,12 @@ public class ACC_recepts extends javax.swing.JPanel {
         debit_accountCode.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 debit_accountCodeItemStateChanged(evt);
+            }
+        });
+
+        debit_description.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                debit_descriptionFocusLost(evt);
             }
         });
 
@@ -816,6 +827,26 @@ public class ACC_recepts extends javax.swing.JPanel {
         
     
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void credit_account_codeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_credit_account_codeItemStateChanged
+         DatabaseManager dbm = DatabaseManager.getDbCon();
+        String Name = null;
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            int item = Integer.parseInt(evt.getItem().toString());
+            try {
+                ResultSet query = dbm.query("SELECT * FROM account_names WHERE account_id =" + item + "");
+                while (query.next()) {
+                    Name = query.getString("account_name");
+                }
+            } catch (SQLException ex) {
+            }
+            credit_account_name.setText("" + Name);
+        }
+    }//GEN-LAST:event_credit_account_codeItemStateChanged
+
+    private void debit_descriptionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_debit_descriptionFocusLost
+        credit_description.setText(debit_description.getText());
+    }//GEN-LAST:event_debit_descriptionFocusLost
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
