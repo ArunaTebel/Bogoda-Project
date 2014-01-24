@@ -260,6 +260,11 @@ public class PRCR_work_overtime extends javax.swing.JPanel {
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
         after6.setText("after 6");
+        after6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                after6ActionPerformed(evt);
+            }
+        });
 
         jLabel6.setText("Division");
 
@@ -445,6 +450,10 @@ DatabaseManager dbm = DatabaseManager.getDbCon();
             empName.setText("" + Name);
         }        // TODO add your handling code here:
     }//GEN-LAST:event_empCodeJCItemStateChanged
+
+    private void after6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_after6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_after6ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

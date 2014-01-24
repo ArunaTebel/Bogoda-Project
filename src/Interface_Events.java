@@ -39,6 +39,21 @@ public class Interface_Events {
         }
 
     }
+    
+    
+    public void Change_focus_Enterkey_t( javax.swing.JTextField text2, java.awt.event.KeyEvent evt) {
+
+     
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            text2.requestFocusInWindow();
+
+        }
+        
+    }
+    
+     
+        
+    
 
     public void Respond_enter(javax.swing.JButton button, java.awt.event.FocusEvent evt) {
         button.registerKeyboardAction(button.getActionForKeyStroke(
