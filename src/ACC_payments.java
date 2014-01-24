@@ -188,7 +188,13 @@ public class ACC_payments extends javax.swing.JPanel {
         debit_account_code_table.setAutoResizeMode(debit_account_code_table.AUTO_RESIZE_OFF);
 
         debit_account_code.setEditable(true);
-        debit_account_code.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "3", "4", "5", "6", " " }));
+        DatabaseManager dbm = DatabaseManager.getDbCon();
+        debit_account_code.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("account_names", "account_id")));
+        debit_account_code.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                debit_account_codeItemStateChanged(evt);
+            }
+        });
         debit_account_code.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 debit_account_codeActionPerformed(evt);
@@ -329,11 +335,16 @@ public class ACC_payments extends javax.swing.JPanel {
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 0, 0), 2, true), "CREDIT"));
 
         credit_accountCode.setEditable(true);
-        DatabaseManager dbm = DatabaseManager.getDbCon();
         credit_accountCode.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("account_names", "account_id")));
         credit_accountCode.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 credit_accountCodeItemStateChanged(evt);
+            }
+        });
+
+        credit_description.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                credit_descriptionFocusLost(evt);
             }
         });
 
@@ -778,6 +789,26 @@ public class ACC_payments extends javax.swing.JPanel {
             debit_acnt_name = dbm.checknReturnData("account_names", "account_id",Integer.parseInt((String) debit_account_code_table.getValueAt(j, 0)), "account_name");
             paobject.addToDebitDataBase(Integer.parseInt(recieptNo.getText()), Integer.parseInt((String) debit_account_code_table.getValueAt(j, 0)),debit_acnt_name, (String) debit_description_table.getValueAt(j, 0),Double.parseDouble((String) debit_amount_table.getValueAt(j, 0)));
         } 
+        
+        
+          // adding the relevant value to the current balance of the credit account
+        
+        i=0;
+        String acnt_class;
+        double debit_value;
+        double debit_updated_value;
+        while(debit_account_code_table.getValueAt(i, 0)!=null){
+            debit_value=Double.parseDouble((String)debit_amount_table.getValueAt(i, 0));
+            acnt_class=dbm.checknReturnData("account_names","account_id",Integer.parseInt((String) debit_account_code_table.getValueAt(i, 0)),"account_class");
+            if("Current Asset".equals(acnt_class) || "Fixed Asset".equals(acnt_class) || "Expense".equals(acnt_class)){
+               debit_updated_value=Double.parseDouble((String)dbm.checknReturnData("account_names","account_id",Integer.parseInt((String) debit_account_code_table.getValueAt(i, 0)),"current_balance"))+ debit_value;
+            }
+            else{
+                debit_updated_value=Double.parseDouble((String)dbm.checknReturnData("account_names","account_id",Integer.parseInt((String) debit_account_code_table.getValueAt(i, 0)),"current_balance"))- debit_value;
+            }
+            dbm.updateDatabase("account_names", "account_id",Integer.parseInt((String)debit_account_code_table.getValueAt(i, 0)), "current_balance",debit_updated_value);
+            i++;
+        }
     }//GEN-LAST:event_jButton6ActionPerformed
     
              
@@ -849,6 +880,26 @@ public class ACC_payments extends javax.swing.JPanel {
         difference.setText(""+(Double.parseDouble(creditAmount.getText())-tot));
         
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void debit_account_codeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_debit_account_codeItemStateChanged
+         DatabaseManager dbm = DatabaseManager.getDbCon();
+        String Name = null;
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            int item = Integer.parseInt(evt.getItem().toString());
+            try {
+                ResultSet query = dbm.query("SELECT * FROM account_names WHERE account_id ="+item+"");
+                while(query.next()){
+                    Name = query.getString("account_name");
+                }
+            } catch (SQLException ex) {
+            }
+            debit_account_name.setText(""+Name);
+        }
+    }//GEN-LAST:event_debit_account_codeItemStateChanged
+
+    private void credit_descriptionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_credit_descriptionFocusLost
+        debit_description.setText(credit_description.getText());
+    }//GEN-LAST:event_credit_descriptionFocusLost
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

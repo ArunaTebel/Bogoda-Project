@@ -300,6 +300,18 @@ public class Reciepts_accounts {
         }
         return true;
     }
+     
+     public boolean addToCreditDataBase(int ref_num, int credit_acnt_code, String credit_acnt_name, String credit_descriptn,double credit_amount) {
+        DatabaseManager dbCon = DatabaseManager.getDbCon();
+        try {
+            dbCon.insert("INSERT INTO account_reciept_creditside(reciept_no,credit_account_id,credit_account_name,credit_description,credit_amount) VALUES('" + ref_num + "','" + credit_acnt_code + "','" + credit_acnt_name + "','" + credit_descriptn + "','"+ credit_amount+"')");
+
+        } catch (SQLException ex) {
+            MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
+            return false;
+        }
+        return true;
+     }
    /*   // this has to be coded later
     public void addToCreditDataBase() {
         DatabaseManager dbCon = DatabaseManager.getDbCon();

@@ -26,7 +26,7 @@
                           <Group type="102" attributes="0">
                               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="code" min="-2" max="-2" attributes="0"/>
+                              <Component id="checkrollOrStaff" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
                               <Group type="102" attributes="0">
@@ -69,7 +69,7 @@
                           <Group type="102" attributes="0">
                               <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="code" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="checkrollOrStaff" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -115,21 +115,19 @@
         <Property name="text" type="java.lang.String" value="Division"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="code">
+    <Component class="javax.swing.JComboBox" name="checkrollOrStaff">
       <Properties>
         <Property name="editable" type="boolean" value="true"/>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Item 1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
-            <StringItem index="3" value="Item 4"/>
+          <StringArray count="2">
+            <StringItem index="0" value="Checkroll"/>
+            <StringItem index="1" value="Staff"/>
           </StringArray>
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="codeActionPerformed"/>
-        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="codeFocusLost"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkrollOrStaffActionPerformed"/>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="checkrollOrStaffFocusLost"/>
       </Events>
     </Component>
     <Container class="javax.swing.JPanel" name="jPanel2">
@@ -163,7 +161,7 @@
                               <Group type="102" attributes="0">
                                   <Component id="jLabel16" min="-2" pref="51" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="basicPay5" min="-2" pref="61" max="-2" attributes="0"/>
+                                  <Component id="N50T" min="-2" pref="61" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
                                   <Component id="jLabel4" min="-2" pref="45" max="-2" attributes="0"/>
@@ -172,39 +170,39 @@
                                       <Group type="102" attributes="0">
                                           <Component id="jLabel12" min="-2" pref="51" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Component id="basicPay1" min="-2" pref="61" max="-2" attributes="0"/>
+                                          <Component id="N2000T" min="-2" pref="61" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" attributes="0">
                                           <Component id="jLabel5" min="-2" pref="51" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Component id="basicPay" min="-2" pref="61" max="-2" attributes="0"/>
+                                          <Component id="N5000T" min="-2" pref="61" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="jLabel13" min="-2" pref="51" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Component id="basicPay2" min="-2" pref="61" max="-2" attributes="0"/>
+                                          <Component id="N1000T" min="-2" pref="61" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" attributes="0">
                                           <Component id="jLabel14" min="-2" pref="51" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Component id="basicPay3" min="-2" pref="61" max="-2" attributes="0"/>
+                                          <Component id="N500T" min="-2" pref="61" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="jLabel15" min="-2" pref="51" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Component id="basicPay4" min="-2" pref="61" max="-2" attributes="0"/>
+                                          <Component id="N100T" min="-2" pref="61" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
                                   <Component id="jLabel17" min="-2" pref="51" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="basicPay6" min="-2" pref="61" max="-2" attributes="0"/>
+                                  <Component id="N20T" min="-2" pref="61" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
                                   <Component id="jLabel18" min="-2" pref="51" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="basicPay7" min="-2" pref="61" max="-2" attributes="0"/>
+                                  <Component id="N10T" min="-2" pref="61" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
                                   <Component id="jLabel19" min="-2" pref="51" max="-2" attributes="0"/>
@@ -236,42 +234,42 @@
                   <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="basicPay" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="N5000T" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="basicPay1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="N2000T" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="basicPay2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="N1000T" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="basicPay3" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="N500T" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel14" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="basicPay4" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="N100T" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="basicPay5" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="N50T" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel16" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="basicPay6" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="N20T" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel17" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="basicPay7" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="N10T" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel18" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -308,7 +306,7 @@
             <Property name="text" type="java.lang.String" value="5000"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="basicPay">
+        <Component class="javax.swing.JTextField" name="N5000T">
         </Component>
         <Component class="javax.swing.JSeparator" name="jSeparator2">
         </Component>
@@ -319,14 +317,14 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="basicPay1">
+        <Component class="javax.swing.JTextField" name="N2000T">
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel12">
           <Properties>
             <Property name="text" type="java.lang.String" value="2000"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="basicPay2">
+        <Component class="javax.swing.JTextField" name="N1000T">
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel13">
           <Properties>
@@ -338,35 +336,35 @@
             <Property name="text" type="java.lang.String" value="500"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="basicPay3">
+        <Component class="javax.swing.JTextField" name="N500T">
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel15">
           <Properties>
             <Property name="text" type="java.lang.String" value="100"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="basicPay4">
+        <Component class="javax.swing.JTextField" name="N100T">
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel16">
           <Properties>
             <Property name="text" type="java.lang.String" value="50"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="basicPay5">
+        <Component class="javax.swing.JTextField" name="N50T">
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel17">
           <Properties>
             <Property name="text" type="java.lang.String" value="20"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="basicPay6">
+        <Component class="javax.swing.JTextField" name="N20T">
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel18">
           <Properties>
             <Property name="text" type="java.lang.String" value="10"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="basicPay7">
+        <Component class="javax.swing.JTextField" name="N10T">
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">
           <Properties>

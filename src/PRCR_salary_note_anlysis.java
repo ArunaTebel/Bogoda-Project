@@ -13,9 +13,8 @@ public class PRCR_salary_note_anlysis extends javax.swing.JPanel {
     /**
      * Creates new form PRCR_salary_payroll
      */
-    
     Payroll_Salary spiObject = new Payroll_Salary();
-    
+
     public PRCR_salary_note_anlysis() {
         initComponents();
     }
@@ -31,26 +30,26 @@ public class PRCR_salary_note_anlysis extends javax.swing.JPanel {
 
         jSeparator1 = new javax.swing.JSeparator();
         jLabel1 = new javax.swing.JLabel();
-        code = new javax.swing.JComboBox();
+        checkrollOrStaff = new javax.swing.JComboBox();
         jPanel2 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        basicPay = new javax.swing.JTextField();
+        N5000T = new javax.swing.JTextField();
         jSeparator2 = new javax.swing.JSeparator();
         fullPay = new javax.swing.JTextField();
-        basicPay1 = new javax.swing.JTextField();
+        N2000T = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
-        basicPay2 = new javax.swing.JTextField();
+        N1000T = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        basicPay3 = new javax.swing.JTextField();
+        N500T = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
-        basicPay4 = new javax.swing.JTextField();
+        N100T = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
-        basicPay5 = new javax.swing.JTextField();
+        N50T = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
-        basicPay6 = new javax.swing.JTextField();
+        N20T = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
-        basicPay7 = new javax.swing.JTextField();
+        N10T = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         basicPay8 = new javax.swing.JTextField();
@@ -74,16 +73,16 @@ public class PRCR_salary_note_anlysis extends javax.swing.JPanel {
 
         jLabel1.setText("Division");
 
-        code.setEditable(true);
-        code.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        code.addActionListener(new java.awt.event.ActionListener() {
+        checkrollOrStaff.setEditable(true);
+        checkrollOrStaff.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Checkroll", "Staff" }));
+        checkrollOrStaff.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                codeActionPerformed(evt);
+                checkrollOrStaffActionPerformed(evt);
             }
         });
-        code.addFocusListener(new java.awt.event.FocusAdapter() {
+        checkrollOrStaff.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                codeFocusLost(evt);
+                checkrollOrStaffFocusLost(evt);
             }
         });
 
@@ -146,7 +145,7 @@ public class PRCR_salary_note_anlysis extends javax.swing.JPanel {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(basicPay5, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(N50T, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -154,31 +153,31 @@ public class PRCR_salary_note_anlysis extends javax.swing.JPanel {
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(basicPay1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(N2000T, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(basicPay, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(N5000T, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(basicPay2, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(N1000T, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(basicPay3, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(N500T, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(basicPay4, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addComponent(N100T, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(basicPay6, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(N20T, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(basicPay7, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(N10T, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -201,35 +200,35 @@ public class PRCR_salary_note_anlysis extends javax.swing.JPanel {
                 .addGap(19, 19, 19)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(basicPay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(N5000T, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
-                    .addComponent(basicPay1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(N2000T, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(basicPay2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(N1000T, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel13))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(basicPay3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(N500T, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel14))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(basicPay4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(N100T, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel15))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(basicPay5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(N50T, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel16))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(basicPay6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(N20T, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel17))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(basicPay7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(N10T, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel18))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -315,7 +314,7 @@ public class PRCR_salary_note_anlysis extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addGap(18, 18, 18)
-                                .addComponent(code, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(checkrollOrStaff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -348,7 +347,7 @@ public class PRCR_salary_note_anlysis extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(12, 12, 12)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(code, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(checkrollOrStaff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel1))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -372,19 +371,181 @@ public class PRCR_salary_note_anlysis extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void codeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codeActionPerformed
+    private void checkrollOrStaffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkrollOrStaffActionPerformed
         // TODO add your handling code here:
-        
-    }//GEN-LAST:event_codeActionPerformed
 
-    private void codeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_codeFocusLost
+    }//GEN-LAST:event_checkrollOrStaffActionPerformed
+
+    private void checkrollOrStaffFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_checkrollOrStaffFocusLost
         // TODO add your handling code here:
-        
-    }//GEN-LAST:event_codeFocusLost
+
+    }//GEN-LAST:event_checkrollOrStaffFocusLost
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
- 
+        if (checkrollOrStaff.getSelectedItem() == "Checkroll") {
+            CheckrollSallaryCal abc = new CheckrollSallaryCal();
+            int columnSize = 0;
+            columnSize = abc.getColumnsize("checkroll_personalinfo", "code");
+            System.out.println(columnSize);
+
+            int array[] = new int[columnSize];
+            double arraySal[] = new double[columnSize];
+            array = abc.getIntArray("checkroll_personalinfo", "code");
+
+            for (int i = 0; i < columnSize; i++) {
+                System.out.println(array[i]);
+                abc.setEmployCode(array[i]);
+                arraySal[i] = abc.getFinalSalary();
+                System.out.println(arraySal[i]);
+
+            }
+
+            int arrayN5000[] = new int[columnSize];
+            arrayN5000 = abc.getIntArray("checkroll_personalinfo", "n_5000");
+            int N5000 = 0;
+            for (int i = 0; i < columnSize; i++) {
+                N5000 = N5000 + arrayN5000[i];
+            }
+            N5000T.setText(Integer.toString(N5000));
+
+            int arrayN2000[] = new int[columnSize];
+            arrayN5000 = abc.getIntArray("checkroll_personalinfo", "n_2000");
+            int N2000 = 0;
+            for (int i = 0; i < columnSize; i++) {
+                N2000 = N2000 + arrayN2000[i];
+            }
+            N2000T.setText(Integer.toString(N2000));
+
+            int arrayN1000[] = new int[columnSize];
+            arrayN1000 = abc.getIntArray("checkroll_personalinfo", "n_1000");
+            int N1000 = 0;
+            for (int i = 0; i < columnSize; i++) {
+                N1000 = N1000 + arrayN1000[i];
+            }
+            N1000T.setText(Integer.toString(N1000));
+
+            int arrayN500[] = new int[columnSize];
+            arrayN500 = abc.getIntArray("checkroll_personalinfo", "n_5000");
+            int N500 = 0;
+            for (int i = 0; i < columnSize; i++) {
+                N500 = N500 + arrayN500[i];
+            }
+            N500T.setText(Integer.toString(N500));
+
+            int arrayN100[] = new int[columnSize];
+            arrayN100 = abc.getIntArray("checkroll_personalinfo", "n_100");
+            int N100 = 0;
+            for (int i = 0; i < columnSize; i++) {
+                N100 = N100 + arrayN100[i];
+            }
+            N100T.setText(Integer.toString(N100));
+
+            int arrayN50[] = new int[columnSize];
+            arrayN50 = abc.getIntArray("checkroll_personalinfo", "n_50");
+            int N50 = 0;
+            for (int i = 0; i < columnSize; i++) {
+                N50 = N50 + arrayN50[i];
+            }
+            N50T.setText(Integer.toString(N50));
+
+            int arrayN20[] = new int[columnSize];
+            arrayN20 = abc.getIntArray("checkroll_personalinfo", "n_20");
+            int N20 = 0;
+            for (int i = 0; i < columnSize; i++) {
+                N20 = N20 + arrayN20[i];
+            }
+            N20T.setText(Integer.toString(N20));
+
+            int arrayN10[] = new int[columnSize];
+            arrayN10 = abc.getIntArray("checkroll_personalinfo", "n_10");
+            int N10 = 0;
+            for (int i = 0; i < columnSize; i++) {
+                N10 = N10 + arrayN10[i];
+            }
+            N10T.setText(Integer.toString(N10));
+        }else{
+            Payroll_Salary abc = new Payroll_Salary();
+            int columnSize = 0;
+            columnSize = abc.getColumnsize("staff_personalinfo", "code");
+            System.out.println(columnSize);
+
+            int array[] = new int[columnSize];
+            double arraySal[] = new double[columnSize];
+            array = abc.getIntArray("staff_personalinfo", "code");
+
+            for (int i = 0; i < columnSize; i++) {
+                System.out.println(array[i]);
+                abc.setEmployCode(array[i]);
+                arraySal[i] = abc.getFullPay();
+                System.out.println(arraySal[i]);
+
+            }
+
+            int arrayN5000[] = new int[columnSize];
+            arrayN5000 = abc.getIntArray("staff_personalinfo", "n_5000");
+            int N5000 = 0;
+            for (int i = 0; i < columnSize; i++) {
+                N5000 = N5000 + arrayN5000[i];
+            }
+            N5000T.setText(Integer.toString(N5000));
+
+            int arrayN2000[] = new int[columnSize];
+            arrayN5000 = abc.getIntArray("staff_personalinfo", "n_2000");
+            int N2000 = 0;
+            for (int i = 0; i < columnSize; i++) {
+                N2000 = N2000 + arrayN2000[i];
+            }
+            N2000T.setText(Integer.toString(N2000));
+
+            int arrayN1000[] = new int[columnSize];
+            arrayN1000 = abc.getIntArray("staff_personalinfo", "n_1000");
+            int N1000 = 0;
+            for (int i = 0; i < columnSize; i++) {
+                N1000 = N1000 + arrayN1000[i];
+            }
+            N1000T.setText(Integer.toString(N1000));
+
+            int arrayN500[] = new int[columnSize];
+            arrayN500 = abc.getIntArray("staff_personalinfo", "n_5000");
+            int N500 = 0;
+            for (int i = 0; i < columnSize; i++) {
+                N500 = N500 + arrayN500[i];
+            }
+            N500T.setText(Integer.toString(N500));
+
+            int arrayN100[] = new int[columnSize];
+            arrayN100 = abc.getIntArray("staff_personalinfo", "n_100");
+            int N100 = 0;
+            for (int i = 0; i < columnSize; i++) {
+                N100 = N100 + arrayN100[i];
+            }
+            N100T.setText(Integer.toString(N100));
+
+            int arrayN50[] = new int[columnSize];
+            arrayN50 = abc.getIntArray("staff_personalinfo", "n_50");
+            int N50 = 0;
+            for (int i = 0; i < columnSize; i++) {
+                N50 = N50 + arrayN50[i];
+            }
+            N50T.setText(Integer.toString(N50));
+
+            int arrayN20[] = new int[columnSize];
+            arrayN20 = abc.getIntArray("staff_personalinfo", "n_20");
+            int N20 = 0;
+            for (int i = 0; i < columnSize; i++) {
+                N20 = N20 + arrayN20[i];
+            }
+            N20T.setText(Integer.toString(N20));
+
+            int arrayN10[] = new int[columnSize];
+            arrayN10 = abc.getIntArray("staff_personalinfo", "n_10");
+            int N10 = 0;
+            for (int i = 0; i < columnSize; i++) {
+                N10 = N10 + arrayN10[i];
+            }
+            N10T.setText(Integer.toString(N10));
+        }
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
@@ -401,18 +562,18 @@ public class PRCR_salary_note_anlysis extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField basicPay;
-    private javax.swing.JTextField basicPay1;
+    private javax.swing.JTextField N1000T;
+    private javax.swing.JTextField N100T;
+    private javax.swing.JTextField N10T;
+    private javax.swing.JTextField N2000T;
+    private javax.swing.JTextField N20T;
+    private javax.swing.JTextField N5000T;
+    private javax.swing.JTextField N500T;
+    private javax.swing.JTextField N50T;
     private javax.swing.JTextField basicPay10;
     private javax.swing.JTextField basicPay11;
-    private javax.swing.JTextField basicPay2;
-    private javax.swing.JTextField basicPay3;
-    private javax.swing.JTextField basicPay4;
-    private javax.swing.JTextField basicPay5;
-    private javax.swing.JTextField basicPay6;
-    private javax.swing.JTextField basicPay7;
     private javax.swing.JTextField basicPay8;
-    private javax.swing.JComboBox code;
+    private javax.swing.JComboBox checkrollOrStaff;
     private javax.swing.JTextField fullPay;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
