@@ -2,6 +2,8 @@
 import java.awt.event.ItemEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -307,6 +309,12 @@ public class ACC_recepts extends javax.swing.JPanel {
         payType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 payTypeActionPerformed(evt);
+            }
+        });
+
+        refNo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                refNoActionPerformed(evt);
             }
         });
 
@@ -668,6 +676,9 @@ public class ACC_recepts extends javax.swing.JPanel {
             return Double.parseDouble(s);
         }
     }
+
+
+
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
 
         boolean addToDebitDataBase;
@@ -866,6 +877,10 @@ public class ACC_recepts extends javax.swing.JPanel {
     private void debit_descriptionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_debit_descriptionFocusLost
         credit_description.setText(debit_description.getText());
     }//GEN-LAST:event_debit_descriptionFocusLost
+
+    private void refNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refNoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_refNoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
