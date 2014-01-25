@@ -9,17 +9,18 @@ import java.sql.SQLException;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Pramo
  */
 public class GLmanual_entry extends javax.swing.JPanel {
-  Interface_Events interface_events = new Interface_Events();
+
+    Interface_Events interface_events = new Interface_Events();
     /**
      * Creates new form GLmanual_entry
      */
     GreenLeaf globject = new GreenLeaf();
+
     public GLmanual_entry() {
         initComponents();
     }
@@ -53,7 +54,6 @@ public class GLmanual_entry extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        leaf_category = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
@@ -77,6 +77,8 @@ public class GLmanual_entry extends javax.swing.JPanel {
         sendButton = new javax.swing.JButton();
         leaf_cat = new javax.swing.JComboBox();
         jLabel14 = new javax.swing.JLabel();
+        jButton6 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
 
         jLabel1.setText("User ID");
 
@@ -86,8 +88,9 @@ public class GLmanual_entry extends javax.swing.JPanel {
 
         jLabel4.setText("Leaf Category");
 
+        DatabaseManager dbm = DatabaseManager.getDbCon();
         supplier_id.setEditable(true);
-        supplier_id.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5" }));
+        supplier_id.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("suppliers", "sup_id")));
         supplier_id.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 supplier_idItemStateChanged(evt);
@@ -197,7 +200,10 @@ public class GLmanual_entry extends javax.swing.JPanel {
                 .addContainerGap(117, Short.MAX_VALUE))
         );
 
+        name.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+
         category_code.setEditable(true);
+        category_code.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("category", "category_id")));
         category_code.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 category_codeItemStateChanged(evt);
@@ -212,6 +218,9 @@ public class GLmanual_entry extends javax.swing.JPanel {
             }
         });
         no_of_sacks.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                no_of_sacksKeyPressed(evt);
+            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 no_of_sacksKeyReleased(evt);
             }
@@ -228,6 +237,9 @@ public class GLmanual_entry extends javax.swing.JPanel {
             }
         });
         total_kg.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                total_kgKeyPressed(evt);
+            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 total_kgKeyReleased(evt);
             }
@@ -262,6 +274,9 @@ public class GLmanual_entry extends javax.swing.JPanel {
             }
         });
         sacks_weight.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                sacks_weightKeyPressed(evt);
+            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 sacks_weightKeyReleased(evt);
             }
@@ -273,6 +288,9 @@ public class GLmanual_entry extends javax.swing.JPanel {
             }
         });
         water.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                waterKeyPressed(evt);
+            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 waterKeyReleased(evt);
             }
@@ -284,6 +302,9 @@ public class GLmanual_entry extends javax.swing.JPanel {
             }
         });
         coarse_leaf.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                coarse_leafKeyPressed(evt);
+            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 coarse_leafKeyReleased(evt);
             }
@@ -295,6 +316,9 @@ public class GLmanual_entry extends javax.swing.JPanel {
             }
         });
         other.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                otherKeyPressed(evt);
+            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 otherKeyReleased(evt);
             }
@@ -425,7 +449,7 @@ public class GLmanual_entry extends javax.swing.JPanel {
         });
 
         leaf_cat.setEditable(true);
-        leaf_cat.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        leaf_cat.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("leaf_category", "category_name")));
         leaf_cat.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 leaf_catItemStateChanged(evt);
@@ -433,6 +457,20 @@ public class GLmanual_entry extends javax.swing.JPanel {
         });
 
         jLabel14.setForeground(new java.awt.Color(153, 0, 0));
+
+        jButton6.setText("Clear all");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
+        jButton7.setText("Clear Last ");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -444,18 +482,18 @@ public class GLmanual_entry extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel4)
-                                .addGap(18, 18, 18)
-                                .addComponent(leaf_category, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGap(65, 65, 65)
+                                        .addGap(138, 138, 138)
                                         .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(leaf_cat, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addGap(18, 18, 18)
+                                        .addComponent(leaf_cat, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(self_transport))))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel3)
@@ -463,61 +501,68 @@ public class GLmanual_entry extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(66, 66, 66)
-                                        .addComponent(category_name, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
                                         .addComponent(category_code, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(27, 27, 27)
-                                        .addComponent(jLabel5)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(datePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addComponent(category_name, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(name, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addGap(18, 18, 18)
                                 .addComponent(supplier_id, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(81, 81, 81)
-                                .addComponent(self_transport))
-                            .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 472, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 462, Short.MAX_VALUE)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton7))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(14, 14, 14)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jScrollPane1)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addGroup(layout.createSequentialGroup()
-                                                .addGap(10, 10, 10)
-                                                .addComponent(jLabel6)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(jLabel7))
-                                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGap(10, 10, 10)
-                                                .addComponent(jLabel8)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(jLabel9)
-                                                .addGap(39, 39, 39)
-                                                .addComponent(jLabel10)
-                                                .addGap(32, 32, 32)
-                                                .addComponent(jLabel11))
-                                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel12)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(sendButton)
-                                                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))))))))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                                                    .addGroup(layout.createSequentialGroup()
+                                                        .addGap(10, 10, 10)
+                                                        .addComponent(jLabel6)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                        .addComponent(jLabel7))
+                                                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addGap(18, 18, 18)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addGroup(layout.createSequentialGroup()
+                                                        .addGap(10, 10, 10)
+                                                        .addComponent(jLabel8)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                        .addComponent(jLabel9)
+                                                        .addGap(39, 39, 39)
+                                                        .addComponent(jLabel10)
+                                                        .addGap(32, 32, 32)
+                                                        .addComponent(jLabel11))
+                                                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addGap(18, 18, 18)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(jLabel12)
+                                                    .addGroup(layout.createSequentialGroup()
+                                                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                        .addComponent(sendButton))))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jLabel5)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(datePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(178, 178, 178)))
+                                        .addGap(22, 22, 22)))))
+                        .addGap(0, 315, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -528,27 +573,29 @@ public class GLmanual_entry extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel13)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(datePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3)
-                            .addComponent(category_code, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel5)
+                                .addComponent(datePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel3)
+                                .addComponent(category_code, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(category_name, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(16, 16, 16)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(supplier_id, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(self_transport))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(category_name, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(name, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel1)
+                                .addComponent(supplier_id, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(13, 13, 13)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
-                            .addComponent(leaf_category, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(leaf_cat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(10, 10, 10)
+                            .addComponent(leaf_cat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(self_transport))
+                        .addGap(8, 8, 8)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -569,17 +616,18 @@ public class GLmanual_entry extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel12)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(sendButton))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(sendButton, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(19, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jButton7)
+                                .addComponent(jButton6)))
+                        .addContainerGap(17, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))))
@@ -588,36 +636,35 @@ public class GLmanual_entry extends javax.swing.JPanel {
 
     private void self_transportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_self_transportActionPerformed
         // TODO add your handling code here:
-       
-        
-        
-        
+
+
     }//GEN-LAST:event_self_transportActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
-        
-
-
-
-
-
 // TODO add your handling code here:
-         globject.setSupplierCode(Integer.parseInt(supplier_id.getSelectedItem().toString()));
-        globject.setCategoryCode(Integer.parseInt(category_code.getSelectedItem().toString()));
-        globject.setNoOfSacks(Integer.parseInt(no_of_sacks.getText()));
-        globject.setTotalWeight(Double.parseDouble(total_kg.getText()));
-        globject.setSacksWeight(Double.parseDouble(sacks_weight.getText()));
-        globject.setOther(Double.parseDouble(other.getText()));
-        globject.setWater(Double.parseDouble(water.getText()));
-        globject.setCoarseLeaf(Double.parseDouble(coarse_leaf.getText()));
-        globject.setLeafCategory(Integer.parseInt(leaf_cat.getSelectedItem().toString()));
+        int i =0;
+        int j =0;
+        while (table.getValueAt(i, 0) != null) {
+            i++;
+        }
+        while(j<i){
+        globject.setSupplierCode(Integer.parseInt(table.getValueAt(j, 0).toString()));
+       globject.setCategoryCode(Integer.parseInt(leaf_cat.getSelectedItem().toString()));
+        globject.setNoOfSacks(Integer.parseInt(table.getValueAt(j, 1).toString()));
+        globject.setTotalWeight(Double.parseDouble(table.getValueAt(j, 2).toString()));
+        globject.setSacksWeight(Double.parseDouble(table.getValueAt(j, 3).toString()));
+        globject.setOther(Double.parseDouble(table.getValueAt(j, 6).toString()));
+        globject.setWater(Double.parseDouble(table.getValueAt(j, 4).toString()));
+        globject.setCoarseLeaf(Double.parseDouble(table.getValueAt(j, 5).toString()));
+       // globject.setLeafCategory(table.getValueAt(j, 8).toString());
         java.sql.Date date = new java.sql.Date(datePicker.getDate().getTime());
         globject.setDate(date);
         globject.calcNetQuantity();
         globject.setSelfTransport(self_transport.isSelected());
         globject.setIntselfTransport(globject.getSelfTransport());
         globject.addToDataBase();
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void supplier_idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supplier_idActionPerformed
@@ -632,41 +679,43 @@ public class GLmanual_entry extends javax.swing.JPanel {
         DatabaseManager dbm = DatabaseManager.getDbCon();
         String Name = null;
         if (evt.getStateChange() == ItemEvent.SELECTED) {
-          int item = Integer.parseInt(evt.getItem().toString());
+            int item = Integer.parseInt(evt.getItem().toString());
             try {
-              ResultSet query = dbm.query("SELECT * FROM suppliers WHERE sup_id ="+item+"");
-              while(query.next()){
-                  Name = query.getString("sup_name");
-              }
+                ResultSet query = dbm.query("SELECT * FROM suppliers WHERE sup_id =" + item + "");
+                while (query.next()) {
+                    Name = query.getString("sup_name");
+                }
             } catch (SQLException ex) {
             }
-          name.setText(""+Name);
-          
-          no_of_sacks.requestFocusInWindow();
-          
-          // do something with object
+            name.setText("" + Name);
+
+            no_of_sacks.requestFocusInWindow();
+
+            jLabel14.setText(" ");
+
+            // do something with object
        }    }//GEN-LAST:event_supplier_idItemStateChanged
 
     private void category_codeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_category_codeItemStateChanged
-         DatabaseManager dbm = DatabaseManager.getDbCon();
+        DatabaseManager dbm = DatabaseManager.getDbCon();
         String Name = null;
         if (evt.getStateChange() == ItemEvent.SELECTED) {
-          int item = Integer.parseInt(evt.getItem().toString());
+            int item = Integer.parseInt(evt.getItem().toString());
             try {
-              ResultSet query = dbm.query("SELECT * FROM category WHERE category_id ="+item+"");
-              while(query.next()){
-                  Name = query.getString("category_name");
-              }
+                ResultSet query = dbm.query("SELECT * FROM category WHERE category_id =" + item + "");
+                while (query.next()) {
+                    Name = query.getString("category_name");
+                }
             } catch (SQLException ex) {
             }
-          category_name.setText(""+Name);
+            category_name.setText("" + Name);
         }
-        
-          
+
+
     }//GEN-LAST:event_category_codeItemStateChanged
 
     private void no_of_sacksKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_no_of_sacksKeyReleased
-        interface_events.Change_focus_Enterkey_t(total_kg, evt);
+
     }//GEN-LAST:event_no_of_sacksKeyReleased
 
     private void no_of_sacksFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_no_of_sacksFocusLost
@@ -674,7 +723,7 @@ public class GLmanual_entry extends javax.swing.JPanel {
     }//GEN-LAST:event_no_of_sacksFocusLost
 
     private void total_kgFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_total_kgFocusLost
-        net_weight.setText(""+((convertString(total_kg.getText()))-(convertString(sacks_weight.getText()))-(convertString(water.getText()))-(convertString(coarse_leaf.getText()))-(convertString(other.getText()))));
+        net_weight.setText("" + ((convertString(total_kg.getText())) - (convertString(sacks_weight.getText())) - (convertString(water.getText())) - (convertString(coarse_leaf.getText())) - (convertString(other.getText()))));
 
     }//GEN-LAST:event_total_kgFocusLost
 
@@ -683,107 +732,159 @@ public class GLmanual_entry extends javax.swing.JPanel {
     }//GEN-LAST:event_total_kgActionPerformed
 
     private void sacks_weightFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_sacks_weightFocusLost
-        net_weight.setText(""+((convertString(total_kg.getText()))-(convertString(sacks_weight.getText()))-(convertString(water.getText()))-(convertString(coarse_leaf.getText()))-(convertString(other.getText()))));
+        net_weight.setText("" + ((convertString(total_kg.getText())) - (convertString(sacks_weight.getText())) - (convertString(water.getText())) - (convertString(coarse_leaf.getText())) - (convertString(other.getText()))));
     }//GEN-LAST:event_sacks_weightFocusLost
 
     private void waterFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_waterFocusLost
-              net_weight.setText(""+((convertString(total_kg.getText()))-(convertString(sacks_weight.getText()))-(convertString(water.getText()))-(convertString(coarse_leaf.getText()))-(convertString(other.getText()))));
+        net_weight.setText("" + ((convertString(total_kg.getText())) - (convertString(sacks_weight.getText())) - (convertString(water.getText())) - (convertString(coarse_leaf.getText())) - (convertString(other.getText()))));
 
     }//GEN-LAST:event_waterFocusLost
 
     private void coarse_leafFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_coarse_leafFocusLost
-                net_weight.setText(""+((convertString(total_kg.getText()))-(convertString(sacks_weight.getText()))-(convertString(water.getText()))-(convertString(coarse_leaf.getText()))-(convertString(other.getText()))));
+        net_weight.setText("" + ((convertString(total_kg.getText())) - (convertString(sacks_weight.getText())) - (convertString(water.getText())) - (convertString(coarse_leaf.getText())) - (convertString(other.getText()))));
 
     }//GEN-LAST:event_coarse_leafFocusLost
 
     private void otherFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_otherFocusLost
-                net_weight.setText(""+((convertString(total_kg.getText()))-(convertString(sacks_weight.getText()))-(convertString(water.getText()))-(convertString(coarse_leaf.getText()))-(convertString(other.getText()))));
+        net_weight.setText("" + ((convertString(total_kg.getText())) - (convertString(sacks_weight.getText())) - (convertString(water.getText())) - (convertString(coarse_leaf.getText())) - (convertString(other.getText()))));
 
     }//GEN-LAST:event_otherFocusLost
 
     private void sendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendButtonActionPerformed
-       
-        
-        if (no_of_sacks.getText().equalsIgnoreCase(" ") ) {
-            jLabel14.setText("Empty Fields");
-       }
-        
-       else
-        
-        {
-        int i=0;
-        while(table.getValueAt(i, 0)!=null){
-            i++;
+
+        if (supplier_id.getSelectedItem() == null) {
+            jLabel14.setText("Please Choose Supplir ID");
+        } else {
+            int i = 0;
+            while (table.getValueAt(i, 0) != null) {
+                i++;
+            }
+
+            table.setValueAt(supplier_id.getSelectedItem().toString(), i, 0);
+            table.setValueAt(leaf_cat.getSelectedItem().toString(), i, 9);
+            table.setValueAt(no_of_sacks.getText(), i, 1);
+            table.setValueAt(total_kg.getText(), i, 2);
+            table.setValueAt(sacks_weight.getText(), i, 3);
+            table.setValueAt(water.getText(), i, 4);
+            table.setValueAt(coarse_leaf.getText(), i, 5);
+            table.setValueAt(other.getText(), i, 6);
+            table.setValueAt(net_weight.getText(), i, 7);
+            if (self_transport.isSelected() == true) {
+                table.setValueAt("Yes", i, 8);
+
+            } else {
+                table.setValueAt("No", i, 8);
+            }
+
+            supplier_id.requestFocusInWindow(); // request focus
+            supplier_id.setSelectedItem(null);   // setting null
+            leaf_cat.setSelectedItem("A"); // default///////////////////////////////////////////////////////////////////////////////////////////////
+            no_of_sacks.setText(null);
+            total_kg.setText(null);
+            sacks_weight.setText(null);
+            water.setText(null);
+            coarse_leaf.setText(null);
+            other.setText(null);
+            net_weight.setText(null);
+
         }
-       
-        
-        table.setValueAt(supplier_id.getSelectedItem().toString(),i, 0);
-        table.setValueAt(leaf_cat.getSelectedItem().toString(),i, 9);
-        table.setValueAt(no_of_sacks.getText(), i, 1);
-        table.setValueAt(total_kg.getText(), i, 2);
-        table.setValueAt(sacks_weight.getText(), i, 3);
-        table.setValueAt(water.getText(), i, 4);
-        table.setValueAt(coarse_leaf.getText(), i, 5);
-        table.setValueAt(other.getText(), i, 6);
-        table.setValueAt(net_weight.getText(), i, 7);
-         if (self_transport.isSelected()==true) {
-            table.setValueAt("Yes", i, 8); 
-            
-        }
-         else {table.setValueAt("No", i, 8); }
-         
-         supplier_id.requestFocusInWindow(); // request focus
-        supplier_id.setSelectedItem(null);   // setting null
-        leaf_cat.setSelectedItem("Item1");
-        no_of_sacks.setText(null);
-        total_kg.setText(null);
-        sacks_weight.setText(null);
-        water.setText(null);
-        coarse_leaf.setText(null);
-        other.setText(null);
-        net_weight.setText(null);
-        
-      } 
         //debit_amount.setText(null);
     }//GEN-LAST:event_sendButtonActionPerformed
-    
+
     private void supplier_idKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_supplier_idKeyReleased
-     
-       
+
+
     }//GEN-LAST:event_supplier_idKeyReleased
 
     private void leaf_catItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_leaf_catItemStateChanged
-       no_of_sacks.requestFocusInWindow();
+        no_of_sacks.requestFocusInWindow();
     }//GEN-LAST:event_leaf_catItemStateChanged
 
     private void total_kgKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_total_kgKeyReleased
-         interface_events.Change_focus_Enterkey_t(sacks_weight, evt);
+
     }//GEN-LAST:event_total_kgKeyReleased
 
     private void sacks_weightKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_sacks_weightKeyReleased
-         interface_events.Change_focus_Enterkey_t(water, evt);
+
     }//GEN-LAST:event_sacks_weightKeyReleased
 
     private void waterKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_waterKeyReleased
-         interface_events.Change_focus_Enterkey_t(coarse_leaf, evt);
+
     }//GEN-LAST:event_waterKeyReleased
 
     private void coarse_leafKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_coarse_leafKeyReleased
-         interface_events.Change_focus_Enterkey_t(other, evt);
+
     }//GEN-LAST:event_coarse_leafKeyReleased
 
     private void otherKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_otherKeyReleased
-       interface_events.Change_focus_Enterkey_t_b(other, sendButton, evt);
+
     }//GEN-LAST:event_otherKeyReleased
 
     private void sendButtonFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_sendButtonFocusGained
-   interface_events.Respond_enter(sendButton, evt);        // TODO add your handling code here:
+        interface_events.Respond_enter(sendButton, evt);        // TODO add your handling code here:
     }//GEN-LAST:event_sendButtonFocusGained
-    public double convertString(String s){
-        if(s.length()==0){
-            return 0;
+
+    private void no_of_sacksKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_no_of_sacksKeyPressed
+        interface_events.Change_focus_Enterkey_t(no_of_sacks, evt);
+        interface_events.Change_focus_Enterkey_t(total_kg, evt);
+    }//GEN-LAST:event_no_of_sacksKeyPressed
+
+    private void total_kgKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_total_kgKeyPressed
+        interface_events.Change_focus_Enterkey_t(sacks_weight, evt);
+    }//GEN-LAST:event_total_kgKeyPressed
+
+    private void sacks_weightKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_sacks_weightKeyPressed
+        interface_events.Change_focus_Enterkey_t(water, evt);
+    }//GEN-LAST:event_sacks_weightKeyPressed
+
+    private void waterKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_waterKeyPressed
+        interface_events.Change_focus_Enterkey_t(coarse_leaf, evt);
+    }//GEN-LAST:event_waterKeyPressed
+
+    private void coarse_leafKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_coarse_leafKeyPressed
+        interface_events.Change_focus_Enterkey_t(other, evt);
+    }//GEN-LAST:event_coarse_leafKeyPressed
+
+    private void otherKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_otherKeyPressed
+        interface_events.Change_focus_Enterkey_t_b(other, sendButton, evt);
+    }//GEN-LAST:event_otherKeyPressed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        int i = 0;
+        int j = 0;
+        while (table.getValueAt(i, 0) != null) {
+
+            j = 0;
+            while (j < 10) {
+
+                table.setValueAt(null, i, j);
+                j++;
+            }
+            i++;
         }
-        else{
+
+
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        int i = 0;
+        int j = 0;
+        while (table.getValueAt(i, 0) != null) {
+            i++;
+        }
+        i--;
+        while (j < 10) {
+            table.setValueAt(null, i, j);
+            j++;
+
+        }
+
+
+    }//GEN-LAST:event_jButton7ActionPerformed
+    public double convertString(String s) {
+        if (s.length() == 0) {
+            return 0;
+        } else {
             return Double.parseDouble(s);
         }
     }
@@ -798,6 +899,8 @@ public class GLmanual_entry extends javax.swing.JPanel {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -821,7 +924,6 @@ public class GLmanual_entry extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JComboBox leaf_cat;
-    private javax.swing.JTextField leaf_category;
     private javax.swing.JLabel name;
     private javax.swing.JTextField net_weight;
     private javax.swing.JTextField no_of_sacks;

@@ -17,10 +17,10 @@ public class GreenLeaf {
     private double other;
     private double netQuantity;
     private boolean selfTransport; // Yes/No button   new thing we added :)
-    private int leafCategory;
+    private String leafCategory;
     private int intselfTransport;
 
-    GreenLeaf(Date date,int transaction_id, int supplierCode, int categoryCode, int noOfSacks, double totalWeight, double sacksWeight, double water, double coarseLeaf, double other, boolean selfTransport,double netQuantity,int leafCategory) {
+    GreenLeaf(Date date,int transaction_id, int supplierCode, int categoryCode, int noOfSacks, double totalWeight, double sacksWeight, double water, double coarseLeaf, double other, boolean selfTransport,double netQuantity,String leafCategory) {
         this.date = date;
         this.transaction_id=transaction_id;
         this.supplierCode = supplierCode;
@@ -50,7 +50,7 @@ public class GreenLeaf {
         other = 0;
         selfTransport = false;
         netQuantity=0;
-        leafCategory=0;
+        leafCategory=null;
         intselfTransport=0;
 
     }
@@ -108,7 +108,7 @@ public class GreenLeaf {
     public void setNetQuantity(double netQuantity) {   // This method may not be needed.
         this.netQuantity = netQuantity;
     }
-    public void setLeafCategory(int leafCategory){
+    public void setLeafCategory(String leafCategory){
         this.leafCategory=leafCategory;
     }
     public void setIntselfTransport(boolean sTransport ){
@@ -168,7 +168,7 @@ public class GreenLeaf {
         return selfTransport;
     }
     
-    public int getLeafCategory(){
+    public String getLeafCategory(){
         return leafCategory;
     }
 
