@@ -15,6 +15,22 @@ import java.sql.SQLException;
 public class ACC_journals extends javax.swing.JPanel {
 
     Journals_account jaobject = new Journals_account();
+    
+    public int stringToIntNum(String s) {
+        if (s.length() == 0) {
+            return 0;
+        } else {
+            return Integer.parseInt(s);
+        }
+    }
+
+    public double stringToDoubleNum(String s) {
+        if (s.length() == 0) {
+            return 0;
+        } else {
+            return Double.parseDouble(s);
+        }
+    }
 
     public ACC_journals() {
         initComponents();
@@ -370,6 +386,11 @@ public class ACC_journals extends javax.swing.JPanel {
         credit_account_code.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jButton1.setText("Clear all");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Clear Last ");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -533,6 +554,11 @@ public class ACC_journals extends javax.swing.JPanel {
         debit_account_code.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jButton5.setText("Clear all");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jButton9.setText("Clear Last ");
         jButton9.addActionListener(new java.awt.event.ActionListener() {
@@ -824,11 +850,45 @@ public class ACC_journals extends javax.swing.JPanel {
     }//GEN-LAST:event_branch_codeItemStateChanged
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+                                                        
+        int i=0;
+        while(credit_account_code_table.getValueAt(i, 0)!=null){
+            i++;
+        }
+        i--;
+        credit_account_code_table.setValueAt(null, i, 0);
+        credit_description_table.setValueAt(null, i, 0);
+        credit_amount_table.setValueAt(null, i, 0);
+        
+        double tot=0;
+         i=0;
+        while(credit_account_code_table.getValueAt(i, 0)!= null){
+            tot=tot+Double.parseDouble((String) credit_amount_table.getValueAt(i, 0));
+            i++;
+        }
+        credit_total.setText(""+tot);
+       difference.setText(""+(stringToDoubleNum(debit_total.getText())-stringToDoubleNum(credit_total.getText())));
+                               
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        // TODO add your handling code here:
+           int i=0;
+        while(debit_account_code_table.getValueAt(i, 0)!=null){
+            i++;
+        }
+        i--;
+        debit_account_code_table.setValueAt(null, i, 0);
+        debit_description_table.setValueAt(null, i, 0);
+        debit_amount_table.setValueAt(null, i, 0);
+        
+        double tot=0;
+         i=0;
+        while(debit_account_code_table.getValueAt(i, 0)!= null){
+            tot=tot+Double.parseDouble((String) debit_amount_table.getValueAt(i, 0));
+            i++;
+        }
+        debit_total.setText(""+tot);
+       difference.setText(""+(stringToDoubleNum(debit_total.getText())-stringToDoubleNum(credit_total.getText())));
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
@@ -865,6 +925,9 @@ public class ACC_journals extends javax.swing.JPanel {
         credit_amount_table.setValueAt(credit_amount.getText(), i, 0);
         credit_account_code.setSelectedIndex(0);
         credit_amount.setText(null);
+        
+        // Total calculation
+        
         double tot = 0;
         i = 0;
         while (credit_account_code_table.getValueAt(i, 0) != null) {
@@ -872,9 +935,51 @@ public class ACC_journals extends javax.swing.JPanel {
             i++;
         }
         credit_total.setText("" + tot);
-       // difference.setText(""+(Double.parseDouble(debitAmount.getText())-tot));
+       
+        // Difference Calculation
+        
+        difference.setText(""+(stringToDoubleNum(debit_total.getText())-stringToDoubleNum(credit_total.getText())));
+        
+       
 
     }//GEN-LAST:event_jButton11ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+         int i=0;
+        while(debit_account_code_table.getValueAt(i, 0)!=null){
+            debit_account_code_table.setValueAt(null, i, 0);
+            debit_description_table.setValueAt(null, i, 0);
+            debit_amount_table.setValueAt(null, i, 0);
+            i++;
+        }
+        double tot=0;
+         i=0;
+        while(debit_account_code_table.getValueAt(i, 0)!= null){
+            tot=tot+Double.parseDouble((String) debit_amount_table.getValueAt(i, 0));
+            i++;
+        }
+        debit_total.setText(""+tot);
+        difference.setText(""+(stringToDoubleNum(debit_total.getText())-stringToDoubleNum(credit_total.getText())));
+        
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+         int i=0;
+        while(credit_account_code_table.getValueAt(i, 0)!=null){
+            credit_account_code_table.setValueAt(null, i, 0);
+            credit_description_table.setValueAt(null, i, 0);
+            credit_amount_table.setValueAt(null, i, 0);
+            i++;
+        }
+        double tot=0;
+         i=0;
+        while(credit_account_code_table.getValueAt(i, 0)!= null){
+            tot=tot+Double.parseDouble((String) credit_amount_table.getValueAt(i, 0));
+            i++;
+        }
+        credit_total.setText(""+tot);
+        difference.setText(""+(stringToDoubleNum(debit_total.getText())-stringToDoubleNum(credit_total.getText())));
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
