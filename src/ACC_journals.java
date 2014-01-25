@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 import java.awt.event.ItemEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,9 +15,10 @@ import java.sql.SQLException;
 public class ACC_journals extends javax.swing.JPanel {
 
     Journals_account jaobject = new Journals_account();
+
     public ACC_journals() {
         initComponents();
-         String selection = (String) pay_type.getSelectedItem();
+        String selection = (String) pay_type.getSelectedItem();
 
         if (selection.equalsIgnoreCase("Cash")) {
 
@@ -710,9 +712,8 @@ public class ACC_journals extends javax.swing.JPanel {
         jaobject.setPayType(pay_type.getSelectedItem().toString());
 
         DatabaseManager dbm = DatabaseManager.getDbCon();
-      
+
         // Adding main common parts of the interface
-        
         if ("Cheque".equals(jaobject.getPayType())) {
 
             jaobject.setBankCode(Integer.parseInt(bank_code.getSelectedItem().toString()));
@@ -736,28 +737,70 @@ public class ACC_journals extends javax.swing.JPanel {
             jaobject.setChequeNo(null);
             addToMainJournalDataBase = jaobject.addToMainJournalDataBaseCash();
         }
-      /*  if (addToMainJournalDataBase == true) {
+        
+        
+        
+        if (addToMainJournalDataBase == true) {
+        
+            
+        // Debit Side of the interface
+            
+            
+        int i=0;
+        while(debit_account_code_table.getValueAt(i, 0)!= null){
+            i++;
+        }
+        String debit_acnt_name;
+        
+        for(int j=0;j<=i-1;j++){
+            debit_acnt_name = dbm.checknReturnData("account_names", "account_id",Integer.parseInt((String) debit_account_code_table.getValueAt(j, 0)), "account_name");
+            jaobject.addToDebitDataBase(Integer.parseInt(journal_no.getText()), Integer.parseInt((String) debit_account_code_table.getValueAt(j, 0)),debit_acnt_name, (String) debit_description_table.getValueAt(j, 0),Double.parseDouble((String) debit_amount_table.getValueAt(j, 0)));
+        } 
+        
+        
+        // Credit Side of the interface
+        
+        i=0;
+        while(credit_account_code_table.getValueAt(i, 0)!= null){
+            i++;
+        }
+        
+        String credit_acnt_name;
+        
+        for(int j=0;j<=i-1;j++){
+            credit_acnt_name = dbm.checknReturnData("account_names", "account_id",Integer.parseInt((String) credit_account_code_table.getValueAt(j, 0)), "account_name");
+            jaobject.addToCreditDataBase(Integer.parseInt(journal_no.getText()), Integer.parseInt((String) credit_account_code_table.getValueAt(j, 0)),credit_acnt_name, (String) credit_description_table.getValueAt(j, 0),Double.parseDouble((String) credit_amount_table.getValueAt(j, 0)));
+        } 
+        
+        
+        
+        
+        
+        
+        }
+        
+        /*  if (addToMainJournalDataBase == true) {
 
-            double updated_current_balance = Double.parseDouble(dbm.checknReturnData("account_names", "account_id", raobject.getDebit_accountCode(), "current_balance")) + raobject.getDebitAmount();
-            dbm.updateDatabase("account_names", "account_id", raobject.getDebit_accountCode(), "current_balance", updated_current_balance);
-        }*/
+         double updated_current_balance = Double.parseDouble(dbm.checknReturnData("account_names", "account_id", raobject.getDebit_accountCode(), "current_balance")) + raobject.getDebitAmount();
+         dbm.updateDatabase("account_names", "account_id", raobject.getDebit_accountCode(), "current_balance", updated_current_balance);
+         }*/
         // adding the relevant value to the current balance of the account*/
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void bank_codeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_bank_codeItemStateChanged
-     /*   DatabaseManager dbm = DatabaseManager.getDbCon();
-        String Name = null;
-        if (evt.getStateChange() == ItemEvent.SELECTED) {
-            int item = Integer.parseInt(evt.getItem().toString());
-            try {
-                ResultSet query = dbm.query("SELECT * FROM bank WHERE bank_id =" + item + "");
-                while (query.next()) {
-                    Name = query.getString("bank_name");
-                }
-            } catch (SQLException ex) {
-            }
-            bankName.setText("" + Name);
-        }*/
+        /*   DatabaseManager dbm = DatabaseManager.getDbCon();
+         String Name = null;
+         if (evt.getStateChange() == ItemEvent.SELECTED) {
+         int item = Integer.parseInt(evt.getItem().toString());
+         try {
+         ResultSet query = dbm.query("SELECT * FROM bank WHERE bank_id =" + item + "");
+         while (query.next()) {
+         Name = query.getString("bank_name");
+         }
+         } catch (SQLException ex) {
+         }
+         bankName.setText("" + Name);
+         }*/
     }//GEN-LAST:event_bank_codeItemStateChanged
 
     private void bank_codeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bank_codeActionPerformed
@@ -765,19 +808,19 @@ public class ACC_journals extends javax.swing.JPanel {
     }//GEN-LAST:event_bank_codeActionPerformed
 
     private void branch_codeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_branch_codeItemStateChanged
-     /*   DatabaseManager dbm = DatabaseManager.getDbCon();
-        String Name = null;
-        if (evt.getStateChange() == ItemEvent.SELECTED) {
-            int item = Integer.parseInt(evt.getItem().toString());
-            try {
-                ResultSet query = dbm.query("SELECT * FROM bank_branch WHERE branch_id =" + item + "");
-                while (query.next()) {
-                    Name = query.getString("branch_name");
-                }
-            } catch (SQLException ex) {
-            }
-            branchName.setText("" + Name);
-        }*/
+        /*   DatabaseManager dbm = DatabaseManager.getDbCon();
+         String Name = null;
+         if (evt.getStateChange() == ItemEvent.SELECTED) {
+         int item = Integer.parseInt(evt.getItem().toString());
+         try {
+         ResultSet query = dbm.query("SELECT * FROM bank_branch WHERE branch_id =" + item + "");
+         while (query.next()) {
+         Name = query.getString("branch_name");
+         }
+         } catch (SQLException ex) {
+         }
+         branchName.setText("" + Name);
+         }*/
     }//GEN-LAST:event_branch_codeItemStateChanged
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -789,50 +832,48 @@ public class ACC_journals extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        int i=0;
-        while(debit_account_code_table.getValueAt(i, 0)!=null){
+        int i = 0;
+        while (debit_account_code_table.getValueAt(i, 0) != null) {
             i++;
         }
-       
-        debit_account_code_table.setValueAt(debit_account_code.getSelectedItem().toString(),i, 0);
+
+        debit_account_code_table.setValueAt(debit_account_code.getSelectedItem().toString(), i, 0);
         debit_description_table.setValueAt(debit_description.getText(), i, 0);
         debit_amount_table.setValueAt(debit_amount.getText(), i, 0);
         debit_account_code.setSelectedIndex(0);
         debit_amount.setText(null);
-        double tot=0;
-         i=0;
-        while(debit_account_code_table.getValueAt(i, 0)!= null){
-            tot=tot+Double.parseDouble((String) debit_amount_table.getValueAt(i, 0));
+        double tot = 0;
+        i = 0;
+        while (debit_account_code_table.getValueAt(i, 0) != null) {
+            tot = tot + Double.parseDouble((String) debit_amount_table.getValueAt(i, 0));
             i++;
         }
-        debit_total.setText(""+tot);
+        debit_total.setText("" + tot);
        // difference.setText(""+(Double.parseDouble(debitAmount.getText())-tot));
-        
-              
+
+
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        int i=0;
-        while(credit_account_code_table.getValueAt(i, 0)!=null){
+        int i = 0;
+        while (credit_account_code_table.getValueAt(i, 0) != null) {
             i++;
         }
-       
-        
-        credit_account_code_table.setValueAt(credit_account_code.getSelectedItem().toString(),i, 0);
+
+        credit_account_code_table.setValueAt(credit_account_code.getSelectedItem().toString(), i, 0);
         credit_description_table.setValueAt(credit_description.getText(), i, 0);
         credit_amount_table.setValueAt(credit_amount.getText(), i, 0);
         credit_account_code.setSelectedIndex(0);
         credit_amount.setText(null);
-        double tot=0;
-         i=0;
-        while(credit_account_code_table.getValueAt(i, 0)!= null){
-            tot=tot+Double.parseDouble((String) credit_amount_table.getValueAt(i, 0));
+        double tot = 0;
+        i = 0;
+        while (credit_account_code_table.getValueAt(i, 0) != null) {
+            tot = tot + Double.parseDouble((String) credit_amount_table.getValueAt(i, 0));
             i++;
         }
-        credit_total.setText(""+tot);
+        credit_total.setText("" + tot);
        // difference.setText(""+(Double.parseDouble(debitAmount.getText())-tot));
-        
-              
+
     }//GEN-LAST:event_jButton11ActionPerformed
 
 
