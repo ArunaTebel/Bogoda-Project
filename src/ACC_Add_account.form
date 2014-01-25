@@ -159,8 +159,8 @@
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="7">
-            <StringItem index="0" value="Current Assets"/>
-            <StringItem index="1" value="Fixed Assets"/>
+            <StringItem index="0" value="Current Asset"/>
+            <StringItem index="1" value="Fixed Asset"/>
             <StringItem index="2" value="Current Liability"/>
             <StringItem index="3" value="Fixed Liability"/>
             <StringItem index="4" value="Expense"/>

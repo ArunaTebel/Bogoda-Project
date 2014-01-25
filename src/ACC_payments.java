@@ -789,6 +789,26 @@ public class ACC_payments extends javax.swing.JPanel {
             debit_acnt_name = dbm.checknReturnData("account_names", "account_id",Integer.parseInt((String) debit_account_code_table.getValueAt(j, 0)), "account_name");
             paobject.addToDebitDataBase(Integer.parseInt(recieptNo.getText()), Integer.parseInt((String) debit_account_code_table.getValueAt(j, 0)),debit_acnt_name, (String) debit_description_table.getValueAt(j, 0),Double.parseDouble((String) debit_amount_table.getValueAt(j, 0)));
         } 
+        
+        
+          // adding the relevant value to the current balance of the credit account
+        
+        i=0;
+        String acnt_class;
+        double debit_value;
+        double debit_updated_value;
+        while(debit_account_code_table.getValueAt(i, 0)!=null){
+            debit_value=Double.parseDouble((String)debit_amount_table.getValueAt(i, 0));
+            acnt_class=dbm.checknReturnData("account_names","account_id",Integer.parseInt((String) debit_account_code_table.getValueAt(i, 0)),"account_class");
+            if("Current Asset".equals(acnt_class) || "Fixed Asset".equals(acnt_class) || "Expense".equals(acnt_class)){
+               debit_updated_value=Double.parseDouble((String)dbm.checknReturnData("account_names","account_id",Integer.parseInt((String) debit_account_code_table.getValueAt(i, 0)),"current_balance"))+ debit_value;
+            }
+            else{
+                debit_updated_value=Double.parseDouble((String)dbm.checknReturnData("account_names","account_id",Integer.parseInt((String) debit_account_code_table.getValueAt(i, 0)),"current_balance"))- debit_value;
+            }
+            dbm.updateDatabase("account_names", "account_id",Integer.parseInt((String)debit_account_code_table.getValueAt(i, 0)), "current_balance",debit_updated_value);
+            i++;
+        }
     }//GEN-LAST:event_jButton6ActionPerformed
     
              

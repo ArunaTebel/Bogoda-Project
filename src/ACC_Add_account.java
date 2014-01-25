@@ -62,10 +62,10 @@ public class ACC_Add_account extends javax.swing.JPanel {
         });
 
         opening_balance.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 opening_balanceInputMethodTextChanged(evt);
+            }
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
         opening_balance.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -81,7 +81,7 @@ public class ACC_Add_account extends javax.swing.JPanel {
 
         jButton7.setText("View");
 
-        account_class.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Current Assets", "Fixed Assets", "Current Liability", "Fixed Liability", "Expense", "Income", "Equity" }));
+        account_class.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Current Asset", "Fixed Asset", "Current Liability", "Fixed Liability", "Expense", "Income", "Equity" }));
 
         jLabel5.setText("Rs");
 
