@@ -30,7 +30,7 @@ public class PRCR_NoteAnalysis {
     private int N20;
     private int N10;
     private double pettyCash;
-   // private int employCode;
+    // private int employCode;
     DatabaseManager dbm = DatabaseManager.getDbCon();
 
     public PRCR_NoteAnalysis() {
@@ -137,7 +137,7 @@ public class PRCR_NoteAnalysis {
         for (int i = 0; i < columnSize; i++) {
             N10 = N10 + arrayN10[i];
         }
-            //N10T.setText(Integer.toString(N10));
+        //N10T.setText(Integer.toString(N10));
 
     }
 
@@ -221,11 +221,11 @@ public class PRCR_NoteAnalysis {
         for (int i = 0; i < columnSize; i++) {
             N10 = N10 + arrayN10[i];
         }
-            //N10T.setText(Integer.toString(N10));
+        //N10T.setText(Integer.toString(N10));
 
     }
 
-    public void ChNoteAnalysis(double salary,int employCode) {
+    public void ChNoteAnalysis(double salary, int employCode) {
 
         n_5000 = (int) (salary / 5000);
         double rem = salary % 5000;
@@ -262,8 +262,8 @@ public class PRCR_NoteAnalysis {
         System.out.println("5000-" + n_5000 + "-2000-" + n_2000 + "-1000-" + n_1000 + "," + n_500 + "," + n_100);
 
     }
-    
-       public void StNoteAnalysis(double salary,int employCode) {//when we input salary of any employer number of notes that needed to pay salary will be updated in database
+
+    public void StNoteAnalysis(double salary, int employCode) {//when we input salary of any employer number of notes that needed to pay salary will be updated in database
 
         n_5000 = (int) (salary / 5000);
         double rem = salary % 5000;
@@ -297,7 +297,7 @@ public class PRCR_NoteAnalysis {
         dbm.updateDatabase("staff_personalinfo", "code", employCode, "n_10", n_10);
 
         pettyCash = rem % 10;
-       // System.out.println("5000-" + n_5000 + "-2000-" + n_2000 + "-1000-" + n_1000 + "," + n_500 + "," + n_100);
+        // System.out.println("5000-" + n_5000 + "-2000-" + n_2000 + "-1000-" + n_1000 + "," + n_500 + "," + n_100);
 
     }
 
@@ -347,6 +347,29 @@ public class PRCR_NoteAnalysis {
             ResultSet query2 = dbm.query("SELECT " + column_name + " FROM " + table_name + "");
             while (query2.next()) {
                 array[count] = query2.getInt(column_name);
+                count++;
+            }
+            return array;
+        } catch (SQLException ex) {
+
+        }
+        return null;
+
+    }
+      public double[] getDoubleArray(String table_name, String column_name) {
+
+        int count = 0;
+        DatabaseManager dbm = DatabaseManager.getDbCon();
+        try {
+            ResultSet query = dbm.query("SELECT " + column_name + " FROM " + table_name + "");
+            while (query.next()) {
+                count++;
+            }
+            double[] array = new double[count];
+            count = 0;
+            ResultSet query2 = dbm.query("SELECT " + column_name + " FROM " + table_name + "");
+            while (query2.next()) {
+                array[count] = query2.getDouble(column_name);
                 count++;
             }
             return array;
