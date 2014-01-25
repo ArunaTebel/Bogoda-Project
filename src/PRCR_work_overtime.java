@@ -23,8 +23,9 @@ public class PRCR_work_overtime extends javax.swing.JPanel {
     private int rows=0;
     public PRCR_work_overtime() {
         initComponents();
-        jPanelCheckroll.setVisible(false);
-            jPanelStaff.setVisible(false);
+     
+            jPanelStaff.setVisible(true);
+            jPanelCheckroll.setVisible(false);
     }
 
     /**
@@ -430,8 +431,8 @@ public class PRCR_work_overtime extends javax.swing.JPanel {
                             .addGap(41, 41, 41)))
                     .addComponent(jPanelCheckroll, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(28, 28, 28)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel7)
