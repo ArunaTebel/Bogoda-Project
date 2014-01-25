@@ -257,18 +257,13 @@
         </Container>
         <Component class="javax.swing.JComboBox" name="debit_account_code">
           <Properties>
-            <Property name="editable" type="boolean" value="true"/>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="5">
-                <StringItem index="0" value="3"/>
-                <StringItem index="1" value="4"/>
-                <StringItem index="2" value="5"/>
-                <StringItem index="3" value="6"/>
-                <StringItem index="4" value=" "/>
-              </StringArray>
+            <Property name="editable" type="boolean" value="true" postCode="DatabaseManager dbm = DatabaseManager.getDbCon();"/>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="new javax.swing.DefaultComboBoxModel(dbm.getStringArray(&quot;account_names&quot;, &quot;account_id&quot;))" type="code"/>
             </Property>
           </Properties>
           <Events>
+            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="debit_account_codeItemStateChanged"/>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="debit_account_codeActionPerformed"/>
             <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="debit_account_codeFocusLost"/>
             <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="debit_account_codeKeyReleased"/>
@@ -415,7 +410,7 @@
       <SubComponents>
         <Component class="javax.swing.JComboBox" name="credit_accountCode">
           <Properties>
-            <Property name="editable" type="boolean" value="true" postCode="DatabaseManager dbm = DatabaseManager.getDbCon();"/>
+            <Property name="editable" type="boolean" value="true"/>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="new javax.swing.DefaultComboBoxModel(dbm.getStringArray(&quot;account_names&quot;, &quot;account_id&quot;))" type="code"/>
             </Property>
