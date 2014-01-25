@@ -84,7 +84,7 @@ public class PRCR_NoteAnalysis {
         //N5000T.setText(Integer.toString(N5000));
 
         int arrayN2000[] = new int[columnSize];
-        arrayN5000 = getIntArray("staff_personalinfo", "n_2000");
+        arrayN2000 = getIntArray("staff_personalinfo", "n_2000");
         //int N2000 = 0;
         for (int i = 0; i < columnSize; i++) {
             N2000 = N2000 + arrayN2000[i];
@@ -100,7 +100,7 @@ public class PRCR_NoteAnalysis {
         // N1000T.setText(Integer.toString(N1000));
 
         int arrayN500[] = new int[columnSize];
-        arrayN500 = getIntArray("staff_personalinfo", "n_5000");
+        arrayN500 = getIntArray("staff_personalinfo", "n_500");
         //int N500 = 0;
         for (int i = 0; i < columnSize; i++) {
             N500 = N500 + arrayN500[i];
