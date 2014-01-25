@@ -557,6 +557,12 @@ public class ACC_journals extends javax.swing.JPanel {
             }
         });
 
+        debit_description.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                debit_descriptionFocusLost(evt);
+            }
+        });
+
         jButton5.setText("Clear all");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -943,7 +949,8 @@ public class ACC_journals extends javax.swing.JPanel {
             i++;
         }
         debit_total.setText("" + tot);
-       // difference.setText(""+(Double.parseDouble(debitAmount.getText())-tot));
+        difference.setText(""+(stringToDoubleNum(debit_total.getText())-stringToDoubleNum(credit_total.getText())));
+
 
 
     }//GEN-LAST:event_jButton10ActionPerformed
@@ -1046,6 +1053,10 @@ public class ACC_journals extends javax.swing.JPanel {
             credit_account_name.setText("" + Name);
         }
     }//GEN-LAST:event_credit_account_codeItemStateChanged
+
+    private void debit_descriptionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_debit_descriptionFocusLost
+        credit_description.setText(debit_description.getText());
+    }//GEN-LAST:event_debit_descriptionFocusLost
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
