@@ -1,9 +1,10 @@
 
 import java.awt.event.ItemEvent;
+import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import javax.swing.AbstractAction;
-import javax.swing.Action;
+import javax.swing.JComponent;
+import javax.swing.KeyStroke;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -315,6 +316,11 @@ public class ACC_recepts extends javax.swing.JPanel {
         refNo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 refNoActionPerformed(evt);
+            }
+        });
+        refNo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                refNoKeyPressed(evt);
             }
         });
 
@@ -879,8 +885,14 @@ public class ACC_recepts extends javax.swing.JPanel {
     }//GEN-LAST:event_debit_descriptionFocusLost
 
     private void refNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refNoActionPerformed
-        // TODO add your handling code here:
+     
+    
     }//GEN-LAST:event_refNoActionPerformed
+
+    private void refNoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_refNoKeyPressed
+        // TODO add your handling code here:
+            
+    }//GEN-LAST:event_refNoKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
