@@ -95,7 +95,7 @@ public class ACC_journals extends javax.swing.JPanel {
         jLabel13 = new javax.swing.JLabel();
         credit_total = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
+        credit_account_name = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         debit_account_code_table = new javax.swing.JTable();
@@ -110,7 +110,7 @@ public class ACC_journals extends javax.swing.JPanel {
         jButton9 = new javax.swing.JButton();
         debit_total = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
+        debit_account_name = new javax.swing.JLabel();
         jButton10 = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
         jButton11 = new javax.swing.JButton();
@@ -231,6 +231,8 @@ public class ACC_journals extends javax.swing.JPanel {
         jLabel5.setText("Date");
 
         bank_code.setEditable(true);
+        DatabaseManager dbm = DatabaseManager.getDbCon();
+        bank_code.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("bank","bank_id")));
         bank_code.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 bank_codeItemStateChanged(evt);
@@ -243,6 +245,7 @@ public class ACC_journals extends javax.swing.JPanel {
         });
 
         branch_code.setEditable(true);
+        branch_code.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("bank_branch","branch_id")));
         branch_code.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 branch_codeItemStateChanged(evt);
@@ -383,7 +386,12 @@ public class ACC_journals extends javax.swing.JPanel {
         credit_account_code_table.setAutoResizeMode(credit_account_code_table.AUTO_RESIZE_OFF);
 
         credit_account_code.setEditable(true);
-        credit_account_code.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        credit_account_code.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("account_names","account_id")));
+        credit_account_code.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                credit_account_codeItemStateChanged(evt);
+            }
+        });
 
         jButton1.setText("Clear all");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -405,9 +413,9 @@ public class ACC_journals extends javax.swing.JPanel {
 
         jLabel14.setText("Total");
 
-        jLabel17.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel17.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel17.setText("Account name here");
+        credit_account_name.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        credit_account_name.setForeground(new java.awt.Color(153, 153, 153));
+        credit_account_name.setText("Account name here");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -446,7 +454,7 @@ public class ACC_journals extends javax.swing.JPanel {
                                 .addGap(0, 0, 0)
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(credit_account_name, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(39, 39, 39)))
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(7, 7, 7)))
@@ -463,7 +471,7 @@ public class ACC_journals extends javax.swing.JPanel {
                             .addComponent(credit_amount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel17)
+                        .addComponent(credit_account_name)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
@@ -551,7 +559,12 @@ public class ACC_journals extends javax.swing.JPanel {
         credit_account_code_table.setAutoResizeMode(credit_account_code_table.AUTO_RESIZE_OFF);
 
         debit_account_code.setEditable(true);
-        debit_account_code.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        debit_account_code.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("account_names","account_id")));
+        debit_account_code.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                debit_account_codeItemStateChanged(evt);
+            }
+        });
 
         jButton5.setText("Clear all");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -571,9 +584,9 @@ public class ACC_journals extends javax.swing.JPanel {
 
         jLabel16.setText("Total");
 
-        jLabel18.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel18.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel18.setText("Account name here");
+        debit_account_name.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        debit_account_name.setForeground(new java.awt.Color(153, 153, 153));
+        debit_account_name.setText("Account name here");
 
         jButton10.setText("Send");
         jButton10.addActionListener(new java.awt.event.ActionListener() {
@@ -616,7 +629,7 @@ public class ACC_journals extends javax.swing.JPanel {
                                 .addGap(0, 0, 0)
                                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(debit_account_name, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton10)))
                 .addContainerGap())
@@ -630,7 +643,7 @@ public class ACC_journals extends javax.swing.JPanel {
                     .addComponent(debit_amount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(1, 1, 1)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel18)
+                    .addComponent(debit_account_name)
                     .addComponent(jButton10))
                 .addGap(3, 3, 3)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -814,7 +827,7 @@ public class ACC_journals extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void bank_codeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_bank_codeItemStateChanged
-        /*   DatabaseManager dbm = DatabaseManager.getDbCon();
+         DatabaseManager dbm = DatabaseManager.getDbCon();
          String Name = null;
          if (evt.getStateChange() == ItemEvent.SELECTED) {
          int item = Integer.parseInt(evt.getItem().toString());
@@ -825,8 +838,8 @@ public class ACC_journals extends javax.swing.JPanel {
          }
          } catch (SQLException ex) {
          }
-         bankName.setText("" + Name);
-         }*/
+         bank_name.setText("" + Name);
+         }
     }//GEN-LAST:event_bank_codeItemStateChanged
 
     private void bank_codeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bank_codeActionPerformed
@@ -834,7 +847,7 @@ public class ACC_journals extends javax.swing.JPanel {
     }//GEN-LAST:event_bank_codeActionPerformed
 
     private void branch_codeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_branch_codeItemStateChanged
-        /*   DatabaseManager dbm = DatabaseManager.getDbCon();
+           DatabaseManager dbm = DatabaseManager.getDbCon();
          String Name = null;
          if (evt.getStateChange() == ItemEvent.SELECTED) {
          int item = Integer.parseInt(evt.getItem().toString());
@@ -845,8 +858,8 @@ public class ACC_journals extends javax.swing.JPanel {
          }
          } catch (SQLException ex) {
          }
-         branchName.setText("" + Name);
-         }*/
+         branch_name.setText("" + Name);
+         }
     }//GEN-LAST:event_branch_codeItemStateChanged
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -981,6 +994,38 @@ public class ACC_journals extends javax.swing.JPanel {
         difference.setText(""+(stringToDoubleNum(debit_total.getText())-stringToDoubleNum(credit_total.getText())));
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void debit_account_codeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_debit_account_codeItemStateChanged
+          DatabaseManager dbm = DatabaseManager.getDbCon();
+        String Name = null;
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            int item = Integer.parseInt(evt.getItem().toString());
+            try {
+                ResultSet query = dbm.query("SELECT * FROM account_names WHERE account_id =" + item + "");
+                while (query.next()) {
+                    Name = query.getString("account_name");
+                }
+            } catch (SQLException ex) {
+            }
+            debit_account_name.setText("" + Name);
+        }
+    }//GEN-LAST:event_debit_account_codeItemStateChanged
+
+    private void credit_account_codeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_credit_account_codeItemStateChanged
+          DatabaseManager dbm = DatabaseManager.getDbCon();
+        String Name = null;
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            int item = Integer.parseInt(evt.getItem().toString());
+            try {
+                ResultSet query = dbm.query("SELECT * FROM account_names WHERE account_id =" + item + "");
+                while (query.next()) {
+                    Name = query.getString("account_name");
+                }
+            } catch (SQLException ex) {
+            }
+            credit_account_name.setText("" + Name);
+        }
+    }//GEN-LAST:event_credit_account_codeItemStateChanged
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Cheque_pay;
@@ -992,6 +1037,7 @@ public class ACC_journals extends javax.swing.JPanel {
     private javax.swing.JTextField chequeNo;
     private javax.swing.JComboBox credit_account_code;
     private javax.swing.JTable credit_account_code_table;
+    private javax.swing.JLabel credit_account_name;
     private javax.swing.JTextField credit_amount;
     private javax.swing.JTable credit_amount_table;
     private javax.swing.JTextField credit_description;
@@ -1000,6 +1046,7 @@ public class ACC_journals extends javax.swing.JPanel {
     private org.jdesktop.swingx.JXDatePicker date;
     private javax.swing.JComboBox debit_account_code;
     private javax.swing.JTable debit_account_code_table;
+    private javax.swing.JLabel debit_account_name;
     private javax.swing.JTextField debit_amount;
     private javax.swing.JTable debit_amount_table;
     private javax.swing.JTextField debit_description;
@@ -1021,8 +1068,6 @@ public class ACC_journals extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
