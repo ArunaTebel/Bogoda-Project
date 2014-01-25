@@ -299,7 +299,8 @@ public class pGreenLeaf extends javax.swing.JPanel {
 
         GL_content.add(glmnEntry);
         validate();
-        repaint();        
+        repaint();  
+        glmnEntry.focus();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
