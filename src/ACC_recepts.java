@@ -521,6 +521,7 @@ public class ACC_recepts extends javax.swing.JPanel {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 0, 0), 2, true), "DEBIT"));
 
+        debit_accountCode.putClientProperty("JComboBox.isTableCellEditor",Boolean.TRUE);
         debit_accountCode.setEditable(true);
         debit_accountCode.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("account_names", "account_id")));
         debit_accountCode.addItemListener(new java.awt.event.ItemListener() {
@@ -607,6 +608,11 @@ public class ACC_recepts extends javax.swing.JPanel {
         jButton7.setText("Cancel");
 
         jButton8.setText("Quit");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -875,6 +881,7 @@ public class ACC_recepts extends javax.swing.JPanel {
             }
             debit_accountName.setText("" + Name);
         }
+        debit_description.requestFocusInWindow();
         
     }//GEN-LAST:event_debit_accountCodeItemStateChanged
 
@@ -997,13 +1004,16 @@ public class ACC_recepts extends javax.swing.JPanel {
     }//GEN-LAST:event_payTypeItemStateChanged
 
     private void debit_accountCodeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_debit_accountCodeKeyPressed
-       // interface_events.Change_focus_Enterkey_t(debit_description, evt);
         
     }//GEN-LAST:event_debit_accountCodeKeyPressed
 
     private void debit_accountCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_debit_accountCodeActionPerformed
        
     }//GEN-LAST:event_debit_accountCodeActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        
+    }//GEN-LAST:event_jButton8ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

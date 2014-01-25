@@ -23,6 +23,16 @@ public class pAccounts extends javax.swing.JPanel {
     jButton1.requestFocus();
     
     }
+     
+     public void quit(){
+         ACC_Add_account acnt = new ACC_Add_account();
+         pAccounts AddAcc = new pAccounts();
+         GL_content.removeAll();
+          GL_content.add(AddAcc);
+         
+            validate();
+            repaint();
+     }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
