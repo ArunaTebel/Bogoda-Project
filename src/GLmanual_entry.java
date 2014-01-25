@@ -74,7 +74,9 @@ public class GLmanual_entry extends javax.swing.JPanel {
         net_weight = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
-        jButton6 = new javax.swing.JButton();
+        sendButton = new javax.swing.JButton();
+        leaf_cat = new javax.swing.JComboBox();
+        jLabel14 = new javax.swing.JLabel();
 
         jLabel1.setText("User ID");
 
@@ -225,6 +227,11 @@ public class GLmanual_entry extends javax.swing.JPanel {
                 total_kgFocusLost(evt);
             }
         });
+        total_kg.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                total_kgKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -254,10 +261,20 @@ public class GLmanual_entry extends javax.swing.JPanel {
                 sacks_weightFocusLost(evt);
             }
         });
+        sacks_weight.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                sacks_weightKeyReleased(evt);
+            }
+        });
 
         water.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 waterFocusLost(evt);
+            }
+        });
+        water.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                waterKeyReleased(evt);
             }
         });
 
@@ -266,10 +283,20 @@ public class GLmanual_entry extends javax.swing.JPanel {
                 coarse_leafFocusLost(evt);
             }
         });
+        coarse_leaf.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                coarse_leafKeyReleased(evt);
+            }
+        });
 
         other.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 otherFocusLost(evt);
+            }
+        });
+        other.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                otherKeyReleased(evt);
             }
         });
 
@@ -315,8 +342,8 @@ public class GLmanual_entry extends javax.swing.JPanel {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(net_weight, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(net_weight, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -385,12 +412,27 @@ public class GLmanual_entry extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(table);
 
-        jButton6.setText("Send");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        sendButton.setText("Send");
+        sendButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                sendButtonActionPerformed(evt);
             }
         });
+        sendButton.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                sendButtonFocusGained(evt);
+            }
+        });
+
+        leaf_cat.setEditable(true);
+        leaf_cat.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        leaf_cat.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                leaf_catItemStateChanged(evt);
+            }
+        });
+
+        jLabel14.setForeground(new java.awt.Color(153, 0, 0));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -407,8 +449,13 @@ public class GLmanual_entry extends javax.swing.JPanel {
                                 .addComponent(jLabel4)
                                 .addGap(18, 18, 18)
                                 .addComponent(leaf_category, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(65, 65, 65)
-                                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(65, 65, 65)
+                                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(leaf_cat, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel3)
@@ -467,7 +514,9 @@ public class GLmanual_entry extends javax.swing.JPanel {
                                             .addGroup(layout.createSequentialGroup()
                                                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jButton6)))))))
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(sendButton)
+                                                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))))))))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
@@ -497,7 +546,8 @@ public class GLmanual_entry extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
-                            .addComponent(leaf_category, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(leaf_category, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(leaf_cat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(10, 10, 10)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
@@ -519,8 +569,12 @@ public class GLmanual_entry extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel12)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jButton6))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(sendButton))
+                                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -557,7 +611,7 @@ public class GLmanual_entry extends javax.swing.JPanel {
         globject.setOther(Double.parseDouble(other.getText()));
         globject.setWater(Double.parseDouble(water.getText()));
         globject.setCoarseLeaf(Double.parseDouble(coarse_leaf.getText()));
-        globject.setLeafCategory(Integer.parseInt(leaf_category.getText()));
+        globject.setLeafCategory(Integer.parseInt(leaf_cat.getSelectedItem().toString()));
         java.sql.Date date = new java.sql.Date(datePicker.getDate().getTime());
         globject.setDate(date);
         globject.calcNetQuantity();
@@ -588,7 +642,7 @@ public class GLmanual_entry extends javax.swing.JPanel {
             }
           name.setText(""+Name);
           
-          // leaf_category.requestFocusInWindow();
+          no_of_sacks.requestFocusInWindow();
           
           // do something with object
        }    }//GEN-LAST:event_supplier_idItemStateChanged
@@ -612,7 +666,7 @@ public class GLmanual_entry extends javax.swing.JPanel {
     }//GEN-LAST:event_category_codeItemStateChanged
 
     private void no_of_sacksKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_no_of_sacksKeyReleased
-        
+        interface_events.Change_focus_Enterkey_t(total_kg, evt);
     }//GEN-LAST:event_no_of_sacksKeyReleased
 
     private void no_of_sacksFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_no_of_sacksFocusLost
@@ -647,15 +701,24 @@ public class GLmanual_entry extends javax.swing.JPanel {
 
     }//GEN-LAST:event_otherFocusLost
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-       int i=0;
+    private void sendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendButtonActionPerformed
+       
+        
+        if (no_of_sacks.getText().equalsIgnoreCase(" ") ) {
+            jLabel14.setText("Empty Fields");
+       }
+        
+       else
+        
+        {
+        int i=0;
         while(table.getValueAt(i, 0)!=null){
             i++;
         }
        
         
         table.setValueAt(supplier_id.getSelectedItem().toString(),i, 0);
-        table.setValueAt(leaf_category.getText(), i, 9);
+        table.setValueAt(leaf_cat.getSelectedItem().toString(),i, 9);
         table.setValueAt(no_of_sacks.getText(), i, 1);
         table.setValueAt(total_kg.getText(), i, 2);
         table.setValueAt(sacks_weight.getText(), i, 3);
@@ -669,17 +732,53 @@ public class GLmanual_entry extends javax.swing.JPanel {
         }
          else {table.setValueAt("No", i, 8); }
          
-         supplier_id.requestFocusInWindow();
-        supplier_id.setSelectedItem(" ");
+         supplier_id.requestFocusInWindow(); // request focus
+        supplier_id.setSelectedItem(null);   // setting null
+        leaf_cat.setSelectedItem("Item1");
+        no_of_sacks.setText(null);
+        total_kg.setText(null);
+        sacks_weight.setText(null);
+        water.setText(null);
+        coarse_leaf.setText(null);
+        other.setText(null);
+        net_weight.setText(null);
+        
+      } 
         //debit_amount.setText(null);
-    }//GEN-LAST:event_jButton6ActionPerformed
-
+    }//GEN-LAST:event_sendButtonActionPerformed
+    
     private void supplier_idKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_supplier_idKeyReleased
-        if (evt.getKeyCode()==KeyEvent.VK_ENTER) {
-              leaf_category.requestFocusInWindow();
-        }
+     
        
     }//GEN-LAST:event_supplier_idKeyReleased
+
+    private void leaf_catItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_leaf_catItemStateChanged
+       no_of_sacks.requestFocusInWindow();
+    }//GEN-LAST:event_leaf_catItemStateChanged
+
+    private void total_kgKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_total_kgKeyReleased
+         interface_events.Change_focus_Enterkey_t(sacks_weight, evt);
+    }//GEN-LAST:event_total_kgKeyReleased
+
+    private void sacks_weightKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_sacks_weightKeyReleased
+         interface_events.Change_focus_Enterkey_t(water, evt);
+    }//GEN-LAST:event_sacks_weightKeyReleased
+
+    private void waterKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_waterKeyReleased
+         interface_events.Change_focus_Enterkey_t(coarse_leaf, evt);
+    }//GEN-LAST:event_waterKeyReleased
+
+    private void coarse_leafKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_coarse_leafKeyReleased
+         interface_events.Change_focus_Enterkey_t(other, evt);
+    }//GEN-LAST:event_coarse_leafKeyReleased
+
+    private void otherKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_otherKeyReleased
+       interface_events.Change_focus_Enterkey_t_b(other, sendButton, evt);
+    }//GEN-LAST:event_otherKeyReleased
+
+    private void sendButtonFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_sendButtonFocusGained
+   interface_events.Respond_enter(sendButton, evt);        // TODO add your handling code here:
+    }//GEN-LAST:event_sendButtonFocusGained
     public double convertString(String s){
         if(s.length()==0){
             return 0;
@@ -699,12 +798,12 @@ public class GLmanual_entry extends javax.swing.JPanel {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -721,6 +820,7 @@ public class GLmanual_entry extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JComboBox leaf_cat;
     private javax.swing.JTextField leaf_category;
     private javax.swing.JLabel name;
     private javax.swing.JTextField net_weight;
@@ -728,6 +828,7 @@ public class GLmanual_entry extends javax.swing.JPanel {
     private javax.swing.JTextField other;
     private javax.swing.JTextField sacks_weight;
     private javax.swing.JCheckBox self_transport;
+    private javax.swing.JButton sendButton;
     private javax.swing.JComboBox supplier_id;
     private javax.swing.JTable table;
     private javax.swing.JTextField total_kg;
