@@ -420,6 +420,9 @@
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="credit_description">
+          <Events>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="credit_descriptionFocusLost"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="creditAmount">
         </Component>

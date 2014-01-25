@@ -464,6 +464,12 @@ public class ACC_recepts extends javax.swing.JPanel {
             }
         });
 
+        debit_description.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                debit_descriptionFocusLost(evt);
+            }
+        });
+
         jLabel10.setText("Account Code");
 
         jLabel11.setText("Description");
@@ -837,6 +843,10 @@ public class ACC_recepts extends javax.swing.JPanel {
             credit_account_name.setText("" + Name);
         }
     }//GEN-LAST:event_credit_account_codeItemStateChanged
+
+    private void debit_descriptionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_debit_descriptionFocusLost
+        credit_description.setText(debit_description.getText());
+    }//GEN-LAST:event_debit_descriptionFocusLost
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
