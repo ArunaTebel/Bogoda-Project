@@ -113,8 +113,9 @@ public final class DatabaseManager {
             while (query.next()) {
                 count++;
             }
-            String[] array = new String[count];
-            count=0;
+            String[] array = new String[count+1];
+            array[0]=null;
+            count=1;
             ResultSet query2 = dbm.query("SELECT "+column_name+" FROM "+table_name+"");
             while (query2.next()) {
                 array[count]=query2.getString(column_name);
