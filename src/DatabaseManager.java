@@ -155,4 +155,21 @@ public final class DatabaseManager {
         }
         return null;
     }
+    
+     public double checknReturnDataForCashAdvances(String table_name,String table_column_giving1,Object row_element1,String table_column_giving2,Object row_element2,String table_column_need){
+        DatabaseManager dbm = DatabaseManager.getDbCon();
+        double value =0;
+         try {
+            ResultSet query = dbm.query("SELECT * FROM " + table_name + " WHERE " + table_column_giving1 + " ='" + row_element1 + " 'AND " + table_column_giving2 +" <'" + row_element2 + "'");
+            while (query.next()) {
+                value= value+query.getDouble(table_column_need);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            //return ""+ex.getErrorCode();            
+        }
+        return value;
+    }
+
+    
 }
