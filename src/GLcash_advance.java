@@ -595,7 +595,7 @@ public class GLcash_advance extends javax.swing.JPanel {
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
 
-        allowable.setText("" + (dbm.checknReturnDataForCashAdvances("green_leaf_transactions", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "tr_date", "2014-01-26", "net_qty")));
+        allowable.setText("" + (dbm.checknReturnDataForCashAdvances("green_leaf_transactions", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "tr_date", "2014-01-01","2014-01-26", "net_qty")));
         Amount.requestFocusInWindow();
     }//GEN-LAST:event_jButton8ActionPerformed
 
