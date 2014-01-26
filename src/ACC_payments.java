@@ -517,6 +517,11 @@ public class ACC_payments extends javax.swing.JPanel {
                 refNoActionPerformed(evt);
             }
         });
+        refNo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                refNoKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -900,6 +905,10 @@ public class ACC_payments extends javax.swing.JPanel {
     private void credit_descriptionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_credit_descriptionFocusLost
         debit_description.setText(credit_description.getText());
     }//GEN-LAST:event_credit_descriptionFocusLost
+
+    private void refNoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_refNoKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_refNoKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
