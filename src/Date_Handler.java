@@ -10,7 +10,11 @@ public class Date_Handler {
     
     
     
+    // Conscructor
     
+    public Date_Handler(){
+        glcash_advance_starting_date_int=0;
+    }
     // Setters
     
     public void set_glcash_advance_starting_date_int(int glcash_advance_starting_date_int){
@@ -30,9 +34,8 @@ public class Date_Handler {
      public String get_glcash_advance_starting_date(Date date){
          String s = date.toString();
          String[] array = new String[3];
-         array=s.split(":");
-         return array[0] + "-" + array[1] + "-" + "+get_glcash_advance_starting_date_int()" ;
-         
+         array=s.split("-");
+         return array[0] + "-" + array[1] + "-" +get_glcash_advance_starting_date_int() ;
      }
     
     
