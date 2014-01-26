@@ -65,14 +65,17 @@ public class Account {
         return openingBal;
     }
 
-    public void addToDataBase() {
+    public boolean addToDataBase() {
+        
+       
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         try {
             dbCon.insert("INSERT INTO account_names(account_name,account_id,account_class,opening_balance,current_balance) VALUES('" + accountName + "','" + accountCode + "','" + accountClass + "','" + openingBal + "','"+currentBalance+ "')");
         } catch (SQLException ex) {
             MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
+            return false;
         }
-
+        return true;
     }
 
     public void removeFromDataBase() {

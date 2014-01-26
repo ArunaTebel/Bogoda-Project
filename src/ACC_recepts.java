@@ -16,6 +16,7 @@ import javax.swing.KeyStroke;
  * @author Pramo
  */
 public class ACC_recepts extends javax.swing.JPanel {
+    
 
     Reciepts_accounts raobject = new Reciepts_accounts();
     
@@ -314,12 +315,18 @@ public class ACC_recepts extends javax.swing.JPanel {
         jLabel4.setText("Pay Type");
 
         payType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Cash", "Cheque" }));
+        payType.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                payTypeItemStateChanged(evt);
+            }
+        });
         payType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 payTypeActionPerformed(evt);
             }
         });
 
+        refNo.setOpaque(false);
         refNo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 refNoActionPerformed(evt);
@@ -328,6 +335,43 @@ public class ACC_recepts extends javax.swing.JPanel {
         refNo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 refNoKeyPressed(evt);
+            }
+        });
+
+        recieptNo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                recieptNoKeyPressed(evt);
+            }
+        });
+
+        date.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+                datePopupMenuWillBecomeVisible(evt);
+            }
+        });
+        date.addContainerListener(new java.awt.event.ContainerAdapter() {
+            public void componentAdded(java.awt.event.ContainerEvent evt) {
+                dateComponentAdded(evt);
+            }
+        });
+        date.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dateActionPerformed(evt);
+            }
+        });
+        date.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                dateKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                dateKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                dateKeyTyped(evt);
             }
         });
 
@@ -693,7 +737,7 @@ public class ACC_recepts extends javax.swing.JPanel {
 
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-
+        
         boolean addToDebitDataBase;
         raobject.setRefNo(Integer.parseInt(refNo.getText()));
         raobject.setRecieptNo(Integer.parseInt(recieptNo.getText()));
@@ -898,8 +942,48 @@ public class ACC_recepts extends javax.swing.JPanel {
 
     private void refNoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_refNoKeyPressed
         
-            interface_events.Change_focus_Enterkey_t(recieptNo, evt);
+            interface_events.Change_focus_Enterkey_Cal(date, evt);
     }//GEN-LAST:event_refNoKeyPressed
+
+    private void dateKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dateKeyPressed
+        
+    }//GEN-LAST:event_dateKeyPressed
+
+    private void dateComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_dateComponentAdded
+        // TODO add your handling code here:
+    }//GEN-LAST:event_dateComponentAdded
+
+    private void dateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dateActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_dateActionPerformed
+
+    private void dateKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dateKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_dateKeyReleased
+
+    private void dateKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dateKeyTyped
+        // TODO add your handling code here:
+        //interface_events.Change_focus_Enterkey_t(recieptNo, evt);
+        
+    }//GEN-LAST:event_dateKeyTyped
+
+    private void datePopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_datePopupMenuWillBecomeVisible
+        // TODO add your handling code here:
+ 
+    }//GEN-LAST:event_datePopupMenuWillBecomeVisible
+
+    private void recieptNoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_recieptNoKeyPressed
+        interface_events.Change_focus_Enterkey_c(payType, evt);
+    }//GEN-LAST:event_recieptNoKeyPressed
+
+    private void payTypeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_payTypeItemStateChanged
+        if("Cash".equals(payType.getSelectedItem().toString())){
+         debit_accountCode.requestFocusInWindow();
+        }
+        else{
+         bankCode.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_payTypeItemStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

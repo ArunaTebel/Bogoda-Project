@@ -1,6 +1,8 @@
 
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.JComponent;
+import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 
 /*
@@ -165,6 +167,21 @@ public class Interface_Events {
 
         }
         
+    }
+      public void Change_focus_Enterkey_c( javax.swing.JComboBox combo, java.awt.event.KeyEvent evt) {
+
+       int key;
+        key = evt.getKeyCode();
+        if (key == KeyEvent.VK_ENTER) {
+            combo.requestFocusInWindow();
+
+        }
+
+        
+    }
+
+    void Change_focus_Enterkey_t(JTextField recieptNo, ActionEvent evt) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     

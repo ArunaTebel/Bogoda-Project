@@ -1,3 +1,6 @@
+
+import javax.swing.JOptionPane;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -253,12 +256,13 @@ public class ACC_Add_account extends javax.swing.JPanel {
     }//GEN-LAST:event_account_nameActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        boolean database;
         aobject.setAccountName(account_name.getText());
         aobject.setAccountCode(Integer.parseInt(account_code.getText()));
         aobject.setAccountClass(account_class.getSelectedItem().toString());
         aobject.setOpeningBal(Double.parseDouble(opening_balance.getText()));
         aobject.setCurrentBalance(Double.parseDouble(current_balance.getText()));
-        aobject.addToDataBase();
+        database=aobject.addToDataBase();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void opening_balanceInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_opening_balanceInputMethodTextChanged
