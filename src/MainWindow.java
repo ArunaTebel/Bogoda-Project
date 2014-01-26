@@ -3,6 +3,7 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Frame;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -71,6 +72,7 @@ public class MainWindow extends javax.swing.JFrame {
         jPasswordField1 = new javax.swing.JPasswordField();
         jTextField1 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
         jButton13 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
@@ -84,6 +86,7 @@ public class MainWindow extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenu2 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem8 = new javax.swing.JMenuItem();
@@ -220,18 +223,18 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("User Name");
         Main_Content.add(jLabel4);
-        jLabel4.setBounds(360, 190, 90, 40);
+        jLabel4.setBounds(120, 200, 90, 40);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Password");
         Main_Content.add(jLabel5);
-        jLabel5.setBounds(360, 230, 90, 40);
+        jLabel5.setBounds(120, 240, 90, 40);
 
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("ABCD Company");
+        jLabel6.setText("Copyrights @ NineLights 2014 ");
         Main_Content.add(jLabel6);
-        jLabel6.setBounds(110, 410, 90, 40);
+        jLabel6.setBounds(0, 360, 240, 40);
 
         jButton14.setBackground(new java.awt.Color(0, 0, 102));
         jButton14.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -243,17 +246,34 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
         Main_Content.add(jButton14);
-        jButton14.setBounds(430, 280, 130, 40);
-        Main_Content.add(jPasswordField1);
-        jPasswordField1.setBounds(430, 240, 130, 30);
-        Main_Content.add(jTextField1);
-        jTextField1.setBounds(430, 200, 130, 30);
+        jButton14.setBounds(190, 290, 130, 40);
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bogoda.png"))); // NOI18N
-        jLabel3.setText("jLabel3");
+        jPasswordField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jPasswordField1KeyPressed(evt);
+            }
+        });
+        Main_Content.add(jPasswordField1);
+        jPasswordField1.setBounds(190, 250, 130, 30);
+
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField1KeyPressed(evt);
+            }
+        });
+        Main_Content.add(jTextField1);
+        jTextField1.setBounds(190, 210, 130, 30);
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pat.png"))); // NOI18N
         jLabel3.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         Main_Content.add(jLabel3);
-        jLabel3.setBounds(80, 50, 680, 480);
+        jLabel3.setBounds(-230, 130, 770, 420);
+
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BogodaAreal.png"))); // NOI18N
+        jLabel7.setText("jLabel3");
+        jLabel7.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        Main_Content.add(jLabel7);
+        jLabel7.setBounds(-70, -80, 1350, 760);
 
         jButton13.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
         jButton13.setForeground(new java.awt.Color(215, 215, 215));
@@ -433,6 +453,15 @@ public class MainWindow extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Edit");
+
+        jMenuItem2.setText("View-Edit Databases");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem2);
+
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Add");
@@ -589,8 +618,16 @@ public class MainWindow extends javax.swing.JFrame {
         jMenu2.setEnabled(true);
         jMenu3.setEnabled(true);
 
-        Main_Content.removeAll();
-        Main_Content.setBackground(new java.awt.Color(240, 240, 240));
+       // Main_Content.removeAll();
+         jTextField1.setVisible(false);
+         jPasswordField1.setVisible(false);
+         jButton14.setVisible(false);
+         jLabel3.setVisible(false);
+         jLabel4.setVisible(false);
+         jLabel5.setVisible(false);
+         jLabel6.setVisible(false);
+        //Main_Content.setBackground(new java.awt.Color(240, 240, 240));
+        jLabel7.setVisible(true);
         jButton13.setBackground(new java.awt.Color(102, 102, 102));
         jButton2.requestFocusInWindow();
 
@@ -724,6 +761,28 @@ public class MainWindow extends javax.swing.JFrame {
         repaint();
         //rate.focus();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+       View_Edit_databases VEdatabases = new View_Edit_databases();
+
+        Main_Content.removeAll();
+
+        VEdatabases.setSize(Main_Content.getSize());
+
+        Main_Content.add(VEdatabases);
+        validate();
+        repaint();
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
+        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+        jPasswordField1.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_jTextField1KeyPressed
+
+    private void jPasswordField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordField1KeyPressed
+       interface_events.Change_focus_Enterkey_t_b(jTextField1, jButton14, evt);
+    }//GEN-LAST:event_jPasswordField1KeyPressed
                            
 
 
@@ -790,11 +849,13 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
