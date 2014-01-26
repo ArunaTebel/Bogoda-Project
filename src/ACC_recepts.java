@@ -528,6 +528,16 @@ public class ACC_recepts extends javax.swing.JPanel {
                 debit_accountCodeItemStateChanged(evt);
             }
         });
+        debit_accountCode.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                debit_accountCodeActionPerformed(evt);
+            }
+        });
+        debit_accountCode.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                debit_accountCodeKeyPressed(evt);
+            }
+        });
 
         debit_description.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -865,6 +875,7 @@ public class ACC_recepts extends javax.swing.JPanel {
             }
             debit_accountName.setText("" + Name);
         }
+        
     }//GEN-LAST:event_debit_accountCodeItemStateChanged
 
     private void bankCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bankCodeActionPerformed
@@ -973,7 +984,7 @@ public class ACC_recepts extends javax.swing.JPanel {
     }//GEN-LAST:event_datePopupMenuWillBecomeVisible
 
     private void recieptNoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_recieptNoKeyPressed
-        interface_events.Change_focus_Enterkey_c(payType, evt);
+        interface_events.Change_focus_Enterkey_c(debit_accountCode, evt);
     }//GEN-LAST:event_recieptNoKeyPressed
 
     private void payTypeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_payTypeItemStateChanged
@@ -984,6 +995,15 @@ public class ACC_recepts extends javax.swing.JPanel {
          bankCode.requestFocusInWindow();
         }
     }//GEN-LAST:event_payTypeItemStateChanged
+
+    private void debit_accountCodeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_debit_accountCodeKeyPressed
+       // interface_events.Change_focus_Enterkey_t(debit_description, evt);
+        
+    }//GEN-LAST:event_debit_accountCodeKeyPressed
+
+    private void debit_accountCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_debit_accountCodeActionPerformed
+       
+    }//GEN-LAST:event_debit_accountCodeActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

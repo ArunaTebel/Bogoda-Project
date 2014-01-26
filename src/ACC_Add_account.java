@@ -109,6 +109,16 @@ public class ACC_Add_account extends javax.swing.JPanel {
                 account_classItemStateChanged(evt);
             }
         });
+        account_class.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                account_classActionPerformed(evt);
+            }
+        });
+        account_class.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                account_classKeyPressed(evt);
+            }
+        });
 
         jLabel5.setText("Rs");
 
@@ -409,7 +419,8 @@ public class ACC_Add_account extends javax.swing.JPanel {
     }//GEN-LAST:event_account_nameKeyPressed
 
     private void account_classItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_account_classItemStateChanged
-        account_code.requestFocusInWindow();
+  
+      //  account_code.requestFocusInWindow();
     }//GEN-LAST:event_account_classItemStateChanged
 
     private void account_codeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_account_codeKeyPressed
@@ -423,6 +434,15 @@ public class ACC_Add_account extends javax.swing.JPanel {
     private void saveFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_saveFocusGained
         interface_events.Respond_enter(save, evt);
     }//GEN-LAST:event_saveFocusGained
+
+    private void account_classActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_account_classActionPerformed
+      
+    }//GEN-LAST:event_account_classActionPerformed
+
+    private void account_classKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_account_classKeyPressed
+        // TODO add your handling code here:
+        interface_events.Change_focus_Enterkey_t(account_code, evt);
+    }//GEN-LAST:event_account_classKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
