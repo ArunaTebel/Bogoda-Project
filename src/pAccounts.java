@@ -216,6 +216,7 @@ public class pAccounts extends javax.swing.JPanel {
             GL_content.add(AddAcc);
             validate();
             repaint();
+            AddAcc.focus();
         }
     }//GEN-LAST:event_Add_comboActionPerformed
 
