@@ -1,5 +1,6 @@
 
 import java.awt.event.KeyEvent;
+import java.sql.Date;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -594,8 +595,16 @@ public class GLcash_advance extends javax.swing.JPanel {
     }//GEN-LAST:event_supplier_idItemStateChanged
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        
+        int gl_cashadvance_set_date_int=10;   // This has to be taken from the database later
+        
+        Date_Handler date_handler = new Date_Handler();
+        date_handler.set_glcash_advance_starting_date_int(gl_cashadvance_set_date_int);
+       // A seperate class glcashadvances may have to be created in the future
+        java.sql.Date datef = new java.sql.Date(date.getDate().getTime());
+        allowable.setText("" + (dbm.checknReturnDataForCashAdvances("green_leaf_transactions", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "tr_date",date_handler.get_glcash_advance_starting_date(datef),date_handler.get_date_as_a_String(datef), "net_qty")));
+       // allowable.setText("" + (dbm.checknReturnDataForCashAdvances("green_leaf_transactions", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "tr_date","2014-01-19","2014-01-21", "net_qty")));
 
-        allowable.setText("" + (dbm.checknReturnDataForCashAdvances("green_leaf_transactions", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "tr_date", "2014-01-01","2014-01-26", "net_qty")));
         Amount.requestFocusInWindow();
     }//GEN-LAST:event_jButton8ActionPerformed
 
