@@ -443,6 +443,9 @@
             <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="dateKeyReleased"/>
             <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="dateKeyTyped"/>
           </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new org.jdesktop.swingx.JXDatePicker()"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>
@@ -675,6 +678,10 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="debit_accountCodeActionPerformed"/>
             <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="debit_accountCodeKeyPressed"/>
           </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JComboBox()"/>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="debit_accountCode.putClientProperty(&quot;JComboBox.isTableCellEditor&quot;,Boolean.TRUE);"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JTextField" name="debit_description">
           <Events>
@@ -776,6 +783,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Quit"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton8ActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

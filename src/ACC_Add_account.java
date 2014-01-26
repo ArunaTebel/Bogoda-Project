@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
 public class ACC_Add_account extends javax.swing.JPanel {
 
     Account aobject = new Account();
+    pAccounts acnts = new pAccounts();
     Interface_Events interface_events = new Interface_Events();
 
     /**
@@ -21,7 +22,8 @@ public class ACC_Add_account extends javax.swing.JPanel {
     public ACC_Add_account() {
         initComponents();
     }
-    public void focus(){
+
+    public void focus() {
         this.requestFocus();
         account_name.requestFocus();
     }
@@ -139,8 +141,18 @@ public class ACC_Add_account extends javax.swing.JPanel {
         });
 
         jButton2.setText("Cancel");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Quit");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -172,6 +184,11 @@ public class ACC_Add_account extends javax.swing.JPanel {
         jButton4.setText("View Account Details");
 
         jButton5.setText("Edit Account Details");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jButton6.setText("jButton4");
 
@@ -308,11 +325,12 @@ public class ACC_Add_account extends javax.swing.JPanel {
                     .addComponent(jLabel5)
                     .addComponent(opening_balance_label, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(current_balance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7)
-                    .addComponent(current_balance_label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(current_balance_label, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel6)
+                        .addComponent(current_balance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel7)))
                 .addGap(142, 142, 142)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -332,11 +350,11 @@ public class ACC_Add_account extends javax.swing.JPanel {
         aobject.setAccountName(account_name.getText());
 
         aobject.setAccountClass(account_class.getSelectedItem().toString());
-        
+
         if (chk.isInteger(account_code.getText()) == true) {
             account_code_label.setText(null);
         }
-        
+
         if (chk.isInteger(opening_balance.getText()) == true) {
             opening_balance_label.setText(null);
         }
@@ -344,9 +362,8 @@ public class ACC_Add_account extends javax.swing.JPanel {
         if (chk.isInteger(current_balance.getText()) == true) {
             current_balance_label.setText(null);
         }
-        
+
         // add as above
-        
         if (chk.isInteger(account_code.getText()) == false) {
             account_code_label.setText("Invalid Input");
             if (chk.isDouble(current_balance.getText()) == false) {
@@ -419,8 +436,8 @@ public class ACC_Add_account extends javax.swing.JPanel {
     }//GEN-LAST:event_account_nameKeyPressed
 
     private void account_classItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_account_classItemStateChanged
-  
-      //  account_code.requestFocusInWindow();
+
+        //  account_code.requestFocusInWindow();
     }//GEN-LAST:event_account_classItemStateChanged
 
     private void account_codeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_account_codeKeyPressed
@@ -428,7 +445,7 @@ public class ACC_Add_account extends javax.swing.JPanel {
     }//GEN-LAST:event_account_codeKeyPressed
 
     private void current_balanceKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_current_balanceKeyPressed
-        interface_events.Change_focus_Enterkey_t_b(current_balance,save, evt);
+        interface_events.Change_focus_Enterkey_t_b(current_balance, save, evt);
     }//GEN-LAST:event_current_balanceKeyPressed
 
     private void saveFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_saveFocusGained
@@ -436,13 +453,35 @@ public class ACC_Add_account extends javax.swing.JPanel {
     }//GEN-LAST:event_saveFocusGained
 
     private void account_classActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_account_classActionPerformed
-      
+
     }//GEN-LAST:event_account_classActionPerformed
 
     private void account_classKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_account_classKeyPressed
         // TODO add your handling code here:
         interface_events.Change_focus_Enterkey_t(account_code, evt);
     }//GEN-LAST:event_account_classKeyPressed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        account_name.setText(null);
+        account_class.setSelectedIndex(1);
+        account_code.setText(null);
+        opening_balance.setText(null);
+        current_balance.setText(null);
+        account_code_label.setText(null);
+        opening_balance_label.setText(null);
+        current_balance_label.setText(null);
+        account_name.requestFocusInWindow();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        pAccounts a = new pAccounts();
+        a.quit();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        ACC_account_edit edit = new ACC_account_edit();
+        edit.setVisible(true);
+    }//GEN-LAST:event_jButton5ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
