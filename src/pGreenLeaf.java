@@ -234,7 +234,7 @@ public class pGreenLeaf extends javax.swing.JPanel {
          //System.out.println(" ok ");
         GLcash_advance cashadvance = new GLcash_advance();
        
-       // System.out.println(" ok 1");
+       
         GL_content.removeAll();
 
         cashadvance.setSize(GL_content.getSize());
@@ -242,7 +242,8 @@ public class pGreenLeaf extends javax.swing.JPanel {
         GL_content.add(cashadvance);
         validate();
         repaint(); 
-        System.out.println("ok");
+        cashadvance.focus();
+        
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void Add_comboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Add_comboActionPerformed
