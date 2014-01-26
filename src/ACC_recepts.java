@@ -18,6 +18,8 @@ import javax.swing.KeyStroke;
 public class ACC_recepts extends javax.swing.JPanel {
 
     Reciepts_accounts raobject = new Reciepts_accounts();
+    
+    Interface_Events interface_events = new Interface_Events();
 
     public ACC_recepts() {
         initComponents();
@@ -30,6 +32,11 @@ public class ACC_recepts extends javax.swing.JPanel {
             
 
         }
+    }
+    
+    public void focus(){
+        this.requestFocus();
+        refNo.requestFocus();
     }
 
     /**
@@ -890,8 +897,8 @@ public class ACC_recepts extends javax.swing.JPanel {
     }//GEN-LAST:event_refNoActionPerformed
 
     private void refNoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_refNoKeyPressed
-        // TODO add your handling code here:
-            
+        
+            interface_events.Change_focus_Enterkey_t(recieptNo, evt);
     }//GEN-LAST:event_refNoKeyPressed
 
 

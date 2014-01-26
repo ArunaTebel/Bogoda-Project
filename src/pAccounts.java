@@ -245,6 +245,7 @@ public class pAccounts extends javax.swing.JPanel {
         GL_content.add(recepts);
         validate();
         repaint();
+        recepts.focus();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton1KeyReleased
