@@ -198,12 +198,25 @@ public class ACC_recepts extends javax.swing.JPanel {
         jScrollPane3.setViewportView(credit_amount_table);
         credit_account_code_table.setAutoResizeMode(credit_account_code_table.AUTO_RESIZE_OFF);
 
+        credit_account_code.putClientProperty("JComboBox.isTableCellEditor",Boolean.TRUE);
         credit_account_code.setEditable(true);
         DatabaseManager dbm = DatabaseManager.getDbCon();
         credit_account_code.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("account_names", "account_id")));
         credit_account_code.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 credit_account_codeItemStateChanged(evt);
+            }
+        });
+
+        credit_description.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                credit_descriptionKeyPressed(evt);
+            }
+        });
+
+        credit_amount.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                credit_amountKeyPressed(evt);
             }
         });
 
@@ -432,6 +445,13 @@ public class ACC_recepts extends javax.swing.JPanel {
 
         jLabel5.setText("Date");
 
+        bankName.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        bankName.setForeground(new java.awt.Color(51, 51, 51));
+
+        branchName.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        branchName.setForeground(new java.awt.Color(51, 51, 51));
+
+        bankCode.putClientProperty("JComboBox.isTableCellEditor",Boolean.TRUE);
         bankCode.setEditable(true);
         bankCode.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("bank","bank_id")));
         bankCode.addItemListener(new java.awt.event.ItemListener() {
@@ -445,6 +465,7 @@ public class ACC_recepts extends javax.swing.JPanel {
             }
         });
 
+        branchCode.putClientProperty("JComboBox.isTableCellEditor",Boolean.TRUE);
         branchCode.setEditable(true);
         branchCode.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("bank_branch","branch_id")));
         branchCode.addItemListener(new java.awt.event.ItemListener() {
@@ -466,16 +487,16 @@ public class ACC_recepts extends javax.swing.JPanel {
                         .addGap(30, 30, 30)
                         .addComponent(chequeNo, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, Cheque_payLayout.createSequentialGroup()
-                        .addGroup(Cheque_payLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(Cheque_payLayout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addGap(18, 18, 18)
-                                .addComponent(branchCode, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(bankCode, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel8)
+                        .addGap(15, 15, 15)
+                        .addGroup(Cheque_payLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(bankCode, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(branchCode, 0, 1, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
                         .addGroup(Cheque_payLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(bankName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(branchName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(branchName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(16, 16, 16)
                 .addGroup(Cheque_payLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton3)
@@ -495,18 +516,22 @@ public class ACC_recepts extends javax.swing.JPanel {
             Cheque_payLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Cheque_payLayout.createSequentialGroup()
                 .addGroup(Cheque_payLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(bankName, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3)
-                    .addComponent(bankCode, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(Cheque_payLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(Cheque_payLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton4)
-                        .addComponent(branchName, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(Cheque_payLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(branchCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel8)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Cheque_payLayout.createSequentialGroup()
+                        .addComponent(bankName, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(branchName, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(11, 11, 11))
+                    .addGroup(Cheque_payLayout.createSequentialGroup()
+                        .addGroup(Cheque_payLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton3)
+                            .addComponent(bankCode, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(Cheque_payLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton4)
+                            .addGroup(Cheque_payLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(branchCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel8)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addGroup(Cheque_payLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(chequeNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -543,6 +568,17 @@ public class ACC_recepts extends javax.swing.JPanel {
         debit_description.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 debit_descriptionFocusLost(evt);
+            }
+        });
+        debit_description.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                debit_descriptionKeyPressed(evt);
+            }
+        });
+
+        debitAmount.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                debitAmountKeyPressed(evt);
             }
         });
 
@@ -710,6 +746,8 @@ public class ACC_recepts extends javax.swing.JPanel {
 
         if (selection.equalsIgnoreCase("Cheque")) {
             Cheque_pay.setVisible(true);
+            bankCode.requestFocusInWindow();
+            
 
         }
     }//GEN-LAST:event_payTypeActionPerformed
@@ -849,6 +887,8 @@ public class ACC_recepts extends javax.swing.JPanel {
             }
             bankName.setText("" + Name);
         }
+        
+        branchCode.requestFocusInWindow();
     }//GEN-LAST:event_bankCodeItemStateChanged
 
     private void branchCodeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_branchCodeItemStateChanged
@@ -865,6 +905,8 @@ public class ACC_recepts extends javax.swing.JPanel {
             }
             branchName.setText("" + Name);
         }
+        
+        chequeNo.requestFocusInWindow();
     }//GEN-LAST:event_branchCodeItemStateChanged
 
     private void debit_accountCodeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_debit_accountCodeItemStateChanged
@@ -910,6 +952,13 @@ public class ACC_recepts extends javax.swing.JPanel {
         total.setText(""+tot);
         difference.setText(""+(Double.parseDouble(debitAmount.getText())-tot));
         
+        if (Double.parseDouble(difference.getText())==0) {
+          jButton6.requestFocusInWindow();
+        }
+        else {  credit_account_code.requestFocusInWindow();
+            
+        }
+        
               
     }//GEN-LAST:event_jButton5ActionPerformed
 
@@ -947,6 +996,7 @@ public class ACC_recepts extends javax.swing.JPanel {
             }
             credit_account_name.setText("" + Name);
         }
+        credit_description.requestFocusInWindow();
     }//GEN-LAST:event_credit_account_codeItemStateChanged
 
     private void debit_descriptionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_debit_descriptionFocusLost
@@ -1014,6 +1064,22 @@ public class ACC_recepts extends javax.swing.JPanel {
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         
     }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void debit_descriptionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_debit_descriptionKeyPressed
+       interface_events.Change_focus_Enterkey_t(debitAmount, evt);
+    }//GEN-LAST:event_debit_descriptionKeyPressed
+
+    private void debitAmountKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_debitAmountKeyPressed
+       interface_events.Change_focus_Enterkey_c(credit_account_code, evt);
+    }//GEN-LAST:event_debitAmountKeyPressed
+
+    private void credit_descriptionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_credit_descriptionKeyPressed
+       interface_events.Change_focus_Enterkey_t(credit_amount, evt);
+    }//GEN-LAST:event_credit_descriptionKeyPressed
+
+    private void credit_amountKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_credit_amountKeyPressed
+        interface_events.Change_focus_Enterkey_t_b(refNo, jButton5, evt);
+    }//GEN-LAST:event_credit_amountKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
