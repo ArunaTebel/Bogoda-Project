@@ -49,6 +49,7 @@ public class CheckrollSallaryCal {
   }
 
     DatabaseManager dbm = DatabaseManager.getDbCon();
+    
 
     private int employCode;
     private int normalDays;//Total worked normal days Calculate using database
@@ -84,14 +85,7 @@ public class CheckrollSallaryCal {
     private double storeDeductions;
     private double pettyCash;
     private double FinalSalary;
-    private int n_5000;
-    private int n_2000;
-    private int n_1000;
-    private int n_500;
-    private int n_100;
-    private int n_50;
-    private int n_20;
-    private int n_10;
+    
 
     
 
@@ -114,14 +108,7 @@ public class CheckrollSallaryCal {
         this.fineDeductions = 0;
         this.storeDeductions = 0;
         this.pettyCash = 0;
-        this.n_5000=0;
-    this.n_2000=0;
-    this.n_1000=0;
-    this.n_500=0;
-    this.n_100=0;
-    this.n_50=0;
-    this.n_20=0;
-    this.n_10=0;
+        
     }
 
     //setters
@@ -503,117 +490,15 @@ public class CheckrollSallaryCal {
     }
 
     public double getFinalSalary() {
+        PRCR_NoteAnalysis naObject=new PRCR_NoteAnalysis();
         setFinalSalary();
         dbm.updateDatabase("checkroll_personalinfo", "code", employCode, "full_salary", FinalSalary);
-        noteAnalysis(FinalSalary);//set the note values and update data base
+        naObject.ChNoteAnalysis(FinalSalary,employCode);//set the note values and update data base
         return FinalSalary;
     }
     
-    public void noteAnalysis(double salary){
-        
-            
-            n_5000=(int) (salary/5000);
-            double rem=salary%5000;
-            dbm.updateDatabase("checkroll_personalinfo", "code", employCode, "n_5000", n_5000);
-        
-            n_2000=(int) (rem/2000);
-            rem=rem%2000;
-            dbm.updateDatabase("checkroll_personalinfo", "code", employCode, "n_2000", n_2000);
-        
-            n_1000=(int) (rem/1000);
-            rem=rem%1000;
-            dbm.updateDatabase("checkroll_personalinfo", "code", employCode, "n_1000", n_1000);
-        
-            n_500=(int) (rem/500);
-            rem=rem%500;
-            dbm.updateDatabase("checkroll_personalinfo", "code", employCode, "N_500", n_500);
-        
-            n_100=(int) (rem/100);
-            rem=salary%100;
-            dbm.updateDatabase("checkroll_personalinfo", "code", employCode, "n_100", n_100);
-        
-            n_50=(int) (rem/50);
-            rem=rem%50;
-            dbm.updateDatabase("checkroll_personalinfo", "code", employCode, "n_50", n_50);
-        
-            n_20=(int) (rem/20);
-            rem=rem%20;
-            dbm.updateDatabase("checkroll_personalinfo", "code", employCode, "n_20", n_20);
-        
-            n_10=(int) (rem/10);
-            dbm.updateDatabase("checkroll_personalinfo", "code", employCode, "n_10", n_10);
-        
-            pettyCash=rem%10;
-            System.out.println("5000-"+n_5000+"-2000-"+n_2000+"-1000-"+n_1000+","+n_500+","+n_100);
-        
-        
     
-    }
-    public int getN5000(){
-      return this.n_5000;
-    }
-    public int getN2000(){
-      return this.n_2000;
-    }
-    public int getN1000(){
-      return this.n_1000;
-    }
-    public int getN500(){
-      return this.n_500;
-    }
-    public int getN100(){
-      return this.n_100;
-    }
-    public int getN50(){
-      return this.n_50;
-    }
-    public int getN20(){
-      return this.n_20;
-    }
-    public int getN10(){
-      return this.n_10;
-    }
+  
 
-    public int[] getIntArray(String table_name, String column_name) {
-
-        int count = 0;
-        DatabaseManager dbm = DatabaseManager.getDbCon();
-        try {
-            ResultSet query = dbm.query("SELECT " + column_name + " FROM " + table_name + "");
-            while (query.next()) {
-                count++;
-            }
-            int[] array = new int[count];
-            count = 0;
-            ResultSet query2 = dbm.query("SELECT " + column_name + " FROM " + table_name + "");
-            while (query2.next()) {
-                array[count] = query2.getInt(column_name);
-                count++;
-            }
-            return array;
-        } catch (SQLException ex) {
-
-        }
-        return null;
-
-    }
-    
-    public int getColumnsize(String table_name, String column_name) {
-
-        int count = 0;
-        DatabaseManager dbm = DatabaseManager.getDbCon();
-        try {
-            ResultSet query = dbm.query("SELECT " + column_name + " FROM " + table_name + "");
-            while (query.next()) {
-                count++;
-            }
-            
-        } catch (SQLException ex) {
-
-        }
-        return count;
-        //return null;
-
-    }
-
+   
 }

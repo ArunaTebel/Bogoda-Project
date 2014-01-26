@@ -80,8 +80,9 @@ public class GLcash_advance extends javax.swing.JPanel {
         jTextField8 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
 
+        DatabaseManager dbm = DatabaseManager.getDbCon();
         jComboBox1.setEditable(true);
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("suppliers", "sup_id")));
 
         jLabel5.setText("Date");
 
@@ -195,7 +196,7 @@ public class GLcash_advance extends javax.swing.JPanel {
 
         jButton6.setText("Supplier Status");
 
-        jButton7.setText("Suuplies");
+        jButton7.setText("Supplies");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
