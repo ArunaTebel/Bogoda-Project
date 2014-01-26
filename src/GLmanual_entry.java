@@ -15,23 +15,26 @@ import java.sql.SQLException;
  * @author Pramo
  */
 public class GLmanual_entry extends javax.swing.JPanel {
-
+    
     Interface_Events interface_events = new Interface_Events();
     DatabaseManager dbm = DatabaseManager.getDbCon();
     /**
      * Creates new form GLmanual_entry
      */
     GreenLeaf globject = new GreenLeaf();
-
+    
     public GLmanual_entry() {
         initComponents();
+        leaf_cat.setSelectedItem("A"); // default///////////////////////////////////////////////////////////////////////////////////////////////
     }
-  public void focus()
-  {
-  this.requestFocusInWindow();
-  category_code.requestFocusInWindow();
-  
-  }
+    
+    public void focus() // Focus event to bring focus to the jpanel
+    {
+        this.requestFocusInWindow();
+        category_code.requestFocusInWindow();
+        
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -211,6 +214,7 @@ public class GLmanual_entry extends javax.swing.JPanel {
         );
 
         name.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        name.setForeground(new java.awt.Color(51, 51, 51));
 
         category_code.putClientProperty("JComboBox.isTableCellEditor", Boolean.TRUE);
         category_code.setEditable(true);
@@ -220,6 +224,8 @@ public class GLmanual_entry extends javax.swing.JPanel {
                 category_codeItemStateChanged(evt);
             }
         });
+
+        category_name.setForeground(new java.awt.Color(51, 51, 51));
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -617,9 +623,9 @@ public class GLmanual_entry extends javax.swing.JPanel {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel3)
                                     .addComponent(category_code, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(category_name, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5))
+                                .addComponent(category_name, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel5))
+                            .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -631,11 +637,12 @@ public class GLmanual_entry extends javax.swing.JPanel {
                             .addComponent(jLabel2)
                             .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(leaf_cat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(self_transport)
-                            .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel4)
+                                .addComponent(leaf_cat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(self_transport)))
                         .addGap(8, 8, 8)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
@@ -683,68 +690,60 @@ public class GLmanual_entry extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
-// TODO add your handling code here:
-       /* int i =0;
-        int j =0;
-        while (table.getValueAt(i, 0) != null) {
-            i++;
-        }
-        while(j<i){
-        globject.setSupplierCode(Integer.parseInt(table.getValueAt(j, 0).toString()));
-       globject.setCategoryCode(Integer.parseInt(leaf_cat.getSelectedItem().toString()));
-        globject.setNoOfSacks(Integer.parseInt(table.getValueAt(j, 1).toString()));
-        globject.setTotalWeight(Double.parseDouble(table.getValueAt(j, 2).toString()));
-        globject.setSacksWeight(Double.parseDouble(table.getValueAt(j, 3).toString()));
-        globject.setOther(Double.parseDouble(table.getValueAt(j, 6).toString()));
-        globject.setWater(Double.parseDouble(table.getValueAt(j, 4).toString()));
-        globject.setCoarseLeaf(Double.parseDouble(table.getValueAt(j, 5).toString()));
-       // globject.setLeafCategory(table.getValueAt(j, 8).toString());
-        java.sql.Date date = new java.sql.Date(datePicker.getDate().getTime());
-        globject.setDate(date);
-        globject.calcNetQuantity();
-        globject.setSelfTransport(self_transport.isSelected());
-        globject.setIntselfTransport(globject.getSelfTransport());
-        globject.addToDataBase();
-        }*/
-        
+
         // adding common data to the database
-        
         globject.setCategoryCode(Integer.parseInt(category_code.getSelectedItem().toString()));
         java.sql.Date date1 = new java.sql.Date(date.getDate().getTime());
         globject.setDate(date1);
-        
+
         // adding values in the table
-        
-        int i=0;
+        int i = 0;
         boolean st;
         
-        while(table.getValueAt(i, 0)!=null){
+        while (table.getValueAt(i, 0) != null) {
             globject.setSupplierCode(Integer.parseInt((String) table.getValueAt(i, 0)));
             globject.setLeafCategory((String) table.getValueAt(i, 9));
-            globject.setNoOfSacks(Integer.parseInt( (String) table.getValueAt(i, 1)));
+            globject.setNoOfSacks(Integer.parseInt((String) table.getValueAt(i, 1)));
             globject.setTotalWeight(Double.parseDouble((String) table.getValueAt(i, 2)));
             globject.setSacksWeight(Double.parseDouble((String) table.getValueAt(i, 3)));
             globject.setWater(Double.parseDouble((String) table.getValueAt(i, 4)));
             globject.setCoarseLeaf(Double.parseDouble((String) table.getValueAt(i, 5)));
             globject.setOther(Double.parseDouble((String) table.getValueAt(i, 6)));
             globject.setNetQuantity(Double.parseDouble((String) table.getValueAt(i, 7)));
-            if((String)table.getValueAt(i, 8)=="Yes"){
-                st=true;
-            }
-            else{
-                st= false;
+            if ((String) table.getValueAt(i, 8) == "Yes") {
+                st = true;
+            } else {
+                st = false;
             }
             globject.setSelfTransport(st);
             globject.setIntselfTransport(globject.getSelfTransport());
             
             globject.addToDataBase();
-    
             
             i++;
         }
+        int k = 0;
+        int j = 0;
+        while (table.getValueAt(k, 0) != null) {
+            
+            j = 0;
+            while (j < 10) {
+                
+                table.setValueAt(null, k, j);
+                j++;
+            }
+            k++;
+        }
+        category_code.setEnabled(true);
+        date.setEnabled(true);
+        category_name.setText(" ");
         
+        category_code.requestFocusInWindow();
+        category_code.setSelectedItem(null);
+        
+
     }//GEN-LAST:event_jButton1ActionPerformed
-               
+    
     private void supplier_idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supplier_idActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_supplier_idActionPerformed
@@ -766,9 +765,9 @@ public class GLmanual_entry extends javax.swing.JPanel {
             } catch (SQLException ex) {
             }
             name.setText("" + Name);
-
+            
             no_of_sacks.requestFocusInWindow();
-
+            
             jLabel14.setText(" ");
 
             // do something with object
@@ -788,9 +787,9 @@ public class GLmanual_entry extends javax.swing.JPanel {
             }
             category_name.setText("" + Name);
         }
-   date.requestFocusInWindow();
-   jPanel6.setBackground(new java.awt.Color(0, 102, 0));
-  
+        date.requestFocusInWindow();
+        jPanel6.setBackground(new java.awt.Color(0, 102, 0));
+        
 
     }//GEN-LAST:event_category_codeItemStateChanged
 
@@ -831,19 +830,17 @@ public class GLmanual_entry extends javax.swing.JPanel {
     }//GEN-LAST:event_otherFocusLost
 
     private void sendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendButtonActionPerformed
-
+        
         if (supplier_id.getSelectedItem() == null) {
             jLabel14.setText("Please Choose Supplir ID");
-        } 
-        else if (leaf_cat.getSelectedItem() == null) {
+        } else if (leaf_cat.getSelectedItem() == null) {
             jLabel15.setText("Please Choose Leaf Category");
-        }
-        else {
+        } else {
             int i = 0;
             while (table.getValueAt(i, 0) != null) {
                 i++;
             }
-
+            
             table.setValueAt(supplier_id.getSelectedItem().toString(), i, 0);
             table.setValueAt(leaf_cat.getSelectedItem().toString(), i, 9);
             table.setValueAt(no_of_sacks.getText(), i, 1);
@@ -855,11 +852,11 @@ public class GLmanual_entry extends javax.swing.JPanel {
             table.setValueAt(net_weight.getText(), i, 7);
             if (self_transport.isSelected() == true) {
                 table.setValueAt("Yes", i, 8);
-
+                
             } else {
                 table.setValueAt("No", i, 8);
             }
-
+            
             supplier_id.requestFocusInWindow(); // request focus
             supplier_id.setSelectedItem(null);   // setting null
             leaf_cat.setSelectedItem("A"); // default///////////////////////////////////////////////////////////////////////////////////////////////
@@ -870,13 +867,17 @@ public class GLmanual_entry extends javax.swing.JPanel {
             coarse_leaf.setText(null);
             other.setText(null);
             net_weight.setText(null);
-
+            
+            category_code.setEnabled(false);
+            date.setEnabled(false);
+            name.setText(" ");
+            
         }
         //debit_amount.setText(null);
     }//GEN-LAST:event_sendButtonActionPerformed
 
     private void supplier_idKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_supplier_idKeyReleased
-
+        
 
     }//GEN-LAST:event_supplier_idKeyReleased
 
@@ -938,16 +939,16 @@ public class GLmanual_entry extends javax.swing.JPanel {
         int i = 0;
         int j = 0;
         while (table.getValueAt(i, 0) != null) {
-
+            
             j = 0;
             while (j < 10) {
-
+                
                 table.setValueAt(null, i, j);
                 j++;
             }
             i++;
         }
-
+        
 
     }//GEN-LAST:event_jButton6ActionPerformed
 
@@ -961,20 +962,20 @@ public class GLmanual_entry extends javax.swing.JPanel {
         while (j < 10) {
             table.setValueAt(null, i, j);
             j++;
-
+            
         }
-
+        
 
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void dateKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dateKeyReleased
         
-        
+
     }//GEN-LAST:event_dateKeyReleased
 
     private void dateKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dateKeyPressed
         interface_events.Change_focus_Enterkey_c(supplier_id, evt);
-        if (evt.getKeyCode()== KeyEvent.VK_ENTER) {
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             jPanel6.setBackground(new java.awt.Color(240, 240, 240));
         }
         
