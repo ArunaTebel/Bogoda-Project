@@ -37,6 +37,11 @@ public class Date_Handler {
          array=s.split("-");
          return array[0] + "-" + array[1] + "-" +get_glcash_advance_starting_date_int() ;
      }
+     
+     public String get_date_as_a_String(Date date){
+         String s = date.toString();
+         return s;
+     }
     
     
 }
