@@ -156,11 +156,13 @@ public final class DatabaseManager {
         return null;
     }
     
-     public double checknReturnDataForCashAdvances(String table_name,String table_column_giving1,Object row_element1,String table_column_giving2,Object row_element2,String table_column_need){
+     public double checknReturnDataForCashAdvances(String table_name,String table_column_giving1,Object row_element1,String table_column_giving2,Object row_element2,Object row_element3,String table_column_need){
         DatabaseManager dbm = DatabaseManager.getDbCon();
         double value =0;
          try {
-            ResultSet query = dbm.query("SELECT * FROM " + table_name + " WHERE " + table_column_giving1 + " ='" + row_element1 + " 'AND " + table_column_giving2 +" <'" + row_element2 + "'");
+       //     ResultSet query = dbm.query("SELECT * FROM " + table_name + " WHERE " + table_column_giving1 + " ='" + row_element1 + " 'AND " + table_column_giving2 +" <'" + row_element2 + "'");
+            ResultSet query = dbm.query("SELECT * FROM " + table_name + " WHERE " + table_column_giving1 + " ='" + row_element1 + " 'AND " + table_column_giving2 +" BETWEEN'" + row_element2 + "' AND '"+ row_element3+"'");
+
             while (query.next()) {
                 value= value+query.getDouble(table_column_need);
             }
@@ -170,6 +172,30 @@ public final class DatabaseManager {
         }
         return value;
     }
-
+     
+     
+     // when table name and a column is given returns the elements in that column in the acsending order
+     
+      public String[] ReturnSortedArray(String table_name,String table_column){
+       int count=0; 
+        DatabaseManager dbm = DatabaseManager.getDbCon();
+         try {
+            ResultSet query = dbm.query("SELECT * FROM "+table_name+" ORDER BY "+table_column+" ASC");
+            while (query.next()) {
+                count++;
+            }
+            String[] array = new String[count];
+            count=0;
+            ResultSet query2 = dbm.query("SELECT * FROM "+table_name+" ORDER BY "+table_column+" ASC");
+            while (query2.next()) {
+                array[count]=query2.getString(table_column);
+                count++;
+            }
+            return array;
+        } catch (SQLException ex) {
+            
+        }
+        return null;
+    }
     
 }
