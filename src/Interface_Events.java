@@ -176,9 +176,34 @@ public class Interface_Events {
             combo.requestFocusInWindow();
 
         }
+        
+        
+       
 
         
     }
+      
+      
+      public void insertpanel(javax.swing.JPanel insert, javax.swing.JPanel into){
+       into.removeAll();
+
+        insert.setSize(into.getSize());
+
+        into.add(insert);
+        into.validate();
+        into.repaint();
+      
+      
+      }
+      
+      
+      public void gainfocus(javax.swing.JPanel panel){
+      
+      panel.requestFocusInWindow();
+      
+      }
+      
+      
      
 
  /*   void Change_focus_Enterkey_t_action(JTextField text, ActionEvent evt) {
