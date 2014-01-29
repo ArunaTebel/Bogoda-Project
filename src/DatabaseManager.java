@@ -170,6 +170,34 @@ public final class DatabaseManager {
         }
         return value;
     }
+    
+    public String[] checknReturnDataForCashAdvances_onebyone( String table_name, String table_column_giving1, Object row_element1, String table_column_giving2, Object row_element2, Object row_element3, String table_column_need) {
+        DatabaseManager dbm = DatabaseManager.getDbCon();
+        
+        int i =0;
+        int j = 0;
+        try {
+            //     ResultSet query = dbm.query("SELECT * FROM " + table_name + " WHERE " + table_column_giving1 + " ='" + row_element1 + " 'AND " + table_column_giving2 +" <'" + row_element2 + "'");
+            ResultSet query = dbm.query("SELECT * FROM " + table_name + " WHERE " + table_column_giving1 + " ='" + row_element1 + " 'AND " + table_column_giving2 + " BETWEEN'" + row_element2 + "' AND '" + row_element3 + "'");
+
+            while (query.next()) {
+                i++;
+              
+            }
+               
+            String[] Arr = new String[i];
+            ResultSet query2 = dbm.query("SELECT * FROM " + table_name + " WHERE " + table_column_giving1 + " ='" + row_element1 + " 'AND " + table_column_giving2 + " BETWEEN'" + row_element2 + "' AND '" + row_element3 + "'");
+            while (query2.next()) {
+                Arr[j]=query2.getString(table_column_need);
+                j++;
+            }
+               return Arr;
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            //return ""+ex.getErrorCode();            
+        }
+     return null;
+    }
 
      // when table name and a column is given returns the elements in that column in the acsending order
     public String[] ReturnSortedArray(String table_name, String table_column) {
