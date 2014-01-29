@@ -214,6 +214,16 @@ public final class DatabaseManager {
         }
         return true;
     }
+    
+    public void CheckNDeleteFromDataBase(String table_name,String column_name,Object element) {
+        DatabaseManager dbCon = DatabaseManager.getDbCon();
+        try {
+            dbCon.insert("DELETE FROM "+table_name+" WHERE "+column_name+" = "+element+" ");
+        } catch (SQLException ex) {
+            MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
+        }
+
+    }
 }
 
 

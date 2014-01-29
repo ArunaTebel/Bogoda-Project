@@ -18,6 +18,7 @@ public class GLcash_advance extends javax.swing.JPanel {
      */
     Interface_Events interface_events = new Interface_Events();
     DatabaseManager dbm = DatabaseManager.getDbCon();
+    Cash_Advance_Common_Class cadvance = new Cash_Advance_Common_Class();
 
     public GLcash_advance() {
         initComponents();
@@ -79,9 +80,9 @@ public class GLcash_advance extends javax.swing.JPanel {
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        allowable = new javax.swing.JLabel();
+        max_allowable = new javax.swing.JLabel();
         supplier_name = new javax.swing.JLabel();
-        Amount = new javax.swing.JTextField();
+        amount = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         Save = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
@@ -307,8 +308,8 @@ public class GLcash_advance extends javax.swing.JPanel {
         jLabel15.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel15.setText("Rs");
 
-        allowable.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        allowable.setText("00.00");
+        max_allowable.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        max_allowable.setText("00.00");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -320,7 +321,7 @@ public class GLcash_advance extends javax.swing.JPanel {
                 .addGap(22, 22, 22)
                 .addComponent(jLabel15)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(allowable)
+                .addComponent(max_allowable)
                 .addGap(40, 40, 40))
         );
         jPanel3Layout.setVerticalGroup(
@@ -330,7 +331,7 @@ public class GLcash_advance extends javax.swing.JPanel {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jLabel15)
-                    .addComponent(allowable))
+                    .addComponent(max_allowable))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -338,9 +339,9 @@ public class GLcash_advance extends javax.swing.JPanel {
         supplier_name.setForeground(new java.awt.Color(102, 102, 102));
         supplier_name.setText("Name Here");
 
-        Amount.addKeyListener(new java.awt.event.KeyAdapter() {
+        amount.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                AmountKeyPressed(evt);
+                amountKeyPressed(evt);
             }
         });
 
@@ -499,15 +500,13 @@ public class GLcash_advance extends javax.swing.JPanel {
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel16)
                                 .addGap(18, 18, 18)
-                                .addComponent(Amount, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(amount, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(cash_cheque_combo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(80, 80, 80)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(9, 9, 9)
                         .addComponent(Cheque_pay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(Red_message, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -570,16 +569,15 @@ public class GLcash_advance extends javax.swing.JPanel {
                                 .addGap(22, 22, 22)
                                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabel6)
                                 .addComponent(jLabel16)
-                                .addComponent(Amount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(amount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel7)
                                 .addComponent(cash_cheque_combo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGap(90, 90, 90)
@@ -623,10 +621,10 @@ public class GLcash_advance extends javax.swing.JPanel {
         date_handler.set_glcash_advance_starting_date_int(gl_cashadvance_set_date_int);
         // A seperate class glcashadvances may have to be created in the future
         java.sql.Date datef = new java.sql.Date(date.getDate().getTime());
-        allowable.setText("" + (dbm.checknReturnDataForCashAdvances("green_leaf_transactions", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "tr_date",date_handler.get_glcash_advance_starting_date(datef),date_handler.get_date_as_a_String(datef), "net_qty")));
+        max_allowable.setText("" + (dbm.checknReturnDataForCashAdvances("green_leaf_transactions", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "tr_date",date_handler.get_glcash_advance_starting_date(datef),date_handler.get_date_as_a_String(datef), "net_qty")));
         // allowable.setText("" + (dbm.checknReturnDataForCashAdvances("green_leaf_transactions", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "tr_date","2014-01-19","2014-01-21", "net_qty")));
 
-        Amount.requestFocusInWindow();
+        amount.requestFocusInWindow();
 
     }//GEN-LAST:event_supplier_idItemStateChanged
 
@@ -638,9 +636,9 @@ public class GLcash_advance extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_dateKeyPressed
 
-    private void AmountKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_AmountKeyPressed
+    private void amountKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_amountKeyPressed
         interface_events.Change_focus_Enterkey_c(cash_cheque_combo, evt);
-    }//GEN-LAST:event_AmountKeyPressed
+    }//GEN-LAST:event_amountKeyPressed
 
     private void cash_cheque_comboItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cash_cheque_comboItemStateChanged
         // TODO add your handling code here:
@@ -654,7 +652,7 @@ public class GLcash_advance extends javax.swing.JPanel {
     }//GEN-LAST:event_date1KeyPressed
 
     private void date2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_date2KeyPressed
-        interface_events.Change_focus_Enterkey_t_b(Amount, Save, evt);
+        interface_events.Change_focus_Enterkey_t_b(amount, Save, evt);
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             jPanel7.setBackground(new java.awt.Color(240, 240, 240));
         }
@@ -683,14 +681,14 @@ public class GLcash_advance extends javax.swing.JPanel {
     }//GEN-LAST:event_Cheque_RefnoActionPerformed
 
     private void cash_cheque_comboKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cash_cheque_comboKeyPressed
-        if(Emergency.isSelected()==true){interface_events.Change_focus_Enterkey_t_b(Amount, Save, evt);}
-        if(Emergency.isSelected()==false){interface_events.Change_focus_Enterkey_t_b(Amount, Save1, evt);}
+        if(Emergency.isSelected()==true){interface_events.Change_focus_Enterkey_t_b(amount, Save, evt);}
+        if(Emergency.isSelected()==false){interface_events.Change_focus_Enterkey_t_b(amount, Save1, evt);}
     }//GEN-LAST:event_cash_cheque_comboKeyPressed
 
     private void SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveActionPerformed
         if (cash_cheque_combo.getSelectedItem().toString() == "Cash") {
 
-            if (supplier_id.getSelectedItem() == null || Amount.getText().length() == 0) {
+            if (supplier_id.getSelectedItem() == null || amount.getText().length() == 0) {
 
                 Red_message.setText("Fill all the Empty fields before Save");
             } else {
@@ -698,7 +696,7 @@ public class GLcash_advance extends javax.swing.JPanel {
                 Red_message.setText("Saved cash");
                 supplier_id.setSelectedItem(null);
                 supplier_name.setText(" ");
-                Amount.setText(null);
+                amount.setText(null);
                  supplier_id.requestFocusInWindow();
 
             }
@@ -706,7 +704,7 @@ public class GLcash_advance extends javax.swing.JPanel {
 
         if (cash_cheque_combo.getSelectedItem().toString() == "Cheque") {
 
-            if (supplier_id.getSelectedItem() == null || Cheque_Refno.getText().length() == 0 || jComboBox1.getSelectedItem() == null || Cheque_no.getText().length() == 0 || Amount.getText().length() == 0) {
+            if (supplier_id.getSelectedItem() == null || Cheque_Refno.getText().length() == 0 || jComboBox1.getSelectedItem() == null || Cheque_no.getText().length() == 0 || amount.getText().length() == 0) {
 
                 Red_message.setText("Fill all the Empty fields before Save");
 
@@ -715,7 +713,7 @@ public class GLcash_advance extends javax.swing.JPanel {
                             // save button action here when cheque selected
                    supplier_id.setSelectedItem(null);
                     supplier_name.setText(" ");
-                Amount.setText(null);
+                amount.setText(null);
                 Cheque_Refno.setText(null);
                 Cheque_no.setText(null);
                 jComboBox1.setSelectedItem(null);
@@ -741,6 +739,16 @@ public class GLcash_advance extends javax.swing.JPanel {
 
     private void Save1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Save1ActionPerformed
         interface_events.Respond_enter(Save1, null);
+        
+        cadvance.set_sup_id(Integer.parseInt(supplier_id.getSelectedItem().toString()));
+        cadvance.set_max_allowable(Double.parseDouble(max_allowable.getText()));
+        cadvance.set_amount(Double.parseDouble(amount.getText()));
+        java.sql.Date date3 = new java.sql.Date(date.getDate().getTime());
+        cadvance.set_date(date3);
+        cadvance.set_sup_name(supplier_name.getText());
+        cadvance.addToDataBase();
+        
+        
     }//GEN-LAST:event_Save1ActionPerformed
 
     private void Save1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_Save1FocusGained
@@ -760,7 +768,6 @@ public class GLcash_advance extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField Amount;
     private javax.swing.JTextField Cheque_Refno;
     private javax.swing.JTextField Cheque_no;
     private javax.swing.JPanel Cheque_pay;
@@ -768,7 +775,7 @@ public class GLcash_advance extends javax.swing.JPanel {
     private javax.swing.JLabel Red_message;
     private javax.swing.JButton Save;
     private javax.swing.JButton Save1;
-    private javax.swing.JLabel allowable;
+    private javax.swing.JTextField amount;
     private javax.swing.JLabel bank_name;
     private javax.swing.JComboBox cash_cheque_combo;
     private com.michaelbaranov.microba.calendar.DatePicker date;
@@ -805,6 +812,7 @@ public class GLcash_advance extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JTextField jTextField8;
+    private javax.swing.JLabel max_allowable;
     private javax.swing.JComboBox supplier_id;
     private javax.swing.JLabel supplier_name;
     // End of variables declaration//GEN-END:variables
