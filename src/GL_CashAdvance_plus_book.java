@@ -97,7 +97,7 @@ Interface_Events interface_events = new Interface_Events();
         interface_events.insertpanel(cashadvance, content_panel);
         jButton2.setBackground(new java.awt.Color(0, 102, 0));
         jButton1.setBackground(new java.awt.Color(0, 0, 0));
-       // cashadvance.focus();
+       cashadvance.focus();
         
         
         
