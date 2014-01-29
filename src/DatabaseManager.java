@@ -13,7 +13,6 @@ public final class DatabaseManager {
     public Connection conn;
     private Statement statement;
     public static DatabaseManager db;
-    
 
     DatabaseManager() {
         String url = "jdbc:mysql://localhost:3306/";
@@ -64,77 +63,76 @@ public final class DatabaseManager {
         int result = statement.executeUpdate(insertQuery);
         return result;
     }
-    
-    
-    public String checknReturnData(String table_name,String table_column_giving,Object row_element,String table_column_need){
+
+    public String checknReturnData(String table_name, String table_column_giving, Object row_element, String table_column_need) {
         DatabaseManager dbm = DatabaseManager.getDbCon();
-         try {
-            ResultSet query = dbm.query("SELECT * FROM "+table_name+" WHERE "+table_column_giving+" =" + row_element + "");
+        try {
+            ResultSet query = dbm.query("SELECT * FROM " + table_name + " WHERE " + table_column_giving + " =" + row_element + "");
             while (query.next()) {
                 return (query.getString(table_column_need));
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
-            return ""+ex.getErrorCode();            
+            return "" + ex.getErrorCode();
         }
         return null;
     }
-    
-    public boolean updateDatabase(String table_name,String table_column_giving,Object row_element,String table_column_need,Object update_element){
+
+    public boolean updateDatabase(String table_name, String table_column_giving, Object row_element, String table_column_need, Object update_element) {
         DatabaseManager dbm = DatabaseManager.getDbCon();
         try {
-          
-            dbm.insert("UPDATE "+table_name+" SET "+table_column_need+" ='"+update_element+"' WHERE "+table_column_giving+"='"+row_element+"'");
-           
+
+            dbm.insert("UPDATE " + table_name + " SET " + table_column_need + " ='" + update_element + "' WHERE " + table_column_giving + "='" + row_element + "'");
+
         } catch (SQLException ex) {
             MessageBox.showMessage(ex.getMessage(), "SQL ERROR", "error");
             return false;
         }
         return true;
     }
-    
-    public void newDayTable(Date date){
+
+    public void newDayTable(Date date) {
         DatabaseManager dbm = DatabaseManager.getDbCon();
         try {
-            dbm.insert("CREATE TABLE "+date.toString()+"(name varchar(25),"
+            dbm.insert("CREATE TABLE " + date.toString() + "(name varchar(25),"
                     + "employee_code varchar(10),"
                     + "workCode varchar(10));");
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public String[] getStringArray(String table_name,String column_name){
-        
-        int count=0; 
+
+    public String[] getStringArray(String table_name, String column_name) {
+
+        int count = 0;
         DatabaseManager dbm = DatabaseManager.getDbCon();
-         try {
-            ResultSet query = dbm.query("SELECT "+column_name+" FROM "+table_name+"");
+        try {
+            ResultSet query = dbm.query("SELECT " + column_name + " FROM " + table_name + "");
             while (query.next()) {
                 count++;
             }
-            String[] array = new String[count+1];
-            array[0]=null;
-            count=1;
-            ResultSet query2 = dbm.query("SELECT "+column_name+" FROM "+table_name+"");
+            String[] array = new String[count + 1];
+            array[0] = null;
+            count = 1;
+            ResultSet query2 = dbm.query("SELECT " + column_name + " FROM " + table_name + "");
             while (query2.next()) {
-                array[count]=query2.getString(column_name);
+                array[count] = query2.getString(column_name);
                 count++;
             }
             return array;
         } catch (SQLException ex) {
-            
+
         }
         return null;
     }
-    
-    public String[] search_PRCR(String table_name,String column_1,String column_2,Object element_1,Object element_2,String needed_column){
+
+    public String[] search_PRCR(String table_name, String column_1, String column_2, Object element_1, Object element_2, String needed_column) {
         DatabaseManager dbm = DatabaseManager.getDbCon();
         //String workcodes[] = null;
         String workcodes[];
         int i = 0;
         try {
-            ResultSet query = dbm.query("SELECT * FROM " + table_name + " WHERE " + column_1 + " ='" + element_1 + " 'AND " + column_2 +" ='" + element_2 + "'");
+            ResultSet query = dbm.query("SELECT * FROM " + table_name + " WHERE " + column_1 + " ='" + element_1 + " 'AND " + column_2 + " ='" + element_2 + "'");
             //int Fetchsize = query.getFetchSize();
             //workcodes = new String[Fetchsize]; 
             while (query.next()) {
@@ -143,28 +141,28 @@ public final class DatabaseManager {
             }
             workcodes = new String[i];
             i = 0;
-            ResultSet query_1 = dbm.query("SELECT * FROM " + table_name + " WHERE " + column_1 + " ='" + element_1 + " 'AND " + column_2 +" ='" + element_2 + "'");
+            ResultSet query_1 = dbm.query("SELECT * FROM " + table_name + " WHERE " + column_1 + " ='" + element_1 + " 'AND " + column_2 + " ='" + element_2 + "'");
             while (query_1.next()) {
                 workcodes[i] = query_1.getString(needed_column);
                 i++;
             }
             return workcodes;
-        }catch (SQLException ex) {
+        } catch (SQLException ex) {
             System.out.println(ex.getMessage());
             //return ""+ex.getErrorCode();
         }
         return null;
     }
-    
-     public double checknReturnDataForCashAdvances(String table_name,String table_column_giving1,Object row_element1,String table_column_giving2,Object row_element2,Object row_element3,String table_column_need){
+
+    public double checknReturnDataForCashAdvances(String table_name, String table_column_giving1, Object row_element1, String table_column_giving2, Object row_element2, Object row_element3, String table_column_need) {
         DatabaseManager dbm = DatabaseManager.getDbCon();
-        double value =0;
-         try {
-       //     ResultSet query = dbm.query("SELECT * FROM " + table_name + " WHERE " + table_column_giving1 + " ='" + row_element1 + " 'AND " + table_column_giving2 +" <'" + row_element2 + "'");
-            ResultSet query = dbm.query("SELECT * FROM " + table_name + " WHERE " + table_column_giving1 + " ='" + row_element1 + " 'AND " + table_column_giving2 +" BETWEEN'" + row_element2 + "' AND '"+ row_element3+"'");
+        double value = 0;
+        try {
+            //     ResultSet query = dbm.query("SELECT * FROM " + table_name + " WHERE " + table_column_giving1 + " ='" + row_element1 + " 'AND " + table_column_giving2 +" <'" + row_element2 + "'");
+            ResultSet query = dbm.query("SELECT * FROM " + table_name + " WHERE " + table_column_giving1 + " ='" + row_element1 + " 'AND " + table_column_giving2 + " BETWEEN'" + row_element2 + "' AND '" + row_element3 + "'");
 
             while (query.next()) {
-                value= value+query.getDouble(table_column_need);
+                value = value + query.getDouble(table_column_need);
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -172,30 +170,50 @@ public final class DatabaseManager {
         }
         return value;
     }
-     
-     
+
      // when table name and a column is given returns the elements in that column in the acsending order
-     
-      public String[] ReturnSortedArray(String table_name,String table_column){
-       int count=0; 
+    public String[] ReturnSortedArray(String table_name, String table_column) {
+        int count = 0;
         DatabaseManager dbm = DatabaseManager.getDbCon();
-         try {
-            ResultSet query = dbm.query("SELECT * FROM "+table_name+" ORDER BY "+table_column+" ASC");
+        try {
+            ResultSet query = dbm.query("SELECT * FROM " + table_name + " ORDER BY " + table_column + " ASC");
             while (query.next()) {
                 count++;
             }
             String[] array = new String[count];
-            count=0;
-            ResultSet query2 = dbm.query("SELECT * FROM "+table_name+" ORDER BY "+table_column+" ASC");
+            count = 0;
+            ResultSet query2 = dbm.query("SELECT * FROM " + table_name + " ORDER BY " + table_column + " ASC");
             while (query2.next()) {
-                array[count]=query2.getString(table_column);
+                array[count] = query2.getString(table_column);
                 count++;
             }
             return array;
         } catch (SQLException ex) {
-            
+
         }
         return null;
     }
+
+      // Get entries for the gl_cash_advance_book
+    public boolean Inserting_To_The_Table(javax.swing.JTable table, String table_name ,String column_name, int table_column_num) {
     
+        int num_of_columns_filled_in_table=0;
+        while(table.getValueAt(num_of_columns_filled_in_table,table_column_num)!=null){
+            num_of_columns_filled_in_table++;
+        }
+        
+        DatabaseManager dbm = DatabaseManager.getDbCon();
+        try {
+            ResultSet query = dbm.query("SELECT " + column_name + " FROM " + table_name + "");
+            while (query.next()) {
+                table.setValueAt(query.getString(column_name),num_of_columns_filled_in_table,table_column_num);
+                num_of_columns_filled_in_table++;
+            }
+        } catch (SQLException ex) {
+
+        }
+        return true;
+    }
 }
+
+

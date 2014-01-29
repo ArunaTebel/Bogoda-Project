@@ -710,7 +710,7 @@ public class GLmanual_entry extends javax.swing.JPanel {
             globject.setCoarseLeaf(Double.parseDouble((String) table.getValueAt(i, 5)));
             globject.setOther(Double.parseDouble((String) table.getValueAt(i, 6)));
             globject.setNetQuantity(Double.parseDouble((String) table.getValueAt(i, 7)));
-            if ((String) table.getValueAt(i, 8) == "Yes") {
+            if ("Yes".equals((String) table.getValueAt(i, 8))) {
                 st = true;
             } else {
                 st = false;

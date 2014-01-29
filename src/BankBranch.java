@@ -1,15 +1,12 @@
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
-import javax.swing.JOptionPane;
-
 
 public class BankBranch {
-    
-    Connection conn=null;
-    Statement stmt=null;
+
+    Connection conn = null;
+    Statement stmt = null;
 
     private int branchCode;
     private String branchName;
@@ -39,6 +36,7 @@ public class BankBranch {
     public int getBranchCode() {
         return branchCode;
     }
+
     public void addToDataBase() {
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         try {
