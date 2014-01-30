@@ -105,6 +105,11 @@ public class MainWindow extends javax.swing.JFrame {
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jButton8.setText("jButton8");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
         jButton8.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jButton8FocusGained(evt);
@@ -783,6 +788,18 @@ public class MainWindow extends javax.swing.JFrame {
     private void jPasswordField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordField1KeyPressed
        interface_events.Change_focus_Enterkey_t_b(jTextField1, jButton14, evt);
     }//GEN-LAST:event_jPasswordField1KeyPressed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+       GL_BillsummeryPanel bill = new GL_BillsummeryPanel();
+
+        Main_Content.removeAll();
+
+        bill.setSize(Main_Content.getSize());
+
+        Main_Content.add(bill);
+        validate();
+        repaint();
+    }//GEN-LAST:event_jButton8ActionPerformed
                            
 
 
