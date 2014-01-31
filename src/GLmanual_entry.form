@@ -268,7 +268,6 @@
     </Component>
     <Component class="javax.swing.JCheckBox" name="self_transport">
       <Properties>
-        <Property name="selected" type="boolean" value="true"/>
         <Property name="text" type="java.lang.String" value=" Self Transport"/>
       </Properties>
       <Events>

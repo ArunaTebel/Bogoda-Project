@@ -4,6 +4,7 @@ import java.awt.Container;
 import java.awt.Frame;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
+import javax.swing.ImageIcon;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -20,6 +21,7 @@ public class MainWindow extends javax.swing.JFrame {
 
     public MainWindow() {
         initComponents();
+        this.setIconImage(new ImageIcon(getClass().getResource("icon.jpg")).getImage());
 
        
 
