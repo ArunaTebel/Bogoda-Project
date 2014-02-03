@@ -774,7 +774,7 @@ public class GLmanual_entry extends javax.swing.JPanel {
             }
              
              
-      if(category_code.getSelectedItem().toString()!=category)
+      if(!category_code.getSelectedItem().toString().equals(category))
       {
           JOptionPane.showMessageDialog(other, "Supplier Category Exception!");
           
@@ -793,7 +793,7 @@ public class GLmanual_entry extends javax.swing.JPanel {
         DatabaseManager dbm = DatabaseManager.getDbCon();
         String Name = null;
         if (evt.getStateChange() == ItemEvent.SELECTED) {
-            int item = Integer.parseInt(evt.getItem().toString());
+            String item = evt.getItem().toString();
             try {
                 ResultSet query = dbm.query("SELECT * FROM category WHERE category_id =" + item + "");
                 while (query.next()) {

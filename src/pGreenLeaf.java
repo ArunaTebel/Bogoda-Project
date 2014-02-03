@@ -137,7 +137,7 @@ public class pGreenLeaf extends javax.swing.JPanel {
             }
         });
 
-        Add_combo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "---------", "Supplier", "Category", "Leaf category", "----------" }));
+        Add_combo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "---------", "Supplier", "Category", "Leaf category", "Transport rate", "----------" }));
         Add_combo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Add_comboActionPerformed(evt);
@@ -279,6 +279,20 @@ public class pGreenLeaf extends javax.swing.JPanel {
        GL_content.add(Addcat);
         validate();
         repaint();
+        }
+        
+        if (selection.equalsIgnoreCase("Transport rate")) {
+            
+          GL_Add_transport_rate Addtrate = new GL_Add_transport_rate();
+
+       GL_content.removeAll();
+
+       Addtrate.setSize(GL_content.getSize());
+
+       GL_content.add(Addtrate);
+        validate();
+        repaint();
+        Addtrate.focus();
         }
     }//GEN-LAST:event_Add_comboActionPerformed
 

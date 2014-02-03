@@ -10,14 +10,14 @@ public class Supplier {
     private final int code, bank, branch;
     private final double transRate;
     //Supplier details
-    private final String name, sinhala_name, estate_name, address, tel_no,
+    private final String name, sinhala_name, address, tel_no,
             pay_type, acc_no, cat_code;
     private final Date doc;
     //retreiving the database connection
     DatabaseManager dbCon = DatabaseManager.getDbCon();
 
     //This constructor will be called when the customer is registered
-    public Supplier(int code, String name, String sinhala_name, String estate_name,
+    public Supplier(int code, String name, String sinhala_name,
             String address, String tel_no, String pay_type,
             int bank, int branch, String acc_no, String cat_code,
             Date doc, double transRate) {
@@ -25,7 +25,7 @@ public class Supplier {
         this.code = code;
         this.name = name;
         this.sinhala_name = sinhala_name;
-        this.estate_name = estate_name;
+       
         this.address = address;
         this.tel_no = tel_no;
         this.pay_type = pay_type;
@@ -43,7 +43,7 @@ public class Supplier {
         this.code = 0;
         this.name = null;
         this.sinhala_name = null;
-        this.estate_name = null;
+       
         this.address = null;
         this.tel_no = null;
         this.pay_type = null;
@@ -80,7 +80,7 @@ public class Supplier {
     public void addToDatabase() {
         try {
             dbCon.insert("INSERT INTO suppliers (sup_id, sup_name, sup_sin_name, sup_estate_name, sup_address, sup_tel, sup_pay_type, bank_id, branch_id, sup_acc_no, cat_id, sup_doc, trans_rate) "
-                    + "VALUES (" + code + "," + "'" + name + "'" + "," + "'" + sinhala_name + "'" + "," + "'" + estate_name + "'" + "," + "'" + address + "'" + "," + "'" + tel_no + "'" + "," + "'" + pay_type + "'" + "," + bank + "," + branch + "," + "'" + acc_no + "'" + "," + "'" + cat_code + "'" + "," + "'" + doc + "'" +  "," + transRate +")");
+                    + "VALUES (" + code + "," + "'" + name + "'" + "," + "'" + sinhala_name + "'" + "," + "'" + "0" + "'" + "," + "'" + address + "'" + "," + "'" + tel_no + "'" + "," + "'" + pay_type + "'" + "," + bank + "," + branch + "," + "'" + acc_no + "'" + "," + "'" + cat_code + "'" + "," + "'" + doc + "'" +  "," + transRate +")");
         } catch (SQLException ex) {
             MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
         }
