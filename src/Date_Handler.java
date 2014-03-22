@@ -103,5 +103,75 @@ public class Date_Handler {
         String dateNow = formatter.format(currentDate.getTime());
         return dateNow;
     }
+    
+     public String get_today_day() {
+        Calendar currentDate = Calendar.getInstance(); //Get the current date
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); //format it as per your requirement
+        String dateNow = formatter.format(currentDate.getTime());
+         String month= null;
+        String[] array = new String[3];
+        array = dateNow.split("-");
+        return array[2];
+    }
+     
+      public String get_today_month() {
+        Calendar currentDate = Calendar.getInstance(); //Get the current date
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); //format it as per your requirement
+        String dateNow = formatter.format(currentDate.getTime());
+         String month= null;
+        String[] array = new String[3];
+        array = dateNow.split("-");
+         switch (array[1]) {
+            case "01":
+                month = "Jan";
+                break;
+            case "02":
+                month = "Feb";
+                break;
+            case "03":
+                month = "Mar";
+                break;
+            case "04":
+                month = "Apr";
+                break;
+            case "05":
+                month = "May";
+                break;
+            case "06":
+                month = "Jun";
+                break;
+            case "07":
+                month = "Jul";
+                break;
+            case "08":
+                month = "Aug";
+                break;
+            case "09":
+                month = "Sep";
+                break;
+            case "10":
+                month = "Oct";
+                break;
+            case "11":
+                month = "Nov";
+                break;
+            case "12":
+                month = "Dec";
+                break;
+
+        }
+
+        return month;
+    }
+      
+       public String get_today_year() {
+        Calendar currentDate = Calendar.getInstance(); //Get the current date
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); //format it as per your requirement
+        String dateNow = formatter.format(currentDate.getTime());
+         String month= null;
+        String[] array = new String[3];
+        array = dateNow.split("-");
+        return array[0];
+    }
 
 }

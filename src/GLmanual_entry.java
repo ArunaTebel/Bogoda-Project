@@ -691,7 +691,7 @@ public class GLmanual_entry extends javax.swing.JPanel {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
         // adding common data to the database
-        globject.setCategoryCode(Integer.parseInt(category_code.getSelectedItem().toString()));
+        globject.setCategoryCode(category_code.getSelectedItem().toString());
         java.sql.Date date1 = new java.sql.Date(date.getDate().getTime());
         globject.setDate(date1);
 
@@ -801,7 +801,7 @@ public class GLmanual_entry extends javax.swing.JPanel {
                 }
             } catch (SQLException ex) {
             }
-            category_name.setText("" + Name);
+            category_name.setText(Name);
         }
         date.requestFocusInWindow();
         jPanel6.setBackground(new java.awt.Color(0, 102, 0));

@@ -1,4 +1,5 @@
 
+import java.awt.event.KeyEvent;
 import java.util.Date;
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -11,6 +12,7 @@ import java.util.Date;
  */
 public class GL_Add_Supplier extends javax.swing.JPanel {
 DatabaseManager dbm = new DatabaseManager();
+Interface_Events interface_events = new Interface_Events();
     /**
      * Creates new form GL_Add_Supplier
      */
@@ -18,6 +20,7 @@ DatabaseManager dbm = new DatabaseManager();
 
     public GL_Add_Supplier() {
         initComponents();
+        trans_rate.setSelectedIndex(2);
     }
 
     /**
@@ -71,8 +74,9 @@ DatabaseManager dbm = new DatabaseManager();
         trans_rate = new javax.swing.JComboBox();
         bank_code = new javax.swing.JComboBox();
         branch_code = new javax.swing.JComboBox();
-        date = new com.michaelbaranov.microba.calendar.DatePicker();
         Cat_code = new javax.swing.JComboBox();
+        jPanel3 = new javax.swing.JPanel();
+        date = new com.michaelbaranov.microba.calendar.DatePicker();
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
@@ -100,21 +104,64 @@ DatabaseManager dbm = new DatabaseManager();
 
         jLabel13.setText("Date Commenced");
 
+        sup_name.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                sup_nameKeyPressed(evt);
+            }
+        });
+
         sup_name_sinhala.setFont(new java.awt.Font("Ds-Chamika", 0, 18)); // NOI18N
+        sup_name_sinhala.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                sup_name_sinhalaKeyPressed(evt);
+            }
+        });
+
+        cat_name.setBackground(new java.awt.Color(153, 255, 153));
 
         jLabel14.setText("Name");
 
         jLabel15.setText("Code");
 
         payment_method.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Cash", "Cheque" }));
+        payment_method.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                payment_methodKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                payment_methodKeyReleased(evt);
+            }
+        });
 
         jLabel16.setText("Name");
 
         jLabel17.setText("Code");
 
+        bank_name.setBackground(new java.awt.Color(153, 255, 153));
+
+        branch_name.setBackground(new java.awt.Color(153, 255, 153));
+
         jLabel18.setText("Name");
 
         jLabel19.setText("Code");
+
+        acc_no.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                acc_noKeyPressed(evt);
+            }
+        });
+
+        tel.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                telKeyPressed(evt);
+            }
+        });
+
+        address.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                addressKeyPressed(evt);
+            }
+        });
 
         view_cat_codes.setText("View Codes");
 
@@ -131,10 +178,25 @@ DatabaseManager dbm = new DatabaseManager();
                 saveActionPerformed(evt);
             }
         });
+        save.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                saveKeyPressed(evt);
+            }
+        });
 
         cancel.setText("Cancel");
+        cancel.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cancelKeyPressed(evt);
+            }
+        });
 
         quit.setText("Quit");
+        quit.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                quitKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -201,12 +263,24 @@ DatabaseManager dbm = new DatabaseManager();
             }
         });
 
+        trans_rate.setEditable(true);
+        trans_rate.putClientProperty("JComboBox.isTableCellEditor", Boolean.TRUE);
         trans_rate.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("tranport_rates", "Trans_rate"))
         );
+        trans_rate.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                trans_rateItemStateChanged(evt);
+            }
+        });
+        trans_rate.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                trans_rateKeyPressed(evt);
+            }
+        });
 
         bank_code.setEditable(true);
-        supplier_id.putClientProperty("JComboBox.isTableCellEditor", Boolean.TRUE);
-        bank_code.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("suppliers", "sup_id")));
+        bank_code.putClientProperty("JComboBox.isTableCellEditor", Boolean.TRUE);
+        bank_code.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("bank", "bank_id")));
         bank_code.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 bank_codeItemStateChanged(evt);
@@ -214,8 +288,8 @@ DatabaseManager dbm = new DatabaseManager();
         });
 
         branch_code.setEditable(true);
-        supplier_id.putClientProperty("JComboBox.isTableCellEditor", Boolean.TRUE);
-        branch_code.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("suppliers", "sup_id")));
+        branch_code.putClientProperty("JComboBox.isTableCellEditor", Boolean.TRUE);
+        branch_code.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("bank_branch", "branch_id")));
         branch_code.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 branch_codeItemStateChanged(evt);
@@ -230,6 +304,31 @@ DatabaseManager dbm = new DatabaseManager();
                 Cat_codeItemStateChanged(evt);
             }
         });
+
+        date.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                dateFocusLost(evt);
+            }
+        });
+        date.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                dateKeyPressed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -252,68 +351,61 @@ DatabaseManager dbm = new DatabaseManager();
                             .addComponent(jLabel2)
                             .addComponent(jLabel13)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(3, 3, 3)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel7)
-                                        .addGap(57, 57, 57)
-                                        .addComponent(jLabel17))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel8)
-                                        .addGap(47, 47, 47)
-                                        .addComponent(jLabel19))
-                                    .addComponent(jLabel9)
-                                    .addComponent(jLabel11)
-                                    .addComponent(jLabel12)))))
+                                .addComponent(jLabel7)
+                                .addGap(60, 60, 60)
+                                .addComponent(jLabel17))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addGap(50, 50, 50)
+                                .addComponent(jLabel19))
+                            .addComponent(jLabel6)))
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel6)))
-                .addGap(5, 5, 5)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel12)
+                            .addComponent(jLabel11)
+                            .addComponent(jLabel9))))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addComponent(supplier_id, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(8, 8, 8)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(trans_rate, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(Cat_code, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel14)
+                                .addGap(6, 6, 6)
+                                .addComponent(cat_name, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(12, 12, 12)
+                                .addComponent(view_cat_codes))
+                            .addComponent(sup_name_sinhala, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(sup_name, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(supplier_id, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(payment_method, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addComponent(sup_name, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addComponent(sup_name_sinhala, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(Cat_code, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel14)
-                        .addGap(6, 6, 6)
-                        .addComponent(cat_name, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
-                        .addComponent(view_cat_codes))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(bank_code, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(49, 49, 49)
-                        .addComponent(jLabel16)
-                        .addGap(13, 13, 13)
-                        .addComponent(bank_name, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(9, 9, 9)
-                        .addComponent(view_bank_codes))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(branch_code, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(49, 49, 49)
-                        .addComponent(jLabel18)
-                        .addGap(13, 13, 13)
-                        .addComponent(branch_name, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(9, 9, 9)
-                        .addComponent(view_branch_codes))
-                    .addComponent(acc_no, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tel, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(address, javax.swing.GroupLayout.PREFERRED_SIZE, 488, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addComponent(date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(trans_rate, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(payment_method, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(7, 7, 7)
+                        .addGap(10, 10, 10)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(branch_code, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(47, 47, 47)
+                                .addComponent(jLabel18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(branch_name, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(9, 9, 9)
+                                .addComponent(view_branch_codes))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(bank_code, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(47, 47, 47)
+                                .addComponent(jLabel16)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(bank_name, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(9, 9, 9)
+                                .addComponent(view_bank_codes))
+                            .addComponent(acc_no, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tel, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(address, javax.swing.GroupLayout.PREFERRED_SIZE, 488, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
@@ -335,20 +427,17 @@ DatabaseManager dbm = new DatabaseManager();
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(sup_name_sinhala, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
-                .addGap(11, 11, 11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(Cat_code, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel15)
-                            .addComponent(jLabel3)))
+                    .addComponent(view_cat_codes)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(1, 1, 1)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cat_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel14)))
-                    .addComponent(view_cat_codes))
+                            .addComponent(jLabel14)
+                            .addComponent(Cat_code, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel15)
+                            .addComponent(jLabel3))))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(trans_rate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -358,44 +447,46 @@ DatabaseManager dbm = new DatabaseManager();
                     .addComponent(payment_method, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(2, 2, 2)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel17))
-                        .addGap(26, 26, 26)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel19))
-                        .addGap(16, 16, 16)
-                        .addComponent(jLabel9)
-                        .addGap(36, 36, 36)
-                        .addComponent(jLabel11)
-                        .addGap(16, 16, 16)
-                        .addComponent(jLabel12)
-                        .addGap(52, 52, 52)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel17)
+                            .addComponent(bank_code, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7))
+                        .addGap(20, 20, 20)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel19)
+                            .addComponent(branch_code, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8))
+                        .addGap(159, 159, 159)
                         .addComponent(jLabel13))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(bank_code, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel16)
-                            .addComponent(bank_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(bank_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel16))
                             .addComponent(view_bank_codes))
                         .addGap(17, 17, 17)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(branch_code, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel18)
-                            .addComponent(branch_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(branch_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel18))
                             .addComponent(view_branch_codes))
-                        .addGap(7, 7, 7)
-                        .addComponent(acc_no, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addComponent(tel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10)
-                        .addComponent(address, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(39, 39, 39)
-                        .addComponent(date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(acc_no, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9))
+                        .addGap(21, 21, 21)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel11))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(address, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel12))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(24, 24, 24))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -438,7 +529,9 @@ DatabaseManager dbm = new DatabaseManager();
         if(supplier_id.getSelectedItem()!=null){
             sup_name.setText(dbm.checknReturnData("suppliers", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "sup_name"));
              sup_name_sinhala.setText(dbm.checknReturnData("suppliers", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "sup_sin_name"));
+          
              
+             sup_name.requestFocusInWindow();
         }
 
        
@@ -446,20 +539,91 @@ DatabaseManager dbm = new DatabaseManager();
     }//GEN-LAST:event_supplier_idItemStateChanged
 
     private void bank_codeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_bank_codeItemStateChanged
-        // TODO add your handling code here:
+        if(bank_code.getSelectedItem()!=null){
+            bank_name.setText(dbm.checknReturnData("bank", "bank_id", Integer.parseInt(bank_code.getSelectedItem().toString()), "bank_name"));
+            
+            branch_code.requestFocusInWindow();
+        }
     }//GEN-LAST:event_bank_codeItemStateChanged
 
     private void branch_codeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_branch_codeItemStateChanged
-        // TODO add your handling code here:
+       if(branch_code.getSelectedItem()!=null){
+            branch_name.setText(dbm.checknReturnData("bank_branch", "branch_id", Integer.parseInt(branch_code.getSelectedItem().toString()), "branch_name"));
+            
+            acc_no.requestFocusInWindow();
+        }
     }//GEN-LAST:event_branch_codeItemStateChanged
 
     private void Cat_codeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_Cat_codeItemStateChanged
          if(Cat_code.getSelectedItem()!=null){
-            cat_name.setText(dbm.checknReturnData("category", "category_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "category_name"));
+            cat_name.setText(dbm.checknReturnData("category", "category_id", Cat_code.getSelectedItem(), "category_name"));
              
-             
+            trans_rate.requestFocusInWindow();
         }
     }//GEN-LAST:event_Cat_codeItemStateChanged
+
+    private void sup_nameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_sup_nameKeyPressed
+        interface_events.Change_focus_Enterkey_t(sup_name_sinhala, evt);
+    }//GEN-LAST:event_sup_nameKeyPressed
+
+    private void sup_name_sinhalaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_sup_name_sinhalaKeyPressed
+        interface_events.Change_focus_Enterkey_c(Cat_code, evt);
+    }//GEN-LAST:event_sup_name_sinhalaKeyPressed
+
+    private void trans_rateItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_trans_rateItemStateChanged
+      payment_method.requestFocusInWindow();
+    }//GEN-LAST:event_trans_rateItemStateChanged
+
+    private void trans_rateKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_trans_rateKeyPressed
+        interface_events.Change_focus_Enterkey_c(payment_method, evt);
+    }//GEN-LAST:event_trans_rateKeyPressed
+
+    private void payment_methodKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_payment_methodKeyPressed
+        interface_events.Change_focus_Enterkey_c(bank_code, evt);
+    }//GEN-LAST:event_payment_methodKeyPressed
+
+    private void payment_methodKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_payment_methodKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_payment_methodKeyReleased
+
+    private void acc_noKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_acc_noKeyPressed
+        interface_events.Change_focus_Enterkey_t(tel, evt);
+    }//GEN-LAST:event_acc_noKeyPressed
+
+    private void telKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_telKeyPressed
+        interface_events.Change_focus_Enterkey_t(address, evt);
+    }//GEN-LAST:event_telKeyPressed
+
+    private void addressKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_addressKeyPressed
+        interface_events.Change_focus_Enterkey_Cal(date, evt);
+        if(evt.getKeyCode()== KeyEvent.VK_ENTER){
+        jPanel3.setBackground(new java.awt.Color(0, 102, 0));
+        }
+    }//GEN-LAST:event_addressKeyPressed
+
+    private void dateFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_dateFocusLost
+        jPanel3.setBackground(new java.awt.Color(240, 240, 240));
+    }//GEN-LAST:event_dateFocusLost
+
+    private void dateKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dateKeyPressed
+        interface_events.Change_focus_Enterkey_t_b(tel, save, evt);
+    }//GEN-LAST:event_dateKeyPressed
+
+    private void saveKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_saveKeyPressed
+       interface_events.Respond_enter(save, null);
+       interface_events.Change_focus_right_b_b(cancel, evt);
+    }//GEN-LAST:event_saveKeyPressed
+
+    private void cancelKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cancelKeyPressed
+       interface_events.Respond_enter(cancel, null);
+        interface_events.Change_focus_right_b_b(quit, evt);
+       interface_events.Change_focus_left_b_b(save, evt);
+    }//GEN-LAST:event_cancelKeyPressed
+
+    private void quitKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_quitKeyPressed
+       interface_events.Respond_enter(quit, null);
+        interface_events.Change_focus_left_b_b(cancel, evt);
+    }//GEN-LAST:event_quitKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -495,6 +659,7 @@ DatabaseManager dbm = new DatabaseManager();
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JComboBox payment_method;
     private javax.swing.JButton quit;

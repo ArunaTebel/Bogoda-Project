@@ -49,6 +49,7 @@ public class GLcash_advance extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        gL_BillsummeryPanel1 = new GL_BillsummeryPanel();
         supplier_id = new javax.swing.JComboBox();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -791,6 +792,7 @@ public class GLcash_advance extends javax.swing.JPanel {
     private com.michaelbaranov.microba.calendar.DatePicker date;
     private com.michaelbaranov.microba.calendar.DatePicker date1;
     private com.michaelbaranov.microba.calendar.DatePicker date2;
+    private GL_BillsummeryPanel gL_BillsummeryPanel1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;

@@ -8,7 +8,7 @@ public class GreenLeaf {
     private Date date;
     private int transaction_id;
     private int supplierCode;
-    private int categoryCode;
+    private String categoryCode;
     private int noOfSacks;
     private double totalWeight;
     private double sacksWeight;
@@ -20,7 +20,7 @@ public class GreenLeaf {
     private String leafCategory;
     private int intselfTransport;
 
-    GreenLeaf(Date date,int transaction_id, int supplierCode, int categoryCode, int noOfSacks, double totalWeight, double sacksWeight, double water, double coarseLeaf, double other, boolean selfTransport,double netQuantity,String leafCategory) {
+    GreenLeaf(Date date,int transaction_id, int supplierCode, String categoryCode, int noOfSacks, double totalWeight, double sacksWeight, double water, double coarseLeaf, double other, boolean selfTransport,double netQuantity,String leafCategory) {
         this.date = date;
         this.transaction_id=transaction_id;
         this.supplierCode = supplierCode;
@@ -41,7 +41,7 @@ public class GreenLeaf {
         date = null;
         transaction_id=0;
         supplierCode = 0;
-        categoryCode = 0;
+        categoryCode = null;
         noOfSacks = 0;
         totalWeight = 0;
         sacksWeight = 0;
@@ -73,7 +73,7 @@ public class GreenLeaf {
         this.supplierCode = supplierCode;
     }
 
-    public void setCategoryCode(int categoryCode) {
+    public void setCategoryCode(String categoryCode) {
         this.categoryCode = categoryCode;
     }
 
@@ -132,7 +132,7 @@ public class GreenLeaf {
         return supplierCode;
     }
 
-    public int getCategoryCode() {
+    public String getCategoryCode() {
         return categoryCode;
     }
 

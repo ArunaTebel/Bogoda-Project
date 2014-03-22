@@ -1037,6 +1037,8 @@ Interface_Events interface_events = new Interface_Events();
         date_handler.set_glcash_advance_starting_date_int(gl_cashadvance_set_date_int);
         // A seperate class glcashadvances may have to be created in the future
         java.sql.Date datef = new java.sql.Date(date.getDate().getTime());
+        
+        System.out.println(datef);
         TotalKG.setText("" + (dbm.checknReturnDataForCashAdvances("green_leaf_transactions", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "tr_date", date_handler.get_glcash_advance_starting_date(datef), date_handler.get_date_as_a_String(datef), "net_qty")));
 
         int number_of_entries_gl = dbm.checknReturnDataForCashAdvances_onebyone("green_leaf_transactions", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "tr_date", date_handler.get_glcash_advance_starting_date(datef), date_handler.get_date_as_a_String(datef), "net_qty").length;

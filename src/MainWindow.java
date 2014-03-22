@@ -517,11 +517,27 @@ public class MainWindow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        // TODO add your handling code here:
+          DateChooser addbrnch = new DateChooser();
+
+        Main_Content.removeAll();
+
+        addbrnch.setSize(Main_Content.getSize());
+
+        Main_Content.add(addbrnch);
+        validate();
+        repaint();
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        // TODO add your handling code here:
+        DateChooser_text addbrnch = new DateChooser_text();
+
+        Main_Content.removeAll();
+
+        addbrnch.setSize(Main_Content.getSize());
+
+        Main_Content.add(addbrnch);
+        validate();
+        repaint();
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
