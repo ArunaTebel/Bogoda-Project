@@ -90,6 +90,14 @@ public class Date_Handler {
         return array[0];
 
     }
+public String get_day(Date date) {
+        String s = date.toString();
+        String month= null;
+        String[] array = new String[3];
+        array = s.split("-");
+        return array[2];
+
+    }
 
     public String get_date_as_a_String(Date date) {
         String s = date.toString();
