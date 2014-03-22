@@ -30,6 +30,7 @@ public class PRCR_salary extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
 
         setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -73,6 +74,15 @@ public class PRCR_salary extends javax.swing.JPanel {
             }
         });
 
+        jButton4.setBackground(new java.awt.Color(0, 102, 102));
+        jButton4.setForeground(new java.awt.Color(255, 255, 255));
+        jButton4.setText("CashWork");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -84,7 +94,9 @@ public class PRCR_salary extends javax.swing.JPanel {
                 .addComponent(jButton2)
                 .addGap(0, 0, 0)
                 .addComponent(jButton3)
-                .addContainerGap(574, Short.MAX_VALUE))
+                .addGap(0, 0, 0)
+                .addComponent(jButton4)
+                .addContainerGap(493, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -92,7 +104,8 @@ public class PRCR_salary extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(jButton3)
+                    .addComponent(jButton4))
                 .addGap(0, 0, 0)
                 .addComponent(Salary_main, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -102,6 +115,7 @@ public class PRCR_salary extends javax.swing.JPanel {
         jButton1.setBackground(new java.awt.Color(0, 0, 0));
         jButton2.setBackground(new java.awt.Color(0, 0, 102));
         jButton3.setBackground(new java.awt.Color(0, 102, 153));
+        jButton4.setBackground(new java.awt.Color(0, 102, 102));
         PRCR_salary_payroll salpayroll = new PRCR_salary_payroll();
 
         Salary_main.removeAll();
@@ -116,7 +130,8 @@ public class PRCR_salary extends javax.swing.JPanel {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         jButton2.setBackground(new java.awt.Color(0, 0, 0));
         jButton1.setBackground(new java.awt.Color(0, 0, 102));
-         jButton3.setBackground(new java.awt.Color(0, 102, 153));
+        jButton3.setBackground(new java.awt.Color(0, 102, 153));
+        jButton4.setBackground(new java.awt.Color(0, 102, 102));
         PRCR_salary_checkrollpay salchkroll = new PRCR_salary_checkrollpay();
 
         Salary_main.removeAll();
@@ -130,8 +145,9 @@ public class PRCR_salary extends javax.swing.JPanel {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         jButton3.setBackground(new java.awt.Color(0, 0, 0));
-         jButton1.setBackground(new java.awt.Color(0, 0, 102));
-           jButton2.setBackground(new java.awt.Color(0, 0, 102));
+        jButton1.setBackground(new java.awt.Color(0, 0, 102));
+        jButton2.setBackground(new java.awt.Color(0, 0, 102));
+        jButton4.setBackground(new java.awt.Color(0, 102, 102));
         PRCR_salary_note_anlysis noteanalysis = new PRCR_salary_note_anlysis();
 
         Salary_main.removeAll();
@@ -143,11 +159,29 @@ public class PRCR_salary extends javax.swing.JPanel {
         repaint();
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        jButton4.setBackground(new java.awt.Color(0, 0, 0));
+        jButton1.setBackground(new java.awt.Color(0, 0, 102));
+        jButton2.setBackground(new java.awt.Color(0, 0, 102));
+        jButton3.setBackground(new java.awt.Color(0, 102, 153));
+
+        PRCR_Extrapayment_cashwork cashwork = new PRCR_Extrapayment_cashwork();
+
+        Salary_main.removeAll();
+
+        cashwork.setSize(Salary_main.getSize());
+
+        Salary_main.add(cashwork);
+        validate();
+        repaint();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Salary_main;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     // End of variables declaration//GEN-END:variables
 }
