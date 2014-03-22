@@ -7,6 +7,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.sql.DatabaseMetaData;
+import java.sql.DriverManager;
+import java.sql.Statement;
 
 public final class DatabaseManager {
 
@@ -15,6 +18,7 @@ public final class DatabaseManager {
     public static DatabaseManager db;
 
     DatabaseManager() {
+
         String url = "jdbc:mysql://localhost:3306/";
         String dbName = "bogoda";
         String driver = "com.mysql.jdbc.Driver";
@@ -170,11 +174,11 @@ public final class DatabaseManager {
         }
         return value;
     }
-    
-    public String[] checknReturnDataForCashAdvances_onebyone( String table_name, String table_column_giving1, Object row_element1, String table_column_giving2, Object row_element2, Object row_element3, String table_column_need) {
+
+    public String[] checknReturnDataForCashAdvances_onebyone(String table_name, String table_column_giving1, Object row_element1, String table_column_giving2, Object row_element2, Object row_element3, String table_column_need) {
         DatabaseManager dbm = DatabaseManager.getDbCon();
-        
-        int i =0;
+
+        int i = 0;
         int j = 0;
         try {
             //     ResultSet query = dbm.query("SELECT * FROM " + table_name + " WHERE " + table_column_giving1 + " ='" + row_element1 + " 'AND " + table_column_giving2 +" <'" + row_element2 + "'");
@@ -182,24 +186,24 @@ public final class DatabaseManager {
 
             while (query.next()) {
                 i++;
-              
+
             }
-               
+
             String[] Arr = new String[i];
             ResultSet query2 = dbm.query("SELECT * FROM " + table_name + " WHERE " + table_column_giving1 + " ='" + row_element1 + " 'AND " + table_column_giving2 + " BETWEEN'" + row_element2 + "' AND '" + row_element3 + "'");
             while (query2.next()) {
-                Arr[j]=query2.getString(table_column_need);
+                Arr[j] = query2.getString(table_column_need);
                 j++;
             }
-               return Arr;
+            return Arr;
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
             //return ""+ex.getErrorCode();            
         }
-     return null;
+        return null;
     }
 
-     // when table name and a column is given returns the elements in that column in the acsending order
+    // when table name and a column is given returns the elements in that column in the acsending order
     public String[] ReturnSortedArray(String table_name, String table_column) {
         int count = 0;
         DatabaseManager dbm = DatabaseManager.getDbCon();
@@ -222,19 +226,19 @@ public final class DatabaseManager {
         return null;
     }
 
-      // Get entries for the gl_cash_advance_book
-    public boolean Inserting_To_The_Table(javax.swing.JTable table, String table_name ,String column_name, int table_column_num) {
-    
-        int num_of_columns_filled_in_table=0;
-        while(table.getValueAt(num_of_columns_filled_in_table,table_column_num)!=null){
+    // Get entries for the gl_cash_advance_book
+    public boolean Inserting_To_The_Table(javax.swing.JTable table, String table_name, String column_name, int table_column_num) {
+
+        int num_of_columns_filled_in_table = 0;
+        while (table.getValueAt(num_of_columns_filled_in_table, table_column_num) != null) {
             num_of_columns_filled_in_table++;
         }
-        
+
         DatabaseManager dbm = DatabaseManager.getDbCon();
         try {
             ResultSet query = dbm.query("SELECT " + column_name + " FROM " + table_name + "");
             while (query.next()) {
-                table.setValueAt(query.getString(column_name),num_of_columns_filled_in_table,table_column_num);
+                table.setValueAt(query.getString(column_name), num_of_columns_filled_in_table, table_column_num);
                 num_of_columns_filled_in_table++;
             }
         } catch (SQLException ex) {
@@ -242,17 +246,56 @@ public final class DatabaseManager {
         }
         return true;
     }
-    
-    public void CheckNDeleteFromDataBase(String table_name,String column_name,Object element) {
+
+    public void CheckNDeleteFromDataBase(String table_name, String column_name, Object element) {
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         try {
-            dbCon.insert("DELETE FROM "+table_name+" WHERE "+column_name+" = "+element+" ");
+            dbCon.insert("DELETE FROM " + table_name + " WHERE " + column_name + " = " + element + " ");
         } catch (SQLException ex) {
             MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
         }
 
     }
+
+    public boolean TableExistenceCheck(String table_name) throws SQLException {
+
+        DatabaseMetaData meta = conn.getMetaData();
+        try{
+        ResultSet res = meta.getTables(null, null, table_name, null);
+
+        if (!res.next()) {
+            return false;
+        } else {
+            return true;
+        }
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+        
+    }
+    
+    public boolean TableExistence(String table){
+                DatabaseManager dbm = DatabaseManager.getDbCon();
+        try {
+            if(dbm.TableExistenceCheck(table)==true){
+                return true;
+            }
+            else{
+                return false;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+                
+
+    }
+
 }
+    
+         
 
 
 // category gategory id int------> String
