@@ -260,42 +260,61 @@ public final class DatabaseManager {
     public boolean TableExistenceCheck(String table_name) throws SQLException {
 
         DatabaseMetaData meta = conn.getMetaData();
-        try{
-        ResultSet res = meta.getTables(null, null, table_name, null);
+        try {
+            ResultSet res = meta.getTables(null, null, table_name, null);
 
-        if (!res.next()) {
-            return false;
-        } else {
-            return true;
-        }
-        }
-        catch (SQLException ex) {
+            if (!res.next()) {
+                return false;
+            } else {
+                return true;
+            }
+        } catch (SQLException ex) {
             Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
-        
+
     }
-    
-    public boolean TableExistence(String table){
-                DatabaseManager dbm = DatabaseManager.getDbCon();
+
+    public boolean TableExistence(String table) {
+        DatabaseManager dbm = DatabaseManager.getDbCon();
         try {
-            if(dbm.TableExistenceCheck(table)==true){
+            if (dbm.TableExistenceCheck(table) == true) {
                 return true;
-            }
-            else{
+            } else {
                 return false;
             }
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
-                
 
     }
 
-}
-    
-         
 
+
+// Copy one column of a table to another column in another table
+    public void CopyTableColumn(String table_name1, String table_column1,String table_name2, String table_column2) {
+        
+        DatabaseManager dbm = DatabaseManager.getDbCon();
+        try {
+            ResultSet query = dbm.query("SELECT * FROM " + table_name1 + " ORDER BY " + table_column1 + " ASC");
+            while (query.next()) {
+       
+      
+    }
+                      try {
+            dbm.insert("INSERT INTO "+table_name2+"("+table_column2+") VALUES("+query.next()+")");
+        } catch (SQLException ex) {
+            MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
+        }
+            }
+           
+           
+         catch (SQLException ex) {
+
+        }
+         
+        }
+}
 
 // category gategory id int------> String
