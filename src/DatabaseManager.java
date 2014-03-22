@@ -227,7 +227,7 @@ public final class DatabaseManager {
     }
 
     // Get entries for the gl_cash_advance_book
-    public boolean Inserting_To_The_Table(javax.swing.JTable table, String table_name, String column_name, int table_column_num, int top,int bottom) {
+    public boolean Inserting_To_The_Table(javax.swing.JTable table, String table_name, String column_name, int table_column_num, int bottom,int top) {
 
         int num_of_rows_filled_in_table = 0;
         int num_of_rows_in_the_database =0;
@@ -251,10 +251,10 @@ public final class DatabaseManager {
             ResultSet query = dbm.query("SELECT " + column_name + " FROM " + table_name + "");
             while (query.next()) {
                 count ++;
-                if(count<=bottom){
+                if(count<bottom){
                     
                 }
-                else if(count>bottom && count<= top){
+                else if(count>=bottom && count<= top){
                 table.setValueAt(query.getString(column_name), num_of_rows_filled_in_table, table_column_num);
                 num_of_rows_filled_in_table++;
                 }
@@ -267,10 +267,32 @@ public final class DatabaseManager {
         }
         }
         else{
+            return false;
             
         }
         return true;
     }
+     public int Checking_Length_Of_The_Table(String table_name, String column_name ) {
+
+     
+        int num_of_rows_in_the_database =0;
+  
+      /*  while (table.getValueAt(num_of_columns_filled_in_table, table_column_num) != null) {
+            num_of_columns_filled_in_table++;
+        } */
+        DatabaseManager dbm = DatabaseManager.getDbCon();
+        
+        try {
+            ResultSet query = dbm.query("SELECT " + column_name + " FROM " + table_name + "");
+            while (query.next()) {
+                num_of_rows_in_the_database++;    
+            }
+        } catch (SQLException ex) {
+
+        }
+        
+        return num_of_rows_in_the_database;
+     }
 
     public void CheckNDeleteFromDataBase(String table_name, String column_name, Object element) {
         DatabaseManager dbCon = DatabaseManager.getDbCon();

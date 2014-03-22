@@ -4,8 +4,12 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 public class GL_issue_cashadvances extends javax.swing.JPanel {
-
+    
+    int i=0;
+     int no_of_pages;
+    
     DatabaseManager dbm = DatabaseManager.getDbCon();
+    int a=dbm.Checking_Length_Of_The_Table("gl_cash_advance_book", "entry_no");
     Interface_Events interface_events = new Interface_Events();
 
     public GL_issue_cashadvances() {
@@ -17,14 +21,25 @@ public class GL_issue_cashadvances extends javax.swing.JPanel {
 
     }
 
-    public void set_table() {
+    public void set_table(int bottom, int top) {
+    
+       
+        if(a%50==0){
+        no_of_pages= a/50;
         
-        dbm.Inserting_To_The_Table(table, "gl_cash_advance_book", "entry_no", 0);
-        dbm.Inserting_To_The_Table(table, "gl_cash_advance_book", "date", 1);
-        dbm.Inserting_To_The_Table(table, "gl_cash_advance_book", "sup_id", 2);
-        dbm.Inserting_To_The_Table(table, "gl_cash_advance_book", "sup_name", 3);
-        dbm.Inserting_To_The_Table(table, "gl_cash_advance_book", "max_allowable", 4);
-        dbm.Inserting_To_The_Table(table, "gl_cash_advance_book", "amount", 5);
+        }
+        else{
+            no_of_pages=a/50+1;
+           
+        }
+        page_info.setText("Page 1 of"+" "+no_of_pages);
+        dbm.Inserting_To_The_Table(table, "gl_cash_advance_book", "entry_no", 0,bottom,top);
+        dbm.Inserting_To_The_Table(table, "gl_cash_advance_book", "date", 1,bottom,top);
+        dbm.Inserting_To_The_Table(table, "gl_cash_advance_book", "sup_id", 2,bottom,top);
+        dbm.Inserting_To_The_Table(table, "gl_cash_advance_book", "sup_name", 3,bottom,top);
+        dbm.Inserting_To_The_Table(table, "gl_cash_advance_book", "max_allowable", 4,bottom,top);
+        dbm.Inserting_To_The_Table(table, "gl_cash_advance_book", "amount", 5,bottom,top);
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -37,7 +52,7 @@ public class GL_issue_cashadvances extends javax.swing.JPanel {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        page_info = new javax.swing.JLabel();
         jButton5 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jTextField3 = new javax.swing.JTextField();
@@ -120,6 +135,11 @@ public class GL_issue_cashadvances extends javax.swing.JPanel {
 
         jButton2.setText("<");
         jButton2.setToolTipText("Previous Page");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Clear");
         jButton3.setToolTipText("Clear Selected Row");
@@ -131,9 +151,14 @@ public class GL_issue_cashadvances extends javax.swing.JPanel {
 
         jButton4.setText(">");
         jButton4.setToolTipText("Next page");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel1.setText("Page X of XX");
+        page_info.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        page_info.setText("Page X of XX");
 
         jButton5.setText("Supplier Bill Summery");
 
@@ -148,7 +173,7 @@ public class GL_issue_cashadvances extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(11, 11, 11)
-                        .addComponent(jLabel1))
+                        .addComponent(page_info))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 428, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -161,7 +186,7 @@ public class GL_issue_cashadvances extends javax.swing.JPanel {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel1)
+                .addComponent(page_info)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -271,15 +296,88 @@ public class GL_issue_cashadvances extends javax.swing.JPanel {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    if(i<a-50){     i=i+50;
+         int m = i/50;
+        if(m<=no_of_pages-1){
+        int k = 0;
+        int j = 0;
+        
+        while (k<=49) {
+            j = 0;
+            while (j < 6) {
+
+                table.setValueAt(null, k, j);
+                j++;
+            }
+            k++;
+        }
+       
+        set_table(i+1, i+50);
+         page_info.setText("Page "  + (m+1) +" of"+" "+no_of_pages);
+        }
+        
+        
+    }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+       if(i>0){ i=i-50;
+         int m = i/50;
+         
+        if(m>=0){
+        int k = 0;
+        int j = 0;
+        while (k<=49) {
+            j = 0;
+                        
+            while (j < 6) {
+
+                table.setValueAt(null, k, j);
+                j++;
+            }
+            k++;
+        }
+      
+            
+        
+        set_table(i+1, i+50);
+         page_info.setText("Page "  + (m+1) +" of"+" "+no_of_pages);
+        }
+       }
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
     public void removeSelectedRows(JTable table) {
+        int m = i/50;
         DefaultTableModel model = (DefaultTableModel) this.table.getModel();
         int[] rows = table.getSelectedRows();
-        for (int i = 0; i < rows.length; i++) {
-           dbm.CheckNDeleteFromDataBase("gl_cash_advance_book","entry_no",table.getValueAt(rows[i] - i, 0));
+        for (int n = 0; n < rows.length; n++) {
+           
+           dbm.CheckNDeleteFromDataBase("gl_cash_advance_book","entry_no",table.getValueAt(rows[n] - n, 0));
+            set_table(i+1, i+50);
+          
           //  System.out.println(table.getValueAt(rows[i] - i, 0));
-            model.removeRow(rows[i] - i);
+           // model.removeRow(rows[i] - i);
         }
+        int k = 0;
+        int j = 0;
+        while (k<=49) {
+            j = 0;
+                        
+            while (j < 6) {
+
+                table.setValueAt(null, k, j);
+                j++;
+            }
+            k++;
+            set_table(i+1, i+50);
+        
+        page_info.setText("Page "  + (m+1) +" of"+" "+no_of_pages);
+
        // set_table();
+        a=dbm.Checking_Length_Of_The_Table("gl_cash_advance_book", "entry_no");
+    }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -289,7 +387,6 @@ public class GL_issue_cashadvances extends javax.swing.JPanel {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -299,6 +396,7 @@ public class GL_issue_cashadvances extends javax.swing.JPanel {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
+    private javax.swing.JLabel page_info;
     private javax.swing.JTable table;
     // End of variables declaration//GEN-END:variables
 }
