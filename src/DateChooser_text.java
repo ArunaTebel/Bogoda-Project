@@ -119,6 +119,7 @@ public class DateChooser_text extends javax.swing.JPanel {
      public void focus() {
         this.requestFocusInWindow();
         jTextField1.requestFocusInWindow();
+        jTextField1.selectAll();
      
        
     }
@@ -131,16 +132,12 @@ public class DateChooser_text extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTextField1 = new javax.swing.JTextField();
+        jPanel1 = new javax.swing.JPanel();
         jTextField2 = new javax.swing.JTextField();
         jTextField3 = new javax.swing.JTextField();
+        jTextField1 = new javax.swing.JTextField();
 
-        jTextField1.setText(datehandler.get_today_day());
-        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextField1KeyPressed(evt);
-            }
-        });
+        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jTextField2.setText(datehandler.get_today_month());
         jTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -156,28 +153,46 @@ public class DateChooser_text extends javax.swing.JPanel {
             }
         });
 
+        jTextField1.setText(datehandler.get_today_day());
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField1KeyPressed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(216, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(269, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -227,7 +242,7 @@ public class DateChooser_text extends javax.swing.JPanel {
                     jTextField2.setText("Dec");
                     jTextField3.setText("" + (yr - 1));    // year
                 }
-
+ jTextField1.selectAll();
             }                                           // /// decrementing normal values 
         } else if (jTextField1.getText().equals("2") || jTextField1.getText().equals("3") || jTextField1.getText().equals("4") || jTextField1.getText().equals("5")
                 || jTextField1.getText().equals("6") || jTextField1.getText().equals("7") || jTextField1.getText().equals("8") || jTextField1.getText().equals("9")
@@ -239,7 +254,7 @@ public class DateChooser_text extends javax.swing.JPanel {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
 
                 jTextField1.setText("" + (Integer.parseInt(jTextField1.getText()) - 1)); 
-
+ jTextField1.selectAll();
             }
         }
 /////////////////////////////////////////////////  Days Increment///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -254,6 +269,7 @@ public class DateChooser_text extends javax.swing.JPanel {
 
                 }
                 jTextField1.setText("" + (Integer.parseInt(jTextField1.getText()) + 1));
+                 jTextField1.selectAll();
             }
 
         } else if (jTextField1.getText().equals("31")) {            // from 31st to 1st of next month
@@ -273,6 +289,7 @@ public class DateChooser_text extends javax.swing.JPanel {
                     jTextField2.setText("Jan");
                     jTextField3.setText("" + (yr + 1));
                 }
+                 jTextField1.selectAll();
             }
 
         } else if (jTextField2.getText().equals("Feb")) {                    // for february 
@@ -320,7 +337,7 @@ public class DateChooser_text extends javax.swing.JPanel {
                     jTextField1.setText("" + (Integer.parseInt(jTextField1.getText()) + 1));
 
                 }
-
+ jTextField1.selectAll();
             }
                                          // incrementing normal values 
         } else if (jTextField1.getText().equals("1") || jTextField1.getText().equals("2") || jTextField1.getText().equals("3") || jTextField1.getText().equals("4") || jTextField1.getText().equals("5")
@@ -333,15 +350,17 @@ public class DateChooser_text extends javax.swing.JPanel {
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
 
                 jTextField1.setText("" + (Integer.parseInt(jTextField1.getText()) + 1));
+                 jTextField1.selectAll();
 
             }
         }
          if (evt.getKeyCode() == KeyEvent.VK_RIGHT) {
                 jTextField2.requestFocus();
+                jTextField2.selectAll();
             }
-
+  
     }//GEN-LAST:event_jTextField1KeyPressed
-
+      
     private void jTextField2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyPressed
         if (jTextField2.getText().equals("Jan")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
@@ -349,116 +368,138 @@ public class DateChooser_text extends javax.swing.JPanel {
                 int yr = Integer.parseInt(jTextField3.getText());
 
                 jTextField3.setText("" + (yr - 1));
+                 jTextField2.selectAll();
 
             }
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
                 jTextField2.setText("Feb");
+                 jTextField2.selectAll();
             }
 
         } else if (jTextField2.getText().equals("Feb")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
                 jTextField2.setText("Jan");
                 int yr = Integer.parseInt(jTextField3.getText());
+                 jTextField2.selectAll();
 
             }
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
                 jTextField2.setText("Mar");
+                 jTextField2.selectAll();
             }
 
         } else if (jTextField2.getText().equals("Mar")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
                 jTextField2.setText("Feb");
                 int yr = Integer.parseInt(jTextField3.getText());
-
+ jTextField2.selectAll(); 
             }
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
                 jTextField2.setText("Apr");
+                 jTextField2.selectAll();
             }
 
         } else if (jTextField2.getText().equals("Apr")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
                 jTextField2.setText("Mar");
                 int yr = Integer.parseInt(jTextField3.getText());
-
+ jTextField2.selectAll();
             }
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
                 jTextField2.setText("May");
+                 jTextField2.selectAll();
             }
 
         } else if (jTextField2.getText().equals("May")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
                 jTextField2.setText("Apr");
                 int yr = Integer.parseInt(jTextField3.getText());
+                 jTextField2.selectAll();
 
             }
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                
                 jTextField2.setText("Jun");
+                 jTextField2.selectAll();
             }
 
         } else if (jTextField2.getText().equals("Jun")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
                 jTextField2.setText("May");
                 int yr = Integer.parseInt(jTextField3.getText());
+                 jTextField2.selectAll();
 
             }
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
                 jTextField2.setText("Jul");
+                 jTextField2.selectAll();
             }
 
         } else if (jTextField2.getText().equals("Jul")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
                 jTextField2.setText("Jun");
                 int yr = Integer.parseInt(jTextField3.getText());
+                 jTextField2.selectAll();
 
             }
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
                 jTextField2.setText("Aug");
+                 jTextField2.selectAll();
             }
 
         } else if (jTextField2.getText().equals("Aug")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
                 jTextField2.setText("Jul");
                 int yr = Integer.parseInt(jTextField3.getText());
+                 jTextField2.selectAll();
 
             }
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
                 jTextField2.setText("Sep");
+                 jTextField2.selectAll();
             }
 
         } else if (jTextField2.getText().equals("Sep")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
                 jTextField2.setText("Aug");
                 int yr = Integer.parseInt(jTextField3.getText());
+                 jTextField2.selectAll();
 
             }
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
                 jTextField2.setText("Oct");
+                 jTextField2.selectAll();
             }
 
         } else if (jTextField2.getText().equals("Oct")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
                 jTextField2.setText("Sep");
                 int yr = Integer.parseInt(jTextField3.getText());
+                 jTextField2.selectAll();
 
             }
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
                 jTextField2.setText("Nov");
+                 jTextField2.selectAll();
             }
 
         } else if (jTextField2.getText().equals("Nov")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
                 jTextField2.setText("Oct");
                 int yr = Integer.parseInt(jTextField3.getText());
+                 jTextField2.selectAll();
 
             }
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
                 jTextField2.setText("Dec");
+                 jTextField2.selectAll();
             }
 
         } else if (jTextField2.getText().equals("Dec")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
                 jTextField2.setText("Nov");
                 int yr = Integer.parseInt(jTextField3.getText());
+                 jTextField2.selectAll();
 
             }
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
@@ -466,32 +507,41 @@ public class DateChooser_text extends javax.swing.JPanel {
                 int yr = Integer.parseInt(jTextField3.getText());
 
                 jTextField3.setText("" + (yr + 1));
+                 jTextField2.selectAll();
             }
 
         }
          if (evt.getKeyCode() == KeyEvent.VK_LEFT) {
                 jTextField1.requestFocus();
+                jTextField1.selectAll();
             }
  if (evt.getKeyCode() == KeyEvent.VK_RIGHT) {
                 jTextField3.requestFocus();
+                jTextField3.selectAll();
             }
-
+   
     }//GEN-LAST:event_jTextField2KeyPressed
 
     private void jTextField3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField3KeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
                 jTextField3.setText("" + (Integer.parseInt(jTextField3.getText()) + 1));
+                    jTextField3.selectAll();
             }
         if (evt.getKeyCode() == KeyEvent.VK_UP) {
                 jTextField3.setText("" + (Integer.parseInt(jTextField3.getText()) - 1));
+                    jTextField3.selectAll();
             }
         if (evt.getKeyCode() == KeyEvent.VK_LEFT) {
                 jTextField2.requestFocus();
+                 jTextField2.selectAll();
             }
+        
+    
     }//GEN-LAST:event_jTextField3KeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;

@@ -538,6 +538,7 @@ public class MainWindow extends javax.swing.JFrame {
         Main_Content.add(addbrnch);
         validate();
         repaint();
+        addbrnch.focus();
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
