@@ -13,6 +13,9 @@ public class Extra_Payment_CashWork {
     int no_days;
     double rate;
     double amount;
+    String month;
+    String year;
+    double tot_extrapay;
 
     // Constructers
     
@@ -22,6 +25,8 @@ public class Extra_Payment_CashWork {
         no_days=0;
         rate=0;
         amount=0;
+        month =null;
+        year= null;
     }
     
     // Setters
@@ -38,8 +43,14 @@ public class Extra_Payment_CashWork {
     public void Set_rate(double rate){
         this.rate=rate;
     }
-    public void Set_amount(double amount){
-        this.amount=amount;
+    public void Set_amount(){
+        this.amount=rate*no_days;
+    }
+    public void Set_month(String month){
+        this.month=month;
+    }
+    public void Set_year(String year){
+        this.year=year;
     }
     
     // Getters
@@ -59,17 +70,29 @@ public class Extra_Payment_CashWork {
     public double Get_amount(){
         return amount;
     }
-    
+    public String Get_month(){
+        return month;
+    }
+    public String Get_year(){
+        return year;
+    }
+    DateChooser_text month_num = new DateChooser_text();
+    String s=year+"_0"+month_num.return_index(month);
     // Add to database
     
-     public void addToDataBase() {
-        DatabaseManager dbCon = DatabaseManager.getDbCon();
+      public void addtoDatabase() {
+        DatabaseManager dbm = DatabaseManager.getDbCon();
+        tot_extrapay=Double.parseDouble(dbm.checknReturnData("pr_workdata"+"s","code",emp_code,"extra_pay"))+amount;
         try {
-            dbCon.insert("INSERT INTO bank(bank_id,bank_name) VALUES('" + amount + "','" + rate + "')");
-        } catch (SQLException ex) {
-            MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
-        }
 
+           // dbm.insert("UPDATE " + table_name + " SET " + table_column_need + " ='" + update_element + "' WHERE " + table_column_giving + "='" + row_element + "'");
+            dbm.insert("UPDATE  pr_workdata_"+s+"   SET   extra_pay = "+tot_extrapay+" WHERE code= " + emp_code +" ");
+
+        } catch (SQLException ex) {
+            MessageBox.showMessage(ex.getMessage(), "SQL ERROR", "error");
+           
+        }
+       
     }
     
     
