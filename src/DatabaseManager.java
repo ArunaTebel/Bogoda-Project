@@ -227,72 +227,69 @@ public final class DatabaseManager {
     }
 
     // Get entries for the gl_cash_advance_book
-    public boolean Inserting_To_The_Table(javax.swing.JTable table, String table_name, String column_name, int table_column_num, int bottom,int top) {
+    public boolean Inserting_To_The_Table(javax.swing.JTable table, String table_name, String column_name, int table_column_num, int bottom, int top) {
 
         int num_of_rows_filled_in_table = 0;
-        int num_of_rows_in_the_database =0;
-        int count=0;
-      /*  while (table.getValueAt(num_of_columns_filled_in_table, table_column_num) != null) {
-            num_of_columns_filled_in_table++;
-        } */
+        int num_of_rows_in_the_database = 0;
+        int count = 0;
+        /*  while (table.getValueAt(num_of_columns_filled_in_table, table_column_num) != null) {
+         num_of_columns_filled_in_table++;
+         } */
         DatabaseManager dbm = DatabaseManager.getDbCon();
-        
+
         try {
             ResultSet query = dbm.query("SELECT " + column_name + " FROM " + table_name + "");
             while (query.next()) {
-                num_of_rows_in_the_database++;    
+                num_of_rows_in_the_database++;
             }
         } catch (SQLException ex) {
 
         }
-        
-        if(num_of_rows_in_the_database> bottom){
-        try {
-            ResultSet query = dbm.query("SELECT " + column_name + " FROM " + table_name + "");
-            while (query.next()) {
-                count ++;
-                if(count<bottom){
-                    
-                }
-                else if(count>=bottom && count<= top){
-                table.setValueAt(query.getString(column_name), num_of_rows_filled_in_table, table_column_num);
-                num_of_rows_filled_in_table++;
-                }
-                else{
-                    break;
-                }
-            }
-        } catch (SQLException ex) {
 
-        }
-        }
-        else{
+        if (num_of_rows_in_the_database > bottom) {
+            try {
+                ResultSet query = dbm.query("SELECT " + column_name + " FROM " + table_name + "");
+                while (query.next()) {
+                    count++;
+                    if (count < bottom) {
+
+                    } else if (count >= bottom && count <= top) {
+                        table.setValueAt(query.getString(column_name), num_of_rows_filled_in_table, table_column_num);
+                        num_of_rows_filled_in_table++;
+                    } else {
+                        break;
+                    }
+                }
+            } catch (SQLException ex) {
+
+            }
+        } else {
             return false;
-            
+
         }
         return true;
     }
-     public int Checking_Length_Of_The_Table(String table_name, String column_name ) {
 
-     
-        int num_of_rows_in_the_database =0;
-  
-      /*  while (table.getValueAt(num_of_columns_filled_in_table, table_column_num) != null) {
-            num_of_columns_filled_in_table++;
-        } */
+    public int Checking_Length_Of_The_Table(String table_name, String column_name) {
+
+        int num_of_rows_in_the_database = 0;
+
+        /*  while (table.getValueAt(num_of_columns_filled_in_table, table_column_num) != null) {
+         num_of_columns_filled_in_table++;
+         } */
         DatabaseManager dbm = DatabaseManager.getDbCon();
-        
+
         try {
             ResultSet query = dbm.query("SELECT " + column_name + " FROM " + table_name + "");
             while (query.next()) {
-                num_of_rows_in_the_database++;    
+                num_of_rows_in_the_database++;
             }
         } catch (SQLException ex) {
 
         }
-        
+
         return num_of_rows_in_the_database;
-     }
+    }
 
     public void CheckNDeleteFromDataBase(String table_name, String column_name, Object element) {
         DatabaseManager dbCon = DatabaseManager.getDbCon();
@@ -337,33 +334,45 @@ public final class DatabaseManager {
 
     }
 
-
-
 // Copy one column of a table to another column in another table
-    public void CopyTableColumn(String table_name1, String table_column1,String table_name2, String table_column2) {
-        
+    public void CopyTableColumn(String table_name1, String table_column1, String table_name2, String table_column2) {
+
         DatabaseManager dbm = DatabaseManager.getDbCon();
         try {
-            ResultSet query = dbm.query("SELECT * FROM " + table_name1 + "") ;//ORDER BY " + table_column1 + " ASC");
+            ResultSet query = dbm.query("SELECT * FROM " + table_name1 + "");//ORDER BY " + table_column1 + " ASC");
             while (query.next()) {
-       
-      
-    
-                      try {
-            dbm.insert("INSERT INTO "+table_name2+"("+table_column2+") VALUES("+query.getString(table_column1)+")");
-        } catch (SQLException ex) {
-            MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
-        }
+
+                try {
+                    dbm.insert("INSERT INTO " + table_name2 + "(" + table_column2 + ") VALUES(" + query.getString(table_column1) + ")");
+                } catch (SQLException ex) {
+                    MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
+                }
             }
-        }
-           
-           
-         catch (SQLException ex) {
+        } catch (SQLException ex) {
 
         }
+    }
+    
+     public void CopyTable2Columns(String table_name1, String table1_column1,String table1_column2, String table_name2, String table2_column1,String table2_column2) {
+
+        DatabaseManager dbm = DatabaseManager.getDbCon();
+        try {
+            ResultSet query = dbm.query("SELECT * FROM " + table_name1 + "");//ORDER BY " + table_column1 + " ASC");
+            while (query.next()) {
+
+                try {
+                   // dbCon.insert("INSERT INTO bank(bank_id,bank_name) VALUES('" + bankCode + "','" + bankName + "')");
+                    dbm.insert("INSERT INTO " + table_name2 + "(" + table2_column1 + ","+table2_column2+") VALUES(" + query.getString(table1_column1) + ","+query.getString(table1_column2)+")");
+                } catch (SQLException ex) {
+                    MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
+                }
+            }
+        } catch (SQLException ex) {
+
         }
-         
-        }
+    }
+
+}
 
 
 // category gategory id int------> String
