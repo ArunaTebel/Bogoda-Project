@@ -25,7 +25,7 @@ public class PRCR_work_overtime extends javax.swing.JPanel {
         initComponents();
      
             jPanelStaff.setVisible(true);
-            jPanelCheckroll.setVisible(false);
+           
     }
 
     /**
@@ -44,25 +44,10 @@ public class PRCR_work_overtime extends javax.swing.JPanel {
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        jPanelCheckroll = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        empCodeJC = new javax.swing.JComboBox();
-        jButton1 = new javax.swing.JButton();
-        workHours = new javax.swing.JComboBox();
-        jLabel4 = new javax.swing.JLabel();
-        empName = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        division_jc = new javax.swing.JComboBox();
-        workCode = new javax.swing.JComboBox();
-        jLabel2 = new javax.swing.JLabel();
-        after6 = new javax.swing.JCheckBox();
         date = new org.jdesktop.swingx.JXDatePicker();
         jSeparator1 = new javax.swing.JSeparator();
         division_lb = new javax.swing.JLabel();
         work_code = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        staffOrCheckroll = new javax.swing.JComboBox();
         jPanelStaff = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -184,138 +169,6 @@ public class PRCR_work_overtime extends javax.swing.JPanel {
 
         jLabel3.setText("Date");
 
-        jPanelCheckroll.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        jLabel1.setText("Employee Code");
-
-        empCodeJC.setEditable(true);
-        empCodeJC.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("checkroll_personalinfo", "code")));
-        empCodeJC.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                empCodeJCItemStateChanged(evt);
-            }
-        });
-
-        jButton1.setText("Send");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        workHours.setEditable(true);
-        workHours.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6" }));
-        workHours.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                workHoursActionPerformed(evt);
-            }
-        });
-
-        jLabel4.setText("Work Hours");
-
-        jLabel5.setText("Employee Name");
-
-        jLabel6.setText("Division");
-
-        division_jc.setEditable(true);
-        division_jc.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("division_details", "code")));
-        division_jc.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                division_jcItemStateChanged(evt);
-            }
-        });
-        division_jc.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                division_jcActionPerformed(evt);
-            }
-        });
-
-        workCode.setEditable(true);
-        workCode.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("workcode_details","code")));
-        workCode.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                workCodeItemStateChanged(evt);
-            }
-        });
-
-        jLabel2.setText("Work Code");
-
-        after6.setText("after 6");
-        after6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                after6ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanelCheckrollLayout = new javax.swing.GroupLayout(jPanelCheckroll);
-        jPanelCheckroll.setLayout(jPanelCheckrollLayout);
-        jPanelCheckrollLayout.setHorizontalGroup(
-            jPanelCheckrollLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelCheckrollLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanelCheckrollLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelCheckrollLayout.createSequentialGroup()
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(empName, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
-                    .addGroup(jPanelCheckrollLayout.createSequentialGroup()
-                        .addGroup(jPanelCheckrollLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelCheckrollLayout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(18, 18, 18)
-                                .addComponent(empCodeJC, 0, 1, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelCheckrollLayout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addGap(42, 42, 42)
-                                .addComponent(division_jc, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(35, 35, 35)
-                        .addGroup(jPanelCheckrollLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel2))
-                        .addGap(74, 74, 74)))
-                .addGroup(jPanelCheckrollLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(workHours, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
-                .addContainerGap(21, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelCheckrollLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanelCheckrollLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(workCode, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(after6, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
-        );
-        jPanelCheckrollLayout.setVerticalGroup(
-            jPanelCheckrollLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelCheckrollLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanelCheckrollLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelCheckrollLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanelCheckrollLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(division_jc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel2)))
-                    .addGroup(jPanelCheckrollLayout.createSequentialGroup()
-                        .addComponent(after6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(workCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(18, 18, 18)
-                .addGroup(jPanelCheckrollLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(empCodeJC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4)
-                    .addComponent(workHours, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(13, 13, 13)
-                .addGroup(jPanelCheckrollLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelCheckrollLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton1))
-                    .addComponent(empName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(17, 17, 17))
-        );
-
         date.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 dateActionPerformed(evt);
@@ -323,25 +176,6 @@ public class PRCR_work_overtime extends javax.swing.JPanel {
         });
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
-
-        jLabel7.setText("Staff or Checkroll");
-
-        staffOrCheckroll.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Staff", "Checkroll" }));
-        staffOrCheckroll.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                staffOrCheckrollItemStateChanged(evt);
-            }
-        });
-        staffOrCheckroll.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                staffOrCheckrollActionPerformed(evt);
-            }
-        });
-        staffOrCheckroll.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                staffOrCheckrollFocusLost(evt);
-            }
-        });
 
         jPanelStaff.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -424,22 +258,17 @@ public class PRCR_work_overtime extends javax.swing.JPanel {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jPanelStaff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(41, 41, 41)))
-                    .addComponent(jPanelCheckroll, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(223, 223, 223)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addGap(107, 107, 107)
-                        .addComponent(staffOrCheckroll, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(division_lb, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(306, 306, 306)
+                        .addComponent(division_lb, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanelStaff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
@@ -457,78 +286,80 @@ public class PRCR_work_overtime extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
                             .addComponent(date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(36, 36, 36)
+                        .addComponent(division_lb, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(36, 36, 36)
-                                .addComponent(division_lb, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(work_code, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(27, 27, 27)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(staffOrCheckroll, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel7))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(work_code, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanelCheckroll, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanelStaff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGap(48, 48, 48)
+                                .addComponent(jPanelStaff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(114, 114, 114)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+     
+     public void CreateNewMonthTableForStaff(String yr_mnth) {
+        DatabaseManager dbm = DatabaseManager.getDbCon();
+      
+        try {
+            
+            dbm.insert("CREATE TABLE prcr_staffworkdata_" + yr_mnth + "(code INT,"
+                    + "basic_salary DOUBLE,"
+                    + "ot_hours INT," + "full_pay DOUBLE," +"n_5000 INT," + "n_2000 INT," + "n_1000 INT," + "n_500 INT," + "n_100 INT," + "n_50 INT," + "n_20 INT," + "n_10 INT);");
+        } catch (SQLException ex) {
+            //Logger.getLogger(test.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("in ex");
+        }
+         ///DONT DELETE checkroll_personalinfo SQL table
+        //copying worker's codes to newly created table
+        dbm.CopyTableColumn("staff_personalinfo", "code", "prcr_staffworkdata_" + yr_mnth, "code");
+       // dbm.CopyTableColumn("staff_personalinfo", "basic_salary", "prcr_staffworkdata_" + yr_mnth, "basic_salary");
+        System.out.println("table copied");
+
+    }
+     
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         java.sql.Date tdate= new java.sql.Date(date.getDate().getTime());
-        if(staffOrCheckroll.getSelectedItem()=="Checkroll"){
+        String month = null;
+        String year = null;
+
+        String ndate = null;
+        ndate = tdate.toString();
+        StringBuilder ne_date = new StringBuilder(ndate);
+        ne_date.setCharAt(4, '_');
+        ne_date.setCharAt(7, '_');
+        String new1_date = null;
+        new1_date = ne_date.toString();
+        String tablename = new1_date.substring(0, 7);
+
         
-        if (after6.isSelected() == false) {
-            int rows = 0;
-            for (; rows < table.getRowCount(); rows++) {
-                if (table.getValueAt(rows, 0) != null) {
-                    int hours = 0;
-                    
-                    System.out.println(table.getValueAt(rows, 0));
-                    hours = Integer.parseInt(dbm.checknReturnData("checkroll_personalinfo", "code", table.getValueAt(rows, 0), "ot_before_hours"));
-                    hours=hours+Integer.parseInt((String) table.getValueAt(rows, 2));
-                    dbm.updateDatabase("checkroll_personalinfo", "code", table.getValueAt(rows, 0), "ot_before_hours",hours);
-
-                }
-            }
-            JOptionPane.showMessageDialog(null,"4pm to 6pm over time details are saved for the \n"+tdate,"Message",JOptionPane.INFORMATION_MESSAGE);
-
+        if (dbm.TableExistence("prcr_staffworkdata_" + tablename) == false) {
+            CreateNewMonthTableForStaff(tablename);
         }
-        else{
-            int rows = 0;
-            for (; rows < table.getRowCount(); rows++) {
-                if (table.getValueAt(rows, 0) != null) {
-                    int hours = 0;
-                    System.out.println(table.getValueAt(rows, 0));
-                    hours = Integer.parseInt(dbm.checknReturnData("checkroll_personalinfo", "code", table.getValueAt(rows, 0), "ot_after_hours"));
-                    hours=hours+Integer.parseInt((String) table.getValueAt(rows, 2));
-                    dbm.updateDatabase("checkroll_personalinfo", "code", table.getValueAt(rows, 0), "ot_after_hours",hours);
-
-                }
-            }
-            JOptionPane.showMessageDialog(null,"After 6 over time details are saved for the \n"+tdate,"Message",JOptionPane.INFORMATION_MESSAGE);
-
-        }
-        }
-        else{
+        
+      
          int rows = 0;
             for (; rows < table.getRowCount(); rows++) {
                 if (table.getValueAt(rows, 0) != null) {
                     int hours = 0;
                     System.out.println(table.getValueAt(rows, 0));
-                    hours = Integer.parseInt(dbm.checknReturnData("staff_personalinfo", "code", table.getValueAt(rows, 0), "ot_hours"));
+                    if(dbm.checknReturnData("prcr_staffworkdata_" + tablename, "code", table.getValueAt(rows, 0), "ot_hours")!=null){
+                    hours = Integer.parseInt(dbm.checknReturnData("prcr_staffworkdata_" + tablename, "code", table.getValueAt(rows, 0), "ot_hours"));
+                    }else{
+                    hours=0;
+                    }
                     hours=hours+Integer.parseInt((String) table.getValueAt(rows, 2));
-                    dbm.updateDatabase("staff_personalinfo", "code", table.getValueAt(rows, 0), "ot_hours",hours);
+                    dbm.updateDatabase("prcr_staffworkdata_" + tablename, "code", table.getValueAt(rows, 0), "ot_hours",hours);
 
                 }
             }
             JOptionPane.showMessageDialog(null,"After staff over time details are saved for the \n"+tdate,"Message",JOptionPane.INFORMATION_MESSAGE);
 
-        }
+        
         
     }//GEN-LAST:event_jButton6ActionPerformed
 
@@ -539,101 +370,6 @@ public class PRCR_work_overtime extends javax.swing.JPanel {
     private void dateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dateActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_dateActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        table.setValueAt(empCodeJC.getSelectedItem(), rows, 0);
-        table.setValueAt(empName.getText(), rows, 1);
-        table.setValueAt(workHours.getSelectedItem(), rows, 2);
-        rows++;        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void division_jcItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_division_jcItemStateChanged
-        DatabaseManager dbma = DatabaseManager.getDbCon();
-        String Name = null;
-        if (evt.getStateChange() == ItemEvent.SELECTED) {
-            String item = evt.getItem().toString();
-
-            try {
-                ResultSet query = dbma.query("SELECT * FROM division_details WHERE code =" + item + "");
-                while (query.next()) {
-                    Name = query.getString("division");
-                    System.out.println(Name);
-                }
-            } catch (SQLException ex) {
-                System.out.println("error");
-            }
-
-            division_lb.setText("" + Name);
-        }
-    }//GEN-LAST:event_division_jcItemStateChanged
-
-    private void workCodeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_workCodeItemStateChanged
-String Name = null;
-        if (evt.getStateChange() == ItemEvent.SELECTED) {
-            String item = evt.getItem().toString();
-            try {
-                ResultSet query = dbm.query("SELECT * FROM workcode_details WHERE code =" + item + "");
-                while (query.next()) {
-                    Name = query.getString("work");
-                }
-            } catch (SQLException ex) {
-            }
-            work_code.setText("" + Name);
-        }        // TODO add your handling code here:
-    }//GEN-LAST:event_workCodeItemStateChanged
-
-    private void empCodeJCItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_empCodeJCItemStateChanged
-DatabaseManager dbm = DatabaseManager.getDbCon();
-        String Name = null;
-        if (evt.getStateChange() == ItemEvent.SELECTED) {
-            int item = Integer.parseInt(evt.getItem().toString());
-            try {
-                ResultSet query = dbm.query("SELECT * FROM personal_info WHERE code =" + item + "");
-                while (query.next()) {
-                    Name = query.getString("name");
-                }
-            } catch (SQLException ex) {
-            }
-            empName.setText("" + Name);
-        }        // TODO add your handling code here:
-    }//GEN-LAST:event_empCodeJCItemStateChanged
-
-    private void after6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_after6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_after6ActionPerformed
-
-    private void staffOrCheckrollItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_staffOrCheckrollItemStateChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_staffOrCheckrollItemStateChanged
-
-    private void division_jcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_division_jcActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_division_jcActionPerformed
-
-    private void staffOrCheckrollFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_staffOrCheckrollFocusLost
-        
-    }//GEN-LAST:event_staffOrCheckrollFocusLost
-
-    private void staffOrCheckrollActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_staffOrCheckrollActionPerformed
- String selection = (String) staffOrCheckroll.getSelectedItem();
-
-        if (selection.equalsIgnoreCase("Checkroll")) {
-
-            jPanelCheckroll.setVisible(true);
-            jPanelStaff.setVisible(false);
-
-        }
-
-        if (selection.equalsIgnoreCase("Staff")) {
-            jPanelCheckroll.setVisible(false);
-            jPanelStaff.setVisible(true);
-
-        }
-    }//GEN-LAST:event_staffOrCheckrollActionPerformed
-
-    private void workHoursActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_workHoursActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_workHoursActionPerformed
 
     private void empCode2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_empCode2ItemStateChanged
 DatabaseManager dbm = DatabaseManager.getDbCon();
@@ -660,38 +396,23 @@ DatabaseManager dbm = DatabaseManager.getDbCon();
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JCheckBox after6;
     private org.jdesktop.swingx.JXDatePicker date;
-    private javax.swing.JComboBox division_jc;
     private javax.swing.JLabel division_lb;
     private javax.swing.JComboBox empCode2;
-    private javax.swing.JComboBox empCodeJC;
-    private javax.swing.JLabel empName;
     private javax.swing.JLabel empName1;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanelCheckroll;
     private javax.swing.JPanel jPanelStaff;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JComboBox staffOrCheckroll;
     private javax.swing.JTable table;
-    private javax.swing.JComboBox workCode;
-    private javax.swing.JComboBox workHours;
     private javax.swing.JComboBox workHours1;
     private javax.swing.JLabel work_code;
     // End of variables declaration//GEN-END:variables
