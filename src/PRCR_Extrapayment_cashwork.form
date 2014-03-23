@@ -309,6 +309,8 @@
         <Component class="javax.swing.JTextField" name="noOfDays">
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="noOfDaysActionPerformed"/>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="noOfDaysKeyPressed"/>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="noOfDaysKeyReleased"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="amount">

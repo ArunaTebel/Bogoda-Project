@@ -1,4 +1,5 @@
 
+import com.sun.jmx.snmp.BerDecoder;
 import java.awt.event.ItemEvent;
 import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
@@ -156,6 +157,14 @@ public class PRCR_Extrapayment_cashwork extends javax.swing.JPanel {
         noOfDays.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 noOfDaysActionPerformed(evt);
+            }
+        });
+        noOfDays.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                noOfDaysKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                noOfDaysKeyReleased(evt);
             }
         });
 
@@ -597,16 +606,25 @@ public class PRCR_Extrapayment_cashwork extends javax.swing.JPanel {
 
         }*/
         
-        cashWork.Set_month(month.getText());
+       
         cashWork.Set_year(year.getText());
-        cashWork.Set_emp_code((int) employee_code.getSelectedItem());
-        cashWork.Set_work_code((String) workCode.getSelectedItem());
+        cashWork.Set_month(month.getText());
+        cashWork.Set_emp_code(Integer.parseInt(employee_code.getSelectedItem().toString()));
+        cashWork.Set_work_code(workCode.getSelectedItem().toString());
         cashWork.Set_rate(Double.parseDouble(rate.getText()));
         cashWork.Set_no_days(Integer.parseInt(noOfDays.getText()));
         cashWork.Set_amount();
         cashWork.addtoDatabase(); 
         
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void noOfDaysKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_noOfDaysKeyPressed
+       
+    }//GEN-LAST:event_noOfDaysKeyPressed
+
+    private void noOfDaysKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_noOfDaysKeyReleased
+         amount.setText(""+(Integer.parseInt(noOfDays.getText())*Double.parseDouble(rate.getText())));
+    }//GEN-LAST:event_noOfDaysKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
