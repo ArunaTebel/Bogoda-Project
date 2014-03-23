@@ -314,7 +314,7 @@ public class pGreenLeaf extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        GL_Other_Advances otheradd = new GL_Other_Advances();
+        GL_other_Advance_plus_book otheradd = new GL_other_Advance_plus_book();
 
         GL_content.removeAll();
 
