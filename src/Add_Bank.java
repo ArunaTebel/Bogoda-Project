@@ -204,9 +204,9 @@ public class Add_Bank extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_nametxtActionPerformed
 
-    PRCR_HolidayPay_Database_Handling test = new PRCR_HolidayPay_Database_Handling();
+   
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        System.out.println(test.Num_of_holidays(217));
+      
     }//GEN-LAST:event_jButton7ActionPerformed
          
 
