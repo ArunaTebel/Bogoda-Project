@@ -1,69 +1,110 @@
+
+import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
+import java.sql.SQLException;
+
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author acer
  */
 public class Rate_Details {
+
     private int code;
     private String name;
-    private String description;
-    private String unit;
+    private String codename;
+    private String type;
     private double rate;
-    private String debitOrCredit;
-    
-    public Rate_Details(int code,String name,String description,double rate,String debitOrCredit){
-        this.code=code;
-        this.name=name;
-        this.description=description;
-        this.rate=rate;
-        this.debitOrCredit=debitOrCredit;
+  
+    private String ratedisc;
+
+    public Rate_Details(int code, String name, String codename, double rate, String debitOrCredit, String type, String unit, String ratediscription) {
+        this.code = code;
+        this.name = name;
+        this.codename = codename;
+        this.rate = rate;
+
+        this.type = type;
+       
+        this.ratedisc= ratediscription;
     }
-    
-    public Rate_Details(){
-        this.code=0;
-        this.name=null;
-        this.description=null;
-        this.rate=0;
-        this.debitOrCredit=null;
+
+    public Rate_Details() {
+        this.code = 0;
+        this.name = null;
+        this.codename = null;
+        this.rate = 0;
+      
+        this.type = null;
+        this.ratedisc= null;
     }
-    
+
     //setters
-    public void setCode(int code){
-        this.code=code;
+    public void setCode(int code) {
+        this.code = code;
     }
-    public void setName(String name){
-        this.name=name;
+
+    public void setName(String name) {
+        this.name = name;
     }
-    public void setDescription(String description){
-        this.description=description;
+
+    public void setCodename(String codename) {
+        this.codename = codename;
     }
-    public void setRate(double rate){
-        this.rate=rate;
+
+    public void setRate(double rate) {
+        this.rate = rate;
     }
-    public void setDebitOrCredit(String debitOrCredit){
-        this.debitOrCredit=debitOrCredit;
+
+    public void settype(String type) {
+        this.type = type;
     }
-    
+    public void setDiscription(String disc) {
+        this.ratedisc = disc;
+    }
+
     //getters
-    public int getCode(){
+    public int getCode() {
         return code;
     }
-    public String getName(){
+
+    public String getName() {
         return name;
     }
-    public String getDescription(){
-        return description;
+
+    public String getDescription() {
+        return codename;
     }
-    public double getRate(){
+
+    public double getRate() {
         return rate;
     }
-    public String getDebitOrCredit(){
-        return debitOrCredit;
+
+    public String gettype() {
+        return type;
     }
     
+     public String getRatedisc() {
+        return ratedisc;
+    }
+
+    public void addToDataBase() {
+        DatabaseManager dbCon = DatabaseManager.getDbCon();
+        try {
+            dbCon.insert("INSERT INTO rate_details(Rate_code,Name,Code_name,type,rate,Rate_Description) VALUES('" + code + "','" + name + "','" + codename + "','" + type + "','" + rate + "','" + ratedisc + "')");
+
+        } catch (SQLException ex) {
+            MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
+        }
+
+    }
+
+    
+
 }
+
+

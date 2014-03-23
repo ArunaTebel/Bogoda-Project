@@ -129,8 +129,8 @@ public class DateChooser_text extends javax.swing.JPanel {
 
     }
 
-    public Date Return_date(javax.swing.JTextField Year, javax.swing.JTextField Month, javax.swing.JTextField Day) throws ParseException {
-        Date Datef = null;
+    public java.sql.Date Return_date(javax.swing.JTextField Year, javax.swing.JTextField Month, javax.swing.JTextField Day) throws ParseException {
+        java.sql.Date Datef = null;
         String y, d, month, All;
         int m = 0;
         y = Year.getText();
@@ -152,7 +152,7 @@ public class DateChooser_text extends javax.swing.JPanel {
       
 
          Datef=java.sql.Date.valueOf(All);
-         System.out.println(Datef); 
+        
         
 
         return Datef;
