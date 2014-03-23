@@ -7,7 +7,8 @@ public class Extra_Payment_CashWork {
     
     Connection conn = null;
     Statement stmt = null;
-    
+    DateChooser_text month_num = new DateChooser_text();
+      
     int emp_code;
     String work_code;
     int no_days;
@@ -16,6 +17,7 @@ public class Extra_Payment_CashWork {
     String month;
     String year;
     double tot_extrapay;
+    String s;
 
     // Constructers
     
@@ -27,6 +29,7 @@ public class Extra_Payment_CashWork {
         amount=0;
         month =null;
         year= null;
+        s=null;
     }
     
     // Setters
@@ -48,6 +51,7 @@ public class Extra_Payment_CashWork {
     }
     public void Set_month(String month){
         this.month=month;
+        s=year+"_0"+month_num.return_index(month);
     }
     public void Set_year(String year){
         this.year=year;
@@ -76,9 +80,11 @@ public class Extra_Payment_CashWork {
     public String Get_year(){
         return year;
     }
-    DateChooser_text month_num = new DateChooser_text();
-    String s=year+"_0"+month_num.return_index(month);
+
+  
+      
     // Add to database
+   // String v=year+"_0"+1;
     
       public void addtoDatabase() {
         DatabaseManager dbm = DatabaseManager.getDbCon();

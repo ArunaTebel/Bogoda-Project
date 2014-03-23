@@ -16,7 +16,7 @@ import java.sql.SQLException;
  */
 public class PRCR_Extrapayment_cashwork extends javax.swing.JPanel {
     DatabaseManager dbm = new DatabaseManager();
-    Date_Handler datehandler = new Date_Handler();
+   Date_Handler datehandler = new Date_Handler();
     /**
      * Creates new form PRCR_Extrapayment_cashwork
      */
@@ -491,7 +491,7 @@ public class PRCR_Extrapayment_cashwork extends javax.swing.JPanel {
     }//GEN-LAST:event_yearKeyPressed
 
     private void employee_codeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_employee_codeItemStateChanged
-        DatabaseManager dbm = DatabaseManager.getDbCon();
+       DatabaseManager dbm = DatabaseManager.getDbCon();
         String Name = null;
         if (evt.getStateChange() == ItemEvent.SELECTED) {
             int item = Integer.parseInt(evt.getItem().toString());
@@ -503,7 +503,7 @@ public class PRCR_Extrapayment_cashwork extends javax.swing.JPanel {
             } catch (SQLException ex) {
             }
             empName.setText("" + Name);
-        }
+        } 
     }//GEN-LAST:event_employee_codeItemStateChanged
 
     private void employee_codeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_employee_codeActionPerformed
@@ -522,7 +522,7 @@ public class PRCR_Extrapayment_cashwork extends javax.swing.JPanel {
             } catch (SQLException ex) {
             }
             work_code.setText("" + Name);
-        }
+        } 
     }//GEN-LAST:event_workCodeItemStateChanged
 
     private void changeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeActionPerformed
@@ -604,7 +604,7 @@ public class PRCR_Extrapayment_cashwork extends javax.swing.JPanel {
         cashWork.Set_rate(Double.parseDouble(rate.getText()));
         cashWork.Set_no_days(Integer.parseInt(noOfDays.getText()));
         cashWork.Set_amount();
-        cashWork.addtoDatabase();
+        cashWork.addtoDatabase(); 
         
     }//GEN-LAST:event_jButton6ActionPerformed
 
