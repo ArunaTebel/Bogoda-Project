@@ -181,5 +181,98 @@ public String get_day(Date date) {
         array = dateNow.split("-");
         return array[0];
     }
+       
+        public int return_index(String month) {
+        int index = 0;
+
+        switch (month) {
+            case "Jan":
+                index = 1;
+                break;
+            case "Feb":
+                index = 2;
+                break;
+            case "Mar":
+                index = 3;
+                break;
+            case "Apr":
+                index = 4;
+                break;
+            case "May":
+                index = 5;
+                break;
+            case "Jun":
+                index = 6;
+                break;
+            case "Jul":
+                index = 7;
+                break;
+            case "Aug":
+                index = 8;
+                break;
+            case "Sep":
+                index = 9;
+                break;
+            case "Oct":
+                index = 10;
+                break;
+            case "Nov":
+                index = 11;
+                break;
+            case "Dec":
+                index = 12;
+                break;
+
+        }
+
+        return index;
+    }
+
+    public String Return_month(int index) {
+        String month = null;
+
+        switch (index) {
+            case 1:
+                month = "Jan";
+                break;
+            case 2:
+                month = "Feb";
+                break;
+            case 3:
+                month = "Mar";
+                break;
+            case 4:
+                month = "Apr";
+                break;
+            case 5:
+                month = "May";
+                break;
+            case 6:
+                month = "Jun";
+                break;
+            case 7:
+                month = "Jul";
+                break;
+            case 8:
+                month = "Aug";
+                break;
+            case 9:
+                month = "Sep";
+                break;
+            case 10:
+                month = "Oct";
+                break;
+            case 11:
+                month = "Nov";
+                break;
+            case 12:
+                month = "Dec";
+                break;
+
+        }
+
+        return month;
+
+    }
 
 }

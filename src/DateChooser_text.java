@@ -1,6 +1,12 @@
 
 import java.awt.event.KeyEvent;
 import java.sql.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -116,13 +122,42 @@ public class DateChooser_text extends javax.swing.JPanel {
 
     }
 
-     public void focus() {
+    public void focus() {
         this.requestFocusInWindow();
-        jTextField1.requestFocusInWindow();
-        jTextField1.selectAll();
-     
-       
+        dayfield.requestFocusInWindow();
+        dayfield.selectAll();
+
     }
+
+    public Date Return_date(javax.swing.JTextField Year, javax.swing.JTextField Month, javax.swing.JTextField Day) throws ParseException {
+        Date Datef = null;
+        String y, d, month, All;
+        int m = 0;
+        y = Year.getText();
+        m = this.return_index(Month.getText());
+        if (m < 10) {
+            month = "0" + m;
+
+        } else {
+            month = ""+m;
+        }
+        
+        d = Day.getText();
+        if(Integer.parseInt(d.toString())<10  )
+        {
+        d="0"+"d";
+        }
+        
+        All = y+"-"+month+"-"+d;
+      
+
+         Datef=java.sql.Date.valueOf(All);
+         System.out.println(Datef); 
+        
+
+        return Datef;
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -133,62 +168,74 @@ public class DateChooser_text extends javax.swing.JPanel {
     private void initComponents() {
 
         jPopupMenu1 = new javax.swing.JPopupMenu();
-        jPanel1 = new javax.swing.JPanel();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField1 = new javax.swing.JTextField();
+        datepanel = new javax.swing.JPanel();
+        monthfield = new javax.swing.JTextField();
+        yearfield = new javax.swing.JTextField();
+        dayfield = new javax.swing.JTextField();
         datePicker1 = new com.michaelbaranov.microba.calendar.DatePicker();
+        jButton1 = new javax.swing.JButton();
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        datepanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jTextField2.setText(datehandler.get_today_month());
-        jTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
+        monthfield.setText(datehandler.get_today_month());
+        monthfield.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextField2KeyPressed(evt);
+                monthfieldKeyPressed(evt);
             }
         });
 
-        jTextField3.setText(datehandler.get_today_year());
-        jTextField3.addKeyListener(new java.awt.event.KeyAdapter() {
+        yearfield.setText(datehandler.get_today_year());
+        yearfield.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextField3KeyPressed(evt);
+                yearfieldKeyPressed(evt);
             }
         });
 
-        jTextField1.setText(datehandler.get_today_day());
-        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+        dayfield.setText(datehandler.get_today_day());
+        dayfield.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextField1KeyPressed(evt);
+                dayfieldKeyPressed(evt);
             }
         });
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
 
         datePicker1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 datePicker1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout datepanelLayout = new javax.swing.GroupLayout(datepanel);
+        datepanel.setLayout(datepanelLayout);
+        datepanelLayout.setHorizontalGroup(
+            datepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(datepanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(dayfield, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(monthfield, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(yearfield, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(datePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        datepanelLayout.setVerticalGroup(
+            datepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(datepanelLayout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addGroup(datepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(datePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(datepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(dayfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(monthfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(yearfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -197,381 +244,390 @@ public class DateChooser_text extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(70, 70, 70)
-                .addComponent(datePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton1)
+                    .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(86, 86, 86))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(datePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(123, 123, 123))
+                .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(49, 49, 49)
+                .addComponent(jButton1)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
+    private void dayfieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dayfieldKeyPressed
       ///////////////////////////////////////////////////  Days Decrement/////////////////////////////////////////////////////////////////////////////
-        
-        if (jTextField1.getText().equals("1")) {           // Jumping to 31 and 30 from 1st 
+
+        if (dayfield.getText().equals("1")) {           // Jumping to 31 and 30 from 1st 
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
 
-                if (jTextField2.getText().equals("Feb") || jTextField2.getText().equals("Apr") || jTextField2.getText().equals("Jun") || jTextField2.getText().equals("Aug") || jTextField2.getText().equals("Sep") || jTextField2.getText().equals("Nov") || jTextField2.getText().equals("Feb")) {
-                    jTextField1.setText("31");
+                if (monthfield.getText().equals("Feb") || monthfield.getText().equals("Apr") || monthfield.getText().equals("Jun") || monthfield.getText().equals("Aug") || monthfield.getText().equals("Sep") || monthfield.getText().equals("Nov") || monthfield.getText().equals("Feb")) {
+                    dayfield.setText("31");
 
-                    int mnth = this.return_index(jTextField2.getText());
-                    jTextField2.setText(this.Return_month(mnth - 1));
+                    int mnth = this.return_index(monthfield.getText());
+                    monthfield.setText(this.Return_month(mnth - 1));
 
-                } else if (jTextField2.getText().equals("May") || jTextField2.getText().equals("Jul") || jTextField2.getText().equals("Oct") || jTextField2.getText().equals("Dec")) {
-                    jTextField1.setText("30");
-                    int mnth = this.return_index(jTextField2.getText());
-                    jTextField2.setText(this.Return_month(mnth - 1));
+                } else if (monthfield.getText().equals("May") || monthfield.getText().equals("Jul") || monthfield.getText().equals("Oct") || monthfield.getText().equals("Dec")) {
+                    dayfield.setText("30");
+                    int mnth = this.return_index(monthfield.getText());
+                    monthfield.setText(this.Return_month(mnth - 1));
 
-                } else if (jTextField2.getText().equals("Mar")) {     // from march 1st jump to 28th or 29th checking leap years
-                    int yr = Integer.parseInt(jTextField3.getText());
+                } else if (monthfield.getText().equals("Mar")) {     // from march 1st jump to 28th or 29th checking leap years
+                    int yr = Integer.parseInt(yearfield.getText());
                     if (yr % 4 == 0) {
                         if (yr % 100 == 0) {
                             if (yr % 400 == 0) {
-                                jTextField1.setText("29"); // Leap Year
+                                dayfield.setText("29"); // Leap Year
                             }
                         }
                         if (yr % 100 == 0) {
                             if (yr % 400 != 0) {
-                                jTextField1.setText("28"); // not a leap year
+                                dayfield.setText("28"); // not a leap year
                             }
                         }
-                        jTextField1.setText("29");       // leap year
+                        dayfield.setText("29");       // leap year
 
                     }
                     if (yr % 4 != 0) {
-                        jTextField1.setText("28");       // not a leap year
+                        dayfield.setText("28");       // not a leap year
                     }
-                    int mnth = this.return_index(jTextField2.getText());
-                    jTextField2.setText(this.Return_month(mnth - 1));
+                    int mnth = this.return_index(monthfield.getText());
+                    monthfield.setText(this.Return_month(mnth - 1));
 
-                } else if (jTextField2.getText().equals("Jan")) {            // From jan 1st jump to december 31st decrementing year
-                    jTextField1.setText("31");
+                } else if (monthfield.getText().equals("Jan")) {            // From jan 1st jump to december 31st decrementing year
+                    dayfield.setText("31");
 
-                    int yr = Integer.parseInt(jTextField3.getText());
-                    jTextField2.setText("Dec");
-                    jTextField3.setText("" + (yr - 1));    // year
+                    int yr = Integer.parseInt(yearfield.getText());
+                    monthfield.setText("Dec");
+                    yearfield.setText("" + (yr - 1));    // year
                 }
- jTextField1.selectAll();
+                dayfield.selectAll();
             }                                           // /// decrementing normal values 
-        } else if (jTextField1.getText().equals("2") || jTextField1.getText().equals("3") || jTextField1.getText().equals("4") || jTextField1.getText().equals("5")
-                || jTextField1.getText().equals("6") || jTextField1.getText().equals("7") || jTextField1.getText().equals("8") || jTextField1.getText().equals("9")
-                || jTextField1.getText().equals("10") || jTextField1.getText().equals("11") || jTextField1.getText().equals("12") || jTextField1.getText().equals("13") || jTextField1.getText().equals("14")
-                || jTextField1.getText().equals("15") || jTextField1.getText().equals("16") || jTextField1.getText().equals("17") || jTextField1.getText().equals("18")
-                || jTextField1.getText().equals("19") || jTextField1.getText().equals("20") || jTextField1.getText().equals("21") || jTextField1.getText().equals("22")
-                || jTextField1.getText().equals("23") || jTextField1.getText().equals("24") || jTextField1.getText().equals("25") || jTextField1.getText().equals("26")
-                || jTextField1.getText().equals("27") || jTextField1.getText().equals("28") || jTextField1.getText().equals("29") || jTextField1.getText().equals("30") || jTextField1.getText().equals("31")) {
+        } else if (dayfield.getText().equals("2") || dayfield.getText().equals("3") || dayfield.getText().equals("4") || dayfield.getText().equals("5")
+                || dayfield.getText().equals("6") || dayfield.getText().equals("7") || dayfield.getText().equals("8") || dayfield.getText().equals("9")
+                || dayfield.getText().equals("10") || dayfield.getText().equals("11") || dayfield.getText().equals("12") || dayfield.getText().equals("13") || dayfield.getText().equals("14")
+                || dayfield.getText().equals("15") || dayfield.getText().equals("16") || dayfield.getText().equals("17") || dayfield.getText().equals("18")
+                || dayfield.getText().equals("19") || dayfield.getText().equals("20") || dayfield.getText().equals("21") || dayfield.getText().equals("22")
+                || dayfield.getText().equals("23") || dayfield.getText().equals("24") || dayfield.getText().equals("25") || dayfield.getText().equals("26")
+                || dayfield.getText().equals("27") || dayfield.getText().equals("28") || dayfield.getText().equals("29") || dayfield.getText().equals("30") || dayfield.getText().equals("31")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
 
-                jTextField1.setText("" + (Integer.parseInt(jTextField1.getText()) - 1)); 
- jTextField1.selectAll();
+                dayfield.setText("" + (Integer.parseInt(dayfield.getText()) - 1));
+                dayfield.selectAll();
             }
         }
 /////////////////////////////////////////////////  Days Increment///////////////////////////////////////////////////////////////////////////////////////////////////
-        if (jTextField1.getText().equals("30")) {               // from 30th to 1st of next month
+        if (dayfield.getText().equals("30")) {               // from 30th to 1st of next month
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
 
-                if (jTextField2.getText().equals("Apr") || jTextField2.getText().equals("Jun") || jTextField2.getText().equals("Sep") || jTextField2.getText().equals("Nov")) {
-                    jTextField1.setText("0");
-                    
-                    int mnth = this.return_index(jTextField2.getText());
-                    jTextField2.setText(this.Return_month(mnth + 1));
+                if (monthfield.getText().equals("Apr") || monthfield.getText().equals("Jun") || monthfield.getText().equals("Sep") || monthfield.getText().equals("Nov")) {
+                    dayfield.setText("0");
+
+                    int mnth = this.return_index(monthfield.getText());
+                    monthfield.setText(this.Return_month(mnth + 1));
 
                 }
-                jTextField1.setText("" + (Integer.parseInt(jTextField1.getText()) + 1));
-                 jTextField1.selectAll();
+                dayfield.setText("" + (Integer.parseInt(dayfield.getText()) + 1));
+                dayfield.selectAll();
             }
 
-        } else if (jTextField1.getText().equals("31")) {            // from 31st to 1st of next month
+        } else if (dayfield.getText().equals("31")) {            // from 31st to 1st of next month
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
 
-                if (jTextField2.getText().equals("Jan") || jTextField2.getText().equals("Mar") || jTextField2.getText().equals("May") || jTextField2.getText().equals("Jul") || jTextField2.getText().equals("Aug") || jTextField2.getText().equals("Oct")) {
-                    jTextField1.setText("1");
+                if (monthfield.getText().equals("Jan") || monthfield.getText().equals("Mar") || monthfield.getText().equals("May") || monthfield.getText().equals("Jul") || monthfield.getText().equals("Aug") || monthfield.getText().equals("Oct")) {
+                    dayfield.setText("1");
 
-                    int mnth = this.return_index(jTextField2.getText());
-                    jTextField2.setText(this.Return_month(mnth + 1));
+                    int mnth = this.return_index(monthfield.getText());
+                    monthfield.setText(this.Return_month(mnth + 1));
 
-                } else if (jTextField2.getText().equals("Dec")) {      // December to january incrementing the year
+                } else if (monthfield.getText().equals("Dec")) {      // December to january incrementing the year
 
-                    jTextField1.setText("1");
+                    dayfield.setText("1");
 
-                    int yr = Integer.parseInt(jTextField3.getText());
-                    jTextField2.setText("Jan");
-                    jTextField3.setText("" + (yr + 1));
+                    int yr = Integer.parseInt(yearfield.getText());
+                    monthfield.setText("Jan");
+                    yearfield.setText("" + (yr + 1));
                 }
-                 jTextField1.selectAll();
+                dayfield.selectAll();
             }
 
-        } else if (jTextField2.getText().equals("Feb")) {                    // for february 
+        } else if (monthfield.getText().equals("Feb")) {                    // for february 
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
-                if (jTextField1.getText().equals("28")) {                    // at 28 check for leap year 
-                    int yr = Integer.parseInt(jTextField3.getText());
+                if (dayfield.getText().equals("28")) {                    // at 28 check for leap year 
+                    int yr = Integer.parseInt(yearfield.getText());
                     if (yr % 4 == 0) {
                         if (yr % 100 == 0) {
                             if (yr % 400 == 0) {
-                                jTextField1.setText("29"); // Leap Year       // increment to 29
+                                dayfield.setText("29"); // Leap Year       // increment to 29
                             }
                         }
                         if (yr % 100 == 0) {
                             if (yr % 400 != 0) {
-                                jTextField1.setText("1");
-                                int mnth = this.return_index(jTextField2.getText());
-                                jTextField2.setText(this.Return_month(mnth + 1));
+                                dayfield.setText("1");
+                                int mnth = this.return_index(monthfield.getText());
+                                monthfield.setText(this.Return_month(mnth + 1));
 
                                 // not a leap year                             // jump to next month
                             }
                         }
-                        jTextField1.setText("29");       // leap year             // increment to 29th
+                        dayfield.setText("29");       // leap year             // increment to 29th
 
                     }
                     if (yr % 4 != 0) {
-                        jTextField1.setText("1");
-                        int mnth = this.return_index(jTextField2.getText());
-                        jTextField2.setText(this.Return_month(mnth + 1));                  // not a leap year
+                        dayfield.setText("1");
+                        int mnth = this.return_index(monthfield.getText());
+                        monthfield.setText(this.Return_month(mnth + 1));                  // not a leap year
                     }
 
-                } else if (jTextField1.getText().equals("29")) {              // at 29 jump to next month normally
-                    jTextField1.setText("1");
+                } else if (dayfield.getText().equals("29")) {              // at 29 jump to next month normally
+                    dayfield.setText("1");
 
-                    int mnth = this.return_index(jTextField2.getText());
-                    jTextField2.setText(this.Return_month(mnth + 1));
-                                                                               // incrementing normal values/////////////////////// for february separately
-                } else if (jTextField1.getText().equals("1") || jTextField1.getText().equals("2") || jTextField1.getText().equals("3") || jTextField1.getText().equals("4") || jTextField1.getText().equals("5")
-                        || jTextField1.getText().equals("6") || jTextField1.getText().equals("7") || jTextField1.getText().equals("8") || jTextField1.getText().equals("9")
-                        || jTextField1.getText().equals("10") || jTextField1.getText().equals("11") || jTextField1.getText().equals("12") || jTextField1.getText().equals("13") || jTextField1.getText().equals("14")
-                        || jTextField1.getText().equals("15") || jTextField1.getText().equals("16") || jTextField1.getText().equals("17") || jTextField1.getText().equals("18")
-                        || jTextField1.getText().equals("19") || jTextField1.getText().equals("20") || jTextField1.getText().equals("21") || jTextField1.getText().equals("22")
-                        || jTextField1.getText().equals("23") || jTextField1.getText().equals("24") || jTextField1.getText().equals("25") || jTextField1.getText().equals("26")
-                        || jTextField1.getText().equals("27") || jTextField1.getText().equals("28") || jTextField1.getText().equals("29") || jTextField1.getText().equals("30") || jTextField1.getText().equals("31")) {
+                    int mnth = this.return_index(monthfield.getText());
+                    monthfield.setText(this.Return_month(mnth + 1));
+                    // incrementing normal values/////////////////////// for february separately
+                } else if (dayfield.getText().equals("1") || dayfield.getText().equals("2") || dayfield.getText().equals("3") || dayfield.getText().equals("4") || dayfield.getText().equals("5")
+                        || dayfield.getText().equals("6") || dayfield.getText().equals("7") || dayfield.getText().equals("8") || dayfield.getText().equals("9")
+                        || dayfield.getText().equals("10") || dayfield.getText().equals("11") || dayfield.getText().equals("12") || dayfield.getText().equals("13") || dayfield.getText().equals("14")
+                        || dayfield.getText().equals("15") || dayfield.getText().equals("16") || dayfield.getText().equals("17") || dayfield.getText().equals("18")
+                        || dayfield.getText().equals("19") || dayfield.getText().equals("20") || dayfield.getText().equals("21") || dayfield.getText().equals("22")
+                        || dayfield.getText().equals("23") || dayfield.getText().equals("24") || dayfield.getText().equals("25") || dayfield.getText().equals("26")
+                        || dayfield.getText().equals("27") || dayfield.getText().equals("28") || dayfield.getText().equals("29") || dayfield.getText().equals("30") || dayfield.getText().equals("31")) {
 
-                    jTextField1.setText("" + (Integer.parseInt(jTextField1.getText()) + 1));
+                    dayfield.setText("" + (Integer.parseInt(dayfield.getText()) + 1));
 
                 }
- jTextField1.selectAll();
+                dayfield.selectAll();
             }
-                                         // incrementing normal values 
-        } else if (jTextField1.getText().equals("1") || jTextField1.getText().equals("2") || jTextField1.getText().equals("3") || jTextField1.getText().equals("4") || jTextField1.getText().equals("5")
-                || jTextField1.getText().equals("6") || jTextField1.getText().equals("7") || jTextField1.getText().equals("8") || jTextField1.getText().equals("9")
-                || jTextField1.getText().equals("10") || jTextField1.getText().equals("11") || jTextField1.getText().equals("12") || jTextField1.getText().equals("13") || jTextField1.getText().equals("14")
-                || jTextField1.getText().equals("15") || jTextField1.getText().equals("16") || jTextField1.getText().equals("17") || jTextField1.getText().equals("18")
-                || jTextField1.getText().equals("19") || jTextField1.getText().equals("20") || jTextField1.getText().equals("21") || jTextField1.getText().equals("22")
-                || jTextField1.getText().equals("23") || jTextField1.getText().equals("24") || jTextField1.getText().equals("25") || jTextField1.getText().equals("26")
-                || jTextField1.getText().equals("27") || jTextField1.getText().equals("28") || jTextField1.getText().equals("29") || jTextField1.getText().equals("30") || jTextField1.getText().equals("31")) {
+            // incrementing normal values 
+        } else if (dayfield.getText().equals("1") || dayfield.getText().equals("2") || dayfield.getText().equals("3") || dayfield.getText().equals("4") || dayfield.getText().equals("5")
+                || dayfield.getText().equals("6") || dayfield.getText().equals("7") || dayfield.getText().equals("8") || dayfield.getText().equals("9")
+                || dayfield.getText().equals("10") || dayfield.getText().equals("11") || dayfield.getText().equals("12") || dayfield.getText().equals("13") || dayfield.getText().equals("14")
+                || dayfield.getText().equals("15") || dayfield.getText().equals("16") || dayfield.getText().equals("17") || dayfield.getText().equals("18")
+                || dayfield.getText().equals("19") || dayfield.getText().equals("20") || dayfield.getText().equals("21") || dayfield.getText().equals("22")
+                || dayfield.getText().equals("23") || dayfield.getText().equals("24") || dayfield.getText().equals("25") || dayfield.getText().equals("26")
+                || dayfield.getText().equals("27") || dayfield.getText().equals("28") || dayfield.getText().equals("29") || dayfield.getText().equals("30") || dayfield.getText().equals("31")) {
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
 
-                jTextField1.setText("" + (Integer.parseInt(jTextField1.getText()) + 1));
-                 jTextField1.selectAll();
+                dayfield.setText("" + (Integer.parseInt(dayfield.getText()) + 1));
+                dayfield.selectAll();
 
             }
         }
-         if (evt.getKeyCode() == KeyEvent.VK_RIGHT) {
-                jTextField2.requestFocus();
-                jTextField2.selectAll();
-            }
-  
-    }//GEN-LAST:event_jTextField1KeyPressed
-      
-    private void jTextField2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyPressed
-        if (jTextField2.getText().equals("Jan")) {
-            if (evt.getKeyCode() == KeyEvent.VK_UP) {
-                jTextField2.setText("Dec");
-                int yr = Integer.parseInt(jTextField3.getText());
+        if (evt.getKeyCode() == KeyEvent.VK_RIGHT) {
+            monthfield.requestFocus();
+            monthfield.selectAll();
+        }
 
-                jTextField3.setText("" + (yr - 1));
-                 jTextField2.selectAll();
+    }//GEN-LAST:event_dayfieldKeyPressed
+
+    private void monthfieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_monthfieldKeyPressed
+        if (monthfield.getText().equals("Jan")) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                monthfield.setText("Dec");
+                int yr = Integer.parseInt(yearfield.getText());
+
+                yearfield.setText("" + (yr - 1));
+                monthfield.selectAll();
 
             }
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
-                jTextField2.setText("Feb");
-                 jTextField2.selectAll();
+                monthfield.setText("Feb");
+                monthfield.selectAll();
             }
 
-        } else if (jTextField2.getText().equals("Feb")) {
+        } else if (monthfield.getText().equals("Feb")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
-                jTextField2.setText("Jan");
-                int yr = Integer.parseInt(jTextField3.getText());
-                 jTextField2.selectAll();
+                monthfield.setText("Jan");
+                int yr = Integer.parseInt(yearfield.getText());
+                monthfield.selectAll();
 
             }
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
-                jTextField2.setText("Mar");
-                 jTextField2.selectAll();
+                monthfield.setText("Mar");
+                monthfield.selectAll();
             }
 
-        } else if (jTextField2.getText().equals("Mar")) {
+        } else if (monthfield.getText().equals("Mar")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
-                jTextField2.setText("Feb");
-                int yr = Integer.parseInt(jTextField3.getText());
- jTextField2.selectAll(); 
+                monthfield.setText("Feb");
+                int yr = Integer.parseInt(yearfield.getText());
+                monthfield.selectAll();
             }
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
-                jTextField2.setText("Apr");
-                 jTextField2.selectAll();
+                monthfield.setText("Apr");
+                monthfield.selectAll();
             }
 
-        } else if (jTextField2.getText().equals("Apr")) {
+        } else if (monthfield.getText().equals("Apr")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
-                jTextField2.setText("Mar");
-                int yr = Integer.parseInt(jTextField3.getText());
- jTextField2.selectAll();
+                monthfield.setText("Mar");
+                int yr = Integer.parseInt(yearfield.getText());
+                monthfield.selectAll();
             }
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
-                jTextField2.setText("May");
-                 jTextField2.selectAll();
+                monthfield.setText("May");
+                monthfield.selectAll();
             }
 
-        } else if (jTextField2.getText().equals("May")) {
+        } else if (monthfield.getText().equals("May")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
-                jTextField2.setText("Apr");
-                int yr = Integer.parseInt(jTextField3.getText());
-                 jTextField2.selectAll();
-
-            }
-            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
-                
-                jTextField2.setText("Jun");
-                 jTextField2.selectAll();
-            }
-
-        } else if (jTextField2.getText().equals("Jun")) {
-            if (evt.getKeyCode() == KeyEvent.VK_UP) {
-                jTextField2.setText("May");
-                int yr = Integer.parseInt(jTextField3.getText());
-                 jTextField2.selectAll();
+                monthfield.setText("Apr");
+                int yr = Integer.parseInt(yearfield.getText());
+                monthfield.selectAll();
 
             }
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
-                jTextField2.setText("Jul");
-                 jTextField2.selectAll();
+
+                monthfield.setText("Jun");
+                monthfield.selectAll();
             }
 
-        } else if (jTextField2.getText().equals("Jul")) {
+        } else if (monthfield.getText().equals("Jun")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
-                jTextField2.setText("Jun");
-                int yr = Integer.parseInt(jTextField3.getText());
-                 jTextField2.selectAll();
+                monthfield.setText("May");
+                int yr = Integer.parseInt(yearfield.getText());
+                monthfield.selectAll();
 
             }
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
-                jTextField2.setText("Aug");
-                 jTextField2.selectAll();
+                monthfield.setText("Jul");
+                monthfield.selectAll();
             }
 
-        } else if (jTextField2.getText().equals("Aug")) {
+        } else if (monthfield.getText().equals("Jul")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
-                jTextField2.setText("Jul");
-                int yr = Integer.parseInt(jTextField3.getText());
-                 jTextField2.selectAll();
+                monthfield.setText("Jun");
+                int yr = Integer.parseInt(yearfield.getText());
+                monthfield.selectAll();
 
             }
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
-                jTextField2.setText("Sep");
-                 jTextField2.selectAll();
+                monthfield.setText("Aug");
+                monthfield.selectAll();
             }
 
-        } else if (jTextField2.getText().equals("Sep")) {
+        } else if (monthfield.getText().equals("Aug")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
-                jTextField2.setText("Aug");
-                int yr = Integer.parseInt(jTextField3.getText());
-                 jTextField2.selectAll();
+                monthfield.setText("Jul");
+                int yr = Integer.parseInt(yearfield.getText());
+                monthfield.selectAll();
 
             }
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
-                jTextField2.setText("Oct");
-                 jTextField2.selectAll();
+                monthfield.setText("Sep");
+                monthfield.selectAll();
             }
 
-        } else if (jTextField2.getText().equals("Oct")) {
+        } else if (monthfield.getText().equals("Sep")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
-                jTextField2.setText("Sep");
-                int yr = Integer.parseInt(jTextField3.getText());
-                 jTextField2.selectAll();
+                monthfield.setText("Aug");
+                int yr = Integer.parseInt(yearfield.getText());
+                monthfield.selectAll();
 
             }
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
-                jTextField2.setText("Nov");
-                 jTextField2.selectAll();
+                monthfield.setText("Oct");
+                monthfield.selectAll();
             }
 
-        } else if (jTextField2.getText().equals("Nov")) {
+        } else if (monthfield.getText().equals("Oct")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
-                jTextField2.setText("Oct");
-                int yr = Integer.parseInt(jTextField3.getText());
-                 jTextField2.selectAll();
+                monthfield.setText("Sep");
+                int yr = Integer.parseInt(yearfield.getText());
+                monthfield.selectAll();
 
             }
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
-                jTextField2.setText("Dec");
-                 jTextField2.selectAll();
+                monthfield.setText("Nov");
+                monthfield.selectAll();
             }
 
-        } else if (jTextField2.getText().equals("Dec")) {
+        } else if (monthfield.getText().equals("Nov")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
-                jTextField2.setText("Nov");
-                int yr = Integer.parseInt(jTextField3.getText());
-                 jTextField2.selectAll();
+                monthfield.setText("Oct");
+                int yr = Integer.parseInt(yearfield.getText());
+                monthfield.selectAll();
 
             }
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
-                jTextField2.setText("Jan");
-                int yr = Integer.parseInt(jTextField3.getText());
+                monthfield.setText("Dec");
+                monthfield.selectAll();
+            }
 
-                jTextField3.setText("" + (yr + 1));
-                 jTextField2.selectAll();
+        } else if (monthfield.getText().equals("Dec")) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                monthfield.setText("Nov");
+                int yr = Integer.parseInt(yearfield.getText());
+                monthfield.selectAll();
+
+            }
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                monthfield.setText("Jan");
+                int yr = Integer.parseInt(yearfield.getText());
+
+                yearfield.setText("" + (yr + 1));
+                monthfield.selectAll();
             }
 
         }
-         if (evt.getKeyCode() == KeyEvent.VK_LEFT) {
-                jTextField1.requestFocus();
-                jTextField1.selectAll();
-            }
- if (evt.getKeyCode() == KeyEvent.VK_RIGHT) {
-                jTextField3.requestFocus();
-                jTextField3.selectAll();
-            }
-   
-    }//GEN-LAST:event_jTextField2KeyPressed
-
-    private void jTextField3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField3KeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
-                jTextField3.setText("" + (Integer.parseInt(jTextField3.getText()) + 1));
-                    jTextField3.selectAll();
-            }
-        if (evt.getKeyCode() == KeyEvent.VK_UP) {
-                jTextField3.setText("" + (Integer.parseInt(jTextField3.getText()) - 1));
-                    jTextField3.selectAll();
-            }
         if (evt.getKeyCode() == KeyEvent.VK_LEFT) {
-                jTextField2.requestFocus();
-                 jTextField2.selectAll();
-            }
-        
-    
-    }//GEN-LAST:event_jTextField3KeyPressed
+            dayfield.requestFocus();
+            dayfield.selectAll();
+        }
+        if (evt.getKeyCode() == KeyEvent.VK_RIGHT) {
+            yearfield.requestFocus();
+            yearfield.selectAll();
+        }
+
+    }//GEN-LAST:event_monthfieldKeyPressed
+
+    private void yearfieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_yearfieldKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+            yearfield.setText("" + (Integer.parseInt(yearfield.getText()) + 1));
+            yearfield.selectAll();
+        }
+        if (evt.getKeyCode() == KeyEvent.VK_UP) {
+            yearfield.setText("" + (Integer.parseInt(yearfield.getText()) - 1));
+            yearfield.selectAll();
+        }
+        if (evt.getKeyCode() == KeyEvent.VK_LEFT) {
+            monthfield.requestFocus();
+            monthfield.selectAll();
+        }
+
+
+    }//GEN-LAST:event_yearfieldKeyPressed
 
     private void datePicker1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datePicker1ActionPerformed
         java.sql.Date datef = new java.sql.Date(datePicker1.getDate().getTime());
-        
-        jTextField1.setText(datehandler.get_day(datef));
-        jTextField2.setText(datehandler.get_month(datef));
-        jTextField3.setText(datehandler.get_year(datef));
-        jTextField1.selectAll();
-        
+
+        dayfield.setText(datehandler.get_day(datef));
+        monthfield.setText(datehandler.get_month(datef));
+        yearfield.setText(datehandler.get_year(datef));
+        dayfield.selectAll();
+
     }//GEN-LAST:event_datePicker1ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try {
+            this.Return_date(yearfield, monthfield, dayfield);
+        } catch (ParseException ex) {
+            Logger.getLogger(DateChooser_text.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.michaelbaranov.microba.calendar.DatePicker datePicker1;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel datepanel;
+    private javax.swing.JTextField dayfield;
+    private javax.swing.JButton jButton1;
     private javax.swing.JPopupMenu jPopupMenu1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField monthfield;
+    private javax.swing.JTextField yearfield;
     // End of variables declaration//GEN-END:variables
 }
