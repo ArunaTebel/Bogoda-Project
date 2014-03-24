@@ -123,6 +123,8 @@ public class GL_issue_cashadvances extends javax.swing.JPanel {
                 "No:", "Date", "Supp:ID", "Name", "Amount", "Max:Allowble"
             }
         ));
+        table.setRowHeight(25);
+        table.setSelectionBackground(new java.awt.Color(51, 204, 0));
         jScrollPane1.setViewportView(table);
         if (table.getColumnModel().getColumnCount() > 0) {
             table.getColumnModel().getColumn(0).setPreferredWidth(10);
