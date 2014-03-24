@@ -1,6 +1,8 @@
 
+import com.sun.org.apache.xalan.internal.res.XSLTErrorResources;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.sql.ResultSet;
 
 
 public class Reciepts_accounts {
@@ -291,6 +293,16 @@ public class Reciepts_accounts {
             MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
             return false;
         }
+        try {
+            ResultSet rs = dbCon.query("SELECT LAST_INSERT_ID()");
+            while(rs.next()){
+            tr_no=rs.getInt(1);
+            }
+
+        } catch (SQLException ex) {
+            MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
+            return false;
+        } 
         return true;
     }
      public boolean addToDebitDataBaseCash() {
@@ -304,13 +316,15 @@ public class Reciepts_accounts {
             return false;
         }
         try {
-            System.out.println(dbCon.getindex("SELECT LAST_INSERT_ID()"));
-           
+            ResultSet rs = dbCon.query("SELECT LAST_INSERT_ID()");
+            while(rs.next()){
+            tr_no=rs.getInt(1);
+            }
 
         } catch (SQLException ex) {
             MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
             return false;
-        }
+        } 
         return true;
     }
      
