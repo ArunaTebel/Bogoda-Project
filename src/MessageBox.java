@@ -10,9 +10,7 @@ import static javax.swing.JOptionPane.YES_NO_OPTION;
 
 public class MessageBox {
 
-    public static void main(String[] args) {
-        showMessage("Whaaaattt??", "My Title", "yes_no");
-    }
+   
 
     public static int showMessage(String message, String title, String type) {
         int showConfirmDialog = 0;

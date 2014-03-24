@@ -1,5 +1,4 @@
 
-import com.sun.org.apache.xalan.internal.res.XSLTErrorResources;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.ResultSet;
@@ -284,6 +283,9 @@ public class Reciepts_accounts {
     public double getCreditTotal(){
         return creditTotal;
     }  
+    public int getTr_no(){
+        return tr_no;
+    }
    
     public boolean addToDebitDataBaseBank() {
         DatabaseManager dbCon = DatabaseManager.getDbCon();
