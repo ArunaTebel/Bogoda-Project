@@ -1,4 +1,8 @@
 
+import java.awt.event.ItemEvent;
+import java.awt.event.KeyEvent;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -16,6 +20,9 @@ public class PRCR_salary_note_anlysis extends javax.swing.JPanel {
     /**
      * Creates new form PRCR_salary_payroll
      */
+    Date_Handler datehandler = new Date_Handler();
+    DatabaseManager dbm=DatabaseManager.getDbCon();
+    
     //Payroll_Salary spiObject = new Payroll_Salary();
     public PRCR_salary_note_anlysis() {
         initComponents();
@@ -23,8 +30,10 @@ public class PRCR_salary_note_anlysis extends javax.swing.JPanel {
 
     public void setCheckrollTabel() {
         PRCR_NoteAnalysis a=new PRCR_NoteAnalysis();
+        a.Set_year(year.getText());
+        a.Set_month(month.getText());
         int columnSize = 0;
-        columnSize = a.getColumnsize("checkroll_personalinfo", "code");
+        columnSize = a.getColumnsize("pr_workdata_"+a.getString(), "code");
         System.out.println(columnSize);
         
         double tSalary=0;
@@ -32,8 +41,8 @@ public class PRCR_salary_note_anlysis extends javax.swing.JPanel {
         double salary[] =new double[columnSize];
         ((DefaultTableModel)jTable1.getModel()).setNumRows(columnSize);
         //double arraySal[] = new double[columnSize];
-        codes = a.getIntArray("checkroll_personalinfo", "code");
-        salary=a.getDoubleArray("checkroll_personalinfo", "full_salary");
+        codes = a.getIntArray("pr_workdata_"+a.getString(), "code");
+        salary=a.getDoubleArray("pr_workdata_"+a.getString(), "full_salary");
         for(int i=0;i<columnSize;i++){
             jTable1.setValueAt(codes[i],i, 1);
             jTable1.setValueAt(salary[i], i, 2);
@@ -45,16 +54,18 @@ public class PRCR_salary_note_anlysis extends javax.swing.JPanel {
 
     public void setStaffTabel() {
          PRCR_NoteAnalysis a=new PRCR_NoteAnalysis();
+         a.Set_year(year.getText());
+        a.Set_month(month.getText());
         int columnSize = 0;
-        columnSize = a.getColumnsize("staff_personalinfo", "code");
+        columnSize = a.getColumnsize("prcr_staffworkdata_"+a.getString(), "code");
         System.out.println(columnSize);
         double  tSalary=0;
         int codes[] = new int[columnSize];
         double salary[] =new double[columnSize];
         ((DefaultTableModel)jTable1.getModel()).setNumRows(columnSize);
        // double arraySal[] = new double[columnSize];
-        codes = a.getIntArray("staff_personalinfo", "code");
-        salary=a.getDoubleArray("staff_personalinfo", "full_pay");
+        codes = a.getIntArray("prcr_staffworkdata_"+a.getString(), "code");
+        salary=a.getDoubleArray("prcr_staffworkdata_"+a.getString(), "full_pay");
         for(int i=0;i<columnSize;i++){
             jTable1.setValueAt(codes[i],i, 1);
             jTable1.setValueAt(salary[i], i, 2);
@@ -104,21 +115,25 @@ public class PRCR_salary_note_anlysis extends javax.swing.JPanel {
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         total = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
         jButton3 = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        month = new javax.swing.JTextField();
+        year = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        division = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        division_jc = new javax.swing.JComboBox();
+        division_lb = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
-        jLabel1.setText("Division");
+        jLabel1.setText("Pay type");
 
         checkrollOrStaff.setEditable(true);
         checkrollOrStaff.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Checkroll", "Staff" }));
@@ -299,13 +314,6 @@ public class PRCR_salary_note_anlysis extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jButton2.setText("Generate");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -355,7 +363,7 @@ public class PRCR_salary_note_anlysis extends javax.swing.JPanel {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 545, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -375,23 +383,88 @@ public class PRCR_salary_note_anlysis extends javax.swing.JPanel {
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
-        jLabel2.setText("Year");
-
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
-
-        jLabel3.setText("Month");
-
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
-            }
-        });
-
         jButton3.setText("Print");
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        month.setText(datehandler.get_today_month());
+        month.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                monthKeyPressed(evt);
+            }
+        });
+
+        year.setText(datehandler.get_today_year());
+        year.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                yearKeyPressed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(month, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(year, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(month, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(year, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
+        jLabel8.setText("Month -Year");
+
+        jLabel2.setText("Division");
+
+        division_jc.setEditable(true);
+        division_jc.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("division_details", "code")));
+        division_jc.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                division_jcItemStateChanged(evt);
+            }
+        });
+
+        javax.swing.GroupLayout divisionLayout = new javax.swing.GroupLayout(division);
+        division.setLayout(divisionLayout);
+        divisionLayout.setHorizontalGroup(
+            divisionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(divisionLayout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jLabel2)
+                .addGap(41, 41, 41)
+                .addComponent(division_jc, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(division_lb, javax.swing.GroupLayout.DEFAULT_SIZE, 14, Short.MAX_VALUE)
+                .addGap(95, 95, 95))
+        );
+        divisionLayout.setVerticalGroup(
+            divisionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, divisionLayout.createSequentialGroup()
+                .addContainerGap(15, Short.MAX_VALUE)
+                .addGroup(divisionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(divisionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(division_jc)
+                        .addComponent(jLabel2))
+                    .addComponent(division_lb, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+
+        jButton2.setText("Generate");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -400,32 +473,31 @@ public class PRCR_salary_note_anlysis extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(18, 18, 18)
-                                .addComponent(checkrollOrStaff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton3)
-                        .addGap(0, 268, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(55, 55, 55)))
+                        .addGap(55, 55, 55))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(17, 17, 17)
+                                .addComponent(jLabel1)
+                                .addGap(33, 33, 33)
+                                .addComponent(checkrollOrStaff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 83, Short.MAX_VALUE)
+                                .addComponent(jLabel8)
+                                .addGap(49, 49, 49))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(division, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton3)))
+                        .addGap(132, 132, 132)))
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(100, 100, 100))
         );
@@ -439,34 +511,42 @@ public class PRCR_salary_note_anlysis extends javax.swing.JPanel {
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 12, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(12, 12, 12)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(checkrollOrStaff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel1))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(34, 34, 34)))
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel8))
+                                .addGap(18, 18, 18))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(6, 6, 6)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(division, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void checkrollOrStaffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkrollOrStaffActionPerformed
-        // TODO add your handling code here:
+String selection = (String) checkrollOrStaff.getSelectedItem();
+
+        if (selection.equalsIgnoreCase("Staff")) {
+
+            division.setVisible(false);
+            
+
+        }
+
+        if (selection.equalsIgnoreCase("Checkroll")) {
+           division.setVisible(true);
+
+        }        // TODO add your handling code here:
 
     }//GEN-LAST:event_checkrollOrStaffActionPerformed
 
@@ -478,6 +558,8 @@ public class PRCR_salary_note_anlysis extends javax.swing.JPanel {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         if (checkrollOrStaff.getSelectedItem() == "Checkroll") {
             PRCR_NoteAnalysis naObject = new PRCR_NoteAnalysis();
+            naObject.Set_year(year.getText());
+            naObject.Set_month(month.getText());
             naObject.setCheckrollNotes();
             N5000T.setText(Integer.toString(naObject.getN5000()));
             N2000T.setText(Integer.toString(naObject.getN2000()));
@@ -492,6 +574,8 @@ public class PRCR_salary_note_anlysis extends javax.swing.JPanel {
         } else {
 
             PRCR_NoteAnalysis naObject2 = new PRCR_NoteAnalysis();
+            naObject2.Set_year(year.getText());
+            naObject2.Set_month(month.getText());
             naObject2.setStaffNotes();
             //jTable1.
             
@@ -512,14 +596,6 @@ public class PRCR_salary_note_anlysis extends javax.swing.JPanel {
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
-
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
-
     private void basicPay11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_basicPay11ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_basicPay11ActionPerformed
@@ -527,6 +603,201 @@ public class PRCR_salary_note_anlysis extends javax.swing.JPanel {
     private void totalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_totalActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_totalActionPerformed
+
+    private void monthKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_monthKeyPressed
+        if (month.getText().equals("Jan")) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                month.setText("Dec");
+                int yr = Integer.parseInt(year.getText());
+
+                year.setText("" + (yr - 1));
+                month.selectAll();
+
+            }
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                month.setText("Feb");
+                month.selectAll();
+            }
+
+        } else if (month.getText().equals("Feb")) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                month.setText("Jan");
+                int yr = Integer.parseInt(year.getText());
+                month.selectAll();
+
+            }
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                month.setText("Mar");
+                month.selectAll();
+            }
+
+        } else if (month.getText().equals("Mar")) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                month.setText("Feb");
+                int yr = Integer.parseInt(year.getText());
+                month.selectAll();
+            }
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                month.setText("Apr");
+                month.selectAll();
+            }
+
+        } else if (month.getText().equals("Apr")) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                month.setText("Mar");
+                int yr = Integer.parseInt(year.getText());
+                month.selectAll();
+            }
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                month.setText("May");
+                month.selectAll();
+            }
+
+        } else if (month.getText().equals("May")) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                month.setText("Apr");
+                int yr = Integer.parseInt(year.getText());
+                month.selectAll();
+
+            }
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+
+                month.setText("Jun");
+                month.selectAll();
+            }
+
+        } else if (month.getText().equals("Jun")) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                month.setText("May");
+                int yr = Integer.parseInt(year.getText());
+                month.selectAll();
+
+            }
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                month.setText("Jul");
+                month.selectAll();
+            }
+
+        } else if (month.getText().equals("Jul")) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                month.setText("Jun");
+                int yr = Integer.parseInt(year.getText());
+                month.selectAll();
+
+            }
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                month.setText("Aug");
+                month.selectAll();
+            }
+
+        } else if (month.getText().equals("Aug")) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                month.setText("Jul");
+                int yr = Integer.parseInt(year.getText());
+                month.selectAll();
+
+            }
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                month.setText("Sep");
+                month.selectAll();
+            }
+
+        } else if (month.getText().equals("Sep")) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                month.setText("Aug");
+                int yr = Integer.parseInt(year.getText());
+                month.selectAll();
+
+            }
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                month.setText("Oct");
+                month.selectAll();
+            }
+
+        } else if (month.getText().equals("Oct")) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                month.setText("Sep");
+                int yr = Integer.parseInt(year.getText());
+                month.selectAll();
+
+            }
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                month.setText("Nov");
+                month.selectAll();
+            }
+
+        } else if (month.getText().equals("Nov")) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                month.setText("Oct");
+                int yr = Integer.parseInt(year.getText());
+                month.selectAll();
+
+            }
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                month.setText("Dec");
+                month.selectAll();
+            }
+
+        } else if (month.getText().equals("Dec")) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                month.setText("Nov");
+                int yr = Integer.parseInt(year.getText());
+                month.selectAll();
+
+            }
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                month.setText("Jan");
+                int yr = Integer.parseInt(year.getText());
+
+                year.setText("" + (yr + 1));
+                month.selectAll();
+            }
+
+        }
+        if (evt.getKeyCode() == KeyEvent.VK_LEFT) {
+            //change.requestFocus();
+            //change.selectAll();
+        }
+        if (evt.getKeyCode() == KeyEvent.VK_RIGHT) {
+            year.requestFocus();
+            year.selectAll();
+        }
+    }//GEN-LAST:event_monthKeyPressed
+
+    private void yearKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_yearKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+            year.setText("" + (Integer.parseInt(year.getText()) + 1));
+            year.selectAll();
+        }
+        if (evt.getKeyCode() == KeyEvent.VK_UP) {
+            year.setText("" + (Integer.parseInt(year.getText()) - 1));
+            year.selectAll();
+        }
+        if (evt.getKeyCode() == KeyEvent.VK_LEFT) {
+            month.requestFocus();
+            month.selectAll();
+        }
+    }//GEN-LAST:event_yearKeyPressed
+
+    private void division_jcItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_division_jcItemStateChanged
+        DatabaseManager dbma = DatabaseManager.getDbCon();
+        String Name = null;
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            String item = evt.getItem().toString();
+
+            try {
+                ResultSet query = dbma.query("SELECT * FROM division_details WHERE code =" + item + "");
+                while (query.next()) {
+                    Name = query.getString("division");
+                    System.out.println(Name);
+                }
+            } catch (SQLException ex) {
+                System.out.println("error");
+            }
+
+            division_lb.setText("" + Name);
+        }
+    }//GEN-LAST:event_division_jcItemStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -542,6 +813,9 @@ public class PRCR_salary_note_anlysis extends javax.swing.JPanel {
     private javax.swing.JTextField basicPay11;
     private javax.swing.JTextField basicPay8;
     private javax.swing.JComboBox checkrollOrStaff;
+    private javax.swing.JPanel division;
+    private javax.swing.JComboBox division_jc;
+    private javax.swing.JLabel division_lb;
     private javax.swing.JTextField fullPay;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -558,19 +832,20 @@ public class PRCR_salary_note_anlysis extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField month;
     private javax.swing.JTextField total;
+    private javax.swing.JTextField year;
     // End of variables declaration//GEN-END:variables
 }

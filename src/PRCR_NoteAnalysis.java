@@ -30,8 +30,12 @@ public class PRCR_NoteAnalysis {
     private int N20;
     private int N10;
     private double pettyCash;
+    String month;
+    String year;
+    String st;
     // private int employCode;
     DatabaseManager dbm = DatabaseManager.getDbCon();
+    Date_Handler month_num = new Date_Handler();
 
     public PRCR_NoteAnalysis() {
         this.n_5000 = 0;
@@ -51,7 +55,24 @@ public class PRCR_NoteAnalysis {
         this.N20 = 0;
         this.N10 = 0;
         this.pettyCash = 0;
+         this.month = null;
+        this.year = null;
+        this.st = null;
         //this.employCode = 0;
+    }
+
+     public void Set_month(String month) {
+        this.month = month;
+        if (month_num.return_index(month) < 10) {
+            st = year + "_0" + month_num.return_index(month);
+        } else {
+            st = year + "_" + month_num.return_index(month);
+        }
+        System.out.println("st-"+st);
+    }
+
+    public void Set_year(String year) {
+        this.year = year;
     }
 
     public void setEmpCode() {
@@ -60,23 +81,23 @@ public class PRCR_NoteAnalysis {
     public void setStaffNotes() {
         Payroll_Salary abc1 = new Payroll_Salary();
         int columnSize = 0;
-        columnSize = getColumnsize("staff_personalinfo", "code");
+        columnSize = getColumnsize("prcr_staffworkdata_"+st, "code");
         System.out.println(columnSize);
 
         int array[] = new int[columnSize];
         double arraySal[] = new double[columnSize];
-        array = getIntArray("staff_personalinfo", "code");
+        array = getIntArray("prcr_staffworkdata_"+st, "code");
 
         for (int i = 0; i < columnSize; i++) {
             System.out.println(array[i]);
             abc1.setEmployCode(array[i]);
-            arraySal[i] = abc1.getFullPay();
+            arraySal[i] = abc1.getFullPay(st);
             System.out.println(arraySal[i]);
 
         }
 
         int arrayN5000[] = new int[columnSize];
-        arrayN5000 = getIntArray("staff_personalinfo", "n_5000");
+        arrayN5000 = getIntArray("prcr_staffworkdata_"+st, "n_5000");
         //int N5000 = 0;
         for (int i = 0; i < columnSize; i++) {
             N5000 = N5000 + arrayN5000[i];
@@ -84,7 +105,7 @@ public class PRCR_NoteAnalysis {
         //N5000T.setText(Integer.toString(N5000));
 
         int arrayN2000[] = new int[columnSize];
-        arrayN2000 = getIntArray("staff_personalinfo", "n_2000");
+        arrayN2000 = getIntArray("prcr_staffworkdata_"+st, "n_2000");
         //int N2000 = 0;
         for (int i = 0; i < columnSize; i++) {
             N2000 = N2000 + arrayN2000[i];
@@ -92,7 +113,7 @@ public class PRCR_NoteAnalysis {
         // N2000T.setText(Integer.toString(N2000));
 
         int arrayN1000[] = new int[columnSize];
-        arrayN1000 = getIntArray("staff_personalinfo", "n_1000");
+        arrayN1000 = getIntArray("prcr_staffworkdata_"+st, "n_1000");
         //int N1000 = 0;
         for (int i = 0; i < columnSize; i++) {
             N1000 = N1000 + arrayN1000[i];
@@ -100,7 +121,7 @@ public class PRCR_NoteAnalysis {
         // N1000T.setText(Integer.toString(N1000));
 
         int arrayN500[] = new int[columnSize];
-        arrayN500 = getIntArray("staff_personalinfo", "n_500");
+        arrayN500 = getIntArray("prcr_staffworkdata_"+st, "n_500");
         //int N500 = 0;
         for (int i = 0; i < columnSize; i++) {
             N500 = N500 + arrayN500[i];
@@ -108,7 +129,7 @@ public class PRCR_NoteAnalysis {
         //N500T.setText(Integer.toString(N500));
 
         int arrayN100[] = new int[columnSize];
-        arrayN100 = getIntArray("staff_personalinfo", "n_100");
+        arrayN100 = getIntArray("prcr_staffworkdata_"+st, "n_100");
         //int N100 = 0;
         for (int i = 0; i < columnSize; i++) {
             N100 = N100 + arrayN100[i];
@@ -116,7 +137,7 @@ public class PRCR_NoteAnalysis {
         //N100T.setText(Integer.toString(N100));
 
         int arrayN50[] = new int[columnSize];
-        arrayN50 = getIntArray("staff_personalinfo", "n_50");
+        arrayN50 = getIntArray("prcr_staffworkdata_"+st, "n_50");
         //int N50 = 0;
         for (int i = 0; i < columnSize; i++) {
             N50 = N50 + arrayN50[i];
@@ -124,7 +145,7 @@ public class PRCR_NoteAnalysis {
         //N50T.setText(Integer.toString(N50));
 
         int arrayN20[] = new int[columnSize];
-        arrayN20 = getIntArray("staff_personalinfo", "n_20");
+        arrayN20 = getIntArray("prcr_staffworkdata_"+st, "n_20");
         //int N20 = 0;
         for (int i = 0; i < columnSize; i++) {
             N20 = N20 + arrayN20[i];
@@ -132,7 +153,7 @@ public class PRCR_NoteAnalysis {
         //N20T.setText(Integer.toString(N20));
 
         int arrayN10[] = new int[columnSize];
-        arrayN10 = getIntArray("staff_personalinfo", "n_10");
+        arrayN10 = getIntArray("prcr_staffworkdata_"+st, "n_10");
         //int N10 = 0;
         for (int i = 0; i < columnSize; i++) {
             N10 = N10 + arrayN10[i];
@@ -144,23 +165,23 @@ public class PRCR_NoteAnalysis {
     public void setCheckrollNotes() {
         CheckrollSallaryCal abc = new CheckrollSallaryCal();
         int columnSize = 0;
-        columnSize = getColumnsize("checkroll_personalinfo", "code");
-        System.out.println(columnSize);
+        columnSize = getColumnsize("pr_workdata_"+st, "code");
+        System.out.println("colmnsiz"+columnSize);
 
         int array[] = new int[columnSize];
         double arraySal[] = new double[columnSize];
-        array = getIntArray("checkroll_personalinfo", "code");
+        array = getIntArray("pr_workdata_"+st, "code");
 
         for (int i = 0; i < columnSize; i++) {
-            System.out.println(array[i]);
+            System.out.println("arrayindex-"+array[i]);
             abc.setEmployCode(array[i]);
-            arraySal[i] = abc.getFinalSalary();
-            System.out.println(arraySal[i]);
+            arraySal[i] = abc.getFinalSalary(st);
+            System.out.println("salary i-"+arraySal[i]);
 
         }
 
         int arrayN5000[] = new int[columnSize];
-        arrayN5000 = getIntArray("checkroll_personalinfo", "n_5000");
+        arrayN5000 = getIntArray("pr_workdata_"+st, "n_5000");
         //int N5000 = 0;
         for (int i = 0; i < columnSize; i++) {
             N5000 = N5000 + arrayN5000[i];
@@ -168,7 +189,7 @@ public class PRCR_NoteAnalysis {
         //N5000T.setText(Integer.toString(N5000));
 
         int arrayN2000[] = new int[columnSize];
-        arrayN5000 = getIntArray("checkroll_personalinfo", "n_2000");
+        arrayN2000 = getIntArray("pr_workdata_"+st, "n_2000");
         //int N2000 = 0;
         for (int i = 0; i < columnSize; i++) {
             N2000 = N2000 + arrayN2000[i];
@@ -176,7 +197,7 @@ public class PRCR_NoteAnalysis {
         //N2000T.setText(Integer.toString(N2000));
 
         int arrayN1000[] = new int[columnSize];
-        arrayN1000 = getIntArray("checkroll_personalinfo", "n_1000");
+        arrayN1000 = getIntArray("pr_workdata_"+st, "n_1000");
         //int N1000 = 0;
         for (int i = 0; i < columnSize; i++) {
             N1000 = N1000 + arrayN1000[i];
@@ -184,7 +205,7 @@ public class PRCR_NoteAnalysis {
         //N1000T.setText(Integer.toString(N1000));
 
         int arrayN500[] = new int[columnSize];
-        arrayN500 = getIntArray("checkroll_personalinfo", "n_5000");
+        arrayN500 = getIntArray("pr_workdata_"+st, "n_500");
         //int N500 = 0;
         for (int i = 0; i < columnSize; i++) {
             N500 = N500 + arrayN500[i];
@@ -192,7 +213,7 @@ public class PRCR_NoteAnalysis {
         //N500T.setText(Integer.toString(N500));
 
         int arrayN100[] = new int[columnSize];
-        arrayN100 = getIntArray("checkroll_personalinfo", "n_100");
+        arrayN100 = getIntArray("pr_workdata_"+st, "n_100");
         //int N100 = 0;
         for (int i = 0; i < columnSize; i++) {
             N100 = N100 + arrayN100[i];
@@ -200,7 +221,7 @@ public class PRCR_NoteAnalysis {
         //N100T.setText(Integer.toString(N100));
 
         int arrayN50[] = new int[columnSize];
-        arrayN50 = getIntArray("checkroll_personalinfo", "n_50");
+        arrayN50 = getIntArray("pr_workdata_"+st, "n_50");
         //int N50 = 0;
         for (int i = 0; i < columnSize; i++) {
             N50 = N50 + arrayN50[i];
@@ -208,7 +229,7 @@ public class PRCR_NoteAnalysis {
         //N50T.setText(Integer.toString(N50));
 
         int arrayN20[] = new int[columnSize];
-        arrayN20 = getIntArray("checkroll_personalinfo", "n_20");
+        arrayN20 = getIntArray("pr_workdata_"+st, "n_20");
         //int N20 = 0;
         for (int i = 0; i < columnSize; i++) {
             N20 = N20 + arrayN20[i];
@@ -216,7 +237,7 @@ public class PRCR_NoteAnalysis {
         //N20T.setText(Integer.toString(N20));
 
         int arrayN10[] = new int[columnSize];
-        arrayN10 = getIntArray("checkroll_personalinfo", "n_10");
+        arrayN10 = getIntArray("pr_workdata_"+st, "n_10");
         //int N10 = 0;
         for (int i = 0; i < columnSize; i++) {
             N10 = N10 + arrayN10[i];
@@ -225,76 +246,76 @@ public class PRCR_NoteAnalysis {
 
     }
 
-    public void ChNoteAnalysis(double salary, int employCode) {
+    public void ChNoteAnalysis(double salary, int employCode,String s) {
 
         n_5000 = (int) (salary / 5000);
         double rem = salary % 5000;
-        dbm.updateDatabase("checkroll_personalinfo", "code", employCode, "n_5000", n_5000);
+        dbm.updateDatabase("pr_workdata_"+s, "code", employCode, "n_5000", n_5000);
 
         n_2000 = (int) (rem / 2000);
         rem = rem % 2000;
-        dbm.updateDatabase("checkroll_personalinfo", "code", employCode, "n_2000", n_2000);
+        dbm.updateDatabase("pr_workdata_"+s, "code", employCode, "n_2000", n_2000);
 
         n_1000 = (int) (rem / 1000);
         rem = rem % 1000;
-        dbm.updateDatabase("checkroll_personalinfo", "code", employCode, "n_1000", n_1000);
+        dbm.updateDatabase("pr_workdata_"+s, "code", employCode, "n_1000", n_1000);
 
         n_500 = (int) (rem / 500);
         rem = rem % 500;
-        dbm.updateDatabase("checkroll_personalinfo", "code", employCode, "N_500", n_500);
+        dbm.updateDatabase("pr_workdata_"+s, "code", employCode, "N_500", n_500);
 
         n_100 = (int) (rem / 100);
         rem = salary % 100;
-        dbm.updateDatabase("checkroll_personalinfo", "code", employCode, "n_100", n_100);
+        dbm.updateDatabase("pr_workdata_"+s, "code", employCode, "n_100", n_100);
 
         n_50 = (int) (rem / 50);
         rem = rem % 50;
-        dbm.updateDatabase("checkroll_personalinfo", "code", employCode, "n_50", n_50);
+        dbm.updateDatabase("pr_workdata_"+s, "code", employCode, "n_50", n_50);
 
         n_20 = (int) (rem / 20);
         rem = rem % 20;
-        dbm.updateDatabase("checkroll_personalinfo", "code", employCode, "n_20", n_20);
+        dbm.updateDatabase("pr_workdata_"+s, "code", employCode, "n_20", n_20);
 
         n_10 = (int) (rem / 10);
-        dbm.updateDatabase("checkroll_personalinfo", "code", employCode, "n_10", n_10);
+        dbm.updateDatabase("pr_workdata_"+s, "code", employCode, "n_10", n_10);
 
         pettyCash = rem % 10;
         System.out.println("5000-" + n_5000 + "-2000-" + n_2000 + "-1000-" + n_1000 + "," + n_500 + "," + n_100);
 
     }
 
-    public void StNoteAnalysis(double salary, int employCode) {//when we input salary of any employer number of notes that needed to pay salary will be updated in database
+    public void StNoteAnalysis(double salary, int employCode,String s) {//when we input salary of any employer number of notes that needed to give him will be updated in database
 
         n_5000 = (int) (salary / 5000);
         double rem = salary % 5000;
-        dbm.updateDatabase("staff_personalinfo", "code", employCode, "n_5000", n_5000);
+        dbm.updateDatabase("prcr_staffworkdata_"+s, "code", employCode, "n_5000", n_5000);
 
         n_2000 = (int) (rem / 2000);
         rem = rem % 2000;
-        dbm.updateDatabase("staff_personalinfo", "code", employCode, "n_2000", n_2000);
+        dbm.updateDatabase("prcr_staffworkdata_"+s, "code", employCode, "n_2000", n_2000);
 
         n_1000 = (int) (rem / 1000);
         rem = rem % 1000;
-        dbm.updateDatabase("staff_personalinfo", "code", employCode, "n_1000", n_1000);
+        dbm.updateDatabase("prcr_staffworkdata_"+s, "code", employCode, "n_1000", n_1000);
 
         n_500 = (int) (rem / 500);
         rem = rem % 500;
-        dbm.updateDatabase("staff_personalinfo", "code", employCode, "N_500", n_500);
+        dbm.updateDatabase("prcr_staffworkdata_"+s, "code", employCode, "N_500", n_500);
 
         n_100 = (int) (rem / 100);
         rem = salary % 100;
-        dbm.updateDatabase("staff_personalinfo", "code", employCode, "n_100", n_100);
+        dbm.updateDatabase("prcr_staffworkdata_"+s, "code", employCode, "n_100", n_100);
 
         n_50 = (int) (rem / 50);
         rem = rem % 50;
-        dbm.updateDatabase("staff_personalinfo", "code", employCode, "n_50", n_50);
+        dbm.updateDatabase("prcr_staffworkdata_"+s, "code", employCode, "n_50", n_50);
 
         n_20 = (int) (rem / 20);
         rem = rem % 20;
-        dbm.updateDatabase("staff_personalinfo", "code", employCode, "n_20", n_20);
+        dbm.updateDatabase("prcr_staffworkdata_"+s, "code", employCode, "n_20", n_20);
 
         n_10 = (int) (rem / 10);
-        dbm.updateDatabase("staff_personalinfo", "code", employCode, "n_10", n_10);
+        dbm.updateDatabase("prcr_staffworkdata_"+s, "code", employCode, "n_10", n_10);
 
         pettyCash = rem % 10;
         // System.out.println("5000-" + n_5000 + "-2000-" + n_2000 + "-1000-" + n_1000 + "," + n_500 + "," + n_100);
@@ -331,6 +352,9 @@ public class PRCR_NoteAnalysis {
 
     public int getN10() {
         return this.N10;
+    }
+    public String getString(){
+        return st;
     }
 
     public int[] getIntArray(String table_name, String column_name) {

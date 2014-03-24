@@ -316,7 +316,7 @@ public class PRCR_work_overtime extends javax.swing.JPanel {
         }
          ///DONT DELETE checkroll_personalinfo SQL table
         //copying worker's codes to newly created table
-        dbm.CopyTableColumn("staff_personalinfo", "code", "prcr_staffworkdata_" + yr_mnth, "code");
+        dbm.CopyTable2Columns("staff_personalinfo", "code","basic_salary", "prcr_staffworkdata_" + yr_mnth, "code","basic_salary");
        // dbm.CopyTableColumn("staff_personalinfo", "basic_salary", "prcr_staffworkdata_" + yr_mnth, "basic_salary");
         System.out.println("table copied");
 

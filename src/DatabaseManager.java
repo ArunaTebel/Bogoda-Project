@@ -67,6 +67,12 @@ public final class DatabaseManager {
         int result = statement.executeUpdate(insertQuery);
         return result;
     }
+    
+    public int getindex(String insertQuery) throws SQLException {
+        statement = db.conn.createStatement();
+        int result = statement.executeUpdate(insertQuery);
+        return result;
+    }
 
     public String checknReturnData(String table_name, String table_column_giving, Object row_element, String table_column_need) {
         DatabaseManager dbm = DatabaseManager.getDbCon();

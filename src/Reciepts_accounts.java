@@ -4,9 +4,10 @@ import java.sql.SQLException;
 
 
 public class Reciepts_accounts {
-
-    int refNo;
-    int recieptNo; // auto
+    
+    int tr_no;
+    String refNo;
+    String recieptNo; // auto
     Date date; // this should be automatically diplayed
     String payType; // this is selected from a combo box... it should contain cash/cheque and credit.. Deafault should be set to cash
     int debit_accountCode; // set default the account code of cash..
@@ -27,8 +28,10 @@ public class Reciepts_accounts {
     double creditTotal; // total of all credit entries
 
     public Reciepts_accounts() {
-        refNo = 0;
-        recieptNo = 0;
+        
+        tr_no=0;
+        refNo = null;
+        recieptNo = null;
         date = null;
         payType = null;
         debit_accountCode = 0;
@@ -54,10 +57,10 @@ public class Reciepts_accounts {
     
     // Setters
 
-    public void setRefNo(int refNo) {
+    public void setRefNo(String refNo) {
         this.refNo = refNo;
     }
-    public void setRecieptNo(int recieptNo){
+    public void setRecieptNo(String recieptNo){
         this.recieptNo=recieptNo;
     }
     public void setDate(Date date){
@@ -171,10 +174,10 @@ public class Reciepts_accounts {
     // Getters
     
     
-    public int getRefNo() {
+    public String getRefNo() {
         return refNo;
     }
-    public int getRecieptNo(){
+    public String getRecieptNo(){
         return recieptNo;
     }
     public Date getDate(){
@@ -293,7 +296,17 @@ public class Reciepts_accounts {
      public boolean addToDebitDataBaseCash() {
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         try {
-            dbCon.insert("INSERT INTO account_reciept_debitside(ref_no,reciept_no,date,pay_type,debit_account_id,debit_account_name,debit_description,debit_amount) VALUES('" + refNo + "','" + recieptNo + "','" +date+"','" +payType+"','" +debit_accountCode+"','" +debit_accountName+"','" +debit_description+"','" + debitAmount+"')");
+           dbCon.insert("INSERT INTO account_reciept_debitside(ref_no,reciept_no,date,pay_type,debit_account_id,debit_account_name,debit_description,debit_amount) VALUES('" + refNo + "','" + recieptNo + "','" +date+"','" +payType+"','" +debit_accountCode+"','" +debit_accountName+"','" +debit_description+"','" + debitAmount+"')");
+           
+
+        } catch (SQLException ex) {
+            MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
+            return false;
+        }
+        try {
+            System.out.println(dbCon.getindex("SELECT LAST_INSERT_ID()"));
+           
+
         } catch (SQLException ex) {
             MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
             return false;
@@ -304,8 +317,9 @@ public class Reciepts_accounts {
      public boolean addToCreditDataBase(int ref_num, int credit_acnt_code, String credit_acnt_name, String credit_descriptn,double credit_amount) {
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         try {
-            dbCon.insert("INSERT INTO account_reciept_creditside(reciept_no,credit_account_id,credit_account_name,credit_description,credit_amount) VALUES('" + ref_num + "','" + credit_acnt_code + "','" + credit_acnt_name + "','" + credit_descriptn + "','"+ credit_amount+"')");
+            dbCon.insert("INSERT INTO account_reciept_creditside(tr_no,credit_account_id,credit_account_name,credit_description,credit_amount) VALUES('" + tr_no + "','" + credit_acnt_code + "','" + credit_acnt_name + "','" + credit_descriptn + "','"+ credit_amount+"')");
 
+            
         } catch (SQLException ex) {
             MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
             return false;

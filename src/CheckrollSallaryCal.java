@@ -16,7 +16,7 @@ import java.util.logging.Logger;
  */
 public class CheckrollSallaryCal {
 
-    public static void main(String[] args) {
+ //   public static void main(String[] args) {
 //        CheckrollSallaryCal abc = new CheckrollSallaryCal();
 //        System.out.println(abc.getColumnsize("checkroll_personalinfo", "code"));
 //        int array[]=new int[5];
@@ -26,7 +26,7 @@ public class CheckrollSallaryCal {
 //            System.out.println(array[i]);
 //            
 //        }
-    CheckrollSallaryCal abc = new CheckrollSallaryCal();
+       // CheckrollSallaryCal abc = new CheckrollSallaryCal();
 //        System.out.println(abc.getColumnsize("checkroll_personalinfo", "code"));
 //        int array[]=new int[4];
 //        double arraySal[]=new double[4];
@@ -37,8 +37,8 @@ public class CheckrollSallaryCal {
 //            abc.setEmployCode(array[i]);
 //            arraySal[i]=abc.getFinalSalary();
 //            System.out.println(arraySal[i]);
-            
-   //     }
+
+        //     }
 //    abc.setEmployCode(110);
 //    System.out.println(abc.getNormalDaysAmount());
 //        System.out.println(abc.getSundayAmount());
@@ -46,10 +46,11 @@ public class CheckrollSallaryCal {
 //    System.out.println(abc.getTotalBasicSallary());
 //        System.out.println(abc.getWelfareContribution());
 //        System.out.println(abc.getFinalSalary());
-  }
+ //   }
 
     DatabaseManager dbm = DatabaseManager.getDbCon();
-    
+    Date_Handler month_num = new Date_Handler();
+    PRCR_NoteAnalysis naObject3 = new PRCR_NoteAnalysis();
 
     private int employCode;
     private int normalDays;//Total worked normal days Calculate using database
@@ -85,9 +86,10 @@ public class CheckrollSallaryCal {
     private double storeDeductions;
     private double pettyCash;
     private double FinalSalary;
-    
-
-    
+    private String month;
+    private String year;
+    private String st;
+    private double extrapay;
 
     public CheckrollSallaryCal() {//NC
         this.employCode = 0;
@@ -108,17 +110,38 @@ public class CheckrollSallaryCal {
         this.fineDeductions = 0;
         this.storeDeductions = 0;
         this.pettyCash = 0;
-        
+        this.extrapay = 0;
+        this.month = null;
+        this.year = null;
+        this.st = null;
+
     }
 
     //setters
+    public void Set_month(String month) {
+        this.month = month;
+        if (month_num.return_index(month) < 10) {
+            st = year + "_0" + month_num.return_index(month);
+        } else {
+            st = year + "_" + month_num.return_index(month);
+        }
+        System.out.println(st);
+    }
+
+    public void Set_year(String year) {
+        this.year = year;
+    }
+
     public void setEmployCode(int employCode) {
         this.employCode = employCode;
     }
 
     public void setNormalDays() {
-        this.normalDays = Integer.parseInt(dbm.checknReturnData("checkroll_personalinfo", "code", employCode, "normal_days"));
-
+        if(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "normal_days")!=null){
+        this.normalDays = Integer.parseInt(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "normal_days"));
+        }else{
+        this.normalDays=0;
+        }
         //should be calculated using database
     }
 
@@ -136,11 +159,15 @@ public class CheckrollSallaryCal {
 
     public void setNormalDaysAmount() {
         normalDaysAmount = getNormalDays() * getNormaldaysRate();
+        
     }
 
     public void setSundays() {
-        this.sundays = Integer.parseInt(dbm.checknReturnData("checkroll_personalinfo", "code", employCode, "sundays"));
-
+        if(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "sundays")!=null){
+        this.sundays = Integer.parseInt(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "sundays"));
+        }else{
+        this.sundays=0;
+        }
         //should be calculated using database
     }
 
@@ -184,16 +211,48 @@ public class CheckrollSallaryCal {
 
     }
 
-    public void setMargin() {
-        try {
-            ResultSet rs = dbm.query("SELECT margin FROM checkroll_pay_info");
-            rs.next();
-            margin = rs.getInt("margin");
-        } catch (SQLException ex) {
-            Logger.getLogger(CheckrollSallaryCal.class.getName()).log(Level.SEVERE, null, ex);
+    public void setMargin() {//should change
+        if (checkDataAvailability("prcr_margin_dates", "month", st, "margin")) {
+            this.margin = Integer.parseInt(checknReturnDataForStrings("prcr_margin_dates", "month", st, "margin"));
+        }else{
+        PRCR_add_margin_dates amd=new PRCR_add_margin_dates(st);
+        amd.setVisible(true);
+        System.out.println("back to main");
+//        this.margin = Integer.parseInt(checknReturnDataForStrings("prcr_margin_dates", "month", st, "margin"));
+            System.out.println("back to main2");
         }
 
     }
+
+    public boolean checkDataAvailability(String table_name, String table_column_giving, String row_element, String table_column_need) {
+        DatabaseManager dbm = DatabaseManager.getDbCon();
+        String s;
+        try {
+            ResultSet query = dbm.query("SELECT * FROM " + table_name + " where " + table_column_giving + " LIKE '" + row_element + "'");
+            while (query.next()) {
+                s = query.getString(table_column_need);
+                return true;
+            }
+        } catch (SQLException ex) {
+            return false;
+        }
+        return false;
+    }
+
+    public String checknReturnDataForStrings(String table_name, String table_column_giving, Object row_element, String table_column_need) {
+        DatabaseManager dbm = DatabaseManager.getDbCon();
+        try {
+            ResultSet query = dbm.query("SELECT * FROM " + table_name + " where " + table_column_giving + " LIKE '" + row_element + "'");
+            while (query.next()) {
+                return (query.getString(table_column_need));
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            return "" + ex.getErrorCode();
+        }
+        return null;
+    }
+
 
     public void setIncentive1Amount() {//
         incentive1Amount = getWorkdays() * getIncentive1Rate();
@@ -224,8 +283,11 @@ public class CheckrollSallaryCal {
     }
 
     public void setOTBeforeHours() {
-        this.OTBeforeHours = Integer.parseInt(dbm.checknReturnData("checkroll_personalinfo", "code", employCode, "ot_before_hours"));
-
+        if(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "ot_before_hours")!=null){
+        this.OTBeforeHours = Integer.parseInt(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "ot_before_hours"));
+        }else{
+        this.OTBeforeHours=0;
+        }
         //calculate using database
     }
 
@@ -245,8 +307,11 @@ public class CheckrollSallaryCal {
     }
 
     public void setOTAfterHours() {
-        this.OTAfterHours = Integer.parseInt(dbm.checknReturnData("checkroll_personalinfo", "code", employCode, "ot_after_hours"));
-
+        if(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "ot_after_hours")!=null){
+        this.OTAfterHours = Integer.parseInt(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "ot_after_hours"));
+        }else{
+        this.OTAfterHours=0;
+        }
         //calculate using database
     }
 
@@ -254,8 +319,23 @@ public class CheckrollSallaryCal {
         OTAfterAmount = getOTAfterHours() * getOTAfterRate();
     }
 
+    public void setExtrapayAmount() {
+        if(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "extra_pay")!=null){
+        this.extrapay = Double.parseDouble(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "extra_pay"));
+        }else{
+        this.extrapay=0;
+        }
+    }
+
     public void setTotalBasicSallary() {
         totalBasicSalary = getNormalDaysAmount() + getSundayAmount() + getTotalIncentiveAmount(); //+ getOTAfterAmount() + getOTBeforeAmount();
+        System.err.println("normal amount"+getNormalDaysAmount());
+        System.err.println("sunday amount"+getSundayAmount());
+        System.err.println("incentive"+getTotalIncentiveAmount());
+        System.err.println("incentive1"+incentive1Amount);
+        System.err.println("margin"+margin);
+        System.err.println("incentive2"+incentive2Amount);
+        System.err.println("total basic"+totalBasicSalary);
     }
 
     public void setEPFRate() {
@@ -325,7 +405,23 @@ public class CheckrollSallaryCal {
     }
 
     public void setFinalSalary() {
-        FinalSalary = getTotalBasicSallary()+ getOTAfterAmount() + getOTBeforeAmount() - getETFContribution() - getEPFContribution()-getWelfareContribution() - getLoanDeductions() - getFineDeductions() - getStoreDeductions(); //+ getPettyCash();
+        FinalSalary = getTotalBasicSallary() + getOTAfterAmount() + getOTBeforeAmount() + getExtrapayAmount() - getETFContribution() - getEPFContribution() - getWelfareContribution() - getLoanDeductions() - getFineDeductions() - getStoreDeductions(); //+ getPettyCash();
+        System.out.println("********8***********");
+        
+        System.out.println("total basic-"+totalBasicSalary);
+        System.out.println("normal-"+normalDaysAmount);
+        System.out.println("sunday-"+sundaysAmount);
+        System.out.println("Incentive1-"+incentive1Amount);
+        
+        System.out.println("Ot aftr-"+OTAfterAmount);
+        System.out.println("Ot before-"+OTBeforeAmount);
+        System.out.println("Extrapay amount-"+extrapay);
+        System.out.println("EPF-"+EPFContribution);
+        System.out.println("ETF-"+ETFContribution);
+        System.out.println("Welfare-"+welfareContribution);
+        
+        System.out.println("setFinalSalary()-FinalSalary="+FinalSalary);
+         System.out.println("********8***********");
     }
 
     //getters
@@ -375,7 +471,7 @@ public class CheckrollSallaryCal {
     }
 
     public int getMargin() {
-        setMargin();
+        //setMargin();
         return margin;
     }
 
@@ -422,6 +518,11 @@ public class CheckrollSallaryCal {
     public double getOTAfterAmount() {
         setOTAfterAmount();
         return OTAfterAmount;
+    }
+
+    public double getExtrapayAmount() {
+        setExtrapayAmount();
+        return extrapay;
     }
 
     public double getTotalBasicSallary() {
@@ -488,17 +589,24 @@ public class CheckrollSallaryCal {
         setPettyCash();
         return pettyCash;
     }
-
-    public double getFinalSalary() {
-        PRCR_NoteAnalysis naObject=new PRCR_NoteAnalysis();
+    public String getString(){
+        return st;
+    }
+    public double getFinalSalary(String ss) {
+        this.st=ss;
+        setMargin();
+        //PRCR_NoteAnalysis naObject3 = new PRCR_NoteAnalysis();
         setFinalSalary();
-        dbm.updateDatabase("checkroll_personalinfo", "code", employCode, "full_salary", FinalSalary);
-        naObject.ChNoteAnalysis(FinalSalary,employCode);//set the note values and update data base
+        System.out.println("final salary-noteanalysis"+FinalSalary);
+        dbm.updateDatabase("pr_workdata_" + ss, "code", employCode, "full_salary", FinalSalary);
+        naObject3.ChNoteAnalysis(FinalSalary, employCode,ss);//set the note values and update data base
         return FinalSalary;
     }
-    
-    
-  
+    public double getFinalSalary() {
+        
+        setFinalSalary();
+        System.out.println("final salary-checkroll"+FinalSalary);
+        return FinalSalary;
+    }
 
-   
 }
