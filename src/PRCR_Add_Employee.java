@@ -21,6 +21,7 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
      */
     PersonalInfo piObject = new PersonalInfo();
     DatabaseManager dbm=DatabaseManager.getDbCon();
+    private int reg=0;//used to update database table:checkroll_personalinfo,column:registerorcasual,if registered reg=1 
 
     public PRCR_Add_Employee() {
         initComponents();
@@ -449,9 +450,16 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
         piObject.addToDataBase();
 
         if (staffOrCheckroll.getSelectedItem() == "Checkroll") {
+            
+            if(registerOrNot.isSelected()){ //use to update database table:checkroll_personalinfo,column:registerorcasual,if registered reg=1 
+            reg=1;
+            }
+            else{reg=0;}
+            
+            
             DatabaseManager dbCon = DatabaseManager.getDbCon();
             try {
-                dbCon.insert("INSERT INTO checkroll_personalinfo(code,division,normal_days,sundays,ot_before_hours,ot_after_hours) VALUES('" + Integer.parseInt(code.getText()) + "','"+division_jc.getSelectedItem().toString()+"','0','0','0','0')");
+                dbCon.insert("INSERT INTO checkroll_personalinfo(code,division,register_or_casual) VALUES('" + Integer.parseInt(code.getText()) + "','"+division_jc.getSelectedItem().toString()+"','"+reg+"')");
             } catch (SQLException ex) {
                 Logger.getLogger(PRCR_Add_Employee.class.getName()).log(Level.SEVERE, null, ex);
             }
