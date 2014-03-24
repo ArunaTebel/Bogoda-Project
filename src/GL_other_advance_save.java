@@ -172,6 +172,11 @@ public class GL_other_advance_save extends javax.swing.JPanel {
         page_info.setText("Page X of XX");
 
         jButton5.setText("Supplier Bill Summery");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -288,6 +293,11 @@ public class GL_other_advance_save extends javax.swing.JPanel {
 
         }
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    Common_Other_Advance_Database_Handling test = new Common_Other_Advance_Database_Handling();
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        test.Filtered_table(table,"gl_other_advance_book","Chemicals", 1, 50);
+    }//GEN-LAST:event_jButton5ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
