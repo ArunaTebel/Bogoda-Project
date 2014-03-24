@@ -81,6 +81,7 @@ public final class DatabaseManager {
         }
         return null;
     }
+
     public String checknReturnStringData(String table_name, String table_column_giving, String row_element, String table_column_need) {
         DatabaseManager dbm = DatabaseManager.getDbCon();
         try {
@@ -282,7 +283,8 @@ public final class DatabaseManager {
         }
         return true;
     }
-    public boolean Inserting_To_The_Table_Filtered(javax.swing.JTable table, String table_name, String column_name, int table_column_num, int bottom, int top,String column_filtering,String element) {
+
+    public boolean Inserting_To_The_Table_Filtered(javax.swing.JTable table, String table_name, String column_name, int table_column_num, int bottom, int top, String column_filtering, String element) {
 
         int num_of_rows_filled_in_table = 0;
         int num_of_rows_in_the_database = 0;
@@ -291,10 +293,10 @@ public final class DatabaseManager {
          num_of_columns_filled_in_table++;
          } */
         DatabaseManager dbm = DatabaseManager.getDbCon();
-      //  "SELECT * FROM " + table_name + " WHERE " + table_column_giving + " =" + row_element + ""
+        //  "SELECT * FROM " + table_name + " WHERE " + table_column_giving + " =" + row_element + ""
 
         try {
-            ResultSet query = dbm.query("SELECT * FROM " + table_name + " where " + column_filtering + " LIKE '"+ element+"'");
+            ResultSet query = dbm.query("SELECT * FROM " + table_name + " where " + column_filtering + " LIKE '" + element + "'");
             while (query.next()) {
                 num_of_rows_in_the_database++;
             }
@@ -304,7 +306,7 @@ public final class DatabaseManager {
 
         if (num_of_rows_in_the_database > bottom) {
             try {
-                ResultSet query = dbm.query("SELECT * FROM " + table_name + " where " + column_filtering + " LIKE '"+ element+"'");
+                ResultSet query = dbm.query("SELECT * FROM " + table_name + " where " + column_filtering + " LIKE '" + element + "'");
                 while (query.next()) {
                     count++;
                     if (count < bottom) {
@@ -325,7 +327,6 @@ public final class DatabaseManager {
         }
         return true;
     }
-    
 
     public int Checking_Length_Of_The_Table(String table_name, String column_name) {
 
@@ -409,8 +410,8 @@ public final class DatabaseManager {
 
         }
     }
-    
-     public void CopyTable2Columns(String table_name1, String table1_column1,String table1_column2, String table_name2, String table2_column1,String table2_column2) {
+
+    public void CopyTable2Columns(String table_name1, String table1_column1, String table1_column2, String table_name2, String table2_column1, String table2_column2) {
 
         DatabaseManager dbm = DatabaseManager.getDbCon();
         try {
@@ -418,8 +419,8 @@ public final class DatabaseManager {
             while (query.next()) {
 
                 try {
-                   // dbCon.insert("INSERT INTO bank(bank_id,bank_name) VALUES('" + bankCode + "','" + bankName + "')");
-                    dbm.insert("INSERT INTO " + table_name2 + "(" + table2_column1 + ","+table2_column2+") VALUES(" + query.getString(table1_column1) + ","+query.getString(table1_column2)+")");
+                    // dbCon.insert("INSERT INTO bank(bank_id,bank_name) VALUES('" + bankCode + "','" + bankName + "')");
+                    dbm.insert("INSERT INTO " + table_name2 + "(" + table2_column1 + "," + table2_column2 + ") VALUES(" + query.getString(table1_column1) + "," + query.getString(table1_column2) + ")");
                 } catch (SQLException ex) {
                     MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
                 }
@@ -427,6 +428,60 @@ public final class DatabaseManager {
         } catch (SQLException ex) {
 
         }
+    }
+
+    public double checknReturnTotalForNoteAnalysis(String table_name, String table_column_giving1, Object row_element1, String table_column_giving2, Object row_element2, String table_column_need) {
+        DatabaseManager dbm = DatabaseManager.getDbCon();
+        double value = 0;
+        try {
+            //     ResultSet query = dbm.query("SELECT * FROM " + table_name + " WHERE " + table_column_giving1 + " ='" + row_element1 + " 'AND " + table_column_giving2 +" <'" + row_element2 + "'");
+            ResultSet query = dbm.query("SELECT * FROM " + table_name + " WHERE " + table_column_giving1 + " ='" + row_element1 + " 'AND " + table_column_giving2 + " LIKE'" + row_element2 + "'");
+
+            while (query.next()) {
+                value = value + query.getDouble(table_column_need);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            //return ""+ex.getErrorCode();            
+        }
+        return value;
+    }
+
+    public int checknReturnNumberOfEntriesForNoteAnalysis(String table_name, String table_column_giving1, Object row_element1, String table_column_giving2, Object row_element2, String table_column_need) {
+        DatabaseManager dbm = DatabaseManager.getDbCon();
+        int count = 0;
+        try {
+            //     ResultSet query = dbm.query("SELECT * FROM " + table_name + " WHERE " + table_column_giving1 + " ='" + row_element1 + " 'AND " + table_column_giving2 +" <'" + row_element2 + "'");
+            ResultSet query = dbm.query("SELECT * FROM " + table_name + " WHERE " + table_column_giving1 + " ='" + row_element1 + " 'AND " + table_column_giving2 + " LIKE'" + row_element2 + "'");
+
+            while (query.next()) {
+                count++;
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            //return ""+ex.getErrorCode();            
+        }
+        return count;
+    }
+
+        public int[] checknReturnIntArrayForNoteAnalysis(String table_name, String table_column_giving1, Object row_element1, String table_column_giving2, Object row_element2, String table_column_need) {
+        DatabaseManager dbm = DatabaseManager.getDbCon();
+        int count=0;
+        int num = checknReturnNumberOfEntriesForNoteAnalysis(table_name, table_column_giving1, row_element1, table_column_giving2, row_element2,table_column_need);
+        int[] arr = new int[num];
+        try {
+            //     ResultSet query = dbm.query("SELECT * FROM " + table_name + " WHERE " + table_column_giving1 + " ='" + row_element1 + " 'AND " + table_column_giving2 +" <'" + row_element2 + "'");
+            ResultSet query = dbm.query("SELECT * FROM " + table_name + " WHERE " + table_column_giving1 + " ='" + row_element1 + " 'AND " + table_column_giving2 + " LIKE'" + row_element2 + "'");
+
+            while (query.next()) {
+                arr[count]=query.getInt(table_column_need);
+                count++;
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            //return ""+ex.getErrorCode();            
+        }
+        return arr;
     }
 
 }

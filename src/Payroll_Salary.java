@@ -23,11 +23,15 @@ public class Payroll_Salary {
     private double welfarePer;
     private double otRate;
     private int otHours;
+    String month;
+    String year;
+    String st;
 
     private double pettyCash;
 
     DatabaseManager dbm = DatabaseManager.getDbCon();
     PRCR_NoteAnalysis naObject=new PRCR_NoteAnalysis();
+    Date_Handler month_num = new Date_Handler();
 
     public Payroll_Salary() {
         this.employCode = 0;
@@ -40,6 +44,24 @@ public class Payroll_Salary {
         this.otHours = 0;
         
         this.pettyCash=0;
+        month = null;
+        year = null;
+        st = null;
+
+    }
+
+    public void Set_month(String month) {
+        this.month = month;
+        if (month_num.return_index(month) < 10) {
+            st = year + "_0" + month_num.return_index(month);
+        } else {
+            st = year + "_" + month_num.return_index(month);
+        }
+        System.out.println(st);
+    }
+
+    public void Set_year(String year) {
+        this.year = year;
     }
 
     public void setEmployCode(int employCode) {
@@ -94,14 +116,22 @@ public class Payroll_Salary {
         this.name = dbm.checknReturnData("personal_info", "code", employCode, "name");
         return this.name;
     }
-
+    MessageBox msg=new MessageBox();
     public double setBasic() {
-        this.basic = Double.parseDouble(dbm.checknReturnData("staff_personalinfo", "code", employCode, "basic_salary"));
+        if(dbm.checknReturnData("prcr_staffworkdata_" + st, "code", employCode, "basic_salary")!=null){
+        this.basic = Double.parseDouble(dbm.checknReturnData("prcr_staffworkdata_" + st, "code", employCode, "basic_salary"));
+        }else{
+        msg.showMessage("Enter Basic Salary", "warning", "warning");
+        }
         return this.basic;
     }
 
     public int setOtHours() {
-        this.otHours = Integer.parseInt(dbm.checknReturnData("staff_personalinfo", "code", employCode, "ot_hours"));
+        if(dbm.checknReturnData("prcr_staffworkdata_" + st, "code", employCode, "ot_hours")!=null){
+        this.otHours = Integer.parseInt(dbm.checknReturnData("prcr_staffworkdata_" + st, "code", employCode, "ot_hours"));
+        }else{
+        this.otHours=0;
+        }
         return this.otHours;
     }
 
@@ -121,12 +151,22 @@ public class Payroll_Salary {
         return setOtRate() * setOtHours();
     }
 
-    public double getFullPay() {
+    public double getFullPay(String ss) {
+        this.st=ss;
         double fullpay=setBasic() - getEtfAmount() - getEpfAmount() - getWelfareAmount() + getOtAmount();
-        naObject.StNoteAnalysis(fullpay,employCode);
-        dbm.updateDatabase("staff_personalinfo", "code", employCode, "full_pay", fullpay);
+        System.out.println(fullpay);
+       naObject.StNoteAnalysis(fullpay,employCode,ss);
+        dbm.updateDatabase("prcr_staffworkdata_"+ ss, "code", employCode, "full_pay", fullpay);
+       
         return (fullpay);
     }
+    public double getFullPay() {
+        double fullpay=setBasic() - getEtfAmount() - getEpfAmount() - getWelfareAmount() + getOtAmount();
+     
+       
+        return (fullpay);
+    }
+
 
     
     

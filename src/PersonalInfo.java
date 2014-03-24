@@ -17,6 +17,7 @@ public class PersonalInfo {
     
     private String name;
     private int code;
+    private String division;
     private String NIC;
     private String DOB;
     private String telNo;
@@ -52,6 +53,7 @@ public class PersonalInfo {
     
         this.name=null;
         this.code=0;
+        this.division=null;
         this.NIC=null;
         this.DOB=null;
         this.telNo=null;
@@ -71,6 +73,9 @@ public class PersonalInfo {
      }
      public void setCode(int code){
          this.code=code;
+     }
+     public void setDivision(String division){
+         this.division=division;
      }
      public void setNIC(String NIC){
          this.NIC=NIC;

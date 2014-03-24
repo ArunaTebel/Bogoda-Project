@@ -1,4 +1,6 @@
 
+import java.awt.event.ItemEvent;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,9 +20,12 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
      * Creates new form PRCR_Add_Employee
      */
     PersonalInfo piObject = new PersonalInfo();
+    DatabaseManager dbm=DatabaseManager.getDbCon();
+    private int reg=0;//used to update database table:checkroll_personalinfo,column:registerorcasual,if registered reg=1 
 
     public PRCR_Add_Employee() {
         initComponents();
+        checkroll_division.setVisible(false);
 
     }
 
@@ -71,6 +76,10 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
         EPF = new javax.swing.JCheckBox();
         ETF = new javax.swing.JCheckBox();
         welfare = new javax.swing.JCheckBox();
+        checkroll_division = new javax.swing.JPanel();
+        division_jc = new javax.swing.JComboBox();
+        jLabel3 = new javax.swing.JLabel();
+        division_lb = new javax.swing.JLabel();
 
         name.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -207,6 +216,42 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
 
         welfare.setText("Welfare");
 
+        checkroll_division.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        division_jc.setEditable(true);
+        division_jc.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("division_details", "code")));
+        division_jc.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                division_jcItemStateChanged(evt);
+            }
+        });
+
+        jLabel3.setText("Division");
+
+        javax.swing.GroupLayout checkroll_divisionLayout = new javax.swing.GroupLayout(checkroll_division);
+        checkroll_division.setLayout(checkroll_divisionLayout);
+        checkroll_divisionLayout.setHorizontalGroup(
+            checkroll_divisionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(checkroll_divisionLayout.createSequentialGroup()
+                .addGap(37, 37, 37)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(division_jc, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(90, 90, 90)
+                .addComponent(division_lb, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(97, 97, 97))
+        );
+        checkroll_divisionLayout.setVerticalGroup(
+            checkroll_divisionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(checkroll_divisionLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(checkroll_divisionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(division_jc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(division_lb, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(29, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -276,7 +321,8 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
                                         .addComponent(joinedDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(permanentDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(bloodGrp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addComponent(Staff_pay, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(Staff_pay, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(checkroll_division, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 281, Short.MAX_VALUE)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
@@ -338,9 +384,11 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
                     .addComponent(EPF)
                     .addComponent(ETF)
                     .addComponent(welfare))
-                .addGap(22, 22, 22)
+                .addGap(18, 18, 18)
                 .addComponent(Staff_pay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(172, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(checkroll_division, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(101, Short.MAX_VALUE))
             .addComponent(jSeparator1)
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -356,11 +404,13 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
         if (selection.equalsIgnoreCase("Staff")) {
 
             Staff_pay.setVisible(true);
+            checkroll_division.setVisible(false);
 
         }
 
         if (selection.equalsIgnoreCase("Checkroll")) {
             Staff_pay.setVisible(false);
+            checkroll_division.setVisible(true);
 
         }
     }//GEN-LAST:event_staffOrCheckrollActionPerformed
@@ -390,6 +440,9 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
         if (staffOrCheckroll.getSelectedItem() == "Staff") {
             piObject.setBasicSallary(Double.parseDouble(basicSalary.getText()));
         }
+        else{
+            piObject.setDivision( division_jc.getSelectedItem().toString());
+        }
         piObject.setETF(ETF.isSelected());
         piObject.setEPF(EPF.isSelected());
         piObject.setWelfare(welfare.isSelected());
@@ -397,9 +450,16 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
         piObject.addToDataBase();
 
         if (staffOrCheckroll.getSelectedItem() == "Checkroll") {
+            
+            if(registerOrNot.isSelected()){ //use to update database table:checkroll_personalinfo,column:registerorcasual,if registered reg=1 
+            reg=1;
+            }
+            else{reg=0;}
+            
+            
             DatabaseManager dbCon = DatabaseManager.getDbCon();
             try {
-                dbCon.insert("INSERT INTO checkroll_personalinfo(code,normal_days,sundays,ot_before_hours,ot_after_hours) VALUES('" + Integer.parseInt(code.getText()) + "','0','0','0','0')");
+                dbCon.insert("INSERT INTO checkroll_personalinfo(code,division,register_or_casual) VALUES('" + Integer.parseInt(code.getText()) + "','"+division_jc.getSelectedItem().toString()+"','"+reg+"')");
             } catch (SQLException ex) {
                 Logger.getLogger(PRCR_Add_Employee.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -417,6 +477,26 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
 
     }//GEN-LAST:event_jButton6ActionPerformed
 
+    private void division_jcItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_division_jcItemStateChanged
+        DatabaseManager dbma = DatabaseManager.getDbCon();
+        String Name = null;
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            String item = evt.getItem().toString();
+
+            try {
+                ResultSet query = dbma.query("SELECT * FROM division_details WHERE code =" + item + "");
+                while (query.next()) {
+                    Name = query.getString("division");
+                    System.out.println(Name);
+                }
+            } catch (SQLException ex) {
+                System.out.println("error");
+            }
+
+            division_lb.setText("" + Name);
+        }
+    }//GEN-LAST:event_division_jcItemStateChanged
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField DOB1;
@@ -428,7 +508,10 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
     private javax.swing.JPanel Staff_pay;
     private javax.swing.JTextField basicSalary;
     private javax.swing.JComboBox bloodGrp;
+    private javax.swing.JPanel checkroll_division;
     private javax.swing.JTextField code;
+    private javax.swing.JComboBox division_jc;
+    private javax.swing.JLabel division_lb;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
@@ -445,6 +528,7 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
