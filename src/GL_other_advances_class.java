@@ -83,7 +83,7 @@ public class GL_other_advances_class {
        
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         try {
-            dbCon.insert("INSERT INTO gl_other_advance_book(Date,supp_id,supp_name,max_allow,item_name,item_type,item_rate,item_quantity,total_amount) VALUES('" + date + "','" + sup_id + "','" + sup_name + "','" + max_allowable + "','"+ item_name + "','"+item_type + "','"+ item_rate+ "','"+ quantity + "','"+amount+ "')");
+            dbCon.insert("INSERT INTO gl_other_advance_book(Date,id,name,max_allow,item_name,item_type,item_rate,item_quantity,total_amount) VALUES('" + date + "','" + sup_id + "','" + sup_name + "','" + max_allowable + "','"+ item_name + "','"+item_type + "','"+ item_rate+ "','"+ quantity + "','"+amount+ "')");
         } catch (SQLException ex) {
             MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
             return false;
