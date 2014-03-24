@@ -9,17 +9,18 @@ import java.util.logging.Logger;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Pramo
  */
 public class GL_Other_Advances extends javax.swing.JPanel {
-Interface_Events interface_events = new Interface_Events();
- DatabaseManager dbm = DatabaseManager.getDbCon();
-  Date_Handler datehandler = new Date_Handler();
-    DateChooser_text datechooser =new DateChooser_text();
+    
+    Interface_Events interface_events = new Interface_Events();
+    DatabaseManager dbm = DatabaseManager.getDbCon();
+    Date_Handler datehandler = new Date_Handler();
+    DateChooser_text datechooser = new DateChooser_text();
     GL_other_advances_class cadvance = new GL_other_advances_class();
+
     /**
      * Creates new form GL_Other_Advances
      */
@@ -28,11 +29,11 @@ Interface_Events interface_events = new Interface_Events();
         
     }
     
-     public void focus(){
-   this.requestFocusInWindow();
-   dayfield.requestFocusInWindow();
-   dayfield.selectAll();
-   }
+    public void focus() {
+        this.requestFocusInWindow();
+        dayfield.requestFocusInWindow();
+        dayfield.selectAll();
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -87,13 +88,20 @@ Interface_Events interface_events = new Interface_Events();
         CodeName2 = new javax.swing.JLabel();
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
+        month_inst = new javax.swing.JTextField();
+        jLabel18 = new javax.swing.JLabel();
+        installments = new javax.swing.JComboBox();
+        jLabel9 = new javax.swing.JLabel();
 
         jLabel6.setText("Amount");
 
+        CodeName.setBackground(new java.awt.Color(0, 102, 0));
         CodeName.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         CodeName.setForeground(new java.awt.Color(102, 102, 102));
         CodeName.setText(" ");
+        CodeName.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel17.setText("Description Code");
 
@@ -139,6 +147,8 @@ Interface_Events interface_events = new Interface_Events();
                 .addContainerGap())
         );
 
+        amount.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+
         jPanel2.setBackground(new java.awt.Color(0, 102, 0));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 153)));
 
@@ -180,7 +190,15 @@ Interface_Events interface_events = new Interface_Events();
 
         Rate.setBackground(new java.awt.Color(204, 255, 204));
 
+        qty.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                qtyActionPerformed(evt);
+            }
+        });
         qty.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                qtyKeyPressed(evt);
+            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 qtyKeyReleased(evt);
             }
@@ -188,7 +206,7 @@ Interface_Events interface_events = new Interface_Events();
 
         Discription_code.setEditable(true);
         Discription_code.putClientProperty("JComboBox.isTableCellEditor", Boolean.TRUE);
-        Discription_code.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("rate_details", "Rate_code")));
+        Discription_code.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("rate_details", "Code_name")));
         Discription_code.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 Discription_codeItemStateChanged(evt);
@@ -283,6 +301,11 @@ Interface_Events interface_events = new Interface_Events();
                 supplier_idItemStateChanged(evt);
             }
         });
+        supplier_id.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                supplier_idActionPerformed(evt);
+            }
+        });
 
         datepanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -341,13 +364,17 @@ Interface_Events interface_events = new Interface_Events();
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        CodeName1.setBackground(new java.awt.Color(0, 102, 0));
         CodeName1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         CodeName1.setForeground(new java.awt.Color(102, 102, 102));
         CodeName1.setText(" ");
+        CodeName1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        CodeName2.setBackground(new java.awt.Color(0, 102, 0));
         CodeName2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         CodeName2.setForeground(new java.awt.Color(102, 102, 102));
         CodeName2.setText(" ");
+        CodeName2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jRadioButton1.setText("Suppliers");
         jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -356,14 +383,60 @@ Interface_Events interface_events = new Interface_Events();
             }
         });
 
-        jRadioButton2.setText("Checkroll");
+        jRadioButton2.setText("Checkroll-PayRoll");
         jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton2ActionPerformed(evt);
             }
         });
 
-        jRadioButton3.setText("Staff");
+        jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jLabel10.setText("This Month Inst:");
+
+        jLabel18.setText("Rs");
+
+        installments.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6" }));
+        installments.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                installmentsActionPerformed(evt);
+            }
+        });
+
+        jLabel9.setText("Installments");
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel18))
+                    .addComponent(jLabel9))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(month_inst, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(installments, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(installments, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(jLabel18)
+                    .addComponent(month_inst, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -377,65 +450,26 @@ Interface_Events interface_events = new Interface_Events();
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jSeparator4)
-                                .addGap(133, 133, 133))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel6)
-                                        .addGap(37, 37, 37)
-                                        .addComponent(jLabel16)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(amount, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jLabel17)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
-                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                                .addGap(1, 1, 1)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(jLabel7)
-                                                    .addComponent(jLabel8))
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(Discription_code, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(Rate)
-                                            .addComponent(qty, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(35, 35, 35)
-                                        .addComponent(CodeName2, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
-                                        .addComponent(CodeName1, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(7, 7, 7)
-                                        .addComponent(CodeName, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButton8)))
-                                .addGap(557, 593, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createSequentialGroup()
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 314, Short.MAX_VALUE)
                                         .addComponent(jButton2))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel1)
-                                            .addComponent(jLabel2))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(supplier_name, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(supplier_id, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(0, 0, Short.MAX_VALUE))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel5)
-                                        .addGap(16, 16, 16)
-                                        .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(jLabel1)
+                                                    .addComponent(jLabel2))
+                                                .addGap(18, 18, 18)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(supplier_name, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(supplier_id, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jLabel5)
+                                                .addGap(16, 16, 16)
+                                                .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGap(0, 0, Short.MAX_VALUE)))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
@@ -445,28 +479,64 @@ Interface_Events interface_events = new Interface_Events();
                                 .addContainerGap())
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(218, 851, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jSeparator4)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jLabel6)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(jLabel16)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(amount, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                    .addGroup(layout.createSequentialGroup()
+                                                        .addComponent(jLabel17)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                                        .addGap(1, 1, 1)
+                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                            .addComponent(jLabel7)
+                                                            .addComponent(jLabel8))
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                    .addComponent(Discription_code, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(Rate)
+                                                    .addComponent(qty, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(CodeName, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(CodeName2, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addGap(66, 66, 66)
+                                                .addComponent(jButton8))
+                                            .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(CodeName1, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(218, 218, 218))))
+                                .addGap(212, 212, 212))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(29, 29, 29)
                         .addComponent(jRadioButton1)
                         .addGap(18, 18, 18)
                         .addComponent(jRadioButton2)
-                        .addGap(18, 18, 18)
-                        .addComponent(jRadioButton3)
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jSeparator1)
             .addGroup(layout.createSequentialGroup()
-                .addGap(23, 23, 23)
+                .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2)
-                    .addComponent(jRadioButton3))
-                .addGap(5, 5, 5)
+                    .addComponent(jRadioButton2))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Red_message, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -490,64 +560,75 @@ Interface_Events interface_events = new Interface_Events();
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(1, 1, 1)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(1, 1, 1)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel17)
-                    .addComponent(CodeName)
-                    .addComponent(jButton8)
-                    .addComponent(Discription_code, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(CodeName2)
-                        .addGap(4, 4, 4)
-                        .addComponent(CodeName1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(Rate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(qty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(amount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel16))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel17)
+                            .addComponent(CodeName)
+                            .addComponent(jButton8)
+                            .addComponent(Discription_code, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(1, 1, 1)
+                                .addComponent(CodeName2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(CodeName1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(Rate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel7))))
+                        .addGap(9, 9, 9)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(76, 76, 76)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel8)
+                                    .addComponent(qty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(37, 37, 37)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel6)
+                                    .addComponent(amount, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel16)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(71, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void supplier_idItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_supplier_idItemStateChanged
-    try {
-        if(supplier_id.getSelectedItem()!=null){
-            supplier_name.setText(dbm.checknReturnData("suppliers", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "sup_name"));
-            
-        }
-        
-        
-        int gl_cashadvance_set_date_int=10;   // This has to be taken from the database later
+        try {
+            try {
+                if (supplier_id.getSelectedItem() != null) {
+                    supplier_name.setText(dbm.checknReturnData("suppliers", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "sup_name"));
+                    
+                   
+                    
+                    int gl_cashadvance_set_date_int = 10;   // This has to be taken from the database later
 
-        Date_Handler date_handler = new Date_Handler();
-        date_handler.set_glcash_advance_starting_date_int(gl_cashadvance_set_date_int);
-        // A seperate class glcashadvances may have to be created in the future
-        java.sql.Date datef = datechooser.Return_date(yearfield, monthfield, dayfield);
-        allowable.setText("" + (dbm.checknReturnDataForCashAdvances("green_leaf_transactions", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "tr_date",date_handler.get_glcash_advance_starting_date(datef),date_handler.get_date_as_a_String(datef), "net_qty")));
+                    Date_Handler date_handler = new Date_Handler();
+                    date_handler.set_glcash_advance_starting_date_int(gl_cashadvance_set_date_int);
+                    // A seperate class glcashadvances may have to be created in the future
+                    java.sql.Date datef = datechooser.Return_date(yearfield, monthfield, dayfield);
+                    allowable.setText("" + (dbm.checknReturnDataForCashAdvances("green_leaf_transactions", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "tr_date", date_handler.get_glcash_advance_starting_date(datef), date_handler.get_date_as_a_String(datef), "net_qty")));
         // allowable.setText("" + (dbm.checknReturnDataForCashAdvances("green_leaf_transactions", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "tr_date","2014-01-19","2014-01-21", "net_qty")));
-        
-        Discription_code.requestFocus();
-    } catch (ParseException ex) {
-        Logger.getLogger(GL_Other_Advances.class.getName()).log(Level.SEVERE, null, ex);
-    }
-     
+                    
+                    Discription_code.requestFocus();
+                }
+            } catch (ParseException ex) {
+                Logger.getLogger(GL_Other_Advances.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (NumberFormatException ex) {
+            supplier_id.setSelectedIndex(0);
+        }
     }//GEN-LAST:event_supplier_idItemStateChanged
 
     private void monthfieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_monthfieldKeyPressed
@@ -555,28 +636,28 @@ Interface_Events interface_events = new Interface_Events();
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
                 monthfield.setText("Dec");
                 int yr = Integer.parseInt(yearfield.getText());
-
+                
                 yearfield.setText("" + (yr - 1));
                 monthfield.selectAll();
-
+                
             }
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
                 monthfield.setText("Feb");
                 monthfield.selectAll();
             }
-
+            
         } else if (monthfield.getText().equals("Feb")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
                 monthfield.setText("Jan");
                 int yr = Integer.parseInt(yearfield.getText());
                 monthfield.selectAll();
-
+                
             }
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
                 monthfield.setText("Mar");
                 monthfield.selectAll();
             }
-
+            
         } else if (monthfield.getText().equals("Mar")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
                 monthfield.setText("Feb");
@@ -587,7 +668,7 @@ Interface_Events interface_events = new Interface_Events();
                 monthfield.setText("Apr");
                 monthfield.selectAll();
             }
-
+            
         } else if (monthfield.getText().equals("Apr")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
                 monthfield.setText("Mar");
@@ -598,107 +679,107 @@ Interface_Events interface_events = new Interface_Events();
                 monthfield.setText("May");
                 monthfield.selectAll();
             }
-
+            
         } else if (monthfield.getText().equals("May")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
                 monthfield.setText("Apr");
                 int yr = Integer.parseInt(yearfield.getText());
                 monthfield.selectAll();
-
+                
             }
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
-
+                
                 monthfield.setText("Jun");
                 monthfield.selectAll();
             }
-
+            
         } else if (monthfield.getText().equals("Jun")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
                 monthfield.setText("May");
                 int yr = Integer.parseInt(yearfield.getText());
                 monthfield.selectAll();
-
+                
             }
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
                 monthfield.setText("Jul");
                 monthfield.selectAll();
             }
-
+            
         } else if (monthfield.getText().equals("Jul")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
                 monthfield.setText("Jun");
                 int yr = Integer.parseInt(yearfield.getText());
                 monthfield.selectAll();
-
+                
             }
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
                 monthfield.setText("Aug");
                 monthfield.selectAll();
             }
-
+            
         } else if (monthfield.getText().equals("Aug")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
                 monthfield.setText("Jul");
                 int yr = Integer.parseInt(yearfield.getText());
                 monthfield.selectAll();
-
+                
             }
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
                 monthfield.setText("Sep");
                 monthfield.selectAll();
             }
-
+            
         } else if (monthfield.getText().equals("Sep")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
                 monthfield.setText("Aug");
                 int yr = Integer.parseInt(yearfield.getText());
                 monthfield.selectAll();
-
+                
             }
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
                 monthfield.setText("Oct");
                 monthfield.selectAll();
             }
-
+            
         } else if (monthfield.getText().equals("Oct")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
                 monthfield.setText("Sep");
                 int yr = Integer.parseInt(yearfield.getText());
                 monthfield.selectAll();
-
+                
             }
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
                 monthfield.setText("Nov");
                 monthfield.selectAll();
             }
-
+            
         } else if (monthfield.getText().equals("Nov")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
                 monthfield.setText("Oct");
                 int yr = Integer.parseInt(yearfield.getText());
                 monthfield.selectAll();
-
+                
             }
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
                 monthfield.setText("Dec");
                 monthfield.selectAll();
             }
-
+            
         } else if (monthfield.getText().equals("Dec")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
                 monthfield.setText("Nov");
                 int yr = Integer.parseInt(yearfield.getText());
                 monthfield.selectAll();
-
+                
             }
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
                 monthfield.setText("Jan");
                 int yr = Integer.parseInt(yearfield.getText());
-
+                
                 yearfield.setText("" + (yr + 1));
                 monthfield.selectAll();
             }
-
+            
         }
         if (evt.getKeyCode() == KeyEvent.VK_LEFT) {
             dayfield.requestFocus();
@@ -708,10 +789,10 @@ Interface_Events interface_events = new Interface_Events();
             yearfield.requestFocus();
             yearfield.selectAll();
         }
-
+        
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
             supplier_id.requestFocus();
-
+            
         }
     }//GEN-LAST:event_monthfieldKeyPressed
 
@@ -728,10 +809,10 @@ Interface_Events interface_events = new Interface_Events();
             monthfield.requestFocus();
             monthfield.selectAll();
         }
-
+        
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
             supplier_id.requestFocus();
-
+            
         }
     }//GEN-LAST:event_yearfieldKeyPressed
 
@@ -740,18 +821,18 @@ Interface_Events interface_events = new Interface_Events();
 
         if (dayfield.getText().equals("1")) {           // Jumping to 31 and 30 from 1st
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
-
+                
                 if (monthfield.getText().equals("Feb") || monthfield.getText().equals("Apr") || monthfield.getText().equals("Jun") || monthfield.getText().equals("Aug") || monthfield.getText().equals("Sep") || monthfield.getText().equals("Nov") || monthfield.getText().equals("Feb")) {
                     dayfield.setText("31");
-
+                    
                     int mnth = datechooser.return_index(monthfield.getText());
                     monthfield.setText(datechooser.Return_month(mnth - 1));
-
+                    
                 } else if (monthfield.getText().equals("May") || monthfield.getText().equals("Jul") || monthfield.getText().equals("Oct") || monthfield.getText().equals("Dec")) {
                     dayfield.setText("30");
                     int mnth = datechooser.return_index(monthfield.getText());
                     monthfield.setText(datechooser.Return_month(mnth - 1));
-
+                    
                 } else if (monthfield.getText().equals("Mar")) {     // from march 1st jump to 28th or 29th checking leap years
                     int yr = Integer.parseInt(yearfield.getText());
                     if (yr % 4 == 0) {
@@ -773,10 +854,10 @@ Interface_Events interface_events = new Interface_Events();
                     }
                     int mnth = datechooser.return_index(monthfield.getText());
                     monthfield.setText(datechooser.Return_month(mnth - 1));
-
+                    
                 } else if (monthfield.getText().equals("Jan")) {            // From jan 1st jump to december 31st decrementing year
                     dayfield.setText("31");
-
+                    
                     int yr = Integer.parseInt(yearfield.getText());
                     monthfield.setText("Dec");
                     yearfield.setText("" + (yr - 1));    // year
@@ -784,14 +865,14 @@ Interface_Events interface_events = new Interface_Events();
                 dayfield.selectAll();
             }                                           // /// decrementing normal values
         } else if (dayfield.getText().equals("2") || dayfield.getText().equals("3") || dayfield.getText().equals("4") || dayfield.getText().equals("5")
-            || dayfield.getText().equals("6") || dayfield.getText().equals("7") || dayfield.getText().equals("8") || dayfield.getText().equals("9")
-            || dayfield.getText().equals("10") || dayfield.getText().equals("11") || dayfield.getText().equals("12") || dayfield.getText().equals("13") || dayfield.getText().equals("14")
-            || dayfield.getText().equals("15") || dayfield.getText().equals("16") || dayfield.getText().equals("17") || dayfield.getText().equals("18")
-            || dayfield.getText().equals("19") || dayfield.getText().equals("20") || dayfield.getText().equals("21") || dayfield.getText().equals("22")
-            || dayfield.getText().equals("23") || dayfield.getText().equals("24") || dayfield.getText().equals("25") || dayfield.getText().equals("26")
-            || dayfield.getText().equals("27") || dayfield.getText().equals("28") || dayfield.getText().equals("29") || dayfield.getText().equals("30") || dayfield.getText().equals("31")) {
+                || dayfield.getText().equals("6") || dayfield.getText().equals("7") || dayfield.getText().equals("8") || dayfield.getText().equals("9")
+                || dayfield.getText().equals("10") || dayfield.getText().equals("11") || dayfield.getText().equals("12") || dayfield.getText().equals("13") || dayfield.getText().equals("14")
+                || dayfield.getText().equals("15") || dayfield.getText().equals("16") || dayfield.getText().equals("17") || dayfield.getText().equals("18")
+                || dayfield.getText().equals("19") || dayfield.getText().equals("20") || dayfield.getText().equals("21") || dayfield.getText().equals("22")
+                || dayfield.getText().equals("23") || dayfield.getText().equals("24") || dayfield.getText().equals("25") || dayfield.getText().equals("26")
+                || dayfield.getText().equals("27") || dayfield.getText().equals("28") || dayfield.getText().equals("29") || dayfield.getText().equals("30") || dayfield.getText().equals("31")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
-
+                
                 dayfield.setText("" + (Integer.parseInt(dayfield.getText()) - 1));
                 dayfield.selectAll();
             }
@@ -799,38 +880,38 @@ Interface_Events interface_events = new Interface_Events();
         /////////////////////////////////////////////////  Days Increment///////////////////////////////////////////////////////////////////////////////////////////////////
         if (dayfield.getText().equals("30")) {               // from 30th to 1st of next month
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
-
+                
                 if (monthfield.getText().equals("Apr") || monthfield.getText().equals("Jun") || monthfield.getText().equals("Sep") || monthfield.getText().equals("Nov")) {
                     dayfield.setText("0");
-
+                    
                     int mnth = datechooser.return_index(monthfield.getText());
                     monthfield.setText(datechooser.Return_month(mnth + 1));
-
+                    
                 }
                 dayfield.setText("" + (Integer.parseInt(dayfield.getText()) + 1));
                 dayfield.selectAll();
             }
-
+            
         } else if (dayfield.getText().equals("31")) {            // from 31st to 1st of next month
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
-
+                
                 if (monthfield.getText().equals("Jan") || monthfield.getText().equals("Mar") || monthfield.getText().equals("May") || monthfield.getText().equals("Jul") || monthfield.getText().equals("Aug") || monthfield.getText().equals("Oct")) {
                     dayfield.setText("1");
-
+                    
                     int mnth = datechooser.return_index(monthfield.getText());
                     monthfield.setText(datechooser.Return_month(mnth + 1));
-
+                    
                 } else if (monthfield.getText().equals("Dec")) {      // December to january incrementing the year
 
                     dayfield.setText("1");
-
+                    
                     int yr = Integer.parseInt(yearfield.getText());
                     monthfield.setText("Jan");
                     yearfield.setText("" + (yr + 1));
                 }
                 dayfield.selectAll();
             }
-
+            
         } else if (monthfield.getText().equals("Feb")) {                    // for february
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
                 if (dayfield.getText().equals("28")) {                    // at 28 check for leap year
@@ -858,55 +939,55 @@ Interface_Events interface_events = new Interface_Events();
                         int mnth = datechooser.return_index(monthfield.getText());
                         monthfield.setText(datechooser.Return_month(mnth + 1));                  // not a leap year
                     }
-
+                    
                 } else if (dayfield.getText().equals("29")) {              // at 29 jump to next month normally
                     dayfield.setText("1");
-
+                    
                     int mnth = datechooser.return_index(monthfield.getText());
                     monthfield.setText(datechooser.Return_month(mnth + 1));
                     // incrementing normal values/////////////////////// for february separately
                 } else if (dayfield.getText().equals("1") || dayfield.getText().equals("2") || dayfield.getText().equals("3") || dayfield.getText().equals("4") || dayfield.getText().equals("5")
-                    || dayfield.getText().equals("6") || dayfield.getText().equals("7") || dayfield.getText().equals("8") || dayfield.getText().equals("9")
-                    || dayfield.getText().equals("10") || dayfield.getText().equals("11") || dayfield.getText().equals("12") || dayfield.getText().equals("13") || dayfield.getText().equals("14")
-                    || dayfield.getText().equals("15") || dayfield.getText().equals("16") || dayfield.getText().equals("17") || dayfield.getText().equals("18")
-                    || dayfield.getText().equals("19") || dayfield.getText().equals("20") || dayfield.getText().equals("21") || dayfield.getText().equals("22")
-                    || dayfield.getText().equals("23") || dayfield.getText().equals("24") || dayfield.getText().equals("25") || dayfield.getText().equals("26")
-                    || dayfield.getText().equals("27") || dayfield.getText().equals("28") || dayfield.getText().equals("29") || dayfield.getText().equals("30") || dayfield.getText().equals("31")) {
-
+                        || dayfield.getText().equals("6") || dayfield.getText().equals("7") || dayfield.getText().equals("8") || dayfield.getText().equals("9")
+                        || dayfield.getText().equals("10") || dayfield.getText().equals("11") || dayfield.getText().equals("12") || dayfield.getText().equals("13") || dayfield.getText().equals("14")
+                        || dayfield.getText().equals("15") || dayfield.getText().equals("16") || dayfield.getText().equals("17") || dayfield.getText().equals("18")
+                        || dayfield.getText().equals("19") || dayfield.getText().equals("20") || dayfield.getText().equals("21") || dayfield.getText().equals("22")
+                        || dayfield.getText().equals("23") || dayfield.getText().equals("24") || dayfield.getText().equals("25") || dayfield.getText().equals("26")
+                        || dayfield.getText().equals("27") || dayfield.getText().equals("28") || dayfield.getText().equals("29") || dayfield.getText().equals("30") || dayfield.getText().equals("31")) {
+                    
                     dayfield.setText("" + (Integer.parseInt(dayfield.getText()) + 1));
-
+                    
                 }
                 dayfield.selectAll();
             }
             // incrementing normal values
         } else if (dayfield.getText().equals("1") || dayfield.getText().equals("2") || dayfield.getText().equals("3") || dayfield.getText().equals("4") || dayfield.getText().equals("5")
-            || dayfield.getText().equals("6") || dayfield.getText().equals("7") || dayfield.getText().equals("8") || dayfield.getText().equals("9")
-            || dayfield.getText().equals("10") || dayfield.getText().equals("11") || dayfield.getText().equals("12") || dayfield.getText().equals("13") || dayfield.getText().equals("14")
-            || dayfield.getText().equals("15") || dayfield.getText().equals("16") || dayfield.getText().equals("17") || dayfield.getText().equals("18")
-            || dayfield.getText().equals("19") || dayfield.getText().equals("20") || dayfield.getText().equals("21") || dayfield.getText().equals("22")
-            || dayfield.getText().equals("23") || dayfield.getText().equals("24") || dayfield.getText().equals("25") || dayfield.getText().equals("26")
-            || dayfield.getText().equals("27") || dayfield.getText().equals("28") || dayfield.getText().equals("29") || dayfield.getText().equals("30") || dayfield.getText().equals("31")) {
+                || dayfield.getText().equals("6") || dayfield.getText().equals("7") || dayfield.getText().equals("8") || dayfield.getText().equals("9")
+                || dayfield.getText().equals("10") || dayfield.getText().equals("11") || dayfield.getText().equals("12") || dayfield.getText().equals("13") || dayfield.getText().equals("14")
+                || dayfield.getText().equals("15") || dayfield.getText().equals("16") || dayfield.getText().equals("17") || dayfield.getText().equals("18")
+                || dayfield.getText().equals("19") || dayfield.getText().equals("20") || dayfield.getText().equals("21") || dayfield.getText().equals("22")
+                || dayfield.getText().equals("23") || dayfield.getText().equals("24") || dayfield.getText().equals("25") || dayfield.getText().equals("26")
+                || dayfield.getText().equals("27") || dayfield.getText().equals("28") || dayfield.getText().equals("29") || dayfield.getText().equals("30") || dayfield.getText().equals("31")) {
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
-
+                
                 dayfield.setText("" + (Integer.parseInt(dayfield.getText()) + 1));
                 dayfield.selectAll();
-
+                
             }
         }
         if (evt.getKeyCode() == KeyEvent.VK_RIGHT) {
             monthfield.requestFocus();
             monthfield.selectAll();
         }
-
+        
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
             supplier_id.requestFocus();
-
+            
         }
     }//GEN-LAST:event_dayfieldKeyPressed
 
     private void datePicker1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datePicker1ActionPerformed
         java.sql.Date datef = new java.sql.Date(datePicker1.getDate().getTime());
-
+        
         dayfield.setText(datehandler.get_day(datef));
         monthfield.setText(datehandler.get_month(datef));
         yearfield.setText(datehandler.get_year(datef));
@@ -914,40 +995,84 @@ Interface_Events interface_events = new Interface_Events();
     }//GEN-LAST:event_datePicker1ActionPerformed
 
     private void Discription_codeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_Discription_codeItemStateChanged
-        if(Discription_code.getSelectedItem()!=null){
+        try {
+            
+        
+        if (Discription_code.getSelectedItem() != null) {
+            
+            CodeName.setText(dbm.checknReturnStringData("rate_details", "Code_name", Discription_code.getSelectedItem().toString(), "Name"));
+            CodeName1.setText(dbm.checknReturnStringData("rate_details", "Code_name", Discription_code.getSelectedItem().toString(), "Rate_Description"));
+            CodeName2.setText(dbm.checknReturnStringData("rate_details", "Code_name", Discription_code.getSelectedItem().toString(), "type"));
+            
+            Rate.setText(dbm.checknReturnStringData("rate_details", "Code_name", Discription_code.getSelectedItem().toString(), "rate"));
             
             
-            CodeName.setText(dbm.checknReturnData("rate_details", "Rate_code", Integer.parseInt(Discription_code.getSelectedItem().toString()), "Name"));
-             CodeName1.setText(dbm.checknReturnData("rate_details", "Rate_code", Integer.parseInt(Discription_code.getSelectedItem().toString()), "Rate_Description"));
-             CodeName2.setText(dbm.checknReturnData("rate_details", "Rate_code", Integer.parseInt(Discription_code.getSelectedItem().toString()), "type"));
-       
-            Rate.setText(dbm.checknReturnData("rate_details", "Rate_code", Integer.parseInt(Discription_code.getSelectedItem().toString()), "rate"));
-            qty.requestFocus();
+            {
+                switch (CodeName2.getText()) {
+                    case "Manuare":
+                        installments.setSelectedIndex(1);
+                        break;
+                    case "Spray Tanks"://Manuare
+//Tea
+//Chemicals
+//Coir Bags
+//Spray Tanks
+//BogodaStores
+
+                        installments.setSelectedIndex(3);
+                        break;
+                    
+                    default:
+                        installments.setSelectedIndex(0);
+                        
+                        
+                    qty.setText(null);
+                    qty.requestFocus();
+                }
+            }
+        }
+        } catch (Exception e) {
+            Discription_code.setSelectedIndex(0);
+            System.out.println("IN");
+            Discription_code.requestFocus();
         }
     }//GEN-LAST:event_Discription_codeItemStateChanged
 
     private void save1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_save1ActionPerformed
-    try {
-        interface_events.Respond_enter(save1, null);
-        
-        cadvance.set_sup_id(Integer.parseInt(supplier_id.getSelectedItem().toString()));
-        cadvance.set_max_allowable(Double.parseDouble(allowable.getText()));
-        cadvance.set_amount(Double.parseDouble(amount.getText()));
-        cadvance.set_item_rate(Double.parseDouble(Rate.getText()));
-        cadvance.set_quantity(Double.parseDouble(qty.getText()));
-        cadvance.set_item_name(CodeName.getText());
-        cadvance.set_item_type(CodeName2.getText());
-       
-        cadvance.set_date(datechooser.Return_date(yearfield, monthfield, dayfield));
-        cadvance.set_sup_name(supplier_name.getText());
-        cadvance.addToDataBase();
-    } catch (ParseException ex) {
-        Logger.getLogger(GL_Other_Advances.class.getName()).log(Level.SEVERE, null, ex);
-    }
+        try {
+            interface_events.Respond_enter(save1, null);
+            
+            cadvance.set_sup_id(Integer.parseInt(supplier_id.getSelectedItem().toString()));
+            cadvance.set_max_allowable(Double.parseDouble(allowable.getText()));
+            cadvance.set_amount(Double.parseDouble(amount.getText()));
+            cadvance.set_item_rate(Double.parseDouble(Rate.getText()));
+            cadvance.set_quantity(Double.parseDouble(qty.getText()));
+            cadvance.set_item_name(CodeName.getText());
+            cadvance.set_item_type(CodeName2.getText());
+            
+            cadvance.set_date(datechooser.Return_date(yearfield, monthfield, dayfield));
+            cadvance.set_sup_name(supplier_name.getText());
+            cadvance.addToDataBase();
+        } catch (ParseException ex) {
+            Logger.getLogger(GL_Other_Advances.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_save1ActionPerformed
 
     private void qtyKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_qtyKeyReleased
-        amount.setText(""+Double.parseDouble(qty.getText())*Double.parseDouble(Rate.getText()));
+        try {amount.setText("" + Double.parseDouble(qty.getText()) * Double.parseDouble(Rate.getText()));
+        month_inst.setText("" + Double.parseDouble(amount.getText()) / Double.parseDouble(installments.getSelectedItem().toString()));
+                    
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
+            save1.requestFocus();
+            
+        }
+
+        } catch (NumberFormatException e) {
+            qty.setText(null);
+            System.out.println("Excp");
+        }
+    
+    
     }//GEN-LAST:event_qtyKeyReleased
 
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
@@ -957,6 +1082,22 @@ Interface_Events interface_events = new Interface_Events();
     private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButton2ActionPerformed
+
+    private void installmentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_installmentsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_installmentsActionPerformed
+
+    private void qtyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_qtyActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_qtyActionPerformed
+
+    private void qtyKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_qtyKeyPressed
+         
+    }//GEN-LAST:event_qtyKeyPressed
+
+    private void supplier_idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supplier_idActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_supplier_idActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -971,6 +1112,7 @@ Interface_Events interface_events = new Interface_Events();
     private com.michaelbaranov.microba.calendar.DatePicker datePicker1;
     private javax.swing.JPanel datepanel;
     private javax.swing.JTextField dayfield;
+    private javax.swing.JComboBox installments;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
@@ -979,26 +1121,30 @@ Interface_Events interface_events = new Interface_Events();
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JTextField jTextField8;
+    private javax.swing.JTextField month_inst;
     private javax.swing.JTextField monthfield;
     private javax.swing.JTextField qty;
     private javax.swing.JButton save1;

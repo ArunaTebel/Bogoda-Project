@@ -14,7 +14,7 @@ import java.sql.SQLException;
  */
 public class Rate_Details {
 
-    private int code;
+    private String code;
     private String name;
     private String codename;
     private String type;
@@ -22,7 +22,7 @@ public class Rate_Details {
   
     private String ratedisc;
 
-    public Rate_Details(int code, String name, String codename, double rate, String debitOrCredit, String type, String unit, String ratediscription) {
+    public Rate_Details(String code, String name, String codename, double rate, String debitOrCredit, String type, String unit, String ratediscription) {
         this.code = code;
         this.name = name;
         this.codename = codename;
@@ -34,7 +34,7 @@ public class Rate_Details {
     }
 
     public Rate_Details() {
-        this.code = 0;
+        this.code = null;
         this.name = null;
         this.codename = null;
         this.rate = 0;
@@ -44,7 +44,7 @@ public class Rate_Details {
     }
 
     //setters
-    public void setCode(int code) {
+    public void setCode(String code) {
         this.code = code;
     }
 
@@ -68,7 +68,7 @@ public class Rate_Details {
     }
 
     //getters
-    public int getCode() {
+    public String getCode() {
         return code;
     }
 
@@ -95,7 +95,7 @@ public class Rate_Details {
     public void addToDataBase() {
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         try {
-            dbCon.insert("INSERT INTO rate_details(Rate_code,Name,Code_name,type,rate,Rate_Description) VALUES('" + code + "','" + name + "','" + codename + "','" + type + "','" + rate + "','" + ratedisc + "')");
+            dbCon.insert("INSERT INTO rate_details(Code_name,Name,type,rate,Rate_Description) VALUES('" + code + "','" + name +  "','" + type + "','" + rate + "','" + ratedisc + "')");
 
         } catch (SQLException ex) {
             MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");

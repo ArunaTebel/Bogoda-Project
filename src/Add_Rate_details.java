@@ -1,13 +1,14 @@
 
-
 /**
  *
  * @author Pramo
  */
 public class Add_Rate_details extends javax.swing.JPanel {
-Rate_Details aobject = new Rate_Details();
-DatabaseManager dbm = new DatabaseManager();
-Interface_Events interface_events = new Interface_Events();
+
+    Rate_Details aobject = new Rate_Details();
+    DatabaseManager dbm = new DatabaseManager();
+    Interface_Events interface_events = new Interface_Events();
+
     /**
      * Creates new form Add_Rate_details
      */
@@ -36,15 +37,13 @@ Interface_Events interface_events = new Interface_Events();
         jLabel4 = new javax.swing.JLabel();
         Rate = new javax.swing.JTextField();
         account_name = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
-        Code_name = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         Description = new javax.swing.JTextField();
         Code = new javax.swing.JComboBox();
 
         jLabel5.setText("Rs");
 
-        account_class.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Manuar", "Tea", "Chemicals", "BogodaStores", " " }));
+        account_class.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Manuare", "Tea", "Chemicals", "Coir Bags", "Spray Tanks", "BogodaStores", " " }));
         account_class.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 account_classKeyPressed(evt);
@@ -104,7 +103,7 @@ Interface_Events interface_events = new Interface_Events();
 
         jLabel1.setText(" Name");
 
-        jLabel2.setText("Account code");
+        jLabel2.setText("Code Name");
 
         jLabel4.setText("Rate");
 
@@ -135,14 +134,6 @@ Interface_Events interface_events = new Interface_Events();
             }
         });
 
-        jLabel8.setText("Code Name");
-
-        Code_name.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                Code_nameKeyPressed(evt);
-            }
-        });
-
         jLabel6.setText("Description");
 
         Description.addInputMethodListener(new java.awt.event.InputMethodListener() {
@@ -163,7 +154,7 @@ Interface_Events interface_events = new Interface_Events();
 
         Code.putClientProperty("JComboBox.isTableCellEditor", Boolean.TRUE);
         Code.setEditable(true);
-        Code.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("rate_details", "Rate_code")));
+        Code.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("rate_details", "Code_name")));
         Code.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 CodeItemStateChanged(evt);
@@ -182,32 +173,25 @@ Interface_Events interface_events = new Interface_Events();
             .addGroup(layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel8)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4))
-                                .addGap(53, 53, 53))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(28, 28, 28)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel3)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(Rate, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel4)
+                                .addGap(77, 77, 77)
                                 .addComponent(jLabel5))
-                            .addComponent(Description, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(account_class, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(account_name, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Code_name, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(Code, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(451, 451, 451))
+                            .addComponent(jLabel2))
+                        .addGap(33, 33, 33)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Rate, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Description, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(account_class, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Code, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(account_name, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(610, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -230,10 +214,6 @@ Interface_Events interface_events = new Interface_Events();
                     .addComponent(account_class, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Code_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Rate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel5))
@@ -241,7 +221,7 @@ Interface_Events interface_events = new Interface_Events();
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(Description, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 186, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 271, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -249,25 +229,23 @@ Interface_Events interface_events = new Interface_Events();
 
     private void SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveActionPerformed
         aobject.setName(account_name.getText());
-       aobject.setCode(Integer.parseInt(Code.getSelectedItem().toString()));
+        aobject.setCode(Code.getSelectedItem().toString());
         aobject.settype(account_class.getSelectedItem().toString());
         aobject.setRate(Double.parseDouble(Rate.getText()));
-        aobject.setCodename(Code_name.getText());
-       
-        
+
         aobject.setDiscription(Description.getText());
         aobject.addToDataBase();
-        
+
         account_name.setText(null);
         Code.setSelectedIndex(0);
         account_class.setSelectedIndex(0);
         Rate.setText(null);
-        Code_name.setText(null);
+
         Description.setText(null);
-        
+
         Code.requestFocus();
-        
-        
+
+
     }//GEN-LAST:event_SaveActionPerformed
 
     private void RateInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_RateInputMethodTextChanged
@@ -300,16 +278,15 @@ Interface_Events interface_events = new Interface_Events();
     }//GEN-LAST:event_DescriptionKeyReleased
 
     private void CodeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_CodeItemStateChanged
-      
-        
-        if(Code.getSelectedItem()!=null){
-            account_name.setText(dbm.checknReturnData("rate_details", "Rate_code", Integer.parseInt(Code.getSelectedItem().toString()), "Name"));
-              Code_name.setText(dbm.checknReturnData("rate_details", "Rate_code", Integer.parseInt(Code.getSelectedItem().toString()), "Code_name"));
-           Rate.setText(dbm.checknReturnData("rate_details", "Rate_code", Integer.parseInt(Code.getSelectedItem().toString()), "rate"));
-              Description.setText(dbm.checknReturnData("rate_details", "Rate_code", Integer.parseInt(Code.getSelectedItem().toString()), "Rate_Description"));
-              account_class.setSelectedItem(dbm.checknReturnData("rate_details", "Rate_code", Integer.parseInt(Code.getSelectedItem().toString()), "type"));
-        account_name.requestFocusInWindow();}
-       
+
+        if (Code.getSelectedItem() != null) {
+            account_name.setText(dbm.checknReturnStringData("rate_details", "Code_name", Code.getSelectedItem().toString(), "Name"));
+            Rate.setText(dbm.checknReturnStringData("rate_details", "Code_name", Code.getSelectedItem().toString(), "rate"));
+            Description.setText(dbm.checknReturnStringData("rate_details", "Code_name", Code.getSelectedItem().toString(), "Rate_Description"));
+            account_class.setSelectedItem(dbm.checknReturnStringData("rate_details", "Code_name", Code.getSelectedItem().toString(), "type"));
+            account_name.requestFocusInWindow();
+        }
+
     }//GEN-LAST:event_CodeItemStateChanged
 
     private void CodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CodeActionPerformed
@@ -317,27 +294,23 @@ Interface_Events interface_events = new Interface_Events();
     }//GEN-LAST:event_CodeActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       account_name.setText(null);
+        account_name.setText(null);
         Code.setSelectedIndex(0);
         account_class.setSelectedIndex(0);
         Rate.setText(null);
-        Code_name.setText(null);
+
         Description.setText(null);
-        
+
         Code.requestFocus();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void account_nameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_account_nameKeyPressed
-      interface_events.Change_focus_Enterkey_c(account_class, evt);
+        interface_events.Change_focus_Enterkey_c(account_class, evt);
     }//GEN-LAST:event_account_nameKeyPressed
 
     private void account_classKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_account_classKeyPressed
-        interface_events.Change_focus_Enterkey_t(Code_name, evt);
+        interface_events.Change_focus_Enterkey_t(Rate, evt);
     }//GEN-LAST:event_account_classKeyPressed
-
-    private void Code_nameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Code_nameKeyPressed
-       interface_events.Change_focus_Enterkey_t(Rate, evt);
-    }//GEN-LAST:event_Code_nameKeyPressed
 
     private void SaveKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_SaveKeyPressed
         interface_events.Respond_enter(Save, null);
@@ -346,7 +319,6 @@ Interface_Events interface_events = new Interface_Events();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox Code;
-    private javax.swing.JTextField Code_name;
     private javax.swing.JTextField Description;
     private javax.swing.JTextField Rate;
     private javax.swing.JButton Save;
@@ -360,7 +332,6 @@ Interface_Events interface_events = new Interface_Events();
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
