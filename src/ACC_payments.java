@@ -877,7 +877,7 @@ public class ACC_payments extends javax.swing.JPanel {
 
         if (addToCreditDataBase == true) {
 
-            msg.showMessage("Receipt is saved to Transaction no-" + raobject.getTr_no(), "Receipt", "info");
+            msg.showMessage("Payment is saved to Transaction no-" + raobject.getTr_no(), "Receipt", "info");
             double updated_current_balance = Double.parseDouble(dbm.checknReturnData("account_names", "account_id", raobject.getCredit_accountCode(), "current_balance")) + raobject.getCreditAmount();
             dbm.updateDatabase("account_names", "account_id", raobject.getCredit_accountCode(), "current_balance", updated_current_balance);
         }

@@ -234,6 +234,7 @@ public class pAccounts extends javax.swing.JPanel {
 
         //System.out.println(" ok ");
         ACC_payments payments = new ACC_payments();
+        
 
         // System.out.println(" ok 1");
         GL_content.removeAll();
@@ -243,6 +244,8 @@ public class pAccounts extends javax.swing.JPanel {
         GL_content.add(payments);
         validate();
         repaint();
+        
+        payments.focus();
         
     }//GEN-LAST:event_jButton2ActionPerformed
 
