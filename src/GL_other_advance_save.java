@@ -37,8 +37,8 @@ public class GL_other_advance_save extends javax.swing.JPanel {
         page_info.setText("Page 1 of"+" "+no_of_pages);
         dbm.Inserting_To_The_Table(table, "gl_other_advance_book", "tr_no", 0,bottom,top);
         dbm.Inserting_To_The_Table(table, "gl_other_advance_book", "Date", 1,bottom,top);
-        dbm.Inserting_To_The_Table(table, "gl_other_advance_book", "supp_id", 2,bottom,top);
-        dbm.Inserting_To_The_Table(table, "gl_other_advance_book", "supp_name", 3,bottom,top);
+        dbm.Inserting_To_The_Table(table, "gl_other_advance_book", "id", 2,bottom,top);
+        dbm.Inserting_To_The_Table(table, "gl_other_advance_book", "name", 3,bottom,top);
         dbm.Inserting_To_The_Table(table, "gl_other_advance_book", "max_allow", 4,bottom,top);
         dbm.Inserting_To_The_Table(table, "gl_other_advance_book", "item_name", 5,bottom,top);
         dbm.Inserting_To_The_Table(table, "gl_other_advance_book", "item_type", 6,bottom,top);

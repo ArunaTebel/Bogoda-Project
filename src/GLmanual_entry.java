@@ -37,7 +37,8 @@ public class GLmanual_entry extends javax.swing.JPanel {
     public void focus() // Focus event to bring focus to the jpanel
     {
         this.requestFocusInWindow();
-        category_code.requestFocusInWindow();
+        dayfield.requestFocusInWindow();
+        dayfield.selectAll();
 
     }
 
@@ -774,14 +775,15 @@ public class GLmanual_entry extends javax.swing.JPanel {
                 k++;
             }
             category_code.setEnabled(true);
-           dayfield.setEnabled(true);
-            monthfield.setEnabled(true);
-            yearfield.setEnabled(true);
-            datePicker1.setEnabled(true);
+           dayfield.setEnabled(false);
+            monthfield.setEnabled(false);
+            yearfield.setEnabled(false);
+            datePicker1.setEnabled(false);
             category_name.setText(" ");
             
+             category_code.setSelectedIndex(0);
             category_code.requestFocusInWindow();
-            category_code.setSelectedItem(null);
+          
         } catch (ParseException ex) {
             Logger.getLogger(GLmanual_entry.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -804,7 +806,7 @@ public class GLmanual_entry extends javax.swing.JPanel {
         String Name = null;
         String category = null;
         if (evt.getStateChange() == ItemEvent.SELECTED) {
-            int item = Integer.parseInt(evt.getItem().toString());
+            int item = Integer.parseInt(supplier_id.getSelectedItem().toString());
             try {
                 ResultSet query = dbm.query("SELECT * FROM suppliers WHERE sup_id =" + item + "");
                 while (query.next()) {
@@ -851,7 +853,7 @@ public class GLmanual_entry extends javax.swing.JPanel {
             }
             category_name.setText(Name);
         }
-        dayfield.requestFocusInWindow();
+        supplier_id.requestFocusInWindow();
         
 
 
@@ -1232,7 +1234,7 @@ public class GLmanual_entry extends javax.swing.JPanel {
         }
 
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
-            supplier_id.requestFocus();
+            category_code.requestFocus();
             
         }
     }//GEN-LAST:event_monthfieldKeyPressed
@@ -1252,7 +1254,7 @@ public class GLmanual_entry extends javax.swing.JPanel {
         }
         
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
-            supplier_id.requestFocus();
+            category_code.requestFocus();
             
         }
 
@@ -1422,7 +1424,7 @@ public class GLmanual_entry extends javax.swing.JPanel {
         }
         
          if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
-            supplier_id.requestFocus();
+            category_code.requestFocus();
             
         }
 
@@ -1434,7 +1436,7 @@ public class GLmanual_entry extends javax.swing.JPanel {
         dayfield.setText(datehandler.get_day(datef));
         monthfield.setText(datehandler.get_month(datef));
         yearfield.setText(datehandler.get_year(datef));
-        no_of_sacks.requestFocus();
+        category_code.requestFocus();
 
     }//GEN-LAST:event_datePicker1ActionPerformed
     public double convertString(String s) {
