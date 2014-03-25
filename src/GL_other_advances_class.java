@@ -13,10 +13,12 @@ public class GL_other_advances_class {
     String item_type;
     double item_rate;
     double quantity;
+    int inst;
     
     
     public GL_other_advances_class(){
         sup_id=0;
+        inst = 0;
         sup_name=null;
         max_allowable=0;
         amount=0;
@@ -31,6 +33,10 @@ public class GL_other_advances_class {
     
     public void set_sup_id(int sup_id){
         this.sup_id=sup_id;
+    }
+    
+     public void set_installments(int INST){
+        this.inst=INST;
     }
     public void set_sup_name(String sup_name){
         this.sup_name=sup_name;
@@ -83,7 +89,7 @@ public class GL_other_advances_class {
        
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         try {
-            dbCon.insert("INSERT INTO gl_other_advance_book(Date,id,name,max_allow,item_name,item_type,item_rate,item_quantity,total_amount) VALUES('" + date + "','" + sup_id + "','" + sup_name + "','" + max_allowable + "','"+ item_name + "','"+item_type + "','"+ item_rate+ "','"+ quantity + "','"+amount+ "')");
+            dbCon.insert("INSERT INTO gl_other_advance_book(Date,id,name,max_allow,item_name,item_type,item_rate,item_quantity,total_amount,installments) VALUES('" + date + "','" + sup_id + "','" + sup_name + "','" + max_allowable + "','"+ item_name + "','"+item_type + "','"+ item_rate+ "','"+ quantity + "','"+ amount + "','"+inst+ "')");
         } catch (SQLException ex) {
             MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
             return false;

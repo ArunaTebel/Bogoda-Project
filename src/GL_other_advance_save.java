@@ -132,6 +132,8 @@ public class GL_other_advance_save extends javax.swing.JPanel {
                 "No:", "Date", "Supp:ID", "Name", "Max:allow", "Item", "Type", "Rate", "Qty", "Total"
             }
         ));
+        table.setRowHeight(25);
+        table.setSelectionBackground(new java.awt.Color(51, 153, 0));
         jScrollPane1.setViewportView(table);
         if (table.getColumnModel().getColumnCount() > 0) {
             table.getColumnModel().getColumn(0).setPreferredWidth(40);
