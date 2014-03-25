@@ -540,9 +540,18 @@ public class MainWindow extends javax.swing.JFrame {
         repaint();
         addbrnch.focus();
     }//GEN-LAST:event_jButton10ActionPerformed
-
+    
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        // TODO add your handling code here:
+         ACC_Reciept_View view = new ACC_Reciept_View();
+
+        Main_Content.removeAll();
+
+        view.setSize(Main_Content.getSize());
+
+        Main_Content.add(view);
+        validate();
+        repaint();
+      //  view.focus();
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
