@@ -104,7 +104,7 @@ public class ACC_Reciept_View_Table extends javax.swing.JFrame {
         table.setSelectionBackground(new java.awt.Color(51, 204, 0));
         jScrollPane2.setViewportView(table);
         if (table.getColumnModel().getColumnCount() > 0) {
-            table.getColumnModel().getColumn(0).setPreferredWidth(2000);
+            table.getColumnModel().getColumn(0).setPreferredWidth(50);
             table.getColumnModel().getColumn(1).setPreferredWidth(50);
             table.getColumnModel().getColumn(2).setPreferredWidth(50);
             table.getColumnModel().getColumn(3).setPreferredWidth(60);
@@ -263,7 +263,7 @@ public class ACC_Reciept_View_Table extends javax.swing.JFrame {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         ACC_View_Database_Handling db = new ACC_View_Database_Handling();
-        db.Filtered_table_For_Reciepts(table,"debit_description","dfsdfs",1,50);
+        db.Filtered_table_For_Reciepts_Credit_Search(table,"credit_description","first",1,50);
     }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
