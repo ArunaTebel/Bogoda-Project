@@ -545,6 +545,7 @@ public class MainWindow extends javax.swing.JFrame {
          ACC_Reciept_View view = new ACC_Reciept_View();
 
         Main_Content.removeAll();
+        view.Start();
 
         view.setSize(Main_Content.getSize());
 

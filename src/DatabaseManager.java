@@ -260,7 +260,7 @@ public final class DatabaseManager {
 
         }
 
-        if (num_of_rows_in_the_database > bottom) {
+        if (num_of_rows_in_the_database >= bottom) {
             try {
                 ResultSet query = dbm.query("SELECT " + column_name + " FROM " + table_name + "");
                 while (query.next()) {
@@ -304,7 +304,7 @@ public final class DatabaseManager {
 
         }
 
-        if (num_of_rows_in_the_database > bottom) {
+        if (num_of_rows_in_the_database >= bottom) {
             try {
                 ResultSet query = dbm.query("SELECT * FROM " + table_name + " where " + column_filtering + " LIKE '" + element + "'");
                 while (query.next()) {
