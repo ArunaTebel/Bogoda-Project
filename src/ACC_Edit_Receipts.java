@@ -172,7 +172,7 @@ public class ACC_Edit_Receipts extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jButton5 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 

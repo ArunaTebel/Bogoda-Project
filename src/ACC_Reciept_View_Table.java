@@ -20,6 +20,7 @@ public class ACC_Reciept_View_Table extends javax.swing.JFrame {
         initComponents();
     }
     
+    ACC_View_Database_Handling db = new ACC_View_Database_Handling();
     public void Table_Fill_Debit_Search(String search_column,Object search_element){
         ACC_View_Database_Handling db = new ACC_View_Database_Handling();
         db.Filtered_table_For_Reciepts_Debit_Search(table,search_column,search_element,1,50);
@@ -32,6 +33,35 @@ public class ACC_Reciept_View_Table extends javax.swing.JFrame {
         ACC_View_Database_Handling db = new ACC_View_Database_Handling();
         db.Filtered_table_For_Reciepts_For_Date_Debit_Search(table,search_column,search_element1,search_element2,1,50);
     }
+    
+    public void Table_Fill_Debit_Debit_Search(String search_column1,Object search_element1,String search_column2,Object search_element2){
+         ACC_View_Database_Handling db = new ACC_View_Database_Handling();
+         db.Filtered_table_For_Reciepts_Debit_Debit_Search(table, search_column1, search_element1,1,50, search_column2, search_element2);
+    }
+    
+    public void Table_Fill_Credit_Credit_Search(String search_column1,Object search_element1,String search_column2,Object search_element2){
+         ACC_View_Database_Handling db = new ACC_View_Database_Handling();
+         db.Filtered_table_For_Reciepts_Credit_Credit_Search(table, search_column1, search_element1,1,50, search_column2, search_element2);
+    }
+    
+    public void Table_Fill_Debit_Credit_Search(String search_column1,Object search_element1,String search_column2,Object search_element2){
+         ACC_View_Database_Handling db = new ACC_View_Database_Handling();
+         db.Filtered_table_For_Reciepts_Debit_Credit_Search(table, search_column1, search_element1,1,50, search_column2, search_element2);
+    }
+    
+    public void Table_Fill_Date_Debit_Search(String search_column1,Object search_element1,Object search_element2,String search_column2,Object search_element3){
+         ACC_View_Database_Handling db = new ACC_View_Database_Handling();
+         db.Filtered_table_For_Reciepts_For_Date_Debit_Two_Search(table, search_column1, search_element1,search_element2,1,50, search_column2, search_element3);
+    }
+    
+    public void Table_Fill_Date_Credit_Search(String search_column1,Object search_element1,Object search_element2,String search_column2,Object search_element3){
+         ACC_View_Database_Handling db = new ACC_View_Database_Handling();
+         db.Filtered_table_For_Reciepts_For_Date_Credit_Two_Search(table, search_column1, search_element1,search_element2,1,50, search_column2, search_element3);
+    }
+    
+   
+    
+    
    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -180,7 +210,7 @@ public class ACC_Reciept_View_Table extends javax.swing.JFrame {
                                     .addComponent(jButton4))
                                 .addGap(337, 337, 337))
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(31, 31, 31)
+                                .addGap(39, 39, 39)
                                 .addComponent(jButton6)
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
@@ -195,7 +225,7 @@ public class ACC_Reciept_View_Table extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(107, 107, 107)
+                        .addGap(113, 113, 113)
                         .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton4))
@@ -210,9 +240,9 @@ public class ACC_Reciept_View_Table extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
