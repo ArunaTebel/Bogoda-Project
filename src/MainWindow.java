@@ -4,6 +4,12 @@ import java.awt.Container;
 import java.awt.Frame;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 
 /*
@@ -18,12 +24,21 @@ import javax.swing.ImageIcon;
 public class MainWindow extends javax.swing.JFrame {
     
      Interface_Events interface_events = new Interface_Events();
+     DatabaseManager dbm = new DatabaseManager();
+     Search srch = new Search();
+     Date_Handler datehandler = new Date_Handler();
+     UserAccountControl userAC = new UserAccountControl();
 
     public MainWindow() {
         initComponents();
         this.setIconImage(new ImageIcon(getClass().getResource("icon.jpg")).getImage());
+        Info.setText("");
 
-       
+        if(userAC.Checkip()){
+           userAC.Add_ip();
+           Info.setText("New ip detected");
+        
+        }
 
         jButton1.setEnabled(false);
         jButton2.setEnabled(false);
@@ -42,7 +57,8 @@ public class MainWindow extends javax.swing.JFrame {
         jMenu1.setEnabled(false);
         jMenu2.setEnabled(false);
         jMenu3.setEnabled(false);
-        jButton14.requestFocusInWindow();
+       // jButton14.requestFocusInWindow();
+        User_id.requestFocus();
 
         interface_events.Respond_enter(jButton14, null);
 
@@ -71,10 +87,11 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jButton14 = new javax.swing.JButton();
-        jPasswordField1 = new javax.swing.JPasswordField();
-        jTextField1 = new javax.swing.JTextField();
+        Pass = new javax.swing.JPasswordField();
+        User_id = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
         jButton13 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
@@ -84,6 +101,7 @@ public class MainWindow extends javax.swing.JFrame {
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
+        Info = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
@@ -255,21 +273,24 @@ public class MainWindow extends javax.swing.JFrame {
         Main_Content.add(jButton14);
         jButton14.setBounds(190, 290, 130, 40);
 
-        jPasswordField1.addKeyListener(new java.awt.event.KeyAdapter() {
+        Pass.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jPasswordField1KeyPressed(evt);
+                PassKeyPressed(evt);
             }
         });
-        Main_Content.add(jPasswordField1);
-        jPasswordField1.setBounds(190, 250, 130, 30);
+        Main_Content.add(Pass);
+        Pass.setBounds(190, 250, 130, 30);
 
-        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+        User_id.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextField1KeyPressed(evt);
+                User_idKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                User_idKeyReleased(evt);
             }
         });
-        Main_Content.add(jTextField1);
-        jTextField1.setBounds(190, 210, 130, 30);
+        Main_Content.add(User_id);
+        User_id.setBounds(190, 210, 130, 30);
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pat.png"))); // NOI18N
         jLabel3.setVerticalAlignment(javax.swing.SwingConstants.TOP);
@@ -281,6 +302,12 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel7.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         Main_Content.add(jLabel7);
         jLabel7.setBounds(-70, -80, 1350, 760);
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Password");
+        Main_Content.add(jLabel8);
+        jLabel8.setBounds(120, 240, 90, 40);
 
         jButton13.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
         jButton13.setForeground(new java.awt.Color(215, 215, 215));
@@ -397,15 +424,22 @@ public class MainWindow extends javax.swing.JFrame {
 
         jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 102, 0)));
 
+        Info.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        Info.setForeground(new java.awt.Color(255, 0, 51));
+        Info.setText("jLabel2");
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(68, 68, 68)
+                .addComponent(Info, javax.swing.GroupLayout.PREFERRED_SIZE, 483, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 25, Short.MAX_VALUE)
+            .addComponent(Info, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -634,6 +668,12 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton13ActionPerformed
 
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
+     
+      
+     String pwd= dbm.checknReturnStringData("user_data", "user_name",User_id.getText() ,"pwd");
+        System.out.println(pwd + "------"+ Pass.getText());
+      if(Pass.getText().equals(pwd)){  
+        
         jButton1.setEnabled(true);
         jButton2.setEnabled(true);
         jButton3.setEnabled(true);
@@ -647,14 +687,16 @@ public class MainWindow extends javax.swing.JFrame {
         jButton11.setEnabled(true);
         jButton12.setEnabled(true);
         jButton13.setEnabled(true);
+       
+        Info.setText("Logging in...");
 
         jMenu1.setEnabled(true);
         jMenu2.setEnabled(true);
         jMenu3.setEnabled(true);
 
        // Main_Content.removeAll();
-         jTextField1.setVisible(false);
-         jPasswordField1.setVisible(false);
+         User_id.setVisible(false);
+         Pass.setVisible(false);
          jButton14.setVisible(false);
          jLabel3.setVisible(false);
          jLabel4.setVisible(false);
@@ -664,7 +706,30 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel7.setVisible(true);
         jButton13.setBackground(new java.awt.Color(102, 102, 102));
         jButton2.requestFocusInWindow();
+        
+        //======================================================================================================================
+        DatabaseManager dbCon = DatabaseManager.getDbCon();
+        String date =datehandler.get_today_date_time();
+        String ip =  userAC.getIP();       
+         dbm.updateDatabase("user_current", "ip", ip, "date_time", date);
+          dbm.updateDatabase("user_current", "ip", ip, "user", User_id.getText());
+         try {
+            dbCon.insert("INSERT INTO user_login_log(user,date_time,ip) VALUES('" + User_id.getText() + "','"+ date + "','"+ ip + "')");
 
+        } catch (SQLException ex) {
+            MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
+        }
+        //================================================================================================================
+        
+        Info.setText("Login Successfull");
+      }
+      
+      else {
+          
+          Info.setText("Incorrect Username or Password. Please try Again.");
+           Pass.setText("");
+           Pass.requestFocus();
+       }
     }//GEN-LAST:event_jButton14ActionPerformed
 
     private void jButton2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton2KeyReleased
@@ -808,15 +873,13 @@ public class MainWindow extends javax.swing.JFrame {
         repaint();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
-    private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
-        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
-        jPasswordField1.requestFocusInWindow();
-        }
-    }//GEN-LAST:event_jTextField1KeyPressed
+    private void User_idKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_User_idKeyPressed
+        
+    }//GEN-LAST:event_User_idKeyPressed
 
-    private void jPasswordField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordField1KeyPressed
-       interface_events.Change_focus_Enterkey_t_b(jTextField1, jButton14, evt);
-    }//GEN-LAST:event_jPasswordField1KeyPressed
+    private void PassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PassKeyPressed
+       interface_events.Change_focus_Enterkey_t_b(User_id, jButton14, evt);
+    }//GEN-LAST:event_PassKeyPressed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
        GL_BillsummeryPanel bill = new GL_BillsummeryPanel();
@@ -829,6 +892,22 @@ public class MainWindow extends javax.swing.JFrame {
         validate();
         repaint();
     }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void User_idKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_User_idKeyReleased
+     if(evt.getKeyCode()!=KeyEvent.VK_BACK_SPACE&&evt.getKeyCode()!=KeyEvent.VK_SHIFT ){   String a;
+        int b= User_id.getText().length();
+        
+       a= srch.Suggestions("user_data", "user_name", User_id.getText());
+       int c = a.length();
+        User_id.setText(a);
+        if(c!=b){
+        User_id.select(b, c);}
+        
+        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+        Pass.requestFocusInWindow();
+        }
+     }
+    }//GEN-LAST:event_User_idKeyReleased
                            
 
 
@@ -875,7 +954,10 @@ public class MainWindow extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Info;
     private javax.swing.JPanel Main_Content;
+    private javax.swing.JPasswordField Pass;
+    private javax.swing.JTextField User_id;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
@@ -896,6 +978,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -908,9 +991,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }
