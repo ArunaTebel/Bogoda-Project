@@ -283,6 +283,7 @@ public class MainWindow extends javax.swing.JFrame {
         Main_Content.add(Pass);
         Pass.setBounds(190, 250, 130, 30);
 
+        User_id.setText("AdminNL");
         User_id.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 User_idKeyPressed(evt);
@@ -607,7 +608,7 @@ public class MainWindow extends javax.swing.JFrame {
         validate();
         repaint();
         pgreenleaf.focus();
-        System.out.println( userAC.get_current_user());
+        
      
            
 
@@ -675,7 +676,7 @@ public class MainWindow extends javax.swing.JFrame {
       
      String pwd= dbm.checknReturnStringData("user_data", "user_name",User_id.getText() ,"pwd");
        
-      if(Pass.getText().equals(pwd)){  
+     // if(Pass.getText().equals(pwd)){  
         
         jButton1.setEnabled(true);
         jButton2.setEnabled(true);
@@ -722,14 +723,14 @@ public class MainWindow extends javax.swing.JFrame {
         //================================================================================================================
         
         Info.setText("Login Successfull");
-      }
+   //   }
       
-      else {
+   //   else {
           
-          Info.setText("Incorrect Username or Password. Please try Again.");
-           Pass.setText("");
+     //     Info.setText("Incorrect Username or Password. Please try Again.");
+      //     Pass.setText("");
           // Pass.requestFocus();
-       }
+      // }
     }//GEN-LAST:event_jButton14ActionPerformed
 
     private void jButton2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton2KeyReleased

@@ -2,14 +2,16 @@
 import java.sql.Date;
 import java.sql.SQLException;
 
+
 public class Cash_Advance_Common_Class {
-    
+    UserAccountControl UserAC = new UserAccountControl();
     int sup_id;
     String sup_name;
     double max_allowable;
     double amount;
     Date date;
     String pay;
+    String user  = UserAC.get_current_user();
     
     public Cash_Advance_Common_Class(){
         sup_id=0;
@@ -37,7 +39,7 @@ public class Cash_Advance_Common_Class {
     public void set_amount(double amount){
         this.amount=amount;
     }
-     public void set_pat_type(String amount){
+     public void set_pay_type(String amount){
         this.pay=amount;
     }
     
@@ -65,11 +67,12 @@ public class Cash_Advance_Common_Class {
     // Add to database
     
       public boolean addToDataBase() {
+         
         
        
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         try {
-            dbCon.insert("INSERT INTO gl_cash_advance_book(sup_id,sup_name,date,max_allowable,amount,pay_type) VALUES('" + sup_id + "','" + sup_name + "','" + date + "','" + max_allowable + "','"+ amount + "','"+pay+ "')");
+            dbCon.insert("INSERT INTO gl_cash_advance_book(sup_id,sup_name,date,max_allowable,amount,pay_type,user) VALUES('" + sup_id + "','" + sup_name + "','" + date + "','" + max_allowable + "','"+ amount + "','"+ pay + "','"+user+ "')");
         } catch (SQLException ex) {
             MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
             return false;
