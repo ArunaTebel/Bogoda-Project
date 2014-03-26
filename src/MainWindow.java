@@ -605,8 +605,9 @@ public class MainWindow extends javax.swing.JFrame {
         validate();
         repaint();
         pgreenleaf.focus();
-      
-
+        System.out.println( userAC.get_current_user());
+     
+           
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -671,8 +672,8 @@ public class MainWindow extends javax.swing.JFrame {
      
       
      String pwd= dbm.checknReturnStringData("user_data", "user_name",User_id.getText() ,"pwd");
-        System.out.println(pwd + "------"+ Pass.getText());
-      if(Pass.getText().equals(pwd)){  
+       
+      //if(Pass.getText().equals(pwd)){  
         
         jButton1.setEnabled(true);
         jButton2.setEnabled(true);
@@ -687,9 +688,6 @@ public class MainWindow extends javax.swing.JFrame {
         jButton11.setEnabled(true);
         jButton12.setEnabled(true);
         jButton13.setEnabled(true);
-       
-        Info.setText("Logging in...");
-
         jMenu1.setEnabled(true);
         jMenu2.setEnabled(true);
         jMenu3.setEnabled(true);
@@ -722,14 +720,14 @@ public class MainWindow extends javax.swing.JFrame {
         //================================================================================================================
         
         Info.setText("Login Successfull");
-      }
+      //}
       
-      else {
+   //   else {
           
           Info.setText("Incorrect Username or Password. Please try Again.");
            Pass.setText("");
-           Pass.requestFocus();
-       }
+          // Pass.requestFocus();
+       //}
     }//GEN-LAST:event_jButton14ActionPerformed
 
     private void jButton2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton2KeyReleased

@@ -37,7 +37,7 @@ public class UserAccountControl {
         int i = 0;
 
         int lnth = dbm.getStringArray("user_current", "ip").length;
-        System.out.println(lnth);
+       
         if (lnth != 1) {
             try {
                 addr = Inet4Address.getLocalHost().getHostAddress();
@@ -80,6 +80,26 @@ public class UserAccountControl {
         }
     
     
+     
+    }
+    
+    
+    public String get_current_user (){
+       String user="Default_user";
+        String addr = "default";
+        String date = " default";
+        
+        try {
+                addr = Inet4Address.getLocalHost().getHostAddress();
+
+            } catch (UnknownHostException ex) {
+                Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        
+       user= dbm.checknReturnStringData("user_current", "ip", addr, "user");
+       
+    
+       return user;
     }
 
 }
