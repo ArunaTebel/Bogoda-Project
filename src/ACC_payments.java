@@ -105,7 +105,6 @@ public class ACC_payments extends javax.swing.JPanel {
         datePicker1 = new com.michaelbaranov.microba.calendar.DatePicker();
         jButton5 = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
-        date = new com.michaelbaranov.microba.calendar.DatePicker();
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 102, 0), 2, true), "DEBIT"));
 
@@ -770,12 +769,6 @@ public class ACC_payments extends javax.swing.JPanel {
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
-        date.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                dateKeyPressed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -792,9 +785,6 @@ public class ACC_payments extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(date, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -820,8 +810,6 @@ public class ACC_payments extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(19, 19, 19)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -904,7 +892,7 @@ public class ACC_payments extends javax.swing.JPanel {
             boolean addToCreditDataBase;
             raobject.setRefNo(refNo.getText());
             raobject.setRecieptNo(recieptNo.getText());
-            java.sql.Date date1 = new java.sql.Date(date.getDate().getTime());
+           
             raobject.setDate(datechooser.Return_date(yearfield,monthfield,dayfield));
             raobject.setPayType(payType.getSelectedItem().toString());
             raobject.setCredit_accountCode(Integer.parseInt(credit_accountCode.getSelectedItem().toString()));
@@ -1157,11 +1145,6 @@ public class ACC_payments extends javax.swing.JPanel {
     private void recieptNoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_recieptNoKeyPressed
         interface_events.Change_focus_Enterkey_c(payType, evt);
     }//GEN-LAST:event_recieptNoKeyPressed
-
-    private void dateKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dateKeyPressed
-     //   jPanel5.setBackground(new java.awt.Color(240, 240, 240));
-        interface_events.Change_focus_Enterkey_t(recieptNo, evt);
-    }//GEN-LAST:event_dateKeyPressed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         int i = 0;
@@ -1583,7 +1566,6 @@ public class ACC_payments extends javax.swing.JPanel {
     private javax.swing.JComboBox credit_accountCode;
     private javax.swing.JLabel credit_accountName;
     private javax.swing.JTextField credit_description;
-    private com.michaelbaranov.microba.calendar.DatePicker date;
     private com.michaelbaranov.microba.calendar.DatePicker datePicker1;
     private javax.swing.JPanel datepanel;
     private javax.swing.JTextField dayfield;

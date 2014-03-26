@@ -187,7 +187,7 @@ public class ACC_Edit_Payments extends javax.swing.JFrame {
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 102, 0), 2, true), "CREDIT"));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 102, 0), 2, true), "DEBIT"));
 
         debit_account_code_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -708,7 +708,7 @@ public class ACC_Edit_Payments extends javax.swing.JFrame {
                     .addContainerGap(65, Short.MAX_VALUE)))
         );
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 0, 0), 2, true), "DEBIT"));
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 0, 0), 2, true), "CREDIT"));
 
         credit_accountCode.putClientProperty("JComboBox.isTableCellEditor",Boolean.TRUE);
         credit_accountCode.setEditable(true);
