@@ -266,7 +266,7 @@ public final class DatabaseManager {
         DatabaseManager dbm = DatabaseManager.getDbCon();
 
         try {
-            ResultSet query = dbm.query("SELECT " + column_name + " FROM " + table_name + "");
+            ResultSet query = dbm.query("SELECT * FROM " + table_name + "");
             while (query.next()) {
                 num_of_rows_in_the_database++;
             }
@@ -276,7 +276,7 @@ public final class DatabaseManager {
 
         if (num_of_rows_in_the_database >= bottom) {
             try {
-                ResultSet query = dbm.query("SELECT " + column_name + " FROM " + table_name + "");
+                ResultSet query = dbm.query("SELECT * FROM " + table_name + "");
                 while (query.next()) {
                     count++;
                     if (count < bottom) {
@@ -321,6 +321,50 @@ public final class DatabaseManager {
         if (num_of_rows_in_the_database >= bottom) {
             try {
                 ResultSet query = dbm.query("SELECT * FROM " + table_name + " where " + column_filtering + " LIKE '" + element + "'");
+                while (query.next()) {
+                    count++;
+                    if (count < bottom) {
+
+                    } else if (count >= bottom && count <= top) {
+                        table.setValueAt(query.getString(column_name), num_of_rows_filled_in_table, table_column_num);
+                        num_of_rows_filled_in_table++;
+                    } else {
+                        break;
+                    }
+                }
+            } catch (SQLException ex) {
+
+            }
+        } else {
+            return false;
+
+        }
+        return true;
+    }
+    
+    public boolean Inserting_To_The_Table_Filtered_Between_Two(javax.swing.JTable table, String table_name, String column_name, int table_column_num, int bottom, int top, String column_filtering, String element1,String element2) {
+
+        int num_of_rows_filled_in_table = 0;
+        int num_of_rows_in_the_database = 0;
+        int count = 0;
+        /*  while (table.getValueAt(num_of_columns_filled_in_table, table_column_num) != null) {
+         num_of_columns_filled_in_table++;
+         } */
+        DatabaseManager dbm = DatabaseManager.getDbCon();
+        //  "SELECT * FROM " + table_name + " WHERE " + table_column_giving + " =" + row_element + ""
+
+        try {
+            ResultSet query = dbm.query("SELECT * FROM " + table_name + " where " + column_filtering + " BETWEEN '" + element1 + "' AND '" + element2 + "'");
+            while (query.next()) {
+                num_of_rows_in_the_database++;
+            }
+        } catch (SQLException ex) {
+
+        }
+
+        if (num_of_rows_in_the_database >= bottom) {
+            try {
+                ResultSet query = dbm.query("SELECT * FROM " + table_name + " where " + column_filtering + " BETWEEN '" + element1 + "' AND '" + element2 + "'");
                 while (query.next()) {
                     count++;
                     if (count < bottom) {
