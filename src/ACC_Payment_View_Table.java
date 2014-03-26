@@ -41,6 +41,7 @@ public class ACC_Payment_View_Table extends javax.swing.JFrame {
     
     public void Table_Fill_Debit_Debit_Search(String search_column1,Object search_element1,String search_column2,Object search_element2){
          ACC_View_Database_Handling_Payment db = new ACC_View_Database_Handling_Payment();
+         System.out.println("colombo");
          db.Filtered_table_For_Payments_Debit_Debit_Search(table, search_column1, search_element1,1,50, search_column2, search_element2);
     }
     
@@ -136,7 +137,7 @@ public class ACC_Payment_View_Table extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Tr No.", "Rec No.", "Ref No.", "Date", "Pay Type", "Debit ID ", "Debit Account Name", "Debit Description", "Debit Amount", "Credit ID", "Credit Account Name", "Credit Description", "Credit Amount"
+                "Tr No.", "Rec No.", "Ref No.", "Date", "Pay Type", "Credit ID ", "Credit Account Name", "Credit Description", "Credit Amount", "Debit ID", "Debit Account Name", "Debit Description", "Debit Amount"
             }
         ));
         table.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
@@ -318,7 +319,7 @@ public class ACC_Payment_View_Table extends javax.swing.JFrame {
         } */
     }//GEN-LAST:event_jButton5ActionPerformed
 
-    ACC_Edit_Receipts edit = new ACC_Edit_Receipts();
+    ACC_Edit_Payments edit = new ACC_Edit_Payments();
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
 
         edit.setVisible(true);

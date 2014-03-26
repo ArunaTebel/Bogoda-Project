@@ -142,7 +142,7 @@ public class ACC_View_Database_Handling_Payment {
         System.out.println(num_of_rows_in_the_database);
 
         if (key == 1) {
-
+            tr_no = 0;
             if (num_of_rows_in_the_database >= bottom) {
                 try {
 
@@ -185,7 +185,7 @@ public class ACC_View_Database_Handling_Payment {
             }
             return true;
         } else if (key == 0) {
-
+            tr_no = 0;
             if (num_of_rows_in_the_database >= bottom) {
                 try {
 
@@ -703,7 +703,7 @@ public class ACC_View_Database_Handling_Payment {
         System.out.println(num_of_rows_in_the_database);
 
         if (key == 1) {
-
+            tr_no = 0;
             if (num_of_rows_in_the_database >= bottom) {
                 try {
 
@@ -746,7 +746,7 @@ public class ACC_View_Database_Handling_Payment {
             }
             return true;
         } else if (key == 0) {
-
+            tr_no=0;
             if (num_of_rows_in_the_database >= bottom) {
                 try {
 

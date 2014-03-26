@@ -593,7 +593,16 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-        // TODO add your handling code here:
+          ACC_Payment_View view = new ACC_Payment_View();
+
+        Main_Content.removeAll();
+        view.Start();
+
+        view.setSize(Main_Content.getSize());
+
+        Main_Content.add(view);
+        validate();
+        repaint();
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

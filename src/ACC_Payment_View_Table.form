@@ -129,14 +129,14 @@
                     <Column editable="true" title="Ref No." type="java.lang.Object"/>
                     <Column editable="true" title="Date" type="java.lang.Object"/>
                     <Column editable="true" title="Pay Type" type="java.lang.Object"/>
-                    <Column editable="true" title="Debit ID " type="java.lang.Object"/>
-                    <Column editable="true" title="Debit Account Name" type="java.lang.Object"/>
-                    <Column editable="true" title="Debit Description" type="java.lang.Object"/>
-                    <Column editable="true" title="Debit Amount" type="java.lang.Object"/>
-                    <Column editable="true" title="Credit ID" type="java.lang.Object"/>
+                    <Column editable="true" title="Credit ID " type="java.lang.Object"/>
                     <Column editable="true" title="Credit Account Name" type="java.lang.Object"/>
                     <Column editable="true" title="Credit Description" type="java.lang.Object"/>
                     <Column editable="true" title="Credit Amount" type="java.lang.Object"/>
+                    <Column editable="true" title="Debit ID" type="java.lang.Object"/>
+                    <Column editable="true" title="Debit Account Name" type="java.lang.Object"/>
+                    <Column editable="true" title="Debit Description" type="java.lang.Object"/>
+                    <Column editable="true" title="Debit Amount" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="autoResizeMode" type="int" value="0"/>
