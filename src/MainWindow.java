@@ -33,10 +33,12 @@ public class MainWindow extends javax.swing.JFrame {
         initComponents();
         this.setIconImage(new ImageIcon(getClass().getResource("icon.jpg")).getImage());
         Info.setText("");
-
+ 
         if(userAC.Checkip()){
+            
            userAC.Add_ip();
            Info.setText("New ip detected");
+           
         
         }
 
@@ -673,7 +675,7 @@ public class MainWindow extends javax.swing.JFrame {
       
      String pwd= dbm.checknReturnStringData("user_data", "user_name",User_id.getText() ,"pwd");
        
-      //if(Pass.getText().equals(pwd)){  
+      if(Pass.getText().equals(pwd)){  
         
         jButton1.setEnabled(true);
         jButton2.setEnabled(true);
@@ -720,14 +722,14 @@ public class MainWindow extends javax.swing.JFrame {
         //================================================================================================================
         
         Info.setText("Login Successfull");
-      //}
+      }
       
-   //   else {
+      else {
           
           Info.setText("Incorrect Username or Password. Please try Again.");
            Pass.setText("");
           // Pass.requestFocus();
-       //}
+       }
     }//GEN-LAST:event_jButton14ActionPerformed
 
     private void jButton2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton2KeyReleased
