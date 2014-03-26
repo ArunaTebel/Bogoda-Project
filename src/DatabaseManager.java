@@ -95,6 +95,20 @@ public final class DatabaseManager {
         }
         return null;
     }
+    
+     public String checknReturnStringDataReceipts(String table_name, String table_column_giving, Object row_element, String table_column_need) {
+        DatabaseManager dbm = DatabaseManager.getDbCon();
+        try {
+            ResultSet query = dbm.query("SELECT * FROM " + table_name + " where " + table_column_giving + " LIKE '" + row_element + "'");
+            while (query.next()) {
+                return (query.getString(table_column_need));
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            return "" + ex.getErrorCode();
+        }
+        return null;
+    }
 
     public boolean updateDatabase(String table_name, String table_column_giving, Object row_element, String table_column_need, Object update_element) {
         DatabaseManager dbm = DatabaseManager.getDbCon();
@@ -260,7 +274,7 @@ public final class DatabaseManager {
 
         }
 
-        if (num_of_rows_in_the_database > bottom) {
+        if (num_of_rows_in_the_database >= bottom) {
             try {
                 ResultSet query = dbm.query("SELECT " + column_name + " FROM " + table_name + "");
                 while (query.next()) {
@@ -304,7 +318,7 @@ public final class DatabaseManager {
 
         }
 
-        if (num_of_rows_in_the_database > bottom) {
+        if (num_of_rows_in_the_database >= bottom) {
             try {
                 ResultSet query = dbm.query("SELECT * FROM " + table_name + " where " + column_filtering + " LIKE '" + element + "'");
                 while (query.next()) {
@@ -353,6 +367,16 @@ public final class DatabaseManager {
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         try {
             dbCon.insert("DELETE FROM " + table_name + " WHERE " + column_name + " = " + element + " ");
+        } catch (SQLException ex) {
+            MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
+        }
+
+    }
+    
+    public void DeleteTable(String table_name) {
+        DatabaseManager dbCon = DatabaseManager.getDbCon();
+        try {
+            dbCon.insert("DELETE FROM " + table_name + " ");
         } catch (SQLException ex) {
             MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
         }
