@@ -145,7 +145,7 @@ public class DateChooser_text extends javax.swing.JPanel {
         d = Day.getText();
         if(Integer.parseInt(d.toString())<10  )
         {
-        d="0"+"d";
+        d="0"+d;
         }
         
         All = y+"-"+month+"-"+d;

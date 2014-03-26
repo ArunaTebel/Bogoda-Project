@@ -1,3 +1,6 @@
+
+import javax.swing.table.DefaultTableModel;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -151,7 +154,7 @@ public class ACC_Reciept_View_Table extends javax.swing.JFrame {
         page_info.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         page_info.setText("Page X of XX");
 
-        jButton6.setText("Supplier Bill Summery");
+        jButton6.setText("Edit This Transaction");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
@@ -169,12 +172,17 @@ public class ACC_Reciept_View_Table extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton5)
-                            .addComponent(jButton4)
-                            .addComponent(jButton6))
-                        .addGap(261, 261, 261))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jButton5)
+                                    .addComponent(jButton4))
+                                .addGap(337, 337, 337))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(31, 31, 31)
+                                .addComponent(jButton6)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(page_info)
                         .addGap(456, 456, 456))))
@@ -187,9 +195,9 @@ public class ACC_Reciept_View_Table extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(107, 107, 107)
                         .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton4))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 519, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -241,8 +249,19 @@ public class ACC_Reciept_View_Table extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    public void Clear_Table(){
+        int i,j;
+        i=0;
+        j=0;
+        
+        for(i=0;i<13;i++){
+            for(j=0;j<50;j++){
+                table.setValueAt(null, j, i);
+            }
+        }
+    }
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-      // removeSelectedRows(table);
+        Clear_Table();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -269,9 +288,30 @@ public class ACC_Reciept_View_Table extends javax.swing.JFrame {
         } */
     }//GEN-LAST:event_jButton5ActionPerformed
 
-    
+    ACC_Edit_Receipts edit = new ACC_Edit_Receipts();
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-      
+
+        edit.setVisible(true);
+        int tr_no,check,row;
+        tr_no=0;
+        check=0;
+        DefaultTableModel model = (DefaultTableModel) this.table.getModel();
+        int[] rows = table.getSelectedRows();
+        row=rows[0];
+        while(check==0){
+            if(table.getValueAt(row,0)==null){
+                row--;
+            }
+            else{
+                tr_no=Integer.parseInt(table.getValueAt(row,0).toString());
+                check=1;
+            }
+        }
+        
+        edit.Set_Tr_No(tr_no);
+       
+        edit.Fill_Edit_Form(tr_no);
+           
     }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
