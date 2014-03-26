@@ -37,7 +37,7 @@ public class Cash_Advance_Common_Class {
     public void set_amount(double amount){
         this.amount=amount;
     }
-     public void set_pat_type(String amount){
+     public void set_pay_type(String amount){
         this.pay=amount;
     }
     

@@ -753,6 +753,7 @@ public class GLcash_advance extends javax.swing.JPanel {
             cadvance.set_date(date3);
             cadvance.set_sup_name(supplier_name.getText());
             cadvance.addToDataBase();
+            cadvance.set_pay_type(TOOL_TIP_TEXT_KEY);
         } catch (ParseException ex) {
             Logger.getLogger(GLcash_advance.class.getName()).log(Level.SEVERE, null, ex);
         }
