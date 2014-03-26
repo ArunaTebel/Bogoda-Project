@@ -112,6 +112,14 @@ public String get_day(Date date) {
         return dateNow;
     }
     
+    
+     public String get_today_date_time() {
+        Calendar currentDate = Calendar.getInstance(); //Get the current date
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd: HH:mm:ss"); //format it as per your requirement
+        String dateNow = formatter.format(currentDate.getTime());
+        return dateNow;
+    }
+    
      public String get_today_day() {
         Calendar currentDate = Calendar.getInstance(); //Get the current date
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); //format it as per your requirement
