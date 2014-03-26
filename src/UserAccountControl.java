@@ -100,6 +100,8 @@ public class UserAccountControl {
         
        user= dbm.checknReturnStringData("user_current", "ip", addr, "user");
        
+        
+       
     
        return user;
     }

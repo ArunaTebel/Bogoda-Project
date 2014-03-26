@@ -283,6 +283,7 @@ public class MainWindow extends javax.swing.JFrame {
         Main_Content.add(Pass);
         Pass.setBounds(190, 250, 130, 30);
 
+        User_id.setText("AdminNL");
         User_id.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 User_idKeyPressed(evt);
@@ -607,7 +608,7 @@ public class MainWindow extends javax.swing.JFrame {
         validate();
         repaint();
         pgreenleaf.focus();
-        System.out.println( userAC.get_current_user());
+        
      
            
 
