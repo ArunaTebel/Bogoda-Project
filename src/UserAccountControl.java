@@ -41,16 +41,18 @@ public class UserAccountControl {
         if (lnth != 1) {
             try {
                 addr = Inet4Address.getLocalHost().getHostAddress();
-
+              
             } catch (UnknownHostException ex) {
                 Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
             }
+            
 
             while (i < lnth - 1) {
                 if (dbm.getStringArray("user_current", "ip")[i+1].equals(addr)) {
+                   
                     return false;
                 }
-
+                  i++;
             }
 
         }
