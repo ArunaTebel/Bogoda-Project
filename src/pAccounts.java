@@ -1,9 +1,13 @@
+
+import com.lowagie.text.DocumentException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Pramo
@@ -11,28 +15,27 @@
 public class pAccounts extends javax.swing.JPanel {
 
     Interface_Events interface_events = new Interface_Events();
-    
-    
+
     public pAccounts() {
         initComponents();
     }
 
-    
-     public void focus(){
-    this.requestFocus();
-    jButton1.requestFocus();
-    
+    public void focus() {
+        this.requestFocus();
+        jButton1.requestFocus();
+
     }
-     
-     public void quit(){
-         ACC_Add_account acnt = new ACC_Add_account();
-         pAccounts AddAcc = new pAccounts();
-         GL_content.removeAll();
-          GL_content.add(AddAcc);
-         
-            validate();
-            repaint();
-     }
+
+    public void quit() {
+        ACC_Add_account acnt = new ACC_Add_account();
+        pAccounts AddAcc = new pAccounts();
+        GL_content.removeAll();
+        GL_content.add(AddAcc);
+
+        validate();
+        repaint();
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -43,7 +46,8 @@ public class pAccounts extends javax.swing.JPanel {
     private void initComponents() {
 
         GL_content = new javax.swing.JPanel();
-        jComboBox3 = new javax.swing.JComboBox();
+        jButton5 = new javax.swing.JButton();
+        view = new javax.swing.JComboBox();
         jButton7 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         Add_combo = new javax.swing.JComboBox();
@@ -55,26 +59,44 @@ public class pAccounts extends javax.swing.JPanel {
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 0, 102), 3));
 
+        jButton5.setText("jButton5");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout GL_contentLayout = new javax.swing.GroupLayout(GL_content);
         GL_content.setLayout(GL_contentLayout);
         GL_contentLayout.setHorizontalGroup(
             GL_contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 745, Short.MAX_VALUE)
+            .addGroup(GL_contentLayout.createSequentialGroup()
+                .addGap(190, 190, 190)
+                .addComponent(jButton5)
+                .addContainerGap(482, Short.MAX_VALUE))
         );
         GL_contentLayout.setVerticalGroup(
             GL_contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(GL_contentLayout.createSequentialGroup()
+                .addGap(126, 126, 126)
+                .addComponent(jButton5)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "---------", "Accounts", "Recepts", "Payments", "Journals", "----------" }));
-        jComboBox3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox3ActionPerformed(evt);
+        view.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "---------", "Accounts", "Recepts", "Payments", "Journals", "Bank Codes", "----------" }));
+        view.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                viewItemStateChanged(evt);
             }
         });
-        jComboBox3.addKeyListener(new java.awt.event.KeyAdapter() {
+        view.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewActionPerformed(evt);
+            }
+        });
+        view.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                jComboBox3KeyReleased(evt);
+                viewKeyReleased(evt);
             }
         });
 
@@ -180,7 +202,7 @@ public class pAccounts extends javax.swing.JPanel {
                                 .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(Add_combo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jComboBox3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(view, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(jLabel1))
                 .addGap(0, 0, 0)
                 .addComponent(GL_content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -201,7 +223,7 @@ public class pAccounts extends javax.swing.JPanel {
                     .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, 0)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(view, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(1, 1, 1)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 297, Short.MAX_VALUE))
@@ -209,9 +231,9 @@ public class pAccounts extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
+    private void viewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox3ActionPerformed
+    }//GEN-LAST:event_viewActionPerformed
 
     private void Add_comboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Add_comboActionPerformed
         String selection = (String) Add_combo.getSelectedItem();
@@ -234,7 +256,6 @@ public class pAccounts extends javax.swing.JPanel {
 
         //System.out.println(" ok ");
         ACC_payments payments = new ACC_payments();
-        
 
         // System.out.println(" ok 1");
         GL_content.removeAll();
@@ -244,9 +265,9 @@ public class pAccounts extends javax.swing.JPanel {
         GL_content.add(payments);
         validate();
         repaint();
-        
+
         payments.focus();
-        
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -263,7 +284,7 @@ public class pAccounts extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton1KeyReleased
-       interface_events.Change_focus_down_b_b(jButton2, evt);
+        interface_events.Change_focus_down_b_b(jButton2, evt);
     }//GEN-LAST:event_jButton1KeyReleased
 
     private void jButton2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton2KeyReleased
@@ -272,23 +293,23 @@ public class pAccounts extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton2KeyReleased
 
     private void jButton3KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton3KeyReleased
-       interface_events.Change_focus_down_b_b(jButton4, evt);
+        interface_events.Change_focus_down_b_b(jButton4, evt);
         interface_events.Change_focus_Up_b_b(jButton2, evt);
     }//GEN-LAST:event_jButton3KeyReleased
 
     private void jButton4KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton4KeyReleased
-         interface_events.Change_focus_right_c(Add_combo, evt);
+        interface_events.Change_focus_right_c(Add_combo, evt);
         interface_events.Change_focus_Up_b_b(jButton3, evt);
     }//GEN-LAST:event_jButton4KeyReleased
 
     private void Add_comboKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Add_comboKeyReleased
-        interface_events.Change_focus_right_c(jComboBox3, evt);
+        interface_events.Change_focus_right_c(view, evt);
         interface_events.Change_focus_left_b_b(jButton4, evt);
     }//GEN-LAST:event_Add_comboKeyReleased
 
-    private void jComboBox3KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jComboBox3KeyReleased
-          interface_events.Change_focus_left_c(Add_combo, evt);
-    }//GEN-LAST:event_jComboBox3KeyReleased
+    private void viewKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_viewKeyReleased
+        interface_events.Change_focus_left_c(Add_combo, evt);
+    }//GEN-LAST:event_viewKeyReleased
 
     private void jButton1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jButton1FocusGained
         interface_events.Respond_enter(jButton1, evt);
@@ -303,11 +324,11 @@ public class pAccounts extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton3FocusGained
 
     private void jButton4FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jButton4FocusGained
-       interface_events.Respond_enter(jButton4, evt);
+        interface_events.Respond_enter(jButton4, evt);
     }//GEN-LAST:event_jButton4FocusGained
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-         ACC_journals journals = new ACC_journals();
+        ACC_journals journals = new ACC_journals();
 
         GL_content.removeAll();
 
@@ -318,6 +339,40 @@ public class pAccounts extends javax.swing.JPanel {
         repaint();
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    PDF_Handling pdf = new PDF_Handling();
+    private void viewItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_viewItemStateChanged
+        if (view.getSelectedItem().toString() == "Bank Code") {
+
+            String[][] arr = new String[2][2];
+            arr[0][0] = "Bank ID";
+            arr[0][1] = "Bank Name";
+            arr[1][0] = "bank_id";
+            arr[1][1] = "bank_name";
+               
+                    
+            try {
+                pdf.Print_Database_Without_Filtering("bank", arr);
+            } catch (DocumentException ex) {
+                Logger.getLogger(pAccounts.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_viewItemStateChanged
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+           String[][] arr = new String[2][2];
+            arr[0][0] = "Bank ID";
+            arr[0][1] = "Bank Name";
+            arr[1][0] = "account_name";
+            arr[1][1] = "account_class";
+               
+                    
+            try {
+                pdf.Print_Database_Without_Filtering("account_names", arr);
+            } catch (DocumentException ex) {
+                Logger.getLogger(pAccounts.class.getName()).log(Level.SEVERE, null, ex);
+            }
+    }//GEN-LAST:event_jButton5ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox Add_combo;
@@ -326,9 +381,10 @@ public class pAccounts extends javax.swing.JPanel {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
-    private javax.swing.JComboBox jComboBox3;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JComboBox view;
     // End of variables declaration//GEN-END:variables
 }
