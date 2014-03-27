@@ -30,8 +30,7 @@ public class PDF_Handling {
             document.open();
             
             document.add(addTitle());
-            document.add(addTitle());
-            document.add(addTitle());
+            
             
             PdfPTable table = new PdfPTable(num_of_columns);
             for(int i=0;i<num_of_columns;i++)
@@ -46,7 +45,8 @@ public class PDF_Handling {
             while (rs.next()) {
                 
                 for(int i=0;i<num_of_columns;i++){
-                table.addCell(add(rs.getString(arr[1][i])));
+               // table.addCell(add(rs.getString(arr[1][i])));
+                    table.addCell(rs.getString(arr[1][i]));
                 }
             }
             document.add(table);

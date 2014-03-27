@@ -362,12 +362,12 @@ public class pAccounts extends javax.swing.JPanel {
            String[][] arr = new String[2][2];
             arr[0][0] = "Bank ID";
             arr[0][1] = "Bank Name";
-            arr[1][0] = "account_name";
-            arr[1][1] = "account_class";
+            arr[1][0] = "bank_id";
+            arr[1][1] = "bank_name";
                
                     
             try {
-                pdf.Print_Database_Without_Filtering("account_names", arr);
+                pdf.Print_Database_Without_Filtering("bank", arr);
             } catch (DocumentException ex) {
                 Logger.getLogger(pAccounts.class.getName()).log(Level.SEVERE, null, ex);
             }
