@@ -314,7 +314,6 @@ public class MainWindow extends javax.swing.JFrame {
 
         jButton13.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
         jButton13.setForeground(new java.awt.Color(215, 215, 215));
-        jButton13.setText("Welcome User!  Today is 20** January ** ");
         jButton13.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jButton13.setVerifyInputWhenFocusTarget(false);
         jButton13.addActionListener(new java.awt.event.ActionListener() {
@@ -685,7 +684,7 @@ public class MainWindow extends javax.swing.JFrame {
       
      String pwd= dbm.checknReturnStringData("user_data", "user_name",User_id.getText() ,"pwd");
        
-     // if(Pass.getText().equals(pwd)){  
+      if(Pass.getText().equals(pwd)){  
         
         jButton1.setEnabled(true);
         jButton2.setEnabled(true);
@@ -732,14 +731,16 @@ public class MainWindow extends javax.swing.JFrame {
         //================================================================================================================
         
         Info.setText("Login Successfull");
-   //   }
+      }
       
-   //   else {
+      else {
           
-     //     Info.setText("Incorrect Username or Password. Please try Again.");
-      //     Pass.setText("");
-          // Pass.requestFocus();
-      // }
+          Info.setText("Incorrect Username or Password. Please try Again.");
+           Pass.setText("");
+       Pass.requestFocus();
+       }
+        
+        jButton13.setText("Welcome "+userAC.get_current_user()+"! Today is "+datehandler.get_today_date());
     }//GEN-LAST:event_jButton14ActionPerformed
 
     private void jButton2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton2KeyReleased
