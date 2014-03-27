@@ -23,7 +23,7 @@ public class GLmanual_entry extends javax.swing.JPanel {
     Interface_Events interface_events = new Interface_Events();
     DatabaseManager dbm = DatabaseManager.getDbCon();
     Date_Handler datehandler = new Date_Handler();
-    DateChooser_text datechooser =new DateChooser_text();
+    DateChooser_text datechooser = new DateChooser_text();
     /**
      * Creates new form GLmanual_entry
      */
@@ -233,7 +233,13 @@ public class GLmanual_entry extends javax.swing.JPanel {
                 category_codeItemStateChanged(evt);
             }
         });
+        category_code.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                category_codeActionPerformed(evt);
+            }
+        });
 
+        category_name.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         category_name.setForeground(new java.awt.Color(51, 51, 51));
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -734,13 +740,13 @@ public class GLmanual_entry extends javax.swing.JPanel {
         try {                 // had to put this try catch when calling datechooser.return_date.. used try catch to the block option /////////////////////////
             // adding common data to the database
             globject.setCategoryCode(category_code.getSelectedItem().toString());
-           
+
             globject.setDate(datechooser.Return_date(yearfield, monthfield, dayfield));
-            
+
             // adding values in the table
             int i = 0;
             boolean st;
-            
+
             while (table.getValueAt(i, 0) != null) {
                 globject.setSupplierCode(Integer.parseInt((String) table.getValueAt(i, 0)));
                 globject.setLeafCategory((String) table.getValueAt(i, 9));
@@ -758,33 +764,33 @@ public class GLmanual_entry extends javax.swing.JPanel {
                 }
                 globject.setSelfTransport(st);
                 globject.setIntselfTransport(globject.getSelfTransport());
-                
+
                 globject.addToDataBase();
-                
+
                 i++;
             }
             int k = 0;
             int j = 0;
             while (table.getValueAt(k, 0) != null) {
-                
+
                 j = 0;
                 while (j < 10) {
-                    
+
                     table.setValueAt(null, k, j);
                     j++;
                 }
                 k++;
             }
             category_code.setEnabled(true);
-           dayfield.setEnabled(false);
+            dayfield.setEnabled(false);
             monthfield.setEnabled(false);
             yearfield.setEnabled(false);
             datePicker1.setEnabled(false);
             category_name.setText(" ");
-            
-             category_code.setSelectedIndex(0);
+
+            category_code.setSelectedIndex(0);
             category_code.requestFocusInWindow();
-          
+
         } catch (ParseException ex) {
             Logger.getLogger(GLmanual_entry.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -801,57 +807,67 @@ public class GLmanual_entry extends javax.swing.JPanel {
     }//GEN-LAST:event_net_weightActionPerformed
 
     private void supplier_idItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_supplier_idItemStateChanged
-        
-        
-        DatabaseManager dbm = DatabaseManager.getDbCon();
-        String Name = null;
-        String category = null;
-        if (evt.getStateChange() == ItemEvent.SELECTED) {
-            int item = Integer.parseInt(supplier_id.getSelectedItem().toString());
+        if (supplier_id.getSelectedIndex() != 0) {
             try {
-                ResultSet query = dbm.query("SELECT * FROM suppliers WHERE sup_id =" + item + "");
-                while (query.next()) {
-                    Name = query.getString("sup_name");
-                }
-            } catch (SQLException ex) {
-            }
-            
-             try {
-                ResultSet query = dbm.query("SELECT * FROM suppliers WHERE sup_id =" + item + "");
-                while (query.next()) {
-                    category = query.getString("cat_id");
-                }
-            } catch (SQLException ex) {
-            }
-             
-             
-      if(!category_code.getSelectedItem().toString().equals(category))
-      {
-          JOptionPane.showMessageDialog(other, "Supplier Category Exception!");
-          
-      }
-             
-            name.setText("" + Name);
 
-            no_of_sacks.requestFocusInWindow();
+                DatabaseManager dbm = DatabaseManager.getDbCon();
+                String Name = null;
+                String category = null;
+                if (evt.getStateChange() == ItemEvent.SELECTED) {
+                    int item = Integer.parseInt(supplier_id.getSelectedItem().toString());
+                    try {
+                        ResultSet query = dbm.query("SELECT * FROM suppliers WHERE sup_id =" + item + "");
+                        while (query.next()) {
+                            Name = query.getString("sup_name");
+                        }
+                    } catch (SQLException ex) {
+                    }
 
-            jLabel14.setText(" ");
-       
+                    try {
+                        ResultSet query = dbm.query("SELECT * FROM suppliers WHERE sup_id =" + item + "");
+                        while (query.next()) {
+                            category = query.getString("cat_id");
+                        }
+                    } catch (SQLException ex) {
+                    }
+
+                    if (!category_code.getSelectedItem().toString().equals(category)) {
+                        JOptionPane.showMessageDialog(other, "Supplier Category Exception!");
+
+                    }
+
+                    name.setText("" + Name);
+
+                    no_of_sacks.requestFocusInWindow();
+
+                    jLabel14.setText(" ");
+                }
+
+            } catch (Exception e) {
+
+                supplier_id.setSelectedIndex(0);
+
+            }
             // do something with object}
        }    }//GEN-LAST:event_supplier_idItemStateChanged
 
     private void category_codeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_category_codeItemStateChanged
-        try {
-            category_name.setText(dbm.checknReturnStringData("category", "category_id",category_code.getSelectedItem().toString() , "category_name"));
-        supplier_id.requestFocusInWindow();
-            
-        } catch (Exception e) {
-            category_code.setSelectedIndex(0);
+        if (category_code.getSelectedIndex() != 0) {
+            try {
+                category_name.setText(dbm.checknReturnStringData("category", "category_id", category_code.getSelectedItem().toString(), "category_name"));
+                supplier_id.requestFocusInWindow();
+
+            } catch (Exception e) {
+                category_code.setSelectedIndex(1);
+                category_code.setSelectedItem("");
+                category_name.setText("");
+            }
+
         }
- 
-        
-
-
+         if(category_code.getSelectedItem().toString().equals("SELF"))
+         {
+              self_transport.isSelected();
+         }
     }//GEN-LAST:event_category_codeItemStateChanged
 
     private void no_of_sacksKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_no_of_sacksKeyReleased
@@ -904,10 +920,10 @@ public class GLmanual_entry extends javax.swing.JPanel {
             }
             int j = 0;
             Boolean if_equal_return_1 = false;
-            while (j<i) {
-                      if(supplier_id.getSelectedItem().toString().equals(table.getValueAt(j, 0))){
-                if_equal_return_1 = true ;
-                      }
+            while (j < i) {
+                if (supplier_id.getSelectedItem().toString().equals(table.getValueAt(j, 0))) {
+                    if_equal_return_1 = true;
+                }
 
                 j++;
             }
@@ -916,7 +932,7 @@ public class GLmanual_entry extends javax.swing.JPanel {
 
                 //JOptionPane.showConfirmDialog(category_code, "Duplicate Supplier code! Confirm?");
                 int reply = JOptionPane.showConfirmDialog(other,
-                        "Duplicate Supplier ID"+"\n"+"Cancel?", "Duplicate ID", JOptionPane.YES_NO_OPTION);
+                        "Duplicate Supplier ID" + "\n" + "Cancel?", "Duplicate ID", JOptionPane.YES_NO_OPTION);
                 if (reply == JOptionPane.NO_OPTION) {
                     table.setValueAt(supplier_id.getSelectedItem().toString(), i, 0);
                     table.setValueAt(leaf_cat.getSelectedItem().toString(), i, 9);
@@ -1230,7 +1246,7 @@ public class GLmanual_entry extends javax.swing.JPanel {
 
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
             category_code.requestFocus();
-            
+
         }
     }//GEN-LAST:event_monthfieldKeyPressed
 
@@ -1247,10 +1263,10 @@ public class GLmanual_entry extends javax.swing.JPanel {
             monthfield.requestFocus();
             monthfield.selectAll();
         }
-        
+
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
             category_code.requestFocus();
-            
+
         }
 
     }//GEN-LAST:event_yearfieldKeyPressed
@@ -1304,12 +1320,12 @@ public class GLmanual_entry extends javax.swing.JPanel {
                 dayfield.selectAll();
             }                                           // /// decrementing normal values
         } else if (dayfield.getText().equals("2") || dayfield.getText().equals("3") || dayfield.getText().equals("4") || dayfield.getText().equals("5")
-            || dayfield.getText().equals("6") || dayfield.getText().equals("7") || dayfield.getText().equals("8") || dayfield.getText().equals("9")
-            || dayfield.getText().equals("10") || dayfield.getText().equals("11") || dayfield.getText().equals("12") || dayfield.getText().equals("13") || dayfield.getText().equals("14")
-            || dayfield.getText().equals("15") || dayfield.getText().equals("16") || dayfield.getText().equals("17") || dayfield.getText().equals("18")
-            || dayfield.getText().equals("19") || dayfield.getText().equals("20") || dayfield.getText().equals("21") || dayfield.getText().equals("22")
-            || dayfield.getText().equals("23") || dayfield.getText().equals("24") || dayfield.getText().equals("25") || dayfield.getText().equals("26")
-            || dayfield.getText().equals("27") || dayfield.getText().equals("28") || dayfield.getText().equals("29") || dayfield.getText().equals("30") || dayfield.getText().equals("31")) {
+                || dayfield.getText().equals("6") || dayfield.getText().equals("7") || dayfield.getText().equals("8") || dayfield.getText().equals("9")
+                || dayfield.getText().equals("10") || dayfield.getText().equals("11") || dayfield.getText().equals("12") || dayfield.getText().equals("13") || dayfield.getText().equals("14")
+                || dayfield.getText().equals("15") || dayfield.getText().equals("16") || dayfield.getText().equals("17") || dayfield.getText().equals("18")
+                || dayfield.getText().equals("19") || dayfield.getText().equals("20") || dayfield.getText().equals("21") || dayfield.getText().equals("22")
+                || dayfield.getText().equals("23") || dayfield.getText().equals("24") || dayfield.getText().equals("25") || dayfield.getText().equals("26")
+                || dayfield.getText().equals("27") || dayfield.getText().equals("28") || dayfield.getText().equals("29") || dayfield.getText().equals("30") || dayfield.getText().equals("31")) {
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
 
                 dayfield.setText("" + (Integer.parseInt(dayfield.getText()) - 1));
@@ -1386,12 +1402,12 @@ public class GLmanual_entry extends javax.swing.JPanel {
                     monthfield.setText(datechooser.Return_month(mnth + 1));
                     // incrementing normal values/////////////////////// for february separately
                 } else if (dayfield.getText().equals("1") || dayfield.getText().equals("2") || dayfield.getText().equals("3") || dayfield.getText().equals("4") || dayfield.getText().equals("5")
-                    || dayfield.getText().equals("6") || dayfield.getText().equals("7") || dayfield.getText().equals("8") || dayfield.getText().equals("9")
-                    || dayfield.getText().equals("10") || dayfield.getText().equals("11") || dayfield.getText().equals("12") || dayfield.getText().equals("13") || dayfield.getText().equals("14")
-                    || dayfield.getText().equals("15") || dayfield.getText().equals("16") || dayfield.getText().equals("17") || dayfield.getText().equals("18")
-                    || dayfield.getText().equals("19") || dayfield.getText().equals("20") || dayfield.getText().equals("21") || dayfield.getText().equals("22")
-                    || dayfield.getText().equals("23") || dayfield.getText().equals("24") || dayfield.getText().equals("25") || dayfield.getText().equals("26")
-                    || dayfield.getText().equals("27") || dayfield.getText().equals("28") || dayfield.getText().equals("29") || dayfield.getText().equals("30") || dayfield.getText().equals("31")) {
+                        || dayfield.getText().equals("6") || dayfield.getText().equals("7") || dayfield.getText().equals("8") || dayfield.getText().equals("9")
+                        || dayfield.getText().equals("10") || dayfield.getText().equals("11") || dayfield.getText().equals("12") || dayfield.getText().equals("13") || dayfield.getText().equals("14")
+                        || dayfield.getText().equals("15") || dayfield.getText().equals("16") || dayfield.getText().equals("17") || dayfield.getText().equals("18")
+                        || dayfield.getText().equals("19") || dayfield.getText().equals("20") || dayfield.getText().equals("21") || dayfield.getText().equals("22")
+                        || dayfield.getText().equals("23") || dayfield.getText().equals("24") || dayfield.getText().equals("25") || dayfield.getText().equals("26")
+                        || dayfield.getText().equals("27") || dayfield.getText().equals("28") || dayfield.getText().equals("29") || dayfield.getText().equals("30") || dayfield.getText().equals("31")) {
 
                     dayfield.setText("" + (Integer.parseInt(dayfield.getText()) + 1));
 
@@ -1400,12 +1416,12 @@ public class GLmanual_entry extends javax.swing.JPanel {
             }
             // incrementing normal values
         } else if (dayfield.getText().equals("1") || dayfield.getText().equals("2") || dayfield.getText().equals("3") || dayfield.getText().equals("4") || dayfield.getText().equals("5")
-            || dayfield.getText().equals("6") || dayfield.getText().equals("7") || dayfield.getText().equals("8") || dayfield.getText().equals("9")
-            || dayfield.getText().equals("10") || dayfield.getText().equals("11") || dayfield.getText().equals("12") || dayfield.getText().equals("13") || dayfield.getText().equals("14")
-            || dayfield.getText().equals("15") || dayfield.getText().equals("16") || dayfield.getText().equals("17") || dayfield.getText().equals("18")
-            || dayfield.getText().equals("19") || dayfield.getText().equals("20") || dayfield.getText().equals("21") || dayfield.getText().equals("22")
-            || dayfield.getText().equals("23") || dayfield.getText().equals("24") || dayfield.getText().equals("25") || dayfield.getText().equals("26")
-            || dayfield.getText().equals("27") || dayfield.getText().equals("28") || dayfield.getText().equals("29") || dayfield.getText().equals("30") || dayfield.getText().equals("31")) {
+                || dayfield.getText().equals("6") || dayfield.getText().equals("7") || dayfield.getText().equals("8") || dayfield.getText().equals("9")
+                || dayfield.getText().equals("10") || dayfield.getText().equals("11") || dayfield.getText().equals("12") || dayfield.getText().equals("13") || dayfield.getText().equals("14")
+                || dayfield.getText().equals("15") || dayfield.getText().equals("16") || dayfield.getText().equals("17") || dayfield.getText().equals("18")
+                || dayfield.getText().equals("19") || dayfield.getText().equals("20") || dayfield.getText().equals("21") || dayfield.getText().equals("22")
+                || dayfield.getText().equals("23") || dayfield.getText().equals("24") || dayfield.getText().equals("25") || dayfield.getText().equals("26")
+                || dayfield.getText().equals("27") || dayfield.getText().equals("28") || dayfield.getText().equals("29") || dayfield.getText().equals("30") || dayfield.getText().equals("31")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
 
                 dayfield.setText("" + (Integer.parseInt(dayfield.getText()) + 1));
@@ -1417,10 +1433,10 @@ public class GLmanual_entry extends javax.swing.JPanel {
             monthfield.requestFocus();
             monthfield.selectAll();
         }
-        
-         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
+
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
             category_code.requestFocus();
-            
+
         }
 
     }//GEN-LAST:event_dayfieldKeyPressed
@@ -1434,6 +1450,10 @@ public class GLmanual_entry extends javax.swing.JPanel {
         category_code.requestFocus();
 
     }//GEN-LAST:event_datePicker1ActionPerformed
+
+    private void category_codeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_category_codeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_category_codeActionPerformed
     public double convertString(String s) {
         if (s.length() == 0) {
             return 0;
