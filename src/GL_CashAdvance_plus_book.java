@@ -110,6 +110,7 @@ Interface_Events interface_events = new Interface_Events();
         jButton1.setBackground(new java.awt.Color(0, 102, 0));
          jButton2.setBackground(new java.awt.Color(0, 0, 0));
          cashadvance.set_table(1,50);
+         
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton1KeyPressed

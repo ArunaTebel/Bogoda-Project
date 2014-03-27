@@ -706,12 +706,43 @@ public class GLcash_advance extends javax.swing.JPanel {
 
                 Red_message.setText("Fill all the Empty fields before Save");
             } else {
-                // save button action here when cash selected
-                Red_message.setText("Saved cash");
-                supplier_id.setSelectedItem(null);
-                supplier_name.setText(" ");
-                amount.setText(null);
-                 supplier_id.requestFocusInWindow();
+                try {
+                    // save button action here when cash selected
+                    
+                    interface_events.Respond_enter(Save1, null);
+                    
+                    cadvance.set_sup_id(Integer.parseInt(supplier_id.getSelectedItem().toString()));
+                    cadvance.set_max_allowable(Double.parseDouble(max_allowable.getText()));
+                    cadvance.set_amount(Double.parseDouble(amount.getText()));
+                    java.sql.Date date3 = datechooser.Return_date(yearfield, monthfield, dayfield);
+                    cadvance.set_date(date3);
+                    cadvance.set_sup_name(supplier_name.getText());
+                    cadvance.set_pay_type(cash_cheque_combo.getSelectedItem().toString());
+                    cadvance.set_emergency(Emergency.isSelected());
+                    cadvance.set_issue_date(date3);
+                    cadvance.set_cheque_date(date3);
+                    
+                    cadvance.addToDataBasemain();
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    Red_message.setText("Saved cash");
+                    supplier_id.setSelectedItem(null);
+                    supplier_name.setText(" ");
+                    amount.setText(null);
+                    supplier_id.requestFocusInWindow();
+                } catch (ParseException ex) {
+                    Logger.getLogger(GLcash_advance.class.getName()).log(Level.SEVERE, null, ex);
+                }
 
             }
         }

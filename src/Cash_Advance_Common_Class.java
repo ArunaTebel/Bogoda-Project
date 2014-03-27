@@ -1,17 +1,22 @@
 
 import java.sql.Date;
 import java.sql.SQLException;
+import java.sql.ResultSet;
+
 
 
 public class Cash_Advance_Common_Class {
     UserAccountControl UserAC = new UserAccountControl();
-    int sup_id;
-    String sup_name;
+    Date_Handler date_handler =new Date_Handler();
+    DatabaseManager dbm = new DatabaseManager();
+    int sup_id,bank;
+    String sup_name,emrg,ref_no,cheque,date_time;
     double max_allowable;
     double amount;
-    Date date;
+    Date date,issue_date,cheque_date;
     String pay;
     String user  = UserAC.get_current_user();
+    int month_tr;
     
     public Cash_Advance_Common_Class(){
         sup_id=0;
@@ -20,6 +25,7 @@ public class Cash_Advance_Common_Class {
         amount=0;
         date=null;
         pay = null;
+        month_tr =0;
     }
     
     // Setters
@@ -27,14 +33,38 @@ public class Cash_Advance_Common_Class {
     public void set_sup_id(int sup_id){
         this.sup_id=sup_id;
     }
+     public void set_bank(int sup_id){
+        this.bank=sup_id;
+    }
     public void set_sup_name(String sup_name){
         this.sup_name=sup_name;
     }
+     public void set_emergency(boolean emr){
+        if(emr){
+        emrg ="YES";
+        }
+        else{emrg="NO";}
+    }
+      public void set_ref_no(String sup_name){
+        this.ref_no=sup_name;
+    } 
+      public void set_cheque_no(String sup_name){
+        this.cheque=sup_name;
+    }
+       
+        
+    
     public void set_max_allowable(double max_allowable){
         this.max_allowable=max_allowable;
     }
     public void set_date(Date date){
         this.date=date;
+    }
+    public void set_issue_date(Date date){
+        this.issue_date=date;
+    }
+    public void set_cheque_date(Date date){
+        this.cheque_date=date;
     }
     public void set_amount(double amount){
         this.amount=amount;
@@ -42,7 +72,9 @@ public class Cash_Advance_Common_Class {
      public void set_pay_type(String amount){
         this.pay=amount;
     }
-    
+     public void set_month_tr(int amount){
+        this.month_tr=amount;
+    }
    
     
     
@@ -79,7 +111,73 @@ public class Cash_Advance_Common_Class {
         }
         return true;
     }
-    
-   
+      
+       public boolean addToDataBasemain() {
+         date_time= date_handler.get_today_date_time();
+        
+       
+        DatabaseManager dbCon = DatabaseManager.getDbCon();
+        try {
+            dbCon.insert("INSERT INTO gl_cash_advance(month_tr_no,sup_id,pay_type,ordered_date,issued_date,emergency,amount,ref_no,bank_code,cheque_no,cheque_date,date_time,user)"
+                    + " VALUES('" + month_tr + "','" + sup_id +"','" + pay + "','" + date + "','" + issue_date + "','"+ emrg + "','"+ amount + "','"+ ref_no + "','"+ bank + "','"+ cheque+ "','"+ cheque_date+"','"+ date_time + "','"+user+ "')");
+        } catch (SQLException ex) {
+            MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
+            return false;
+        }
+        return true;
+    }
+      public boolean tranfer() {
+         date_time= date_handler.get_today_date_time();
+         issue_date=java.sql.Date.valueOf(date_handler.get_today_date());                 // untill cheque payment part is implimented cheque values stay default
+         cheque_date=java.sql.Date.valueOf(date_handler.get_today_date());                //
+         
+        
+       
+        DatabaseManager dbCon = DatabaseManager.getDbCon();
+        try {
+            ResultSet query = dbCon.query("SELECT * FROM gl_cash_advance_book");
+            
+            while(query.next())
+            {
+                System.out.println("writing");
+                
+                dbCon.insert("INSERT INTO gl_cash_advance(month_tr_no,sup_id,pay_type,ordered_date,issued_date,emergency,amount,ref_no,bank_code,cheque_no,cheque_date,date_time,user)"
+                    + " VALUES('" + query.getInt("entry_no") + "','" +query.getInt("sup_id")+"','" + query.getString("pay_type") + "','" + query.getDate("date") + "','" + issue_date + "','"+ "NO" + "','"+query.getDouble("amount") + "','"+ ref_no + "','"+ bank + "','"+ cheque+ "','"+ cheque_date+"','"+ date_time + "','"+user+ "')");}
+            
+        } catch (SQLException ex) {
+            MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
+            return false;
+        }
+        return true;
+    }
+            public boolean truncate() {
+         
+        
+       
+        DatabaseManager dbCon = DatabaseManager.getDbCon();
+        try {
+            dbCon.insert("Truncate table gl_cash_advance_book");
+        } catch (SQLException ex) {
+            MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
+            return false;
+        }
+        return true;
+    }
+            
+       
+      public boolean AddToDeleteDataBase() {
+      date_time= date_handler.get_today_date_time();   
+        
+       
+        DatabaseManager dbCon = DatabaseManager.getDbCon();
+        try {
+            dbCon.insert("INSERT INTO gl_cash_advance_book_delete(book_tr_no,sup_id,sup_name,amount,date_time,user)"
+                    + " VALUES('" + month_tr + "','" + sup_id + "','" + sup_name + "','" + amount + "','" + date_time + "','"+ user+ "')");
+        } catch (SQLException ex) {
+            MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
+            return false;
+        }
+        return true;
+    }
     
 }
