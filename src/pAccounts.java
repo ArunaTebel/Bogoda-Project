@@ -359,15 +359,46 @@ public class pAccounts extends javax.swing.JPanel {
     }//GEN-LAST:event_viewItemStateChanged
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-           String[][] arr = new String[2][2];
-            arr[0][0] = "Bank ID";
-            arr[0][1] = "Bank Name";
-            arr[1][0] = "bank_id";
-            arr[1][1] = "bank_name";
+          String[][] arr = new String[5][5];
+          
+          String[][] arr1 = new String[2][2];
+            arr1[0][0] = "Bank ID";
+            arr1[0][1] = "Bank Name";
+            arr1[1][0] = "bank_id";
+            arr1[1][1] = "bank_name"; 
+        
+        
+          arr[0][0] = "Transaction No.";
+            arr[0][1] = "Transaction Date";
+            arr[0][2] = "Supplier Id";
+            arr[0][3] = "Category Code";
+            arr[0][4] = "Leaf Category";
+           /* arr[0][5] = "No. Of Sacks";
+            arr[0][6] = "Total Kg";
+            arr[0][7] = "Sack Kg";
+            arr[0][8] = "Watet";
+            arr[0][9] = "Coarse Leaf";
+            arr[0][10] = "Other";
+            arr[0][11] = "Net Quantity";
+            arr[0][12] = "Self Transport";*/
+            arr[1][0] = "tr_id";
+            arr[1][1] = "tr_date";
+            arr[1][2] = "sup_id";
+            arr[1][3] = "category_code";
+            arr[1][4] = "leaf_category";
+           /* arr[1][5] = "no_of_sacks";
+            arr[1][6] = "total_kg";
+            arr[1][7] = "sack_kg";
+            arr[1][8] = "water_kg";
+            arr[1][9] = "coarse_leaf_kg";
+            arr[1][10] = "other";
+            arr[1][11] = "net_qty";
+            arr[1][12] = "self_transport";*/
                
                     
             try {
-                pdf.Print_Database_Without_Filtering("bank", arr);
+                pdf.Print_Database_Without_Filtering("green_leaf_transactions", arr);
+               // pdf.Print_Database_Without_Filtering("bank", arr1);
             } catch (DocumentException ex) {
                 Logger.getLogger(pAccounts.class.getName()).log(Level.SEVERE, null, ex);
             }

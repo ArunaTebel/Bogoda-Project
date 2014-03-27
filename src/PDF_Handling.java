@@ -36,6 +36,8 @@ public class PDF_Handling {
             for(int i=0;i<num_of_columns;i++)
             {
                 table.addCell(add(arr[0][i]));
+                
+               
                 //table.addCell(null);
             }
             Class.forName("com.mysql.jdbc.Driver");
@@ -65,7 +67,7 @@ public class PDF_Handling {
     }
     
       public static Paragraph addTitle(){
-         Font fontbold = FontFactory.getFont("Times-Roman", 25, Font.BOLD);
+         Font fontbold = FontFactory.getFont("Times-Roman", 12, Font.BOLD);
          Paragraph p = new Paragraph("DMD", fontbold);
          
          p.setSpacingAfter(20);
@@ -73,9 +75,15 @@ public class PDF_Handling {
          return p;
     }
       public static Phrase add(String s){
-          Font fontbold = FontFactory.getFont("Times-Roman", 25, Font.BOLD);
+          Font fontbold = FontFactory.getFont("Times-Roman",15, Font.BOLD);
           Phrase p = new Phrase(s, fontbold);
           return p;
+      }
+      
+      public static PdfPTable AddTable(){
+          PdfPTable table = new PdfPTable(2);
+          
+          return table;
       }
    
       
