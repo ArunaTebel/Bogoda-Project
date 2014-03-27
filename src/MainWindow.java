@@ -283,7 +283,11 @@ public class MainWindow extends javax.swing.JFrame {
         Main_Content.add(Pass);
         Pass.setBounds(190, 250, 130, 30);
 
-        User_id.setText("AdminNL");
+        User_id.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                User_idActionPerformed(evt);
+            }
+        });
         User_id.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 User_idKeyPressed(evt);
@@ -919,6 +923,10 @@ public class MainWindow extends javax.swing.JFrame {
         }
      }
     }//GEN-LAST:event_User_idKeyReleased
+
+    private void User_idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_User_idActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_User_idActionPerformed
                            
 
 
