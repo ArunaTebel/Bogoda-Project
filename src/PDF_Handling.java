@@ -11,7 +11,7 @@ import javax.imageio.stream.MemoryCacheImageInputStream;
 
 public class PDF_Handling {
 
-    public void Print_Database_Without_Filtering(String databasetable,String arr[][]) throws DocumentException {
+    public void Print_Database_Without_Filtering(String databasetable, String arr[][]) throws DocumentException {
         try {
 
             Document document = new Document();
@@ -22,71 +22,71 @@ public class PDF_Handling {
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(PDF_Handling.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
-         
 
             int num_of_columns = arr.length;
 
             document.open();
-            
+
             document.add(addTitle());
-            
-            
+
             PdfPTable table = new PdfPTable(num_of_columns);
-            for(int i=0;i<num_of_columns;i++)
-            {
-                table.addCell(add(arr[0][i]));
-                
-               
+            for (int i = 0; i < num_of_columns; i++) {
+                PdfPCell cell = new PdfPCell(new Phrase(arr[0][i]));
+                cell.setHorizontalAlignment(1);
+                cell.setBorder(0);
+                table.addCell(cell);
+
                 //table.addCell(null);
             }
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bogoda", "root", "");
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("Select * from "+databasetable+"");
+            ResultSet rs = st.executeQuery("Select * from " + databasetable + "");
             while (rs.next()) {
-                
-                for(int i=0;i<num_of_columns;i++){
-               // table.addCell(add(rs.getString(arr[1][i])));
-                    table.addCell(rs.getString(arr[1][i]));
+
+                for (int i = 0; i < num_of_columns; i++) {
+                    // table.addCell(add(rs.getString(arr[1][i])));
+                     PdfPCell cell = new PdfPCell(new Phrase(rs.getString(arr[1][i])));
+                    cell.setHorizontalAlignment(1);
+                    cell.setBorder(0);
+                    table.addCell(cell);
+                    
                 }
             }
             document.add(table);
             document.close();
-              // TODO code application logic here
+            // TODO code application logic here
 
         } catch (Exception ex) {
             Logger.getLogger(PDF_Handling.class.getName()).log(Level.SEVERE, null, ex);
         }
-           try {
-            Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler "+"E:/data.pdf");
+        try {
+            Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + "E:/data.pdf");
         } catch (Exception e) {
-           // JOptionPane.showMessageDialog(null,"error");
+            // JOptionPane.showMessageDialog(null,"error");
         }
 
     }
-    
-      public static Paragraph addTitle(){
-         Font fontbold = FontFactory.getFont("Times-Roman", 12, Font.BOLD);
-         Paragraph p = new Paragraph("DMD", fontbold);
-         
-         p.setSpacingAfter(20);
-         p.setAlignment(1); // Center
-         return p;
+
+    public static Paragraph addTitle() {
+        Font fontbold = FontFactory.getFont("Times-Roman", 12, Font.BOLD);
+        Paragraph p = new Paragraph("DMD", fontbold);
+
+        p.setSpacingAfter(20);
+        p.setAlignment(1); // Center
+        return p;
     }
-      public static Phrase add(String s){
-          Font fontbold = FontFactory.getFont("Times-Roman",15, Font.BOLD);
-          Phrase p = new Phrase(s, fontbold);
-          return p;
-      }
-      
-      public static PdfPTable AddTable(){
-          PdfPTable table = new PdfPTable(2);
-          
-          return table;
-      }
-   
-      
-    
-      
+
+    public static Phrase add(String s) {
+        Font fontbold = FontFactory.getFont("Times-Roman", 15, Font.BOLD);
+        Phrase p = new Phrase(s, fontbold);
+        return p;
+    }
+
+    public static PdfPTable AddTable() {
+        PdfPTable table = new PdfPTable(2);
+
+        return table;
+    }
+
 }

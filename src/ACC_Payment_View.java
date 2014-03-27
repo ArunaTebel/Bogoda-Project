@@ -268,7 +268,7 @@ public class ACC_Payment_View extends javax.swing.JPanel {
             }
         });
 
-        field_choice.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "  ", "Transaction No.", "Date", "Receipt No.", "Reference No.", "Debit Account ID", "Debit Description", "Debit Amount", "Credit Account ID", "Credit Description", "Credit Amount" }));
+        field_choice.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " ", "All", "Transaction No.", "Date", "Receipt No.", "Reference No.", "Debit Account ID", "Debit Description", "Debit Amount", "Credit Account ID", "Credit Description", "Credit Amount" }));
         field_choice.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 field_choiceItemStateChanged(evt);
@@ -470,42 +470,37 @@ public class ACC_Payment_View extends javax.swing.JPanel {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         tbl.Clear_Table();
         tbl.setVisible(true);
-        if (andbutton.isSelected()) {
+        if (search.getText() == "All") {
+            tbl.Table_Fill_All();
+        } else if (andbutton.isSelected()) {
             if ("Date".equals(search.getText())) {
-                if( (search1.getText() == "Debit Account ID" || search1.getText() == "Debit Description" || search1.getText() == "Debit Amount" )){
+                if ((search1.getText() == "Debit Account ID" || search1.getText() == "Debit Description" || search1.getText() == "Debit Amount")) {
                     try {
-                    tbl.Table_Fill_Date_Debit_Search(Return_String_Field(search.getText()), datechooser.Return_date(yearfield, monthfield, dayfield), datechooser.Return_date(yearfield2, monthfield2, dayfield2),Return_String_Field(search1.getText()),field1.getText());
-                } catch (ParseException ex) {
-                    Logger.getLogger(ACC_Payment_View.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                }
-                else{
+                        tbl.Table_Fill_Date_Debit_Search(Return_String_Field(search.getText()), datechooser.Return_date(yearfield, monthfield, dayfield), datechooser.Return_date(yearfield2, monthfield2, dayfield2), Return_String_Field(search1.getText()), field1.getText());
+                    } catch (ParseException ex) {
+                        Logger.getLogger(ACC_Payment_View.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else {
                     try {
-                    tbl.Table_Fill_Date_Credit_Search(Return_String_Field(search.getText()), datechooser.Return_date(yearfield, monthfield, dayfield), datechooser.Return_date(yearfield2, monthfield2, dayfield2),Return_String_Field(search1.getText()),field1.getText());
-                } catch (ParseException ex) {
-                    Logger.getLogger(ACC_Payment_View.class.getName()).log(Level.SEVERE, null, ex);
-                } 
+                        tbl.Table_Fill_Date_Credit_Search(Return_String_Field(search.getText()), datechooser.Return_date(yearfield, monthfield, dayfield), datechooser.Return_date(yearfield2, monthfield2, dayfield2), Return_String_Field(search1.getText()), field1.getText());
+                    } catch (ParseException ex) {
+                        Logger.getLogger(ACC_Payment_View.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            } else if (search.getText() == "Debit Account ID" || search.getText() == "Debit Description" || search.getText() == "Debit Amount") {
+                if (search1.getText() == "Debit Account ID" || search1.getText() == "Debit Description" || search1.getText() == "Debit Amount") {
+                    tbl.Table_Fill_Debit_Debit_Search(Return_String_Field(search.getText()), field.getText(), Return_String_Field(search1.getText()), field1.getText());
+                } else {
+                    tbl.Table_Fill_Credit_Debit_Search(Return_String_Field(search1.getText()), field1.getText(), Return_String_Field(search.getText()), field.getText());
+                }
+            } else {
+                if (search1.getText() == "Debit Account ID" || search1.getText() == "Debit Description" || search1.getText() == "Debit Amount") {
+                    tbl.Table_Fill_Credit_Debit_Search(Return_String_Field(search.getText()), field.getText(), Return_String_Field(search1.getText()), field1.getText());
+                } else {
+                    tbl.Table_Fill_Credit_Credit_Search(Return_String_Field(search.getText()), field.getText(), Return_String_Field(search1.getText()), field1.getText());
                 }
             }
-            else if (search.getText() == "Debit Account ID" || search.getText() == "Debit Description" || search.getText() == "Debit Amount") {
-                if(search1.getText() == "Debit Account ID" || search1.getText() == "Debit Description" || search1.getText() == "Debit Amount"){
-                    tbl.Table_Fill_Debit_Debit_Search(Return_String_Field(search.getText()), field.getText(),Return_String_Field(search1.getText()),field1.getText());
-                }
-                else{
-                    tbl.Table_Fill_Credit_Debit_Search(Return_String_Field(search1.getText()), field1.getText(),Return_String_Field(search.getText()),field.getText());
-                }
-            }
-            else{
-                if(search1.getText() == "Debit Account ID" || search1.getText() == "Debit Description" || search1.getText() == "Debit Amount"){
-                    tbl.Table_Fill_Credit_Debit_Search(Return_String_Field(search.getText()), field.getText(),Return_String_Field(search1.getText()),field1.getText());
-                }
-                else{
-                     tbl.Table_Fill_Credit_Credit_Search(Return_String_Field(search.getText()), field.getText(),Return_String_Field(search1.getText()),field1.getText());
-                }
-            }
-            
-            
-           
+
         } else {
             if ("Date".equals(search.getText())) {
                 try {
@@ -514,7 +509,7 @@ public class ACC_Payment_View extends javax.swing.JPanel {
                     Logger.getLogger(ACC_Payment_View.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } else if (search.getText() == "Debit Account ID" || search.getText() == "Debit Description" || search.getText() == "Debit Amount") {
-    
+
                 System.out.println();
                 tbl.Table_Fill_Debit_Search(Return_String_Field(search.getText()), field.getText());
             } else {

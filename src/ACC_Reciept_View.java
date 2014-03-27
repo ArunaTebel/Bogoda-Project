@@ -125,7 +125,7 @@ public class ACC_Reciept_View extends javax.swing.JPanel {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        field_choice.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "  ", "Transaction No.", "Date", "Receipt No.", "Reference No.", "Debit Account ID", "Debit Description", "Debit Amount", "Credit Account ID", "Credit Description", "Credit Amount" }));
+        field_choice.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " ", "All", "Transaction No.", "Date", "Receipt No.", "Reference No.", "Debit Account ID", "Debit Description", "Debit Amount", "Credit Account ID", "Credit Description", "Credit Amount" }));
         field_choice.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 field_choiceItemStateChanged(evt);
@@ -489,46 +489,43 @@ public class ACC_Reciept_View extends javax.swing.JPanel {
     ACC_Reciept_View_Table tbl = new ACC_Reciept_View_Table();
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         tbl.Clear_Table();
-         
-                tbl.setVisible(true);
-                tbl.setExtendedState(ACC_Reciept_View_Table.MAXIMIZED_BOTH);
-        if (andbutton.isSelected()) {
+
+        tbl.setVisible(true);
+        tbl.setExtendedState(ACC_Reciept_View_Table.MAXIMIZED_BOTH);
+        if (search.getText() == "All") {
+            tbl.Table_Fill_All();
+            
+        } else if (andbutton.isSelected()) {
             if ("Date".equals(search.getText())) {
-                if( (search1.getText() == "Credit Account ID" || search1.getText() == "Credit Description" || search1.getText() == "Credit Amount" )){
+                if ((search1.getText() == "Credit Account ID" || search1.getText() == "Credit Description" || search1.getText() == "Credit Amount")) {
                     try {
-                    tbl.Table_Fill_Date_Credit_Search(Return_String_Field(search.getText()), datechooser.Return_date(yearfield, monthfield, dayfield), datechooser.Return_date(yearfield2, monthfield2, dayfield2),Return_String_Field(search1.getText()),field1.getText());
-                } catch (ParseException ex) {
-                    Logger.getLogger(ACC_Reciept_View.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                }
-                else{
+                        tbl.Table_Fill_Date_Credit_Search(Return_String_Field(search.getText()), datechooser.Return_date(yearfield, monthfield, dayfield), datechooser.Return_date(yearfield2, monthfield2, dayfield2), Return_String_Field(search1.getText()), field1.getText());
+                    } catch (ParseException ex) {
+                        Logger.getLogger(ACC_Reciept_View.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else {
                     try {
-                    tbl.Table_Fill_Date_Debit_Search(Return_String_Field(search.getText()), datechooser.Return_date(yearfield, monthfield, dayfield), datechooser.Return_date(yearfield2, monthfield2, dayfield2),Return_String_Field(search1.getText()),field1.getText());
-                } catch (ParseException ex) {
-                    Logger.getLogger(ACC_Reciept_View.class.getName()).log(Level.SEVERE, null, ex);
-                } 
+                        tbl.Table_Fill_Date_Debit_Search(Return_String_Field(search.getText()), datechooser.Return_date(yearfield, monthfield, dayfield), datechooser.Return_date(yearfield2, monthfield2, dayfield2), Return_String_Field(search1.getText()), field1.getText());
+                    } catch (ParseException ex) {
+                        Logger.getLogger(ACC_Reciept_View.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            } else if (search.getText() == "Credit Account ID" || search.getText() == "Credit Description" || search.getText() == "Credit Amount") {
+                if (search1.getText() == "Credit Account ID" || search1.getText() == "Credit Description" || search1.getText() == "Credit Amount") {
+                    tbl.Table_Fill_Credit_Credit_Search(Return_String_Field(search.getText()), field.getText(), Return_String_Field(search1.getText()), field1.getText());
+                } else {
+                    tbl.Table_Fill_Debit_Credit_Search(Return_String_Field(search1.getText()), field1.getText(), Return_String_Field(search.getText()), field.getText());
+                }
+            } else {
+                if (search1.getText() == "Credit Account ID" || search1.getText() == "Credit Description" || search1.getText() == "Credit Amount") {
+                    tbl.Table_Fill_Debit_Credit_Search(Return_String_Field(search.getText()), field.getText(), Return_String_Field(search1.getText()), field1.getText());
+                } else {
+                    tbl.Table_Fill_Debit_Debit_Search(Return_String_Field(search.getText()), field.getText(), Return_String_Field(search1.getText()), field1.getText());
                 }
             }
-            else if (search.getText() == "Credit Account ID" || search.getText() == "Credit Description" || search.getText() == "Credit Amount") {
-                if(search1.getText() == "Credit Account ID" || search1.getText() == "Credit Description" || search1.getText() == "Credit Amount"){
-                    tbl.Table_Fill_Credit_Credit_Search(Return_String_Field(search.getText()), field.getText(),Return_String_Field(search1.getText()),field1.getText());
-                }
-                else{
-                    tbl.Table_Fill_Debit_Credit_Search(Return_String_Field(search1.getText()), field1.getText(),Return_String_Field(search.getText()),field.getText());
-                }
-            }
-            else{
-                if(search1.getText() == "Credit Account ID" || search1.getText() == "Credit Description" || search1.getText() == "Credit Amount"){
-                    tbl.Table_Fill_Debit_Credit_Search(Return_String_Field(search.getText()), field.getText(),Return_String_Field(search1.getText()),field1.getText());
-                }
-                else{
-                     tbl.Table_Fill_Debit_Debit_Search(Return_String_Field(search.getText()), field.getText(),Return_String_Field(search1.getText()),field1.getText());
-                }
-            }
-            
-            
-           
+
         } else {
+
             if ("Date".equals(search.getText())) {
                 try {
                     tbl.Table_Fill_Date_Search(Return_String_Field(search.getText()), datechooser.Return_date(yearfield, monthfield, dayfield), datechooser.Return_date(yearfield2, monthfield2, dayfield2));
@@ -536,12 +533,12 @@ public class ACC_Reciept_View extends javax.swing.JPanel {
                     Logger.getLogger(ACC_Reciept_View.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } else if (search.getText() == "Credit Account ID" || search.getText() == "Credit Description" || search.getText() == "Credit Amount") {
-    
-                System.out.println();
+
+               
                 tbl.Table_Fill_Credit_Search(Return_String_Field(search.getText()), field.getText());
             } else {
                 tbl.Table_Fill_Debit_Search(Return_String_Field(search.getText()), field.getText());
-                System.out.println(field.getText());
+                
             }
         }
 
@@ -1321,13 +1318,12 @@ public class ACC_Reciept_View extends javax.swing.JPanel {
     }//GEN-LAST:event_field1ActionPerformed
 
     private void andbuttonItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_andbuttonItemStateChanged
-        if(andbutton.isSelected()){
-        
-        jPanel4.setVisible(true);
-        Set_Combo();}
-        
-        else{
-             jPanel4.setVisible(false);
+        if (andbutton.isSelected()) {
+
+            jPanel4.setVisible(true);
+            Set_Combo();
+        } else {
+            jPanel4.setVisible(false);
         }
     }//GEN-LAST:event_andbuttonItemStateChanged
 

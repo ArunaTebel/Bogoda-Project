@@ -12,6 +12,98 @@ public class ACC_View_Database_Handling {
      key=1 if we want to enter to a column data which is fetched by debit database
      key=0 if we want to enter to a column data which is fetched by credit database
      */
+        public boolean Inserting_To_The_Table_Filtered_Reciept_Full(javax.swing.JTable table, String column_name, int table_column_num, int bottom, int top, int key) {
+
+        int num_of_rows_filled_in_table = 0;
+        int num_of_rows_in_the_database = 0;
+        int count = 0;
+        int tr_no = 0;
+        int num = 0;
+        /*  while (table.getValueAt(num_of_columns_filled_in_table, table_column_num) != null) {
+         num_of_columns_filled_in_table++;
+         } */
+        //  "SELECT * FROM " + table_name + " WHERE " + table_column_giving + " =" + row_element + ""
+
+        try {
+            ResultSet query = dbm.query("SELECT * FROM account_reciept_debitside ");
+            while (query.next()) {
+                ResultSet query1 = dbm.query("SELECT * FROM account_reciept_creditside where tr_no = '" + query.getInt("tr_no") + "'");
+                while (query1.next()) {
+                    num_of_rows_in_the_database++;
+                }
+            }
+        } catch (SQLException ex) {
+
+        }
+
+        if (key == 1) {
+
+            if (num_of_rows_in_the_database >= bottom) {
+                try {
+
+                    ResultSet query = dbm.query("SELECT * FROM account_reciept_debitside " );
+                    while (query.next()) {
+                        num = 0;
+                        ResultSet query1 = dbm.query("SELECT * FROM account_reciept_creditside where tr_no = '" + query.getInt("tr_no") + "'");
+                        while (query1.next()) {
+                            count++;
+                            num++;
+                        }
+
+                        if (count < bottom) {
+
+                        } else if (count >= bottom && count <= top) {
+                            table.setValueAt(query.getString(column_name), num_of_rows_filled_in_table, table_column_num);
+                            num_of_rows_filled_in_table = num_of_rows_filled_in_table + num;
+                        } else {
+                            break;
+                        }
+                    }
+                } catch (SQLException ex) {
+
+                }
+            } else {
+                return false;
+
+            }
+            return true;
+        } else if (key == 0) {
+
+            if (num_of_rows_in_the_database >= bottom) {
+                try {
+
+                    ResultSet query = dbm.query("SELECT * FROM account_reciept_debitside" );
+                    while (query.next()) {
+                        //  num = 0;
+                        ResultSet query1 = dbm.query("SELECT * FROM account_reciept_creditside where tr_no = '" + query.getInt("tr_no") + "'");
+                        while (query1.next()) {
+                            count++;
+                            //    num++;
+                            //  }
+
+                            if (count < bottom) {
+
+                            } else if (count >= bottom && count <= top) {
+                                table.setValueAt(query1.getString(column_name), num_of_rows_filled_in_table, table_column_num);
+                                num_of_rows_filled_in_table++;
+                            } else {
+                                break;
+                            }
+                        }
+                    }
+                } catch (SQLException ex) {
+
+                }
+            } else {
+                return false;
+
+            }
+
+            return true;
+        } else {
+            return false;
+        }
+    }
     public boolean Inserting_To_The_Table_Filtered_Reciept_Debit_Search(javax.swing.JTable table, String column_name, int table_column_num, int bottom, int top, String column_filtering, Object element, int key) {
 
         int num_of_rows_filled_in_table = 0;
@@ -1226,6 +1318,24 @@ public class ACC_View_Database_Handling {
     }
 
     ///
+    public void Fill_table_without_filtering(javax.swing.JTable table, int bottom, int top){
+         Inserting_To_The_Table_Filtered_Reciept_Full(table, "tr_no", 0, bottom, top, 1);
+        Inserting_To_The_Table_Filtered_Reciept_Full(table, "reciept_no", 1, bottom, top, 1);
+        Inserting_To_The_Table_Filtered_Reciept_Full(table, "ref_no", 2, bottom, top, 1);
+        Inserting_To_The_Table_Filtered_Reciept_Full(table, "date", 3, bottom, top,  1);
+        Inserting_To_The_Table_Filtered_Reciept_Full(table, "pay_type", 4, bottom, top,  1);
+        Inserting_To_The_Table_Filtered_Reciept_Full(table, "debit_account_id", 5, bottom, top,  1);
+        Inserting_To_The_Table_Filtered_Reciept_Full(table, "debit_account_name", 6, bottom, top, 1);
+        Inserting_To_The_Table_Filtered_Reciept_Full(table, "debit_description", 7, bottom, top,  1);
+        Inserting_To_The_Table_Filtered_Reciept_Full(table, "debit_amount", 8, bottom, top, 1);
+        Inserting_To_The_Table_Filtered_Reciept_Full(table, "credit_account_id", 9, bottom, top,  0);
+        Inserting_To_The_Table_Filtered_Reciept_Full(table, "credit_account_name", 10, bottom, top, 0);
+        Inserting_To_The_Table_Filtered_Reciept_Full(table, "credit_description", 11, bottom, top, 0);
+       Inserting_To_The_Table_Filtered_Reciept_Full(table, "credit_amount", 12, bottom, top, 0);
+    }
+    
+    
+    
     public void Filtered_table_For_Reciepts_For_Date_Debit_Two_Search(javax.swing.JTable table, String filtering_column, Object element1, Object element2, int bottom, int top, String filtering_column2, Object element3) {
 
         Inserting_To_The_Table_Filtered_Date_Debit_Search(table, "tr_no", 0, bottom, top, filtering_column, element1, element2, filtering_column2, element3, 1);

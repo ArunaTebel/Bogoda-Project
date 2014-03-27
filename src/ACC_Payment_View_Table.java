@@ -19,6 +19,10 @@ public class ACC_Payment_View_Table extends javax.swing.JFrame {
     public ACC_Payment_View_Table() {
         initComponents();
     }
+    public void Table_Fill_All(){
+        ACC_View_Database_Handling_Payment db = new ACC_View_Database_Handling_Payment();
+        db.Fill_table_without_filtering(table,1,50);
+    }
     
     ACC_View_Database_Handling_Payment db = new ACC_View_Database_Handling_Payment();
     public void Table_Fill_Credit_Search(String search_column,Object search_element){

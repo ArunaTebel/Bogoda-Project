@@ -21,6 +21,10 @@ public class ACC_Reciept_View_Table extends javax.swing.JFrame {
     }
     
     ACC_View_Database_Handling db = new ACC_View_Database_Handling();
+    public void Table_Fill_All(){
+        ACC_View_Database_Handling db = new ACC_View_Database_Handling();
+        db.Fill_table_without_filtering(table,1,50);
+    }
     public void Table_Fill_Debit_Search(String search_column,Object search_element){
         ACC_View_Database_Handling db = new ACC_View_Database_Handling();
         db.Filtered_table_For_Reciepts_Debit_Search(table,search_column,search_element,1,50);
