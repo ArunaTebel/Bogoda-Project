@@ -337,7 +337,7 @@ public class pAccounts extends javax.swing.JPanel {
                
                     
             try {
-                pdf.Print_Database_Without_Filtering("bank", arr,"BANK CODES");
+                pdf.Print_Database_Without_Filtering("bank", arr,"BANK CODES",25,15);
             } catch (DocumentException ex) {
                 Logger.getLogger(pAccounts.class.getName()).log(Level.SEVERE, null, ex);
             }
