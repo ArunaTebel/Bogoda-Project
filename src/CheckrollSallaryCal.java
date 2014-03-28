@@ -73,8 +73,11 @@ public class CheckrollSallaryCal {
     private int OTAfterHours;
     private double OTAfterAmount;
     private double totalBasicSalary;
+    private double grosspay;
     private double EPFRate;//%
     private double EPFContribution;
+     private double EPFRate2;//%
+    private double EPFContribution2;
     private double ETFRate;//%
     private double ETFContribution;
     private double welfareRate;//%
@@ -103,7 +106,9 @@ public class CheckrollSallaryCal {
         this.incentive2Amount = 0;
         this.OTBeforeAmount = 0;
         this.OTAfterAmount = 0;
+        this.grosspay=0;
         this.EPFContribution = 0;
+        this.EPFContribution2 = 0;
         this.ETFContribution = 0;
         this.welfareContribution = 0;
         this.loanDeductions = 0;
@@ -131,7 +136,11 @@ public class CheckrollSallaryCal {
     public void Set_year(String year) {
         this.year = year;
     }
-
+    
+    public void setString(String sss){
+        this.st=sss;
+    }
+    
     public void setEmployCode(int employCode) {
         this.employCode = employCode;
     }
@@ -328,16 +337,12 @@ public class CheckrollSallaryCal {
     }
 
     public void setTotalBasicSallary() {
-        totalBasicSalary = getNormalDaysAmount() + getSundayAmount() + getTotalIncentiveAmount(); //+ getOTAfterAmount() + getOTBeforeAmount();
-        System.err.println("normal amount"+getNormalDaysAmount());
-        System.err.println("sunday amount"+getSundayAmount());
-        System.err.println("incentive"+getTotalIncentiveAmount());
-        System.err.println("incentive1"+incentive1Amount);
-        System.err.println("margin"+margin);
-        System.err.println("incentive2"+incentive2Amount);
-        System.err.println("total basic"+totalBasicSalary);
+        totalBasicSalary = getNormalDaysAmount() + getSundayAmount();// + getTotalIncentiveAmount(); //+ getOTAfterAmount() + getOTBeforeAmount();
+        
     }
-
+    public void setGrosspay(){
+        grosspay=getTotalBasicSallary()+getTotalIncentiveAmount()+getOTAfterAmount()+getOTBeforeAmount();
+    }
     public void setEPFRate() {
         try {
             ResultSet rs = dbm.query("SELECT epf FROM checkroll_pay_info");
@@ -349,9 +354,37 @@ public class CheckrollSallaryCal {
     }
 
     public void setEPFContribution() {
+        String s=null;
+        s = dbm.checknReturnData("personal_info","code" , employCode,"register_or_not");
+        if(s.equals("Registered")){
         EPFContribution = getTotalBasicSallary() * (getEPFRate() / 100);
+        }else{
+        EPFContribution=0;
+        }
+        System.out.println(s);
+        System.out.println(EPFContribution);
     }
 
+    public void setEPFRate2() {
+        try {
+            ResultSet rs = dbm.query("SELECT epf2 FROM checkroll_pay_info");
+            rs.next();
+            EPFRate2 = rs.getDouble("epf2");
+        } catch (SQLException ex) {
+            Logger.getLogger(CheckrollSallaryCal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void setEPFContribution2() {
+         String s=null;
+        s = dbm.checknReturnData("personal_info","code" , employCode,"register_or_not");
+        if(s.equals("Registered")){
+        EPFContribution2 = getTotalBasicSallary() * (getEPFRate2() / 100);
+        }else{
+        EPFContribution2=0;
+        }
+        
+    }
     public void setETFRate() {
         try {
             ResultSet rs = dbm.query("SELECT etf FROM checkroll_pay_info");
@@ -363,7 +396,14 @@ public class CheckrollSallaryCal {
     }
 
     public void setETFContribution() {
+         String s=null;
+        s = dbm.checknReturnData("personal_info","code" , employCode,"register_or_not");
+        if(s.equals("Registered")){
         ETFContribution = getTotalBasicSallary() * (getETFRate() / 100);
+        }else{
+        ETFContribution=0;
+        }
+        
     }
 
     public void setWelfareRate() {
@@ -377,7 +417,15 @@ public class CheckrollSallaryCal {
     }
 
     public void setWelfareContribution() {
-        welfareContribution = getTotalBasicSallary() * (getWelfareRate() / 100);
+         String s=null;
+        s = dbm.checknReturnData("personal_info","code" , employCode,"register_or_not");
+        if(s.equals("Registered")){
+        welfareContribution = getWelfareRate();
+        }else{
+        welfareContribution=0;
+        }
+        
+       //should be changed
     }
 
     public void setLoanRate() {
@@ -405,23 +453,8 @@ public class CheckrollSallaryCal {
     }
 
     public void setFinalSalary() {
-        FinalSalary = getTotalBasicSallary() + getOTAfterAmount() + getOTBeforeAmount() + getExtrapayAmount() - getETFContribution() - getEPFContribution() - getWelfareContribution() - getLoanDeductions() - getFineDeductions() - getStoreDeductions(); //+ getPettyCash();
-        System.out.println("********8***********");
+        FinalSalary = getGrosspay() + getExtrapayAmount() - getETFContribution() - getEPFContribution() - getWelfareContribution() - getLoanDeductions() - getFineDeductions() - getStoreDeductions(); //+ getPettyCash();
         
-        System.out.println("total basic-"+totalBasicSalary);
-        System.out.println("normal-"+normalDaysAmount);
-        System.out.println("sunday-"+sundaysAmount);
-        System.out.println("Incentive1-"+incentive1Amount);
-        
-        System.out.println("Ot aftr-"+OTAfterAmount);
-        System.out.println("Ot before-"+OTBeforeAmount);
-        System.out.println("Extrapay amount-"+extrapay);
-        System.out.println("EPF-"+EPFContribution);
-        System.out.println("ETF-"+ETFContribution);
-        System.out.println("Welfare-"+welfareContribution);
-        
-        System.out.println("setFinalSalary()-FinalSalary="+FinalSalary);
-         System.out.println("********8***********");
     }
 
     //getters
@@ -529,6 +562,10 @@ public class CheckrollSallaryCal {
         setTotalBasicSallary();
         return totalBasicSalary;
     }
+    public double getGrosspay(){
+        setGrosspay();
+        return grosspay;
+    }
 
     public double getEPFRate() {
         setEPFRate();
@@ -539,6 +576,16 @@ public class CheckrollSallaryCal {
         setEPFContribution();
         return EPFContribution;
     }
+      public double getEPFRate2() {
+        setEPFRate2();
+        return EPFRate2;
+    }
+
+    public double getEPFContribution2() {
+        setEPFContribution2();
+        return EPFContribution2;
+    }
+
 
     public double getETFRate() {
         setETFRate();
@@ -599,7 +646,7 @@ public class CheckrollSallaryCal {
         setFinalSalary();
         System.out.println("final salary-noteanalysis"+FinalSalary);
         dbm.updateDatabase("pr_workdata_" + ss, "code", employCode, "full_salary", FinalSalary);
-        naObject3.ChNoteAnalysis(FinalSalary, employCode,ss);//set the note values and update data base
+        naObject3.ChNoteAnalysis(FinalSalary, employCode,ss);//set the note values according to the salary and update data base
         return FinalSalary;
     }
     public double getFinalSalary() {

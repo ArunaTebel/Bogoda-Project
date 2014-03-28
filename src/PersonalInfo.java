@@ -2,6 +2,7 @@
 //import com.sun.imageio.plugins.common.BogusColorSpace;
 import java.sql.Date;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -19,7 +20,7 @@ public class PersonalInfo {
     private int code;
     private String division;
     private String NIC;
-    private String DOB;
+    private Date DOB;
     private String telNo;
     private String bloodGrp;
     private String registerOrNot;
@@ -28,10 +29,10 @@ public class PersonalInfo {
     private Date permanentDate;
     private double basicSalary;//only for staff
     private String ETF; //this variable is used to check whether employee has ETF or not
-    private String EPF;
+    private int EPF;
     private String welfare;
     
-    public PersonalInfo(String name,int code,String NIC,String DOB,String telNo,String bloodGrp,
+    public PersonalInfo(String name,int code,String NIC,Date DOB,String telNo,String bloodGrp,
             String registerOrNot,String checkrollOrStaff,Date joinedDate,Date permanentDate,
             double basicSalary){
     
@@ -63,7 +64,7 @@ public class PersonalInfo {
         this.joinedDate=null;
         this.permanentDate=null;
         this.basicSalary=0;
-        this.EPF=null;
+        this.EPF=0;
         this.ETF=null;
         this.welfare=null;
     }
@@ -80,7 +81,7 @@ public class PersonalInfo {
      public void setNIC(String NIC){
          this.NIC=NIC;
      }
-     public void setDOB(String DOB){
+     public void setDOB(Date DOB){
          this.DOB=DOB;
      }
      public void setTelNo(String telNo){
@@ -117,13 +118,8 @@ public class PersonalInfo {
              this.ETF="ETF-No";
          }
      }
-     public void setEPF(boolean BooEPF){
-         if(BooEPF==true){
-             this.EPF="EPF-Yes";
-         }
-         else{
-             this.EPF="EPF-No";
-         }
+     public void setEPF(int EPF){
+         this.EPF=EPF;
      }
      public void setWelfare(boolean Bwelfare){
          if(Bwelfare==true){
@@ -145,7 +141,7 @@ public class PersonalInfo {
      public String getNIC(){
          return NIC;
      }
-     public String getDOB(){
+     public Date getDOB(){
          return DOB;
      }
      public String getTelNo(){
@@ -172,7 +168,7 @@ public class PersonalInfo {
      public String getETF(){
          return ETF;
      }
-     public String getEPF(){
+     public int getEPF(){
          return EPF;
      }
      public String getWelfare(){
@@ -180,12 +176,27 @@ public class PersonalInfo {
      }
      
      public void addToDataBase() {
+         System.out.println(permanentDate+" "+joinedDate);
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         try {
             
-            dbCon.insert("INSERT INTO personal_info(name,code,nic,dob,tel_no,blood_group,register_or_not,checkroll_or_staff,joined_date,permanent_date,basic_salary,etf_enable,epf_enable,welfare_enable) VALUES('" + name + "','" + code + "','"+NIC+"','"+DOB+"','"+telNo+"','"+bloodGrp+"','"+registerOrNot+"','"+checkrollOrStaff+"','"+joinedDate+"','"+permanentDate+"','"+basicSalary+"','"+ETF+"','"+EPF+"','"+welfare+"')");
-            //dbCon.insert("INSERT INTO checkroll_personalinfo(code) VALUES('"+code+"')");
+            dbCon.insert("INSERT INTO personal_info(name,code,nic,dob,tel_no,blood_group,register_or_not,checkroll_or_staff,basic_salary,etf_enable,epf_no,welfare_enable) VALUES('" + name + "','" + code + "','"+NIC+"','"+DOB+"','"+telNo+"','"+bloodGrp+"','"+registerOrNot+"','"+checkrollOrStaff+"','"+basicSalary+"','"+ETF+"','"+EPF+"','"+welfare+"')");
+            
+            if(permanentDate!=null){//if permanent date is not given show message else save it
+            dbCon.updateDatabase( "personal_info","code",code,"permanent_date",permanentDate);
+            }else{
+            JOptionPane.showMessageDialog(null, "Registered date is not saved ", "Message", JOptionPane.INFORMATION_MESSAGE);
+            }
+            
+            if(joinedDate!=null){//if joined date is not given show message else save it
+            dbCon.updateDatabase( "personal_info","code",code,"joined_date",joinedDate);
+            }else{
+            JOptionPane.showMessageDialog(null, "Joined date is not saved", "Message", JOptionPane.INFORMATION_MESSAGE);
+            }
+//dbCon.insert("INSERT INTO checkroll_personalinfo(code) VALUES('"+code+"')");
         } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "SQL error! Please check again and save ", "Message", JOptionPane.INFORMATION_MESSAGE);
+      
             MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
         }
 

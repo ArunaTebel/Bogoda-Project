@@ -11,7 +11,7 @@ import javax.imageio.stream.MemoryCacheImageInputStream;
 
 public class PDF_Handling {
 
-    public void Print_Database_Without_Filtering(String databasetable, String arr[][]) throws DocumentException {
+    public void Print_Database_Without_Filtering(String databasetable, String arr[][],String title) throws DocumentException {
         try {
 
             Document document = new Document();
@@ -27,7 +27,7 @@ public class PDF_Handling {
 
             document.open();
 
-            document.add(addTitle());
+            document.add(addTitle(title,15));
 
             PdfPTable table = new PdfPTable(num_of_columns);
             for (int i = 0; i < num_of_columns; i++) {
@@ -68,10 +68,9 @@ public class PDF_Handling {
 
     }
 
-    public static Paragraph addTitle() {
-        Font fontbold = FontFactory.getFont("Times-Roman", 12, Font.BOLD);
-        Paragraph p = new Paragraph("DMD", fontbold);
-
+    public static Paragraph addTitle(String title, int font_size) {
+        Font font = FontFactory.getFont("Times-Roman", font_size, Font.BOLD | Font.UNDERLINE);
+        Paragraph p = new Paragraph(title, font);
         p.setSpacingAfter(20);
         p.setAlignment(1); // Center
         return p;
