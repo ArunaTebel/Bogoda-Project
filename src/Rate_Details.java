@@ -102,7 +102,7 @@ public class Rate_Details {
     public void addToDataBase() {
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         try {
-            dbCon.insert("INSERT INTO rate_details(Code_name,Name,type,rate,Rate_Description,installments) VALUES('" + code + "','" + name +  "','" + type + "','" + rate + "','" + ratedisc + "','"+ inst + "')");
+            dbCon.insert("INSERT INTO rate_details(Code_name,Name,type,rate) VALUES('" + code + "','" + name +  "','" + type + "','" + rate + "')");
 
         } catch (SQLException ex) {
             MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");

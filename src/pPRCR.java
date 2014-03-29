@@ -91,7 +91,7 @@ public class pPRCR extends javax.swing.JPanel {
             }
         });
 
-        jButton3.setText(" Advances");
+        jButton3.setText("Cash Advances");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -108,7 +108,12 @@ public class pPRCR extends javax.swing.JPanel {
             }
         });
 
-        jButton4.setText("Installments");
+        jButton4.setText("Other Advances");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
         jButton4.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jButton4FocusGained(evt);
@@ -238,7 +243,7 @@ public class pPRCR extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        GL_Other_Advances otheradd = new GL_Other_Advances();
+        PRCR_cash_advances otheradd = new PRCR_cash_advances();
 
         GL_content.removeAll();
 
@@ -247,6 +252,7 @@ public class pPRCR extends javax.swing.JPanel {
         GL_content.add(otheradd);
         validate();
         repaint();
+        otheradd.focus();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void Add_comboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Add_comboActionPerformed
@@ -383,6 +389,19 @@ public class pPRCR extends javax.swing.JPanel {
     private void jButton5FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jButton5FocusGained
         interface_events.Respond_enter(jButton5, evt);
     }//GEN-LAST:event_jButton5FocusGained
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        PRCR_other_advances otheradd = new PRCR_other_advances();
+
+        GL_content.removeAll();
+
+        otheradd.setSize(GL_content.getSize());
+
+        GL_content.add(otheradd);
+        validate();
+        repaint();
+        otheradd.focus();
+    }//GEN-LAST:event_jButton4ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

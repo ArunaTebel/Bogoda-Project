@@ -10,7 +10,7 @@ public class Cash_Advance_Common_Class {
     Date_Handler date_handler =new Date_Handler();
     DatabaseManager dbm = new DatabaseManager();
     int sup_id,bank;
-    String sup_name,emrg,ref_no,cheque,date_time;
+    String sup_name,emrg,ref_no,cheque,date_time,special_permission;
     double max_allowable;
     double amount;
     Date date,issue_date,cheque_date;
@@ -44,6 +44,12 @@ public class Cash_Advance_Common_Class {
         emrg ="YES";
         }
         else{emrg="NO";}
+    }
+       public void set_permission(boolean emr){
+        if(emr){
+        special_permission ="YES";
+        }
+        else{special_permission="NO";}
     }
       public void set_ref_no(String sup_name){
         this.ref_no=sup_name;
@@ -104,7 +110,7 @@ public class Cash_Advance_Common_Class {
        
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         try {
-            dbCon.insert("INSERT INTO gl_cash_advance_book(sup_id,sup_name,date,max_allowable,amount,pay_type,user) VALUES('" + sup_id + "','" + sup_name + "','" + date + "','" + max_allowable + "','"+ amount + "','"+ pay + "','"+user+ "')");
+            dbCon.insert("INSERT INTO gl_cash_advance_book(sup_id,sup_name,date,max_allowable,amount,pay_type,special_permission,user) VALUES('" + sup_id + "','" + sup_name + "','" + date + "','" + max_allowable + "','"+ amount + "','"+ pay + "','"+ special_permission + "','"+user+ "')");
         } catch (SQLException ex) {
             MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
             return false;
@@ -118,7 +124,7 @@ public class Cash_Advance_Common_Class {
        
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         try {
-            dbCon.insert("INSERT INTO gl_cash_advance(month_tr_no,sup_id,pay_type,ordered_date,issued_date,emergency,amount,ref_no,bank_code,cheque_no,cheque_date,date_time,user)"
+            dbCon.insert("INSERT INTO gl_cash_advance(month_tr_no,sup_id,pay_type,ordered_date,issued_date,emergency,special_permission,amount,ref_no,bank_code,cheque_no,cheque_date,date_time,user)"
                     + " VALUES('" + month_tr + "','" + sup_id +"','" + pay + "','" + date + "','" + issue_date + "','"+ emrg + "','"+ amount + "','"+ ref_no + "','"+ bank + "','"+ cheque+ "','"+ cheque_date+"','"+ date_time + "','"+user+ "')");
         } catch (SQLException ex) {
             MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
@@ -141,8 +147,8 @@ public class Cash_Advance_Common_Class {
             {
                 System.out.println("writing");
                 
-                dbCon.insert("INSERT INTO gl_cash_advance(month_tr_no,sup_id,pay_type,ordered_date,issued_date,emergency,amount,ref_no,bank_code,cheque_no,cheque_date,date_time,user)"
-                    + " VALUES('" + query.getInt("entry_no") + "','" +query.getInt("sup_id")+"','" + query.getString("pay_type") + "','" + query.getDate("date") + "','" + issue_date + "','"+ "NO" + "','"+query.getDouble("amount") + "','"+ ref_no + "','"+ bank + "','"+ cheque+ "','"+ cheque_date+"','"+ date_time + "','"+user+ "')");}
+                dbCon.insert("INSERT INTO gl_cash_advance(month_tr_no,sup_id,pay_type,ordered_date,issued_date,emergency,special_permission,amount,ref_no,bank_code,cheque_no,cheque_date,date_time,user)"
+                    + " VALUES('" + query.getInt("entry_no") + "','" +query.getInt("sup_id")+"','" + query.getString("pay_type") + "','" + query.getDate("date") + "','" + issue_date + "','"+ "NO" + "','"+ query.getString("special_permission") + "','"+query.getDouble("amount") + "','"+ ref_no + "','"+ bank + "','"+ cheque+ "','"+ cheque_date+"','"+ date_time + "','"+user+ "')");}
             
         } catch (SQLException ex) {
             MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");

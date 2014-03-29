@@ -16,6 +16,12 @@ public class Add_Rate_details extends javax.swing.JPanel {
         initComponents();
     }
 
+    
+   public void focus(){
+this.requestFocus();
+Code.requestFocus();;
+
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -29,20 +35,17 @@ public class Add_Rate_details extends javax.swing.JPanel {
         Save = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        Save1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         account_class = new javax.swing.JComboBox();
         jLabel2 = new javax.swing.JLabel();
         account_name = new javax.swing.JTextField();
-        Description = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         Rate = new javax.swing.JTextField();
         Code = new javax.swing.JComboBox();
-        jComboBox1 = new javax.swing.JComboBox();
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(0, 153, 204));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 51, 153)));
@@ -67,37 +70,67 @@ public class Add_Rate_details extends javax.swing.JPanel {
         });
 
         jButton3.setText("Quit");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        Save1.setBackground(new java.awt.Color(0, 51, 255));
+        Save1.setForeground(new java.awt.Color(255, 255, 255));
+        Save1.setText("Update");
+        Save1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Save1ActionPerformed(evt);
+            }
+        });
+        Save1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                Save1KeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addComponent(Save, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(Save1, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton3)
-                .addGap(22, 22, 22))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Save, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton2)
-                        .addComponent(jButton3)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(Save, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jButton2)
+                                .addComponent(jButton3))
+                            .addComponent(Save1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 13, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel5.setText("Rs");
 
-        account_class.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Manuare", "Tea", "Chemicals", "Coir Bags", "Spray Tanks", "BogodaStores", " " }));
+        account_class.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("gl_advance_types", "type")));
+        account_class.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                account_classActionPerformed(evt);
+            }
+        });
         account_class.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 account_classKeyPressed(evt);
@@ -117,23 +150,7 @@ public class Add_Rate_details extends javax.swing.JPanel {
             }
         });
 
-        Description.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-            }
-            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
-                DescriptionInputMethodTextChanged(evt);
-            }
-        });
-        Description.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                DescriptionKeyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                DescriptionKeyReleased(evt);
-            }
-        });
-
-        jLabel1.setText(" Name");
+        jLabel1.setText("Description");
 
         Rate.addInputMethodListener(new java.awt.event.InputMethodListener() {
             public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
@@ -165,20 +182,9 @@ public class Add_Rate_details extends javax.swing.JPanel {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
-        jComboBox1.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jComboBox1KeyPressed(evt);
-            }
-        });
-
         jLabel4.setText("Rate");
 
         jLabel3.setText("Type");
-
-        jLabel7.setText("Pay Installments");
-
-        jLabel6.setText("Description");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -187,24 +193,19 @@ public class Add_Rate_details extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel1)
                     .addComponent(jLabel3)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addGap(77, 77, 77)
                         .addComponent(jLabel5))
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE))
-                .addGap(0, 0, 0)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Rate, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(account_class, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Code, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(account_name, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Description, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(account_name)
+                    .addComponent(account_class, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Code, 0, 129, Short.MAX_VALUE)
+                    .addComponent(Rate, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -227,15 +228,7 @@ public class Add_Rate_details extends javax.swing.JPanel {
                     .addComponent(Rate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel5))
-                .addGap(9, 9, 9)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(Description, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -243,18 +236,18 @@ public class Add_Rate_details extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 556, Short.MAX_VALUE))
+                .addContainerGap(518, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 251, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 287, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -266,17 +259,17 @@ public class Add_Rate_details extends javax.swing.JPanel {
         aobject.settype(account_class.getSelectedItem().toString());
         aobject.setRate(Double.parseDouble(Rate.getText()));
 
-        aobject.setDiscription(Description.getText());
-        aobject.setInstallments(jComboBox1.getSelectedIndex()+1);
+       // aobject.setDiscription(Description.getText());
+        //aobject.setInstallments(jComboBox1.getSelectedIndex()+1);
         aobject.addToDataBase();
 
         account_name.setText(null);
         Code.setSelectedIndex(0);
-        jComboBox1.setSelectedIndex(0);
+       // jComboBox1.setSelectedIndex(0);
         account_class.setSelectedIndex(0);
         Rate.setText(null);
 
-        Description.setText(null);
+        //Description.setText(null);
 
         Code.requestFocus();
 
@@ -289,7 +282,7 @@ public class Add_Rate_details extends javax.swing.JPanel {
     }//GEN-LAST:event_RateInputMethodTextChanged
 
     private void RateKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_RateKeyPressed
-        interface_events.Change_focus_Enterkey_t(Description, evt);
+        interface_events.Change_focus_Enterkey_t_b(Rate, Save, evt);
     }//GEN-LAST:event_RateKeyPressed
 
     private void RateKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_RateKeyReleased
@@ -300,24 +293,12 @@ public class Add_Rate_details extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_account_nameActionPerformed
 
-    private void DescriptionInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_DescriptionInputMethodTextChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_DescriptionInputMethodTextChanged
-
-    private void DescriptionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_DescriptionKeyPressed
-        interface_events.Change_focus_Enterkey_c(jComboBox1, evt);
-    }//GEN-LAST:event_DescriptionKeyPressed
-
-    private void DescriptionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_DescriptionKeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_DescriptionKeyReleased
-
     private void CodeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_CodeItemStateChanged
 
         if (Code.getSelectedItem() != null) {
             account_name.setText(dbm.checknReturnStringData("rate_details", "Code_name", Code.getSelectedItem().toString(), "Name"));
             Rate.setText(dbm.checknReturnStringData("rate_details", "Code_name", Code.getSelectedItem().toString(), "rate"));
-            Description.setText(dbm.checknReturnStringData("rate_details", "Code_name", Code.getSelectedItem().toString(), "Rate_Description"));
+          //  Description.setText(dbm.checknReturnStringData("rate_details", "Code_name", Code.getSelectedItem().toString(), "Rate_Description"));
             account_class.setSelectedItem(dbm.checknReturnStringData("rate_details", "Code_name", Code.getSelectedItem().toString(), "type"));
             account_name.requestFocusInWindow();
         }
@@ -334,7 +315,7 @@ public class Add_Rate_details extends javax.swing.JPanel {
         account_class.setSelectedIndex(0);
         Rate.setText(null);
 
-        Description.setText(null);
+        //Description.setText(null);
 
         Code.requestFocus();
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -351,28 +332,40 @@ public class Add_Rate_details extends javax.swing.JPanel {
         interface_events.Respond_enter(Save, null);
     }//GEN-LAST:event_SaveKeyPressed
 
-    private void jComboBox1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jComboBox1KeyPressed
-       interface_events.Change_focus_Enterkey_t_b(Rate, Save, evt);
-    }//GEN-LAST:event_jComboBox1KeyPressed
+    private void account_classActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_account_classActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_account_classActionPerformed
+
+    private void Save1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Save1ActionPerformed
+       dbm.updateDatabase("rate_details", "Code_name", Code.getSelectedItem().toString(), "Name", account_name.getText());
+       dbm.updateDatabase("rate_details", "Code_name", Code.getSelectedItem().toString(), "type", account_class.getSelectedItem().toString());
+       dbm.updateDatabase("rate_details", "Code_name", Code.getSelectedItem().toString(), "rate", Double.parseDouble(Rate.getText()));
+      // dbm.updateDatabase("rate_detils", "Code_name", Code.getSelectedItem().toString(), "Name", account_name.getText());
+    }//GEN-LAST:event_Save1ActionPerformed
+
+    private void Save1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Save1KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Save1KeyPressed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox Code;
-    private javax.swing.JTextField Description;
     private javax.swing.JTextField Rate;
     private javax.swing.JButton Save;
+    private javax.swing.JButton Save1;
     private javax.swing.JComboBox account_class;
     private javax.swing.JTextField account_name;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
