@@ -799,7 +799,8 @@ public class GLmanual_entry extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void supplier_idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supplier_idActionPerformed
-        // TODO add your handling code here:
+        System.out.println("OK"); 
+           
     }//GEN-LAST:event_supplier_idActionPerformed
 
     private void net_weightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_net_weightActionPerformed

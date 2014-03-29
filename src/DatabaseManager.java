@@ -76,7 +76,7 @@ public final class DatabaseManager {
                 return (query.getString(table_column_need));
             }
         } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+           System.out.println(ex.getMessage());
             return "" + ex.getErrorCode();
         }
         return null;
@@ -298,7 +298,7 @@ public final class DatabaseManager {
         return true;
     }
 
-    public boolean Inserting_To_The_Table_Filtered(javax.swing.JTable table, String table_name, String column_name, int table_column_num, int bottom, int top, String column_filtering, String element) {
+    public int Inserting_To_The_Table_Filtered(javax.swing.JTable table, String table_name, String column_name, int table_column_num, int bottom, int top, String column_filtering, String element) {
 
         int num_of_rows_filled_in_table = 0;
         int num_of_rows_in_the_database = 0;
@@ -313,11 +313,12 @@ public final class DatabaseManager {
             ResultSet query = dbm.query("SELECT * FROM " + table_name + " where " + column_filtering + " LIKE '" + element + "'");
             while (query.next()) {
                 num_of_rows_in_the_database++;
+                
             }
         } catch (SQLException ex) {
 
         }
-
+   
         if (num_of_rows_in_the_database >= bottom) {
             try {
                 ResultSet query = dbm.query("SELECT * FROM " + table_name + " where " + column_filtering + " LIKE '" + element + "'");
@@ -336,10 +337,15 @@ public final class DatabaseManager {
 
             }
         } else {
-            return false;
+            
+
+            return num_of_rows_in_the_database;
+                
 
         }
-        return true;
+        
+
+        return num_of_rows_in_the_database;
     }
     
     public boolean Inserting_To_The_Table_Filtered_Between_Two(javax.swing.JTable table, String table_name, String column_name, int table_column_num, int bottom, int top, String column_filtering, String element1,String element2) {

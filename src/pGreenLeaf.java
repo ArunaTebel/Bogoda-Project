@@ -137,7 +137,7 @@ public class pGreenLeaf extends javax.swing.JPanel {
             }
         });
 
-        Add_combo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "---------", "Supplier", "Category", "Leaf category", "Transport rate", "----------" }));
+        Add_combo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "---------", "Supplier", "Category", "Leaf category", "Transport rate", "AdvanceType", "----------" }));
         Add_combo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Add_comboActionPerformed(evt);
@@ -284,6 +284,19 @@ public class pGreenLeaf extends javax.swing.JPanel {
         if (selection.equalsIgnoreCase("Transport rate")) {
             
           GL_Add_transport_rate Addtrate = new GL_Add_transport_rate();
+
+       GL_content.removeAll();
+
+       Addtrate.setSize(GL_content.getSize());
+
+       GL_content.add(Addtrate);
+        validate();
+        repaint();
+        Addtrate.focus();
+        }
+         if (selection.equalsIgnoreCase("AdvanceType")) {
+            
+       GL_Add_advance_types Addtrate = new GL_Add_advance_types();
 
        GL_content.removeAll();
 
