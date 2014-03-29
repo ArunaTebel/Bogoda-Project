@@ -24,6 +24,7 @@ public class Checkroll_Pay_Info {
     private double OTRateAfter;// OT Rate - after 6pm
     private double ETFallowance;// %
     private double EPFallowance;
+    private double EPFallowance2;
     private double welfareAllowance;
     private double holidayRate;
     
@@ -51,6 +52,7 @@ public class Checkroll_Pay_Info {
         this.OTRateAfter=0;
         this.ETFallowance=0;
         this.EPFallowance=0;
+        this.EPFallowance2=0;
         this.welfareAllowance=0;
         this.holidayRate=0;
     }
@@ -82,6 +84,9 @@ public class Checkroll_Pay_Info {
     }
     public void setEPFallowance(double EPFallowance){
         this.EPFallowance=EPFallowance;
+    }
+    public void setEPFallowance2(double EPFallowance2){
+        this.EPFallowance2=EPFallowance2;
     }
     public void setWelfareAllowance(double wefareAllowance){
         this.welfareAllowance=wefareAllowance;
@@ -131,13 +136,14 @@ public class Checkroll_Pay_Info {
             dbm.insert("UPDATE checkroll_pay_info SET sunday_rate='"+sundayRate+"' WHERE checkroll='1'");
             dbm.insert("UPDATE checkroll_pay_info SET incentive_1='"+incentive_1+"' WHERE checkroll='1'");
             dbm.insert("UPDATE checkroll_pay_info SET incentive_2='"+incentive_2+"' WHERE checkroll='1'");
-            dbm.insert("UPDATE checkroll_pay_info SET margin='"+margin+"' WHERE checkroll='1'");
+            //dbm.insert("UPDATE checkroll_pay_info SET margin='"+margin+"' WHERE checkroll='1'");
             dbm.insert("UPDATE checkroll_pay_info SET otrate_before='"+OTRateBefore+"' WHERE checkroll='1'");
             dbm.insert("UPDATE checkroll_pay_info SET otrate_after='"+OTRateAfter+"' WHERE checkroll='1'");
             dbm.insert("UPDATE checkroll_pay_info SET epf='"+EPFallowance+"' WHERE checkroll='1'");
+            dbm.insert("UPDATE checkroll_pay_info SET epf2='"+EPFallowance2+"' WHERE checkroll='1'");
             dbm.insert("UPDATE checkroll_pay_info SET etf='"+ETFallowance+"' WHERE checkroll='1'");
             dbm.insert("UPDATE checkroll_pay_info SET welfare='"+welfareAllowance+"' WHERE checkroll='1'");
-            dbm.insert("UPDATE checkroll_pay_info SET holiday_rate='"+holidayRate+"' WHERE checkroll='1'");
+            //dbm.insert("UPDATE checkroll_pay_info SET holiday_rate='"+holidayRate+"' WHERE checkroll='1'");
             
         } catch (SQLException ex) {
             MessageBox.showMessage(ex.getMessage(), "SQL ERROR", "error");
