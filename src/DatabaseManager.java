@@ -76,7 +76,7 @@ public final class DatabaseManager {
                 return (query.getString(table_column_need));
             }
         } catch (SQLException ex) {
-           System.out.println(ex.getMessage());
+            System.out.println(ex.getMessage());
             return "" + ex.getErrorCode();
         }
         return null;
@@ -95,8 +95,8 @@ public final class DatabaseManager {
         }
         return null;
     }
-    
-     public String checknReturnStringDataReceipts(String table_name, String table_column_giving, Object row_element, String table_column_need) {
+
+    public String checknReturnStringDataReceipts(String table_name, String table_column_giving, Object row_element, String table_column_need) {
         DatabaseManager dbm = DatabaseManager.getDbCon();
         try {
             ResultSet query = dbm.query("SELECT * FROM " + table_name + " where " + table_column_giving + " LIKE '" + row_element + "'");
@@ -313,12 +313,12 @@ public final class DatabaseManager {
             ResultSet query = dbm.query("SELECT * FROM " + table_name + " where " + column_filtering + " LIKE '" + element + "'");
             while (query.next()) {
                 num_of_rows_in_the_database++;
-                
+
             }
         } catch (SQLException ex) {
 
         }
-   
+
         if (num_of_rows_in_the_database >= bottom) {
             try {
                 ResultSet query = dbm.query("SELECT * FROM " + table_name + " where " + column_filtering + " LIKE '" + element + "'");
@@ -337,18 +337,15 @@ public final class DatabaseManager {
 
             }
         } else {
-            
 
             return num_of_rows_in_the_database;
-                
 
         }
-        
 
         return num_of_rows_in_the_database;
     }
-    
-    public boolean Inserting_To_The_Table_Filtered_Between_Two(javax.swing.JTable table, String table_name, String column_name, int table_column_num, int bottom, int top, String column_filtering, String element1,String element2) {
+
+    public boolean Inserting_To_The_Table_Filtered_Between_Two(javax.swing.JTable table, String table_name, String column_name, int table_column_num, int bottom, int top, String column_filtering, String element1, String element2) {
 
         int num_of_rows_filled_in_table = 0;
         int num_of_rows_in_the_database = 0;
@@ -422,7 +419,7 @@ public final class DatabaseManager {
         }
 
     }
-    
+
     public void DeleteTable(String table_name) {
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         try {
@@ -538,17 +535,17 @@ public final class DatabaseManager {
         return count;
     }
 
-        public int[] checknReturnIntArrayForNoteAnalysis(String table_name, String table_column_giving1, Object row_element1, String table_column_giving2, Object row_element2, String table_column_need) {
+    public int[] checknReturnIntArrayForNoteAnalysis(String table_name, String table_column_giving1, Object row_element1, String table_column_giving2, Object row_element2, String table_column_need) {
         DatabaseManager dbm = DatabaseManager.getDbCon();
-        int count=0;
-        int num = checknReturnNumberOfEntriesForNoteAnalysis(table_name, table_column_giving1, row_element1, table_column_giving2, row_element2,table_column_need);
+        int count = 0;
+        int num = checknReturnNumberOfEntriesForNoteAnalysis(table_name, table_column_giving1, row_element1, table_column_giving2, row_element2, table_column_need);
         int[] arr = new int[num];
         try {
             //     ResultSet query = dbm.query("SELECT * FROM " + table_name + " WHERE " + table_column_giving1 + " ='" + row_element1 + " 'AND " + table_column_giving2 +" <'" + row_element2 + "'");
             ResultSet query = dbm.query("SELECT * FROM " + table_name + " WHERE " + table_column_giving1 + " ='" + row_element1 + " 'AND " + table_column_giving2 + " LIKE'" + row_element2 + "'");
 
             while (query.next()) {
-                arr[count]=query.getInt(table_column_need);
+                arr[count] = query.getInt(table_column_need);
                 count++;
             }
         } catch (SQLException ex) {
@@ -556,6 +553,22 @@ public final class DatabaseManager {
             //return ""+ex.getErrorCode();            
         }
         return arr;
+    }
+
+    public String checknReturnDataBetweenTwoDays(String table_name, String date_column, Object date1, Object date2, String column_other_data, Object other_data, String column_return_data) {
+        DatabaseManager dbm = DatabaseManager.getDbCon();
+        try {
+            //     ResultSet query = dbm.query("SELECT * FROM " + table_name + " WHERE " + table_column_giving1 + " ='" + row_element1 + " 'AND " + table_column_giving2 +" <'" + row_element2 + "'");
+            ResultSet query = dbm.query("SELECT * FROM " + table_name + " where " + column_other_data + " LIKE '" + other_data + " 'AND " + date_column + " BETWEEN'" + date1 + "' AND '" + date2 + "'");
+
+            while (query.next()) {
+                return query.getString(column_return_data);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            //return ""+ex.getErrorCode();            
+        }
+        return null;
     }
 
 }

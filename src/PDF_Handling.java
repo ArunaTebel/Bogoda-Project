@@ -3,6 +3,7 @@ import java.io.*;
 import java.sql.*;
 import com.lowagie.text.*;
 import com.lowagie.text.pdf.*;
+import java.awt.Color;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.stream.MemoryCacheImageInputStream;
@@ -11,33 +12,35 @@ import javax.imageio.stream.MemoryCacheImageInputStream;
 
 public class PDF_Handling {
 
-    public void Print_Database_Without_Filtering(String databasetable, String arr[][],String title) throws DocumentException {
+    public void Print_Database_Without_Filtering(String databasetable, String arr[][], String title, int title_font_size, int table_title_font_size) throws DocumentException {
         try {
 
-            Document document = new Document();
+            Document document = new Document(PageSize.A3.rotate());
 
             try {
                 PdfWriter.getInstance(document, new FileOutputStream("E:/data.pdf"));
-                //PdfWriter.getInstance(document, new MemoryCacheImageInputStream() );
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(PDF_Handling.class.getName()).log(Level.SEVERE, null, ex);
             }
 
             int num_of_columns = arr.length;
-
             document.open();
+            
+            document.add(AddParagraph(title, title_font_size));
 
-            document.add(addTitle(title,15));
-
-            PdfPTable table = new PdfPTable(num_of_columns);
+            PdfPTable table = AddTable(num_of_columns);
+            
             for (int i = 0; i < num_of_columns; i++) {
-                PdfPCell cell = new PdfPCell(new Phrase(arr[0][i]));
-                cell.setHorizontalAlignment(1);
-                cell.setBorder(0);
+                PdfPCell cell =AddCell(AddPhrase(arr[0][i], table_title_font_size));
+
                 table.addCell(cell);
+                table.setSpacingAfter(30);
 
                 //table.addCell(null);
             }
+           
+            
+           // document.add
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bogoda", "root", "");
             Statement st = con.createStatement();
@@ -46,11 +49,11 @@ public class PDF_Handling {
 
                 for (int i = 0; i < num_of_columns; i++) {
                     // table.addCell(add(rs.getString(arr[1][i])));
-                     PdfPCell cell = new PdfPCell(new Phrase(rs.getString(arr[1][i])));
+                    PdfPCell cell = new PdfPCell(new Phrase(rs.getString(arr[1][i])));
                     cell.setHorizontalAlignment(1);
                     cell.setBorder(0);
                     table.addCell(cell);
-                    
+
                 }
             }
             document.add(table);
@@ -68,7 +71,7 @@ public class PDF_Handling {
 
     }
 
-    public static Paragraph addTitle(String title, int font_size) {
+    public static Paragraph AddParagraph(String title, int font_size) {
         Font font = FontFactory.getFont("Times-Roman", font_size, Font.BOLD | Font.UNDERLINE);
         Paragraph p = new Paragraph(title, font);
         p.setSpacingAfter(20);
@@ -76,15 +79,27 @@ public class PDF_Handling {
         return p;
     }
 
-    public static Phrase add(String s) {
-        Font fontbold = FontFactory.getFont("Times-Roman", 15, Font.BOLD);
-        Phrase p = new Phrase(s, fontbold);
+    public static Phrase AddPhrase(String content, int font_size) {
+        Font font = FontFactory.getFont("Times-Roman", font_size, Font.NORMAL);
+        Phrase p = new Phrase(content, font);
         return p;
     }
 
-    public static PdfPTable AddTable() {
-        PdfPTable table = new PdfPTable(2);
+    public static PdfPCell AddCell(Phrase cell_item) {
+        PdfPCell cell = new PdfPCell(cell_item);
+        cell.setHorizontalAlignment(1);
+        cell.setBorder(0);
+        cell.setBackgroundColor(Color.yellow);
+        return cell;
+    }
 
+    public static PdfPTable AddTable(int no_of_columns) {
+        PdfPTable table = new PdfPTable(no_of_columns);
+        table.setTotalWidth(10);
+        
+      
+       
+       
         return table;
     }
 
