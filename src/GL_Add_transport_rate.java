@@ -1,3 +1,6 @@
+
+import javax.swing.JOptionPane;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -20,7 +23,7 @@ Interface_Events interface_events = new Interface_Events();
     
     public void focus(){
     this.requestFocusInWindow();
-    trans_code.requestFocusInWindow();
+    Code.requestFocus();
     
     
     }
@@ -34,7 +37,6 @@ Interface_Events interface_events = new Interface_Events();
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        trans_code = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jButton4 = new javax.swing.JButton();
@@ -44,14 +46,10 @@ Interface_Events interface_events = new Interface_Events();
         save = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        Trans_rate = new javax.swing.JTextField();
+        Save1 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-
-        trans_code.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                trans_codeKeyPressed(evt);
-            }
-        });
+        Code = new javax.swing.JComboBox();
+        Trans_rate = new javax.swing.JTextField();
 
         jLabel2.setText("Transport code");
 
@@ -86,7 +84,7 @@ Interface_Events interface_events = new Interface_Events();
                 .addComponent(jButton4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton5)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(141, Short.MAX_VALUE))
         );
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
@@ -121,6 +119,19 @@ Interface_Events interface_events = new Interface_Events();
             }
         });
 
+        Save1.setBackground(new java.awt.Color(0, 204, 0));
+        Save1.setText("Update");
+        Save1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Save1ActionPerformed(evt);
+            }
+        });
+        Save1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                Save1KeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -128,6 +139,8 @@ Interface_Events interface_events = new Interface_Events();
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(save, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Save1, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -139,20 +152,41 @@ Interface_Events interface_events = new Interface_Events();
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(save, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(save, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Save1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButton2)
                         .addComponent(jButton3)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jLabel3.setText("Transport Rate");
+
+        Code.putClientProperty("JComboBox.isTableCellEditor", Boolean.TRUE);
+        Code.setEditable(true);
+        Code.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("tranport_rates", "Trans_id")));
+        Code.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                CodeItemStateChanged(evt);
+            }
+        });
+        Code.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CodeActionPerformed(evt);
+            }
+        });
+
+        Trans_rate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Trans_rateActionPerformed(evt);
+            }
+        });
         Trans_rate.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 Trans_rateKeyPressed(evt);
             }
         });
-
-        jLabel3.setText("Transport Rate");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -171,13 +205,14 @@ Interface_Events interface_events = new Interface_Events();
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jLabel3)
-                                .addGap(18, 18, 18)
-                                .addComponent(Trans_rate, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(145, 145, 145))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jLabel2)
-                                .addGap(20, 20, 20)
-                                .addComponent(trans_code, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 471, Short.MAX_VALUE)
+                                .addGap(147, 147, 147)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(Trans_rate)
+                            .addComponent(Code, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 295, Short.MAX_VALUE)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
         );
@@ -186,18 +221,20 @@ Interface_Events interface_events = new Interface_Events();
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(trans_code, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(Trans_rate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 267, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(11, 11, 11)
                         .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 138, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(Code, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(Trans_rate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel3)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -205,26 +242,22 @@ Interface_Events interface_events = new Interface_Events();
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void trans_codeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_trans_codeKeyPressed
-        interface_events.Change_focus_Enterkey_t(Trans_rate, evt);
-    }//GEN-LAST:event_trans_codeKeyPressed
-
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
-        String Trans_id = trans_code.getText();
+        String Trans_id = Code.getSelectedItem().toString();
         double trans_rate =Double.parseDouble(Trans_rate.getText());
         
         add_trans = new GL_addTransport_rate(Trans_id, trans_rate);
         add_trans.addToDatabase();
         
         Trans_rate.setText(null);
-        trans_code.setText(null);
+        Code.setSelectedIndex(0);
         
         
-        
+         JOptionPane.showMessageDialog(Trans_rate, "Success!");
     }//GEN-LAST:event_saveActionPerformed
 
     private void saveFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_saveFocusGained
@@ -233,9 +266,9 @@ Interface_Events interface_events = new Interface_Events();
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         Trans_rate.setText(null);
-        trans_code.setText(null);
+        
        
-        trans_code.requestFocusInWindow();
+        Code.setSelectedIndex(0);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -243,12 +276,45 @@ Interface_Events interface_events = new Interface_Events();
       //  a.quit();
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void CodeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_CodeItemStateChanged
+        try {
+        if (Code.getSelectedItem() != null) {
+            Trans_rate.setText(dbm.checknReturnStringData("tranport_rates", "Trans_id", Code.getSelectedItem().toString(), "Trans_rate"));
+             Trans_rate.requestFocusInWindow();
+        }
+         } catch (Exception e) {
+             Code.setSelectedIndex(0);
+        }
+    }//GEN-LAST:event_CodeItemStateChanged
+
+    private void CodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CodeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CodeActionPerformed
+
+    private void Trans_rateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Trans_rateActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Trans_rateActionPerformed
+
     private void Trans_rateKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Trans_rateKeyPressed
-        interface_events.Change_focus_Enterkey_t_b(Trans_rate, save, evt);
+       // interface_events.Change_focus_Enterkey_c(account_class, evt);
     }//GEN-LAST:event_Trans_rateKeyPressed
+
+    private void Save1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Save1ActionPerformed
+        dbm.updateDatabase("tranport_rates", "Trans_id", Code.getSelectedItem().toString(), "Trans_rate", Trans_rate.getText());
+        Trans_rate.setText(null);
+        Code.setSelectedIndex(0);
+        
+       JOptionPane.showMessageDialog(Trans_rate, "Entry updated!");
+    }//GEN-LAST:event_Save1ActionPerformed
+
+    private void Save1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Save1KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Save1KeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox Code;
+    private javax.swing.JButton Save1;
     private javax.swing.JTextField Trans_rate;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -260,6 +326,5 @@ Interface_Events interface_events = new Interface_Events();
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JButton save;
-    private javax.swing.JTextField trans_code;
     // End of variables declaration//GEN-END:variables
 }

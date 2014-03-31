@@ -79,8 +79,34 @@ public class Date_Handler {
         }
 
         return month;
-
     }
+    
+        
+         public String get_month_as_num(Date date) {
+        String s = date.toString();
+        String month= null;
+        String[] array = new String[3];
+        array = s.split("-");
+         return array[1];
+         }
+         
+          public String get_next_month(String month) {
+       // String s = date.toString();
+        String next_month= null;
+        //String[] array = new String[3];
+        //array = s.split("-");
+        
+        if(Integer.parseInt(month)<10){
+         next_month = "0"+Integer.parseInt(month);
+        }
+        else if(month.equals("12")){
+        next_month = "01";
+        }
+        else{
+        next_month = (Integer.parseInt(month)+1)+"";
+        }
+        return next_month;
+         }
     
     public String get_year(Date date) {
         String s = date.toString();

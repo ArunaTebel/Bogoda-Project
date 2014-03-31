@@ -417,6 +417,11 @@ public class MainWindow extends javax.swing.JFrame {
         });
 
         jButton7.setText("Reports");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
         jButton7.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jButton7FocusGained(evt);
@@ -927,6 +932,18 @@ public class MainWindow extends javax.swing.JFrame {
     private void User_idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_User_idActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_User_idActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+      Reports_home reports_home = new Reports_home();
+
+        Main_Content.removeAll();
+
+        reports_home.setSize(Main_Content.getSize());
+
+        Main_Content.add(reports_home);
+        validate();
+        repaint();
+    }//GEN-LAST:event_jButton7ActionPerformed
                            
 
 

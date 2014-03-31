@@ -42,8 +42,7 @@ public class GLcash_advance extends javax.swing.JPanel {
         this.requestFocusInWindow();
         dayfield.requestFocus();
         dayfield.selectAll();
-        
-       
+
     }
 
     /**
@@ -615,8 +614,8 @@ public class GLcash_advance extends javax.swing.JPanel {
                                         .addGap(18, 18, 18)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(layout.createSequentialGroup()
-                                                .addComponent(supplier_id, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(159, 159, 159)
+                                                .addComponent(supplier_id, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(138, 138, 138)
                                                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addComponent(supplier_name, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -689,7 +688,7 @@ public class GLcash_advance extends javax.swing.JPanel {
 
         }
 
-        if (selection.equalsIgnoreCase("Cheque")&&Emergency.isSelected()) {
+        if (selection.equalsIgnoreCase("Cheque") && Emergency.isSelected()) {
             Cheque_pay.setVisible(true);
 
             date1.requestFocusInWindow();
@@ -699,26 +698,34 @@ public class GLcash_advance extends javax.swing.JPanel {
     }//GEN-LAST:event_cash_cheque_comboActionPerformed
 
     private void supplier_idItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_supplier_idItemStateChanged
-        try {
-            if(supplier_id.getSelectedItem()!=null){
-                supplier_name.setText(dbm.checknReturnData("suppliers", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "sup_name"));
+
+        try { if (supplier_id.getSelectedIndex() != 0) {
+            try {
+               
+                   supplier_name.setText(dbm.checknReturnData("suppliers", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "sup_name"));
                 
-            }
             
-            
-            int gl_cashadvance_set_date_int=10;   // This has to be taken from the database later
-            
+        
+            int gl_cashadvance_set_date_int = 10;   // This has to be taken from the database later
+
             Date_Handler date_handler = new Date_Handler();
             date_handler.set_glcash_advance_starting_date_int(gl_cashadvance_set_date_int);
             // A seperate class glcashadvances may have to be created in the future
-            Date  datef = datechooser.Return_date(yearfield, monthfield, dayfield);
-            max_allowable.setText("" + (dbm.checknReturnDataForCashAdvances("green_leaf_transactions", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "tr_date",date_handler.get_glcash_advance_starting_date(datef),date_handler.get_date_as_a_String(datef), "net_qty")));
+            Date datef = datechooser.Return_date(yearfield, monthfield, dayfield);
+            max_allowable.setText("" + (dbm.checknReturnDataForCashAdvances("green_leaf_transactions", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "tr_date", date_handler.get_glcash_advance_starting_date(datef), date_handler.get_date_as_a_String(datef), "net_qty")));
             // allowable.setText("" + (dbm.checknReturnDataForCashAdvances("green_leaf_transactions", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "tr_date","2014-01-19","2014-01-21", "net_qty")));
-
+           } catch (NullPointerException e) {
+                supplier_id.setSelectedIndex(1);
+                //category_code.setSelectedIndex(1);
+                //supplier_id.setSelectedItem("");
+                //category_name.setText("");
+            }
             amount.requestFocusInWindow();
+        }
         } catch (ParseException ex) {
             Logger.getLogger(GLcash_advance.class.getName()).log(Level.SEVERE, null, ex);
         }
+
 
     }//GEN-LAST:event_supplier_idItemStateChanged
 
@@ -731,8 +738,12 @@ public class GLcash_advance extends javax.swing.JPanel {
     }//GEN-LAST:event_cash_cheque_comboItemStateChanged
 
     private void cash_cheque_comboKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cash_cheque_comboKeyPressed
-        if(Emergency.isSelected()==true){interface_events.Change_focus_Enterkey_t_b(amount, Save, evt);}
-        if(Emergency.isSelected()==false){interface_events.Change_focus_Enterkey_t_b(amount, Save1, evt);}
+        if (Emergency.isSelected() == true) {
+            interface_events.Change_focus_Enterkey_t_b(amount, Save, evt);
+        }
+        if (Emergency.isSelected() == false) {
+            interface_events.Change_focus_Enterkey_t_b(amount, Save1, evt);
+        }
     }//GEN-LAST:event_cash_cheque_comboKeyPressed
 
     private void SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveActionPerformed
@@ -744,7 +755,7 @@ public class GLcash_advance extends javax.swing.JPanel {
             } else {
                 try {
                     // save button action here when cash selected
-                    
+
                     interface_events.Respond_enter(Save1, null);
                     cadvance.set_permission(Permission.isSelected());
                     cadvance.set_sup_id(Integer.parseInt(supplier_id.getSelectedItem().toString()));
@@ -757,22 +768,11 @@ public class GLcash_advance extends javax.swing.JPanel {
                     cadvance.set_emergency(Emergency.isSelected());
                     cadvance.set_issue_date(date3);
                     cadvance.set_cheque_date(date3);
-                    
+
                     cadvance.addToDataBasemain();
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
+
                     Red_message.setText("Saved cash");
-                    supplier_id.setSelectedItem(null);
+                    supplier_id.setSelectedIndex(0);
                     supplier_name.setText(" ");
                     amount.setText(null);
                     supplier_id.requestFocusInWindow();
@@ -790,16 +790,16 @@ public class GLcash_advance extends javax.swing.JPanel {
                 Red_message.setText("Fill all the Empty fields before Save");
 
             } else {
-                   Red_message.setText("Saved cheque");
+                Red_message.setText("Saved cheque");
                             // save button action here when cheque selected
-                   supplier_id.setSelectedItem(null);
-                    supplier_name.setText(" ");
+                 supplier_id.setSelectedIndex(0);
+                supplier_name.setText(" ");
                 amount.setText(null);
                 Cheque_Refno.setText(null);
                 Cheque_no.setText(null);
                 jComboBox1.setSelectedItem(null);
-                 bank_name.setText(" ");
-                 supplier_id.requestFocusInWindow();
+                bank_name.setText(" ");
+                supplier_id.requestFocusInWindow();
             }
 
         }
@@ -821,12 +821,12 @@ public class GLcash_advance extends javax.swing.JPanel {
             cadvance.set_sup_name(supplier_name.getText());
             cadvance.set_pay_type(cash_cheque_combo.getSelectedItem().toString());
             cadvance.addToDataBase();
-            
+
         } catch (ParseException ex) {
             Logger.getLogger(GLcash_advance.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
+
+
     }//GEN-LAST:event_Save1ActionPerformed
 
     private void Save1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_Save1FocusGained
@@ -834,14 +834,13 @@ public class GLcash_advance extends javax.swing.JPanel {
     }//GEN-LAST:event_Save1FocusGained
 
     private void EmergencyItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_EmergencyItemStateChanged
-        if (Emergency.isSelected()==true) {
-         Save.setEnabled(true);
-         Save1.setEnabled(false);
-        }
-        
-        else { 
+        if (Emergency.isSelected() == true) {
+            Save.setEnabled(true);
+            Save1.setEnabled(false);
+        } else {
             Save1.setEnabled(true);
-         Save.setEnabled(false);}
+            Save.setEnabled(false);
+        }
     }//GEN-LAST:event_EmergencyItemStateChanged
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -850,7 +849,7 @@ public class GLcash_advance extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
-        if(supplier_id.getSelectedItem()!=null){
+        if (supplier_id.getSelectedItem() != null) {
             bank_name.setText(dbm.checknReturnData("bank", "bank_id", Integer.parseInt(jComboBox1.getSelectedItem().toString()), "bank_name"));
             Cheque_no.requestFocusInWindow();
         }
@@ -1119,12 +1118,12 @@ public class GLcash_advance extends javax.swing.JPanel {
                 dayfield.selectAll();
             }                                           // /// decrementing normal values
         } else if (dayfield.getText().equals("2") || dayfield.getText().equals("3") || dayfield.getText().equals("4") || dayfield.getText().equals("5")
-            || dayfield.getText().equals("6") || dayfield.getText().equals("7") || dayfield.getText().equals("8") || dayfield.getText().equals("9")
-            || dayfield.getText().equals("10") || dayfield.getText().equals("11") || dayfield.getText().equals("12") || dayfield.getText().equals("13") || dayfield.getText().equals("14")
-            || dayfield.getText().equals("15") || dayfield.getText().equals("16") || dayfield.getText().equals("17") || dayfield.getText().equals("18")
-            || dayfield.getText().equals("19") || dayfield.getText().equals("20") || dayfield.getText().equals("21") || dayfield.getText().equals("22")
-            || dayfield.getText().equals("23") || dayfield.getText().equals("24") || dayfield.getText().equals("25") || dayfield.getText().equals("26")
-            || dayfield.getText().equals("27") || dayfield.getText().equals("28") || dayfield.getText().equals("29") || dayfield.getText().equals("30") || dayfield.getText().equals("31")) {
+                || dayfield.getText().equals("6") || dayfield.getText().equals("7") || dayfield.getText().equals("8") || dayfield.getText().equals("9")
+                || dayfield.getText().equals("10") || dayfield.getText().equals("11") || dayfield.getText().equals("12") || dayfield.getText().equals("13") || dayfield.getText().equals("14")
+                || dayfield.getText().equals("15") || dayfield.getText().equals("16") || dayfield.getText().equals("17") || dayfield.getText().equals("18")
+                || dayfield.getText().equals("19") || dayfield.getText().equals("20") || dayfield.getText().equals("21") || dayfield.getText().equals("22")
+                || dayfield.getText().equals("23") || dayfield.getText().equals("24") || dayfield.getText().equals("25") || dayfield.getText().equals("26")
+                || dayfield.getText().equals("27") || dayfield.getText().equals("28") || dayfield.getText().equals("29") || dayfield.getText().equals("30") || dayfield.getText().equals("31")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
 
                 dayfield.setText("" + (Integer.parseInt(dayfield.getText()) - 1));
@@ -1201,12 +1200,12 @@ public class GLcash_advance extends javax.swing.JPanel {
                     monthfield.setText(datechooser.Return_month(mnth + 1));
                     // incrementing normal values/////////////////////// for february separately
                 } else if (dayfield.getText().equals("1") || dayfield.getText().equals("2") || dayfield.getText().equals("3") || dayfield.getText().equals("4") || dayfield.getText().equals("5")
-                    || dayfield.getText().equals("6") || dayfield.getText().equals("7") || dayfield.getText().equals("8") || dayfield.getText().equals("9")
-                    || dayfield.getText().equals("10") || dayfield.getText().equals("11") || dayfield.getText().equals("12") || dayfield.getText().equals("13") || dayfield.getText().equals("14")
-                    || dayfield.getText().equals("15") || dayfield.getText().equals("16") || dayfield.getText().equals("17") || dayfield.getText().equals("18")
-                    || dayfield.getText().equals("19") || dayfield.getText().equals("20") || dayfield.getText().equals("21") || dayfield.getText().equals("22")
-                    || dayfield.getText().equals("23") || dayfield.getText().equals("24") || dayfield.getText().equals("25") || dayfield.getText().equals("26")
-                    || dayfield.getText().equals("27") || dayfield.getText().equals("28") || dayfield.getText().equals("29") || dayfield.getText().equals("30") || dayfield.getText().equals("31")) {
+                        || dayfield.getText().equals("6") || dayfield.getText().equals("7") || dayfield.getText().equals("8") || dayfield.getText().equals("9")
+                        || dayfield.getText().equals("10") || dayfield.getText().equals("11") || dayfield.getText().equals("12") || dayfield.getText().equals("13") || dayfield.getText().equals("14")
+                        || dayfield.getText().equals("15") || dayfield.getText().equals("16") || dayfield.getText().equals("17") || dayfield.getText().equals("18")
+                        || dayfield.getText().equals("19") || dayfield.getText().equals("20") || dayfield.getText().equals("21") || dayfield.getText().equals("22")
+                        || dayfield.getText().equals("23") || dayfield.getText().equals("24") || dayfield.getText().equals("25") || dayfield.getText().equals("26")
+                        || dayfield.getText().equals("27") || dayfield.getText().equals("28") || dayfield.getText().equals("29") || dayfield.getText().equals("30") || dayfield.getText().equals("31")) {
 
                     dayfield.setText("" + (Integer.parseInt(dayfield.getText()) + 1));
 
@@ -1215,12 +1214,12 @@ public class GLcash_advance extends javax.swing.JPanel {
             }
             // incrementing normal values
         } else if (dayfield.getText().equals("1") || dayfield.getText().equals("2") || dayfield.getText().equals("3") || dayfield.getText().equals("4") || dayfield.getText().equals("5")
-            || dayfield.getText().equals("6") || dayfield.getText().equals("7") || dayfield.getText().equals("8") || dayfield.getText().equals("9")
-            || dayfield.getText().equals("10") || dayfield.getText().equals("11") || dayfield.getText().equals("12") || dayfield.getText().equals("13") || dayfield.getText().equals("14")
-            || dayfield.getText().equals("15") || dayfield.getText().equals("16") || dayfield.getText().equals("17") || dayfield.getText().equals("18")
-            || dayfield.getText().equals("19") || dayfield.getText().equals("20") || dayfield.getText().equals("21") || dayfield.getText().equals("22")
-            || dayfield.getText().equals("23") || dayfield.getText().equals("24") || dayfield.getText().equals("25") || dayfield.getText().equals("26")
-            || dayfield.getText().equals("27") || dayfield.getText().equals("28") || dayfield.getText().equals("29") || dayfield.getText().equals("30") || dayfield.getText().equals("31")) {
+                || dayfield.getText().equals("6") || dayfield.getText().equals("7") || dayfield.getText().equals("8") || dayfield.getText().equals("9")
+                || dayfield.getText().equals("10") || dayfield.getText().equals("11") || dayfield.getText().equals("12") || dayfield.getText().equals("13") || dayfield.getText().equals("14")
+                || dayfield.getText().equals("15") || dayfield.getText().equals("16") || dayfield.getText().equals("17") || dayfield.getText().equals("18")
+                || dayfield.getText().equals("19") || dayfield.getText().equals("20") || dayfield.getText().equals("21") || dayfield.getText().equals("22")
+                || dayfield.getText().equals("23") || dayfield.getText().equals("24") || dayfield.getText().equals("25") || dayfield.getText().equals("26")
+                || dayfield.getText().equals("27") || dayfield.getText().equals("28") || dayfield.getText().equals("29") || dayfield.getText().equals("30") || dayfield.getText().equals("31")) {
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
 
                 dayfield.setText("" + (Integer.parseInt(dayfield.getText()) + 1));
