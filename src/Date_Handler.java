@@ -23,6 +23,16 @@ public class Date_Handler {
     public int get_glcash_advance_starting_date_int() {
         return glcash_advance_starting_date_int;
     }
+    
+    public String get_advance_month_split_day (){
+     String day= null;
+    
+    day = "07";
+    
+    
+    
+    return day;
+    }
 
     // Methods to get dates
     public String get_glcash_advance_starting_date(Date date) {
@@ -90,20 +100,47 @@ public class Date_Handler {
          return array[1];
          }
          
+        
+          
           public String get_next_month(String month) {
        // String s = date.toString();
         String next_month= null;
         //String[] array = new String[3];
         //array = s.split("-");
         
-        if(Integer.parseInt(month)<10){
-         next_month = "0"+Integer.parseInt(month);
+        if(Integer.parseInt(month)<9){
+         next_month = "0"+(Integer.parseInt(month)+1);
         }
         else if(month.equals("12")){
         next_month = "01";
         }
+        
+        else if(month.equals("09")){
+        next_month = "10";
+        }
         else{
         next_month = (Integer.parseInt(month)+1)+"";
+        }
+        return next_month;
+         }
+           public String get_prev_month(String month) {
+       // String s = date.toString();
+        String next_month= null;
+        //String[] array = new String[3];
+        //array = s.split("-");
+        
+        if(Integer.parseInt(month)<10){
+         next_month = "0"+(Integer.parseInt(month)-1);
+        }
+        else if(month.equals("01")){
+        next_month = "12";
+        }
+        
+        else if(month.equals("10")){
+        next_month = "09";
+        }
+        else{
+        next_month = (Integer.parseInt(month)-1)+"";
         }
         return next_month;
          }
@@ -308,5 +345,49 @@ public String get_day(Date date) {
         return month;
 
     }
+   public String return_month_as_num(String month) {
+        String index = null;
 
+        switch (month) {
+            case "Jan":
+                index = "01";
+                break;
+            case "Feb":
+                index = "02";
+                break;
+            case "Mar":
+                index = "03";
+                break;
+            case "Apr":
+                index = "04";
+                break;
+            case "May":
+                index = "05";
+                break;
+            case "Jun":
+                index = "06";
+                break;
+            case "Jul":
+                index = "07";
+                break;
+            case "Aug":
+                index = "08";
+                break;
+            case "Sep":
+                index = "09";
+                break;
+            case "Oct":
+                index = "10";
+                break;
+            case "Nov":
+                index = "11";
+                break;
+            case "Dec":
+                index = "12";
+                break;
+
+        }
+        return index;
+}
+   
 }
