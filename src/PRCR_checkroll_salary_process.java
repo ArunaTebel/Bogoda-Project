@@ -77,6 +77,9 @@ public class PRCR_checkroll_salary_process {
             
             abcd.setEmployCode(array[i]);
             //arraySal[i] = abc.getFinalSalary(st);
+            abcd.getFinalSalary();//Calculate final salary and update all the fields in workdata table
+            
+            /*
             dbm.updateDatabase("pr_workdata_" + st, "code", array[i], "full_salary", abcd.getFinalSalary());
             dbm.updateDatabase("pr_workdata_" + st, "code", array[i], "normal_pay", abcd.getNormalDaysAmount());
             dbm.updateDatabase("pr_workdata_" + st, "code", array[i], "sunday_pay", abcd.getSundayAmount());
@@ -93,6 +96,7 @@ public class PRCR_checkroll_salary_process {
             dbm.updateDatabase("pr_workdata_" + st, "code", array[i], "total_epf", tepf);
             dbm.updateDatabase("pr_workdata_" + st, "code", array[i], "etf", abcd.getETFContribution());
             //dbm.updateDatabase("pr_workdata_" + st, "code", array[i], "total_pay", abc.getFinalSalary());
+                    */
         }
     
     }

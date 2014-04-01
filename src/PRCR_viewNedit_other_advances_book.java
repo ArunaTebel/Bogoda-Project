@@ -16,7 +16,7 @@ import java.util.logging.Logger;
  *
  * @author Dhananjaya
  */
-public class PRCR_viewNedit_workentry extends javax.swing.JFrame {
+public class PRCR_viewNedit_other_advances_book extends javax.swing.JFrame {
 
     /**
      * Creates new form PRCR_viewNedit_workentry
@@ -25,7 +25,7 @@ public class PRCR_viewNedit_workentry extends javax.swing.JFrame {
     DateChooser_text datechooser = new DateChooser_text();
     DatabaseManager dbm = DatabaseManager.getDbCon();
 
-    public PRCR_viewNedit_workentry() {
+    public PRCR_viewNedit_other_advances_book() {
         initComponents();
          table.setFillsViewportHeight(true);
         table.setAutoCreateRowSorter(true);
@@ -61,7 +61,7 @@ public class PRCR_viewNedit_workentry extends javax.swing.JFrame {
         search = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Payroll_Checkroll Work Entry View");
+        setTitle("Payroll_Checkroll OtherAdvances Book");
 
         datepanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -190,29 +190,29 @@ public class PRCR_viewNedit_workentry extends javax.swing.JFrame {
 
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Entry", "Date", "Normal or Sunday", "Employee Code", "Work Code", "OT hours day", "OT hours night"
+                "Entry", "Date", "Employee Code", "Advance Type", "Amount"
             }
         ));
         table.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
@@ -221,10 +221,8 @@ public class PRCR_viewNedit_workentry extends javax.swing.JFrame {
         if (table.getColumnModel().getColumnCount() > 0) {
             table.getColumnModel().getColumn(1).setPreferredWidth(150);
             table.getColumnModel().getColumn(2).setPreferredWidth(150);
-            table.getColumnModel().getColumn(3).setPreferredWidth(100);
-            table.getColumnModel().getColumn(4).setPreferredWidth(100);
-            table.getColumnModel().getColumn(5).setPreferredWidth(100);
-            table.getColumnModel().getColumn(6).setPreferredWidth(100);
+            table.getColumnModel().getColumn(3).setPreferredWidth(150);
+            table.getColumnModel().getColumn(4).setPreferredWidth(150);
         }
 
         jButton2.setText("Edit");
@@ -240,10 +238,6 @@ public class PRCR_viewNedit_workentry extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(126, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 798, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(153, 153, 153))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -256,11 +250,15 @@ public class PRCR_viewNedit_workentry extends javax.swing.JFrame {
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(datepanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(61, 61, 61)
+                        .addGap(85, 85, 85)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(195, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 680, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(271, 271, 271))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1073,36 +1071,32 @@ public class PRCR_viewNedit_workentry extends javax.swing.JFrame {
     }//GEN-LAST:event_datePick1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
-        int PREFEREDROWS=20;
+       int PREFEREDROWS=20;
         int i, j;
         for (i = 0; i <PREFEREDROWS ; i++) {
-            for (j = 0; j < 7; j++) {
+            for (j = 0; j < 5; j++) {
                 table.setValueAt(null, i, j);
 
             }
         }
         if (search.getSelectedItem().toString().equals("View all")) {
 
-            dbm.Inserting_To_The_Table(table, "prcr_checkroll_workentry", "entry", 0, 1, PREFEREDROWS);
-            dbm.Inserting_To_The_Table(table, "prcr_checkroll_workentry", "date", 1, 1, PREFEREDROWS);
-            dbm.Inserting_To_The_Table(table, "prcr_checkroll_workentry", "normalday_or_sunday", 2, 1, PREFEREDROWS);
-            dbm.Inserting_To_The_Table(table, "prcr_checkroll_workentry", "emp_code", 3, 1, PREFEREDROWS);
-            dbm.Inserting_To_The_Table(table, "prcr_checkroll_workentry", "work_code", 4, 1, PREFEREDROWS);
-            dbm.Inserting_To_The_Table(table, "prcr_checkroll_workentry", "ot_day", 5, 1, PREFEREDROWS);
-            dbm.Inserting_To_The_Table(table, "prcr_checkroll_workentry", "ot_night", 6, 1, PREFEREDROWS);
+            dbm.Inserting_To_The_Table(table, "prcr_other_advance_book", "entry", 0, 1, PREFEREDROWS);
+            dbm.Inserting_To_The_Table(table, "prcr_other_advance_book", "date", 1, 1, PREFEREDROWS);
+            dbm.Inserting_To_The_Table(table, "prcr_other_advance_book", "code", 2, 1, PREFEREDROWS);
+            dbm.Inserting_To_The_Table(table, "prcr_other_advance_book", "type", 3, 1, PREFEREDROWS);
+            dbm.Inserting_To_The_Table(table, "prcr_other_advance_book", "amount", 4, 1, PREFEREDROWS);
+            
 
         } else {
             try {
-                Inserting_To_The_Table_Filtered_Between_Two(table, "prcr_checkroll_workentry", "entry", 0, 1, PREFEREDROWS, "date", datechooser.Return_date(yearfield1, monthfield1, dayfield1).toString(), datechooser.Return_date(yearfield2, monthfield2, dayfield2).toString());
+                Inserting_To_The_Table_Filtered_Between_Two(table, "prcr_other_advance_book", "entry", 0, 1, PREFEREDROWS, "date", datechooser.Return_date(yearfield1, monthfield1, dayfield1).toString(), datechooser.Return_date(yearfield2, monthfield2, dayfield2).toString());
 
-                Inserting_To_The_Table_Filtered_Between_Two(table, "prcr_checkroll_workentry", "date", 1, 1, PREFEREDROWS, "date", datechooser.Return_date(yearfield1, monthfield1, dayfield1).toString(), datechooser.Return_date(yearfield2, monthfield2, dayfield2).toString());
-                Inserting_To_The_Table_Filtered_Between_Two(table, "prcr_checkroll_workentry", "normalday_or_sunday", 2, 1, PREFEREDROWS, "date", datechooser.Return_date(yearfield1, monthfield1, dayfield1).toString(), datechooser.Return_date(yearfield2, monthfield2, dayfield2).toString());
-                Inserting_To_The_Table_Filtered_Between_Two(table, "prcr_checkroll_workentry", "emp_code", 3, 1, PREFEREDROWS, "date", datechooser.Return_date(yearfield1, monthfield1, dayfield1).toString(), datechooser.Return_date(yearfield2, monthfield2, dayfield2).toString());
-                Inserting_To_The_Table_Filtered_Between_Two(table, "prcr_checkroll_workentry", "work_code", 4, 1, PREFEREDROWS, "date", datechooser.Return_date(yearfield1, monthfield1, dayfield1).toString(), datechooser.Return_date(yearfield2, monthfield2, dayfield2).toString());
-                Inserting_To_The_Table_Filtered_Between_Two(table, "prcr_checkroll_workentry", "ot_day", 5, 1, PREFEREDROWS, "date", datechooser.Return_date(yearfield1, monthfield1, dayfield1).toString(), datechooser.Return_date(yearfield2, monthfield2, dayfield2).toString());
-                Inserting_To_The_Table_Filtered_Between_Two(table, "prcr_checkroll_workentry", "ot_night", 6, 1, PREFEREDROWS, "date", datechooser.Return_date(yearfield1, monthfield1, dayfield1).toString(), datechooser.Return_date(yearfield2, monthfield2, dayfield2).toString());
-
+                Inserting_To_The_Table_Filtered_Between_Two(table, "prcr_other_advance_book", "date", 1, 1, PREFEREDROWS, "date", datechooser.Return_date(yearfield1, monthfield1, dayfield1).toString(), datechooser.Return_date(yearfield2, monthfield2, dayfield2).toString());
+                Inserting_To_The_Table_Filtered_Between_Two(table, "prcr_other_advance_book", "code", 2, 1, PREFEREDROWS, "date", datechooser.Return_date(yearfield1, monthfield1, dayfield1).toString(), datechooser.Return_date(yearfield2, monthfield2, dayfield2).toString());
+                Inserting_To_The_Table_Filtered_Between_Two(table, "prcr_other_advance_book", "type", 3, 1, PREFEREDROWS, "date", datechooser.Return_date(yearfield1, monthfield1, dayfield1).toString(), datechooser.Return_date(yearfield2, monthfield2, dayfield2).toString());
+                Inserting_To_The_Table_Filtered_Between_Two(table, "prcr_other_advance_book", "amount", 4, 1, PREFEREDROWS, "date", datechooser.Return_date(yearfield1, monthfield1, dayfield1).toString(), datechooser.Return_date(yearfield2, monthfield2, dayfield2).toString());
+               
             } catch (ParseException ex) {
                 Logger.getLogger(PRCR_viewNedit_workentry.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -1129,7 +1123,7 @@ public class PRCR_viewNedit_workentry extends javax.swing.JFrame {
         dbm.updateDatabase("prcr_checkroll_workentry", "entry", index, "ot_day", table.getValueAt(row, 5));
         dbm.updateDatabase("prcr_checkroll_workentry", "entry", index, "ot_night", table.getValueAt(row, 6));
   */      
- PRCR_checkroll_workentry_edit_class cwe=new PRCR_checkroll_workentry_edit_class();
+ /*PRCR_checkroll_workentry_edit_class cwe=new PRCR_checkroll_workentry_edit_class();
   int row = table.getSelectedRows()[0];
   String s=table.getValueAt(row, 1).toString();
   cwe.setDate(s);
@@ -1143,7 +1137,7 @@ public class PRCR_viewNedit_workentry extends javax.swing.JFrame {
         ecw.setVisible(true);
         ecw.setEntry(entry);
         ecw.fill_data(entry);//fill the form when popup the jframe
-        
+        */
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 

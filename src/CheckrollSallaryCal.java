@@ -78,8 +78,32 @@ public class CheckrollSallaryCal {
     private double EPFContribution;
      private double EPFRate2;//%
     private double EPFContribution2;
+    private double totalEPF;
     private double ETFRate;//%
     private double ETFContribution;
+    private double tea_ded;
+    private double salary_adv;
+    private double fest_adv;
+    private double food_ded;
+    private double loan;
+    private double ceb_ded;
+    private double teacher_ded;
+    private double chemical_ded;
+    private double payslip_ded;
+    private double fine_ded;
+    private double welfare_ded;
+    private double kovil_ded;
+    private double other_ded1;
+    private double meals_ded;
+    private double other_ded2;
+    private double pension_ded;
+    private double other_ded3;
+    private double pre_debt;
+    private double total_ded;
+    
+    private double prv_month_coins;
+    
+    
     private double welfareRate;//%
     private double welfareContribution;
     private double loanRate;
@@ -87,8 +111,12 @@ public class CheckrollSallaryCal {
     private double loanDeductions;
     private double fineDeductions;
     private double storeDeductions;
-    private double pettyCash;
+    
+    
+    private double pettyCash;//this months remaining coins
     private double FinalSalary;
+    private double paid_amount;
+    private double next_month;
     private String month;
     private String year;
     private String st;
@@ -341,7 +369,7 @@ public class CheckrollSallaryCal {
         
     }
     public void setGrosspay(){
-        grosspay=getTotalBasicSallary()+getTotalIncentiveAmount()+getOTAfterAmount()+getOTBeforeAmount();
+        grosspay=getTotalBasicSallary()+getTotalIncentiveAmount()+getOTAfterAmount()+getOTBeforeAmount()+getExtrapayAmount();
     }
     public void setEPFRate() {
         try {
@@ -379,12 +407,21 @@ public class CheckrollSallaryCal {
          String s=null;
         s = dbm.checknReturnData("personal_info","code" , employCode,"register_or_not");
         if(s.equals("Registered")){
-        EPFContribution2 = getTotalBasicSallary() * (getEPFRate2() / 100);
+        EPFContribution2 = totalBasicSalary * (getEPFRate2() / 100);
         }else{
         EPFContribution2=0;
         }
+        System.out.println("EPF2"+EPFContribution2);
         
     }
+    
+     public void setTotalEPF(){
+     totalEPF=EPFContribution+EPFContribution2;
+         System.out.println(totalEPF+"total EPF");
+     dbm.updateDatabase("pr_workdata_" + st, "code",employCode, "total_epf", totalEPF);
+         System.out.println("total_epf was updated");
+     
+     }
     public void setETFRate() {
         try {
             ResultSet rs = dbm.query("SELECT etf FROM checkroll_pay_info");
@@ -399,7 +436,7 @@ public class CheckrollSallaryCal {
          String s=null;
         s = dbm.checknReturnData("personal_info","code" , employCode,"register_or_not");
         if(s.equals("Registered")){
-        ETFContribution = getTotalBasicSallary() * (getETFRate() / 100);
+        ETFContribution = totalBasicSalary * (getETFRate() / 100);
         }else{
         ETFContribution=0;
         }
@@ -428,35 +465,179 @@ public class CheckrollSallaryCal {
        //should be changed
     }
 
-    public void setLoanRate() {
-        //read from database
+    public void setTeaDed(){
+        if(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "tea")!=null){
+        this.tea_ded = Integer.parseInt(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "tea"));
+        }else{
+        this.tea_ded=0;
+        }
+    
     }
-
-    public void setLoanTime() {
-        //calculate using database
+    public void setSalaryAdv(){
+        if(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "salary_adv")!=null){
+        this.salary_adv = Integer.parseInt(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "salary_adv"));
+        }else{
+        this.salary_adv=0;
+        }
+    
     }
-
-    public void setLoanDeductions() {
-        //
+    public void setFestAdv(){
+        if(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "fest_adv")!=null){
+        this.fest_adv = Integer.parseInt(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "fest_adv"));
+        }else{
+        this.fest_adv=0;
+        }
+    
     }
-
-    public void setFineDeductions() {
-        //
+    public void setFoodDed(){
+        if(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "food")!=null){
+        this.food_ded = Integer.parseInt(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "food"));
+        }else{
+        this.food_ded=0;
+        }
+    
     }
-
-    public void setStoreDeductions() {
-        //
+    public void setLoanDed(){
+        if(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "loan")!=null){
+        this.loan = Integer.parseInt(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "loan"));
+        }else{
+        this.loan=0;
+        }
+    
     }
+    
+    public void setCEBDed(){
+        if(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "ceb")!=null){
+        this.ceb_ded = Integer.parseInt(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "ceb"));
+        }else{
+        this.ceb_ded=0;
+        }
+    
+    }
+    
+    public void setTeacherDed(){
+        if(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "teacher")!=null){
+        this.teacher_ded = Integer.parseInt(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "teacher"));
+        }else{
+        this.teacher_ded=0;
+        }
+    
+    }
+    public void setChemicalDed(){
+        if(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "chemical")!=null){
+        this.chemical_ded = Integer.parseInt(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "chemical"));
+        }else{
+        this.chemical_ded=0;
+        }
+    
+    }
+    
+    public void setPayslipDed(){
+        if(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "pay_slip")!=null){
+        this.payslip_ded= Integer.parseInt(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "pay_slip"));
+        }else{
+        this.payslip_ded=0;
+        }
+    
+    }
+    
+    public void setFineDed(){
+        if(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "fine")!=null){
+        this.fine_ded = Integer.parseInt(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "fine"));
+        }else{
+        this.fine_ded=0;
+        }
+    
+    }
+    
+    public void setWelafareDed(){
+        if(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "welfare")!=null){
+        this.welfare_ded = Integer.parseInt(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "welfare"));
+        }else{
+        this.welfare_ded=0;
+        }
+    
+    }
+    
+    public void setKovilDed(){
+        if(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "kovil")!=null){
+        this.tea_ded = Integer.parseInt(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "kovil"));
+        }else{
+        this.tea_ded=0;
+        }
+    
+    }
+    
+    public void setOther_Ded1(){
+        this.other_ded1= getCEBDed()+getTeacherDed()+getChemicalDed()+getPayslipDed()+getFineDed()+getKovilDed()+getWelafareDed();
+    
+    }
+   
+    public void setMealsDed(){
+        if(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "meals")!=null){
+        this.meals_ded = Integer.parseInt(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "meals"));
+        }else{
+        this.meals_ded=0;
+        }
+    
+    }
+    public void setOther_Ded2(){
+        this.other_ded2=getMealsDed();
+    
+    }
+     public void setPensionDed(){
+        if(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "pension")!=null){
+        this.pension_ded = Integer.parseInt(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "pension"));
+        }else{
+        this.pension_ded=0;
+        }
+    
+    }
+     public void setOther_Ded3(){
+     
+     this.other_ded3=getPensionDed();
+     }
+    
+     
+     public void setPreDebt(){
+        if(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "pre_debt")!=null){
+        this.pre_debt = Integer.parseInt(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "pre_debt"));
+        }else{
+        this.pre_debt=0;
+        }
+    
+    }
+     
+     public void setTotalDed(){
+        this.total_ded=getEPFContribution()+getTeaDed()+getSalaryAdv()
+                +getFestAdv()+getFoodDed()+getLoanDed()+getOther_Ded1()+getOther_Ded2()+getOther_Ded3()+getPreDebt();//+getETFContribution()
+        getEPFContribution2();//this has to be called here to update database column total_EPF
+        getETFContribution();
+    }
+       public void setPreMonthCoins(){
+        if(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "prev_month_coins")!=null){
+        this.prv_month_coins = Integer.parseInt(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "prev_month_coins"));
+        }else{
+        this.prv_month_coins=0;
+        }
+    
+    }
+     
 
     public void setPettyCash() {
-        //
+        pettyCash=getFinalSalary()%10;
+    
     }
 
     public void setFinalSalary() {
-        FinalSalary = getGrosspay() + getExtrapayAmount() - getETFContribution() - getEPFContribution() - getWelfareContribution() - getLoanDeductions() - getFineDeductions() - getStoreDeductions(); //+ getPettyCash();
+        FinalSalary = getGrosspay()-getTotalDed()+ getPreMonthCoins();
         
     }
 
+    public void setPaidAmount(){
+        paid_amount=getFinalSalary()-getPettyCash();
+    
+    }
     //getters
     public int getNormalDays() {//nc
         setNormalDays();
@@ -470,6 +651,7 @@ public class CheckrollSallaryCal {
 
     public double getNormalDaysAmount() {
         setNormalDaysAmount();
+         dbm.updateDatabase("pr_workdata_" + st, "code",employCode, "normal_pay",normalDaysAmount);
         return normalDaysAmount;
     }
 
@@ -485,6 +667,7 @@ public class CheckrollSallaryCal {
 
     public double getSundayAmount() {
         setSundayAmount();
+        dbm.updateDatabase("pr_workdata_" + st, "code", employCode, "sunday_pay", sundaysAmount);
         return sundaysAmount;
     }
 
@@ -510,11 +693,13 @@ public class CheckrollSallaryCal {
 
     public double getIncentive1Amount() {
         setIncentive1Amount();
+         dbm.updateDatabase("pr_workdata_" + st, "code",employCode, "incentive1", incentive1Amount);
         return incentive1Amount;
     }
 
     public double getIncentive2Amount() {
         setIncentive2Amount();
+        dbm.updateDatabase("pr_workdata_" + st, "code",employCode, "incentive2",incentive2Amount);
         return incentive2Amount;
     }
 
@@ -535,6 +720,7 @@ public class CheckrollSallaryCal {
 
     public double getOTBeforeAmount() {
         setOTBeforeAmount();
+        dbm.updateDatabase("pr_workdata_" + st, "code", employCode, "ot_before_amount", OTBeforeAmount);
         return OTBeforeAmount;
     }
 
@@ -550,6 +736,8 @@ public class CheckrollSallaryCal {
 
     public double getOTAfterAmount() {
         setOTAfterAmount();
+        dbm.updateDatabase("pr_workdata_" + st, "code", employCode, "ot_after_amount", OTAfterAmount);
+
         return OTAfterAmount;
     }
 
@@ -560,10 +748,12 @@ public class CheckrollSallaryCal {
 
     public double getTotalBasicSallary() {
         setTotalBasicSallary();
+        dbm.updateDatabase("pr_workdata_" + st, "code", employCode, "total_pay", totalBasicSalary);
         return totalBasicSalary;
     }
     public double getGrosspay(){
         setGrosspay();
+        dbm.updateDatabase("pr_workdata_" + st, "code",employCode, "gross_pay", grosspay);
         return grosspay;
     }
 
@@ -574,6 +764,7 @@ public class CheckrollSallaryCal {
 
     public double getEPFContribution() {
         setEPFContribution();
+        dbm.updateDatabase("pr_workdata_" + st, "code", employCode, "epf10", EPFContribution);
         return EPFContribution;
     }
       public double getEPFRate2() {
@@ -583,7 +774,10 @@ public class CheckrollSallaryCal {
 
     public double getEPFContribution2() {
         setEPFContribution2();
+        dbm.updateDatabase("pr_workdata_" + st, "code", employCode, "epf12",EPFContribution2);
+          setTotalEPF();//y?-total EPF has to be written in to the database when getSalary() method is called,(when we call getSalary() method it will call getEPF..2()method )
         return EPFContribution2;
+      
     }
 
 
@@ -594,9 +788,116 @@ public class CheckrollSallaryCal {
 
     public double getETFContribution() {
         setETFContribution();
+        dbm.updateDatabase("pr_workdata_" + st, "code", employCode, "etf", ETFContribution);
         return ETFContribution;
     }
 
+    public double getTeaDed(){
+        setTeaDed();
+        return tea_ded;
+    
+    }
+    public double getSalaryAdv(){
+        setSalaryAdv();
+        return  salary_adv;
+    }
+    public double getFestAdv(){
+        setFestAdv();
+        return fest_adv;
+    
+    }
+    public double getFoodDed(){
+        setFoodDed();
+        return food_ded;
+    
+    }
+    public double getLoanDed(){
+        setLoanDed();
+        return loan;
+    
+    }
+    
+    public double getCEBDed(){
+        setCEBDed();
+        return ceb_ded;
+    }
+    
+    public double getTeacherDed(){
+        setTeacherDed();
+        return teacher_ded;
+    
+    }
+    public double getChemicalDed(){
+       setChemicalDed();
+       return chemical_ded;
+    }
+    
+    public double getPayslipDed(){
+        setPayslipDed();
+        return payslip_ded;
+    }
+    
+    public double getFineDed(){
+        setFineDed();
+        return fine_ded;
+    
+    }
+    
+    public double getWelafareDed(){
+        setWelafareDed();
+        return welfare_ded;
+    }
+    
+    public double getKovilDed(){
+       setKovilDed();
+       return kovil_ded;
+    }
+    
+    public double getOther_Ded1(){
+        setOther_Ded1();
+        dbm.updateDatabase("pr_workdata_" + st, "code",employCode, "other_ded1", other_ded1);
+        System.out.println("other deduction 1 updated");
+        return other_ded1;
+    
+    }
+   
+    public double getMealsDed(){
+        setMealsDed();
+        return meals_ded;
+    }
+    public double getOther_Ded2(){
+        setOther_Ded2();
+        return other_ded2;
+    
+    }
+     public double getPensionDed(){
+        setPensionDed();
+        return pension_ded;
+    
+    }
+     public double getOther_Ded3(){
+         setOther_Ded3();
+         return other_ded3;
+     }
+    
+     
+     public double getPreDebt(){
+         setPreDebt();
+         return pre_debt;
+    
+    }
+     
+     public double getTotalDed(){
+        setTotalDed();
+        dbm.updateDatabase("pr_workdata_" + st, "code",employCode, "total_ded", total_ded);
+        return total_ded;
+    
+    }
+     
+     public double getPreMonthCoins(){
+        setPreMonthCoins();
+        return prv_month_coins;
+    }
     public double getWelfareRate() {
         setWelfareRate();
         return welfareRate;
@@ -607,39 +908,16 @@ public class CheckrollSallaryCal {
         return welfareContribution;
     }
 
-    public double getLoanRate() {
-        setLoanRate();
-        return loanRate;
-    }
-
-    public int getLoanTime() {
-        setLoanTime();
-        return loanTime;
-    }
-
-    public double getLoanDeductions() {
-        setLoanDeductions();
-        return loanDeductions;
-    }
-
-    public double getFineDeductions() {
-        setFineDeductions();
-        return fineDeductions;
-    }
-
-    public double getStoreDeductions() {
-        setStoreDeductions();
-        return storeDeductions;
-    }
-
+    
     public double getPettyCash() {
         setPettyCash();
+        dbm.updateDatabase("pr_workdata_" + st, "code", employCode, "coins", pettyCash);
         return pettyCash;
     }
     public String getString(){
         return st;
     }
-    public double getFinalSalary(String ss) {
+    /*public double getFinalSalary(String ss) {
         this.st=ss;
         setMargin();
         //PRCR_NoteAnalysis naObject3 = new PRCR_NoteAnalysis();
@@ -648,12 +926,25 @@ public class CheckrollSallaryCal {
         dbm.updateDatabase("pr_workdata_" + ss, "code", employCode, "full_salary", FinalSalary);
         naObject3.ChNoteAnalysis(FinalSalary, employCode,ss);//set the note values according to the salary and update data base
         return FinalSalary;
-    }
+    }*/
     public double getFinalSalary() {
         
         setFinalSalary();
         System.out.println("final salary-checkroll"+FinalSalary);
+                  dbm.updateDatabase("pr_workdata_" + st, "code", employCode, "full_salary", FinalSalary);
+                  
+                  pettyCash=FinalSalary%10;//"coins" and "paid_amount" will be calculated and updated in data base when the getFinalSalary() is called from out side
+                  dbm.updateDatabase("pr_workdata_" + st, "code", employCode, "coins", pettyCash);
+                  paid_amount=FinalSalary-pettyCash;
+                  dbm.updateDatabase("pr_workdata_" + st, "code", employCode, "paid_amount", paid_amount);
+                  
         return FinalSalary;
+    }
+    
+    public double getPaidAmount(){
+        setPaidAmount();
+        return paid_amount;
+    
     }
 
 }

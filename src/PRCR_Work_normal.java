@@ -23,6 +23,7 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
     /**
      * Creates new form PRCR_Work_normal
      */   
+    Interface_Events interface_events=new Interface_Events();
     Date_Handler datehandler = new Date_Handler();
     DateChooser_text datechooser = new DateChooser_text();
     DatabaseManager dbm = DatabaseManager.getDbCon();
@@ -60,10 +61,21 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
         DatabaseManager dbm = DatabaseManager.getDbCon();
 
         try {
-
+            //use new_1 and new_2 if any other deduction type is needd to be added
             dbm.insert("CREATE TABLE pr_workdata_" + yr_mnth + "(code INT,"
                     + "division VARCHAR(15),"+"register_or_casual INT,"
-                    + "normal_days INT,"+"normal_pay DOUBLE," + "sundays INT," +"sunday_pay DOUBLE,"+"total_pay DOUBLE,"+ "ot_before_hours INT,"+ "ot_before_amount DOUBLE,"+ "ot_after_hours INT,"+"ot_after_amount DOUBLE,"+"incentive1 DOUBLE,"+"incentive2 DOUBLE,"+ "extra_pay DOUBLE," +"gross_pay DOUBLE,"+"tea DOUBLE,"+"salary_adv DOUBLE,"+"fest_adv DOUBLE,"+"food DOUBLE,"+"loan DOUBLE,"+"bank DOUBLE,"+"epf10 DOUBLE,"+"epf12 DOUBLE,"+"total_epf DOUBLE,"+"etf DOUBLE,"+"other_ded1 DOUBLE,"+"other_ded2 DOUBLE,"+"other_ded3 DOUBLE,"+"stamp DOUBLE,"+"pre_debt DOUBLE,"+"total_ded DOUBLE,"+ "full_salary DOUBLE," +"coins DOUBLE,"+"paid_amount DOUBLE,"+ "n_5000 INT," + "n_2000 INT," + "n_1000 INT," + "n_500 INT," + "n_100 INT," + "n_50 INT," + "n_20 INT," + "n_10 INT);");
+                    + "normal_days INT,"+"normal_pay DOUBLE," + "sundays INT,"
+                    +"sunday_pay DOUBLE,"+"total_pay DOUBLE,"+ "ot_before_hours INT,"
+                    + "ot_before_amount DOUBLE,"+ "ot_after_hours INT,"+"ot_after_amount DOUBLE,"
+                    +"incentive1 DOUBLE,"+"incentive2 DOUBLE,"+ "extra_pay DOUBLE,"
+                    +"gross_pay DOUBLE,"+"tea DOUBLE,"+"salary_adv DOUBLE,"+"fest_adv DOUBLE,"
+                    +"food DOUBLE,"+"loan DOUBLE,"+"bank DOUBLE,"+"epf10 DOUBLE,"+"epf12 DOUBLE,"
+                    +"total_epf DOUBLE,"+"etf DOUBLE,"+"ceb DOUBLE,"+"teacher DOUBLE,"+"chemical DOUBLE,"
+                    +"pay_slip DOUBLE,"+"fine DOUBLE,"+"welfare DOUBLE,"+"kovil DOUBLE,"+"new_1 DOUBLE,"+"new_2 DOUBLE,"+"other_ded1 DOUBLE,"
+                    +"meals DOUBLE,"+"other_ded2 DOUBLE,"+"pension DOUBLE,"
+                    +"other_ded3 DOUBLE,"+"stamp DOUBLE,"+"pre_debt DOUBLE,"+"total_ded DOUBLE,"
+                    + "full_salary DOUBLE," +"coins DOUBLE,"+"paid_amount DOUBLE,"+"next_month DOUBLE,"+ "n_5000 INT,"
+                    + "n_2000 INT," + "n_1000 INT," + "n_500 INT," + "n_100 INT," + "n_50 INT," + "n_20 INT," + "n_10 INT);");
         } catch (SQLException ex) {
             //Logger.getLogger(test.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("in ex");
@@ -72,6 +84,7 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
         //copying worker's codes to newly created table
         CopyTable3Columns("checkroll_personalinfo", "code","division","register_or_casual", "pr_workdata_" + yr_mnth, "code","division","register_or_casual");
         System.out.println("table copied");
+         JOptionPane.showMessageDialog(null, "New checkroll table is created for this month\n", "Message", JOptionPane.INFORMATION_MESSAGE);
 
     }
     
@@ -118,11 +131,12 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
 
     private void saveDataToWorkEntry(Date date){
         DatabaseManager dbCon = DatabaseManager.getDbCon();
-        int rows = 0;
-            for (; rows < table.getRowCount(); rows++) {
-                if (table.getValueAt(rows, 0) != null) {
+        int rowd;
+        rowd = 0;
+            for (; rowd < table.getRowCount(); rowd++) {
+                if (table.getValueAt(rowd, 0) != null) {
             try {
-                dbCon.insert("INSERT INTO prcr_checkroll_workentry(date,normalday_or_sunday,emp_code,work_code,ot_day,ot_night) VALUES('" +date + "','"+getNormalOrSun()+"','"+table.getValueAt(rows, 0)+"','"+table.getValueAt(rows, 2)+"','"+table.getValueAt(rows, 3)+"','"+table.getValueAt(rows, 4)+"')");
+                dbCon.insert("INSERT INTO prcr_checkroll_workentry(date,normalday_or_sunday,emp_code,work_code,ot_day,ot_night) VALUES('" +date + "','"+getNormalOrSun()+"','"+table.getValueAt(rowd, 0)+"','"+table.getValueAt(rowd, 2)+"','"+table.getValueAt(rowd, 3)+"','"+table.getValueAt(rowd, 4)+"')");
             } catch (SQLException ex) {
                 Logger.getLogger(PRCR_Add_Employee.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -272,6 +286,7 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
                 rows++;
             
             }
+            this.rows=0;
     }
     
     public void ClearSelectedRow(){
@@ -313,7 +328,7 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        empCodeJC = new javax.swing.JComboBox();
+        empCode_JC = new javax.swing.JComboBox();
         empName = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
@@ -338,16 +353,27 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
         dayfield1 = new javax.swing.JTextField();
         datePick1 = new com.michaelbaranov.microba.calendar.DatePicker();
         jButton3 = new javax.swing.JButton();
+        W_code = new javax.swing.JTextField();
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
         sunday.setText("Sunday");
 
-        workCode.setEditable(true);
+        workCode.putClientProperty("JComboBox.isTableCellEditor", Boolean.TRUE);
         workCode.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("workcode_details","code")));
         workCode.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 workCodeItemStateChanged(evt);
+            }
+        });
+        workCode.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                workCodeActionPerformed(evt);
+            }
+        });
+        workCode.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                workCodeKeyPressed(evt);
             }
         });
 
@@ -426,17 +452,23 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
 
         jLabel1.setText("Employee Code");
 
-        empCodeJC.setEditable(true);
+        empCode_JC.putClientProperty("JComboBox.isTableCellEditor", Boolean.TRUE);
+        empCode_JC.setEditable(true);
         DatabaseManager dbm=DatabaseManager.getDbCon();
-        empCodeJC.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("checkroll_personalinfo","code")));
-        empCodeJC.addItemListener(new java.awt.event.ItemListener() {
+        empCode_JC.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("checkroll_personalinfo","code")));
+        empCode_JC.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                empCodeJCItemStateChanged(evt);
+                empCode_JCItemStateChanged(evt);
             }
         });
-        empCodeJC.addActionListener(new java.awt.event.ActionListener() {
+        empCode_JC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                empCodeJCActionPerformed(evt);
+                empCode_JCActionPerformed(evt);
+            }
+        });
+        empCode_JC.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                empCode_JCKeyPressed(evt);
             }
         });
 
@@ -454,7 +486,7 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(empCodeJC, 0, 59, Short.MAX_VALUE)
+                        .addComponent(empCode_JC, 0, 59, Short.MAX_VALUE)
                         .addGap(75, 75, 75))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(empName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -466,7 +498,7 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(empCodeJC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(empCode_JC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -531,11 +563,17 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
 
         jLabel4.setText("Work Code");
 
+        division_jc.putClientProperty("JComboBox.isTableCellEditor", Boolean.TRUE);
         division_jc.setEditable(true);
         division_jc.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("division_details", "code")));
         division_jc.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 division_jcItemStateChanged(evt);
+            }
+        });
+        division_jc.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                division_jcKeyPressed(evt);
             }
         });
 
@@ -546,12 +584,22 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
                 otnightActionPerformed(evt);
             }
         });
+        otnight.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                otnightKeyPressed(evt);
+            }
+        });
 
         jLabel7.setText("Night ");
 
         otday.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 otdayActionPerformed(evt);
+            }
+        });
+        otday.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                otdayKeyPressed(evt);
             }
         });
 
@@ -590,6 +638,11 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+        jButton1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jButton1FocusGained(evt);
             }
         });
 
@@ -659,6 +712,17 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
             }
         });
 
+        W_code.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                W_codeActionPerformed(evt);
+            }
+        });
+        W_code.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                W_codeKeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -682,7 +746,9 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
                                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel4)
-                                        .addGap(50, 50, 50)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(W_code, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(workCode, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(jLabel8)
                                     .addGroup(layout.createSequentialGroup()
@@ -747,7 +813,8 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
                                 .addGap(21, 21, 21)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel4)
-                                    .addComponent(workCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(workCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(W_code, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel8)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -800,10 +867,11 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 try{
-        if(empCodeJC.getSelectedItem().toString().length()!=0){
-        table.setValueAt(empCodeJC.getSelectedItem(), rows, 0);
+        if(empCode_JC.getSelectedItem().toString().length()!=0){
+        table.setValueAt(empCode_JC.getSelectedItem(), rows, 0);
         table.setValueAt(empName.getText(), rows, 1);
         table.setValueAt(workCode.getSelectedItem(), rows, 2);
+        table.setValueAt(division_jc.getSelectedItem(), rows, 5);
         if (otday.getText().length() == 0) {
             table.setValueAt("0", rows, 3);
 
@@ -819,16 +887,17 @@ try{
         }
         rows++;
         // TODO add your handling code here:
-        empCodeJC.setSelectedItem(null);
+        empCode_JC.setSelectedItem(null);
         otday.setText(null);
         otnight.setText(null);
+        empCode_JC.requestFocus();
         }else{
             JOptionPane.showMessageDialog(null, "Enter the employee code\n", "Message", JOptionPane.INFORMATION_MESSAGE);
-
+             empCode_JC.requestFocus();
         }
 }catch(Exception e){
     JOptionPane.showMessageDialog(null, "Enter the employee code\n", "Message", JOptionPane.INFORMATION_MESSAGE);
-
+     empCode_JC.requestFocus();
 }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -852,6 +921,9 @@ try{
         }
         
         
+        empCode_JC.requestFocus();
+         
+        
     }//GEN-LAST:event_division_jcItemStateChanged
 
     private void workCodeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_workCodeItemStateChanged
@@ -867,13 +939,15 @@ try{
             }
             work_code.setText("" + Name);
         }
+        W_code.setText(workCode.getSelectedItem().toString());
+        otday.requestFocus();
     }//GEN-LAST:event_workCodeItemStateChanged
 
-    private void empCodeJCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_empCodeJCActionPerformed
+    private void empCode_JCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_empCode_JCActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_empCodeJCActionPerformed
+    }//GEN-LAST:event_empCode_JCActionPerformed
 
-    private void empCodeJCItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_empCodeJCItemStateChanged
+    private void empCode_JCItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_empCode_JCItemStateChanged
         DatabaseManager dbm = DatabaseManager.getDbCon();
         String Name = null;
         if (evt.getStateChange() == ItemEvent.SELECTED) {
@@ -887,7 +961,10 @@ try{
             }
             empName.setText("" + Name);
         }
-    }//GEN-LAST:event_empCodeJCItemStateChanged
+        
+        W_code.requestFocus();
+        W_code.selectAll();
+    }//GEN-LAST:event_empCode_JCItemStateChanged
 
     private void otdayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_otdayActionPerformed
         // TODO add your handling code here:
@@ -1252,7 +1329,7 @@ try{
         }
 
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
-            //category_code.requestFocus();
+            division_jc.requestFocus();
 
         }
     }//GEN-LAST:event_dayfield1KeyPressed
@@ -1275,14 +1352,69 @@ try{
        
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void division_jcKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_division_jcKeyPressed
+ if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
+            empCode_JC.requestFocus();
+
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_division_jcKeyPressed
+
+    private void empCode_JCKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_empCode_JCKeyPressed
+ if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
+            workCode.requestFocus();
+
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_empCode_JCKeyPressed
+
+    private void workCodeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_workCodeKeyPressed
+ if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
+            otday.requestFocus();
+
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_workCodeKeyPressed
+
+    private void otdayKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_otdayKeyPressed
+ if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
+           otnight.requestFocus();
+
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_otdayKeyPressed
+
+    private void otnightKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_otnightKeyPressed
+ if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
+           jButton1.requestFocus();
+
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_otnightKeyPressed
+
+    private void jButton1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jButton1FocusGained
+       interface_events.Respond_enter(jButton1, evt); // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1FocusGained
+
+    private void W_codeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_W_codeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_W_codeActionPerformed
+
+    private void W_codeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_W_codeKeyPressed
+       if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+           workCode.setSelectedItem(W_code.getText());
+           otday.requestFocus();
+       }
+    }//GEN-LAST:event_W_codeKeyPressed
+
+    private void workCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_workCodeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_workCodeActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField W_code;
     private com.michaelbaranov.microba.calendar.DatePicker datePick1;
     private javax.swing.JPanel datepanel;
     private javax.swing.JTextField dayfield1;
     private javax.swing.JComboBox division_jc;
     private javax.swing.JLabel division_lb;
-    private javax.swing.JComboBox empCodeJC;
+    private javax.swing.JComboBox empCode_JC;
     private javax.swing.JLabel empName;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

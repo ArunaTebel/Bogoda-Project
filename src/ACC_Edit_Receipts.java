@@ -61,7 +61,7 @@ public class ACC_Edit_Receipts extends javax.swing.JFrame {
             s = dbm.checknReturnStringDataReceipts("account_reciept_debitside", "tr_no", tr_no, "date").split("-");
             yearfield.setText(s[0]);
             monthfield.setText(datehandler.Return_month(Integer.parseInt(s[1])));
-            dayfield.setText(s[2]);
+            dayfield.setText(""+Integer.parseInt(s[2]));
             
             
             
