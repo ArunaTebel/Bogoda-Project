@@ -24,6 +24,7 @@ public class GLcash_advance extends javax.swing.JPanel {
     Cash_Advance_Common_Class cadvance = new Cash_Advance_Common_Class();
     Date_Handler datehandler = new Date_Handler();
     DateChooser_text datechooser = new DateChooser_text();
+    GL_Billsummerycls bill_sum = new GL_Billsummerycls();
 
     public GLcash_advance() {
         initComponents();
@@ -41,6 +42,7 @@ public class GLcash_advance extends javax.swing.JPanel {
     public void focus() {
         this.requestFocusInWindow();
         dayfield.requestFocus();
+        Set_val.setText(dbm.checknReturnStringData("rate_details", "Code_name", "GLSET", "rate")+"");
         dayfield.selectAll();
 
     }
@@ -95,7 +97,7 @@ public class GLcash_advance extends javax.swing.JPanel {
         Save1 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
-        jTextField8 = new javax.swing.JTextField();
+        Set_val = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         Red_message = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
@@ -329,7 +331,7 @@ public class GLcash_advance extends javax.swing.JPanel {
         jLabel15.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel15.setText("Rs");
 
-        max_allowable.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        max_allowable.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         max_allowable.setText("00.00");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -356,7 +358,7 @@ public class GLcash_advance extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        supplier_name.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        supplier_name.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         supplier_name.setForeground(new java.awt.Color(102, 102, 102));
         supplier_name.setText("Name Here");
 
@@ -425,6 +427,11 @@ public class GLcash_advance extends javax.swing.JPanel {
         jLabel13.setText("Set Value");
 
         jButton1.setText("Save Value");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -434,7 +441,7 @@ public class GLcash_advance extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel13)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Set_val, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
                 .addContainerGap(18, Short.MAX_VALUE))
@@ -445,7 +452,7 @@ public class GLcash_advance extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
-                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Set_val, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -491,7 +498,7 @@ public class GLcash_advance extends javax.swing.JPanel {
             }
         });
 
-        dayfield.setText(datehandler.get_today_day());
+        dayfield.setText(Integer.parseInt(datehandler.get_today_day())+"");
         dayfield.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 dayfieldKeyPressed(evt);
@@ -617,7 +624,7 @@ public class GLcash_advance extends javax.swing.JPanel {
                                                 .addComponent(supplier_id, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addGap(138, 138, 138)
                                                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addComponent(supplier_name, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                            .addComponent(supplier_name, javax.swing.GroupLayout.PREFERRED_SIZE, 484, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(183, 183, 183))))
@@ -698,35 +705,29 @@ public class GLcash_advance extends javax.swing.JPanel {
     }//GEN-LAST:event_cash_cheque_comboActionPerformed
 
     private void supplier_idItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_supplier_idItemStateChanged
-
-        try { if (supplier_id.getSelectedIndex() != 0) {
+        if (supplier_id.getSelectedIndex() != 0) {
+             if(supplier_id.getSelectedItem()!=null){
             try {
-               
-                   supplier_name.setText(dbm.checknReturnData("suppliers", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "sup_name"));
                 
-            
-        
-            int gl_cashadvance_set_date_int = 10;   // This has to be taken from the database later
-
-            Date_Handler date_handler = new Date_Handler();
-            date_handler.set_glcash_advance_starting_date_int(gl_cashadvance_set_date_int);
-            // A seperate class glcashadvances may have to be created in the future
-            Date datef = datechooser.Return_date(yearfield, monthfield, dayfield);
-            max_allowable.setText("" + (dbm.checknReturnDataForCashAdvances("green_leaf_transactions", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "tr_date", date_handler.get_glcash_advance_starting_date(datef), date_handler.get_date_as_a_String(datef), "net_qty")));
-            // allowable.setText("" + (dbm.checknReturnDataForCashAdvances("green_leaf_transactions", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "tr_date","2014-01-19","2014-01-21", "net_qty")));
-           } catch (NullPointerException e) {
+                supplier_name.setText(dbm.checknReturnData("suppliers", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "sup_name"));
+                
+                
+                
+                int gl_cashadvance_set_date_int = 10;   // This has to be taken from the database later
+                
+                Date_Handler date_handler = new Date_Handler();
+                date_handler.set_glcash_advance_starting_date_int(gl_cashadvance_set_date_int);
+                // A seperate class glcashadvances may have to be created in the future
+                
+                max_allowable.setText(""+bill_sum.bill_sum_cal(Integer.parseInt(supplier_id.getSelectedItem().toString()), yearfield.getText(), datehandler.return_month_as_num(monthfield.getText()),(Double.parseDouble(Set_val.getText()))));
+              } catch (NullPointerException e) {
                 supplier_id.setSelectedIndex(1);
-                //category_code.setSelectedIndex(1);
-                //supplier_id.setSelectedItem("");
-                //category_name.setText("");
+                
             }
             amount.requestFocusInWindow();
         }
-        } catch (ParseException ex) {
-            Logger.getLogger(GLcash_advance.class.getName()).log(Level.SEVERE, null, ex);
+
         }
-
-
     }//GEN-LAST:event_supplier_idItemStateChanged
 
     private void amountKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_amountKeyPressed
@@ -845,7 +846,9 @@ public class GLcash_advance extends javax.swing.JPanel {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         GL_Billsummery bill = new GL_Billsummery();
+       // bill.setSize(1000, 700);
         bill.setVisible(true);
+        
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
@@ -886,7 +889,7 @@ public class GLcash_advance extends javax.swing.JPanel {
 
     private void monthfieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_monthfieldKeyPressed
         if (monthfield.getText().equals("Jan")) {
-            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
                 monthfield.setText("Dec");
                 int yr = Integer.parseInt(yearfield.getText());
 
@@ -894,138 +897,138 @@ public class GLcash_advance extends javax.swing.JPanel {
                 monthfield.selectAll();
 
             }
-            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
                 monthfield.setText("Feb");
                 monthfield.selectAll();
             }
 
         } else if (monthfield.getText().equals("Feb")) {
-            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
                 monthfield.setText("Jan");
                 int yr = Integer.parseInt(yearfield.getText());
                 monthfield.selectAll();
 
             }
-            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
                 monthfield.setText("Mar");
                 monthfield.selectAll();
             }
 
         } else if (monthfield.getText().equals("Mar")) {
-            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
                 monthfield.setText("Feb");
                 int yr = Integer.parseInt(yearfield.getText());
                 monthfield.selectAll();
             }
-            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
                 monthfield.setText("Apr");
                 monthfield.selectAll();
             }
 
         } else if (monthfield.getText().equals("Apr")) {
-            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
                 monthfield.setText("Mar");
                 int yr = Integer.parseInt(yearfield.getText());
                 monthfield.selectAll();
             }
-            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
                 monthfield.setText("May");
                 monthfield.selectAll();
             }
 
         } else if (monthfield.getText().equals("May")) {
-            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
                 monthfield.setText("Apr");
                 int yr = Integer.parseInt(yearfield.getText());
                 monthfield.selectAll();
 
             }
-            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
 
                 monthfield.setText("Jun");
                 monthfield.selectAll();
             }
 
         } else if (monthfield.getText().equals("Jun")) {
-            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
                 monthfield.setText("May");
                 int yr = Integer.parseInt(yearfield.getText());
                 monthfield.selectAll();
 
             }
-            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
                 monthfield.setText("Jul");
                 monthfield.selectAll();
             }
 
         } else if (monthfield.getText().equals("Jul")) {
-            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
                 monthfield.setText("Jun");
                 int yr = Integer.parseInt(yearfield.getText());
                 monthfield.selectAll();
 
             }
-            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
                 monthfield.setText("Aug");
                 monthfield.selectAll();
             }
 
         } else if (monthfield.getText().equals("Aug")) {
-            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
                 monthfield.setText("Jul");
                 int yr = Integer.parseInt(yearfield.getText());
                 monthfield.selectAll();
 
             }
-            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
                 monthfield.setText("Sep");
                 monthfield.selectAll();
             }
 
         } else if (monthfield.getText().equals("Sep")) {
-            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
                 monthfield.setText("Aug");
                 int yr = Integer.parseInt(yearfield.getText());
                 monthfield.selectAll();
 
             }
-            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
                 monthfield.setText("Oct");
                 monthfield.selectAll();
             }
 
         } else if (monthfield.getText().equals("Oct")) {
-            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
                 monthfield.setText("Sep");
                 int yr = Integer.parseInt(yearfield.getText());
                 monthfield.selectAll();
 
             }
-            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
                 monthfield.setText("Nov");
                 monthfield.selectAll();
             }
 
         } else if (monthfield.getText().equals("Nov")) {
-            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
                 monthfield.setText("Oct");
                 int yr = Integer.parseInt(yearfield.getText());
                 monthfield.selectAll();
 
             }
-            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
                 monthfield.setText("Dec");
                 monthfield.selectAll();
             }
 
         } else if (monthfield.getText().equals("Dec")) {
-            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
                 monthfield.setText("Nov");
                 int yr = Integer.parseInt(yearfield.getText());
                 monthfield.selectAll();
 
             }
-            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
                 monthfield.setText("Jan");
                 int yr = Integer.parseInt(yearfield.getText());
 
@@ -1050,11 +1053,11 @@ public class GLcash_advance extends javax.swing.JPanel {
     }//GEN-LAST:event_monthfieldKeyPressed
 
     private void yearfieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_yearfieldKeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+        if (evt.getKeyCode() == KeyEvent.VK_UP) {
             yearfield.setText("" + (Integer.parseInt(yearfield.getText()) + 1));
             yearfield.selectAll();
         }
-        if (evt.getKeyCode() == KeyEvent.VK_UP) {
+        if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
             yearfield.setText("" + (Integer.parseInt(yearfield.getText()) - 1));
             yearfield.selectAll();
         }
@@ -1073,7 +1076,7 @@ public class GLcash_advance extends javax.swing.JPanel {
         ///////////////////////////////////////////////////  Days Decrement/////////////////////////////////////////////////////////////////////////////
 
         if (dayfield.getText().equals("1")) {           // Jumping to 31 and 30 from 1st
-            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
 
                 if (monthfield.getText().equals("Feb") || monthfield.getText().equals("Apr") || monthfield.getText().equals("Jun") || monthfield.getText().equals("Aug") || monthfield.getText().equals("Sep") || monthfield.getText().equals("Nov") || monthfield.getText().equals("Feb")) {
                     dayfield.setText("31");
@@ -1124,7 +1127,7 @@ public class GLcash_advance extends javax.swing.JPanel {
                 || dayfield.getText().equals("19") || dayfield.getText().equals("20") || dayfield.getText().equals("21") || dayfield.getText().equals("22")
                 || dayfield.getText().equals("23") || dayfield.getText().equals("24") || dayfield.getText().equals("25") || dayfield.getText().equals("26")
                 || dayfield.getText().equals("27") || dayfield.getText().equals("28") || dayfield.getText().equals("29") || dayfield.getText().equals("30") || dayfield.getText().equals("31")) {
-            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
 
                 dayfield.setText("" + (Integer.parseInt(dayfield.getText()) - 1));
                 dayfield.selectAll();
@@ -1132,7 +1135,7 @@ public class GLcash_advance extends javax.swing.JPanel {
         }
         /////////////////////////////////////////////////  Days Increment///////////////////////////////////////////////////////////////////////////////////////////////////
         if (dayfield.getText().equals("30")) {               // from 30th to 1st of next month
-            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
 
                 if (monthfield.getText().equals("Apr") || monthfield.getText().equals("Jun") || monthfield.getText().equals("Sep") || monthfield.getText().equals("Nov")) {
                     dayfield.setText("0");
@@ -1146,7 +1149,7 @@ public class GLcash_advance extends javax.swing.JPanel {
             }
 
         } else if (dayfield.getText().equals("31")) {            // from 31st to 1st of next month
-            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
 
                 if (monthfield.getText().equals("Jan") || monthfield.getText().equals("Mar") || monthfield.getText().equals("May") || monthfield.getText().equals("Jul") || monthfield.getText().equals("Aug") || monthfield.getText().equals("Oct")) {
                     dayfield.setText("1");
@@ -1166,7 +1169,7 @@ public class GLcash_advance extends javax.swing.JPanel {
             }
 
         } else if (monthfield.getText().equals("Feb")) {                    // for february
-            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
                 if (dayfield.getText().equals("28")) {                    // at 28 check for leap year
                     int yr = Integer.parseInt(yearfield.getText());
                     if (yr % 4 == 0) {
@@ -1220,7 +1223,7 @@ public class GLcash_advance extends javax.swing.JPanel {
                 || dayfield.getText().equals("19") || dayfield.getText().equals("20") || dayfield.getText().equals("21") || dayfield.getText().equals("22")
                 || dayfield.getText().equals("23") || dayfield.getText().equals("24") || dayfield.getText().equals("25") || dayfield.getText().equals("26")
                 || dayfield.getText().equals("27") || dayfield.getText().equals("28") || dayfield.getText().equals("29") || dayfield.getText().equals("30") || dayfield.getText().equals("31")) {
-            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
 
                 dayfield.setText("" + (Integer.parseInt(dayfield.getText()) + 1));
                 dayfield.selectAll();
@@ -1241,7 +1244,7 @@ public class GLcash_advance extends javax.swing.JPanel {
     private void datePicker1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datePicker1ActionPerformed
         java.sql.Date datef = new java.sql.Date(datePicker1.getDate().getTime());
 
-        dayfield.setText(datehandler.get_day(datef));
+        dayfield.setText(Integer.parseInt(datehandler.get_day(datef))+"");
         monthfield.setText(datehandler.get_month(datef));
         yearfield.setText(datehandler.get_year(datef));
         supplier_id.requestFocus();
@@ -1259,6 +1262,11 @@ public class GLcash_advance extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_PermissionActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        dbm.updateDatabase("rate_details", "Code_name", "GLSET","rate", Double.parseDouble(Set_val.getText()));
+        Red_message.setText("Set value saved");
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Cheque_Refno;
@@ -1269,6 +1277,7 @@ public class GLcash_advance extends javax.swing.JPanel {
     private javax.swing.JLabel Red_message;
     private javax.swing.JButton Save;
     private javax.swing.JButton Save1;
+    private javax.swing.JTextField Set_val;
     private javax.swing.JTextField amount;
     private javax.swing.JLabel bank_name;
     private javax.swing.JComboBox cash_cheque_combo;
@@ -1308,7 +1317,6 @@ public class GLcash_advance extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JTextField jTextField8;
     private javax.swing.JLabel max_allowable;
     private javax.swing.JTextField monthfield;
     private javax.swing.JComboBox supplier_id;

@@ -693,7 +693,7 @@ public class MainWindow extends javax.swing.JFrame {
       
      String pwd= dbm.checknReturnStringData("user_data", "user_name",User_id.getText() ,"pwd");
        
-      //if(Pass.getText().equals(pwd)){  
+      if(Pass.getText().equalsIgnoreCase(pwd)){  
         
         jButton1.setEnabled(true);
         jButton2.setEnabled(true);
@@ -740,14 +740,14 @@ public class MainWindow extends javax.swing.JFrame {
         //================================================================================================================
         
         Info.setText("Login Successfull");
-     // }
+      }
       
-    //  else {
+      else {
           
-        //  Info.setText("Incorrect Username or Password. Please try Again.");
-         //  Pass.setText("");
-      // Pass.requestFocus();
-     //  }
+          Info.setText("Incorrect Username or Password. Please try Again.");
+           Pass.setText("");
+       Pass.requestFocus();
+       }
         
         jButton13.setText("Welcome "+userAC.get_current_user()+"! Today is "+datehandler.get_today_date());
     }//GEN-LAST:event_jButton14ActionPerformed

@@ -321,7 +321,7 @@ public class GL_Other_Advances extends javax.swing.JPanel {
             }
         });
 
-        dayfield.setText(datehandler.get_today_day());
+        dayfield.setText(Integer.parseInt(datehandler.get_today_day())+"");
         dayfield.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 dayfieldKeyPressed(evt);
@@ -442,7 +442,7 @@ public class GL_Other_Advances extends javax.swing.JPanel {
                                         .addGap(18, 18, 18)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(supplier_name, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(supplier_id, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addComponent(supplier_id, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel5)
                                         .addGap(16, 16, 16)
@@ -460,7 +460,7 @@ public class GL_Other_Advances extends javax.swing.JPanel {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSeparator4, javax.swing.GroupLayout.DEFAULT_SIZE, 568, Short.MAX_VALUE)
+                            .addComponent(jSeparator4)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -475,9 +475,7 @@ public class GL_Other_Advances extends javax.swing.JPanel {
                                             .addGroup(layout.createSequentialGroup()
                                                 .addGap(1, 1, 1)
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addGroup(layout.createSequentialGroup()
-                                                        .addComponent(jLabel8)
-                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                                    .addComponent(jLabel8)
                                                     .addGroup(layout.createSequentialGroup()
                                                         .addComponent(jLabel7)
                                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -601,7 +599,7 @@ public class GL_Other_Advances extends javax.swing.JPanel {
 
     private void monthfieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_monthfieldKeyPressed
         if (monthfield.getText().equals("Jan")) {
-            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
                 monthfield.setText("Dec");
                 int yr = Integer.parseInt(yearfield.getText());
                 
@@ -609,138 +607,138 @@ public class GL_Other_Advances extends javax.swing.JPanel {
                 monthfield.selectAll();
                 
             }
-            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
                 monthfield.setText("Feb");
                 monthfield.selectAll();
             }
             
         } else if (monthfield.getText().equals("Feb")) {
-            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
                 monthfield.setText("Jan");
                 int yr = Integer.parseInt(yearfield.getText());
                 monthfield.selectAll();
                 
             }
-            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
                 monthfield.setText("Mar");
                 monthfield.selectAll();
             }
             
         } else if (monthfield.getText().equals("Mar")) {
-            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
                 monthfield.setText("Feb");
                 int yr = Integer.parseInt(yearfield.getText());
                 monthfield.selectAll();
             }
-            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
                 monthfield.setText("Apr");
                 monthfield.selectAll();
             }
             
         } else if (monthfield.getText().equals("Apr")) {
-            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
                 monthfield.setText("Mar");
                 int yr = Integer.parseInt(yearfield.getText());
                 monthfield.selectAll();
             }
-            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
                 monthfield.setText("May");
                 monthfield.selectAll();
             }
             
         } else if (monthfield.getText().equals("May")) {
-            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
                 monthfield.setText("Apr");
                 int yr = Integer.parseInt(yearfield.getText());
                 monthfield.selectAll();
                 
             }
-            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
                 
                 monthfield.setText("Jun");
                 monthfield.selectAll();
             }
             
         } else if (monthfield.getText().equals("Jun")) {
-            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
                 monthfield.setText("May");
                 int yr = Integer.parseInt(yearfield.getText());
                 monthfield.selectAll();
                 
             }
-            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
                 monthfield.setText("Jul");
                 monthfield.selectAll();
             }
             
         } else if (monthfield.getText().equals("Jul")) {
-            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
                 monthfield.setText("Jun");
                 int yr = Integer.parseInt(yearfield.getText());
                 monthfield.selectAll();
                 
             }
-            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
                 monthfield.setText("Aug");
                 monthfield.selectAll();
             }
             
         } else if (monthfield.getText().equals("Aug")) {
-            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
                 monthfield.setText("Jul");
                 int yr = Integer.parseInt(yearfield.getText());
                 monthfield.selectAll();
                 
             }
-            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
                 monthfield.setText("Sep");
                 monthfield.selectAll();
             }
             
         } else if (monthfield.getText().equals("Sep")) {
-            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
                 monthfield.setText("Aug");
                 int yr = Integer.parseInt(yearfield.getText());
                 monthfield.selectAll();
                 
             }
-            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
                 monthfield.setText("Oct");
                 monthfield.selectAll();
             }
             
         } else if (monthfield.getText().equals("Oct")) {
-            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
                 monthfield.setText("Sep");
                 int yr = Integer.parseInt(yearfield.getText());
                 monthfield.selectAll();
                 
             }
-            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
                 monthfield.setText("Nov");
                 monthfield.selectAll();
             }
             
         } else if (monthfield.getText().equals("Nov")) {
-            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
                 monthfield.setText("Oct");
                 int yr = Integer.parseInt(yearfield.getText());
                 monthfield.selectAll();
                 
             }
-            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
                 monthfield.setText("Dec");
                 monthfield.selectAll();
             }
             
         } else if (monthfield.getText().equals("Dec")) {
-            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
                 monthfield.setText("Nov");
                 int yr = Integer.parseInt(yearfield.getText());
                 monthfield.selectAll();
                 
             }
-            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
                 monthfield.setText("Jan");
                 int yr = Integer.parseInt(yearfield.getText());
                 
@@ -765,11 +763,11 @@ public class GL_Other_Advances extends javax.swing.JPanel {
     }//GEN-LAST:event_monthfieldKeyPressed
 
     private void yearfieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_yearfieldKeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+        if (evt.getKeyCode() == KeyEvent.VK_UP) {
             yearfield.setText("" + (Integer.parseInt(yearfield.getText()) + 1));
             yearfield.selectAll();
         }
-        if (evt.getKeyCode() == KeyEvent.VK_UP) {
+        if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
             yearfield.setText("" + (Integer.parseInt(yearfield.getText()) - 1));
             yearfield.selectAll();
         }
@@ -788,7 +786,7 @@ public class GL_Other_Advances extends javax.swing.JPanel {
         ///////////////////////////////////////////////////  Days Decrement/////////////////////////////////////////////////////////////////////////////
 
         if (dayfield.getText().equals("1")) {           // Jumping to 31 and 30 from 1st
-            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
                 
                 if (monthfield.getText().equals("Feb") || monthfield.getText().equals("Apr") || monthfield.getText().equals("Jun") || monthfield.getText().equals("Aug") || monthfield.getText().equals("Sep") || monthfield.getText().equals("Nov") || monthfield.getText().equals("Feb")) {
                     dayfield.setText("31");
@@ -839,7 +837,7 @@ public class GL_Other_Advances extends javax.swing.JPanel {
                 || dayfield.getText().equals("19") || dayfield.getText().equals("20") || dayfield.getText().equals("21") || dayfield.getText().equals("22")
                 || dayfield.getText().equals("23") || dayfield.getText().equals("24") || dayfield.getText().equals("25") || dayfield.getText().equals("26")
                 || dayfield.getText().equals("27") || dayfield.getText().equals("28") || dayfield.getText().equals("29") || dayfield.getText().equals("30") || dayfield.getText().equals("31")) {
-            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
                 
                 dayfield.setText("" + (Integer.parseInt(dayfield.getText()) - 1));
                 dayfield.selectAll();
@@ -847,7 +845,7 @@ public class GL_Other_Advances extends javax.swing.JPanel {
         }
         /////////////////////////////////////////////////  Days Increment///////////////////////////////////////////////////////////////////////////////////////////////////
         if (dayfield.getText().equals("30")) {               // from 30th to 1st of next month
-            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
                 
                 if (monthfield.getText().equals("Apr") || monthfield.getText().equals("Jun") || monthfield.getText().equals("Sep") || monthfield.getText().equals("Nov")) {
                     dayfield.setText("0");
@@ -861,7 +859,7 @@ public class GL_Other_Advances extends javax.swing.JPanel {
             }
             
         } else if (dayfield.getText().equals("31")) {            // from 31st to 1st of next month
-            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
                 
                 if (monthfield.getText().equals("Jan") || monthfield.getText().equals("Mar") || monthfield.getText().equals("May") || monthfield.getText().equals("Jul") || monthfield.getText().equals("Aug") || monthfield.getText().equals("Oct")) {
                     dayfield.setText("1");
@@ -881,7 +879,7 @@ public class GL_Other_Advances extends javax.swing.JPanel {
             }
             
         } else if (monthfield.getText().equals("Feb")) {                    // for february
-            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
                 if (dayfield.getText().equals("28")) {                    // at 28 check for leap year
                     int yr = Integer.parseInt(yearfield.getText());
                     if (yr % 4 == 0) {
@@ -935,7 +933,7 @@ public class GL_Other_Advances extends javax.swing.JPanel {
                 || dayfield.getText().equals("19") || dayfield.getText().equals("20") || dayfield.getText().equals("21") || dayfield.getText().equals("22")
                 || dayfield.getText().equals("23") || dayfield.getText().equals("24") || dayfield.getText().equals("25") || dayfield.getText().equals("26")
                 || dayfield.getText().equals("27") || dayfield.getText().equals("28") || dayfield.getText().equals("29") || dayfield.getText().equals("30") || dayfield.getText().equals("31")) {
-            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
                 
                 dayfield.setText("" + (Integer.parseInt(dayfield.getText()) + 1));
                 dayfield.selectAll();
@@ -956,7 +954,7 @@ public class GL_Other_Advances extends javax.swing.JPanel {
     private void datePicker1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datePicker1ActionPerformed
         java.sql.Date datef = new java.sql.Date(datePicker1.getDate().getTime());
         
-        dayfield.setText(datehandler.get_day(datef));
+        dayfield.setText(Integer.parseInt(datehandler.get_day(datef))+"");
         monthfield.setText(datehandler.get_month(datef));
         yearfield.setText(datehandler.get_year(datef));
         supplier_id.requestFocus();

@@ -193,7 +193,7 @@ public class DateChooser_text extends javax.swing.JPanel {
             }
         });
 
-        dayfield.setText(datehandler.get_today_day());
+        dayfield.setText(Integer.parseInt(datehandler.get_today_day())+"");
         dayfield.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 dayfieldKeyPressed(evt);
@@ -630,7 +630,7 @@ public class DateChooser_text extends javax.swing.JPanel {
     private void datePicker1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datePicker1ActionPerformed
         java.sql.Date datef = new java.sql.Date(datePicker1.getDate().getTime());
 
-        dayfield.setText(datehandler.get_day(datef));
+        dayfield.setText(Integer.parseInt(datehandler.get_day(datef))+"");
         monthfield.setText(datehandler.get_month(datef));
         yearfield.setText(datehandler.get_year(datef));
         dayfield.selectAll();

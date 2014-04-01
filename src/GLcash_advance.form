@@ -82,7 +82,7 @@
                                               <EmptySpace min="-2" pref="138" max="-2" attributes="0"/>
                                               <Component id="jPanel9" min="-2" max="-2" attributes="0"/>
                                           </Group>
-                                          <Component id="supplier_name" min="-2" pref="252" max="-2" attributes="0"/>
+                                          <Component id="supplier_name" min="-2" pref="484" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -539,7 +539,7 @@
         <Component class="javax.swing.JLabel" name="max_allowable">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tahoma" size="11" style="1"/>
+              <Font name="Tahoma" size="18" style="1"/>
             </Property>
             <Property name="text" type="java.lang.String" value="00.00"/>
           </Properties>
@@ -549,7 +549,7 @@
     <Component class="javax.swing.JLabel" name="supplier_name">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Tahoma" size="11" style="1"/>
+          <Font name="Tahoma" size="18" style="1"/>
         </Property>
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="66" green="66" red="66" type="rgb"/>
@@ -653,7 +653,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="jTextField8" min="-2" pref="40" max="-2" attributes="0"/>
+                  <Component id="Set_val" min="-2" pref="40" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jButton1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="18" max="32767" attributes="0"/>
@@ -666,7 +666,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextField8" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="Set_val" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
@@ -680,12 +680,15 @@
             <Property name="text" type="java.lang.String" value="Set Value"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextField8">
+        <Component class="javax.swing.JTextField" name="Set_val">
         </Component>
         <Component class="javax.swing.JButton" name="jButton1">
           <Properties>
             <Property name="text" type="java.lang.String" value="Save Value"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -800,7 +803,7 @@
         <Component class="javax.swing.JTextField" name="dayfield">
           <Properties>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="datehandler.get_today_day()" type="code"/>
+              <Connection code="Integer.parseInt(datehandler.get_today_day())+&quot;&quot;" type="code"/>
             </Property>
           </Properties>
           <Events>

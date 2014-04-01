@@ -48,7 +48,7 @@ public class GL_Billsummerycls {
         }
         j = 0;
         int i = 0;
-        System.out.println("on");
+    //    System.out.println("on");
         Date Sdate = java.sql.Date.valueOf(year + "-" + month + "-" + "01");
 
         Date Ldate = java.sql.Date.valueOf(year + "-" + month + "-" + "31");
@@ -98,7 +98,7 @@ public class GL_Billsummerycls {
             while (query.next()) {
 
                 total += query.getDouble("net_qty");
-                // System.out.println(total[i][4]);
+              
                 // i++;
             }
 
@@ -180,8 +180,8 @@ public class GL_Billsummerycls {
          
          else{ 
              date4 = java.sql.Date.valueOf(year + "-" + datehandler.get_next_month(month) + "-" + "07");}
-         System.out.println(date1);
-         System.out.println(date4);
+         //System.out.println(date1);
+        // System.out.println(date4);
         DatabaseManager dbm = DatabaseManager.getDbCon();
         try {
 
@@ -194,7 +194,7 @@ public class GL_Billsummerycls {
                 total[i][3] = String.valueOf(query.getInt("installments"));
                 total[i][4] = String.valueOf(query.getDouble("total_amount"));
                 // System.out.println(total[i][4]);
-                System.out.println("hit");
+               // System.out.println("hit");
                 i++;
             }
 
@@ -215,7 +215,7 @@ public class GL_Billsummerycls {
 
         Date date1 = java.sql.Date.valueOf(year + "-" + month + "-" + "08");
 
-        Date date4 = java.sql.Date.valueOf(year + "-" + datehandler.get_next_month(datehandler.return_month_as_num(month)) + "-" + "07");
+        Date date4 = java.sql.Date.valueOf(year + "-" + datehandler.get_next_month(month) + "-" + "07");
 
         DatabaseManager dbm = DatabaseManager.getDbCon();
         try {
@@ -223,7 +223,7 @@ public class GL_Billsummerycls {
             ResultSet query = dbm.query("SELECT * FROM " + "gl_cash_advance" + " where " + "sup_id" + " = '" + sup_id + " 'AND " + "ordered_date" + " BETWEEN'" + date1 + "' AND '" + date4 + "'");
 
             while (query.next()) {
-                //System.out.println("query 1");
+               
                 // int dates = Integer.parseInt(date_handler.get_day(query.getDate("ordered_date")));
 
                 total += query.getDouble("amount");
@@ -242,7 +242,7 @@ public class GL_Billsummerycls {
 
         Date date1 = java.sql.Date.valueOf(year + "-" + month + "-" + "08");
 
-        Date date4 = java.sql.Date.valueOf(year + "-" + datehandler.get_next_month(datehandler.return_month_as_num(month)) + "-" + "07");
+        Date date4 = java.sql.Date.valueOf(year + "-" + datehandler.get_next_month(month) + "-" + "07");
 
         DatabaseManager dbm = DatabaseManager.getDbCon();
         try {
@@ -250,7 +250,7 @@ public class GL_Billsummerycls {
             ResultSet query = dbm.query("SELECT * FROM " + "gl_other_advances" + " where " + "id" + " = '" + sup_id + " 'AND " + "Date" + " BETWEEN'" + date1 + "' AND '" + date4 + "'");
 
             while (query.next()) {
-                //System.out.println("query 1");
+                
                 // int dates = Integer.parseInt(date_handler.get_day(query.getDate("ordered_date")));
 
                 total += query.getDouble("total_amount");
@@ -268,4 +268,15 @@ public class GL_Billsummerycls {
     // return total;
     // }
     // 
+    
+    public double bill_sum_cal (int sup , String year ,String month, Double set) {
+    double total= 0;
+    
+    total = (Total_kg2(sup, year, month)*set)- total_advance(sup, year, month)- total_other_advance(sup, year, month);
+    
+    
+    
+    
+    return total;
+    }
 }
