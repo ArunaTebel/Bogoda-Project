@@ -5,8 +5,12 @@
  */
 
 import java.awt.event.ItemEvent;
+import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -17,6 +21,11 @@ public class ACC_journals extends javax.swing.JPanel {
     Journals_account jaobject = new Journals_account();
     
     MessageBox msg =new MessageBox();
+    
+    DateChooser_text datechooser=new DateChooser_text();
+    Date_Handler datehandler =new Date_Handler();
+    
+    Interface_Events interface_events = new Interface_Events();
     
     public int stringToIntNum(String s) {
         if (s.length() == 0) {
@@ -44,6 +53,12 @@ public class ACC_journals extends javax.swing.JPanel {
 
         }
     }
+    
+    public void foucs(){
+        this.requestFocus();
+        save.setEnabled(false);
+        ref_no.requestFocus();
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -62,9 +77,13 @@ public class ACC_journals extends javax.swing.JPanel {
         pay_type = new javax.swing.JComboBox();
         ref_no = new javax.swing.JTextField();
         journal_no = new javax.swing.JTextField();
-        date = new org.jdesktop.swingx.JXDatePicker();
+        datepanel = new javax.swing.JPanel();
+        monthfield = new javax.swing.JTextField();
+        yearfield = new javax.swing.JTextField();
+        dayfield = new javax.swing.JTextField();
+        datePicker1 = new com.michaelbaranov.microba.calendar.DatePicker();
         jPanel4 = new javax.swing.JPanel();
-        jButton6 = new javax.swing.JButton();
+        save = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
         Cheque_pay = new javax.swing.JPanel();
@@ -77,9 +96,9 @@ public class ACC_journals extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         bank_name = new javax.swing.JLabel();
         branch_name = new javax.swing.JLabel();
-        chequeDate = new org.jdesktop.swingx.JXDatePicker();
         bank_code = new javax.swing.JComboBox();
         branch_code = new javax.swing.JComboBox();
+        chequeDate = new com.michaelbaranov.microba.calendar.DatePicker();
         jSeparator1 = new javax.swing.JSeparator();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -96,7 +115,7 @@ public class ACC_journals extends javax.swing.JPanel {
         credit_total = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
         credit_account_name = new javax.swing.JLabel();
-        jButton11 = new javax.swing.JButton();
+        send2 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         debit_account_code_table = new javax.swing.JTable();
@@ -112,7 +131,7 @@ public class ACC_journals extends javax.swing.JPanel {
         debit_total = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
         debit_account_name = new javax.swing.JLabel();
-        jButton10 = new javax.swing.JButton();
+        send = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
         difference = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
@@ -128,11 +147,90 @@ public class ACC_journals extends javax.swing.JPanel {
         jLabel4.setText("Pay Type");
 
         pay_type.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Cash", "Cheque" }));
+        pay_type.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                pay_typeItemStateChanged(evt);
+            }
+        });
         pay_type.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pay_typeActionPerformed(evt);
             }
         });
+        pay_type.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                pay_typeKeyPressed(evt);
+            }
+        });
+
+        ref_no.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                ref_noKeyPressed(evt);
+            }
+        });
+
+        journal_no.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                journal_noKeyPressed(evt);
+            }
+        });
+
+        datepanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        monthfield.setText(datehandler.get_today_month());
+        monthfield.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                monthfieldKeyPressed(evt);
+            }
+        });
+
+        yearfield.setText(datehandler.get_today_year());
+        yearfield.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                yearfieldKeyPressed(evt);
+            }
+        });
+
+        dayfield.setText(""+Integer.parseInt(datehandler.get_today_day()));
+        dayfield.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                dayfieldKeyPressed(evt);
+            }
+        });
+
+        datePicker1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                datePicker1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout datepanelLayout = new javax.swing.GroupLayout(datepanel);
+        datepanel.setLayout(datepanelLayout);
+        datepanelLayout.setHorizontalGroup(
+            datepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(datepanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(dayfield, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(monthfield, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(yearfield, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(datePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        datepanelLayout.setVerticalGroup(
+            datepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(datepanelLayout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addGroup(datepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(datePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(datepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(dayfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(monthfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(yearfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -157,20 +255,22 @@ public class ACC_journals extends javax.swing.JPanel {
                         .addComponent(pay_type, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(21, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(ref_no, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(ref_no, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel4)
@@ -184,10 +284,15 @@ public class ACC_journals extends javax.swing.JPanel {
         jPanel4.setBackground(new java.awt.Color(204, 0, 102));
         jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 51, 153)));
 
-        jButton6.setText("Save");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        save.setText("Save");
+        save.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                saveActionPerformed(evt);
+            }
+        });
+        save.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                saveFocusGained(evt);
             }
         });
 
@@ -201,7 +306,7 @@ public class ACC_journals extends javax.swing.JPanel {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap(18, Short.MAX_VALUE)
-                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(save, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton7)
                 .addGap(18, 18, 18)
@@ -213,7 +318,7 @@ public class ACC_journals extends javax.swing.JPanel {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+                    .addComponent(save, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton8)
@@ -232,8 +337,15 @@ public class ACC_journals extends javax.swing.JPanel {
 
         jLabel9.setText("Cheque No:");
 
+        chequeNo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                chequeNoKeyPressed(evt);
+            }
+        });
+
         jLabel5.setText("Date");
 
+        bank_code.putClientProperty("JComboBox.isTableCellEditor", Boolean.TRUE);
         bank_code.setEditable(true);
         DatabaseManager dbm = DatabaseManager.getDbCon();
         bank_code.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("bank","bank_id")));
@@ -248,6 +360,7 @@ public class ACC_journals extends javax.swing.JPanel {
             }
         });
 
+        branch_code.putClientProperty("JComboBox.isTableCellEditor", Boolean.TRUE);
         branch_code.setEditable(true);
         branch_code.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("bank_branch","branch_id")));
         branch_code.addItemListener(new java.awt.event.ItemListener() {
@@ -285,9 +398,9 @@ public class ACC_journals extends javax.swing.JPanel {
                     .addComponent(jButton4)
                     .addGroup(Cheque_payLayout.createSequentialGroup()
                         .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                         .addComponent(chequeDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
             .addGroup(Cheque_payLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(Cheque_payLayout.createSequentialGroup()
                     .addContainerGap()
@@ -389,11 +502,24 @@ public class ACC_journals extends javax.swing.JPanel {
         jScrollPane3.setViewportView(credit_amount_table);
         credit_account_code_table.setAutoResizeMode(credit_account_code_table.AUTO_RESIZE_OFF);
 
+        credit_account_code.putClientProperty("JComboBox.isTableCellEditor", Boolean.TRUE);
         credit_account_code.setEditable(true);
         credit_account_code.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("account_names","account_id")));
         credit_account_code.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 credit_account_codeItemStateChanged(evt);
+            }
+        });
+
+        credit_description.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                credit_descriptionKeyPressed(evt);
+            }
+        });
+
+        credit_amount.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                credit_amountKeyPressed(evt);
             }
         });
 
@@ -419,10 +545,15 @@ public class ACC_journals extends javax.swing.JPanel {
         credit_account_name.setForeground(new java.awt.Color(153, 153, 153));
         credit_account_name.setText("Account name here");
 
-        jButton11.setText("Send");
-        jButton11.addActionListener(new java.awt.event.ActionListener() {
+        send2.setText("Send");
+        send2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton11ActionPerformed(evt);
+                send2ActionPerformed(evt);
+            }
+        });
+        send2.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                send2FocusGained(evt);
             }
         });
 
@@ -453,7 +584,7 @@ public class ACC_journals extends javax.swing.JPanel {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(credit_account_name, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(61, 61, 61)
-                        .addComponent(jButton11))
+                        .addComponent(send2))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
@@ -473,7 +604,7 @@ public class ACC_journals extends javax.swing.JPanel {
                 .addGap(2, 2, 2)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(credit_account_name)
-                    .addComponent(jButton11))
+                    .addComponent(send2))
                 .addGap(5, 5, 5)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
@@ -554,6 +685,7 @@ public class ACC_journals extends javax.swing.JPanel {
         jScrollPane6.setViewportView(debit_amount_table);
         credit_account_code_table.setAutoResizeMode(credit_account_code_table.AUTO_RESIZE_OFF);
 
+        debit_account_code.putClientProperty("JComboBox.isTableCellEditor", Boolean.TRUE);
         debit_account_code.setEditable(true);
         debit_account_code.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("account_names","account_id")));
         debit_account_code.addItemListener(new java.awt.event.ItemListener() {
@@ -561,10 +693,26 @@ public class ACC_journals extends javax.swing.JPanel {
                 debit_account_codeItemStateChanged(evt);
             }
         });
+        debit_account_code.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                debit_account_codeKeyPressed(evt);
+            }
+        });
 
         debit_description.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 debit_descriptionFocusLost(evt);
+            }
+        });
+        debit_description.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                debit_descriptionKeyPressed(evt);
+            }
+        });
+
+        debit_amount.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                debit_amountKeyPressed(evt);
             }
         });
 
@@ -590,10 +738,15 @@ public class ACC_journals extends javax.swing.JPanel {
         debit_account_name.setForeground(new java.awt.Color(153, 153, 153));
         debit_account_name.setText("Account name here");
 
-        jButton10.setText("Send");
-        jButton10.addActionListener(new java.awt.event.ActionListener() {
+        send.setText("Send");
+        send.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton10ActionPerformed(evt);
+                sendActionPerformed(evt);
+            }
+        });
+        send.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                sendFocusGained(evt);
             }
         });
 
@@ -633,7 +786,7 @@ public class ACC_journals extends javax.swing.JPanel {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(debit_account_name, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton10)))
+                        .addComponent(send)))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -646,7 +799,7 @@ public class ACC_journals extends javax.swing.JPanel {
                 .addGap(1, 1, 1)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(debit_account_name)
-                    .addComponent(jButton10))
+                    .addComponent(send))
                 .addGap(3, 3, 3)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE)
@@ -679,24 +832,27 @@ public class ACC_journals extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(Cheque_pay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(4, 4, 4)
-                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(4, 4, 4)
+                                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(211, 211, 211)
+                                    .addComponent(jLabel13)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(difference, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(Cheque_pay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(217, 217, 217)
-                                .addComponent(jLabel13)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(difference, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(82, 82, 82))
         );
         layout.setVerticalGroup(
@@ -743,120 +899,122 @@ public class ACC_journals extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_pay_typeActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-
-        boolean addToMainJournalDataBase=false;
-        jaobject.setRefNo(ref_no.getText());
-        jaobject.setJournalNo(journal_no.getText());
-        java.sql.Date date1 = new java.sql.Date(date.getDate().getTime());
-        jaobject.setDate(date1);
-        jaobject.setPayType(pay_type.getSelectedItem().toString());
-
-        DatabaseManager dbm = DatabaseManager.getDbCon();
-
-        // Adding main common parts of the interface
-        if ("Cheque".equals(jaobject.getPayType())) {
-
-            jaobject.setBankCode(Integer.parseInt(bank_code.getSelectedItem().toString()));
-
-            jaobject.setBankName(dbm.checknReturnData("bank", "bank_id", jaobject.getBankCode(), "bank_name"));
-            jaobject.setBranchCode(Integer.parseInt(branch_code.getSelectedItem().toString()));
-
-            jaobject.setBranchName(dbm.checknReturnData("bank_branch", "branch_id", jaobject.getBranchCode(), "branch_name"));
-            jaobject.setChequeNo(chequeNo.getText());
-
-            java.sql.Date date2 = new java.sql.Date(chequeDate.getDate().getTime());
-            jaobject.setChequeDate(date2);
-
-            addToMainJournalDataBase = jaobject.addToMainJournalDataBaseBank();
-        } else {
-            jaobject.setBankCode(0);
-            jaobject.setBankName(null);
-            jaobject.setBranchCode(0);
-            jaobject.setBranchName(null);
-            jaobject.setChequeDate(null);
-            jaobject.setChequeNo(null);
-            addToMainJournalDataBase = jaobject.addToMainJournalDataBaseCash();
-        }
-        
-        
-        
-        if (addToMainJournalDataBase == true) {
-        
-       msg.showMessage("Journal Entry is saved to Transaction no-" + jaobject.Get_Tr_no(), "Receipt", "info");
+    private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
+        try {
+            boolean addToMainJournalDataBase=false;
+            jaobject.setRefNo(ref_no.getText());
+            jaobject.setJournalNo(journal_no.getText());
+            jaobject.setDate(datechooser.Return_date(yearfield, monthfield, dayfield));
+            jaobject.setPayType(pay_type.getSelectedItem().toString());
             
-        // Debit Side of the interface
+            DatabaseManager dbm = DatabaseManager.getDbCon();
             
-           
-        int i=0;
-        while(debit_account_code_table.getValueAt(i, 0)!= null){
-            i++;
-        }
-        String debit_acnt_name;
-        
-        for(int j=0;j<=i-1;j++){
-            debit_acnt_name = dbm.checknReturnData("account_names", "account_id",Integer.parseInt((String) debit_account_code_table.getValueAt(j, 0)), "account_name");
-            jaobject.addToDebitDataBase( Integer.parseInt((String) debit_account_code_table.getValueAt(j, 0)),debit_acnt_name, (String) debit_description_table.getValueAt(j, 0),Double.parseDouble((String) debit_amount_table.getValueAt(j, 0)));
-        } 
-        
-        
-        // Credit Side of the interface
-        
-        i=0;
-        while(credit_account_code_table.getValueAt(i, 0)!= null){
-            i++;
-        }
-        
-        String credit_acnt_name;
-        
-        for(int j=0;j<=i-1;j++){
-            credit_acnt_name = dbm.checknReturnData("account_names", "account_id",Integer.parseInt((String) credit_account_code_table.getValueAt(j, 0)), "account_name");
-            jaobject.addToCreditDataBase(Integer.parseInt((String) credit_account_code_table.getValueAt(j, 0)),credit_acnt_name, (String) credit_description_table.getValueAt(j, 0),Double.parseDouble((String) credit_amount_table.getValueAt(j, 0)));
-        } 
-        
-        // adding the relevant value to the current balance of the debit account
-     
-
-        
-        String acnt_class;
-        double debit_value;
-        double debit_updated_value;
-        i=0;
-        while(debit_account_code_table.getValueAt(i,0)!=null){
-            debit_value=Double.parseDouble((String)debit_amount_table.getValueAt(i, 0));
-            acnt_class=dbm.checknReturnData("account_names","account_id",Integer.parseInt((String) debit_account_code_table.getValueAt(i, 0)),"account_class");
-            if("Current Asset".equals(acnt_class) || "Fixed Asset".equals(acnt_class) || "Expense".equals(acnt_class)){
-               debit_updated_value=Double.parseDouble((String)dbm.checknReturnData("account_names","account_id",Integer.parseInt((String) debit_account_code_table.getValueAt(i, 0)),"current_balance"))+ debit_value;
+            // Adding main common parts of the interface
+            if ("Cheque".equals(jaobject.getPayType())) {
+                
+                jaobject.setBankCode(Integer.parseInt(bank_code.getSelectedItem().toString()));
+                
+                jaobject.setBankName(dbm.checknReturnData("bank", "bank_id", jaobject.getBankCode(), "bank_name"));
+                jaobject.setBranchCode(Integer.parseInt(branch_code.getSelectedItem().toString()));
+                
+                jaobject.setBranchName(dbm.checknReturnData("bank_branch", "branch_id", jaobject.getBranchCode(), "branch_name"));
+                jaobject.setChequeNo(chequeNo.getText());
+                
+                java.sql.Date date2 = new java.sql.Date(chequeDate.getDate().getTime());
+                jaobject.setChequeDate(date2);
+                
+                addToMainJournalDataBase = jaobject.addToMainJournalDataBaseBank();
+            } else {
+                jaobject.setBankCode(0);
+                jaobject.setBankName(null);
+                jaobject.setBranchCode(0);
+                jaobject.setBranchName(null);
+                jaobject.setChequeDate(null);
+                jaobject.setChequeNo(null);
+                addToMainJournalDataBase = jaobject.addToMainJournalDataBaseCash();
             }
-            else{
-                debit_updated_value=Double.parseDouble((String)dbm.checknReturnData("account_names","account_id",Integer.parseInt((String) debit_account_code_table.getValueAt(i, 0)),"current_balance"))- debit_value;
+            
+            
+            
+            if (addToMainJournalDataBase == true) {
+                
+                msg.showMessage("Journal Entry is saved to Transaction no-" + jaobject.Get_Tr_no(), "Receipt", "info");
+                
+                // Debit Side of the interface
+                
+                
+                int i=0;
+                while(debit_account_code_table.getValueAt(i, 0)!= null){
+                    i++;
+                }
+                String debit_acnt_name;
+                
+                for(int j=0;j<=i-1;j++){
+                    debit_acnt_name = dbm.checknReturnData("account_names", "account_id",Integer.parseInt((String) debit_account_code_table.getValueAt(j, 0)), "account_name");
+                    jaobject.addToDebitDataBase( Integer.parseInt((String) debit_account_code_table.getValueAt(j, 0)),debit_acnt_name, (String) debit_description_table.getValueAt(j, 0),Double.parseDouble((String) debit_amount_table.getValueAt(j, 0)));
+                }
+                
+                
+                // Credit Side of the interface
+                
+                i=0;
+                while(credit_account_code_table.getValueAt(i, 0)!= null){
+                    i++;
+                }
+                
+                String credit_acnt_name;
+                
+                for(int j=0;j<=i-1;j++){
+                    credit_acnt_name = dbm.checknReturnData("account_names", "account_id",Integer.parseInt((String) credit_account_code_table.getValueAt(j, 0)), "account_name");
+                    jaobject.addToCreditDataBase(Integer.parseInt((String) credit_account_code_table.getValueAt(j, 0)),credit_acnt_name, (String) credit_description_table.getValueAt(j, 0),Double.parseDouble((String) credit_amount_table.getValueAt(j, 0)));
+                }
+                
+                // adding the relevant value to the current balance of the debit account
+                
+                
+                
+                String acnt_class;
+                double debit_value;
+                double debit_updated_value;
+                i=0;
+                while(debit_account_code_table.getValueAt(i,0)!=null){
+                    debit_value=Double.parseDouble((String)debit_amount_table.getValueAt(i, 0));
+                    acnt_class=dbm.checknReturnData("account_names","account_id",Integer.parseInt((String) debit_account_code_table.getValueAt(i, 0)),"account_class");
+                    if("Current Asset".equals(acnt_class) || "Fixed Asset".equals(acnt_class) || "Expense".equals(acnt_class)){
+                        debit_updated_value=Double.parseDouble((String)dbm.checknReturnData("account_names","account_id",Integer.parseInt((String) debit_account_code_table.getValueAt(i, 0)),"current_balance"))+ debit_value;
+                    }
+                    else{
+                        debit_updated_value=Double.parseDouble((String)dbm.checknReturnData("account_names","account_id",Integer.parseInt((String) debit_account_code_table.getValueAt(i, 0)),"current_balance"))- debit_value;
+                    }
+                    dbm.updateDatabase("account_names", "account_id",Integer.parseInt((String)debit_account_code_table.getValueAt(i, 0)), "current_balance",debit_updated_value);
+                    i++;
+                }
+                
+                
+                // adding the relevant value to the current balance of the credit account
+                
+                i=0;
+                acnt_class=null;
+                double credit_value;
+                double credit_updated_value;
+                while(credit_account_code_table.getValueAt(i,0)!=null){
+                    credit_value=Double.parseDouble((String)credit_amount_table.getValueAt(i, 0));
+                    acnt_class=dbm.checknReturnData("account_names","account_id",Integer.parseInt((String) credit_account_code_table.getValueAt(i, 0)),"account_class");
+                    if("Current Asset".equals(acnt_class) || "Fixed Asset".equals(acnt_class) || "Expense".equals(acnt_class)){
+                        credit_updated_value=Double.parseDouble((String)dbm.checknReturnData("account_names","account_id",Integer.parseInt((String) credit_account_code_table.getValueAt(i, 0)),"current_balance"))- credit_value;
+                    }
+                    else{
+                        credit_updated_value=Double.parseDouble((String)dbm.checknReturnData("account_names","account_id",Integer.parseInt((String) credit_account_code_table.getValueAt(i, 0)),"current_balance"))+ credit_value;
+                    }
+                    dbm.updateDatabase("account_names", "account_id",Integer.parseInt((String)credit_account_code_table.getValueAt(i, 0)), "current_balance",credit_updated_value);
+                    i++;
+                }
             }
-            dbm.updateDatabase("account_names", "account_id",Integer.parseInt((String)debit_account_code_table.getValueAt(i, 0)), "current_balance",debit_updated_value);
-            i++;
-        }
-        
-        
-        // adding the relevant value to the current balance of the credit account
-        
-        i=0;
-        acnt_class=null;
-        double credit_value;
-        double credit_updated_value;
-        while(credit_account_code_table.getValueAt(i,0)!=null){
-            credit_value=Double.parseDouble((String)credit_amount_table.getValueAt(i, 0));
-            acnt_class=dbm.checknReturnData("account_names","account_id",Integer.parseInt((String) credit_account_code_table.getValueAt(i, 0)),"account_class");
-            if("Current Asset".equals(acnt_class) || "Fixed Asset".equals(acnt_class) || "Expense".equals(acnt_class)){
-               credit_updated_value=Double.parseDouble((String)dbm.checknReturnData("account_names","account_id",Integer.parseInt((String) credit_account_code_table.getValueAt(i, 0)),"current_balance"))- credit_value;
-            }
-            else{
-                credit_updated_value=Double.parseDouble((String)dbm.checknReturnData("account_names","account_id",Integer.parseInt((String) credit_account_code_table.getValueAt(i, 0)),"current_balance"))+ credit_value;
-            }
-            dbm.updateDatabase("account_names", "account_id",Integer.parseInt((String)credit_account_code_table.getValueAt(i, 0)), "current_balance",credit_updated_value);
-            i++;
-        }
+        } catch (ParseException ex) {
+            Logger.getLogger(ACC_journals.class.getName()).log(Level.SEVERE, null, ex);
         }
       
-    }//GEN-LAST:event_jButton6ActionPerformed
+    }//GEN-LAST:event_saveActionPerformed
 
     private void bank_codeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_bank_codeItemStateChanged
          DatabaseManager dbm = DatabaseManager.getDbCon();
@@ -872,6 +1030,7 @@ public class ACC_journals extends javax.swing.JPanel {
          }
          bank_name.setText("" + Name);
          }
+         interface_events.Change_focus_Enterkey_c(branch_code, null);
     }//GEN-LAST:event_bank_codeItemStateChanged
 
     private void bank_codeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bank_codeActionPerformed
@@ -892,6 +1051,7 @@ public class ACC_journals extends javax.swing.JPanel {
          }
          branch_name.setText("" + Name);
          }
+         interface_events.Change_focus_Enterkey_t(chequeNo, null);
     }//GEN-LAST:event_branch_codeItemStateChanged
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -936,7 +1096,7 @@ public class ACC_journals extends javax.swing.JPanel {
        difference.setText(""+(stringToDoubleNum(debit_total.getText())-stringToDoubleNum(credit_total.getText())));
     }//GEN-LAST:event_jButton9ActionPerformed
 
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+    private void sendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendActionPerformed
         int i = 0;
         while (debit_account_code_table.getValueAt(i, 0) != null) {
             i++;
@@ -956,11 +1116,12 @@ public class ACC_journals extends javax.swing.JPanel {
         debit_total.setText("" + tot);
         difference.setText(""+(stringToDoubleNum(debit_total.getText())-stringToDoubleNum(credit_total.getText())));
 
+        credit_account_code.requestFocus();
+                
 
+    }//GEN-LAST:event_sendActionPerformed
 
-    }//GEN-LAST:event_jButton10ActionPerformed
-
-    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+    private void send2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_send2ActionPerformed
         int i = 0;
         while (credit_account_code_table.getValueAt(i, 0) != null) {
             i++;
@@ -986,9 +1147,22 @@ public class ACC_journals extends javax.swing.JPanel {
         
         difference.setText(""+(stringToDoubleNum(debit_total.getText())-stringToDoubleNum(credit_total.getText())));
         
+        
+        if(Double.parseDouble(difference.getText())==0){
+            
+            if(ref_no.getText().length()!=0 && journal_no.getText().length()!=0 && debit_account_code_table.getValueAt(0, 0)!=null && credit_account_code_table.getValueAt(0, 0)!=null){
+                save.setEnabled(true);
+                save.requestFocus();
+            
+            }
+        }
+        else{
+            msg.showMessage("There is a Difference","Journal Entry","info");
+            credit_account_code.requestFocus();
+        }
        
 
-    }//GEN-LAST:event_jButton11ActionPerformed
+    }//GEN-LAST:event_send2ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
          int i=0;
@@ -1041,11 +1215,14 @@ public class ACC_journals extends javax.swing.JPanel {
             }
             debit_account_name.setText("" + Name);
         }
+        debit_description.requestFocus();
     }//GEN-LAST:event_debit_account_codeItemStateChanged
 
     private void credit_account_codeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_credit_account_codeItemStateChanged
           DatabaseManager dbm = DatabaseManager.getDbCon();
-        String Name = null;
+      if(credit_account_code.getSelectedItem()!=null){
+          if(credit_account_code.getSelectedIndex()!=0){
+          String Name = null;
         if (evt.getStateChange() == ItemEvent.SELECTED) {
             int item = Integer.parseInt(evt.getItem().toString());
             try {
@@ -1057,11 +1234,438 @@ public class ACC_journals extends javax.swing.JPanel {
             }
             credit_account_name.setText("" + Name);
         }
+        credit_description.requestFocus();
+      }
+    }
     }//GEN-LAST:event_credit_account_codeItemStateChanged
 
     private void debit_descriptionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_debit_descriptionFocusLost
         credit_description.setText(debit_description.getText());
     }//GEN-LAST:event_debit_descriptionFocusLost
+
+    private void monthfieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_monthfieldKeyPressed
+        if (monthfield.getText().equals("Jan")) {
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                monthfield.setText("Dec");
+                int yr = Integer.parseInt(yearfield.getText());
+
+                yearfield.setText("" + (yr - 1));
+                monthfield.selectAll();
+
+            }
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                monthfield.setText("Feb");
+                monthfield.selectAll();
+            }
+
+        } else if (monthfield.getText().equals("Feb")) {
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                monthfield.setText("Jan");
+                int yr = Integer.parseInt(yearfield.getText());
+                monthfield.selectAll();
+
+            }
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                monthfield.setText("Mar");
+                monthfield.selectAll();
+            }
+
+        } else if (monthfield.getText().equals("Mar")) {
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                monthfield.setText("Feb");
+                int yr = Integer.parseInt(yearfield.getText());
+                monthfield.selectAll();
+            }
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                monthfield.setText("Apr");
+                monthfield.selectAll();
+            }
+
+        } else if (monthfield.getText().equals("Apr")) {
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                monthfield.setText("Mar");
+                int yr = Integer.parseInt(yearfield.getText());
+                monthfield.selectAll();
+            }
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                monthfield.setText("May");
+                monthfield.selectAll();
+            }
+
+        } else if (monthfield.getText().equals("May")) {
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                monthfield.setText("Apr");
+                int yr = Integer.parseInt(yearfield.getText());
+                monthfield.selectAll();
+
+            }
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+
+                monthfield.setText("Jun");
+                monthfield.selectAll();
+            }
+
+        } else if (monthfield.getText().equals("Jun")) {
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                monthfield.setText("May");
+                int yr = Integer.parseInt(yearfield.getText());
+                monthfield.selectAll();
+
+            }
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                monthfield.setText("Jul");
+                monthfield.selectAll();
+            }
+
+        } else if (monthfield.getText().equals("Jul")) {
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                monthfield.setText("Jun");
+                int yr = Integer.parseInt(yearfield.getText());
+                monthfield.selectAll();
+
+            }
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                monthfield.setText("Aug");
+                monthfield.selectAll();
+            }
+
+        } else if (monthfield.getText().equals("Aug")) {
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                monthfield.setText("Jul");
+                int yr = Integer.parseInt(yearfield.getText());
+                monthfield.selectAll();
+
+            }
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                monthfield.setText("Sep");
+                monthfield.selectAll();
+            }
+
+        } else if (monthfield.getText().equals("Sep")) {
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                monthfield.setText("Aug");
+                int yr = Integer.parseInt(yearfield.getText());
+                monthfield.selectAll();
+
+            }
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                monthfield.setText("Oct");
+                monthfield.selectAll();
+            }
+
+        } else if (monthfield.getText().equals("Oct")) {
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                monthfield.setText("Sep");
+                int yr = Integer.parseInt(yearfield.getText());
+                monthfield.selectAll();
+
+            }
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                monthfield.setText("Nov");
+                monthfield.selectAll();
+            }
+
+        } else if (monthfield.getText().equals("Nov")) {
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                monthfield.setText("Oct");
+                int yr = Integer.parseInt(yearfield.getText());
+                monthfield.selectAll();
+
+            }
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                monthfield.setText("Dec");
+                monthfield.selectAll();
+            }
+
+        } else if (monthfield.getText().equals("Dec")) {
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                monthfield.setText("Nov");
+                int yr = Integer.parseInt(yearfield.getText());
+                monthfield.selectAll();
+
+            }
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                monthfield.setText("Jan");
+                int yr = Integer.parseInt(yearfield.getText());
+
+                yearfield.setText("" + (yr + 1));
+                monthfield.selectAll();
+            }
+
+        }
+        if (evt.getKeyCode() == KeyEvent.VK_LEFT) {
+            dayfield.requestFocus();
+            dayfield.selectAll();
+        }
+        if (evt.getKeyCode() == KeyEvent.VK_RIGHT) {
+            yearfield.requestFocus();
+            yearfield.selectAll();
+        }
+
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
+            journal_no.requestFocus();
+         
+
+        }
+    }//GEN-LAST:event_monthfieldKeyPressed
+
+    private void yearfieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_yearfieldKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_UP) {
+            yearfield.setText("" + (Integer.parseInt(yearfield.getText()) + 1));
+            yearfield.selectAll();
+        }
+        if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+            yearfield.setText("" + (Integer.parseInt(yearfield.getText()) - 1));
+            yearfield.selectAll();
+        }
+        if (evt.getKeyCode() == KeyEvent.VK_LEFT) {
+            monthfield.requestFocus();
+            monthfield.selectAll();
+        }
+
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
+            journal_no.requestFocus();
+            
+
+        }
+    }//GEN-LAST:event_yearfieldKeyPressed
+
+    private void dayfieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dayfieldKeyPressed
+        ///////////////////////////////////////////////////  Days Decrement/////////////////////////////////////////////////////////////////////////////
+
+        if (dayfield.getText().equals("1")) {           // Jumping to 31 and 30 from 1st
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+
+                if (monthfield.getText().equals("Feb") || monthfield.getText().equals("Apr") || monthfield.getText().equals("Jun") || monthfield.getText().equals("Aug") || monthfield.getText().equals("Sep") || monthfield.getText().equals("Nov") || monthfield.getText().equals("Feb")) {
+                    dayfield.setText("31");
+
+                    int mnth = datechooser.return_index(monthfield.getText());
+                    monthfield.setText(datechooser.Return_month(mnth - 1));
+
+                } else if (monthfield.getText().equals("May") || monthfield.getText().equals("Jul") || monthfield.getText().equals("Oct") || monthfield.getText().equals("Dec")) {
+                    dayfield.setText("30");
+                    int mnth = datechooser.return_index(monthfield.getText());
+                    monthfield.setText(datechooser.Return_month(mnth - 1));
+
+                } else if (monthfield.getText().equals("Mar")) {     // from march 1st jump to 28th or 29th checking leap years
+                    int yr = Integer.parseInt(yearfield.getText());
+                    if (yr % 4 == 0) {
+                        if (yr % 100 == 0) {
+                            if (yr % 400 == 0) {
+                                dayfield.setText("29"); // Leap Year
+                            }
+                        }
+                        if (yr % 100 == 0) {
+                            if (yr % 400 != 0) {
+                                dayfield.setText("28"); // not a leap year
+                            }
+                        }
+                        dayfield.setText("29");       // leap year
+
+                    }
+                    if (yr % 4 != 0) {
+                        dayfield.setText("28");       // not a leap year
+                    }
+                    int mnth = datechooser.return_index(monthfield.getText());
+                    monthfield.setText(datechooser.Return_month(mnth - 1));
+
+                } else if (monthfield.getText().equals("Jan")) {            // From jan 1st jump to december 31st decrementing year
+                    dayfield.setText("31");
+
+                    int yr = Integer.parseInt(yearfield.getText());
+                    monthfield.setText("Dec");
+                    yearfield.setText("" + (yr - 1));    // year
+                }
+                dayfield.selectAll();
+            }                                           // /// decrementing normal values
+        } else if (dayfield.getText().equals("2") || dayfield.getText().equals("3") || dayfield.getText().equals("4") || dayfield.getText().equals("5")
+            || dayfield.getText().equals("6") || dayfield.getText().equals("7") || dayfield.getText().equals("8") || dayfield.getText().equals("9")
+            || dayfield.getText().equals("10") || dayfield.getText().equals("11") || dayfield.getText().equals("12") || dayfield.getText().equals("13") || dayfield.getText().equals("14")
+            || dayfield.getText().equals("15") || dayfield.getText().equals("16") || dayfield.getText().equals("17") || dayfield.getText().equals("18")
+            || dayfield.getText().equals("19") || dayfield.getText().equals("20") || dayfield.getText().equals("21") || dayfield.getText().equals("22")
+            || dayfield.getText().equals("23") || dayfield.getText().equals("24") || dayfield.getText().equals("25") || dayfield.getText().equals("26")
+            || dayfield.getText().equals("27") || dayfield.getText().equals("28") || dayfield.getText().equals("29") || dayfield.getText().equals("30") || dayfield.getText().equals("31")) {
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+
+                dayfield.setText("" + (Integer.parseInt(dayfield.getText()) - 1));
+                dayfield.selectAll();
+            }
+        }
+        /////////////////////////////////////////////////  Days Increment///////////////////////////////////////////////////////////////////////////////////////////////////
+        if (dayfield.getText().equals("30")) {               // from 30th to 1st of next month
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+
+                if (monthfield.getText().equals("Apr") || monthfield.getText().equals("Jun") || monthfield.getText().equals("Sep") || monthfield.getText().equals("Nov")) {
+                    dayfield.setText("0");
+
+                    int mnth = datechooser.return_index(monthfield.getText());
+                    monthfield.setText(datechooser.Return_month(mnth + 1));
+
+                }
+                dayfield.setText("" + (Integer.parseInt(dayfield.getText()) + 1));
+                dayfield.selectAll();
+            }
+
+        } else if (dayfield.getText().equals("31")) {            // from 31st to 1st of next month
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+
+                if (monthfield.getText().equals("Jan") || monthfield.getText().equals("Mar") || monthfield.getText().equals("May") || monthfield.getText().equals("Jul") || monthfield.getText().equals("Aug") || monthfield.getText().equals("Oct")) {
+                    dayfield.setText("1");
+
+                    int mnth = datechooser.return_index(monthfield.getText());
+                    monthfield.setText(datechooser.Return_month(mnth + 1));
+
+                } else if (monthfield.getText().equals("Dec")) {      // December to january incrementing the year
+
+                    dayfield.setText("1");
+
+                    int yr = Integer.parseInt(yearfield.getText());
+                    monthfield.setText("Jan");
+                    yearfield.setText("" + (yr + 1));
+                }
+                dayfield.selectAll();
+            }
+
+        } else if (monthfield.getText().equals("Feb")) {                    // for february
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                if (dayfield.getText().equals("28")) {                    // at 28 check for leap year
+                    int yr = Integer.parseInt(yearfield.getText());
+                    if (yr % 4 == 0) {
+                        if (yr % 100 == 0) {
+                            if (yr % 400 == 0) {
+                                dayfield.setText("29"); // Leap Year       // increment to 29
+                            }
+                        }
+                        if (yr % 100 == 0) {
+                            if (yr % 400 != 0) {
+                                dayfield.setText("1");
+                                int mnth = datechooser.return_index(monthfield.getText());
+                                monthfield.setText(datechooser.Return_month(mnth + 1));
+
+                                // not a leap year                             // jump to next month
+                            }
+                        }
+                        dayfield.setText("29");       // leap year             // increment to 29th
+
+                    }
+                    if (yr % 4 != 0) {
+                        dayfield.setText("1");
+                        int mnth = datechooser.return_index(monthfield.getText());
+                        monthfield.setText(datechooser.Return_month(mnth + 1));                  // not a leap year
+                    }
+
+                } else if (dayfield.getText().equals("29")) {              // at 29 jump to next month normally
+                    dayfield.setText("1");
+
+                    int mnth = datechooser.return_index(monthfield.getText());
+                    monthfield.setText(datechooser.Return_month(mnth + 1));
+                    // incrementing normal values/////////////////////// for february separately
+                } else if (dayfield.getText().equals("1") || dayfield.getText().equals("2") || dayfield.getText().equals("3") || dayfield.getText().equals("4") || dayfield.getText().equals("5")
+                    || dayfield.getText().equals("6") || dayfield.getText().equals("7") || dayfield.getText().equals("8") || dayfield.getText().equals("9")
+                    || dayfield.getText().equals("10") || dayfield.getText().equals("11") || dayfield.getText().equals("12") || dayfield.getText().equals("13") || dayfield.getText().equals("14")
+                    || dayfield.getText().equals("15") || dayfield.getText().equals("16") || dayfield.getText().equals("17") || dayfield.getText().equals("18")
+                    || dayfield.getText().equals("19") || dayfield.getText().equals("20") || dayfield.getText().equals("21") || dayfield.getText().equals("22")
+                    || dayfield.getText().equals("23") || dayfield.getText().equals("24") || dayfield.getText().equals("25") || dayfield.getText().equals("26")
+                    || dayfield.getText().equals("27") || dayfield.getText().equals("28") || dayfield.getText().equals("29") || dayfield.getText().equals("30") || dayfield.getText().equals("31")) {
+
+                    dayfield.setText("" + (Integer.parseInt(dayfield.getText()) + 1));
+
+                }
+                dayfield.selectAll();
+            }
+            // incrementing normal values
+        } else if (dayfield.getText().equals("1") || dayfield.getText().equals("2") || dayfield.getText().equals("3") || dayfield.getText().equals("4") || dayfield.getText().equals("5")
+            || dayfield.getText().equals("6") || dayfield.getText().equals("7") || dayfield.getText().equals("8") || dayfield.getText().equals("9")
+            || dayfield.getText().equals("10") || dayfield.getText().equals("11") || dayfield.getText().equals("12") || dayfield.getText().equals("13") || dayfield.getText().equals("14")
+            || dayfield.getText().equals("15") || dayfield.getText().equals("16") || dayfield.getText().equals("17") || dayfield.getText().equals("18")
+            || dayfield.getText().equals("19") || dayfield.getText().equals("20") || dayfield.getText().equals("21") || dayfield.getText().equals("22")
+            || dayfield.getText().equals("23") || dayfield.getText().equals("24") || dayfield.getText().equals("25") || dayfield.getText().equals("26")
+            || dayfield.getText().equals("27") || dayfield.getText().equals("28") || dayfield.getText().equals("29") || dayfield.getText().equals("30") || dayfield.getText().equals("31")) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+
+                dayfield.setText("" + (Integer.parseInt(dayfield.getText()) + 1));
+                dayfield.selectAll();
+
+            }
+        }
+        if (evt.getKeyCode() == KeyEvent.VK_RIGHT) {
+            monthfield.requestFocus();
+            monthfield.selectAll();
+        }
+
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
+            journal_no.requestFocus();
+            
+
+        }
+    }//GEN-LAST:event_dayfieldKeyPressed
+
+    private void datePicker1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datePicker1ActionPerformed
+        java.sql.Date datef = new java.sql.Date(datePicker1.getDate().getTime());
+
+        dayfield.setText(""+Integer.parseInt(datehandler.get_day(datef)));
+        monthfield.setText(datehandler.get_month(datef));
+        yearfield.setText(datehandler.get_year(datef));
+        journal_no.requestFocus();
+        
+    }//GEN-LAST:event_datePicker1ActionPerformed
+
+    private void ref_noKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ref_noKeyPressed
+        interface_events.Change_focus_Enterkey_t(dayfield, evt);
+    }//GEN-LAST:event_ref_noKeyPressed
+
+    private void journal_noKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_journal_noKeyPressed
+        interface_events.Change_focus_Enterkey_c(pay_type, evt);
+    }//GEN-LAST:event_journal_noKeyPressed
+
+    private void pay_typeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pay_typeKeyPressed
+        if(pay_type.getSelectedItem()=="Cash"){
+            interface_events.Change_focus_Enterkey_c(debit_account_code, evt);
+        }
+        else{
+            interface_events.Change_focus_Enterkey_c(bank_code, evt);
+        }
+    }//GEN-LAST:event_pay_typeKeyPressed
+
+    private void debit_account_codeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_debit_account_codeKeyPressed
+       
+    }//GEN-LAST:event_debit_account_codeKeyPressed
+
+    private void debit_descriptionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_debit_descriptionKeyPressed
+        interface_events.Change_focus_Enterkey_t(debit_amount, evt);
+    }//GEN-LAST:event_debit_descriptionKeyPressed
+
+    private void debit_amountKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_debit_amountKeyPressed
+        interface_events.Change_focus_Enterkey_t_b(ref_no,send, evt);
+    }//GEN-LAST:event_debit_amountKeyPressed
+
+    private void pay_typeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_pay_typeItemStateChanged
+        
+    }//GEN-LAST:event_pay_typeItemStateChanged
+
+    private void sendFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_sendFocusGained
+        interface_events.Respond_enter(send, evt);
+    }//GEN-LAST:event_sendFocusGained
+
+    private void credit_descriptionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_credit_descriptionKeyPressed
+        interface_events.Change_focus_Enterkey_t(credit_amount, evt);
+    }//GEN-LAST:event_credit_descriptionKeyPressed
+
+    private void credit_amountKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_credit_amountKeyPressed
+        interface_events.Change_focus_Enterkey_t_b(ref_no,send2, evt);
+    }//GEN-LAST:event_credit_amountKeyPressed
+
+    private void send2FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_send2FocusGained
+        interface_events.Respond_enter(send2, evt);
+    }//GEN-LAST:event_send2FocusGained
+
+    private void chequeNoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_chequeNoKeyPressed
+        interface_events.Change_focus_Enterkey_Cal(chequeDate, evt);
+    }//GEN-LAST:event_chequeNoKeyPressed
+
+    private void saveFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_saveFocusGained
+        interface_events.Respond_enter(save, evt);
+    }//GEN-LAST:event_saveFocusGained
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1070,7 +1674,7 @@ public class ACC_journals extends javax.swing.JPanel {
     private javax.swing.JLabel bank_name;
     private javax.swing.JComboBox branch_code;
     private javax.swing.JLabel branch_name;
-    private org.jdesktop.swingx.JXDatePicker chequeDate;
+    private com.michaelbaranov.microba.calendar.DatePicker chequeDate;
     private javax.swing.JTextField chequeNo;
     private javax.swing.JComboBox credit_account_code;
     private javax.swing.JTable credit_account_code_table;
@@ -1080,7 +1684,9 @@ public class ACC_journals extends javax.swing.JPanel {
     private javax.swing.JTextField credit_description;
     private javax.swing.JTable credit_description_table;
     private javax.swing.JTextField credit_total;
-    private org.jdesktop.swingx.JXDatePicker date;
+    private com.michaelbaranov.microba.calendar.DatePicker datePicker1;
+    private javax.swing.JPanel datepanel;
+    private javax.swing.JTextField dayfield;
     private javax.swing.JComboBox debit_account_code;
     private javax.swing.JTable debit_account_code_table;
     private javax.swing.JLabel debit_account_name;
@@ -1091,13 +1697,10 @@ public class ACC_journals extends javax.swing.JPanel {
     private javax.swing.JTextField debit_total;
     private javax.swing.JTextField difference;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
@@ -1125,7 +1728,12 @@ public class ACC_journals extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTextField journal_no;
+    private javax.swing.JTextField monthfield;
     private javax.swing.JComboBox pay_type;
     private javax.swing.JTextField ref_no;
+    private javax.swing.JButton save;
+    private javax.swing.JButton send;
+    private javax.swing.JButton send2;
+    private javax.swing.JTextField yearfield;
     // End of variables declaration//GEN-END:variables
 }

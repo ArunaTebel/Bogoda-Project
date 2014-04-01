@@ -323,6 +323,8 @@ public class pAccounts extends javax.swing.JPanel {
         GL_content.add(journals);
         validate();
         repaint();
+        
+        journals.foucs();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     PDF_Handling pdf = new PDF_Handling();

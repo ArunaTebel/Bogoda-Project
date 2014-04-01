@@ -33,6 +33,10 @@ public class ACC_Journal_View_Table extends javax.swing.JFrame {
         ACC_View_Database_Handling_Journals db = new ACC_View_Database_Handling_Journals();
         db.Filtered_table_For_Journal_Credit_Search(table,search_column,search_element,1,50);
     }
+    public void Table_Fill_Main_Search(String search_column,Object search_element){
+        ACC_View_Database_Handling_Journals db = new ACC_View_Database_Handling_Journals();
+        db.Filtered_table_For_Journal_Main_Search(table,search_column,search_element,1,50);
+    }
     public void Table_Fill_Date_Search(String search_column,Object search_element1,Object search_element2){
         ACC_View_Database_Handling_Journals db = new ACC_View_Database_Handling_Journals();
         db.Filtered_table_For_Journal_Date_Search(table,search_column,search_element1,search_element2,1,50);
@@ -346,9 +350,11 @@ public class ACC_Journal_View_Table extends javax.swing.JFrame {
         } */
     }//GEN-LAST:event_jButton5ActionPerformed
 
-    ACC_Edit_Receipts edit = new ACC_Edit_Receipts();
+     ACC_Edit_journals1 edit = new ACC_Edit_journals1();
+    
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
 
+       
         edit.setVisible(true);
         int tr_no,check,row;
         tr_no=0;
@@ -364,7 +370,7 @@ public class ACC_Journal_View_Table extends javax.swing.JFrame {
                 tr_no=Integer.parseInt(table.getValueAt(row,0).toString());
                 check=1;
             }
-        }
+        } 
         
         edit.Set_Tr_No(tr_no);
        
