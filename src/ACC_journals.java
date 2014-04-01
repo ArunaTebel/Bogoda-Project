@@ -16,6 +16,8 @@ public class ACC_journals extends javax.swing.JPanel {
 
     Journals_account jaobject = new Journals_account();
     
+    MessageBox msg =new MessageBox();
+    
     public int stringToIntNum(String s) {
         if (s.length() == 0) {
             return 0;
@@ -743,9 +745,9 @@ public class ACC_journals extends javax.swing.JPanel {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
 
-        boolean addToMainJournalDataBase;
-        jaobject.setRefNo(Integer.parseInt(ref_no.getText()));
-        jaobject.setJournalNo(Integer.parseInt(journal_no.getText()));
+        boolean addToMainJournalDataBase=false;
+        jaobject.setRefNo(ref_no.getText());
+        jaobject.setJournalNo(journal_no.getText());
         java.sql.Date date1 = new java.sql.Date(date.getDate().getTime());
         jaobject.setDate(date1);
         jaobject.setPayType(pay_type.getSelectedItem().toString());
@@ -781,6 +783,7 @@ public class ACC_journals extends javax.swing.JPanel {
         
         if (addToMainJournalDataBase == true) {
         
+       msg.showMessage("Journal Entry is saved to Transaction no-" + jaobject.Get_Tr_no(), "Receipt", "info");
             
         // Debit Side of the interface
             
@@ -793,7 +796,7 @@ public class ACC_journals extends javax.swing.JPanel {
         
         for(int j=0;j<=i-1;j++){
             debit_acnt_name = dbm.checknReturnData("account_names", "account_id",Integer.parseInt((String) debit_account_code_table.getValueAt(j, 0)), "account_name");
-            jaobject.addToDebitDataBase(Integer.parseInt(journal_no.getText()), Integer.parseInt((String) debit_account_code_table.getValueAt(j, 0)),debit_acnt_name, (String) debit_description_table.getValueAt(j, 0),Double.parseDouble((String) debit_amount_table.getValueAt(j, 0)));
+            jaobject.addToDebitDataBase( Integer.parseInt((String) debit_account_code_table.getValueAt(j, 0)),debit_acnt_name, (String) debit_description_table.getValueAt(j, 0),Double.parseDouble((String) debit_amount_table.getValueAt(j, 0)));
         } 
         
         
@@ -808,7 +811,7 @@ public class ACC_journals extends javax.swing.JPanel {
         
         for(int j=0;j<=i-1;j++){
             credit_acnt_name = dbm.checknReturnData("account_names", "account_id",Integer.parseInt((String) credit_account_code_table.getValueAt(j, 0)), "account_name");
-            jaobject.addToCreditDataBase(Integer.parseInt(journal_no.getText()), Integer.parseInt((String) credit_account_code_table.getValueAt(j, 0)),credit_acnt_name, (String) credit_description_table.getValueAt(j, 0),Double.parseDouble((String) credit_amount_table.getValueAt(j, 0)));
+            jaobject.addToCreditDataBase(Integer.parseInt((String) credit_account_code_table.getValueAt(j, 0)),credit_acnt_name, (String) credit_description_table.getValueAt(j, 0),Double.parseDouble((String) credit_amount_table.getValueAt(j, 0)));
         } 
         
         // adding the relevant value to the current balance of the debit account
