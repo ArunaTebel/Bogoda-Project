@@ -95,6 +95,23 @@ public final class DatabaseManager {
         }
         return null;
     }
+      
+       
+           public double checknReturnDoubleData(String table_name, String table_column_giving, Object row_element, String table_column_need) {
+        DatabaseManager dbm = DatabaseManager.getDbCon();
+        try {
+            ResultSet query = dbm.query("SELECT * FROM " + table_name + " where " + table_column_giving + " = '" + row_element + "'");
+            while (query.next()) {
+                return (query.getDouble(table_column_need));
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+           // return "" + ex.getErrorCode();
+        }
+        return 0;
+    }
+ 
+    
 
     public String checknReturnStringDataReceipts(String table_name, String table_column_giving, Object row_element, String table_column_need) {
         DatabaseManager dbm = DatabaseManager.getDbCon();

@@ -78,8 +78,8 @@
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" attributes="0">
-                                              <Component id="supplier_id" min="-2" pref="61" max="-2" attributes="0"/>
-                                              <EmptySpace min="-2" pref="159" max="-2" attributes="0"/>
+                                              <Component id="supplier_id" min="-2" pref="82" max="-2" attributes="0"/>
+                                              <EmptySpace min="-2" pref="138" max="-2" attributes="0"/>
                                               <Component id="jPanel9" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <Component id="supplier_name" min="-2" pref="252" max="-2" attributes="0"/>

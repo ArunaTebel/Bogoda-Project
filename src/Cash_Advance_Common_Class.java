@@ -125,7 +125,7 @@ public class Cash_Advance_Common_Class {
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         try {
             dbCon.insert("INSERT INTO gl_cash_advance(month_tr_no,sup_id,pay_type,ordered_date,issued_date,emergency,special_permission,amount,ref_no,bank_code,cheque_no,cheque_date,date_time,user)"
-                    + " VALUES('" + month_tr + "','" + sup_id +"','" + pay + "','" + date + "','" + issue_date + "','"+ emrg + "','"+ amount + "','"+ ref_no + "','"+ bank + "','"+ cheque+ "','"+ cheque_date+"','"+ date_time + "','"+user+ "')");
+                    + " VALUES('" + month_tr + "','" + sup_id +"','" + pay + "','" + date + "','" + issue_date + "','"+ emrg +"','"+ special_permission + "','"+ amount + "','"+ ref_no + "','"+ bank + "','"+ cheque+ "','"+ cheque_date+"','"+ date_time + "','"+user+ "')");
         } catch (SQLException ex) {
             MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
             return false;

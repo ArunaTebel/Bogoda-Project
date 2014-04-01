@@ -3,13 +3,13 @@ import java.sql.SQLException;
 
 public class LeafCategory {
     private String categoryName;
-    private int categoryCode;
+    private double categoryCode;
 
    public LeafCategory() {
         categoryCode=0;
         categoryName=null;
     }
-   public LeafCategory(String categoryName, int categoryCode) {
+   public LeafCategory(String categoryName, double categoryCode) {
         this.categoryName = categoryName;
         this.categoryCode = categoryCode;
     }
@@ -22,7 +22,7 @@ public class LeafCategory {
    public String getCategoryName(){
        return categoryName;
    }
-   public int getCategoryCode(){
+   public double getCategoryCode(){
        return categoryCode;
    }
    public void addToDataBase() {

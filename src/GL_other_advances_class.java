@@ -120,17 +120,17 @@ public class GL_other_advances_class {
               {month_total = query.getDouble(10) / query.getInt(11);}
 
                 if (query.getInt(11) > 1) {
-                    System.out.println(index);
-                   index++; //System.out.println("writing" + dbm.Checking_Length_Of_The_Table("suppliers", "sup_id"));
+                   // System.out.println(index);
+                    //System.out.println("writing" + dbm.Checking_Length_Of_The_Table("suppliers", "sup_id"));
                     dbCon.insert("INSERT INTO gl_other_advance_installments(entry,date,id,item_name,inst_amount,inst_left,pay_status)"
-                            + " VALUES('" + index + "','" + query.getDate(2) + "','" + query.getInt(3) + "','" + query.getString(6) + "','" + query.getString(11) + "','" + month_total + "','" + "NOT_PAYED" +  "')");
+                            + " VALUES('" + index + "','" + query.getDate(2) + "','" + query.getInt(3) + "','" + query.getString(6) + "','" + month_total + "','" + (query.getInt(11)-1) + "','" + "NOT_PAYED" +  "')");
                     
                 }
 
-                System.out.println("writing");
+               // System.out.println("writing");
                 dbCon.insert("INSERT INTO gl_other_advances(Date,id,item_name,item_type,item_rate,item_quantity,installments,amount,total_amount,date_time,user)"
                         + " VALUES('" + query.getDate("date") + "','" + query.getInt("id") + "','" + query.getString("item_name") + "','" + query.getString("item_type") + "','" + query.getDouble("item_rate") + "','" + query.getInt("item_quantity") + "','" + query.getInt("installments") + "','" + query.getDouble("total_amount") + "','" + month_total + "','" + date_time + "','" + user + "')");
-//
+              index++;
                 // dbCon.insert("INSERT INTO gl_cash_advance(month_tr_no,sup_id,pay_type,ordered_date,issued_date,emergency,special_permission,amount,ref_no,bank_code,cheque_no,cheque_date,date_time,user)"
                 //   + " VALUES('" + query.getInt("entry_no") + "','" +query.getInt("sup_id")+"','" + query.getString("pay_type") + "','" + query.getDate("date") + "','" + issue_date + "','"+ "NO" + "','"+ query.getString("special_permission") + "','"+query.getDouble("amount") + "','"+ ref_no + "','"+ bank + "','"+ cheque+ "','"+ cheque_date+"','"+ date_time + "','"+user+ "')");}
             }

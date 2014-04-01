@@ -174,6 +174,8 @@ public class DateChooser_text extends javax.swing.JPanel {
         dayfield = new javax.swing.JTextField();
         datePicker1 = new com.michaelbaranov.microba.calendar.DatePicker();
         jButton1 = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox();
+        jComboBox2 = new javax.swing.JComboBox();
 
         datepanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -239,21 +241,44 @@ public class DateChooser_text extends javax.swing.JPanel {
             }
         });
 
+        //java.sql.Date datef = new java.sql.Date(date.getDate().getTime());
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "---", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "----" }));
+        jComboBox1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jComboBox1KeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jComboBox1KeyReleased(evt);
+            }
+        });
+
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2929", "2030" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton1)
-                    .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jButton1)
+                        .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(86, 86, 86))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(49, 49, 49)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1)
                 .addContainerGap())
         );
@@ -620,12 +645,40 @@ public class DateChooser_text extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jComboBox1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jComboBox1KeyPressed
+        if (jComboBox1.getSelectedItem().toString().equals("Jan")) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                jComboBox1.setSelectedItem("----");
+                int yr = jComboBox2.getSelectedIndex();
+                if (yr > -1) {
+                    jComboBox2.setSelectedIndex(yr - 1);
+                }
+            }
+
+        } else if (jComboBox1.getSelectedItem().toString().equals("Dec")) {
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                jComboBox1.setSelectedItem("---");
+                int yr = jComboBox2.getSelectedIndex();
+                if (yr < 22) {
+                    jComboBox2.setSelectedIndex(yr + 1);
+                }
+            }
+
+        }
+    }//GEN-LAST:event_jComboBox1KeyPressed
+
+    private void jComboBox1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jComboBox1KeyReleased
+
+    }//GEN-LAST:event_jComboBox1KeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.michaelbaranov.microba.calendar.DatePicker datePicker1;
     private javax.swing.JPanel datepanel;
     private javax.swing.JTextField dayfield;
     private javax.swing.JButton jButton1;
+    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JComboBox jComboBox2;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JTextField monthfield;
     private javax.swing.JTextField yearfield;
