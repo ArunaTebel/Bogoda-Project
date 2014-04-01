@@ -197,6 +197,8 @@ public class ACC_View_Database_Handling {
         }
     }
 
+    // Copied up to this point to the journal
+    
     /*
      This will do the searches in the credit database.. you have to give the column you have to filter and the element you
      want to search... bottom and top are the table starting and ending values... unique for this..
@@ -328,22 +330,7 @@ public class ACC_View_Database_Handling {
      you have to use this method
      */
     public void Filtered_table_For_Reciepts_Debit_Search(javax.swing.JTable table, String filtering_column, Object element, int bottom, int top) {
-        /*  if(a%50==0){
-         no_of_pages= a/50;
-        
-         }
-         else{
-         no_of_pages=a/50+1;
-           
-         }
-         page_info.setText("Page 1 of"+" "+no_of_pages);
-         dbm.Inserting_To_The_Table(table, "gl_cash_advance_book", "entry_no", 0,bottom,top);
-         dbm.Inserting_To_The_Table(table, "gl_cash_advance_book", "date", 1,bottom,top);
-         dbm.Inserting_To_The_Table(table, "gl_cash_advance_book", "sup_id", 2,bottom,top);
-         dbm.Inserting_To_The_Table(table, "gl_cash_advance_book", "sup_name", 3,bottom,top);
-         dbm.Inserting_To_The_Table(table, "gl_cash_advance_book", "max_allowable", 4,bottom,top);
-         dbm.Inserting_To_The_Table(table, "gl_cash_advance_book", "amount", 5,bottom,top); */
-
+       
         Inserting_To_The_Table_Filtered_Reciept_Debit_Search(table, "tr_no", 0, bottom, top, filtering_column, element, 1);
         Inserting_To_The_Table_Filtered_Reciept_Debit_Search(table, "reciept_no", 1, bottom, top, filtering_column, element, 1);
         Inserting_To_The_Table_Filtered_Reciept_Debit_Search(table, "ref_no", 2, bottom, top, filtering_column, element, 1);
