@@ -1,6 +1,7 @@
 
 import java.awt.Color;
 import java.awt.event.KeyEvent;
+import javax.swing.JOptionPane;
 import javax.swing.UIDefaults;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
@@ -31,8 +32,171 @@ public class GL_BillsummeryPanel extends javax.swing.JPanel {
         defaults.put("nimbusOrange", defaults.get("nimbusBase"));
         UIManager.getLookAndFeelDefaults().put("nimbusOrange", (new Color(51, 153, 0)));
         initComponents();
+        int[] day = new int[31];
+        int n = 0;
+        while(n<31){  day[n]=0;  n++;}
+        set_day_values(day);
+        set_max_Kg(10);
     }
+   
+    public void focus(){
+    this.requestFocus();
+    supplier_id.requestFocus();
+    
+    
+    }
+    public void Fill_tables(javax.swing.JTable Supplies, javax.swing.JTable jtable2){
+    String month = monthfield.getText();
+        String year = yearfield.getText();
+        int sup = Integer.parseInt(supplier_id.getSelectedItem().toString());
+        ((DefaultTableModel) Supplies.getModel()).setNumRows(0);
+       // ((DefaultTableModel) Supplies.getModel()).setNumRows(i + 1);
+       
+        String[][] values = new String[1000][5];
+               int p = 0;
+               int q = 0;
+               while (p < 1000) {
+                   while (q < 5) {
+                  
+                       values[p][q] = null;
+                       q++;
+                   }
+             p++;
+               }
+        
+        
+        
+        
+        
+        
+        values = billsum.GL_table(sup, year, datehandler.return_month_as_num(month));
+        //System.out.println(values[1][0]);
+        double Max_kg = 0;
+        int i = 0;
+        int j = 0;
+        int day;
+        double[] day_values = new double[31];
+        int[] day_values_int = new int[31];
+        double total = 0;
+       // String chek = "not null";
+        while (i < 1000 && values[i][0]!=null) {
+            j=0;
+            //System.out.println(values[i][0]);
+            day = Integer.parseInt(values[i][0].substring(8));
+            //System.out.println(day);
+            day_values[ day - 1] = day_values[day - 1] + Double.parseDouble(values[i][4]);
+            total+=Double.parseDouble(values[i][4]);
+            if (Max_kg < day_values[day - 1]) {
+                Max_kg = day_values[day - 1];
+            }
 
+            ((DefaultTableModel) Supplies.getModel()).setNumRows(i + 1);
+            //chek = values[i][0];
+            while (j < 5) {
+                
+                Supplies.setValueAt(values[i][j], i, j);
+               // System.out.println("in loop");
+                j++;
+            }
+                 i++;
+        }
+       //System.out.println("loop done");
+         Supply_total.setText("" + total);
+         set_max_Kg((int) Math.round(Max_kg));
+         int k=0;
+         while(k<31){
+           day_values_int[k] = (int) Math.round(day_values[k]);
+            k++;
+         }
+         set_day_values(day_values_int);
+         
+        /////////////////////////////////////////////////////////cash advance/////////////////////////////////////////////////////////
+       ((DefaultTableModel) jTable2.getModel()).setNumRows(0);
+           p = 0;
+                q = 0;
+               while (p < 1000) {
+                   while (q < 5) {
+
+                       values[p][q] = null;
+                       q++;
+                   }
+                p++;
+               }
+         double Ad_total= 0;
+        i = 0;
+             
+        // if(Integer.parseInt(dayfield.getText())<(Integer.parseInt(datehandler.get_advance_month_split_day())+1))
+      //   {      
+               
+       //      values = billsum.advance_table(sup, year, datehandler.get_prev_month(datehandler.return_month_as_num(month)));}
+      //   else{
+             values= billsum.advance_table(sup, year, datehandler.return_month_as_num(month));//}
+          while (i < 1000 && values[i][0]!=null) {
+            j=0;
+            
+           
+
+            ((DefaultTableModel) jTable2.getModel()).setNumRows(i + 1);
+            //chek = values[i][0];
+            while (j < 5) {
+                
+                jTable2.setValueAt(values[i][j], i, j);
+                
+             
+               
+                j++;
+            }
+             Ad_total+=Double.parseDouble(values[i][4]); 
+                 i++;
+        }
+       
+      ////////////////////////////////////other advance/////////////////////////////////////  
+        
+          
+            p = 0;
+                q = 0;
+               while (p < 1000) {
+                   while (q < 5) {
+
+                       values[p][q] = null;
+                       q++;
+                   }
+                p++;
+               }
+           
+           int x =0;
+         //if(Integer.parseInt(dayfield.getText())<(Integer.parseInt(datehandler.get_advance_month_split_day())+1))
+        // {values = billsum.other_advance_table(sup, year, datehandler.get_prev_month(datehandler.return_month_as_num(month)));}
+        // else{ 
+           values= billsum.other_advance_table(sup, year, datehandler.return_month_as_num(month));//}
+          while (i < 1000 && values[x][0]!=null) {
+            j=0;
+            //System.out.println(values[i][0]);
+           
+
+            ((DefaultTableModel) jTable2.getModel()).setNumRows(i + 1);
+            //chek = values[i][0];
+            while (j < 5) {
+                //System.out.println("in loop");
+                jTable2.setValueAt(values[x][j], i, j);
+            
+                j++;
+            }
+            Ad_total+=Double.parseDouble(values[x][4]);
+             // System.out.println(Ad_total);
+                 i++;
+                 x++;
+        }
+            Advance_tot.setText(""+Ad_total);
+            TotalKG.setText(""+total);
+            total_ad.setText(""+Ad_total);
+            balBF.setText("0.0");
+            loans.setText("0.0");
+            
+    
+    
+    
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -55,15 +219,15 @@ public class GL_BillsummeryPanel extends javax.swing.JPanel {
         jPanel6 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         TotalKG = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
+        loans = new javax.swing.JTextField();
+        Set = new javax.swing.JTextField();
+        total_ad = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jTextField8 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
+        gross_amount = new javax.swing.JTextField();
+        final_total = new javax.swing.JTextField();
+        balBF = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
@@ -80,10 +244,7 @@ public class GL_BillsummeryPanel extends javax.swing.JPanel {
         datepanel = new javax.swing.JPanel();
         monthfield = new javax.swing.JTextField();
         yearfield = new javax.swing.JTextField();
-        dayfield = new javax.swing.JTextField();
         datePicker1 = new com.michaelbaranov.microba.calendar.DatePicker();
-        jPanel5 = new javax.swing.JPanel();
-        date = new com.michaelbaranov.microba.calendar.DatePicker();
         jPanel2 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jPanel11 = new javax.swing.JPanel();
@@ -235,9 +396,24 @@ public class GL_BillsummeryPanel extends javax.swing.JPanel {
 
         jLabel9.setText("Bal B/F");
 
+        Set.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                SetKeyPressed(evt);
+            }
+        });
+
         jLabel8.setText("Loans");
 
         jLabel5.setText("Total (KG)");
+
+        final_total.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        final_total.setForeground(new java.awt.Color(204, 0, 0));
+
+        balBF.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                balBFKeyPressed(evt);
+            }
+        });
 
         jLabel7.setText("Total Advances");
 
@@ -256,7 +432,7 @@ public class GL_BillsummeryPanel extends javax.swing.JPanel {
                         .addGroup(jPanel6Layout.createSequentialGroup()
                             .addComponent(jLabel6)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(Set, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel6Layout.createSequentialGroup()
                             .addGap(16, 16, 16)
                             .addComponent(jLabel9)
@@ -270,16 +446,16 @@ public class GL_BillsummeryPanel extends javax.swing.JPanel {
                         .addGap(29, 29, 29)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(TotalKG, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(loans, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(balBF, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(total_ad, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(gross_amount, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel10)
                         .addGap(18, 18, 18)
-                        .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(final_total, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
         );
         jPanel6Layout.setVerticalGroup(
@@ -293,25 +469,25 @@ public class GL_BillsummeryPanel extends javax.swing.JPanel {
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel6)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(Set, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(gross_amount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(total_ad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(loans, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel8))
                         .addGap(13, 13, 13)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(balBF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel9)
                             .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(final_total, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -389,19 +565,15 @@ public class GL_BillsummeryPanel extends javax.swing.JPanel {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 monthfieldKeyPressed(evt);
             }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                monthfieldKeyReleased(evt);
+            }
         });
 
         yearfield.setText(datehandler.get_today_year());
         yearfield.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 yearfieldKeyPressed(evt);
-            }
-        });
-
-        dayfield.setText(datehandler.get_today_day());
-        dayfield.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                dayfieldKeyPressed(evt);
             }
         });
 
@@ -416,9 +588,7 @@ public class GL_BillsummeryPanel extends javax.swing.JPanel {
         datepanelLayout.setHorizontalGroup(
             datepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(datepanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(dayfield, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
+                .addGap(10, 10, 10)
                 .addComponent(monthfield, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(yearfield, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -433,7 +603,6 @@ public class GL_BillsummeryPanel extends javax.swing.JPanel {
                 .addGroup(datepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(datePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(datepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(dayfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(monthfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(yearfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -473,38 +642,6 @@ public class GL_BillsummeryPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(18, Short.MAX_VALUE))
-        );
-
-        date.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dateActionPerformed(evt);
-            }
-        });
-        date.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                dateFocusGained(evt);
-            }
-        });
-        date.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                dateKeyPressed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -1000,9 +1137,6 @@ public class GL_BillsummeryPanel extends javax.swing.JPanel {
                         .addContainerGap()
                         .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(46, 46, 46)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1027,39 +1161,22 @@ public class GL_BillsummeryPanel extends javax.swing.JPanel {
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(50, 50, 50)
                         .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0))
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void dateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dateActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_dateActionPerformed
-
-    private void dateFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_dateFocusGained
-
-    }//GEN-LAST:event_dateFocusGained
-
-    private void dateKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dateKeyPressed
-        interface_events.Change_focus_Enterkey_c(supplier_id, evt);
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            jPanel5.setBackground(new java.awt.Color(240, 240, 240));
-
-        }
-    }//GEN-LAST:event_dateKeyPressed
-
     private void supplier_idItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_supplier_idItemStateChanged
-     ///   try {
+        try {
             
-       if(supplier_id.getSelectedIndex()!=0){
+      if(supplier_id.getSelectedIndex()!=0){
            if(supplier_id.getSelectedItem()!=""){
-
+               supplier_name.setText(dbm.checknReturnData("suppliers", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "sup_name"));
+    
+               Fill_tables(Supplies, jTable2);
+/*
         String month = monthfield.getText();
         String year = yearfield.getText();
         int sup = Integer.parseInt(supplier_id.getSelectedItem().toString());
@@ -1139,12 +1256,12 @@ public class GL_BillsummeryPanel extends javax.swing.JPanel {
          double Ad_total= 0;
         i = 0;
              
-         if(Integer.parseInt(dayfield.getText())<(Integer.parseInt(datehandler.get_advance_month_split_day())+1))
-         {      
+       //  if(Integer.parseInt(dayfield.getText())<(Integer.parseInt(datehandler.get_advance_month_split_day())+1))
+        // {      
                
-             values = billsum.advance_table(sup, year, datehandler.get_prev_month(datehandler.return_month_as_num(month)));}
-         else{
-             values= billsum.advance_table(sup, year, datehandler.return_month_as_num(month));}
+          //   values = billsum.advance_table(sup, year, datehandler.get_prev_month(datehandler.return_month_as_num(month)));}
+        // else{
+             values= billsum.advance_table(sup, year, datehandler.return_month_as_num(month));//}
           while (i < 1000 && values[i][0]!=null) {
             j=0;
             
@@ -1179,9 +1296,11 @@ public class GL_BillsummeryPanel extends javax.swing.JPanel {
                }
            
            int x =0;
-         if(Integer.parseInt(dayfield.getText())<(Integer.parseInt(datehandler.get_advance_month_split_day())+1))
-         {values = billsum.other_advance_table(sup, year, datehandler.get_prev_month(datehandler.return_month_as_num(month)));}
-         else{ values= billsum.other_advance_table(sup, year, datehandler.return_month_as_num(month));}
+       //  if(Integer.parseInt(dayfield.getText())<(Integer.parseInt(datehandler.get_advance_month_split_day())+1))
+       //  {values = billsum.other_advance_table(sup, year, datehandler.get_prev_month(datehandler.return_month_as_num(month)));}
+     //   else{ 
+                values= billsum.other_advance_table(sup, year, datehandler.return_month_as_num(month));
+                //}//}
           while (i < 1000 && values[x][0]!=null) {
             j=0;
             //System.out.println(values[i][0]);
@@ -1201,11 +1320,18 @@ public class GL_BillsummeryPanel extends javax.swing.JPanel {
                  x++;
         }
             Advance_tot.setText(""+Ad_total);
+            TotalKG.setText(""+total);
+            total_ad.setText(""+Ad_total);
+            balBF.setText("0.0");
+            loans.setText("0.0");
+           */
+               monthfield.requestFocus();
+               monthfield.selectAll();
          }
        }
- //} catch (Exception e) {
-        //    System.err.println(e.getMessage());
-        //}
+ } catch (Exception e) {
+            System.err.println(e.getMessage());  
+        }
         
     }//GEN-LAST:event_supplier_idItemStateChanged
 
@@ -1364,8 +1490,8 @@ public class GL_BillsummeryPanel extends javax.swing.JPanel {
 
         }
         if (evt.getKeyCode() == KeyEvent.VK_LEFT) {
-            dayfield.requestFocus();
-            dayfield.selectAll();
+            //dayfield.requestFocus();
+           // dayfield.selectAll();
         }
         if (evt.getKeyCode() == KeyEvent.VK_RIGHT) {
             yearfield.requestFocus();
@@ -1373,7 +1499,7 @@ public class GL_BillsummeryPanel extends javax.swing.JPanel {
         }
 
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
-            // category_code.requestFocus();
+            Fill_tables(Supplies, jTable2);
 
         }
     }//GEN-LAST:event_monthfieldKeyPressed
@@ -1393,188 +1519,41 @@ public class GL_BillsummeryPanel extends javax.swing.JPanel {
         }
 
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
-            // category_code.requestFocus();
+            Fill_tables(Supplies, jTable2);
 
         }
     }//GEN-LAST:event_yearfieldKeyPressed
 
-    private void dayfieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dayfieldKeyPressed
-        ///////////////////////////////////////////////////  Days Decrement/////////////////////////////////////////////////////////////////////////////
-
-        if (dayfield.getText().equals("1")) {           // Jumping to 31 and 30 from 1st
-            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
-
-                if (monthfield.getText().equals("Feb") || monthfield.getText().equals("Apr") || monthfield.getText().equals("Jun") || monthfield.getText().equals("Aug") || monthfield.getText().equals("Sep") || monthfield.getText().equals("Nov") || monthfield.getText().equals("Feb")) {
-                    dayfield.setText("31");
-
-                    int mnth = datechooser.return_index(monthfield.getText());
-                    monthfield.setText(datechooser.Return_month(mnth - 1));
-
-                } else if (monthfield.getText().equals("May") || monthfield.getText().equals("Jul") || monthfield.getText().equals("Oct") || monthfield.getText().equals("Dec")) {
-                    dayfield.setText("30");
-                    int mnth = datechooser.return_index(monthfield.getText());
-                    monthfield.setText(datechooser.Return_month(mnth - 1));
-
-                } else if (monthfield.getText().equals("Mar")) {     // from march 1st jump to 28th or 29th checking leap years
-                    int yr = Integer.parseInt(yearfield.getText());
-                    if (yr % 4 == 0) {
-                        if (yr % 100 == 0) {
-                            if (yr % 400 == 0) {
-                                dayfield.setText("29"); // Leap Year
-                            }
-                        }
-                        if (yr % 100 == 0) {
-                            if (yr % 400 != 0) {
-                                dayfield.setText("28"); // not a leap year
-                            }
-                        }
-                        dayfield.setText("29");       // leap year
-
-                    }
-                    if (yr % 4 != 0) {
-                        dayfield.setText("28");       // not a leap year
-                    }
-                    int mnth = datechooser.return_index(monthfield.getText());
-                    monthfield.setText(datechooser.Return_month(mnth - 1));
-
-                } else if (monthfield.getText().equals("Jan")) {            // From jan 1st jump to december 31st decrementing year
-                    dayfield.setText("31");
-
-                    int yr = Integer.parseInt(yearfield.getText());
-                    monthfield.setText("Dec");
-                    yearfield.setText("" + (yr - 1));    // year
-                }
-                dayfield.selectAll();
-            }                                           // /// decrementing normal values
-        } else if (dayfield.getText().equals("2") || dayfield.getText().equals("3") || dayfield.getText().equals("4") || dayfield.getText().equals("5")
-                || dayfield.getText().equals("6") || dayfield.getText().equals("7") || dayfield.getText().equals("8") || dayfield.getText().equals("9")
-                || dayfield.getText().equals("10") || dayfield.getText().equals("11") || dayfield.getText().equals("12") || dayfield.getText().equals("13") || dayfield.getText().equals("14")
-                || dayfield.getText().equals("15") || dayfield.getText().equals("16") || dayfield.getText().equals("17") || dayfield.getText().equals("18")
-                || dayfield.getText().equals("19") || dayfield.getText().equals("20") || dayfield.getText().equals("21") || dayfield.getText().equals("22")
-                || dayfield.getText().equals("23") || dayfield.getText().equals("24") || dayfield.getText().equals("25") || dayfield.getText().equals("26")
-                || dayfield.getText().equals("27") || dayfield.getText().equals("28") || dayfield.getText().equals("29") || dayfield.getText().equals("30") || dayfield.getText().equals("31")) {
-            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
-
-                dayfield.setText("" + (Integer.parseInt(dayfield.getText()) - 1));
-                dayfield.selectAll();
-            }
-        }
-        /////////////////////////////////////////////////  Days Increment///////////////////////////////////////////////////////////////////////////////////////////////////
-        if (dayfield.getText().equals("30")) {               // from 30th to 1st of next month
-            if (evt.getKeyCode() == KeyEvent.VK_UP) {
-
-                if (monthfield.getText().equals("Apr") || monthfield.getText().equals("Jun") || monthfield.getText().equals("Sep") || monthfield.getText().equals("Nov")) {
-                    dayfield.setText("0");
-
-                    int mnth = datechooser.return_index(monthfield.getText());
-                    monthfield.setText(datechooser.Return_month(mnth + 1));
-
-                }
-                dayfield.setText("" + (Integer.parseInt(dayfield.getText()) + 1));
-                dayfield.selectAll();
-            }
-
-        } else if (dayfield.getText().equals("31")) {            // from 31st to 1st of next month
-            if (evt.getKeyCode() == KeyEvent.VK_UP) {
-
-                if (monthfield.getText().equals("Jan") || monthfield.getText().equals("Mar") || monthfield.getText().equals("May") || monthfield.getText().equals("Jul") || monthfield.getText().equals("Aug") || monthfield.getText().equals("Oct")) {
-                    dayfield.setText("1");
-
-                    int mnth = datechooser.return_index(monthfield.getText());
-                    monthfield.setText(datechooser.Return_month(mnth + 1));
-
-                } else if (monthfield.getText().equals("Dec")) {      // December to january incrementing the year
-
-                    dayfield.setText("1");
-
-                    int yr = Integer.parseInt(yearfield.getText());
-                    monthfield.setText("Jan");
-                    yearfield.setText("" + (yr + 1));
-                }
-                dayfield.selectAll();
-            }
-
-        } else if (monthfield.getText().equals("Feb")) {                    // for february
-            if (evt.getKeyCode() == KeyEvent.VK_UP) {
-                if (dayfield.getText().equals("28")) {                    // at 28 check for leap year
-                    int yr = Integer.parseInt(yearfield.getText());
-                    if (yr % 4 == 0) {
-                        if (yr % 100 == 0) {
-                            if (yr % 400 == 0) {
-                                dayfield.setText("29"); // Leap Year       // increment to 29
-                            }
-                        }
-                        if (yr % 100 == 0) {
-                            if (yr % 400 != 0) {
-                                dayfield.setText("1");
-                                int mnth = datechooser.return_index(monthfield.getText());
-                                monthfield.setText(datechooser.Return_month(mnth + 1));
-
-                                // not a leap year                             // jump to next month
-                            }
-                        }
-                        dayfield.setText("29");       // leap year             // increment to 29th
-
-                    }
-                    if (yr % 4 != 0) {
-                        dayfield.setText("1");
-                        int mnth = datechooser.return_index(monthfield.getText());
-                        monthfield.setText(datechooser.Return_month(mnth + 1));                  // not a leap year
-                    }
-
-                } else if (dayfield.getText().equals("29")) {              // at 29 jump to next month normally
-                    dayfield.setText("1");
-
-                    int mnth = datechooser.return_index(monthfield.getText());
-                    monthfield.setText(datechooser.Return_month(mnth + 1));
-                    // incrementing normal values/////////////////////// for february separately
-                } else if (dayfield.getText().equals("1") || dayfield.getText().equals("2") || dayfield.getText().equals("3") || dayfield.getText().equals("4") || dayfield.getText().equals("5")
-                        || dayfield.getText().equals("6") || dayfield.getText().equals("7") || dayfield.getText().equals("8") || dayfield.getText().equals("9")
-                        || dayfield.getText().equals("10") || dayfield.getText().equals("11") || dayfield.getText().equals("12") || dayfield.getText().equals("13") || dayfield.getText().equals("14")
-                        || dayfield.getText().equals("15") || dayfield.getText().equals("16") || dayfield.getText().equals("17") || dayfield.getText().equals("18")
-                        || dayfield.getText().equals("19") || dayfield.getText().equals("20") || dayfield.getText().equals("21") || dayfield.getText().equals("22")
-                        || dayfield.getText().equals("23") || dayfield.getText().equals("24") || dayfield.getText().equals("25") || dayfield.getText().equals("26")
-                        || dayfield.getText().equals("27") || dayfield.getText().equals("28") || dayfield.getText().equals("29") || dayfield.getText().equals("30") || dayfield.getText().equals("31")) {
-
-                    dayfield.setText("" + (Integer.parseInt(dayfield.getText()) + 1));
-
-                }
-                dayfield.selectAll();
-            }
-            // incrementing normal values
-        } else if (dayfield.getText().equals("1") || dayfield.getText().equals("2") || dayfield.getText().equals("3") || dayfield.getText().equals("4") || dayfield.getText().equals("5")
-                || dayfield.getText().equals("6") || dayfield.getText().equals("7") || dayfield.getText().equals("8") || dayfield.getText().equals("9")
-                || dayfield.getText().equals("10") || dayfield.getText().equals("11") || dayfield.getText().equals("12") || dayfield.getText().equals("13") || dayfield.getText().equals("14")
-                || dayfield.getText().equals("15") || dayfield.getText().equals("16") || dayfield.getText().equals("17") || dayfield.getText().equals("18")
-                || dayfield.getText().equals("19") || dayfield.getText().equals("20") || dayfield.getText().equals("21") || dayfield.getText().equals("22")
-                || dayfield.getText().equals("23") || dayfield.getText().equals("24") || dayfield.getText().equals("25") || dayfield.getText().equals("26")
-                || dayfield.getText().equals("27") || dayfield.getText().equals("28") || dayfield.getText().equals("29") || dayfield.getText().equals("30") || dayfield.getText().equals("31")) {
-            if (evt.getKeyCode() == KeyEvent.VK_UP) {
-
-                dayfield.setText("" + (Integer.parseInt(dayfield.getText()) + 1));
-                dayfield.selectAll();
-
-            }
-        }
-        if (evt.getKeyCode() == KeyEvent.VK_RIGHT) {
-            monthfield.requestFocus();
-            monthfield.selectAll();
-        }
-
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
-            // category_code.requestFocus();
-
-        }
-    }//GEN-LAST:event_dayfieldKeyPressed
-
     private void datePicker1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datePicker1ActionPerformed
         java.sql.Date datef = new java.sql.Date(datePicker1.getDate().getTime());
 
-        dayfield.setText(datehandler.get_day(datef));
+        //dayfield.setText(Integer.parseInt(datehandler.get_day(datef))+"");
         monthfield.setText(datehandler.get_month(datef));
         yearfield.setText(datehandler.get_year(datef));
         //category_code.requestFocus();
     }//GEN-LAST:event_datePicker1ActionPerformed
+
+    private void SetKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_SetKeyPressed
+       if(TotalKG.getText()!= null && total_ad.getText() != null && loans.getText()!= null && balBF.getText()!= null){
+        
+        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+         gross_amount.setText(""+(Double.parseDouble(Set.getText())*Double.parseDouble(TotalKG.getText())));
+        final_total.setText(""+(Double.parseDouble(gross_amount.getText())-Double.parseDouble(total_ad.getText())));
+        if((Double.parseDouble(gross_amount.getText())-Double.parseDouble(total_ad.getText()))>0){
+        
+        final_total.setForeground(new java.awt.Color(0, 153, 0));}
+        else{   final_total.setForeground(new java.awt.Color(204, 0, 0));                    }
+        
+        }}
+    }//GEN-LAST:event_SetKeyPressed
+
+    private void balBFKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_balBFKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_balBFKeyPressed
+
+    private void monthfieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_monthfieldKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_monthfieldKeyReleased
 
     public void set_max_Kg(int max) {
         jProgressBar1.setMaximum(max);
@@ -1679,10 +1658,11 @@ public class GL_BillsummeryPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Advance_tot;
+    private javax.swing.JTextField Set;
     private javax.swing.JTable Supplies;
     private javax.swing.JTextField Supply_total;
     private javax.swing.JTextField TotalKG;
-    private com.michaelbaranov.microba.calendar.DatePicker date;
+    private javax.swing.JTextField balBF;
     private com.michaelbaranov.microba.calendar.DatePicker datePicker1;
     private javax.swing.JPanel datepanel;
     private javax.swing.JLabel day1;
@@ -1716,7 +1696,8 @@ public class GL_BillsummeryPanel extends javax.swing.JPanel {
     private javax.swing.JLabel day7;
     private javax.swing.JLabel day8;
     private javax.swing.JLabel day9;
-    private javax.swing.JTextField dayfield;
+    private javax.swing.JTextField final_total;
+    private javax.swing.JTextField gross_amount;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
@@ -1734,7 +1715,6 @@ public class GL_BillsummeryPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel9;
@@ -1774,17 +1754,13 @@ public class GL_BillsummeryPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable4;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
+    private javax.swing.JTextField loans;
     private javax.swing.JTextField monthfield;
     private javax.swing.JComboBox supplier_id;
     private javax.swing.JLabel supplier_name;
+    private javax.swing.JTextField total_ad;
     private javax.swing.JTextField yearfield;
     // End of variables declaration//GEN-END:variables
 }
