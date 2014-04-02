@@ -23,44 +23,43 @@ public class ACC_Journal_View extends javax.swing.JPanel {
         jPanel4.setVisible(false);
     }
 
- /*   String[] combo = new String[10];
+    /*   String[] combo = new String[10];
 
-    public void Set_Combo() {
+     public void Set_Combo() {
 
-        String s;
-        String[] arr2 = new String[10];
+     String s;
+     String[] arr2 = new String[10];
 
-        String[] arr = new String[11];
-        arr[0] = null;
-        arr[1] = "Transaction No.";
-        arr[2] = "Date";
-        arr[3] = "Receipt No.";
-        arr[4] = "Reference No.";
-        arr[5] = "Debit Account ID";
-        arr[6] = "Debit Description";
-        arr[7] = "Debit Amount";
-        arr[8] = "Credit Account ID";
-        arr[9] = "Credit Account Description";
-        arr[10] = "Credit Amount";
+     String[] arr = new String[11];
+     arr[0] = null;
+     arr[1] = "Transaction No.";
+     arr[2] = "Date";
+     arr[3] = "Receipt No.";
+     arr[4] = "Reference No.";
+     arr[5] = "Debit Account ID";
+     arr[6] = "Debit Description";
+     arr[7] = "Debit Amount";
+     arr[8] = "Credit Account ID";
+     arr[9] = "Credit Account Description";
+     arr[10] = "Credit Amount";
 
-        if (field_choice.getSelectedIndex() != 0) {
-            int i = 0;
-            int j = field_choice.getSelectedIndex();
-            for (i = 0; i < j; i++) {
-                arr2[i] = arr[i];
-            }
-            for (i = j + 1; i < 11; i++) {
-                arr2[i - 1] = arr[i];
-            }
-            combo = arr2;
-        } else {
-            System.out.println("aaaa");
+     if (field_choice.getSelectedIndex() != 0) {
+     int i = 0;
+     int j = field_choice.getSelectedIndex();
+     for (i = 0; i < j; i++) {
+     arr2[i] = arr[i];
+     }
+     for (i = j + 1; i < 11; i++) {
+     arr2[i - 1] = arr[i];
+     }
+     combo = arr2;
+     } else {
+     System.out.println("aaaa");
 
-        }
+     }
 
-    }
-    */
-
+     }
+     */
     DateChooser_text datechooser = new DateChooser_text();
 
     Date_Handler datehandler = new Date_Handler();
@@ -95,13 +94,13 @@ public class ACC_Journal_View extends javax.swing.JPanel {
         jSeparator1 = new javax.swing.JSeparator();
         jLabel3 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
+        jButton1 = new javax.swing.JButton();
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        field_choice.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " ", "All", "Transaction No.", "Date", "Receipt No.", "Reference No.", "Debit Account ID", "Debit Description", "Debit Amount", "Credit Account ID", "Credit Description", "Credit Amount" }));
+        field_choice.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " ", "All", "Transaction No.", "Date", "Journal No.", "Reference No.", "Debit Account ID", "Debit Description", "Debit Amount", "Credit Account ID", "Credit Description", "Credit Amount" }));
         field_choice.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 field_choiceItemStateChanged(evt);
@@ -164,7 +163,7 @@ public class ACC_Journal_View extends javax.swing.JPanel {
             }
         });
 
-        dayfield.setText(datehandler.get_today_day());
+        dayfield.setText(""+Integer.parseInt(datehandler.get_today_day()));
         dayfield.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 dayfieldKeyPressed(evt);
@@ -221,7 +220,7 @@ public class ACC_Journal_View extends javax.swing.JPanel {
             }
         });
 
-        dayfield2.setText(datehandler.get_today_day());
+        dayfield2.setText(""+Integer.parseInt(datehandler.get_today_day()));
         dayfield2.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 dayfield2KeyPressed(evt);
@@ -330,31 +329,25 @@ public class ACC_Journal_View extends javax.swing.JPanel {
 
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 94, Short.MAX_VALUE)
+        );
+
+        jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
         jButton1.setText("Search");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(47, Short.MAX_VALUE))
-        );
-
-        jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -368,20 +361,28 @@ public class ACC_Journal_View extends javax.swing.JPanel {
                     .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(162, Short.MAX_VALUE))
+                .addGap(35, 35, 35)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(42, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(130, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jSeparator2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(30, 30, 30)
+                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(46, 46, 46)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(34, 34, 34)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 119, Short.MAX_VALUE))
+                    .addComponent(jSeparator2))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -418,7 +419,7 @@ public class ACC_Journal_View extends javax.swing.JPanel {
         jPanel1.setVisible(false);
         jPanel2.setVisible(false);
     }
-    ACC_Reciept_View_Table tbl = new ACC_Reciept_View_Table();
+    ACC_Journal_View_Table tbl = new ACC_Journal_View_Table();
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         tbl.Clear_Table();
 
@@ -426,23 +427,22 @@ public class ACC_Journal_View extends javax.swing.JPanel {
         tbl.setExtendedState(ACC_Reciept_View_Table.MAXIMIZED_BOTH);
         if (search.getText() == "All") {
             tbl.Table_Fill_All();
-            
-        } else {
 
-            if ("Date".equals(search.getText())) {
-                try {
-                    tbl.Table_Fill_Date_Search(Return_String_Field(search.getText()), datechooser.Return_date(yearfield, monthfield, dayfield), datechooser.Return_date(yearfield2, monthfield2, dayfield2));
-                } catch (ParseException ex) {
-                    Logger.getLogger(ACC_Reciept_View.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            } else if (search.getText() == "Credit Account ID" || search.getText() == "Credit Description" || search.getText() == "Credit Amount") {
-
-               
-                tbl.Table_Fill_Credit_Search(Return_String_Field(search.getText()), field.getText());
-            } else {
-                tbl.Table_Fill_Debit_Search(Return_String_Field(search.getText()), field.getText());
-                
+        } else if ("Date".equals(search.getText())) {
+            try {
+                tbl.Table_Fill_Date_Search(Return_String_Field(search.getText()), datechooser.Return_date(yearfield, monthfield, dayfield), datechooser.Return_date(yearfield2, monthfield2, dayfield2));
+            } catch (ParseException ex) {
+                Logger.getLogger(ACC_Reciept_View.class.getName()).log(Level.SEVERE, null, ex);
             }
+        } else if (search.getText() == "Credit Account ID" || search.getText() == "Credit Description" || search.getText() == "Credit Amount") {
+
+            tbl.Table_Fill_Credit_Search(Return_String_Field(search.getText()), field.getText());
+        } else if (search.getText() == "Transaction No." || search.getText() == "Reference No." || search.getText() == "Journal No.") {
+
+            tbl.Table_Fill_Main_Search(Return_String_Field(search.getText()), field.getText());
+        } else {
+            tbl.Table_Fill_Debit_Search(Return_String_Field(search.getText()), field.getText());
+
         }
 
 
@@ -468,8 +468,6 @@ public class ACC_Journal_View extends javax.swing.JPanel {
 
         dayfield.requestFocusInWindow();
         dayfield.selectAll();
-
-       
 
 
     }//GEN-LAST:event_field_choiceItemStateChanged
@@ -834,7 +832,7 @@ public class ACC_Journal_View extends javax.swing.JPanel {
     private void datePicker1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datePicker1ActionPerformed
         java.sql.Date datef = new java.sql.Date(datePicker1.getDate().getTime());
 
-        dayfield.setText(datehandler.get_day(datef));
+        dayfield.setText(""+Integer.parseInt(datehandler.get_day(datef)));
         monthfield.setText(datehandler.get_month(datef));
         yearfield.setText(datehandler.get_year(datef));
         dayfield2.requestFocus();
@@ -1200,7 +1198,7 @@ public class ACC_Journal_View extends javax.swing.JPanel {
     private void datePicker3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datePicker3ActionPerformed
         java.sql.Date datef = new java.sql.Date(datePicker1.getDate().getTime());
 
-        dayfield.setText(datehandler.get_day(datef));
+        dayfield.setText(""+Integer.parseInt(datehandler.get_day(datef)));
         monthfield.setText(datehandler.get_month(datef));
         yearfield.setText(datehandler.get_year(datef));
         jButton1.requestFocus();

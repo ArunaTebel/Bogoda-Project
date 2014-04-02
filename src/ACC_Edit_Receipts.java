@@ -61,7 +61,7 @@ public class ACC_Edit_Receipts extends javax.swing.JFrame {
             s = dbm.checknReturnStringDataReceipts("account_reciept_debitside", "tr_no", tr_no, "date").split("-");
             yearfield.setText(s[0]);
             monthfield.setText(datehandler.Return_month(Integer.parseInt(s[1])));
-            dayfield.setText(s[2]);
+            dayfield.setText(""+Integer.parseInt(s[2]));
             
             
             
@@ -476,7 +476,7 @@ public class ACC_Edit_Receipts extends javax.swing.JFrame {
             }
         });
 
-        dayfield.setText(datehandler.get_today_day());
+        dayfield.setText(""+Integer.parseInt(datehandler.get_today_day()));
         dayfield.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 dayfieldKeyPressed(evt);
@@ -1407,7 +1407,7 @@ public class ACC_Edit_Receipts extends javax.swing.JFrame {
     private void datePicker1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datePicker1ActionPerformed
         java.sql.Date datef = new java.sql.Date(datePicker1.getDate().getTime());
 
-        dayfield.setText(datehandler.get_day(datef));
+        dayfield.setText(""+Integer.parseInt(datehandler.get_day(datef)));
         monthfield.setText(datehandler.get_month(datef));
         yearfield.setText(datehandler.get_year(datef));
         recieptNo.requestFocus();

@@ -195,8 +195,10 @@ public class PRCR_NoteAnalysis {
 
         for (int i = 0; i < columnSize; i++) {
             System.out.println("arrayindex-"+array[i]);
-            abc.setEmployCode(array[i]);
-            arraySal[i] = abc.getFinalSalary(st);
+            //abc.setEmployCode(array[i]);
+            //arraySal[i] = abc.getFinalSalary(st);
+            arraySal[i]=Double.parseDouble(dbm.checknReturnData("pr_workdata_"+st, "code",array[i], "paid_amount"));
+            ChNoteAnalysis(arraySal[i], array[i],st);
             System.out.println("salary i-"+arraySal[i]);
 
         }

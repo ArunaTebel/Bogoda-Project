@@ -31,6 +31,9 @@ public class Journals_account {
     }
 
     // Setters
+    public void setTrNo(int tr_no){
+        this.tr_no=tr_no;
+    }
     public void setRefNo(String refNo) {
         this.refNo = refNo;
     }
@@ -185,6 +188,40 @@ public class Journals_account {
         }
         return true;
     }
+    
+    public boolean UpdateMainDatabaseBank(int tr_no){
+        DatabaseManager dbCon = DatabaseManager.getDbCon();
+        dbCon.updateDatabase("account_journal_main", "tr_no", tr_no, "ref_no", refNo);
+        dbCon.updateDatabase("account_journal_main", "tr_no", tr_no, "journal_no",journalNo);
+        dbCon.updateDatabase("account_journal_main", "tr_no", tr_no, "date", date);
+        dbCon.updateDatabase("account_journal_main", "tr_no", tr_no, "pay_type", payType);
+        dbCon.updateDatabase("account_journal_main", "tr_no", tr_no, "bank_id", bankCode);
+        dbCon.updateDatabase("account_journal_main", "tr_no", tr_no, "bank_name", bankName);
+        dbCon.updateDatabase("account_journal_main", "tr_no", tr_no, "branch_id", branchCode);
+        dbCon.updateDatabase("account_journal_main", "tr_no", tr_no, "branch_name", branchName);
+        dbCon.updateDatabase("account_journal_main", "tr_no", tr_no, "cheque_no", chequeNo);
+        dbCon.updateDatabase("account_journal_main", "tr_no", tr_no, "cheque_date", chequeDate);
+        return true;
+    }
+    
+    public boolean UpdateMainDatabaseCash(int tr_no){
+        DatabaseManager dbCon = DatabaseManager.getDbCon();
+        dbCon.updateDatabase("account_journal_main", "tr_no", tr_no, "ref_no", refNo);
+        dbCon.updateDatabase("account_journal_main", "tr_no", tr_no, "journal_no",journalNo);
+        dbCon.updateDatabase("account_journal_main", "tr_no", tr_no, "date", date);
+        dbCon.updateDatabase("account_journal_main", "tr_no", tr_no, "pay_type", payType);
+        return true;
+    }
+    
+    public void DeleteDebitEntries(int tr_no){
+           DatabaseManager dbCon = DatabaseManager.getDbCon();
+           dbCon.CheckNDeleteFromDataBase("account_journal_debitside","tr_no",tr_no);
+       }
+    public void DeleteCreditEntries(int tr_no){
+           DatabaseManager dbCon = DatabaseManager.getDbCon();
+           dbCon.CheckNDeleteFromDataBase("account_journal_creditside","tr_no",tr_no);
+       }
+    
 
     /*   // this has to be coded later
      public void addToCreditDataBase() {

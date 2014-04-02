@@ -1,9 +1,14 @@
 
+import java.awt.event.ItemEvent;
 import java.awt.event.KeyEvent;
 import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+//import sun.util.calendar.CalendarUtils;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -16,33 +21,62 @@ import java.util.logging.Logger;
  * @author Pramo
  */
 public class PRCR_cash_advances extends javax.swing.JPanel {
-Interface_Events interface_events = new Interface_Events();
-    DatabaseManager dbm = DatabaseManager.getDbCon();
-    Cash_Advance_Common_Class cadvance = new Cash_Advance_Common_Class();
+Interface_Events interface_events=new Interface_Events();
     Date_Handler datehandler = new Date_Handler();
     DateChooser_text datechooser = new DateChooser_text();
-
+    DatabaseManager dbm = DatabaseManager.getDbCon();
+    private int rows = 0;
+   
+    //GL_other_advances_class cadvance = new GL_other_advances_class();
+    /**
+     * Creates new form PRCR_other_advances
+     */
     public PRCR_cash_advances() {
         initComponents();
-
-        String selection = (String) cash_cheque_combo.getSelectedItem();
-
-        if (selection.equalsIgnoreCase("Cash")) {
-
-            Cheque_pay.setVisible(false);
-            Save.setEnabled(false);
-
-        }
     }
-
-    public void focus() {
+    
+     public void focus() {
         this.requestFocusInWindow();
-        dayfield.requestFocus();
-        dayfield.selectAll();
-        
-       
+        dayfield1.requestFocusInWindow();
+        dayfield1.selectAll();
     }
-
+public void ClearTable(){
+         int rowsh = 0;
+         int column=0;
+         int k =table.getRowCount();
+            while(table.getValueAt(rowsh,0)!=null) {
+                for(column=0;column<5;column++){
+                    table.setValueAt(null, rowsh, column);
+                }
+                rowsh++;
+            
+            }
+            this.rows=0;//must set rows=0 because rows is incremented by send button
+            
+            System.out.println("table deleted");
+    }
+    
+    public void ClearSelectedRow(){
+           int selectedIndex=table.getSelectedRow();
+        int filledRows=0;
+        
+        while(table.getValueAt(filledRows,0)!=null){
+            filledRows++;
+        }
+        
+        int i;
+       for(i=selectedIndex;i<filledRows;i++){
+           table.setValueAt( table.getValueAt(i+1, 0) ,i  ,0  );
+            table.setValueAt( table.getValueAt(i+1, 1) ,i  ,1  );
+        table.setValueAt( table.getValueAt(i+1, 2) ,i  ,2  );
+         table.setValueAt( table.getValueAt(i+1, 3) ,i  ,3  );
+          table.setValueAt( table.getValueAt(i+1, 4) ,i  ,4  );
+           //table.setValueAt( table.getValueAt(i+1, 5) ,i  ,5  );
+       }
+        System.out.println(filledRows);
+        rows=filledRows-1;
+        
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -52,273 +86,205 @@ Interface_Events interface_events = new Interface_Events();
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jSeparator1 = new javax.swing.JSeparator();
-        jLabel16 = new javax.swing.JLabel();
-        jSeparator4 = new javax.swing.JSeparator();
-        Cheque_pay = new javax.swing.JPanel();
+        jButton3 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        Cheque_Refno = new javax.swing.JTextField();
-        bank_name = new javax.swing.JLabel();
-        Cheque_no = new javax.swing.JTextField();
-        jPanel6 = new javax.swing.JPanel();
-        date1 = new com.michaelbaranov.microba.calendar.DatePicker();
-        jPanel7 = new javax.swing.JPanel();
-        date2 = new com.michaelbaranov.microba.calendar.DatePicker();
-        jComboBox1 = new javax.swing.JComboBox();
-        cash_cheque_combo = new javax.swing.JComboBox();
-        jLabel7 = new javax.swing.JLabel();
+        empCode_JC = new javax.swing.JComboBox();
+        empName2 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        table = new javax.swing.JTable();
+        division_jc = new javax.swing.JComboBox();
+        datepanel = new javax.swing.JPanel();
+        monthfield1 = new javax.swing.JTextField();
+        yearfield1 = new javax.swing.JTextField();
+        dayfield1 = new javax.swing.JTextField();
+        datePick1 = new com.michaelbaranov.microba.calendar.DatePicker();
         jPanel2 = new javax.swing.JPanel();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
-        supplier_id = new javax.swing.JComboBox();
-        datepanel = new javax.swing.JPanel();
-        monthfield = new javax.swing.JTextField();
-        yearfield = new javax.swing.JTextField();
-        dayfield = new javax.swing.JTextField();
-        datePicker1 = new com.michaelbaranov.microba.calendar.DatePicker();
-        jPanel1 = new javax.swing.JPanel();
-        Save = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        Save1 = new javax.swing.JButton();
-        amount = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        supplier_name = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        Red_message = new javax.swing.JLabel();
+        jButton8 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        division_lb = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
+        advance_amount = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        work_code = new javax.swing.JLabel();
 
-        jLabel5.setText("Date");
-
-        jLabel6.setText("Amount");
-
-        jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
-
-        jLabel16.setText("Rs");
-
-        Cheque_pay.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Cheque Payment"));
-
-        jLabel4.setText("Payment date");
-
-        jLabel8.setText("Ref: Number");
-
-        jLabel9.setText("Bank Code");
-
-        jLabel10.setText("Cheque Number");
-
-        jLabel11.setText("Cheque Date");
-
-        Cheque_Refno.addActionListener(new java.awt.event.ActionListener() {
+        jButton3.setText("Clear selected row");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Cheque_RefnoActionPerformed(evt);
-            }
-        });
-        Cheque_Refno.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                Cheque_RefnoKeyPressed(evt);
+                jButton3ActionPerformed(evt);
             }
         });
 
-        bank_name.setText("Bank Here");
+        jLabel3.setText("Division");
 
-        Cheque_no.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                Cheque_noKeyPressed(evt);
-            }
-        });
+        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        date1.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                date1KeyPressed(evt);
-            }
-        });
+        jLabel4.setText("Employee Code");
 
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(date1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(date1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-
-        date2.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                date2KeyPressed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(date2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(date2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-
-        jComboBox1.setEditable(true);
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("bank","bank_id")));
-        jComboBox1.addItemListener(new java.awt.event.ItemListener() {
+        empCode_JC.putClientProperty("JComboBox.isTableCellEditor", Boolean.TRUE);
+        empCode_JC.setEditable(true);
+        empCode_JC.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("checkroll_personalinfo","code")));
+        empCode_JC.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jComboBox1ItemStateChanged(evt);
+                empCode_JCItemStateChanged(evt);
+            }
+        });
+        empCode_JC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                empCode_JCActionPerformed(evt);
+            }
+        });
+        empCode_JC.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                empCode_JCKeyPressed(evt);
             }
         });
 
-        javax.swing.GroupLayout Cheque_payLayout = new javax.swing.GroupLayout(Cheque_pay);
-        Cheque_pay.setLayout(Cheque_payLayout);
-        Cheque_payLayout.setHorizontalGroup(
-            Cheque_payLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(Cheque_payLayout.createSequentialGroup()
+        jLabel5.setText("Employee Name");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(Cheque_payLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel4)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel10)
-                    .addComponent(jLabel11))
-                .addGap(42, 42, 42)
-                .addGroup(Cheque_payLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(Cheque_payLayout.createSequentialGroup()
-                        .addGroup(Cheque_payLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Cheque_Refno, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(bank_name, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(Cheque_no, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel5))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(empCode_JC, 0, 59, Short.MAX_VALUE)
+                        .addGap(75, 75, 75))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(empName2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
-        Cheque_payLayout.setVerticalGroup(
-            Cheque_payLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(Cheque_payLayout.createSequentialGroup()
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(Cheque_payLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(Cheque_payLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(Cheque_Refno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(Cheque_payLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(bank_name)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(Cheque_payLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(Cheque_no, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(Cheque_payLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel11)
-                    .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(17, Short.MAX_VALUE))
-        );
-
-        cash_cheque_combo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Cash", "Cheque" }));
-        cash_cheque_combo.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                cash_cheque_comboItemStateChanged(evt);
-            }
-        });
-        cash_cheque_combo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cash_cheque_comboActionPerformed(evt);
-            }
-        });
-        cash_cheque_combo.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                cash_cheque_comboKeyPressed(evt);
-            }
-        });
-
-        jLabel7.setText("Payment");
-
-        jPanel2.setBackground(new java.awt.Color(0, 51, 153));
-        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 153)));
-
-        jButton6.setText("Supplier Status");
-
-        jButton7.setText("Supplies");
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton6, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(empCode_JC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(empName2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton7)
-                .addContainerGap(117, Short.MAX_VALUE))
-        );
 
-        DatabaseManager dbm = DatabaseManager.getDbCon();
-        supplier_id.setEditable(true);
-        supplier_id.putClientProperty("JComboBox.isTableCellEditor", Boolean.TRUE);
-        supplier_id.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("suppliers", "sup_id")));
-        supplier_id.addItemListener(new java.awt.event.ItemListener() {
+        table.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Code", "Name", "Advance Type", "Amount", "division"
+            }
+        ));
+        table.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        table.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jScrollPane1.setViewportView(table);
+        if (table.getColumnModel().getColumnCount() > 0) {
+            table.getColumnModel().getColumn(1).setPreferredWidth(150);
+            table.getColumnModel().getColumn(2).setPreferredWidth(130);
+        }
+
+        division_jc.putClientProperty("JComboBox.isTableCellEditor", Boolean.TRUE);
+        division_jc.setEditable(true);
+        division_jc.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("division_details", "code")));
+        division_jc.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                supplier_idItemStateChanged(evt);
+                division_jcItemStateChanged(evt);
             }
         });
-        supplier_id.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                supplier_idActionPerformed(evt);
+        division_jc.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                division_jcKeyPressed(evt);
             }
         });
 
         datepanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        monthfield.setText(datehandler.get_today_month());
-        monthfield.addKeyListener(new java.awt.event.KeyAdapter() {
+        monthfield1.setText(datehandler.get_today_month());
+        monthfield1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                monthfieldKeyPressed(evt);
+                monthfield1KeyPressed(evt);
             }
         });
 
-        yearfield.setText(datehandler.get_today_year());
-        yearfield.addKeyListener(new java.awt.event.KeyAdapter() {
+        yearfield1.setText(datehandler.get_today_year());
+        yearfield1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                yearfieldKeyPressed(evt);
+                yearfield1KeyPressed(evt);
             }
         });
 
-        dayfield.setText(datehandler.get_today_day());
-        dayfield.addKeyListener(new java.awt.event.KeyAdapter() {
+        dayfield1.setText(datehandler.get_today_day());
+        dayfield1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                dayfieldKeyPressed(evt);
+                dayfield1KeyPressed(evt);
             }
         });
 
-        datePicker1.addActionListener(new java.awt.event.ActionListener() {
+        datePick1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                datePicker1ActionPerformed(evt);
+                datePick1ActionPerformed(evt);
             }
         });
 
@@ -328,13 +294,13 @@ Interface_Events interface_events = new Interface_Events();
             datepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(datepanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(dayfield, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(dayfield1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(monthfield, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(monthfield1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(yearfield, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(yearfield1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(datePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(datePick1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         datepanelLayout.setVerticalGroup(
@@ -342,774 +308,808 @@ Interface_Events interface_events = new Interface_Events();
             .addGroup(datepanelLayout.createSequentialGroup()
                 .addGap(0, 0, 0)
                 .addGroup(datepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(datePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(datePick1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(datepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(dayfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(monthfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(yearfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(dayfield1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(monthfield1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(yearfield1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.setBackground(new java.awt.Color(0, 51, 153));
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 51, 153)));
+        jPanel2.setBackground(new java.awt.Color(0, 0, 102));
+        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 51, 153)));
 
-        Save.setText("Save");
-        Save.addActionListener(new java.awt.event.ActionListener() {
+        jButton6.setText("Save");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SaveActionPerformed(evt);
-            }
-        });
-        Save.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                SaveFocusGained(evt);
+                jButton6ActionPerformed(evt);
             }
         });
 
-        jButton4.setText("Cancel");
+        jButton7.setText("Cancel");
 
-        Save1.setText("Save to Book");
-        Save1.addActionListener(new java.awt.event.ActionListener() {
+        jButton8.setText("Clear Table");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Save1ActionPerformed(evt);
+                jButton8ActionPerformed(evt);
             }
         });
-        Save1.addFocusListener(new java.awt.event.FocusAdapter() {
+
+        jButton2.setText("View");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(44, Short.MAX_VALUE)
+                .addComponent(jButton2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton8)
+                .addGap(18, 18, 18))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton7)
+                        .addComponent(jButton8))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton2)))
+                .addContainerGap(32, Short.MAX_VALUE))
+        );
+
+        jLabel7.setText("Date");
+
+        jButton1.setText("Send");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jButton1.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                Save1FocusGained(evt);
+                jButton1FocusGained(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(Save, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Save1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton4)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Save, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton4)
-                        .addComponent(Save1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        amount.addKeyListener(new java.awt.event.KeyAdapter() {
+        advance_amount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                advance_amountActionPerformed(evt);
+            }
+        });
+        advance_amount.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                amountKeyPressed(evt);
+                advance_amountKeyPressed(evt);
             }
         });
 
-        jLabel2.setText("Name ");
+        jLabel10.setText("Amount");
 
-        supplier_name.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        supplier_name.setForeground(new java.awt.Color(102, 102, 102));
-        supplier_name.setText("Name Here");
-
-        jLabel1.setText("User ID");
-
-        Red_message.setForeground(new java.awt.Color(204, 0, 0));
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(advance_amount, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(advance_amount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(Red_message, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jSeparator4)
-                                .addGap(35, 35, 35))
+                                .addGap(72, 72, 72)
+                                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(40, 40, 40)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel5)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel1)
-                                            .addComponent(jLabel2))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(supplier_id, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(supplier_name, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jLabel7)
-                                                .addGap(15, 15, 15)
-                                                .addComponent(cash_cheque_combo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jLabel6)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(jLabel16)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(amount, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(Cheque_pay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)))
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(114, 114, 114))))
+                                .addGap(59, 59, 59)
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(37, 37, 37)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 524, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(172, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(10, 10, 10)
+                    .addComponent(jLabel7)
+                    .addGap(8, 8, 8)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(27, 27, 27)
+                            .addComponent(jLabel3)
+                            .addGap(34, 34, 34)
+                            .addComponent(division_jc, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 638, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(division_lb, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(work_code, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(6, 6, 6)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator1)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(200, 200, 200)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(11, 11, 11)
-                                        .addComponent(jLabel5)
-                                        .addGap(26, 26, 26)
-                                        .addComponent(jLabel1)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(jLabel2)
-                                            .addComponent(supplier_name, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(5, 5, 5)
-                                        .addComponent(supplier_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(18, 18, 18)
-                                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel16)
-                                    .addComponent(amount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(Cheque_pay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jLabel7)
-                                        .addComponent(cash_cheque_combo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Red_message, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(35, 35, 35))
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(75, 75, 75)
+                                .addComponent(jButton1))
+                            .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(15, 15, 15)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(40, 40, 40)
+                            .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(54, 54, 54)
+                            .addComponent(jLabel7))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jButton3)
+                            .addGap(30, 30, 30)
+                            .addComponent(division_lb, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGap(18, 18, 18)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(work_code, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(division_jc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addContainerGap(410, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void Cheque_RefnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cheque_RefnoActionPerformed
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        ClearSelectedRow(); // TODO add your handling code here:
+
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void empCode_JCItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_empCode_JCItemStateChanged
+        DatabaseManager dbm = DatabaseManager.getDbCon();
+        String Name = null;
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            int item = Integer.parseInt(evt.getItem().toString());
+            try {
+                ResultSet query = dbm.query("SELECT * FROM personal_info WHERE code =" + item + "");
+                while (query.next()) {
+                    Name = query.getString("name");
+                }
+            } catch (SQLException ex) {
+            }
+            empName2.setText("" + Name);
+        }
+
+        advance_amount.requestFocus();
+      //  W_code.selectAll();
+    }//GEN-LAST:event_empCode_JCItemStateChanged
+
+    private void empCode_JCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_empCode_JCActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_Cheque_RefnoActionPerformed
+    }//GEN-LAST:event_empCode_JCActionPerformed
 
-    private void Cheque_RefnoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Cheque_RefnoKeyPressed
-        interface_events.Change_focus_Enterkey_c(jComboBox1, evt);
-    }//GEN-LAST:event_Cheque_RefnoKeyPressed
+    private void empCode_JCKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_empCode_JCKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
+            advance_amount.requestFocus();
 
-    private void Cheque_noKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Cheque_noKeyPressed
-        interface_events.Change_focus_Enterkey_Cal(date2, evt);
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            jPanel7.setBackground(new java.awt.Color(0, 0, 153));
-        }
-    }//GEN-LAST:event_Cheque_noKeyPressed
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_empCode_JCKeyPressed
 
-    private void date1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_date1KeyPressed
-        interface_events.Change_focus_Enterkey_t(Cheque_Refno, evt);
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            jPanel6.setBackground(new java.awt.Color(240, 240, 240));
-        }
-    }//GEN-LAST:event_date1KeyPressed
+    private void division_jcItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_division_jcItemStateChanged
+        DatabaseManager dbma = DatabaseManager.getDbCon();
+        String Name = null;
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            String item = evt.getItem().toString();
 
-    private void date2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_date2KeyPressed
-        interface_events.Change_focus_Enterkey_t_b(amount, Save, evt);
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            jPanel7.setBackground(new java.awt.Color(240, 240, 240));
-        }
-    }//GEN-LAST:event_date2KeyPressed
+            try {
+                ResultSet query = dbma.query("SELECT * FROM division_details WHERE code =" + item + "");
+                while (query.next()) {
+                    Name = query.getString("division");
+                    System.out.println(Name);
+                }
+            } catch (SQLException ex) {
+                System.out.println("error");
+            }
 
-    private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
-        if(supplier_id.getSelectedItem()!=null){
-            bank_name.setText(dbm.checknReturnData("bank", "bank_id", Integer.parseInt(jComboBox1.getSelectedItem().toString()), "bank_name"));
-            Cheque_no.requestFocusInWindow();
-        }
-    }//GEN-LAST:event_jComboBox1ItemStateChanged
-
-    private void cash_cheque_comboItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cash_cheque_comboItemStateChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cash_cheque_comboItemStateChanged
-
-    private void cash_cheque_comboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cash_cheque_comboActionPerformed
-
-        String selection = (String) cash_cheque_combo.getSelectedItem();
-
-        if (selection.equalsIgnoreCase("Cash")) {
-            Cheque_pay.setVisible(false);
-
-        }
-        
-        if (selection.equalsIgnoreCase("Cheque")) {
-            Cheque_pay.setVisible(true);
-
+            division_lb.setText("" + Name);
         }
 
-        
-    }//GEN-LAST:event_cash_cheque_comboActionPerformed
+        empCode_JC.requestFocus();
 
-    private void cash_cheque_comboKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cash_cheque_comboKeyPressed
-        interface_events.Change_focus_Enterkey_t_b(amount, Save, evt);
-        
-        String selection = (String) cash_cheque_combo.getSelectedItem();
+    }//GEN-LAST:event_division_jcItemStateChanged
 
-        if (selection.equalsIgnoreCase("Cash")) {
-            interface_events.Change_focus_Enterkey_t_b(amount, Save, evt);
+    private void division_jcKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_division_jcKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
+            empCode_JC.requestFocus();
 
-        }
-        
-        if (selection.equalsIgnoreCase("Cheque")) {
-            interface_events.Change_focus_Enterkey_Cal(date1, evt);
-            jPanel6.setBackground(new java.awt.Color(0, 0, 153));
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_division_jcKeyPressed
 
-        }
-        
-    }//GEN-LAST:event_cash_cheque_comboKeyPressed
-
-    private void supplier_idItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_supplier_idItemStateChanged
-        try {
-            if(supplier_id.getSelectedItem()!=null){
-                supplier_name.setText(dbm.checknReturnData("suppliers", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "sup_name"));
-
-            }
-
-            int gl_cashadvance_set_date_int=10;   // This has to be taken from the database later
-
-            Date_Handler date_handler = new Date_Handler();
-            date_handler.set_glcash_advance_starting_date_int(gl_cashadvance_set_date_int);
-            // A seperate class glcashadvances may have to be created in the future
-            Date  datef = datechooser.Return_date(yearfield, monthfield, dayfield);
-          //  max_allowable.setText("" + (dbm.checknReturnDataForCashAdvances("green_leaf_transactions", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "tr_date",date_handler.get_glcash_advance_starting_date(datef),date_handler.get_date_as_a_String(datef), "net_qty")));
-            // allowable.setText("" + (dbm.checknReturnDataForCashAdvances("green_leaf_transactions", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "tr_date","2014-01-19","2014-01-21", "net_qty")));
-
-            amount.requestFocusInWindow();
-        } catch (ParseException ex) {
-            Logger.getLogger(GLcash_advance.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_supplier_idItemStateChanged
-
-    private void supplier_idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supplier_idActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_supplier_idActionPerformed
-
-    private void monthfieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_monthfieldKeyPressed
-        if (monthfield.getText().equals("Jan")) {
+    private void monthfield1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_monthfield1KeyPressed
+        if (monthfield1.getText().equals("Jan")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
-                monthfield.setText("Dec");
-                int yr = Integer.parseInt(yearfield.getText());
+                monthfield1.setText("Dec");
+                int yr = Integer.parseInt(yearfield1.getText());
 
-                yearfield.setText("" + (yr - 1));
-                monthfield.selectAll();
+                yearfield1.setText("" + (yr - 1));
+                monthfield1.selectAll();
 
             }
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
-                monthfield.setText("Feb");
-                monthfield.selectAll();
+                monthfield1.setText("Feb");
+                monthfield1.selectAll();
             }
 
-        } else if (monthfield.getText().equals("Feb")) {
+        } else if (monthfield1.getText().equals("Feb")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
-                monthfield.setText("Jan");
-                int yr = Integer.parseInt(yearfield.getText());
-                monthfield.selectAll();
+                monthfield1.setText("Jan");
+                int yr = Integer.parseInt(yearfield1.getText());
+                monthfield1.selectAll();
 
             }
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
-                monthfield.setText("Mar");
-                monthfield.selectAll();
+                monthfield1.setText("Mar");
+                monthfield1.selectAll();
             }
 
-        } else if (monthfield.getText().equals("Mar")) {
+        } else if (monthfield1.getText().equals("Mar")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
-                monthfield.setText("Feb");
-                int yr = Integer.parseInt(yearfield.getText());
-                monthfield.selectAll();
+                monthfield1.setText("Feb");
+                int yr = Integer.parseInt(yearfield1.getText());
+                monthfield1.selectAll();
             }
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
-                monthfield.setText("Apr");
-                monthfield.selectAll();
+                monthfield1.setText("Apr");
+                monthfield1.selectAll();
             }
 
-        } else if (monthfield.getText().equals("Apr")) {
+        } else if (monthfield1.getText().equals("Apr")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
-                monthfield.setText("Mar");
-                int yr = Integer.parseInt(yearfield.getText());
-                monthfield.selectAll();
+                monthfield1.setText("Mar");
+                int yr = Integer.parseInt(yearfield1.getText());
+                monthfield1.selectAll();
             }
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
-                monthfield.setText("May");
-                monthfield.selectAll();
+                monthfield1.setText("May");
+                monthfield1.selectAll();
             }
 
-        } else if (monthfield.getText().equals("May")) {
+        } else if (monthfield1.getText().equals("May")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
-                monthfield.setText("Apr");
-                int yr = Integer.parseInt(yearfield.getText());
-                monthfield.selectAll();
+                monthfield1.setText("Apr");
+                int yr = Integer.parseInt(yearfield1.getText());
+                monthfield1.selectAll();
 
             }
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
 
-                monthfield.setText("Jun");
-                monthfield.selectAll();
+                monthfield1.setText("Jun");
+                monthfield1.selectAll();
             }
 
-        } else if (monthfield.getText().equals("Jun")) {
+        } else if (monthfield1.getText().equals("Jun")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
-                monthfield.setText("May");
-                int yr = Integer.parseInt(yearfield.getText());
-                monthfield.selectAll();
+                monthfield1.setText("May");
+                int yr = Integer.parseInt(yearfield1.getText());
+                monthfield1.selectAll();
 
             }
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
-                monthfield.setText("Jul");
-                monthfield.selectAll();
+                monthfield1.setText("Jul");
+                monthfield1.selectAll();
             }
 
-        } else if (monthfield.getText().equals("Jul")) {
+        } else if (monthfield1.getText().equals("Jul")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
-                monthfield.setText("Jun");
-                int yr = Integer.parseInt(yearfield.getText());
-                monthfield.selectAll();
+                monthfield1.setText("Jun");
+                int yr = Integer.parseInt(yearfield1.getText());
+                monthfield1.selectAll();
 
             }
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
-                monthfield.setText("Aug");
-                monthfield.selectAll();
+                monthfield1.setText("Aug");
+                monthfield1.selectAll();
             }
 
-        } else if (monthfield.getText().equals("Aug")) {
+        } else if (monthfield1.getText().equals("Aug")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
-                monthfield.setText("Jul");
-                int yr = Integer.parseInt(yearfield.getText());
-                monthfield.selectAll();
+                monthfield1.setText("Jul");
+                int yr = Integer.parseInt(yearfield1.getText());
+                monthfield1.selectAll();
 
             }
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
-                monthfield.setText("Sep");
-                monthfield.selectAll();
+                monthfield1.setText("Sep");
+                monthfield1.selectAll();
             }
 
-        } else if (monthfield.getText().equals("Sep")) {
+        } else if (monthfield1.getText().equals("Sep")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
-                monthfield.setText("Aug");
-                int yr = Integer.parseInt(yearfield.getText());
-                monthfield.selectAll();
+                monthfield1.setText("Aug");
+                int yr = Integer.parseInt(yearfield1.getText());
+                monthfield1.selectAll();
 
             }
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
-                monthfield.setText("Oct");
-                monthfield.selectAll();
+                monthfield1.setText("Oct");
+                monthfield1.selectAll();
             }
 
-        } else if (monthfield.getText().equals("Oct")) {
+        } else if (monthfield1.getText().equals("Oct")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
-                monthfield.setText("Sep");
-                int yr = Integer.parseInt(yearfield.getText());
-                monthfield.selectAll();
+                monthfield1.setText("Sep");
+                int yr = Integer.parseInt(yearfield1.getText());
+                monthfield1.selectAll();
 
             }
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
-                monthfield.setText("Nov");
-                monthfield.selectAll();
+                monthfield1.setText("Nov");
+                monthfield1.selectAll();
             }
 
-        } else if (monthfield.getText().equals("Nov")) {
+        } else if (monthfield1.getText().equals("Nov")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
-                monthfield.setText("Oct");
-                int yr = Integer.parseInt(yearfield.getText());
-                monthfield.selectAll();
+                monthfield1.setText("Oct");
+                int yr = Integer.parseInt(yearfield1.getText());
+                monthfield1.selectAll();
 
             }
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
-                monthfield.setText("Dec");
-                monthfield.selectAll();
+                monthfield1.setText("Dec");
+                monthfield1.selectAll();
             }
 
-        } else if (monthfield.getText().equals("Dec")) {
+        } else if (monthfield1.getText().equals("Dec")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
-                monthfield.setText("Nov");
-                int yr = Integer.parseInt(yearfield.getText());
-                monthfield.selectAll();
+                monthfield1.setText("Nov");
+                int yr = Integer.parseInt(yearfield1.getText());
+                monthfield1.selectAll();
 
             }
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
-                monthfield.setText("Jan");
-                int yr = Integer.parseInt(yearfield.getText());
+                monthfield1.setText("Jan");
+                int yr = Integer.parseInt(yearfield1.getText());
 
-                yearfield.setText("" + (yr + 1));
-                monthfield.selectAll();
+                yearfield1.setText("" + (yr + 1));
+                monthfield1.selectAll();
             }
 
         }
         if (evt.getKeyCode() == KeyEvent.VK_LEFT) {
-            dayfield.requestFocus();
-            dayfield.selectAll();
+            dayfield1.requestFocus();
+            dayfield1.selectAll();
         }
         if (evt.getKeyCode() == KeyEvent.VK_RIGHT) {
-            yearfield.requestFocus();
-            yearfield.selectAll();
+            yearfield1.requestFocus();
+            yearfield1.selectAll();
         }
 
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
-            supplier_id.requestFocus();
+            //category_code.requestFocus();
 
         }
-    }//GEN-LAST:event_monthfieldKeyPressed
+    }//GEN-LAST:event_monthfield1KeyPressed
 
-    private void yearfieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_yearfieldKeyPressed
+    private void yearfield1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_yearfield1KeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
-            yearfield.setText("" + (Integer.parseInt(yearfield.getText()) + 1));
-            yearfield.selectAll();
+            yearfield1.setText("" + (Integer.parseInt(yearfield1.getText()) + 1));
+            yearfield1.selectAll();
         }
         if (evt.getKeyCode() == KeyEvent.VK_UP) {
-            yearfield.setText("" + (Integer.parseInt(yearfield.getText()) - 1));
-            yearfield.selectAll();
+            yearfield1.setText("" + (Integer.parseInt(yearfield1.getText()) - 1));
+            yearfield1.selectAll();
         }
         if (evt.getKeyCode() == KeyEvent.VK_LEFT) {
-            monthfield.requestFocus();
-            monthfield.selectAll();
+            monthfield1.requestFocus();
+            monthfield1.selectAll();
         }
 
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
-            supplier_id.requestFocus();
+            //  category_code.requestFocus();
 
         }
-    }//GEN-LAST:event_yearfieldKeyPressed
+    }//GEN-LAST:event_yearfield1KeyPressed
 
-    private void dayfieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dayfieldKeyPressed
+    private void dayfield1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dayfield1KeyPressed
         ///////////////////////////////////////////////////  Days Decrement/////////////////////////////////////////////////////////////////////////////
 
-        if (dayfield.getText().equals("1")) {           // Jumping to 31 and 30 from 1st
+        if (dayfield1.getText().equals("1")) {           // Jumping to 31 and 30 from 1st
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
 
-                if (monthfield.getText().equals("Feb") || monthfield.getText().equals("Apr") || monthfield.getText().equals("Jun") || monthfield.getText().equals("Aug") || monthfield.getText().equals("Sep") || monthfield.getText().equals("Nov") || monthfield.getText().equals("Feb")) {
-                    dayfield.setText("31");
+                if (monthfield1.getText().equals("Feb") || monthfield1.getText().equals("Apr") || monthfield1.getText().equals("Jun") || monthfield1.getText().equals("Aug") || monthfield1.getText().equals("Sep") || monthfield1.getText().equals("Nov") || monthfield1.getText().equals("Feb")) {
+                    dayfield1.setText("31");
 
-                    int mnth = datechooser.return_index(monthfield.getText());
-                    monthfield.setText(datechooser.Return_month(mnth - 1));
+                    int mnth = datechooser.return_index(monthfield1.getText());
+                    monthfield1.setText(datechooser.Return_month(mnth - 1));
 
-                } else if (monthfield.getText().equals("May") || monthfield.getText().equals("Jul") || monthfield.getText().equals("Oct") || monthfield.getText().equals("Dec")) {
-                    dayfield.setText("30");
-                    int mnth = datechooser.return_index(monthfield.getText());
-                    monthfield.setText(datechooser.Return_month(mnth - 1));
+                } else if (monthfield1.getText().equals("May") || monthfield1.getText().equals("Jul") || monthfield1.getText().equals("Oct") || monthfield1.getText().equals("Dec")) {
+                    dayfield1.setText("30");
+                    int mnth = datechooser.return_index(monthfield1.getText());
+                    monthfield1.setText(datechooser.Return_month(mnth - 1));
 
-                } else if (monthfield.getText().equals("Mar")) {     // from march 1st jump to 28th or 29th checking leap years
-                    int yr = Integer.parseInt(yearfield.getText());
+                } else if (monthfield1.getText().equals("Mar")) {     // from march 1st jump to 28th or 29th checking leap years
+                    int yr = Integer.parseInt(yearfield1.getText());
                     if (yr % 4 == 0) {
                         if (yr % 100 == 0) {
                             if (yr % 400 == 0) {
-                                dayfield.setText("29"); // Leap Year
+                                dayfield1.setText("29"); // Leap Year
                             }
                         }
                         if (yr % 100 == 0) {
                             if (yr % 400 != 0) {
-                                dayfield.setText("28"); // not a leap year
+                                dayfield1.setText("28"); // not a leap year
                             }
                         }
-                        dayfield.setText("29");       // leap year
+                        dayfield1.setText("29");       // leap year
 
                     }
                     if (yr % 4 != 0) {
-                        dayfield.setText("28");       // not a leap year
+                        dayfield1.setText("28");       // not a leap year
                     }
-                    int mnth = datechooser.return_index(monthfield.getText());
-                    monthfield.setText(datechooser.Return_month(mnth - 1));
+                    int mnth = datechooser.return_index(monthfield1.getText());
+                    monthfield1.setText(datechooser.Return_month(mnth - 1));
 
-                } else if (monthfield.getText().equals("Jan")) {            // From jan 1st jump to december 31st decrementing year
-                    dayfield.setText("31");
+                } else if (monthfield1.getText().equals("Jan")) {            // From jan 1st jump to december 31st decrementing year
+                    dayfield1.setText("31");
 
-                    int yr = Integer.parseInt(yearfield.getText());
-                    monthfield.setText("Dec");
-                    yearfield.setText("" + (yr - 1));    // year
+                    int yr = Integer.parseInt(yearfield1.getText());
+                    monthfield1.setText("Dec");
+                    yearfield1.setText("" + (yr - 1));    // year
                 }
-                dayfield.selectAll();
+                dayfield1.selectAll();
             }                                           // /// decrementing normal values
-        } else if (dayfield.getText().equals("2") || dayfield.getText().equals("3") || dayfield.getText().equals("4") || dayfield.getText().equals("5")
-            || dayfield.getText().equals("6") || dayfield.getText().equals("7") || dayfield.getText().equals("8") || dayfield.getText().equals("9")
-            || dayfield.getText().equals("10") || dayfield.getText().equals("11") || dayfield.getText().equals("12") || dayfield.getText().equals("13") || dayfield.getText().equals("14")
-            || dayfield.getText().equals("15") || dayfield.getText().equals("16") || dayfield.getText().equals("17") || dayfield.getText().equals("18")
-            || dayfield.getText().equals("19") || dayfield.getText().equals("20") || dayfield.getText().equals("21") || dayfield.getText().equals("22")
-            || dayfield.getText().equals("23") || dayfield.getText().equals("24") || dayfield.getText().equals("25") || dayfield.getText().equals("26")
-            || dayfield.getText().equals("27") || dayfield.getText().equals("28") || dayfield.getText().equals("29") || dayfield.getText().equals("30") || dayfield.getText().equals("31")) {
+        } else if (dayfield1.getText().equals("2") || dayfield1.getText().equals("3") || dayfield1.getText().equals("4") || dayfield1.getText().equals("5")
+            || dayfield1.getText().equals("6") || dayfield1.getText().equals("7") || dayfield1.getText().equals("8") || dayfield1.getText().equals("9")
+            || dayfield1.getText().equals("10") || dayfield1.getText().equals("11") || dayfield1.getText().equals("12") || dayfield1.getText().equals("13") || dayfield1.getText().equals("14")
+            || dayfield1.getText().equals("15") || dayfield1.getText().equals("16") || dayfield1.getText().equals("17") || dayfield1.getText().equals("18")
+            || dayfield1.getText().equals("19") || dayfield1.getText().equals("20") || dayfield1.getText().equals("21") || dayfield1.getText().equals("22")
+            || dayfield1.getText().equals("23") || dayfield1.getText().equals("24") || dayfield1.getText().equals("25") || dayfield1.getText().equals("26")
+            || dayfield1.getText().equals("27") || dayfield1.getText().equals("28") || dayfield1.getText().equals("29") || dayfield1.getText().equals("30") || dayfield1.getText().equals("31")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
 
-                dayfield.setText("" + (Integer.parseInt(dayfield.getText()) - 1));
-                dayfield.selectAll();
+                dayfield1.setText("" + (Integer.parseInt(dayfield1.getText()) - 1));
+                dayfield1.selectAll();
             }
         }
         /////////////////////////////////////////////////  Days Increment///////////////////////////////////////////////////////////////////////////////////////////////////
-        if (dayfield.getText().equals("30")) {               // from 30th to 1st of next month
+        if (dayfield1.getText().equals("30")) {               // from 30th to 1st of next month
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
 
-                if (monthfield.getText().equals("Apr") || monthfield.getText().equals("Jun") || monthfield.getText().equals("Sep") || monthfield.getText().equals("Nov")) {
-                    dayfield.setText("0");
+                if (monthfield1.getText().equals("Apr") || monthfield1.getText().equals("Jun") || monthfield1.getText().equals("Sep") || monthfield1.getText().equals("Nov")) {
+                    dayfield1.setText("0");
 
-                    int mnth = datechooser.return_index(monthfield.getText());
-                    monthfield.setText(datechooser.Return_month(mnth + 1));
+                    int mnth = datechooser.return_index(monthfield1.getText());
+                    monthfield1.setText(datechooser.Return_month(mnth + 1));
 
                 }
-                dayfield.setText("" + (Integer.parseInt(dayfield.getText()) + 1));
-                dayfield.selectAll();
+                dayfield1.setText("" + (Integer.parseInt(dayfield1.getText()) + 1));
+                dayfield1.selectAll();
             }
 
-        } else if (dayfield.getText().equals("31")) {            // from 31st to 1st of next month
+        } else if (dayfield1.getText().equals("31")) {            // from 31st to 1st of next month
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
 
-                if (monthfield.getText().equals("Jan") || monthfield.getText().equals("Mar") || monthfield.getText().equals("May") || monthfield.getText().equals("Jul") || monthfield.getText().equals("Aug") || monthfield.getText().equals("Oct")) {
-                    dayfield.setText("1");
+                if (monthfield1.getText().equals("Jan") || monthfield1.getText().equals("Mar") || monthfield1.getText().equals("May") || monthfield1.getText().equals("Jul") || monthfield1.getText().equals("Aug") || monthfield1.getText().equals("Oct")) {
+                    dayfield1.setText("1");
 
-                    int mnth = datechooser.return_index(monthfield.getText());
-                    monthfield.setText(datechooser.Return_month(mnth + 1));
+                    int mnth = datechooser.return_index(monthfield1.getText());
+                    monthfield1.setText(datechooser.Return_month(mnth + 1));
 
-                } else if (monthfield.getText().equals("Dec")) {      // December to january incrementing the year
+                } else if (monthfield1.getText().equals("Dec")) {      // December to january incrementing the year
 
-                    dayfield.setText("1");
+                    dayfield1.setText("1");
 
-                    int yr = Integer.parseInt(yearfield.getText());
-                    monthfield.setText("Jan");
-                    yearfield.setText("" + (yr + 1));
+                    int yr = Integer.parseInt(yearfield1.getText());
+                    monthfield1.setText("Jan");
+                    yearfield1.setText("" + (yr + 1));
                 }
-                dayfield.selectAll();
+                dayfield1.selectAll();
             }
 
-        } else if (monthfield.getText().equals("Feb")) {                    // for february
+        } else if (monthfield1.getText().equals("Feb")) {                    // for february
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
-                if (dayfield.getText().equals("28")) {                    // at 28 check for leap year
-                    int yr = Integer.parseInt(yearfield.getText());
+                if (dayfield1.getText().equals("28")) {                    // at 28 check for leap year
+                    int yr = Integer.parseInt(yearfield1.getText());
                     if (yr % 4 == 0) {
                         if (yr % 100 == 0) {
                             if (yr % 400 == 0) {
-                                dayfield.setText("29"); // Leap Year       // increment to 29
+                                dayfield1.setText("29"); // Leap Year       // increment to 29
                             }
                         }
                         if (yr % 100 == 0) {
                             if (yr % 400 != 0) {
-                                dayfield.setText("1");
-                                int mnth = datechooser.return_index(monthfield.getText());
-                                monthfield.setText(datechooser.Return_month(mnth + 1));
+                                dayfield1.setText("1");
+                                int mnth = datechooser.return_index(monthfield1.getText());
+                                monthfield1.setText(datechooser.Return_month(mnth + 1));
 
                                 // not a leap year                             // jump to next month
                             }
                         }
-                        dayfield.setText("29");       // leap year             // increment to 29th
+                        dayfield1.setText("29");       // leap year             // increment to 29th
 
                     }
                     if (yr % 4 != 0) {
-                        dayfield.setText("1");
-                        int mnth = datechooser.return_index(monthfield.getText());
-                        monthfield.setText(datechooser.Return_month(mnth + 1));                  // not a leap year
+                        dayfield1.setText("1");
+                        int mnth = datechooser.return_index(monthfield1.getText());
+                        monthfield1.setText(datechooser.Return_month(mnth + 1));                  // not a leap year
                     }
 
-                } else if (dayfield.getText().equals("29")) {              // at 29 jump to next month normally
-                    dayfield.setText("1");
+                } else if (dayfield1.getText().equals("29")) {              // at 29 jump to next month normally
+                    dayfield1.setText("1");
 
-                    int mnth = datechooser.return_index(monthfield.getText());
-                    monthfield.setText(datechooser.Return_month(mnth + 1));
+                    int mnth = datechooser.return_index(monthfield1.getText());
+                    monthfield1.setText(datechooser.Return_month(mnth + 1));
                     // incrementing normal values/////////////////////// for february separately
-                } else if (dayfield.getText().equals("1") || dayfield.getText().equals("2") || dayfield.getText().equals("3") || dayfield.getText().equals("4") || dayfield.getText().equals("5")
-                    || dayfield.getText().equals("6") || dayfield.getText().equals("7") || dayfield.getText().equals("8") || dayfield.getText().equals("9")
-                    || dayfield.getText().equals("10") || dayfield.getText().equals("11") || dayfield.getText().equals("12") || dayfield.getText().equals("13") || dayfield.getText().equals("14")
-                    || dayfield.getText().equals("15") || dayfield.getText().equals("16") || dayfield.getText().equals("17") || dayfield.getText().equals("18")
-                    || dayfield.getText().equals("19") || dayfield.getText().equals("20") || dayfield.getText().equals("21") || dayfield.getText().equals("22")
-                    || dayfield.getText().equals("23") || dayfield.getText().equals("24") || dayfield.getText().equals("25") || dayfield.getText().equals("26")
-                    || dayfield.getText().equals("27") || dayfield.getText().equals("28") || dayfield.getText().equals("29") || dayfield.getText().equals("30") || dayfield.getText().equals("31")) {
+                } else if (dayfield1.getText().equals("1") || dayfield1.getText().equals("2") || dayfield1.getText().equals("3") || dayfield1.getText().equals("4") || dayfield1.getText().equals("5")
+                    || dayfield1.getText().equals("6") || dayfield1.getText().equals("7") || dayfield1.getText().equals("8") || dayfield1.getText().equals("9")
+                    || dayfield1.getText().equals("10") || dayfield1.getText().equals("11") || dayfield1.getText().equals("12") || dayfield1.getText().equals("13") || dayfield1.getText().equals("14")
+                    || dayfield1.getText().equals("15") || dayfield1.getText().equals("16") || dayfield1.getText().equals("17") || dayfield1.getText().equals("18")
+                    || dayfield1.getText().equals("19") || dayfield1.getText().equals("20") || dayfield1.getText().equals("21") || dayfield1.getText().equals("22")
+                    || dayfield1.getText().equals("23") || dayfield1.getText().equals("24") || dayfield1.getText().equals("25") || dayfield1.getText().equals("26")
+                    || dayfield1.getText().equals("27") || dayfield1.getText().equals("28") || dayfield1.getText().equals("29") || dayfield1.getText().equals("30") || dayfield1.getText().equals("31")) {
 
-                    dayfield.setText("" + (Integer.parseInt(dayfield.getText()) + 1));
+                    dayfield1.setText("" + (Integer.parseInt(dayfield1.getText()) + 1));
 
                 }
-                dayfield.selectAll();
+                dayfield1.selectAll();
             }
             // incrementing normal values
-        } else if (dayfield.getText().equals("1") || dayfield.getText().equals("2") || dayfield.getText().equals("3") || dayfield.getText().equals("4") || dayfield.getText().equals("5")
-            || dayfield.getText().equals("6") || dayfield.getText().equals("7") || dayfield.getText().equals("8") || dayfield.getText().equals("9")
-            || dayfield.getText().equals("10") || dayfield.getText().equals("11") || dayfield.getText().equals("12") || dayfield.getText().equals("13") || dayfield.getText().equals("14")
-            || dayfield.getText().equals("15") || dayfield.getText().equals("16") || dayfield.getText().equals("17") || dayfield.getText().equals("18")
-            || dayfield.getText().equals("19") || dayfield.getText().equals("20") || dayfield.getText().equals("21") || dayfield.getText().equals("22")
-            || dayfield.getText().equals("23") || dayfield.getText().equals("24") || dayfield.getText().equals("25") || dayfield.getText().equals("26")
-            || dayfield.getText().equals("27") || dayfield.getText().equals("28") || dayfield.getText().equals("29") || dayfield.getText().equals("30") || dayfield.getText().equals("31")) {
+        } else if (dayfield1.getText().equals("1") || dayfield1.getText().equals("2") || dayfield1.getText().equals("3") || dayfield1.getText().equals("4") || dayfield1.getText().equals("5")
+            || dayfield1.getText().equals("6") || dayfield1.getText().equals("7") || dayfield1.getText().equals("8") || dayfield1.getText().equals("9")
+            || dayfield1.getText().equals("10") || dayfield1.getText().equals("11") || dayfield1.getText().equals("12") || dayfield1.getText().equals("13") || dayfield1.getText().equals("14")
+            || dayfield1.getText().equals("15") || dayfield1.getText().equals("16") || dayfield1.getText().equals("17") || dayfield1.getText().equals("18")
+            || dayfield1.getText().equals("19") || dayfield1.getText().equals("20") || dayfield1.getText().equals("21") || dayfield1.getText().equals("22")
+            || dayfield1.getText().equals("23") || dayfield1.getText().equals("24") || dayfield1.getText().equals("25") || dayfield1.getText().equals("26")
+            || dayfield1.getText().equals("27") || dayfield1.getText().equals("28") || dayfield1.getText().equals("29") || dayfield1.getText().equals("30") || dayfield1.getText().equals("31")) {
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
 
-                dayfield.setText("" + (Integer.parseInt(dayfield.getText()) + 1));
-                dayfield.selectAll();
+                dayfield1.setText("" + (Integer.parseInt(dayfield1.getText()) + 1));
+                dayfield1.selectAll();
 
             }
         }
         if (evt.getKeyCode() == KeyEvent.VK_RIGHT) {
-            monthfield.requestFocus();
-            monthfield.selectAll();
+            monthfield1.requestFocus();
+            monthfield1.selectAll();
         }
 
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
-            supplier_id.requestFocus();
+            division_jc.requestFocus();
 
         }
-    }//GEN-LAST:event_dayfieldKeyPressed
+    }//GEN-LAST:event_dayfield1KeyPressed
 
-    private void datePicker1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datePicker1ActionPerformed
-        java.sql.Date datef = new java.sql.Date(datePicker1.getDate().getTime());
+    private void datePick1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datePick1ActionPerformed
+        java.sql.Date datef = new java.sql.Date(datePick1.getDate().getTime());
 
-        dayfield.setText(datehandler.get_day(datef));
-        monthfield.setText(datehandler.get_month(datef));
-        yearfield.setText(datehandler.get_year(datef));
-        supplier_id.requestFocus();
-    }//GEN-LAST:event_datePicker1ActionPerformed
+        dayfield1.setText(datehandler.get_day(datef));
+        monthfield1.setText(datehandler.get_month(datef));
+        yearfield1.setText(datehandler.get_year(datef));
+        // category_code.requestFocus();
+    }//GEN-LAST:event_datePick1ActionPerformed
 
-    private void SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveActionPerformed
-        if (cash_cheque_combo.getSelectedItem().toString() == "Cash") {
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        //java.sql.Date tdate = new java.sql.Date(date.getDate().getTime());
 
-            if (supplier_id.getSelectedItem() == null || amount.getText().length() == 0) {
+        //addDateTable(tdate);//store data of workers worked in each division in each day   REMOVED INTENTIONALLY
 
-                Red_message.setText("Fill all the Empty fields before Save");
-            } else {
-                try {
-                    // save button action here when cash selected
+        String month = null;
+        String year = null;
+        Date tdate=null;
 
-                    interface_events.Respond_enter(Save1, null);
+        String ndate = null;
+        try {
+            tdate=datechooser.Return_date(yearfield1,monthfield1,dayfield1);
+        } catch (ParseException ex) {
+            Logger.getLogger(PRCR_Work_normal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        ndate = tdate.toString();
+        StringBuilder ne_date = new StringBuilder(ndate);
+        ne_date.setCharAt(4, '_');
+        ne_date.setCharAt(7, '_');
+        String new1_date = null;
+        new1_date = ne_date.toString();
+        String tablename = new1_date.substring(0, 7);
 
-                    cadvance.set_sup_id(Integer.parseInt(supplier_id.getSelectedItem().toString()));
-                   // cadvance.set_max_allowable(Double.parseDouble(max_allowable.getText()));
-                    cadvance.set_amount(Double.parseDouble(amount.getText()));
-                    java.sql.Date date3 = datechooser.Return_date(yearfield, monthfield, dayfield);
-                    cadvance.set_date(date3);
-                    cadvance.set_sup_name(supplier_name.getText());
-                    cadvance.set_pay_type(cash_cheque_combo.getSelectedItem().toString());
-                   // cadvance.set_emergency(Emergency.isSelected());
-                    cadvance.set_issue_date(date3);
-                    cadvance.set_cheque_date(date3);
+        if (dbm.TableExistence("pr_workdata_" + tablename) == false) {
+           // CreateNewMonthTable(tablename);
+             JOptionPane.showMessageDialog(null, "This month's Check roll table has not yet been created!Data not saved \n", "Message", JOptionPane.INFORMATION_MESSAGE);
+        }
+        else{
+        saveData(tablename, tdate);
+        saveDataToAdvanceBook(tdate);
+        ClearTable();
+        }
+    }//GEN-LAST:event_jButton6ActionPerformed
 
-                    cadvance.addToDataBasemain();
-
-                    Red_message.setText("Saved cash");
-                    supplier_id.setSelectedItem(null);
-                    supplier_name.setText(" ");
-                    amount.setText(null);
-                    supplier_id.requestFocusInWindow();
-                } catch (ParseException ex) {
-                    Logger.getLogger(GLcash_advance.class.getName()).log(Level.SEVERE, null, ex);
+    private void saveDataToAdvanceBook(Date date){
+        DatabaseManager dbCon = DatabaseManager.getDbCon();
+        int rowse = 0;
+          
+                while(table.getValueAt(rowse, 0) != null) {
+            try {
+                dbCon.insert("INSERT INTO prcr_cash_advance_book(date,code,type,amount) VALUES('" +date + "','"+table.getValueAt(rowse, 0)+"','"+table.getValueAt(rowse, 2)+"','"+table.getValueAt(rowse, 3)+"')");
+            } catch (SQLException ex) {
+                Logger.getLogger(PRCR_Add_Employee.class.getName()).log(Level.SEVERE, null, ex);
+                 JOptionPane.showMessageDialog(null, "Cash Advance book is not updated!\n", "Message", JOptionPane.INFORMATION_MESSAGE);
+            }
+            rowse++;
                 }
 
+    }
+    
+    private void saveData(String tablename, Date tdate) {
+      //  String division = null;
+      //  String work_code = null;
+       // division = (String) division_jc.getSelectedItem();
+      // work_code = (String) workCode.getSelectedItem();
+    
+    
+       
+            int rowsd = 0;
+            System.out.println("s="+table.getValueAt(rowsd, 0));
+            
+            
+          
+                while(table.getValueAt(rowsd, 0) != null) {
+                                            System.out.println("in="+table.getValueAt(rowsd, 0));               //get the current advance amount from data base,add the new amount to it,update total amount to the workdata table
+                   Update_pr_workData(tablename, table.getValueAt(rowsd,0),"salary_adv" , (String) table.getValueAt(rowsd, 3));
+                    rowsd++;
+                }
+            
+           
+                  
+    }
+                                      //Function for the savedata()//column-column that need to be updated,amount entered  
+public void Update_pr_workData(String tablename,Object code,String column,String new_amount){
+
+     double amount_u = 0;
+
+                    if (dbm.checknReturnData("pr_workdata_" + tablename, "code", code, column) != null) {
+                        amount_u= Double.parseDouble(dbm.checknReturnData("pr_workdata_" + tablename, "code", code, column));
+                    } else {
+                        amount_u= 0;
+                    }
+                    if (new_amount != null) {
+                        amount_u = amount_u + Double.parseDouble(new_amount);
+                    } else {
+                        amount_u=amount_u;
+                    }
+                    dbm.updateDatabase("pr_workdata_" + tablename, "code", code, column, amount_u);
+
+
+}
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        ClearTable();        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        PRCR_viewNedit_cash_advances_book1 jf = new PRCR_viewNedit_cash_advances_book1();
+        jf.setVisible(true);
+        jf.setExtendedState(PRCR_viewNedit_workentry.MAXIMIZED_BOTH);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try{
+            if(empCode_JC.getSelectedItem().toString().length()!=0){
+                table.setValueAt(empCode_JC.getSelectedItem(), rows, 0);
+                table.setValueAt(empName2.getText(), rows, 1);
+                table.setValueAt("CASH ADVANCE", rows, 2);
+                if (advance_amount.getText().length() == 0) {
+                    table.setValueAt("0", rows, 3);
+                    JOptionPane.showMessageDialog(null, "Enter amount\n", "Message", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    table.setValueAt(advance_amount.getText(), rows, 3);
+                }
+
+            
+                rows++;
+                // TODO add your handling code here:
+                empCode_JC.setSelectedItem(null);
+                advance_amount.setText(null);
+                
+                empCode_JC.requestFocus();
+            }else{
+                JOptionPane.showMessageDialog(null, "Enter the employ code\n", "Message", JOptionPane.INFORMATION_MESSAGE);
+                empCode_JC.requestFocus();
             }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Enter the employee code\n", "Message", JOptionPane.INFORMATION_MESSAGE);
+            empCode_JC.requestFocus();
         }
+        
+        //Advance_type.requestFocus();
+        //Advance_type.selectAll();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
-        if (cash_cheque_combo.getSelectedItem().toString() == "Cheque") {
+    private void jButton1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jButton1FocusGained
+        interface_events.Respond_enter(jButton1, evt); // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1FocusGained
 
-            if (supplier_id.getSelectedItem() == null || Cheque_Refno.getText().length() == 0 || jComboBox1.getSelectedItem() == null || Cheque_no.getText().length() == 0 || amount.getText().length() == 0) {
-
-                Red_message.setText("Fill all the Empty fields before Save");
-
-            } else {
-                Red_message.setText("Saved cheque");
-                // save button action here when cheque selected
-                supplier_id.setSelectedItem(null);
-                supplier_name.setText(" ");
-                amount.setText(null);
-                Cheque_Refno.setText(null);
-                Cheque_no.setText(null);
-                jComboBox1.setSelectedItem(null);
-                bank_name.setText(" ");
-                supplier_id.requestFocusInWindow();
-            }
-
-        }
-    }//GEN-LAST:event_SaveActionPerformed
-
-    private void SaveFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_SaveFocusGained
-        interface_events.Respond_enter(Save, evt);
-    }//GEN-LAST:event_SaveFocusGained
-
-    private void Save1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Save1ActionPerformed
-        try {
-            interface_events.Respond_enter(Save1, null);
-
-            cadvance.set_sup_id(Integer.parseInt(supplier_id.getSelectedItem().toString()));
-            //cadvance.set_max_allowable(Double.parseDouble(max_allowable.getText()));
-            cadvance.set_amount(Double.parseDouble(amount.getText()));
-            java.sql.Date date3 = datechooser.Return_date(yearfield, monthfield, dayfield);
-            cadvance.set_date(date3);
-            cadvance.set_sup_name(supplier_name.getText());
-            cadvance.set_pay_type(cash_cheque_combo.getSelectedItem().toString());
-            cadvance.addToDataBase();
-
-        } catch (ParseException ex) {
-            Logger.getLogger(GLcash_advance.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-    }//GEN-LAST:event_Save1ActionPerformed
-
-    private void Save1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_Save1FocusGained
+    private void advance_amountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_advance_amountActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_Save1FocusGained
+    }//GEN-LAST:event_advance_amountActionPerformed
 
-    private void amountKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_amountKeyPressed
-        interface_events.Change_focus_Enterkey_c(cash_cheque_combo, evt);
-    }//GEN-LAST:event_amountKeyPressed
+    private void advance_amountKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_advance_amountKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
+            jButton1.requestFocus();
+
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_advance_amountKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField Cheque_Refno;
-    private javax.swing.JTextField Cheque_no;
-    private javax.swing.JPanel Cheque_pay;
-    private javax.swing.JLabel Red_message;
-    private javax.swing.JButton Save;
-    private javax.swing.JButton Save1;
-    private javax.swing.JTextField amount;
-    private javax.swing.JLabel bank_name;
-    private javax.swing.JComboBox cash_cheque_combo;
-    private com.michaelbaranov.microba.calendar.DatePicker date1;
-    private com.michaelbaranov.microba.calendar.DatePicker date2;
-    private com.michaelbaranov.microba.calendar.DatePicker datePicker1;
+    private javax.swing.JTextField advance_amount;
+    private com.michaelbaranov.microba.calendar.DatePicker datePick1;
     private javax.swing.JPanel datepanel;
-    private javax.swing.JTextField dayfield;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JTextField dayfield1;
+    private javax.swing.JComboBox division_jc;
+    private javax.swing.JLabel division_lb;
+    private javax.swing.JComboBox empCode_JC;
+    private javax.swing.JLabel empName2;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
-    private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JTextField monthfield;
-    private javax.swing.JComboBox supplier_id;
-    private javax.swing.JLabel supplier_name;
-    private javax.swing.JTextField yearfield;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField monthfield1;
+    private javax.swing.JTable table;
+    private javax.swing.JLabel work_code;
+    private javax.swing.JTextField yearfield1;
     // End of variables declaration//GEN-END:variables
 }
