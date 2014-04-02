@@ -69,7 +69,7 @@ public class pAccounts extends javax.swing.JPanel {
             .addGap(0, 508, Short.MAX_VALUE)
         );
 
-        view.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "---------", "Accounts", "Recepts", "Payments", "Journals", "Bank Codes", "----------" }));
+        view.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "---------", "Accounts", "Receipts", "Payments", "Journals", "Bank Codes", "----------" }));
         view.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 viewItemStateChanged(evt);
@@ -218,7 +218,46 @@ public class pAccounts extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void viewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewActionPerformed
-        // TODO add your handling code here:
+         String selection = (String) view.getSelectedItem();
+        if (selection.equalsIgnoreCase("Journals")) {
+
+            ACC_Journal_View jview = new ACC_Journal_View();
+
+            GL_content.removeAll();
+
+            jview.setSize(GL_content.getSize());
+
+            GL_content.add(jview);
+            validate();
+            repaint();
+           // jview.focus();
+        }
+        else if (selection.equalsIgnoreCase("Receipts")) {
+
+            ACC_Reciept_View rview = new ACC_Reciept_View();
+
+            GL_content.removeAll();
+
+            rview.setSize(GL_content.getSize());
+
+            GL_content.add(rview);
+            validate();
+            repaint();
+           // jview.focus();
+        }
+          if (selection.equalsIgnoreCase("Payments")) {
+
+            ACC_Payment_View pview = new ACC_Payment_View();
+
+            GL_content.removeAll();
+
+            pview.setSize(GL_content.getSize());
+
+            GL_content.add(pview);
+            validate();
+            repaint();
+           // jview.focus();
+        }
     }//GEN-LAST:event_viewActionPerformed
 
     private void Add_comboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Add_comboActionPerformed
@@ -327,22 +366,20 @@ public class pAccounts extends javax.swing.JPanel {
         journals.foucs();
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    PDF_Handling pdf = new PDF_Handling();
+    ACC_Journal_View jview = new ACC_Journal_View();
+    ACC_Reciept_View rview = new ACC_Reciept_View();
+    ACC_Payment_View pview = new ACC_Payment_View();
+    
     private void viewItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_viewItemStateChanged
-        if (view.getSelectedItem().toString() == "Bank Codes") {
-
-            String[][] arr = new String[2][2];
-            arr[0][0] = "Bank ID";
-            arr[0][1] = "Bank Name";
-            arr[1][0] = "bank_id";
-            arr[1][1] = "bank_name";
-               
-                    
-            try {
-                pdf.Print_Database_Without_Filtering("bank", arr,"BANK CODES",25,15);
-            } catch (DocumentException ex) {
-                Logger.getLogger(pAccounts.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        if(view.getSelectedItem().toString()=="Journals"){
+            jview.setVisible(true);
+            jview.Start();
+        }
+        else if(view.getSelectedItem().toString()=="Receipts"){
+            rview.setVisible(true);
+        }
+        if(view.getSelectedItem().toString()=="Payments"){
+            pview.setVisible(true);
         }
     }//GEN-LAST:event_viewItemStateChanged
 

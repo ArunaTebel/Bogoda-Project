@@ -99,7 +99,7 @@
           <StringArray count="7">
             <StringItem index="0" value="---------"/>
             <StringItem index="1" value="Accounts"/>
-            <StringItem index="2" value="Recepts"/>
+            <StringItem index="2" value="Receipts"/>
             <StringItem index="3" value="Payments"/>
             <StringItem index="4" value="Journals"/>
             <StringItem index="5" value="Bank Codes"/>

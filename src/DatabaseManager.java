@@ -174,6 +174,33 @@ public final class DatabaseManager {
         }
         return null;
     }
+    
+    
+     public String[] getStringArray1(String table_name, String column_name) {
+
+        int count = 0;
+        DatabaseManager dbm = DatabaseManager.getDbCon();
+        try {
+            ResultSet query = dbm.query("SELECT " + column_name + " FROM " + table_name + "");
+            while (query.next()) {
+                count++;
+            }
+            String[] array = new String[count + 2];
+            array[0] = null;
+            array[1]="All";
+            count = 2;
+            ResultSet query2 = dbm.query("SELECT " + column_name + " FROM " + table_name + "");
+            while (query2.next()) {
+                array[count] = query2.getString(column_name);
+                count++;
+            }
+            return array;
+        } catch (SQLException ex) {
+
+        }
+        return null;
+    }
+    
 
     public String[] search_PRCR(String table_name, String column_1, String column_2, Object element_1, Object element_2, String needed_column) {
         DatabaseManager dbm = DatabaseManager.getDbCon();
@@ -586,6 +613,25 @@ public final class DatabaseManager {
             //return ""+ex.getErrorCode();            
         }
         return null;
+    }
+    
+    
+    
+     public int checkWhetherDataExists(String table_name, String table_column_giving, Object row_element) {
+        DatabaseManager dbm = DatabaseManager.getDbCon();
+        try {
+            ResultSet query = dbm.query("SELECT * FROM " + table_name + " where " + table_column_giving + " LIKE '" + row_element + "'");
+            if(!query.next()){
+                return 0;
+            }
+            else{
+                return 1;
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            
+        }
+        return 0;
     }
 
 }

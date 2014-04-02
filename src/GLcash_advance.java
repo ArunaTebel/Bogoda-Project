@@ -804,6 +804,22 @@ public class GLcash_advance extends javax.swing.JPanel {
             }
 
         }
+        
+        if(Permission.isSelected()){
+            try {
+                GL_Over_Advance overadvance = new GL_Over_Advance();
+                
+                overadvance.Set_Sup_ID(Integer.parseInt(supplier_id.getSelectedItem().toString()));
+                overadvance.Set_Sup_Name();
+                overadvance.Set_Category_Code();
+                overadvance.Set_Advance_Taken(Double.parseDouble(amount.getText()));
+                overadvance.Set_Issued_Date(datechooser.Return_date(yearfield,monthfield,dayfield));
+                overadvance.AddToOverAdvanceDatabase();
+            } catch (ParseException ex) {
+                Logger.getLogger(GLcash_advance.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
     }//GEN-LAST:event_SaveActionPerformed
 
     private void SaveFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_SaveFocusGained
@@ -826,7 +842,7 @@ public class GLcash_advance extends javax.swing.JPanel {
         } catch (ParseException ex) {
             Logger.getLogger(GLcash_advance.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
 
     }//GEN-LAST:event_Save1ActionPerformed
 

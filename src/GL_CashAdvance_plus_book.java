@@ -20,6 +20,7 @@ Interface_Events interface_events = new Interface_Events();
         content_panel = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         javax.swing.GroupLayout content_panelLayout = new javax.swing.GroupLayout(content_panel);
         content_panel.setLayout(content_panelLayout);
@@ -70,6 +71,25 @@ Interface_Events interface_events = new Interface_Events();
             }
         });
 
+        jButton3.setBackground(new java.awt.Color(0, 102, 0));
+        jButton3.setForeground(new java.awt.Color(255, 255, 255));
+        jButton3.setText("Over Advances");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jButton3.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jButton3FocusGained(evt);
+            }
+        });
+        jButton3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jButton3KeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -79,14 +99,17 @@ Interface_Events interface_events = new Interface_Events();
                 .addComponent(jButton1)
                 .addGap(0, 0, 0)
                 .addComponent(jButton2)
-                .addGap(0, 713, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton3)
+                .addGap(0, 600, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(jButton2)
+                    .addComponent(jButton3))
                 .addGap(0, 0, 0)
                 .addComponent(content_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -129,10 +152,28 @@ interface_events.Respond_enter(jButton1, evt);
 interface_events.Respond_enter(jButton2, evt);      
     }//GEN-LAST:event_jButton2FocusGained
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        GL_Over_Advances_Table overadvance = new GL_Over_Advances_Table();
+        interface_events.insertpanel(overadvance, content_panel);
+        overadvance.focus();
+        jButton1.setBackground(new java.awt.Color(0, 102, 0));
+         jButton2.setBackground(new java.awt.Color(0, 0, 0));
+         overadvance.set_table(1,50);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton3FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jButton3FocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3FocusGained
+
+    private void jButton3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton3KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3KeyPressed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel content_panel;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     // End of variables declaration//GEN-END:variables
 }
