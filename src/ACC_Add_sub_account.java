@@ -25,7 +25,7 @@ public class ACC_Add_sub_account extends javax.swing.JPanel {
 
     public void focus() {
         this.requestFocus();
-        account_name.requestFocus();
+         sub_account_code.requestFocusInWindow();
     }
 
     /**
@@ -39,8 +39,8 @@ public class ACC_Add_sub_account extends javax.swing.JPanel {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        account_name = new javax.swing.JTextField();
-        account_code = new javax.swing.JTextField();
+        description = new javax.swing.JTextField();
+        sub_account_code = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         save = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -58,20 +58,20 @@ public class ACC_Add_sub_account extends javax.swing.JPanel {
 
         jLabel2.setText("Sub Account code");
 
-        account_name.addActionListener(new java.awt.event.ActionListener() {
+        description.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                account_nameActionPerformed(evt);
+                descriptionActionPerformed(evt);
             }
         });
-        account_name.addKeyListener(new java.awt.event.KeyAdapter() {
+        description.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                account_nameKeyPressed(evt);
+                descriptionKeyPressed(evt);
             }
         });
 
-        account_code.addKeyListener(new java.awt.event.KeyAdapter() {
+        sub_account_code.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                account_codeKeyPressed(evt);
+                sub_account_codeKeyPressed(evt);
             }
         });
 
@@ -192,8 +192,8 @@ public class ACC_Add_sub_account extends javax.swing.JPanel {
                             .addComponent(jLabel2))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(account_code, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(account_name, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(sub_account_code, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(description, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(7, 7, 7)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -217,12 +217,12 @@ public class ACC_Add_sub_account extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(account_code, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(sub_account_code, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel2))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel1)
-                                    .addComponent(account_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(description, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(28, 28, 28))
                             .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -236,107 +236,51 @@ public class ACC_Add_sub_account extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void account_nameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_account_nameActionPerformed
+    private void descriptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_descriptionActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_account_nameActionPerformed
+    }//GEN-LAST:event_descriptionActionPerformed
 
+    ACC_Sub_Account_Codes sac = new ACC_Sub_Account_Codes();
+    
     private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
-      /*  boolean database;
-
-        Check_Entries chk = new Check_Entries();
-
-        aobject.setAccountName(account_name.getText());
-
-        aobject.setAccountClass(account_class.getSelectedItem().toString());
-
-        if (chk.isInteger(account_code.getText()) == true) {
-           // account_code_label.setText(null);
-        }
-
-        if (chk.isInteger(opening_balance.getText()) == true) {
-            opening_balance_label.setText(null);
-        }
-
-        if (chk.isInteger(current_balance.getText()) == true) {
-            current_balance_label.setText(null);
-        }
-
-        // add as above
-        if (chk.isInteger(account_code.getText()) == false) {
-            account_code_label.setText("Invalid Input");
-            if (chk.isDouble(current_balance.getText()) == false) {
-                current_balance_label.setText("Invalid Input");
-            }
-            if (chk.isDouble(opening_balance.getText()) == false) {
-                opening_balance_label.setText("Invalid Input");
-            }
-            // add as above
-
-        } else {
-            account_code_label.setText(null);
-            aobject.setAccountCode(Integer.parseInt(account_code.getText()));
-            if (chk.isDouble(opening_balance.getText()) == false) {
-                opening_balance_label.setText("Invalid Input");
-                if (chk.isDouble(current_balance.getText()) == false) {
-                    current_balance_label.setText("Invalid Input");
-                }
-                // add as above
-            } else {
-                opening_balance_label.setText(null);
-                aobject.setOpeningBal(Double.parseDouble(opening_balance.getText()));
-                if (chk.isDouble(current_balance.getText()) == false) {
-                    current_balance_label.setText("Invalid Input");
-                    // add
-                } else {
-                    current_balance_label.setText(null);
-                    aobject.setCurrentBalance(Double.parseDouble(current_balance.getText()));
-                    // add if statement
-                    database = aobject.addToDataBase();
-                    if (database == true) {
-                        JOptionPane.showMessageDialog(null, "Data has been entered to the Database", "Success", 1);
-                        account_name.setText(null);
-                        account_class.setSelectedIndex(1);
-                        account_code.setText(null);
-                        opening_balance.setText(null);
-                        current_balance.setText(null);
-                        account_code_label.setText(null);
-                        opening_balance_label.setText(null);
-                        current_balance_label.setText(null);
-                        // add as above
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Data has not been entered to the Database", "Error", 2);
-                    }
-                }
-
-            }
-
-        }
-        account_name.requestFocusInWindow();*/
+      
+        sac.set_sub_account_code(Integer.parseInt(sub_account_code.getText()));
+        sac.set_description(description.getText());
+        
+        sac.addToDataBase();
+        
+        // Clearing the text boxes
+        
+        sub_account_code.setText(null);
+        description.setText(null);
+        
+         sub_account_code.requestFocusInWindow();
+        
 
     }//GEN-LAST:event_saveActionPerformed
 
-    private void account_nameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_account_nameKeyPressed
+    private void descriptionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descriptionKeyPressed
        // interface_events.Change_focus_Enterkey_c(account_class, evt);
-    }//GEN-LAST:event_account_nameKeyPressed
+    }//GEN-LAST:event_descriptionKeyPressed
 
-    private void account_codeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_account_codeKeyPressed
+    private void sub_account_codeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_sub_account_codeKeyPressed
      //   interface_events.Change_focus_Enterkey_t(opening_balance, evt);
-    }//GEN-LAST:event_account_codeKeyPressed
+    }//GEN-LAST:event_sub_account_codeKeyPressed
 
     private void saveFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_saveFocusGained
         interface_events.Respond_enter(save, evt);
     }//GEN-LAST:event_saveFocusGained
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        account_name.setText(null);
+        description.setText(null);
       //  account_class.setSelectedIndex(1);
-        account_code.setText(null);
+        sub_account_code.setText(null);
     //    opening_balance.setText(null);
     //    current_balance.setText(null);
      //   account_code_label.setText(null);
         opening_balance_label.setText(null);
         current_balance_label.setText(null);
-        account_name.requestFocusInWindow();
+        sub_account_code.requestFocusInWindow();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -351,9 +295,8 @@ public class ACC_Add_sub_account extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField account_code;
-    private javax.swing.JTextField account_name;
     private javax.swing.JLabel current_balance_label;
+    private javax.swing.JTextField description;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -367,5 +310,6 @@ public class ACC_Add_sub_account extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel opening_balance_label;
     private javax.swing.JButton save;
+    private javax.swing.JTextField sub_account_code;
     // End of variables declaration//GEN-END:variables
 }

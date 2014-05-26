@@ -33,8 +33,8 @@
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="account_code" min="-2" pref="39" max="-2" attributes="0"/>
-                          <Component id="account_name" alignment="0" min="-2" pref="146" max="-2" attributes="0"/>
+                          <Component id="sub_account_code" min="-2" pref="39" max="-2" attributes="0"/>
+                          <Component id="description" alignment="0" min="-2" pref="146" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -66,13 +66,13 @@
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="account_code" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="sub_account_code" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="account_name" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="description" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                           </Group>
@@ -103,15 +103,15 @@
         <Property name="text" type="java.lang.String" value="Sub Account code"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="account_name">
+    <Component class="javax.swing.JTextField" name="description">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="account_nameActionPerformed"/>
-        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="account_nameKeyPressed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="descriptionActionPerformed"/>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="descriptionKeyPressed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="account_code">
+    <Component class="javax.swing.JTextField" name="sub_account_code">
       <Events>
-        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="account_codeKeyPressed"/>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="sub_account_codeKeyPressed"/>
       </Events>
     </Component>
     <Container class="javax.swing.JPanel" name="jPanel1">
