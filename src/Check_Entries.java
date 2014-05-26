@@ -19,4 +19,13 @@ public class Check_Entries {
         // only got here if we didn't return false
         return true;
     }
+    
+    public int string_to_int(String s){
+        if(isInteger(s)){
+            return Integer.parseInt(s);
+        }
+        else{
+            return 0;
+        }
+    }
 }
