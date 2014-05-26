@@ -1041,7 +1041,7 @@ public class Report_GL_cadvance extends javax.swing.JPanel {
             param.put ("from_date",Return_date1);
              param.put ("to_date",Return_date2);
              param.put ("USER",user.get_current_user());
-             String location = dbm.checknReturnStringData("file_location", "description", "Reports", "location");
+             String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
              
            
            

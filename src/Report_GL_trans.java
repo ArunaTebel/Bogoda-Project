@@ -1078,7 +1078,7 @@ public class Report_GL_trans extends javax.swing.JPanel {
             param.put ("from_date",Return_date1);
              param.put ("to_date",Return_date2);
            // Date Return_date = datechooser.Return_date(yearfield, monthfield, dayfield);
-              String location = dbm.checknReturnStringData("file_location", "description", "Reports", "location");
+              String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
              
            
             generate.create("GL_trans", "D:\\", param, location,"GL_trans_Gcategory.jrxml");
