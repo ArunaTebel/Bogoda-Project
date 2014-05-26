@@ -27,7 +27,7 @@ public class Report_gen {
     
     }
     
-    public boolean create(String file_name, String save_location,HashMap param,String report_location){
+    public boolean create(String file_name, String save_location,HashMap param,String report_location,String report_name){
      try{
             Calendar currentDate = Calendar.getInstance();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
@@ -35,7 +35,7 @@ public class Report_gen {
             //HashMap param = new HashMap();
             //param.put("Date",jTextField1.getText() );
        // String report="C:\\Users\\Pramo\\Documents\\NetBeansProjects\\Lec\\src\\report4.jrxml";
-        JasperReport jr=JasperCompileManager.compileReport(report_location);
+        JasperReport jr=JasperCompileManager.compileReport(report_location+report_name);
         JasperPrint jp=JasperFillManager.fillReport(jr, param,dbm.conn);
         
            // JasperViewer.viewReport(jp);

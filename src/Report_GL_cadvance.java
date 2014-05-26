@@ -28,6 +28,7 @@ public class Report_GL_cadvance extends javax.swing.JPanel {
     Date_Handler datehandler = new Date_Handler();
     Report_gen generate = new Report_gen();
     UserAccountControl user = new UserAccountControl();
+    DatabaseManager dbm = new DatabaseManager();
 
     public void focus(){
     dayfield.requestFocus();
@@ -1030,6 +1031,7 @@ public class Report_GL_cadvance extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
      
+        
         try {
             HashMap param = new HashMap();
          
@@ -1039,8 +1041,11 @@ public class Report_GL_cadvance extends javax.swing.JPanel {
             param.put ("from_date",Return_date1);
              param.put ("to_date",Return_date2);
              param.put ("USER",user.get_current_user());
+             String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
+             
            
-            generate.create("GL_trans", "D:\\", param, "C:\\Users\\Pramo\\Documents\\NetBeansProjects\\Bogoda-Project\\src\\Reports\\GL_cadvance.jrxml");
+           
+            generate.create("GL_trans", "D:\\", param, location,"GL_cadvance.jrxml");
            
         } catch (ParseException ex) {
             Logger.getLogger(Report_GL_trans.class.getName()).log(Level.SEVERE, null, ex);
