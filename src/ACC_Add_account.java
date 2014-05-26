@@ -349,8 +349,9 @@ public class ACC_Add_account extends javax.swing.JPanel {
 
         aobject.setAccountName(account_name.getText());
 
-        aobject.setAccountClass(account_class.getSelectedItem().toString());
-
+       // aobject.setAccountClass(account_class.getSelectedItem().toString());
+        
+       // aobject.setAccountClass(a);
         if (chk.isInteger(account_code.getText()) == true) {
             account_code_label.setText(null);
         }
