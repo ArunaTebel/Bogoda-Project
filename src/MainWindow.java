@@ -93,8 +93,8 @@ public class MainWindow extends javax.swing.JFrame {
         Pass = new javax.swing.JPasswordField();
         User_id = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
         jButton13 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
@@ -310,17 +310,17 @@ public class MainWindow extends javax.swing.JFrame {
         Main_Content.add(jLabel3);
         jLabel3.setBounds(-230, 130, 770, 420);
 
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BogodaAreal.png"))); // NOI18N
-        jLabel7.setText("jLabel3");
-        jLabel7.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        Main_Content.add(jLabel7);
-        jLabel7.setBounds(-70, -80, 1350, 760);
-
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Password");
         Main_Content.add(jLabel8);
         jLabel8.setBounds(120, 240, 90, 40);
+
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BogodaAreal.png"))); // NOI18N
+        jLabel7.setText("jLabel3");
+        jLabel7.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        Main_Content.add(jLabel7);
+        jLabel7.setBounds(-70, -80, 1350, 760);
 
         jButton13.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
         jButton13.setForeground(new java.awt.Color(215, 215, 215));
@@ -990,7 +990,8 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton15ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        
+        System.exit(0);
+                
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed

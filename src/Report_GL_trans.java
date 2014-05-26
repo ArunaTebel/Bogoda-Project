@@ -26,6 +26,8 @@ public class Report_GL_trans extends javax.swing.JPanel {
      */
     public Report_GL_trans() {
         initComponents();
+        Cat_code.setEnabled(false);
+        supplier_id.setEnabled(false);
     }
       DateChooser_text datechooser = new DateChooser_text();
     Date_Handler datehandler = new Date_Handler();
@@ -223,6 +225,11 @@ public class Report_GL_trans extends javax.swing.JPanel {
         jLabel3.setText("Group by");
 
         jCheckBox1.setText("Route");
+        jCheckBox1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jCheckBox1ItemStateChanged(evt);
+            }
+        });
 
         jCheckBox2.setText("Supplier");
         jCheckBox2.addActionListener(new java.awt.event.ActionListener() {
@@ -1140,6 +1147,11 @@ public class Report_GL_trans extends javax.swing.JPanel {
            // trans_rate.requestFocusInWindow();
       //  }
     }//GEN-LAST:event_Cat_codeItemStateChanged
+
+    private void jCheckBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox1ItemStateChanged
+       supplier_id.setEnabled(false);
+       
+    }//GEN-LAST:event_jCheckBox1ItemStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
