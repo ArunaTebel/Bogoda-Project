@@ -158,7 +158,8 @@ public String get_day(Date date) {
         String month= null;
         String[] array = new String[3];
         array = s.split("-");
-        return array[2];
+        int i = Integer.parseInt(array[2]);
+        return ""+i;
 
     }
 

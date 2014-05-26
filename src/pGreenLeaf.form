@@ -30,21 +30,17 @@
                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
                       <Component id="jButton1" alignment="0" max="32767" attributes="0"/>
                       <Component id="jButton2" alignment="0" max="32767" attributes="0"/>
-                      <Component id="jButton3" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jButton3" alignment="0" pref="134" max="32767" attributes="0"/>
                       <Component id="jButton5" alignment="0" max="32767" attributes="0"/>
                       <Component id="jButton4" alignment="0" max="32767" attributes="0"/>
-                      <Group type="102" alignment="1" attributes="0">
-                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="jButton7" max="32767" attributes="0"/>
-                              <Component id="jButton6" max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="Add_combo" alignment="1" min="-2" pref="79" max="-2" attributes="0"/>
-                              <Component id="jComboBox3" alignment="1" min="-2" pref="79" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
                   </Group>
                   <Component id="jLabel1" alignment="0" max="-2" attributes="0"/>
+                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                      <Component id="Add_combo" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jButton7" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jComboBox3" alignment="0" pref="133" max="32767" attributes="0"/>
+                  </Group>
+                  <Component id="jButton6" alignment="1" min="-2" pref="134" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
               <Component id="GL_content" max="32767" attributes="0"/>
@@ -60,21 +56,19 @@
               <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
               <Component id="jButton3" min="-2" pref="35" max="-2" attributes="0"/>
               <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-              <Component id="jButton4" min="-2" pref="35" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
               <Component id="jButton5" min="-2" pref="35" max="-2" attributes="0"/>
               <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="Add_combo" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                  <Component id="jButton6" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-              </Group>
+              <Component id="jButton4" min="-2" pref="35" max="-2" attributes="0"/>
               <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jComboBox3" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                  <Component id="jButton7" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-              </Group>
+              <Component id="jButton6" min="-2" pref="14" max="-2" attributes="0"/>
               <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-              <Component id="jLabel1" pref="271" max="32767" attributes="0"/>
+              <Component id="Add_combo" min="-2" pref="35" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+              <Component id="jButton7" min="-2" pref="14" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+              <Component id="jComboBox3" min="-2" pref="35" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jLabel1" pref="215" max="32767" attributes="0"/>
           </Group>
           <Component id="GL_content" alignment="0" max="32767" attributes="0"/>
       </Group>
@@ -113,7 +107,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButton4">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Installments"/>
+        <Property name="text" type="java.lang.String" value="Welfare"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton4ActionPerformed"/>
@@ -153,6 +147,8 @@
     <Component class="javax.swing.JButton" name="jButton6">
       <Properties>
         <Property name="text" type="java.lang.String" value="Add"/>
+        <Property name="borderPainted" type="boolean" value="false"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JComboBox" name="jComboBox3">
@@ -176,6 +172,8 @@
     <Component class="javax.swing.JButton" name="jButton7">
       <Properties>
         <Property name="text" type="java.lang.String" value="Veiw"/>
+        <Property name="borderPainted" type="boolean" value="false"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
     <Container class="javax.swing.JPanel" name="GL_content">
@@ -183,7 +181,7 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="739" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="733" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">

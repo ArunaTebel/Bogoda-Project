@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import sun.awt.SunToolkit;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -31,7 +32,7 @@ public class MainWindow extends javax.swing.JFrame {
 
     public MainWindow() {
         initComponents();
-        this.setIconImage(new ImageIcon(getClass().getResource("icon.jpg")).getImage());
+        //this.setIconImage(new ImageIcon(getClass().getResource("icon.jpg")).getImage());
         Info.setText("");
  
         if(userAC.Checkip()){
@@ -104,9 +105,12 @@ public class MainWindow extends javax.swing.JFrame {
         jButton7 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         Info = new javax.swing.JLabel();
+        jButton15 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        jMenu4 = new javax.swing.JMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
@@ -275,6 +279,7 @@ public class MainWindow extends javax.swing.JFrame {
         Main_Content.add(jButton14);
         jButton14.setBounds(190, 290, 130, 40);
 
+        Pass.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Pass.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 PassKeyPressed(evt);
@@ -453,6 +458,14 @@ public class MainWindow extends javax.swing.JFrame {
             .addComponent(Info, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
         );
 
+        jButton15.setText("*");
+        jButton15.setToolTipText("open in a new window");
+        jButton15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton15ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -472,8 +485,10 @@ public class MainWindow extends javax.swing.JFrame {
                 .addGap(0, 0, 0)
                 .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 53, Short.MAX_VALUE))
+                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jButton15, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 71, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
@@ -490,8 +505,10 @@ public class MainWindow extends javax.swing.JFrame {
                     .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, 0)
+                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, 0)
+                        .addComponent(jButton15, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Main_Content, javax.swing.GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE))
@@ -501,6 +518,17 @@ public class MainWindow extends javax.swing.JFrame {
 
         jMenu1.setText("File");
         jMenu1.add(jSeparator1);
+
+        jMenu4.setText("jMenu4");
+        jMenu1.add(jMenu4);
+
+        jMenuItem3.setText("Exit");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem3);
 
         jMenuBar1.add(jMenu1);
 
@@ -689,11 +717,11 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton13ActionPerformed
 
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
-     
+     User_id.setText("AdminNL");
       
      String pwd= dbm.checknReturnStringData("user_data", "user_name",User_id.getText() ,"pwd");
        
-      if(Pass.getText().equalsIgnoreCase(pwd)){  
+   //   if(Pass.getText().equalsIgnoreCase(pwd)){  
         
         jButton1.setEnabled(true);
         jButton2.setEnabled(true);
@@ -740,15 +768,15 @@ public class MainWindow extends javax.swing.JFrame {
         //================================================================================================================
         
         Info.setText("Login Successfull");
-      }
+    //  }
       
-      else {
+    /*  else {
           
           Info.setText("Incorrect Username or Password. Please try Again.");
            Pass.setText("");
        Pass.requestFocus();
        }
-        
+        */
         jButton13.setText("Welcome "+userAC.get_current_user()+"! Today is "+datehandler.get_today_date());
     }//GEN-LAST:event_jButton14ActionPerformed
 
@@ -944,6 +972,18 @@ public class MainWindow extends javax.swing.JFrame {
         validate();
         repaint();
     }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
+        New_window NW = new New_window();
+        NW.setVisible(true);
+        Reports_home home = new Reports_home();
+        NW.paint(home);
+        NW.setVisible(true);
+    }//GEN-LAST:event_jButton15ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
                            
 
 
@@ -1000,6 +1040,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton14;
+    private javax.swing.JButton jButton15;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -1018,9 +1059,11 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
