@@ -86,10 +86,10 @@ public class ACC_Add_account extends javax.swing.JPanel {
         });
 
         opening_balance.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 opening_balanceInputMethodTextChanged(evt);
+            }
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
         opening_balance.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -356,11 +356,11 @@ public class ACC_Add_account extends javax.swing.JPanel {
             account_code_label.setText(null);
         }
 
-        if (chk.isInteger(opening_balance.getText()) == true) {
+        if (chk.isDouble(opening_balance.getText()) == true) {
             opening_balance_label.setText(null);
         }
 
-        if (chk.isInteger(current_balance.getText()) == true) {
+        if (chk.isDouble(current_balance.getText()) == true) {
             current_balance_label.setText(null);
         }
 
@@ -378,6 +378,10 @@ public class ACC_Add_account extends javax.swing.JPanel {
         } else {
             account_code_label.setText(null);
             aobject.setAccountCode(Integer.parseInt(account_code.getText()));
+            aobject.set_main_account_code(aobject.getAccountCode());
+            aobject.set_sub_account_code(aobject.getAccountCode());
+            aobject.setAccountClass(aobject.get_main_account_code());
+            account_class.setSelectedItem(aobject.getAccountClass());
             if (chk.isDouble(opening_balance.getText()) == false) {
                 opening_balance_label.setText("Invalid Input");
                 if (chk.isDouble(current_balance.getText()) == false) {

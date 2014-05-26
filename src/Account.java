@@ -56,7 +56,7 @@ public class Account {
     }
     
     public void setAccountClass(int main_account_code) {
-        if(main_account_code==1){
+      /*  if(main_account_code==1){
             accountClass= "Fixed Asset";
         }
         else if(main_account_code==2){
@@ -83,7 +83,10 @@ public class Account {
         // check this control accounts
         else if(main_account_code==9){
             accountClass=null;
-        }
+        }*/
+        
+        DatabaseManager dbm = DatabaseManager.getDbCon();
+        accountClass=dbm.checknReturnData("main_account_details","main_account_code",main_account_code,"account_class");
     }
     
     // Getters
@@ -117,7 +120,7 @@ public class Account {
        
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         try {
-            dbCon.insert("INSERT INTO account_names(account_name,account_id,account_class,opening_balance,current_balance) VALUES('" + accountName + "','" + accountCode + "','" + accountClass + "','" + openingBal + "','"+currentBalance+ "')");
+            dbCon.insert("INSERT INTO account_names(account_name,account_id,account_class,opening_balance,current_balance,main_account_code,sub_account_code) VALUES('" + accountName + "','" + accountCode + "','" + accountClass + "','" + openingBal + "','"+currentBalance+ "','"+main_account_code+"','"+sub_account_code+"')");
         } catch (SQLException ex) {
             MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
             return false;
