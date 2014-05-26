@@ -30,6 +30,7 @@ public class Report_GL_trans extends javax.swing.JPanel {
       DateChooser_text datechooser = new DateChooser_text();
     Date_Handler datehandler = new Date_Handler();
     Report_gen generate = new Report_gen();
+    DatabaseManager dbm = new DatabaseManager();
 
     public void focus(){
     dayfield.requestFocus();
@@ -1077,7 +1078,10 @@ public class Report_GL_trans extends javax.swing.JPanel {
             param.put ("from_date",Return_date1);
              param.put ("to_date",Return_date2);
            // Date Return_date = datechooser.Return_date(yearfield, monthfield, dayfield);
-            generate.create("GL_trans", "D:\\", param, "C:\\Users\\Pramo\\Documents\\NetBeansProjects\\Bogoda-Project\\src\\Reports\\GL_trans_Gcategory.jrxml");
+              String location = dbm.checknReturnStringData("file_location", "description", "Reports", "location");
+             
+           
+            generate.create("GL_trans", "D:\\", param, location,"GL_trans_Gcategory.jrxml");
         } catch (ParseException ex) {
             Logger.getLogger(Report_GL_trans.class.getName()).log(Level.SEVERE, null, ex);
         }
