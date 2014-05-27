@@ -270,6 +270,8 @@ public class ACC_Add_sub_account extends javax.swing.JPanel {
       
         sac.set_sub_account_code(Integer.parseInt(sub_account_code.getText()));
         sac.set_description(description.getText());
+        sac.set_main_account_code(Integer.parseInt(sub_account_code.getText()));
+        
         
         sac.addToDataBase();
         
@@ -341,8 +343,11 @@ public class ACC_Add_sub_account extends javax.swing.JPanel {
 
     private void save1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_save1ActionPerformed
         DatabaseManager dbm = DatabaseManager.getDbCon();
+        
+        sac.set_main_account_code(Integer.parseInt(sub_account_code.getText()));
 
         dbm.updateDatabase("sub_account_details","sub_account_code",chk.string_to_int(sub_account_code.getText()),"description",description.getText());
+        dbm.updateDatabase("sub_account_details","sub_account_code",chk.string_to_int(sub_account_code.getText()),"main_account_code",sac.get_main_account_code());
      
     }//GEN-LAST:event_save1ActionPerformed
 

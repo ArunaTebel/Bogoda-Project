@@ -1,5 +1,6 @@
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -47,6 +48,24 @@ public class Bank {
         }
 
     }
+    
+    public void from_databse_to_the_table(javax.swing.JTable table){
+        
+            int i=0;
+         DatabaseManager dbm = DatabaseManager.getDbCon();
+        try {
+            ResultSet query = dbm.query("SELECT * FROM bank");
+            while (query.next()) {
+                table.setValueAt(query.getString("bank_id"),i , 0);
+                table.setValueAt(query.getString("bank_name"),i , 1);
+                i++;
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        
+    }
+    
 
     public void removeFromDataBase() {
 

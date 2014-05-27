@@ -14,7 +14,7 @@ import javax.swing.table.DefaultTableModel;
 public class ACC_Journal_View_Table extends javax.swing.JFrame {
 
     /**
-     * Creates new form ACC_Reciept_View
+     * Creates new form ACC_Journal_View
      */
     public ACC_Journal_View_Table() {
         initComponents();

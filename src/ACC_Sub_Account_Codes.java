@@ -5,11 +5,13 @@ import java.sql.SQLException;
 public class ACC_Sub_Account_Codes {
     
     int sub_account_code;
+    int main_account_code;
     String description;
 
     public ACC_Sub_Account_Codes() {
         
         sub_account_code=0;
+        main_account_code=0;
         description=null;
     }
     
@@ -17,6 +19,10 @@ public class ACC_Sub_Account_Codes {
     
     public void set_sub_account_code(int sub_account_code){
         this.sub_account_code=sub_account_code;
+    }
+    
+    public void set_main_account_code(int sub_account_code){
+        main_account_code=sub_account_code/100;
     }
     
     public void set_description(String description){
@@ -29,6 +35,10 @@ public class ACC_Sub_Account_Codes {
         return sub_account_code;
     }
     
+    public int get_main_account_code(){
+        return main_account_code;
+   }
+    
     public String get_description(){
         return description;
     }
@@ -40,7 +50,7 @@ public class ACC_Sub_Account_Codes {
        
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         try {
-            dbCon.insert("INSERT INTO sub_account_details(sub_account_code,description) VALUES('" + sub_account_code + "','" + description + "')");
+            dbCon.insert("INSERT INTO sub_account_details(sub_account_code,main_account_code,description) VALUES('" + sub_account_code + "','" + main_account_code + "','" + description + "')");
         } catch (SQLException ex) {
             MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
             return false;
