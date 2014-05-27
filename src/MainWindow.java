@@ -23,24 +23,27 @@ import sun.awt.SunToolkit;
  * @author Pramo
  */
 public class MainWindow extends javax.swing.JFrame {
-    
-     Interface_Events interface_events = new Interface_Events();
-     DatabaseManager dbm = new DatabaseManager();
-     Search srch = new Search();
-     Date_Handler datehandler = new Date_Handler();
-     UserAccountControl userAC = new UserAccountControl();
+
+    Interface_Events interface_events = new Interface_Events();
+    DatabaseManager dbm = new DatabaseManager();
+    Search srch = new Search();
+    Date_Handler datehandler = new Date_Handler();
+    UserAccountControl userAC = new UserAccountControl();
 
     public MainWindow() {
         initComponents();
         //this.setIconImage(new ImageIcon(getClass().getResource("icon.jpg")).getImage());
         Info.setText("");
- 
-        if(userAC.Checkip()){
-            
-           userAC.Add_ip();
-           Info.setText("New ip detected");
-           
-        
+        String s = userAC.get_current_user();
+        TimeCheck time = new TimeCheck(s);
+        Thread t = new Thread(time);
+        t.start();
+
+        if (userAC.Checkip()) {
+
+            userAC.Add_ip();
+            Info.setText("New ip detected");
+
         }
 
         jButton1.setEnabled(false);
@@ -55,12 +58,12 @@ public class MainWindow extends javax.swing.JFrame {
         jButton10.setEnabled(false);
         jButton11.setEnabled(false);
         jButton12.setEnabled(false);
-        jButton13.setEnabled(false);
+        topBar.setEnabled(false);
         //jButton14.setEnabled(false);
         jMenu1.setEnabled(false);
         jMenu2.setEnabled(false);
         jMenu3.setEnabled(false);
-       // jButton14.requestFocusInWindow();
+        // jButton14.requestFocusInWindow();
         User_id.requestFocus();
 
         interface_events.Respond_enter(jButton14, null);
@@ -93,9 +96,9 @@ public class MainWindow extends javax.swing.JFrame {
         Pass = new javax.swing.JPasswordField();
         User_id = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jButton13 = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        topBar = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
@@ -118,7 +121,6 @@ public class MainWindow extends javax.swing.JFrame {
         jMenuItem8 = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
 
         jMenuItem5.setText("jMenuItem5");
 
@@ -310,25 +312,25 @@ public class MainWindow extends javax.swing.JFrame {
         Main_Content.add(jLabel3);
         jLabel3.setBounds(-230, 130, 770, 420);
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("Password");
-        Main_Content.add(jLabel8);
-        jLabel8.setBounds(120, 240, 90, 40);
-
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BogodaAreal.png"))); // NOI18N
         jLabel7.setText("jLabel3");
         jLabel7.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         Main_Content.add(jLabel7);
         jLabel7.setBounds(-70, -80, 1350, 760);
 
-        jButton13.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        jButton13.setForeground(new java.awt.Color(215, 215, 215));
-        jButton13.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jButton13.setVerifyInputWhenFocusTarget(false);
-        jButton13.addActionListener(new java.awt.event.ActionListener() {
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Password");
+        Main_Content.add(jLabel8);
+        jLabel8.setBounds(120, 240, 90, 40);
+
+        topBar.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
+        topBar.setForeground(new java.awt.Color(215, 215, 215));
+        topBar.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        topBar.setVerifyInputWhenFocusTarget(false);
+        topBar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton13ActionPerformed(evt);
+                topBarActionPerformed(evt);
             }
         });
 
@@ -471,7 +473,7 @@ public class MainWindow extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jButton13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(topBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -498,7 +500,7 @@ public class MainWindow extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(topBar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton15, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -571,14 +573,6 @@ public class MainWindow extends javax.swing.JFrame {
         });
         jMenu3.add(jMenuItem1);
 
-        jMenuItem4.setText("File Locations");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
-            }
-        });
-        jMenu3.add(jMenuItem4);
-
         jMenuBar1.add(jMenu3);
 
         setJMenuBar(jMenuBar1);
@@ -598,7 +592,7 @@ public class MainWindow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-          DateChooser addbrnch = new DateChooser();
+        DateChooser addbrnch = new DateChooser();
 
         Main_Content.removeAll();
 
@@ -621,9 +615,9 @@ public class MainWindow extends javax.swing.JFrame {
         repaint();
         addbrnch.focus();
     }//GEN-LAST:event_jButton10ActionPerformed
-    
+
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-         ACC_Reciept_View view = new ACC_Reciept_View();
+        ACC_Reciept_View view = new ACC_Reciept_View();
 
         Main_Content.removeAll();
         view.Start();
@@ -633,11 +627,11 @@ public class MainWindow extends javax.swing.JFrame {
         Main_Content.add(view);
         validate();
         repaint();
-      //  view.focus();
+        //  view.focus();
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-          ACC_Payment_View view = new ACC_Payment_View();
+        ACC_Payment_View view = new ACC_Payment_View();
 
         Main_Content.removeAll();
         view.Start();
@@ -650,7 +644,7 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        jButton13.setBackground(new java.awt.Color(51, 102, 0));
+        topBar.setBackground(new java.awt.Color(51, 102, 0));
         pGreenLeaf pgreenleaf = new pGreenLeaf();
 
         Main_Content.removeAll();
@@ -661,9 +655,7 @@ public class MainWindow extends javax.swing.JFrame {
         validate();
         repaint();
         pgreenleaf.focus();
-        
-     
-           
+
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -692,7 +684,7 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        jButton13.setBackground(new java.awt.Color(204, 0, 103));
+        topBar.setBackground(new java.awt.Color(204, 0, 103));
         pAccounts paccunts = new pAccounts();
 
         Main_Content.removeAll();
@@ -707,7 +699,7 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
-        jButton13.setBackground(new java.awt.Color(0, 51, 102));
+        topBar.setBackground(new java.awt.Color(0, 51, 102));
         pPRCR prcr = new pPRCR();
 
         Main_Content.removeAll();
@@ -720,17 +712,17 @@ public class MainWindow extends javax.swing.JFrame {
         prcr.focus();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+    private void topBarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_topBarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton13ActionPerformed
+
+    }//GEN-LAST:event_topBarActionPerformed
 
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
-     User_id.setText("AdminNL");
-      
-     String pwd= dbm.checknReturnStringData("user_data", "user_name",User_id.getText() ,"pwd");
-       
+        User_id.setText("AdminNL");
+
+        String pwd = dbm.checknReturnStringData("user_data", "user_name", User_id.getText(), "pwd");
+
    //   if(Pass.getText().equalsIgnoreCase(pwd)){  
-        
         jButton1.setEnabled(true);
         jButton2.setEnabled(true);
         jButton3.setEnabled(true);
@@ -743,55 +735,55 @@ public class MainWindow extends javax.swing.JFrame {
         jButton10.setEnabled(true);
         jButton11.setEnabled(true);
         jButton12.setEnabled(true);
-        jButton13.setEnabled(true);
+        topBar.setEnabled(true);
         jMenu1.setEnabled(true);
         jMenu2.setEnabled(true);
         jMenu3.setEnabled(true);
 
-       // Main_Content.removeAll();
-         User_id.setVisible(false);
-         Pass.setVisible(false);
-         jButton14.setVisible(false);
-         jLabel3.setVisible(false);
-         jLabel4.setVisible(false);
-         jLabel5.setVisible(false);
-         jLabel6.setVisible(false);
+        // Main_Content.removeAll();
+        User_id.setVisible(false);
+        Pass.setVisible(false);
+        jButton14.setVisible(false);
+        jLabel3.setVisible(false);
+        jLabel4.setVisible(false);
+        jLabel5.setVisible(false);
+        jLabel6.setVisible(false);
         //Main_Content.setBackground(new java.awt.Color(240, 240, 240));
         jLabel7.setVisible(true);
-        jButton13.setBackground(new java.awt.Color(102, 102, 102));
+        topBar.setBackground(new java.awt.Color(102, 102, 102));
         jButton2.requestFocusInWindow();
-        
+
         //======================================================================================================================
         DatabaseManager dbCon = DatabaseManager.getDbCon();
-        String date =datehandler.get_today_date_time();
-        String ip =  userAC.getIP();       
-         dbm.updateDatabase("user_current", "ip", ip, "date_time", date);
-          dbm.updateDatabase("user_current", "ip", ip, "user", User_id.getText());
-         try {
-            dbCon.insert("INSERT INTO user_login_log(user,date_time,ip) VALUES('" + User_id.getText() + "','"+ date + "','"+ ip + "')");
+        String date = datehandler.get_today_date_time();
+        String ip = userAC.getIP();
+        dbm.updateDatabase("user_current", "ip", ip, "date_time", date);
+        dbm.updateDatabase("user_current", "ip", ip, "user", User_id.getText());
+        try {
+            dbCon.insert("INSERT INTO user_login_log(user,date_time,ip) VALUES('" + User_id.getText() + "','" + date + "','" + ip + "')");
 
         } catch (SQLException ex) {
             MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
         }
         //================================================================================================================
-        
+
         Info.setText("Login Successfull");
     //  }
-      
-    /*  else {
+
+        /*  else {
           
-          Info.setText("Incorrect Username or Password. Please try Again.");
-           Pass.setText("");
-       Pass.requestFocus();
-       }
-        */
-        jButton13.setText("Welcome "+userAC.get_current_user()+"! Today is "+datehandler.get_today_date());
+         Info.setText("Incorrect Username or Password. Please try Again.");
+         Pass.setText("");
+         Pass.requestFocus();
+         }
+         */
+        //topBar.setText("Welcome " + userAC.get_current_user() + "! Today is " + datehandler.get_today_date());
     }//GEN-LAST:event_jButton14ActionPerformed
 
     private void jButton2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton2KeyReleased
-       interface_events.Change_focus_right_b_b(jButton1, evt);
-       interface_events.Change_focus_down_b_b(jButton8, evt);
-      
+        interface_events.Change_focus_right_b_b(jButton1, evt);
+        interface_events.Change_focus_down_b_b(jButton8, evt);
+
     }//GEN-LAST:event_jButton2KeyReleased
 
     private void jButton1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton1KeyReleased
@@ -805,19 +797,19 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4KeyReleased
 
     private void jButton3KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton3KeyReleased
-       interface_events.Change_focus_right_b_b(jButton5, evt);
-       interface_events.Change_focus_left_b_b(jButton4, evt);
+        interface_events.Change_focus_right_b_b(jButton5, evt);
+        interface_events.Change_focus_left_b_b(jButton4, evt);
     }//GEN-LAST:event_jButton3KeyReleased
 
     private void jButton5KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton5KeyReleased
-       interface_events.Change_focus_right_b_b(jButton6, evt);
-       interface_events.Change_focus_left_b_b(jButton3, evt);
+        interface_events.Change_focus_right_b_b(jButton6, evt);
+        interface_events.Change_focus_left_b_b(jButton3, evt);
     }//GEN-LAST:event_jButton5KeyReleased
 
     private void jButton6KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton6KeyReleased
-       interface_events.Change_focus_right_b_b(jButton7, evt);
-       interface_events.Change_focus_left_b_b(jButton5, evt);
-       
+        interface_events.Change_focus_right_b_b(jButton7, evt);
+        interface_events.Change_focus_left_b_b(jButton5, evt);
+
     }//GEN-LAST:event_jButton6KeyReleased
 
     private void jButton7KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton7KeyReleased
@@ -833,14 +825,14 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1FocusGained
 
     private void jButton4FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jButton4FocusGained
-                                            
+
         interface_events.Respond_enter(jButton4, null);
-                                       
+
 
     }//GEN-LAST:event_jButton4FocusGained
 
     private void jButton3FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jButton3FocusGained
-       interface_events.Respond_enter(jButton3, null);
+        interface_events.Respond_enter(jButton3, null);
     }//GEN-LAST:event_jButton3FocusGained
 
     private void jButton5FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jButton5FocusGained
@@ -860,13 +852,13 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2FocusGained
 
     private void jButton8KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton8KeyReleased
-       interface_events.Change_focus_down_b_b(jButton9, evt);
-       interface_events.Change_focus_Up_b_b(jButton2, evt);
+        interface_events.Change_focus_down_b_b(jButton9, evt);
+        interface_events.Change_focus_Up_b_b(jButton2, evt);
     }//GEN-LAST:event_jButton8KeyReleased
 
     private void jButton9KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton9KeyReleased
-       interface_events.Change_focus_down_b_b(jButton10, evt);
-       interface_events.Change_focus_Up_b_b(jButton8, evt);
+        interface_events.Change_focus_down_b_b(jButton10, evt);
+        interface_events.Change_focus_Up_b_b(jButton8, evt);
     }//GEN-LAST:event_jButton9KeyReleased
 
     private void jButton10KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton10KeyReleased
@@ -875,16 +867,16 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton10KeyReleased
 
     private void jButton11KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton11KeyReleased
-       interface_events.Change_focus_down_b_b(jButton12, evt);
-       interface_events.Change_focus_Up_b_b(jButton10, evt);
+        interface_events.Change_focus_down_b_b(jButton12, evt);
+        interface_events.Change_focus_Up_b_b(jButton10, evt);
     }//GEN-LAST:event_jButton11KeyReleased
 
     private void jButton12KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton12KeyReleased
-       interface_events.Change_focus_Up_b_b(jButton11, evt);
+        interface_events.Change_focus_Up_b_b(jButton11, evt);
     }//GEN-LAST:event_jButton12KeyReleased
 
     private void jButton8FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jButton8FocusGained
-       interface_events.Respond_enter(jButton8, null);
+        interface_events.Respond_enter(jButton8, null);
     }//GEN-LAST:event_jButton8FocusGained
 
     private void jButton9FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jButton9FocusGained
@@ -892,11 +884,11 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton9FocusGained
 
     private void jButton10FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jButton10FocusGained
-       interface_events.Respond_enter(jButton10, null);
+        interface_events.Respond_enter(jButton10, null);
     }//GEN-LAST:event_jButton10FocusGained
 
     private void jButton11FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jButton11FocusGained
-       interface_events.Respond_enter(jButton11, null);
+        interface_events.Respond_enter(jButton11, null);
     }//GEN-LAST:event_jButton11FocusGained
 
     private void jButton12FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jButton12FocusGained
@@ -904,7 +896,7 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton12FocusGained
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        
+
         Add_Rate_details rate = new Add_Rate_details();
 
         Main_Content.removeAll();
@@ -918,7 +910,7 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-       View_Edit_databases VEdatabases = new View_Edit_databases();
+        View_Edit_databases VEdatabases = new View_Edit_databases();
 
         Main_Content.removeAll();
 
@@ -930,15 +922,15 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void User_idKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_User_idKeyPressed
-        
+
     }//GEN-LAST:event_User_idKeyPressed
 
     private void PassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PassKeyPressed
-       interface_events.Change_focus_Enterkey_t_b(User_id, jButton14, evt);
+        interface_events.Change_focus_Enterkey_t_b(User_id, jButton14, evt);
     }//GEN-LAST:event_PassKeyPressed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-       GL_BillsummeryPanel bill = new GL_BillsummeryPanel();
+        GL_BillsummeryPanel bill = new GL_BillsummeryPanel();
 
         Main_Content.removeAll();
 
@@ -950,19 +942,21 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void User_idKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_User_idKeyReleased
-     if(evt.getKeyCode()!=KeyEvent.VK_BACK_SPACE&&evt.getKeyCode()!=KeyEvent.VK_SHIFT ){   String a;
-        int b= User_id.getText().length();
-        
-       a= srch.Suggestions("user_data", "user_name", User_id.getText());
-       int c = a.length();
-        User_id.setText(a);
-        if(c!=b){
-        User_id.select(b, c);}
-        
-        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
-        Pass.requestFocusInWindow();
+        if (evt.getKeyCode() != KeyEvent.VK_BACK_SPACE && evt.getKeyCode() != KeyEvent.VK_SHIFT) {
+            String a;
+            int b = User_id.getText().length();
+
+            a = srch.Suggestions("user_data", "user_name", User_id.getText());
+            int c = a.length();
+            User_id.setText(a);
+            if (c != b) {
+                User_id.select(b, c);
+            }
+
+            if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+                Pass.requestFocusInWindow();
+            }
         }
-     }
     }//GEN-LAST:event_User_idKeyReleased
 
     private void User_idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_User_idActionPerformed
@@ -970,7 +964,7 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_User_idActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-      Reports_home reports_home = new Reports_home();
+        Reports_home reports_home = new Reports_home();
 
         Main_Content.removeAll();
 
@@ -990,24 +984,8 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton15ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        System.exit(0);
-                
+
     }//GEN-LAST:event_jMenuItem3ActionPerformed
-
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-       file_locations rate = new file_locations();
-
-        Main_Content.removeAll();
-
-        rate.setSize(Main_Content.getSize());
-
-        Main_Content.add(rate);
-        validate();
-        repaint();
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
-                           
-
-
 
     /**
      * @param args the command line arguments
@@ -1059,7 +1037,6 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
-    private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton15;
     private javax.swing.JButton jButton2;
@@ -1085,7 +1062,6 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
@@ -1094,5 +1070,6 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
+    public static javax.swing.JButton topBar;
     // End of variables declaration//GEN-END:variables
 }

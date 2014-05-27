@@ -81,7 +81,15 @@ public final class DatabaseManager {
         }
         return null;
     }
-
+    
+    public int readLastRow(String table, String coloumn) throws SQLException{
+        DatabaseManager dbm = DatabaseManager.getDbCon();
+        ResultSet rs1 = dbm.query("SELECT " + coloumn + " FROM " + table + " ORDER BY " + coloumn + " DESC LIMIT 1");
+        while(rs1.next())
+            return (rs1.getInt(coloumn));
+        return 0;
+    }
+    
     public String checknReturnStringData(String table_name, String table_column_giving, String row_element, String table_column_need) {
         DatabaseManager dbm = DatabaseManager.getDbCon();
         try {
