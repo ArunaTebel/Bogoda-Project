@@ -59,7 +59,7 @@ public class pAccounts extends javax.swing.JPanel {
         jButton9 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
 
-        setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 0, 102), 3));
+        setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 0, 153), 3));
 
         javax.swing.GroupLayout GL_contentLayout = new javax.swing.GroupLayout(GL_content);
         GL_content.setLayout(GL_contentLayout);

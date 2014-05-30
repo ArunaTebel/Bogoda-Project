@@ -40,8 +40,8 @@ public class TimeCheck implements Runnable{
         this.date = s.substring(8, 10);
         this.hour = s.substring(12, 14);
         this.minute = s.substring(15, 17);
-        MainWindow.topBar.setText("Welcome! " + user + " " + hour + ":" + minute + " " + month + "/" + date + "/" + year);
-        System.out.println("----->");
+        MainWindow.topBar.setText("Welcome! " + user + "             " + hour + ":" + minute + "           " + month + "-" + date + "-" + year);
+        
     }
     
     

@@ -1,4 +1,6 @@
 
+
+import java.awt.Color;
 import java.awt.event.ItemEvent;
 import java.awt.event.KeyEvent;
 import java.sql.Date;
@@ -8,6 +10,8 @@ import java.text.ParseException;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.UIDefaults;
+import javax.swing.UIManager;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -19,14 +23,149 @@ import java.util.logging.Logger;
  * @author Pramo
  */
 public class Report_GL_trans extends javax.swing.JPanel {
-
+UIDefaults defaults = UIManager.getLookAndFeelDefaults();
+    
+    
+     public  class Background implements Runnable{
+        @Override
+        public void run(){
+           //  jProgressBar1.setIndeterminate(true);
+            view.setEnabled(false);
+            jProgressBar1.setVisible(true);
+            int a = (int) (Math.random()*500);
+            //System.out.println(a);
+            for(int i=0;i<=3000+a;i++){
+                jProgressBar1.setValue(100*i/4000);
+                jProgressBar1.repaint();
+                
+                try {
+                    Thread.sleep(1);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Reports_GL.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            
+        }     
+    }
+     
+     public  class report implements Runnable{
+        @Override
+        public void run(){
+           //  jProgressBar1.setIndeterminate(true);
+           
+                Thread a = new Thread(new Background());
+               
+                       if (!supplier.isSelected() && !route.isSelected()) {
+            try {
+                HashMap param = new HashMap();
+                jProgressBar1.setValue(10);
+                Date Return_date1 = datechooser.Return_date(yearfield, monthfield, dayfield);
+                jProgressBar1.setValue(20);
+                Date Return_date2 = datechooser.Return_date(yearfield2, monthfield2, dayfield2);
+                param.put("from_date", Return_date1);
+                param.put("to_date", Return_date2);
+                param.put("USER",new UserAccountControl().get_current_user());
+                jProgressBar1.setValue(45);
+                jProgressBar1.repaint();
+                // Date Return_date = datechooser.Return_date(yearfield, monthfield, dayfield);
+                String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
+                a.start();
+                generate.create("GL_trans", "D:\\", param, location, "GL_trans_all.jrxml");
+                a.stop();;
+                jProgressBar1.setValue(100);
+            } catch (ParseException ex) {
+                Logger.getLogger(Report_GL_trans.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+                        if(route.isSelected()&& Cat_code.getSelectedItem()==null){
+         try {
+                HashMap param = new HashMap();
+                Date Return_date1 = datechooser.Return_date(yearfield, monthfield, dayfield);
+                Date Return_date2 = datechooser.Return_date(yearfield2, monthfield2, dayfield2);
+                param.put("from_date", Return_date1);
+                param.put("to_date", Return_date2);
+                param.put("USER",new UserAccountControl().get_current_user());
+                // Date Return_date = datechooser.Return_date(yearfield, monthfield, dayfield);
+                String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
+                a.start();
+                generate.create("GL_trans", "D:\\", param, location, "GL_trans_Gcategory.jrxml");
+                 a.stop();;
+                jProgressBar1.setValue(100);
+            } catch (ParseException ex) {
+                Logger.getLogger(Report_GL_trans.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }  if(route.isSelected()&& Cat_code.getSelectedItem()!=null){
+         try {
+                HashMap param = new HashMap();
+                Date Return_date1 = datechooser.Return_date(yearfield, monthfield, dayfield);
+                Date Return_date2 = datechooser.Return_date(yearfield2, monthfield2, dayfield2);
+                param.put("from_date", Return_date1);
+                param.put("to_date", Return_date2);
+                param.put("route", Cat_code.getSelectedItem().toString());
+                param.put("USER",new UserAccountControl().get_current_user());
+                // Date Return_date = datechooser.Return_date(yearfield, monthfield, dayfield);
+                String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
+                a.start();
+                generate.create("GL_trans", "D:\\", param, location, "GL_trans_all_rout.jrxml");
+                 a.stop();;
+                jProgressBar1.setValue(100);
+            } catch (ParseException ex) {
+                Logger.getLogger(Report_GL_trans.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+          if(supplier.isSelected()&& supplier_id.getSelectedItem()==null){
+         try {
+                HashMap param = new HashMap();
+                Date Return_date1 = datechooser.Return_date(yearfield, monthfield, dayfield);
+                Date Return_date2 = datechooser.Return_date(yearfield2, monthfield2, dayfield2);
+                param.put("from_date", Return_date1);
+                param.put("to_date", Return_date2);
+                param.put("USER",new UserAccountControl().get_current_user());
+                // Date Return_date = datechooser.Return_date(yearfield, monthfield, dayfield);
+                String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
+                a.start();
+                generate.create("GL_trans", "D:\\", param, location, "GL_trans_gsupp.jrxml");
+                 a.stop();;
+                jProgressBar1.setValue(100);
+            } catch (ParseException ex) {
+                Logger.getLogger(Report_GL_trans.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+            if(supplier.isSelected()&& supplier_id.getSelectedItem()!=null){
+         try {
+                HashMap param = new HashMap();
+                Date Return_date1 = datechooser.Return_date(yearfield, monthfield, dayfield);
+                Date Return_date2 = datechooser.Return_date(yearfield2, monthfield2, dayfield2);
+                param.put("from_date", Return_date1);
+                param.put("to_date", Return_date2);
+                param.put("sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()));
+                param.put("USER",new UserAccountControl().get_current_user());
+                // Date Return_date = datechooser.Return_date(yearfield, monthfield, dayfield);
+                String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
+                a.start();
+                generate.create("GL_trans", "D:\\", param, location, "GL_trans_all_user.jrxml");
+                 a.stop();;
+                jProgressBar1.setValue(100);
+            } catch (ParseException ex) {
+                Logger.getLogger(Report_GL_trans.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+               
+            view.setEnabled(true);
+            
+        }     
+    }
     /**
      *
      */
     public Report_GL_trans() {
+          defaults.put("nimbusOrange", defaults.get("nimbusBase"));
+        UIManager.getLookAndFeelDefaults().put("nimbusOrange", (new Color(51, 153, 0)));
+      
         initComponents();
         Cat_code.setEnabled(false);
         supplier_id.setEnabled(false);
+           jProgressBar1.setStringPainted(true);
     }
     DateChooser_text datechooser = new DateChooser_text();
     Date_Handler datehandler = new Date_Handler();
@@ -66,10 +205,11 @@ public class Report_GL_trans extends javax.swing.JPanel {
         supplier = new javax.swing.JCheckBox();
         supplier_id = new javax.swing.JComboBox();
         Cat_code = new javax.swing.JComboBox();
-        jButton1 = new javax.swing.JButton();
+        view = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
+        jProgressBar1 = new javax.swing.JProgressBar();
 
-        setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 0, 0), 6));
+        setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 6));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -302,16 +442,17 @@ public class Report_GL_trans extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(supplier)
                     .addComponent(supplier_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jButton1.setText("Veiw");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        view.setText("Veiw");
+        view.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                viewActionPerformed(evt);
             }
         });
 
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel4.setText("Transactions ");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -319,31 +460,35 @@ public class Report_GL_trans extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(view, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 26, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(view, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -1082,19 +1227,31 @@ public class Report_GL_trans extends javax.swing.JPanel {
 
     }//GEN-LAST:event_supplierActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if (!supplier.isSelected() && !route.isSelected()) {
+    private void viewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewActionPerformed
+        //Thread a  = new Thread(new Background());
+        Thread b = new Thread(new report());
+        
+       // a.start();
+        b.start();
+       // a.stop();
+        
+      /*  if (!supplier.isSelected() && !route.isSelected()) {
             try {
                 HashMap param = new HashMap();
+                jProgressBar1.setValue(10);
                 Date Return_date1 = datechooser.Return_date(yearfield, monthfield, dayfield);
+                jProgressBar1.setValue(20);
                 Date Return_date2 = datechooser.Return_date(yearfield2, monthfield2, dayfield2);
                 param.put("from_date", Return_date1);
                 param.put("to_date", Return_date2);
                 param.put("USER",new UserAccountControl().get_current_user());
+                jProgressBar1.setValue(45);
+                jProgressBar1.repaint();
                 // Date Return_date = datechooser.Return_date(yearfield, monthfield, dayfield);
                 String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
-
+                jProgressBar1.setValue(60);
                 generate.create("GL_trans", "D:\\", param, location, "GL_trans_all.jrxml");
+                jProgressBar1.setValue(95);
             } catch (ParseException ex) {
                 Logger.getLogger(Report_GL_trans.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -1164,7 +1321,9 @@ public class Report_GL_trans extends javax.swing.JPanel {
                 Logger.getLogger(Report_GL_trans.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+           
+            jProgressBar1.setValue(95);*/
+    }//GEN-LAST:event_viewActionPerformed
 
     private void supplier_idItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_supplier_idItemStateChanged
         if (supplier_id.getSelectedIndex() != 0) {
@@ -1240,18 +1399,19 @@ public class Report_GL_trans extends javax.swing.JPanel {
     private javax.swing.JPanel datepanel2;
     private javax.swing.JTextField dayfield;
     private javax.swing.JTextField dayfield2;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JTextField monthfield;
     private javax.swing.JTextField monthfield2;
     private javax.swing.JCheckBox route;
     private javax.swing.JCheckBox supplier;
     private javax.swing.JComboBox supplier_id;
+    private javax.swing.JButton view;
     private javax.swing.JTextField yearfield;
     private javax.swing.JTextField yearfield2;
     // End of variables declaration//GEN-END:variables

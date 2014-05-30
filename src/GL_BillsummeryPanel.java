@@ -910,6 +910,7 @@ public class GL_BillsummeryPanel extends javax.swing.JPanel {
         jProgressBar1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jProgressBar1.setForeground(new java.awt.Color(0, 0, 0));
         jProgressBar1.setValue(50);
+        jProgressBar1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jProgressBar1.setStringPainted(true);
 
         jProgressBar8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N

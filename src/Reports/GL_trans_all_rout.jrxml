@@ -6,6 +6,7 @@
 	<parameter name="USER" class="java.lang.String"/>
 	<parameter name="to_date" class="java.util.Date"/>
 	<parameter name="from_date" class="java.util.Date"/>
+	<parameter name="route" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT
      green_leaf_transactions.`tr_id` AS green_leaf_transactions_tr_id,
@@ -25,7 +26,8 @@ FROM
      `green_leaf_transactions` green_leaf_transactions
 WHERE
      tr_date >= $P{from_date}
- AND tr_date <= $P{to_date}]]>
+ AND tr_date <= $P{to_date}
+AND category_code = $P{route}]]>
 	</queryString>
 	<field name="green_leaf_transactions_tr_id" class="java.lang.Integer"/>
 	<field name="green_leaf_transactions_tr_date" class="java.sql.Date"/>

@@ -21,11 +21,12 @@
      suppliers.`trans_rate` AS suppliers_trans_rate,
      suppliers.`leaf_rate_code` AS suppliers_leaf_rate_code,
      suppliers.`welfare` AS suppliers_welfare,
-     suppliers.`welf_rem` AS suppliers_welf_rem
+     suppliers.`welf_rem` AS suppliers_welf_rem,
+     suppliers.`active` AS suppliers_active
 FROM
      `suppliers` suppliers
 WHERE
-     cat_id = $P{sup_id}]]>
+     cat_id = $P{cat_id}]]>
 	</queryString>
 	<field name="suppliers_sup_id" class="java.lang.Integer"/>
 	<field name="suppliers_sup_name" class="java.lang.String"/>
@@ -43,13 +44,14 @@ WHERE
 	<field name="suppliers_leaf_rate_code" class="java.lang.String"/>
 	<field name="suppliers_welfare" class="java.lang.String"/>
 	<field name="suppliers_welf_rem" class="java.lang.Integer"/>
+	<field name="suppliers_active" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
 		<band height="61" splitType="Stretch">
 			<rectangle>
-				<reportElement x="0" y="0" width="555" height="49" uuid="cffe1cb2-5087-4008-bde9-6cc8615cbd4c"/>
+				<reportElement x="18" y="0" width="520" height="49" uuid="cffe1cb2-5087-4008-bde9-6cc8615cbd4c"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>

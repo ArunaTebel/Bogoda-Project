@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
-import sun.awt.SunToolkit;
+
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -324,7 +324,7 @@ public class MainWindow extends javax.swing.JFrame {
         Main_Content.add(jLabel8);
         jLabel8.setBounds(120, 240, 90, 40);
 
-        topBar.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
+        topBar.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
         topBar.setForeground(new java.awt.Color(215, 215, 215));
         topBar.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         topBar.setVerifyInputWhenFocusTarget(false);
@@ -684,7 +684,7 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        topBar.setBackground(new java.awt.Color(204, 0, 103));
+        topBar.setBackground(new java.awt.Color(153, 0, 153));
         pAccounts paccunts = new pAccounts();
 
         Main_Content.removeAll();
@@ -964,6 +964,7 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_User_idActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+         topBar.setBackground(new java.awt.Color(0, 0, 0));
         Reports_home reports_home = new Reports_home();
 
         Main_Content.removeAll();

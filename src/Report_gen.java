@@ -1,6 +1,7 @@
 
 import java.awt.Desktop;
 import java.io.File;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -27,11 +28,12 @@ public class Report_gen {
     
     }
     
-    public boolean create(String file_name, String save_location,HashMap param,String report_location,String report_name){
+    public String create(String file_name, String save_location,HashMap param,String report_location,String report_name){
      try{
             Calendar currentDate = Calendar.getInstance();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
         String dateNow = formatter.format(currentDate.getTime());
+       
             //HashMap param = new HashMap();
             //param.put("Date",jTextField1.getText() );
        // String report="C:\\Users\\Pramo\\Documents\\NetBeansProjects\\Lec\\src\\report4.jrxml";
@@ -43,10 +45,24 @@ public class Report_gen {
 JasperExportManager.exportReportToPdfFile(jp,save_location+file_name+dateNow+".pdf" );
 File myFile = new File(save_location+file_name+dateNow+".pdf");
         Desktop.getDesktop().open(myFile);
-        return true;
+       
+        return dateNow;
         }catch(Exception e){
             System.out.println(e.getMessage());
-            return false;
+            return null;
         }}
     
+    public void savename(String dateNow, String file_name,String yearmonth) throws SQLException{
+      try {
+            dbm.insert("INSERT INTO last_report(type,filename,month) VALUES('" + file_name+ "','"  + file_name+dateNow+ "','"+yearmonth+"')");
+
+        } catch (SQLException ex) {
+            dbm.insert("UPDATE last_report SET filename = '"+file_name+dateNow+"' WHERE type = '"+file_name+"'");
+        }
+    
+    
+    
+    
+    
+    }
 }

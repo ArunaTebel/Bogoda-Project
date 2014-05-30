@@ -3,7 +3,7 @@
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<parameter name="cat_id" class="java.lang.String"/>
+	<parameter name="welfare" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT
      suppliers.`sup_id` AS suppliers_sup_id,
@@ -25,7 +25,7 @@
 FROM
      `suppliers` suppliers
 WHERE
-     cat_id = $P{sup_id}]]>
+     welfare = $P{welfare}]]>
 	</queryString>
 	<field name="suppliers_sup_id" class="java.lang.Integer"/>
 	<field name="suppliers_sup_name" class="java.lang.String"/>
@@ -49,7 +49,7 @@ WHERE
 	<title>
 		<band height="61" splitType="Stretch">
 			<rectangle>
-				<reportElement x="0" y="0" width="555" height="49" uuid="cffe1cb2-5087-4008-bde9-6cc8615cbd4c"/>
+				<reportElement x="18" y="0" width="520" height="49" uuid="cffe1cb2-5087-4008-bde9-6cc8615cbd4c"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
