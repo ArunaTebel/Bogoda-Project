@@ -77,7 +77,7 @@ public class Report_GL_monthly_ledger extends javax.swing.JPanel {
 
             String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
 
-           String dateNow= generate.create("Monthly_Ledger", "D:\\", param, location, "Monthly_ledger.jrxml");
+           String dateNow= generate.create("Monthly_Ledger", "D:\\", param, location, "monthly_ledger.jrxml");
             a.stop();
             jProgressBar1.setValue(100);
             try {
@@ -112,7 +112,7 @@ public class Report_GL_monthly_ledger extends javax.swing.JPanel {
 
             String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
 
-           String dateNow= generate.create("Monthly_Ledger", "D:\\", param, location, "Daily_transactions.jrxml");
+           String dateNow= generate.create("Monthly_Ledger", "D:\\", param, location, "monthly_ledger.jrxml");
             a.stop();
             jProgressBar1.setValue(100);
             try {
@@ -161,8 +161,8 @@ public class Report_GL_monthly_ledger extends javax.swing.JPanel {
     DatabaseManager dbm = new DatabaseManager();
 
     public void focus() {
-        //dayfield.requestFocus();
-        //dayfield.selectAll();
+        monthfield.requestFocus();
+        monthfield.selectAll();
     }
 
     /**
@@ -527,7 +527,7 @@ public class Report_GL_monthly_ledger extends javax.swing.JPanel {
     }//GEN-LAST:event_datePicker1ActionPerformed
 
     private void viewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewActionPerformed
-     int a= JOptionPane.showConfirmDialog(datechooser, "This will update the Daily transactions list. it will take several minutes to complete.. Are you sure?");
+     int a= JOptionPane.showConfirmDialog(datechooser, "This will update the Monthly Ledger. it will take several minutes to complete.. Are you sure?");
         System.out.println(a); 
          Thread b = new Thread(new report());
         if(a==0){  b.start();}

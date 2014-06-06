@@ -65,6 +65,7 @@ UIDefaults defaults = UIManager.getLookAndFeelDefaults();
                            }
                            
                            else {
+                          
                            HashMap param = new HashMap();
                     param.put("USER",new UserAccountControl().get_current_user());
                     param.put("cat_id", Cat_code.getSelectedItem().toString());
@@ -99,7 +100,8 @@ UIDefaults defaults = UIManager.getLookAndFeelDefaults();
                     ;
                     jProgressBar1.setValue(100);
         }
-         if(!active.isSelected()&& !welfare.isSelected()&& !active.isSelected()){
+         if(!active.isSelected()&& !welfare.isSelected()&& !route.isSelected()){
+               
             HashMap param = new HashMap();
                     //param.put("route", Cat_code.getSelectedItem().toString());
                     param.put("USER",new UserAccountControl().get_current_user());

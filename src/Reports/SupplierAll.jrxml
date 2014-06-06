@@ -24,8 +24,8 @@
      suppliers.`welf_rem` AS suppliers_welf_rem
 FROM
      `suppliers` suppliers
-WHERE
-     cat_id = $P{sup_id}]]>
+
+]]>
 	</queryString>
 	<field name="suppliers_sup_id" class="java.lang.Integer"/>
 	<field name="suppliers_sup_name" class="java.lang.String"/>

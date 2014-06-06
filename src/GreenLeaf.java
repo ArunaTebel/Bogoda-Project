@@ -16,11 +16,11 @@ public class GreenLeaf {
     private double coarseLeaf;
     private double other;
     private double netQuantity;
-    private boolean selfTransport; // Yes/No button   new thing we added :)
+    private double selfTransport; // Yes/No button   new thing we added :)
     private String leafCategory;
-    private int intselfTransport;
+    private double intselfTransport;
 
-    GreenLeaf(Date date,int transaction_id, int supplierCode, String categoryCode, int noOfSacks, double totalWeight, double sacksWeight, double water, double coarseLeaf, double other, boolean selfTransport,double netQuantity,String leafCategory) {
+    GreenLeaf(Date date,int transaction_id, int supplierCode, String categoryCode, int noOfSacks, double totalWeight, double sacksWeight, double water, double coarseLeaf, double other, double selfTransport,double netQuantity,String leafCategory) {
         this.date = date;
         this.transaction_id=transaction_id;
         this.supplierCode = supplierCode;
@@ -48,7 +48,7 @@ public class GreenLeaf {
         water = 0;
         coarseLeaf = 0;
         other = 0;
-        selfTransport = false;
+        selfTransport = 0;
         netQuantity=0;
         leafCategory=null;
         intselfTransport=0;
@@ -101,7 +101,7 @@ public class GreenLeaf {
         this.other = other;
     }
 
-    public void setSelfTransport(boolean selfTransport) {
+    public void setSelfTransport(double selfTransport) {
         this.selfTransport = selfTransport;
     }
 
@@ -112,12 +112,7 @@ public class GreenLeaf {
         this.leafCategory=leafCategory;
     }
     public void setIntselfTransport(boolean sTransport ){
-        if(sTransport==false){
-            intselfTransport=0;
-        }
-        else{
-            intselfTransport=1;
-        }
+        
     }
     
     // Getters
@@ -164,7 +159,7 @@ public class GreenLeaf {
         return netQuantity;
     }
 
-    public boolean getSelfTransport() {
+    public double getSelfTransport() {
         return selfTransport;
     }
     
@@ -175,7 +170,7 @@ public class GreenLeaf {
     public void addToDataBase() {
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         try {
-            dbCon.insert("INSERT INTO green_leaf_transactions(tr_date,tr_id,sup_id,category_code,no_of_sacks,total_kg,sack_kg,water_kg,coarse_leaf_kg,other,self_transport,leaf_category,net_qty) VALUES('" + date + "','" + transaction_id + "','" + supplierCode + "','" + categoryCode + "','" + noOfSacks + "','" + totalWeight +"','" + sacksWeight + "','" + water +"','" + coarseLeaf + "','" + other+"','" + intselfTransport+"','" +leafCategory+"','"+netQuantity+"')");
+            dbCon.insert("INSERT INTO green_leaf_transactions(tr_date,tr_id,sup_id,category_code,no_of_sacks,total_kg,sack_kg,water_kg,coarse_leaf_kg,other,transport,leaf_category,net_qty) VALUES('" + date + "','" + transaction_id + "','" + supplierCode + "','" + categoryCode + "','" + noOfSacks + "','" + totalWeight +"','" + sacksWeight + "','" + water +"','" + coarseLeaf + "','" + other+"','" + selfTransport+"','" +leafCategory+"','"+netQuantity+"')");
              
 
         } catch (SQLException ex) {

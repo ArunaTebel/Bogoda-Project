@@ -342,7 +342,16 @@ Date_Handler date_handler = new Date_Handler();
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-       report_gen.monthly_ledger_calc(date_handler.get_today_year(), "03");
+       Report_GL_monthly_ledger pgreenleaf = new Report_GL_monthly_ledger();
+
+        content.removeAll();
+
+        pgreenleaf.setSize(content.getSize());
+
+        content.add(pgreenleaf);
+        validate();
+        repaint();
+        pgreenleaf.focus();   
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed

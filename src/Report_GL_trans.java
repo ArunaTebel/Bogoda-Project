@@ -231,7 +231,7 @@ UIDefaults defaults = UIManager.getLookAndFeelDefaults();
             }
         });
 
-        dayfield.setText(datehandler.get_today_day());
+        dayfield.setText(Integer.parseInt(datehandler.get_today_day())+"");
         dayfield.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 dayfieldKeyPressed(evt);
@@ -288,7 +288,7 @@ UIDefaults defaults = UIManager.getLookAndFeelDefaults();
             }
         });
 
-        dayfield2.setText(datehandler.get_today_day());
+        dayfield2.setText(Integer.parseInt(datehandler.get_today_day())+"");
         dayfield2.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 dayfield2KeyPressed(evt);
