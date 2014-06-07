@@ -1,3 +1,7 @@
+
+import java.sql.Date;
+import java.util.HashMap;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -16,7 +20,9 @@ public class Reports_home extends javax.swing.JPanel {
     public Reports_home() {
         initComponents();
     }
-
+Report_gen generate = new Report_gen();
+DatabaseManager dbm = new DatabaseManager();
+        
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -140,7 +146,17 @@ public class Reports_home extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        HashMap param = new HashMap();
+               // Date Return_date1 = datechooser.Return_date(yearfield, monthfield, dayfield);
+               // Date Return_date2 = datechooser.Return_date(yearfield2, monthfield2, dayfield2);
+              //  param.put("from_date", Return_date1);
+               // param.put("to_date", Return_date2);
+                param.put("USER",new UserAccountControl().get_current_user());
+                param.put("a", "Income");
+                // Date Return_date = datechooser.Return_date(yearfield, monthfield, dayfield);
+                String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
+
+                generate.create("Account", "D:\\", param, location, "idde2.jrxml");
     }//GEN-LAST:event_jButton3ActionPerformed
 
 
