@@ -58,9 +58,9 @@ UIDefaults defaults = UIManager.getLookAndFeelDefaults();
                        if (!supplier.isSelected() && !route.isSelected()) {
             try {
                 HashMap param = new HashMap();
-                jProgressBar1.setValue(10);
+                //jProgressBar1.setValue(10);
                 Date Return_date1 = datechooser.Return_date(yearfield, monthfield, dayfield);
-                jProgressBar1.setValue(20);
+               // jProgressBar1.setValue(20);
                 Date Return_date2 = datechooser.Return_date(yearfield2, monthfield2, dayfield2);
                 param.put("from_date", Return_date1);
                 param.put("to_date", Return_date2);
@@ -452,7 +452,8 @@ UIDefaults defaults = UIManager.getLookAndFeelDefaults();
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(51, 51, 51));
         jLabel4.setText("Transactions ");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

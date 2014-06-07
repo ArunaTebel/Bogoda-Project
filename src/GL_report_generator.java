@@ -45,7 +45,7 @@ public class GL_report_generator {
                 int dates = Integer.parseInt(date_handler.get_day(query.getDate("tr_date")));
                 total[dates] += query.getDouble("net_qty");
                 total[32]+= (query.getDouble("transport")*query.getDouble("net_qty"));
-                System.out.println(total[32]+"-----------------------------------");
+              //  System.out.println(total[32]+"-----------------------------------");
 
             }
 
@@ -277,21 +277,30 @@ public class GL_report_generator {
                  double other_advance = dbm.checknReturnDoubleData("weekly_advance_current", "entry", year+month+sup, "other_total");
                  double tax =  dbm.checknReturnDoubleData("rate_details", "Code_name", "INTAX", "rate");
                  double cards =  dbm.checknReturnDoubleData("rate_details", "Code_name", "CARDS", "rate");
+                // if()
+                  if(total_kg ==0){cards =0;
+                }
                  double net_amount = ((coinsbf+(total_kg*leaf_rate))-(pre_debts+cash_advance+other_advance+cards+trans));
                  double plusTax;
                  if(net_amount>25000){
                      plusTax= tax;
                  }
+                 
                  else{ plusTax= 0.0; }
+                 double coinscf = ((net_amount+plusTax)%10);
+                  if(net_amount<0){ coinscf = coinsbf;}
                 
-                
+                //double Grand_total =
+               
+               
+             
                 dbCon.insert("INSERT INTO gl_monthly_ledger_current(entry,year,month,sup_id,name,total_kg,set_value,gross_amount,coins_bf,total_payable,pre_debts,cash_advances,other_advances,cards,transport,total_deduction,net_amount,tax,final_payable,coins_cf,final_amount) "
-                        + "VALUES('" + year+month+sup + "','" + year + "','" + month + "','" + sup + "','" + name + "','" + total_kg + "','" + leaf_rate + "','" + (total_kg*leaf_rate) + "','" + coinsbf + "','" + (coinsbf+(total_kg*leaf_rate)) + "','" + pre_debts + "','" + cash_advance + "','" + other_advance + "','" + cards + "','" +trans  + "','" + (pre_debts+cash_advance+other_advance+cards+trans) + "','" + net_amount + "','" + plusTax + "','" + (net_amount+plusTax) + "','" + ((net_amount+plusTax)%10) + "','" + ((net_amount+plusTax)-((net_amount+plusTax)%10)) + "')");
+                        + "VALUES('" + year+month+sup + "','" + year + "','" + month + "','" + sup + "','" + name + "','" + total_kg + "','" + leaf_rate + "','" + (total_kg*leaf_rate) + "','" + coinsbf + "','" + (coinsbf+(total_kg*leaf_rate)) + "','" + pre_debts + "','" + cash_advance + "','" + other_advance + "','" + cards + "','" +trans  + "','" + (pre_debts+cash_advance+other_advance+cards+trans) + "','" + net_amount + "','" + plusTax + "','" + (net_amount+plusTax) + "','" + coinscf + "','" + ((net_amount+plusTax)-coinscf) + "')");
                 //  dbCon.insert("INSERT INTO daily_transactions_current(year,month,sup_id,day_1,Total) VALUES('" + year + "','" + month + "','"  + sup + "','" + day_totals[0] +  "','"+ total + "')");
                 k++;
                 System.out.println(k);
                         
-            }
+                } 
         } catch (SQLException ex) {
             MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
 

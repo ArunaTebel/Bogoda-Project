@@ -449,7 +449,8 @@ public class Report_GL_cadvance extends javax.swing.JPanel {
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(51, 51, 51));
         jLabel4.setText("Cash Advances");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

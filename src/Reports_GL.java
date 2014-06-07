@@ -284,7 +284,11 @@ Date_Handler date_handler = new Date_Handler();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        HashMap param = new HashMap();
+       param.put("USER", user.get_current_user());
+        
+        Thread b = new Thread(new call_thread("GL_Rate", "D:\\\\", param, "Rate_details",1));
+        b.start();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -296,11 +300,19 @@ Date_Handler date_handler = new Date_Handler();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
+        HashMap param = new HashMap();
+       param.put("USER", user.get_current_user());
+        
+        Thread b = new Thread(new call_thread("GL_CAT", "D:\\\\", param, "Bank_details",1));
+        b.start();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
+         HashMap param = new HashMap();
+       param.put("USER", user.get_current_user());
+        
+        Thread b = new Thread(new call_thread("GL_CAT", "D:\\\\", param, "Branch",1));
+        b.start();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed

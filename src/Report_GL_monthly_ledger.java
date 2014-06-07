@@ -265,7 +265,7 @@ public class Report_GL_monthly_ledger extends javax.swing.JPanel {
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel4.setText("Monthly Ledger");
 
         view2.setText("Open last");
