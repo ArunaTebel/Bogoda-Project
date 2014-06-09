@@ -8,6 +8,7 @@ import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -592,15 +593,14 @@ public class MainWindow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        DateChooser addbrnch = new DateChooser();
+        Task_manager addbrnch = new Task_manager();
+        New_window NW = new New_window();
+         // NW.setSize(addbrnch.getSize());
+        NW.paint(addbrnch,"Task Manager");
+       
 
-        Main_Content.removeAll();
-
-        addbrnch.setSize(Main_Content.getSize());
-
-        Main_Content.add(addbrnch);
-        validate();
-        repaint();
+        NW.setVisible(true);
+       
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
@@ -614,6 +614,8 @@ public class MainWindow extends javax.swing.JFrame {
         validate();
         repaint();
         addbrnch.focus();
+       
+       
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
@@ -980,12 +982,12 @@ public class MainWindow extends javax.swing.JFrame {
         New_window NW = new New_window();
         NW.setVisible(true);
         Reports_home home = new Reports_home();
-        NW.paint(home);
+        NW.paint(home,"Reports Home");
         NW.setVisible(true);
     }//GEN-LAST:event_jButton15ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-
+System.exit(0);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     /**

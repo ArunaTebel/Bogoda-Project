@@ -472,7 +472,7 @@ public class GL_issue_cashadvances extends javax.swing.JPanel {
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
        
         int reply = JOptionPane.showConfirmDialog(jButton4,
-                        "Are you Sure?"+"\n"+"This will reset the book"+"\n"+"make sure you have printed the book", "Duplicate ID", JOptionPane.YES_NO_OPTION);
+                        "Are you Sure?"+"\n"+"This will reset the book"+"\n"+"make sure you have printed the book", "Attention!", JOptionPane.YES_NO_OPTION);
         if(reply == JOptionPane.YES_OPTION){
         cadvance.tranfer();
         cadvance.truncate();
@@ -497,8 +497,8 @@ public class GL_issue_cashadvances extends javax.swing.JPanel {
     }//GEN-LAST:event_pageTotalActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-         New_window NW = new New_window();
-        NW.setVisible(true);
+         New_windows_theme NW = new New_windows_theme();
+       // NW.setVisible(true);
        File_chooser home = new File_chooser();
         NW.paint(home);
         NW.setVisible(true);

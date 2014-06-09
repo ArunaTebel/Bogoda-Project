@@ -1,3 +1,10 @@
+
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -53,7 +60,14 @@ public class File_chooser extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jFileChooser1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFileChooser1ActionPerformed
-        // TODO add your handling code here:
+      String path = jFileChooser1.getSelectedFile().getAbsolutePath();
+      File myFile = new File(path);
+        try {
+            Desktop.getDesktop().open(myFile);
+           
+        } catch (IOException ex) {
+            Logger.getLogger(File_chooser.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jFileChooser1ActionPerformed
 
 
