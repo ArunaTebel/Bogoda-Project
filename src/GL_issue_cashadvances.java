@@ -380,13 +380,7 @@ public class GL_issue_cashadvances extends javax.swing.JPanel {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         HashMap param = new HashMap();
             param.put("USER", user.get_current_user());
-           // param.put("year", yearfield.getText());
-           // param.put("month", datehandler.return_month_as_num(monthfield.getText()));
-          //  param.put("Month", datehandler.Return_month_full(datehandler.return_index(monthfield.getText())) + " " + yearfield.getText().toString());
-
-            // b.start();
-          //  a.start();
-           // t1.run();
+          
 
             String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
 

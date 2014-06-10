@@ -1,16 +1,6 @@
 
-import java.awt.Color;
-import java.awt.Container;
-import java.awt.Frame;
-import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
-import java.net.Inet4Address;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.sql.SQLException;
-import java.util.Calendar;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 
 
@@ -33,7 +23,7 @@ public class MainWindow extends javax.swing.JFrame {
 
     public MainWindow() {
         initComponents();
-        //this.setIconImage(new ImageIcon(getClass().getResource("icon.jpg")).getImage());
+        this.setIconImage(new ImageIcon(getClass().getResource("ICON2.png")).getImage());
         Info.setText("");
         String s = userAC.get_current_user();
         TimeCheck time = new TimeCheck(s);
