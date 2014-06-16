@@ -1,3 +1,11 @@
+
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -27,7 +35,7 @@ public class GL_other_advance_save extends javax.swing.JPanel {
     }
 
     public void set_table(int bottom, int top) {
-        System.out.println(a+"-this is rntries---");
+       // System.out.println(a+"-this is rntries---");
         if (a % 50 == 0) {
             no_of_pages = a / 50;
 
@@ -35,7 +43,7 @@ public class GL_other_advance_save extends javax.swing.JPanel {
             no_of_pages = a / 50 + 1;
 
         }
-        System.out.println("num of pages"+no_of_pages);
+       // System.out.println("num of pages"+no_of_pages);
         page_info.setText("Page 1 of" + " " + no_of_pages);
         dbm.Inserting_To_The_Table(table, "gl_other_advance_book", "tr_no", 0, bottom, top);
         dbm.Inserting_To_The_Table(table, "gl_other_advance_book", "Date", 1, bottom, top);
@@ -47,7 +55,7 @@ public class GL_other_advance_save extends javax.swing.JPanel {
         dbm.Inserting_To_The_Table(table, "gl_other_advance_book", "item_rate", 7, bottom, top);
         dbm.Inserting_To_The_Table(table, "gl_other_advance_book", "item_quantity", 8, bottom, top);
         dbm.Inserting_To_The_Table(table, "gl_other_advance_book", "total_amount", 9, bottom, top);
- System.out.println("sheeeeeeeeeeet");
+ //System.out.println("sheeeeeeeeeeet");
     }
 
     /**
@@ -336,7 +344,7 @@ public class GL_other_advance_save extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // removeSelectedRows(table);
+         removeSelectedRows(table);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -402,7 +410,7 @@ public class GL_other_advance_save extends javax.swing.JPanel {
     private void supplier_idItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_supplier_idItemStateChanged
         if (supplier_id.getSelectedItem().toString().equals( "All")) {
             table_handler.clear_table(table, 10, 50);
-            System.out.println("ok");
+           // System.out.println("ok");
             set_table(1, 50);
              int i = 0;
         }
@@ -427,9 +435,76 @@ public class GL_other_advance_save extends javax.swing.JPanel {
     }//GEN-LAST:event_supplier_idActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       oadvance.tranfer();
-    }//GEN-LAST:event_jButton1ActionPerformed
+        int reply = JOptionPane.showConfirmDialog(jButton4,
+                        "Are you SURE?"+"\n"+"This will close the current book"+"\n"+"make sure you have finalized the book", "Attention!", JOptionPane.YES_NO_OPTION);
+        if(reply == JOptionPane.YES_OPTION){
+        
+        
+        
+        
+        try {
+            oadvance.enter();
+        } catch (SQLException ex) {
+            Logger.getLogger(GL_other_advance_save.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            dbm.insert("Truncate table gl_other_advance_book");
+        } catch (SQLException ex) {
+            Logger.getLogger(GL_other_advance_save.class.getName()).log(Level.SEVERE, null, ex);
+            
+        }
+         int k = 0;
+        int j = 0;
+        while (k <= 49) {
+            j = 0;
 
+            while (j < 10) {
+
+                table.setValueAt(null, k, j);
+                j++;
+            }
+            k++;
+        }
+        
+        }
+        else{}
+    }//GEN-LAST:event_jButton1ActionPerformed
+  public void removeSelectedRows(JTable table) {
+        int m = i / 50;
+        DefaultTableModel model = (DefaultTableModel) this.table.getModel();
+        int[] rows = table.getSelectedRows();
+      //  deleted += rows.length;
+        for (int n = 0; n < rows.length; n++) {
+            
+            
+           
+            dbm.CheckNDeleteFromDataBase("gl_other_advance_book", "tr_no", table.getValueAt(rows[n] - n, 0));
+            set_table(i + 1, i + 50);
+
+          //  System.out.println(table.getValueAt(rows[i] - i, 0));
+            // model.removeRow(rows[i] - i);
+        }
+        int k = 0;
+        int j = 0;
+        while (k <= 49) {
+            j = 0;
+
+            while (j < 10) {
+
+                table.setValueAt(null, k, j);
+                j++;
+            }
+            k++;
+            set_table(i + 1, i + 50);
+
+            page_info.setText("Page " + (m + 1) + " of" + " " + no_of_pages);
+
+            // set_table();
+            a = dbm.Checking_Length_Of_The_Table("gl_other_advance_book", "tr_no");
+        }
+       // return deleted;
+        
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

@@ -16,9 +16,9 @@ public class New_window extends javax.swing.JFrame {
     public New_window() {
         initComponents();
     }
-    public void paint(javax.swing.JPanel a ){
+    public void paint(javax.swing.JPanel a ,String name){
      content.removeAll();
-
+ setTitle(name);
         a.setSize(content.getSize());
 
         content.add(a);

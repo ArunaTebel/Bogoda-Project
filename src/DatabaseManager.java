@@ -103,6 +103,20 @@ public final class DatabaseManager {
         }
         return null;
     }
+    
+      public String filterReturn2StringData(String table_name, String table_column_giving, String row_element,String table_column_giving2, String row_element2, String table_column_need) {
+        DatabaseManager dbm = DatabaseManager.getDbCon();
+        try {
+            ResultSet query = dbm.query("SELECT * FROM " + table_name + " where " + table_column_giving + " LIKE '" + row_element + "' AND "+ table_column_giving2 + " LIKE '" + row_element2 + "'");
+            while (query.next()) {
+                return (query.getString(table_column_need));
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            return "" + ex.getErrorCode();
+        }
+        return null;
+    }
       
        
            public double checknReturnDoubleData(String table_name, String table_column_giving, Object row_element, String table_column_need) {

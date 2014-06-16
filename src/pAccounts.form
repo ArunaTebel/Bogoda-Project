@@ -5,7 +5,7 @@
     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
       <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
         <LineBorder thickness="3">
-          <Color PropertyName="color" blue="66" green="0" red="cc" type="rgb"/>
+          <Color PropertyName="color" blue="99" green="0" red="99" type="rgb"/>
         </LineBorder>
       </Border>
     </Property>
@@ -178,7 +178,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButton1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Recepts"/>
+        <Property name="text" type="java.lang.String" value="Receipts"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>

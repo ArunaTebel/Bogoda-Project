@@ -1,0 +1,715 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="421" orientation="Landscape" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="7" bottomMargin="7" uuid="b4a7e90f-236c-48e1-b463-a16c40591ab1">
+	<property name="ireport.zoom" value="4.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="4"/>
+	<parameter name="USER" class="java.lang.String"/>
+	<parameter name="Month" class="java.lang.String"/>
+	<parameter name="month" class="java.lang.String"/>
+	<parameter name="year" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     daily_transactions_current.`year` AS daily_transactions_current_year,
+     daily_transactions_current.`month` AS daily_transactions_current_month,
+     daily_transactions_current.`sup_id` AS daily_transactions_current_sup_id,
+     daily_transactions_current.`sup_name` AS daily_transactions_current_sup_name,
+     daily_transactions_current.`day_1` AS daily_transactions_current_day_1,
+     daily_transactions_current.`day_2` AS daily_transactions_current_day_2,
+     daily_transactions_current.`day_3` AS daily_transactions_current_day_3,
+     daily_transactions_current.`day_4` AS daily_transactions_current_day_4,
+     daily_transactions_current.`day_5` AS daily_transactions_current_day_5,
+     daily_transactions_current.`day_6` AS daily_transactions_current_day_6,
+     daily_transactions_current.`day_7` AS daily_transactions_current_day_7,
+     daily_transactions_current.`day_8` AS daily_transactions_current_day_8,
+     daily_transactions_current.`day_9` AS daily_transactions_current_day_9,
+     daily_transactions_current.`day_10` AS daily_transactions_current_day_10,
+     daily_transactions_current.`day_11` AS daily_transactions_current_day_11,
+     daily_transactions_current.`day_12` AS daily_transactions_current_day_12,
+     daily_transactions_current.`day_13` AS daily_transactions_current_day_13,
+     daily_transactions_current.`day_14` AS daily_transactions_current_day_14,
+     daily_transactions_current.`day_15` AS daily_transactions_current_day_15,
+     daily_transactions_current.`day_16` AS daily_transactions_current_day_16,
+     daily_transactions_current.`day_17` AS daily_transactions_current_day_17,
+     daily_transactions_current.`day_18` AS daily_transactions_current_day_18,
+     daily_transactions_current.`day_19` AS daily_transactions_current_day_19,
+     daily_transactions_current.`day_20` AS daily_transactions_current_day_20,
+     daily_transactions_current.`day_21` AS daily_transactions_current_day_21,
+     daily_transactions_current.`day_22` AS daily_transactions_current_day_22,
+     daily_transactions_current.`day_23` AS daily_transactions_current_day_23,
+     daily_transactions_current.`day_24` AS daily_transactions_current_day_24,
+     daily_transactions_current.`day_25` AS daily_transactions_current_day_25,
+     daily_transactions_current.`day_26` AS daily_transactions_current_day_26,
+     daily_transactions_current.`day_27` AS daily_transactions_current_day_27,
+     daily_transactions_current.`day_28` AS daily_transactions_current_day_28,
+     daily_transactions_current.`day_29` AS daily_transactions_current_day_29,
+     daily_transactions_current.`day_30` AS daily_transactions_current_day_30,
+     daily_transactions_current.`day_31` AS daily_transactions_current_day_31,
+     daily_transactions_current.`Total` AS daily_transactions_current_Total
+FROM
+     `daily_transactions_current` daily_transactions_current
+WHERE
+     year = $P{year}
+ AND month = $P{month}
+order by daily_transactions_current.`sup_id`]]>
+	</queryString>
+	<field name="daily_transactions_current_year" class="java.lang.String"/>
+	<field name="daily_transactions_current_month" class="java.lang.String"/>
+	<field name="daily_transactions_current_sup_id" class="java.lang.Integer"/>
+	<field name="daily_transactions_current_sup_name" class="java.lang.String"/>
+	<field name="daily_transactions_current_day_1" class="java.lang.Double"/>
+	<field name="daily_transactions_current_day_2" class="java.lang.Double"/>
+	<field name="daily_transactions_current_day_3" class="java.lang.Double"/>
+	<field name="daily_transactions_current_day_4" class="java.lang.Double"/>
+	<field name="daily_transactions_current_day_5" class="java.lang.Double"/>
+	<field name="daily_transactions_current_day_6" class="java.lang.Double"/>
+	<field name="daily_transactions_current_day_7" class="java.lang.Double"/>
+	<field name="daily_transactions_current_day_8" class="java.lang.Double"/>
+	<field name="daily_transactions_current_day_9" class="java.lang.Double"/>
+	<field name="daily_transactions_current_day_10" class="java.lang.Double"/>
+	<field name="daily_transactions_current_day_11" class="java.lang.Double"/>
+	<field name="daily_transactions_current_day_12" class="java.lang.Double"/>
+	<field name="daily_transactions_current_day_13" class="java.lang.Double"/>
+	<field name="daily_transactions_current_day_14" class="java.lang.Double"/>
+	<field name="daily_transactions_current_day_15" class="java.lang.Double"/>
+	<field name="daily_transactions_current_day_16" class="java.lang.Double"/>
+	<field name="daily_transactions_current_day_17" class="java.lang.Double"/>
+	<field name="daily_transactions_current_day_18" class="java.lang.Double"/>
+	<field name="daily_transactions_current_day_19" class="java.lang.Double"/>
+	<field name="daily_transactions_current_day_20" class="java.lang.Double"/>
+	<field name="daily_transactions_current_day_21" class="java.lang.Double"/>
+	<field name="daily_transactions_current_day_22" class="java.lang.Double"/>
+	<field name="daily_transactions_current_day_23" class="java.lang.Double"/>
+	<field name="daily_transactions_current_day_24" class="java.lang.Double"/>
+	<field name="daily_transactions_current_day_25" class="java.lang.Double"/>
+	<field name="daily_transactions_current_day_26" class="java.lang.Double"/>
+	<field name="daily_transactions_current_day_27" class="java.lang.Double"/>
+	<field name="daily_transactions_current_day_28" class="java.lang.Double"/>
+	<field name="daily_transactions_current_day_29" class="java.lang.Double"/>
+	<field name="daily_transactions_current_day_30" class="java.lang.Double"/>
+	<field name="daily_transactions_current_day_31" class="java.lang.Double"/>
+	<field name="daily_transactions_current_Total" class="java.lang.Double"/>
+	<variable name="TITLE" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="1" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="62" splitType="Stretch">
+			<line>
+				<reportElement x="1" y="-50" width="555" height="1" uuid="292404ee-21c4-44ec-86e1-654ddf5dc03b"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#666666"/>
+				</graphicElement>
+			</line>
+			<textField evaluationTime="Report">
+				<reportElement x="276" y="39" width="40" height="11" uuid="a28f6025-2bc0-4bc1-a2d3-6de88975440a"/>
+				<textElement>
+					<font size="6" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="196" y="39" width="80" height="11" uuid="c7b2c106-44fc-4aed-b3a9-e5ad706e21ea"/>
+				<textElement textAlignment="Right">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="39" width="156" height="20" uuid="1821033b-28dc-49d2-8832-4021f80d022d"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Daily Transactions List]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="9" width="81" height="11" uuid="3e709542-151f-4b92-8a79-9527db2b951e"/>
+				<textElement>
+					<font size="4"/>
+				</textElement>
+				<text><![CDATA[Report generated:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="7" y="17" width="15" height="14" uuid="b253ceae-65b5-4d6e-bd4d-cd9f29f5de4c"/>
+				<textElement>
+					<font size="4"/>
+				</textElement>
+				<text><![CDATA[by:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="1" y="39" width="555" height="1" uuid="e13c4d67-1e7f-4c1c-96d2-2316ab27579e"/>
+			</line>
+			<staticText>
+				<reportElement x="340" y="7" width="216" height="27" uuid="75b687d7-fe40-4adf-9851-27816341e992"/>
+				<textElement>
+					<font fontName="Segoe UI Light" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bogoda Group Tea Factory]]></text>
+			</staticText>
+			<line>
+				<reportElement x="1" y="6" width="555" height="1" uuid="aeb39eae-cf99-495a-9b95-9031f30f70b7"/>
+			</line>
+			<staticText>
+				<reportElement x="417" y="22" width="114" height="20" uuid="fe112270-8629-41c5-b43e-d57409be5b2e"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[Kolawenigama, Deniyaya]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement x="40" y="9" width="100" height="11" uuid="54a20eec-890c-4e8c-9249-a8bf0da283f9"/>
+				<textElement>
+					<font size="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="15" y="17" width="100" height="13" uuid="a7284fb9-5755-493b-9033-b8778b4d88dd"/>
+				<textElement>
+					<font size="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{USER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="83" y="39" width="100" height="20" uuid="e9b097c8-ee28-4100-a3c3-d78f32795ff0"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{Month}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="27" splitType="Stretch">
+			<line>
+				<reportElement x="1" y="23" width="554" height="1" uuid="8b820536-4e3c-4646-9176-72c78990b115"/>
+			</line>
+			<staticText>
+				<reportElement x="-4" y="5" width="15" height="20" uuid="fdd897c1-41f5-4891-8bc9-0d3f0838110a"/>
+				<textElement>
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Year]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="12" y="5" width="18" height="20" uuid="6c272ccf-aa6a-47f5-856d-115703218a57"/>
+				<textElement>
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Month]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="34" y="5" width="15" height="20" uuid="3eed3b2b-40cc-47a8-a444-68cefe78bd4a"/>
+				<textElement>
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="45" y="5" width="27" height="20" uuid="5da5dd30-bf99-4632-8938-07b18ad9f7d4"/>
+				<textElement>
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="86" y="5" width="9" height="20" uuid="e0258715-5848-441a-b009-e8405e3463e5"/>
+				<textElement>
+					<font size="4" isBold="true"/>
+				</textElement>
+				<text><![CDATA[day_1]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="99" y="5" width="9" height="20" uuid="0c48a19e-50fc-4624-a286-1cd6a46e586e"/>
+				<textElement>
+					<font size="4" isBold="true"/>
+				</textElement>
+				<text><![CDATA[day_2]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="112" y="5" width="9" height="20" uuid="a6f8e4a0-5f84-43e0-ade2-6b9bf6aecd0c"/>
+				<textElement>
+					<font size="4" isBold="true"/>
+				</textElement>
+				<text><![CDATA[day_3]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="127" y="5" width="9" height="20" uuid="44e45ee6-a674-490f-ac73-902c6904f7c3"/>
+				<textElement>
+					<font size="4" isBold="true"/>
+				</textElement>
+				<text><![CDATA[day_4]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="142" y="5" width="9" height="20" uuid="be8ec814-d2fd-4dea-8047-29e2a06acead"/>
+				<textElement>
+					<font size="4" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Day_5]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="157" y="5" width="9" height="20" uuid="db60e9a8-b816-4ec9-bbe1-3a4c8ef96d70"/>
+				<textElement>
+					<font size="4" isBold="true"/>
+				</textElement>
+				<text><![CDATA[day_6]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="172" y="5" width="9" height="20" uuid="1fcee889-85a4-4b5f-994f-a7f7250d2f6b"/>
+				<textElement>
+					<font size="4" isBold="true"/>
+				</textElement>
+				<text><![CDATA[day_7]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="187" y="5" width="9" height="20" uuid="ba5d08d5-461c-41ee-b7ed-a1bfa4849986"/>
+				<textElement>
+					<font size="4" isBold="true"/>
+				</textElement>
+				<text><![CDATA[day_8]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="202" y="5" width="9" height="20" uuid="e5b22f00-f8ea-4fb6-a77e-29a9d05068b0"/>
+				<textElement>
+					<font size="4" isBold="true"/>
+				</textElement>
+				<text><![CDATA[day_9]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="217" y="5" width="9" height="20" uuid="31030ad8-e1fa-4a1a-accd-4fd388068229"/>
+				<textElement>
+					<font size="4" isBold="true"/>
+				</textElement>
+				<text><![CDATA[day_10]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="232" y="5" width="9" height="20" uuid="cbd91b47-e431-4c43-9986-7b86058f89d1"/>
+				<textElement>
+					<font size="4" isBold="true"/>
+				</textElement>
+				<text><![CDATA[day_11]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="247" y="5" width="9" height="20" uuid="04b8d0d8-16e5-4fc5-853c-b0a52c6d7c37"/>
+				<textElement>
+					<font size="4" isBold="true"/>
+				</textElement>
+				<text><![CDATA[day_12]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="262" y="5" width="9" height="20" uuid="a9dabd1a-84ca-4bab-8820-29b613dde215"/>
+				<textElement>
+					<font size="4" isBold="true"/>
+				</textElement>
+				<text><![CDATA[day_13]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="277" y="5" width="9" height="20" uuid="6124f3a9-3a13-4948-9789-c6fda3321a09"/>
+				<textElement>
+					<font size="4" isBold="true"/>
+				</textElement>
+				<text><![CDATA[day_14]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="292" y="5" width="9" height="20" uuid="30ef6f60-89c5-4132-9f03-1dcedc5d68d4"/>
+				<textElement>
+					<font size="4" isBold="true"/>
+				</textElement>
+				<text><![CDATA[day_15]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="307" y="5" width="9" height="20" uuid="46c2d82b-5da3-4785-932a-990a306c3371"/>
+				<textElement>
+					<font size="4" isBold="true"/>
+				</textElement>
+				<text><![CDATA[day_16]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="322" y="5" width="9" height="20" uuid="0f2910e5-eebe-419b-8f57-a3ef013b0386"/>
+				<textElement>
+					<font size="4" isBold="true"/>
+				</textElement>
+				<text><![CDATA[day_17]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="337" y="5" width="9" height="20" uuid="a47192e8-26eb-429d-942c-aba57246b3e3"/>
+				<textElement>
+					<font size="4" isBold="true"/>
+				</textElement>
+				<text><![CDATA[day_18]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="352" y="5" width="9" height="20" uuid="768ac029-ffe9-4ba1-96a0-70e34457e4fd"/>
+				<textElement>
+					<font size="4" isBold="true"/>
+				</textElement>
+				<text><![CDATA[day_19]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="367" y="5" width="9" height="20" uuid="5c2e7b16-de6e-429c-a86f-7a8e62775561"/>
+				<textElement>
+					<font size="4" isBold="true"/>
+				</textElement>
+				<text><![CDATA[day_20]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="382" y="5" width="9" height="20" uuid="dcb74a30-6aec-41fc-bf66-502d894df66f"/>
+				<textElement>
+					<font size="4" isBold="true"/>
+				</textElement>
+				<text><![CDATA[day_21]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="397" y="5" width="9" height="20" uuid="21e5614c-3a2f-4fb0-8a2a-ee0ed77e6013"/>
+				<textElement>
+					<font size="4" isBold="true"/>
+				</textElement>
+				<text><![CDATA[day_22]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="412" y="5" width="9" height="20" uuid="044bd9af-8927-4303-82be-48886402a303"/>
+				<textElement>
+					<font size="4" isBold="true"/>
+				</textElement>
+				<text><![CDATA[day_23]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="427" y="5" width="9" height="20" uuid="f081fd0f-44e1-4ec7-a960-852fc996b9a2"/>
+				<textElement>
+					<font size="4" isBold="true"/>
+				</textElement>
+				<text><![CDATA[day_24]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="442" y="5" width="9" height="20" uuid="92245794-35d4-4da0-97c8-0846f5dd82c4"/>
+				<textElement>
+					<font size="4" isBold="true"/>
+				</textElement>
+				<text><![CDATA[day_25]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="457" y="5" width="9" height="20" uuid="8af0b68f-a0c6-4ab0-a107-3ee7cf8d74a3"/>
+				<textElement>
+					<font size="4" isBold="true"/>
+				</textElement>
+				<text><![CDATA[day_26]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="472" y="5" width="9" height="20" uuid="124245af-ed09-46bd-a724-3b8fc0871a50"/>
+				<textElement>
+					<font size="4" isBold="true"/>
+				</textElement>
+				<text><![CDATA[day_27]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="487" y="5" width="9" height="20" uuid="fa459146-cdd0-44cf-84e9-8731220c3128"/>
+				<textElement>
+					<font size="4" isBold="true"/>
+				</textElement>
+				<text><![CDATA[day_28]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="502" y="5" width="9" height="20" uuid="87b1ac11-3c40-4fc9-8b26-5b78598393e6"/>
+				<textElement>
+					<font size="4" isBold="true"/>
+				</textElement>
+				<text><![CDATA[day_29]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="517" y="5" width="9" height="20" uuid="a1a2caa0-0e2e-480a-a739-c4c37b110953"/>
+				<textElement>
+					<font size="4" isBold="true"/>
+				</textElement>
+				<text><![CDATA[day_30]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="528" y="5" width="9" height="20" uuid="dd3c37ed-aafb-44b8-a652-70b2446e433e"/>
+				<textElement>
+					<font size="4" isBold="true"/>
+				</textElement>
+				<text><![CDATA[day_31]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="540" y="5" width="15" height="20" uuid="4e229771-f99d-490f-8924-89e637dc07ed"/>
+				<textElement>
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="-4" y="0" width="15" height="20" uuid="fdefa335-9060-43f4-9107-998ef46ba991"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{daily_transactions_current_year}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="13" y="0" width="18" height="20" uuid="a5d3810d-384a-4583-8db7-feec3b290b20"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{daily_transactions_current_month}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="25" y="0" width="15" height="20" uuid="854708d1-03dc-4383-b914-40ef8eef342d"/>
+				<textElement>
+					<font size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{daily_transactions_current_sup_id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="45" y="0" width="37" height="20" uuid="f8973172-656e-43c5-9f5a-5553ca3ff876"/>
+				<textElement>
+					<font size="4" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{daily_transactions_current_sup_name}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.0">
+				<reportElement x="86" y="0" width="15" height="20" uuid="4e70d220-7848-418b-8c9b-54a68104d721"/>
+				<textElement>
+					<font size="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.0">
+				<reportElement x="99" y="0" width="15" height="20" uuid="d31de7ee-02b2-4f09-a7f5-9c5002e0e313"/>
+				<textElement>
+					<font size="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="112" y="0" width="15" height="20" uuid="2fd29b51-59be-486a-8fa6-e96d46c78cc0"/>
+				<textElement>
+					<font size="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="127" y="0" width="15" height="20" uuid="6c5ef700-a59f-4d15-8c0c-0b2143bb85fc"/>
+				<textElement>
+					<font size="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_4}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="142" y="0" width="15" height="20" uuid="0930e1c5-33f8-46bf-8163-c582bb2187a3"/>
+				<textElement>
+					<font size="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_5}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="157" y="0" width="15" height="20" uuid="655932d7-4b3c-4c7d-9802-8b174e9fb58f"/>
+				<textElement>
+					<font size="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_6}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="172" y="0" width="15" height="20" uuid="046d540a-cc50-4190-9fed-9902aed04a39"/>
+				<textElement>
+					<font size="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_7}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="187" y="0" width="15" height="20" uuid="23d96756-cd12-4529-af9b-29e9404c840d"/>
+				<textElement>
+					<font size="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_8}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="202" y="0" width="15" height="20" uuid="1b1fb983-8ec3-4e98-bec4-f157685ac81d"/>
+				<textElement>
+					<font size="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_9}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="217" y="0" width="15" height="20" uuid="d0479edf-52ec-45f1-974c-3b58fdca08a2"/>
+				<textElement>
+					<font size="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_10}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="232" y="0" width="15" height="20" uuid="55139abc-52af-4f69-8950-982af18a1e0b"/>
+				<textElement>
+					<font size="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_11}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="247" y="0" width="15" height="20" uuid="127e20ac-7b9e-4963-8d8c-f31e32a20dfe"/>
+				<textElement>
+					<font size="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_12}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="262" y="0" width="14" height="20" uuid="27efc1b1-b59e-4579-897c-1da05c5ea9bd"/>
+				<textElement>
+					<font size="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_13}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="277" y="0" width="15" height="20" uuid="174e9967-b591-431e-833d-03cd423e910c"/>
+				<textElement>
+					<font size="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_14}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="292" y="0" width="15" height="20" uuid="a96c0e00-766f-4491-95d7-3945a28cd335"/>
+				<textElement>
+					<font size="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_15}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="307" y="0" width="15" height="20" uuid="fda9ca94-10b1-4768-b935-81fa8499cb07"/>
+				<textElement>
+					<font size="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_16}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="322" y="0" width="15" height="20" uuid="9f9fbc61-1171-40c8-b8f7-3f6305e98af9"/>
+				<textElement>
+					<font size="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_17}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="337" y="0" width="15" height="20" uuid="4cec0c14-b7e9-4878-987d-fb44d00660c2"/>
+				<textElement>
+					<font size="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_18}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="352" y="0" width="15" height="20" uuid="9798795a-1690-4745-a40d-0f5db0846dcf"/>
+				<textElement>
+					<font size="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_19}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="367" y="0" width="15" height="20" uuid="5f7c22bc-8b9a-461e-9c5d-e10023f05d9d"/>
+				<textElement>
+					<font size="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_20}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="382" y="0" width="15" height="20" uuid="ed981955-d830-45e9-bd3e-29954890126f"/>
+				<textElement>
+					<font size="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_21}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="397" y="0" width="15" height="20" uuid="fc649b7f-d14a-4fcf-8c29-c2f1386ce964"/>
+				<textElement>
+					<font size="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_22}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="412" y="0" width="15" height="20" uuid="cbf40b89-819f-46b7-bd2d-3c2d7430af39"/>
+				<textElement>
+					<font size="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_23}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="442" y="0" width="15" height="20" uuid="f9b4af77-8f73-4c9c-858c-36ff1f1608e8"/>
+				<textElement>
+					<font size="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_25}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="457" y="0" width="15" height="20" uuid="5a7c9393-9392-44b2-892c-390b15aa7b13"/>
+				<textElement>
+					<font size="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_26}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="472" y="0" width="15" height="20" uuid="538ee6d4-8fa1-43b0-88ab-e072782c1fd9"/>
+				<textElement>
+					<font size="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_27}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="487" y="0" width="15" height="20" uuid="f45e5bd6-6223-487d-85d2-110121ef3fd6"/>
+				<textElement>
+					<font size="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_28}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="502" y="0" width="13" height="20" uuid="a928f885-1be7-4e3d-aa4c-972f2500f559"/>
+				<textElement>
+					<font size="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_29}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="515" y="0" width="14" height="20" uuid="30313f26-505b-4794-acb5-68a4b47a14c4"/>
+				<textElement>
+					<font size="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_30}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="527" y="0" width="10" height="20" uuid="6a699bc3-3a5e-4463-8b22-972c0f840290"/>
+				<textElement>
+					<font size="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_31}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="540" y="0" width="28" height="20" uuid="1d20725c-31e3-466f-a6e0-5d5731544f42"/>
+				<textElement>
+					<font size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{daily_transactions_current_Total}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="427" y="0" width="15" height="20" uuid="37661cd3-ed56-4726-a6b3-2de2bbc02db1"/>
+				<textElement>
+					<font size="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_24}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="2" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="2" splitType="Stretch">
+			<line>
+				<reportElement x="1" y="-13" width="554" height="1" uuid="0d048f90-0a60-4753-b7bf-906c8bd8f6af"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="26" splitType="Stretch"/>
+	</summary>
+</jasperReport>

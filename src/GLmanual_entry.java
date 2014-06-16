@@ -238,6 +238,13 @@ public class GLmanual_entry extends javax.swing.JPanel {
                 category_codeActionPerformed(evt);
             }
         });
+        category_code.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+                category_codeCaretPositionChanged(evt);
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+            }
+        });
 
         category_name.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         category_name.setForeground(new java.awt.Color(51, 51, 51));
@@ -798,10 +805,10 @@ public class GLmanual_entry extends javax.swing.JPanel {
             globject.setCategoryCode(category_code.getSelectedItem().toString());
 
             globject.setDate(datechooser.Return_date(yearfield, monthfield, dayfield));
-
-            // adding values in the table
+            double trans = Double.parseDouble(dbm.checknReturnStringData("category", "category_id", category_code.getSelectedItem().toString(), "extra_rate"));
+          //  System.out.println(trans);
             int i = 0;
-            boolean st;
+           // boolean st;
 
             while (table.getValueAt(i, 0) != null) {
                 globject.setSupplierCode(Integer.parseInt((String) table.getValueAt(i, 0)));
@@ -813,13 +820,13 @@ public class GLmanual_entry extends javax.swing.JPanel {
                 globject.setCoarseLeaf(convertString((String) table.getValueAt(i, 5)));
                 globject.setOther(convertString((String) table.getValueAt(i, 6)));
                 globject.setNetQuantity(convertString((String) table.getValueAt(i, 7)));
-                if ("Yes".equals((String) table.getValueAt(i, 8))) {
+              /*  if ("Yes".equals((String) table.getValueAt(i, 8))) {
                     st = true;
                 } else {
                     st = false;
-                }
-                globject.setSelfTransport(st);
-                globject.setIntselfTransport(globject.getSelfTransport());
+                }*/
+               globject.setSelfTransport(trans);
+               // System.out.println("");
 
                 globject.addToDataBase();
 
@@ -913,6 +920,7 @@ public class GLmanual_entry extends javax.swing.JPanel {
             try {
                 category_name.setText(dbm.checknReturnStringData("category", "category_id", category_code.getSelectedItem().toString(), "category_name"));
                 supplier_id.requestFocusInWindow();
+                
 
             } catch (Exception e) {
                 category_code.setSelectedIndex(1);
@@ -1520,6 +1528,10 @@ public class GLmanual_entry extends javax.swing.JPanel {
     private void category_codeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_category_codeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_category_codeActionPerformed
+
+    private void category_codeCaretPositionChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_category_codeCaretPositionChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_category_codeCaretPositionChanged
     public double convertString(String s) {
         if (s.length() == 0) {
             return 0;

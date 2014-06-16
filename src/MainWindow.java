@@ -1,17 +1,8 @@
 
-import java.awt.Color;
-import java.awt.Container;
-import java.awt.Frame;
-import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
-import java.net.Inet4Address;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
-import sun.awt.SunToolkit;
+
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -32,7 +23,7 @@ public class MainWindow extends javax.swing.JFrame {
 
     public MainWindow() {
         initComponents();
-        //this.setIconImage(new ImageIcon(getClass().getResource("icon.jpg")).getImage());
+        this.setIconImage(new ImageIcon(getClass().getResource("ICON2.png")).getImage());
         Info.setText("");
         String s = userAC.get_current_user();
         TimeCheck time = new TimeCheck(s);
@@ -324,7 +315,7 @@ public class MainWindow extends javax.swing.JFrame {
         Main_Content.add(jLabel8);
         jLabel8.setBounds(120, 240, 90, 40);
 
-        topBar.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
+        topBar.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
         topBar.setForeground(new java.awt.Color(215, 215, 215));
         topBar.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         topBar.setVerifyInputWhenFocusTarget(false);
@@ -592,15 +583,14 @@ public class MainWindow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        DateChooser addbrnch = new DateChooser();
+        Task_manager addbrnch = new Task_manager();
+        New_window NW = new New_window();
+         // NW.setSize(addbrnch.getSize());
+        NW.paint(addbrnch,"Task Manager");
+       
 
-        Main_Content.removeAll();
-
-        addbrnch.setSize(Main_Content.getSize());
-
-        Main_Content.add(addbrnch);
-        validate();
-        repaint();
+        NW.setVisible(true);
+       
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
@@ -614,6 +604,8 @@ public class MainWindow extends javax.swing.JFrame {
         validate();
         repaint();
         addbrnch.focus();
+       
+       
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
@@ -684,7 +676,7 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        topBar.setBackground(new java.awt.Color(204, 0, 103));
+        topBar.setBackground(new java.awt.Color(153, 0, 153));
         pAccounts paccunts = new pAccounts();
 
         Main_Content.removeAll();
@@ -964,6 +956,7 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_User_idActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+         topBar.setBackground(new java.awt.Color(0, 0, 0));
         Reports_home reports_home = new Reports_home();
 
         Main_Content.removeAll();
@@ -979,12 +972,12 @@ public class MainWindow extends javax.swing.JFrame {
         New_window NW = new New_window();
         NW.setVisible(true);
         Reports_home home = new Reports_home();
-        NW.paint(home);
+        NW.paint(home,"Reports Home");
         NW.setVisible(true);
     }//GEN-LAST:event_jButton15ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-
+System.exit(0);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     /**
@@ -996,6 +989,8 @@ public class MainWindow extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
+        
+        
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {

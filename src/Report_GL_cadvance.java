@@ -1,39 +1,183 @@
 
+import java.awt.event.ItemEvent;
 import java.awt.event.KeyEvent;
 import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Pramo
  */
 public class Report_GL_cadvance extends javax.swing.JPanel {
 
+    public class Background implements Runnable {
+
+        @Override
+        public void run() {
+            //  jProgressBar1.setIndeterminate(true);
+            view.setEnabled(false);
+            jProgressBar1.setVisible(true);
+            int a = (int) (Math.random() * 500);
+            //System.out.println(a);
+            for (int i = 0; i <= 3000 + a; i++) {
+                jProgressBar1.setValue(100 * i / 4000);
+                jProgressBar1.repaint();
+
+                try {
+                    Thread.sleep(1);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Reports_GL.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+        }
+    }
+
+    public class report implements Runnable {
+
+        @Override
+        public void run() {
+            //  jProgressBar1.setIndeterminate(true);
+
+            Thread a = new Thread(new Background());
+
+            if (!overad.isSelected() && !supplier.isSelected()) {
+                try {
+                    HashMap param = new HashMap();
+                    a.start();
+                    Date Return_date1 = datechooser.Return_date(yearfield, monthfield, dayfield);
+                    Date Return_date2 = datechooser.Return_date(yearfield2, monthfield2, dayfield2);
+
+                    param.put("from_date", Return_date1);
+                    param.put("to_date", Return_date2);
+                    param.put("USER", user.get_current_user());
+
+                    String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
+
+                    generate.create("GL_CADVANCE", "D:\\", param, location, "GL_cadvance.jrxml");
+                    a.stop();
+                    jProgressBar1.setValue(100);
+                } catch (ParseException ex) {
+                    Logger.getLogger(Report_GL_trans.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (!overad.isSelected() && supplier.isSelected()) {
+
+                if (supplier_id.getSelectedItem() == null || supplier_id.getSelectedItem().toString() == "") {
+                    JOptionPane.showMessageDialog(datechooser, "Select supplier");
+                } else {
+                    try {
+                        HashMap param = new HashMap();
+                        a.start();
+                        Date Return_date1 = datechooser.Return_date(yearfield, monthfield, dayfield);
+                        Date Return_date2 = datechooser.Return_date(yearfield2, monthfield2, dayfield2);
+
+                        param.put("from_date", Return_date1);
+                        param.put("to_date", Return_date2);
+                        param.put("USER", user.get_current_user());
+                        param.put("quary", supplier_id.getSelectedItem().toString());
+
+                        String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
+
+                        generate.create("GL_CADVANCE", "D:\\", param, location, "GL_cadvance_all_user.jrxml");
+                        a.stop();
+                        jProgressBar1.setValue(100);
+                    } catch (ParseException ex) {
+                        Logger.getLogger(Report_GL_trans.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                }
+            }
+            if (overad.isSelected() && !supplier.isSelected()) {
+                try {
+                    HashMap param = new HashMap();
+                    a.start();
+                    Date Return_date1 = datechooser.Return_date(yearfield, monthfield, dayfield);
+                    Date Return_date2 = datechooser.Return_date(yearfield2, monthfield2, dayfield2);
+
+                    param.put("from_date", Return_date1);
+                    param.put("to_date", Return_date2);
+                    param.put("USER", user.get_current_user());
+
+                    String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
+
+                    generate.create("GL_CADVANCE", "D:\\", param, location, "GL_cadvance_overad.jrxml");
+                    a.stop();
+                    jProgressBar1.setValue(100);
+                } catch (ParseException ex) {
+                    Logger.getLogger(Report_GL_trans.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+
+        private void viewMouseClicked(java.awt.event.MouseEvent evt) {
+            // jLabel4.setText("please wait..");
+        }
+
+        private void supplier_idItemStateChanged(java.awt.event.ItemEvent evt) {
+            if (supplier_id.getSelectedIndex() != 0) {
+                try {
+
+                    DatabaseManager dbm = DatabaseManager.getDbCon();
+                    String Name = null;
+
+                    if (evt.getStateChange() == ItemEvent.SELECTED) {
+                        int item = Integer.parseInt(supplier_id.getSelectedItem().toString());
+                        try {
+                            ResultSet query = dbm.query("SELECT * FROM suppliers WHERE sup_id =" + item + "");
+                            while (query.next()) {
+                                Name = query.getString("sup_name");
+                            }
+                        } catch (SQLException ex) {
+                        }
+
+                    // name.setText("" + Name);
+                        // no_of_sacks.requestFocusInWindow();
+                        //jLabel14.setText(" ");
+                    }
+
+                } catch (Exception e) {
+
+                    supplier_id.setSelectedIndex(0);
+
+                }
+            }
+        // do 
+
+            view.setEnabled(true);
+
+        }
+    }
+
     /**
-     * 
+     *
      */
     public Report_GL_cadvance() {
         initComponents();
+        jProgressBar1.setStringPainted(true);
     }
-      DateChooser_text datechooser = new DateChooser_text();
+    DateChooser_text datechooser = new DateChooser_text();
     Date_Handler datehandler = new Date_Handler();
     Report_gen generate = new Report_gen();
     UserAccountControl user = new UserAccountControl();
     DatabaseManager dbm = new DatabaseManager();
 
-    public void focus(){
-    dayfield.requestFocus();
-    dayfield.selectAll();
+    public void focus() {
+        dayfield.requestFocus();
+        dayfield.selectAll();
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -58,10 +202,14 @@ public class Report_GL_cadvance extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox2 = new javax.swing.JCheckBox();
-        jCheckBox3 = new javax.swing.JCheckBox();
-        jButton1 = new javax.swing.JButton();
+        overad = new javax.swing.JCheckBox();
+        supplier = new javax.swing.JCheckBox();
+        supplier_id = new javax.swing.JComboBox();
+        view = new javax.swing.JButton();
+        jProgressBar1 = new javax.swing.JProgressBar();
+        jLabel4 = new javax.swing.JLabel();
+
+        setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 6));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -83,7 +231,7 @@ public class Report_GL_cadvance extends javax.swing.JPanel {
             }
         });
 
-        dayfield.setText(datehandler.get_today_day());
+        dayfield.setText(Integer.parseInt(datehandler.get_today_day())+"");
         dayfield.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 dayfieldKeyPressed(evt);
@@ -140,7 +288,7 @@ public class Report_GL_cadvance extends javax.swing.JPanel {
             }
         });
 
-        dayfield2.setText(datehandler.get_today_day());
+        dayfield2.setText(Integer.parseInt(datehandler.get_today_day())+"");
         dayfield2.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 dayfield2KeyPressed(evt);
@@ -216,16 +364,49 @@ public class Report_GL_cadvance extends javax.swing.JPanel {
 
         jLabel3.setText("Group by");
 
-        jCheckBox1.setText("Route");
-
-        jCheckBox2.setText("Supplier");
-        jCheckBox2.addActionListener(new java.awt.event.ActionListener() {
+        overad.setText("Over Advance");
+        overad.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                overadItemStateChanged(evt);
+            }
+        });
+        overad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox2ActionPerformed(evt);
+                overadActionPerformed(evt);
             }
         });
 
-        jCheckBox3.setText("Route");
+        supplier.setText("Supplier");
+        supplier.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                supplierItemStateChanged(evt);
+            }
+        });
+        supplier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                supplierActionPerformed(evt);
+            }
+        });
+
+        DatabaseManager dbm = DatabaseManager.getDbCon();
+        supplier_id.putClientProperty("JComboBox.isTableCellEditor", Boolean.TRUE);
+        supplier_id.setEditable(true);
+        supplier_id.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("suppliers", "sup_id")));
+        supplier_id.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                supplier_idItemStateChanged(evt);
+            }
+        });
+        supplier_id.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                supplier_idActionPerformed(evt);
+            }
+        });
+        supplier_id.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                supplier_idKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -233,14 +414,13 @@ public class Report_GL_cadvance extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel3)
-                .addContainerGap(25, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jCheckBox3)
-                    .addComponent(jCheckBox1)
-                    .addComponent(jCheckBox2))
+                    .addComponent(overad)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(supplier)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(supplier_id, 0, 94, Short.MAX_VALUE))
+                    .addComponent(jLabel3))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -249,48 +429,60 @@ public class Report_GL_cadvance extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jCheckBox2)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(supplier)
+                    .addComponent(supplier_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jCheckBox1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCheckBox3)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addComponent(overad)
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
-        jButton1.setText("Veiw");
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+        view.setText("Veiw");
+        view.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
+                viewMouseClicked(evt);
             }
         });
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        view.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                viewActionPerformed(evt);
             }
         });
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel4.setText("Cash Advances");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 280, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(view, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(7, 7, 7)
+                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 38, Short.MAX_VALUE))
+                    .addComponent(view, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32)
+                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -530,12 +722,12 @@ public class Report_GL_cadvance extends javax.swing.JPanel {
                 dayfield.selectAll();
             }                                           // /// decrementing normal values
         } else if (dayfield.getText().equals("2") || dayfield.getText().equals("3") || dayfield.getText().equals("4") || dayfield.getText().equals("5")
-            || dayfield.getText().equals("6") || dayfield.getText().equals("7") || dayfield.getText().equals("8") || dayfield.getText().equals("9")
-            || dayfield.getText().equals("10") || dayfield.getText().equals("11") || dayfield.getText().equals("12") || dayfield.getText().equals("13") || dayfield.getText().equals("14")
-            || dayfield.getText().equals("15") || dayfield.getText().equals("16") || dayfield.getText().equals("17") || dayfield.getText().equals("18")
-            || dayfield.getText().equals("19") || dayfield.getText().equals("20") || dayfield.getText().equals("21") || dayfield.getText().equals("22")
-            || dayfield.getText().equals("23") || dayfield.getText().equals("24") || dayfield.getText().equals("25") || dayfield.getText().equals("26")
-            || dayfield.getText().equals("27") || dayfield.getText().equals("28") || dayfield.getText().equals("29") || dayfield.getText().equals("30") || dayfield.getText().equals("31")) {
+                || dayfield.getText().equals("6") || dayfield.getText().equals("7") || dayfield.getText().equals("8") || dayfield.getText().equals("9")
+                || dayfield.getText().equals("10") || dayfield.getText().equals("11") || dayfield.getText().equals("12") || dayfield.getText().equals("13") || dayfield.getText().equals("14")
+                || dayfield.getText().equals("15") || dayfield.getText().equals("16") || dayfield.getText().equals("17") || dayfield.getText().equals("18")
+                || dayfield.getText().equals("19") || dayfield.getText().equals("20") || dayfield.getText().equals("21") || dayfield.getText().equals("22")
+                || dayfield.getText().equals("23") || dayfield.getText().equals("24") || dayfield.getText().equals("25") || dayfield.getText().equals("26")
+                || dayfield.getText().equals("27") || dayfield.getText().equals("28") || dayfield.getText().equals("29") || dayfield.getText().equals("30") || dayfield.getText().equals("31")) {
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
 
                 dayfield.setText("" + (Integer.parseInt(dayfield.getText()) - 1));
@@ -612,12 +804,12 @@ public class Report_GL_cadvance extends javax.swing.JPanel {
                     monthfield.setText(datechooser.Return_month(mnth + 1));
                     // incrementing normal values/////////////////////// for february separately
                 } else if (dayfield.getText().equals("1") || dayfield.getText().equals("2") || dayfield.getText().equals("3") || dayfield.getText().equals("4") || dayfield.getText().equals("5")
-                    || dayfield.getText().equals("6") || dayfield.getText().equals("7") || dayfield.getText().equals("8") || dayfield.getText().equals("9")
-                    || dayfield.getText().equals("10") || dayfield.getText().equals("11") || dayfield.getText().equals("12") || dayfield.getText().equals("13") || dayfield.getText().equals("14")
-                    || dayfield.getText().equals("15") || dayfield.getText().equals("16") || dayfield.getText().equals("17") || dayfield.getText().equals("18")
-                    || dayfield.getText().equals("19") || dayfield.getText().equals("20") || dayfield.getText().equals("21") || dayfield.getText().equals("22")
-                    || dayfield.getText().equals("23") || dayfield.getText().equals("24") || dayfield.getText().equals("25") || dayfield.getText().equals("26")
-                    || dayfield.getText().equals("27") || dayfield.getText().equals("28") || dayfield.getText().equals("29") || dayfield.getText().equals("30") || dayfield.getText().equals("31")) {
+                        || dayfield.getText().equals("6") || dayfield.getText().equals("7") || dayfield.getText().equals("8") || dayfield.getText().equals("9")
+                        || dayfield.getText().equals("10") || dayfield.getText().equals("11") || dayfield.getText().equals("12") || dayfield.getText().equals("13") || dayfield.getText().equals("14")
+                        || dayfield.getText().equals("15") || dayfield.getText().equals("16") || dayfield.getText().equals("17") || dayfield.getText().equals("18")
+                        || dayfield.getText().equals("19") || dayfield.getText().equals("20") || dayfield.getText().equals("21") || dayfield.getText().equals("22")
+                        || dayfield.getText().equals("23") || dayfield.getText().equals("24") || dayfield.getText().equals("25") || dayfield.getText().equals("26")
+                        || dayfield.getText().equals("27") || dayfield.getText().equals("28") || dayfield.getText().equals("29") || dayfield.getText().equals("30") || dayfield.getText().equals("31")) {
 
                     dayfield.setText("" + (Integer.parseInt(dayfield.getText()) + 1));
 
@@ -626,12 +818,12 @@ public class Report_GL_cadvance extends javax.swing.JPanel {
             }
             // incrementing normal values
         } else if (dayfield.getText().equals("1") || dayfield.getText().equals("2") || dayfield.getText().equals("3") || dayfield.getText().equals("4") || dayfield.getText().equals("5")
-            || dayfield.getText().equals("6") || dayfield.getText().equals("7") || dayfield.getText().equals("8") || dayfield.getText().equals("9")
-            || dayfield.getText().equals("10") || dayfield.getText().equals("11") || dayfield.getText().equals("12") || dayfield.getText().equals("13") || dayfield.getText().equals("14")
-            || dayfield.getText().equals("15") || dayfield.getText().equals("16") || dayfield.getText().equals("17") || dayfield.getText().equals("18")
-            || dayfield.getText().equals("19") || dayfield.getText().equals("20") || dayfield.getText().equals("21") || dayfield.getText().equals("22")
-            || dayfield.getText().equals("23") || dayfield.getText().equals("24") || dayfield.getText().equals("25") || dayfield.getText().equals("26")
-            || dayfield.getText().equals("27") || dayfield.getText().equals("28") || dayfield.getText().equals("29") || dayfield.getText().equals("30") || dayfield.getText().equals("31")) {
+                || dayfield.getText().equals("6") || dayfield.getText().equals("7") || dayfield.getText().equals("8") || dayfield.getText().equals("9")
+                || dayfield.getText().equals("10") || dayfield.getText().equals("11") || dayfield.getText().equals("12") || dayfield.getText().equals("13") || dayfield.getText().equals("14")
+                || dayfield.getText().equals("15") || dayfield.getText().equals("16") || dayfield.getText().equals("17") || dayfield.getText().equals("18")
+                || dayfield.getText().equals("19") || dayfield.getText().equals("20") || dayfield.getText().equals("21") || dayfield.getText().equals("22")
+                || dayfield.getText().equals("23") || dayfield.getText().equals("24") || dayfield.getText().equals("25") || dayfield.getText().equals("26")
+                || dayfield.getText().equals("27") || dayfield.getText().equals("28") || dayfield.getText().equals("29") || dayfield.getText().equals("30") || dayfield.getText().equals("31")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
 
                 dayfield.setText("" + (Integer.parseInt(dayfield.getText()) + 1));
@@ -896,12 +1088,12 @@ public class Report_GL_cadvance extends javax.swing.JPanel {
                 dayfield2.selectAll();
             }                                           // /// decrementing normal values
         } else if (dayfield2.getText().equals("2") || dayfield2.getText().equals("3") || dayfield2.getText().equals("4") || dayfield2.getText().equals("5")
-            || dayfield2.getText().equals("6") || dayfield2.getText().equals("7") || dayfield2.getText().equals("8") || dayfield2.getText().equals("9")
-            || dayfield2.getText().equals("10") || dayfield2.getText().equals("11") || dayfield2.getText().equals("12") || dayfield2.getText().equals("13") || dayfield2.getText().equals("14")
-            || dayfield2.getText().equals("15") || dayfield2.getText().equals("16") || dayfield2.getText().equals("17") || dayfield2.getText().equals("18")
-            || dayfield2.getText().equals("19") || dayfield2.getText().equals("20") || dayfield2.getText().equals("21") || dayfield2.getText().equals("22")
-            || dayfield2.getText().equals("23") || dayfield2.getText().equals("24") || dayfield2.getText().equals("25") || dayfield2.getText().equals("26")
-            || dayfield2.getText().equals("27") || dayfield2.getText().equals("28") || dayfield2.getText().equals("29") || dayfield2.getText().equals("30") || dayfield2.getText().equals("31")) {
+                || dayfield2.getText().equals("6") || dayfield2.getText().equals("7") || dayfield2.getText().equals("8") || dayfield2.getText().equals("9")
+                || dayfield2.getText().equals("10") || dayfield2.getText().equals("11") || dayfield2.getText().equals("12") || dayfield2.getText().equals("13") || dayfield2.getText().equals("14")
+                || dayfield2.getText().equals("15") || dayfield2.getText().equals("16") || dayfield2.getText().equals("17") || dayfield2.getText().equals("18")
+                || dayfield2.getText().equals("19") || dayfield2.getText().equals("20") || dayfield2.getText().equals("21") || dayfield2.getText().equals("22")
+                || dayfield2.getText().equals("23") || dayfield2.getText().equals("24") || dayfield2.getText().equals("25") || dayfield2.getText().equals("26")
+                || dayfield2.getText().equals("27") || dayfield2.getText().equals("28") || dayfield2.getText().equals("29") || dayfield2.getText().equals("30") || dayfield2.getText().equals("31")) {
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
 
                 dayfield2.setText("" + (Integer.parseInt(dayfield2.getText()) - 1));
@@ -978,12 +1170,12 @@ public class Report_GL_cadvance extends javax.swing.JPanel {
                     monthfield2.setText(datechooser.Return_month(mnth + 1));
                     // incrementing normal values/////////////////////// for february separately
                 } else if (dayfield2.getText().equals("1") || dayfield2.getText().equals("2") || dayfield2.getText().equals("3") || dayfield2.getText().equals("4") || dayfield2.getText().equals("5")
-                    || dayfield2.getText().equals("6") || dayfield2.getText().equals("7") || dayfield2.getText().equals("8") || dayfield2.getText().equals("9")
-                    || dayfield2.getText().equals("10") || dayfield2.getText().equals("11") || dayfield2.getText().equals("12") || dayfield2.getText().equals("13") || dayfield2.getText().equals("14")
-                    || dayfield2.getText().equals("15") || dayfield2.getText().equals("16") || dayfield2.getText().equals("17") || dayfield2.getText().equals("18")
-                    || dayfield2.getText().equals("19") || dayfield2.getText().equals("20") || dayfield2.getText().equals("21") || dayfield2.getText().equals("22")
-                    || dayfield2.getText().equals("23") || dayfield2.getText().equals("24") || dayfield2.getText().equals("25") || dayfield2.getText().equals("26")
-                    || dayfield2.getText().equals("27") || dayfield2.getText().equals("28") || dayfield2.getText().equals("29") || dayfield2.getText().equals("30") || dayfield2.getText().equals("31")) {
+                        || dayfield2.getText().equals("6") || dayfield2.getText().equals("7") || dayfield2.getText().equals("8") || dayfield2.getText().equals("9")
+                        || dayfield2.getText().equals("10") || dayfield2.getText().equals("11") || dayfield2.getText().equals("12") || dayfield2.getText().equals("13") || dayfield2.getText().equals("14")
+                        || dayfield2.getText().equals("15") || dayfield2.getText().equals("16") || dayfield2.getText().equals("17") || dayfield2.getText().equals("18")
+                        || dayfield2.getText().equals("19") || dayfield2.getText().equals("20") || dayfield2.getText().equals("21") || dayfield2.getText().equals("22")
+                        || dayfield2.getText().equals("23") || dayfield2.getText().equals("24") || dayfield2.getText().equals("25") || dayfield2.getText().equals("26")
+                        || dayfield2.getText().equals("27") || dayfield2.getText().equals("28") || dayfield2.getText().equals("29") || dayfield2.getText().equals("30") || dayfield2.getText().equals("31")) {
 
                     dayfield2.setText("" + (Integer.parseInt(dayfield2.getText()) + 1));
 
@@ -992,12 +1184,12 @@ public class Report_GL_cadvance extends javax.swing.JPanel {
             }
             // incrementing normal values
         } else if (dayfield2.getText().equals("1") || dayfield2.getText().equals("2") || dayfield2.getText().equals("3") || dayfield2.getText().equals("4") || dayfield2.getText().equals("5")
-            || dayfield2.getText().equals("6") || dayfield2.getText().equals("7") || dayfield2.getText().equals("8") || dayfield2.getText().equals("9")
-            || dayfield2.getText().equals("10") || dayfield2.getText().equals("11") || dayfield2.getText().equals("12") || dayfield2.getText().equals("13") || dayfield2.getText().equals("14")
-            || dayfield2.getText().equals("15") || dayfield2.getText().equals("16") || dayfield2.getText().equals("17") || dayfield2.getText().equals("18")
-            || dayfield2.getText().equals("19") || dayfield2.getText().equals("20") || dayfield2.getText().equals("21") || dayfield2.getText().equals("22")
-            || dayfield2.getText().equals("23") || dayfield2.getText().equals("24") || dayfield2.getText().equals("25") || dayfield2.getText().equals("26")
-            || dayfield2.getText().equals("27") || dayfield2.getText().equals("28") || dayfield2.getText().equals("29") || dayfield2.getText().equals("30") || dayfield2.getText().equals("31")) {
+                || dayfield2.getText().equals("6") || dayfield2.getText().equals("7") || dayfield2.getText().equals("8") || dayfield2.getText().equals("9")
+                || dayfield2.getText().equals("10") || dayfield2.getText().equals("11") || dayfield2.getText().equals("12") || dayfield2.getText().equals("13") || dayfield2.getText().equals("14")
+                || dayfield2.getText().equals("15") || dayfield2.getText().equals("16") || dayfield2.getText().equals("17") || dayfield2.getText().equals("18")
+                || dayfield2.getText().equals("19") || dayfield2.getText().equals("20") || dayfield2.getText().equals("21") || dayfield2.getText().equals("22")
+                || dayfield2.getText().equals("23") || dayfield2.getText().equals("24") || dayfield2.getText().equals("25") || dayfield2.getText().equals("26")
+                || dayfield2.getText().equals("27") || dayfield2.getText().equals("28") || dayfield2.getText().equals("29") || dayfield2.getText().equals("30") || dayfield2.getText().equals("31")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
 
                 dayfield2.setText("" + (Integer.parseInt(dayfield2.getText()) + 1));
@@ -1025,36 +1217,74 @@ public class Report_GL_cadvance extends javax.swing.JPanel {
         //jButton1.requestFocus();
     }//GEN-LAST:event_datePicker3ActionPerformed
 
-    private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
+    private void supplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supplierActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox2ActionPerformed
+    }//GEN-LAST:event_supplierActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-     
-        
-        try {
-            HashMap param = new HashMap();
-         
-            Date Return_date1 = datechooser.Return_date(yearfield, monthfield, dayfield);
-            Date Return_date2 = datechooser.Return_date(yearfield2, monthfield2, dayfield2);
-          
-            param.put ("from_date",Return_date1);
-             param.put ("to_date",Return_date2);
-             param.put ("USER",user.get_current_user());
-             String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
-             
-           
-           
-            generate.create("GL_trans", "D:\\", param, location,"GL_cadvance.jrxml");
-           
-        } catch (ParseException ex) {
-            Logger.getLogger(Report_GL_trans.class.getName()).log(Level.SEVERE, null, ex);
+    private void viewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewActionPerformed
+       Thread b = new Thread(new report());
+       b.start();
+    }//GEN-LAST:event_viewActionPerformed
+
+    private void viewMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewMouseClicked
+        // jLabel4.setText("please wait..");
+    }//GEN-LAST:event_viewMouseClicked
+
+    private void supplier_idItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_supplier_idItemStateChanged
+        if (supplier_id.getSelectedIndex() != 0) {
+            try {
+
+                DatabaseManager dbm = DatabaseManager.getDbCon();
+                String Name = null;
+
+                if (evt.getStateChange() == ItemEvent.SELECTED) {
+                    int item = Integer.parseInt(supplier_id.getSelectedItem().toString());
+                    try {
+                        ResultSet query = dbm.query("SELECT * FROM suppliers WHERE sup_id =" + item + "");
+                        while (query.next()) {
+                            Name = query.getString("sup_name");
+                        }
+                    } catch (SQLException ex) {
+                    }
+
+                    // name.setText("" + Name);
+                    // no_of_sacks.requestFocusInWindow();
+                    //jLabel14.setText(" ");
+                }
+
+            } catch (Exception e) {
+
+                supplier_id.setSelectedIndex(0);
+
+            }
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+        // do something with object}
+    }//GEN-LAST:event_supplier_idItemStateChanged
 
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-       // jLabel4.setText("please wait..");
-    }//GEN-LAST:event_jButton1MouseClicked
+    private void supplier_idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supplier_idActionPerformed
+        //  System.out.println("OK");
+    }//GEN-LAST:event_supplier_idActionPerformed
+
+    private void supplier_idKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_supplier_idKeyReleased
+
+    }//GEN-LAST:event_supplier_idKeyReleased
+
+    private void overadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_overadActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_overadActionPerformed
+
+    private void supplierItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_supplierItemStateChanged
+        if (supplier.isSelected()) {
+            overad.setSelected(false);
+            
+        } 
+    }//GEN-LAST:event_supplierItemStateChanged
+
+    private void overadItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_overadItemStateChanged
+        if (overad.isSelected()) {
+            supplier.setSelected(false);
+        } 
+    }//GEN-LAST:event_overadItemStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1064,17 +1294,19 @@ public class Report_GL_cadvance extends javax.swing.JPanel {
     private javax.swing.JPanel datepanel2;
     private javax.swing.JTextField dayfield;
     private javax.swing.JTextField dayfield2;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
-    private javax.swing.JCheckBox jCheckBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JTextField monthfield;
     private javax.swing.JTextField monthfield2;
+    private javax.swing.JCheckBox overad;
+    private javax.swing.JCheckBox supplier;
+    private javax.swing.JComboBox supplier_id;
+    private javax.swing.JButton view;
     private javax.swing.JTextField yearfield;
     private javax.swing.JTextField yearfield2;
     // End of variables declaration//GEN-END:variables

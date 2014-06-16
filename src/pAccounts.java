@@ -59,7 +59,7 @@ public class pAccounts extends javax.swing.JPanel {
         jButton9 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
 
-        setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 0, 102), 3));
+        setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 0, 153), 3));
 
         javax.swing.GroupLayout GL_contentLayout = new javax.swing.GroupLayout(GL_content);
         GL_content.setLayout(GL_contentLayout);
@@ -153,7 +153,7 @@ public class pAccounts extends javax.swing.JPanel {
             }
         });
 
-        jButton1.setText("Recepts");
+        jButton1.setText("Receipts");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -446,7 +446,7 @@ public class pAccounts extends javax.swing.JPanel {
         New_window NW = new New_window();
         NW.setVisible(true);
        ACC_recepts home = new ACC_recepts();
-        NW.paint(home);
+        NW.paint(home,"Receipts");
         NW.setVisible(true);
     }//GEN-LAST:event_jButton5ActionPerformed
 
@@ -454,7 +454,7 @@ public class pAccounts extends javax.swing.JPanel {
          New_window NW = new New_window();
         NW.setVisible(true);
        ACC_payments home = new ACC_payments();
-        NW.paint(home);
+        NW.paint(home,"Payments");
         NW.setVisible(true);
     }//GEN-LAST:event_jButton9ActionPerformed
 
@@ -462,7 +462,7 @@ public class pAccounts extends javax.swing.JPanel {
         New_window NW = new New_window();
         NW.setVisible(true);
        ACC_journals home = new ACC_journals();
-        NW.paint(home);
+        NW.paint(home,"Journals");
         NW.setVisible(true);
     }//GEN-LAST:event_jButton10ActionPerformed
 

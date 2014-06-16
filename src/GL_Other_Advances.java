@@ -3,6 +3,7 @@ import java.awt.event.KeyEvent;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -33,6 +34,18 @@ public class GL_Other_Advances extends javax.swing.JPanel {
         this.requestFocusInWindow();
         dayfield.requestFocusInWindow();
         dayfield.selectAll();
+    }
+    
+    public void clear(){
+     supplier_id.setSelectedIndex(0);
+            Discription_code.setSelectedIndex(0);
+            Rate.setText("");
+            qty.setText("");
+            amount.setText("");
+            month_inst.setText("");
+    
+    
+    
     }
 
     /**
@@ -115,6 +128,11 @@ public class GL_Other_Advances extends javax.swing.JPanel {
         });
 
         jButton4.setText("Cancel");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton5.setText("Quit");
 
@@ -254,7 +272,7 @@ public class GL_Other_Advances extends javax.swing.JPanel {
 
         jLabel2.setText("Name ");
 
-        supplier_name.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        supplier_name.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         supplier_name.setForeground(new java.awt.Color(102, 102, 102));
         supplier_name.setText("Name Here");
 
@@ -434,20 +452,17 @@ public class GL_Other_Advances extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jButton2))
                             .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addGap(16, 16, 16)
+                                .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel1)
-                                            .addComponent(jLabel2))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(supplier_name, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(supplier_id, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel5)
-                                        .addGap(16, 16, 16)
-                                        .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 0, Short.MAX_VALUE)))
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel2))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(supplier_id, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(supplier_name, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -512,7 +527,6 @@ public class GL_Other_Advances extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -525,8 +539,11 @@ public class GL_Other_Advances extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(supplier_name, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(1, 1, 1)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(1, 1, 1)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -984,7 +1001,7 @@ public class GL_Other_Advances extends javax.swing.JPanel {
         }
         } catch (Exception e) {
             Discription_code.setSelectedIndex(0);
-            System.out.println("IN");
+         //   System.out.println("IN");
             Discription_code.requestFocus();
         }
     }//GEN-LAST:event_Discription_codeItemStateChanged
@@ -1005,8 +1022,11 @@ public class GL_Other_Advances extends javax.swing.JPanel {
             cadvance.set_date(datechooser.Return_date(yearfield, monthfield, dayfield));
             cadvance.set_sup_name(supplier_name.getText());
             cadvance.addToDataBase();
-        } catch (ParseException ex) {
+           clear();
+            JOptionPane.showMessageDialog(datechooser, "Saved");
+        } catch (Exception ex) {
             Logger.getLogger(GL_Other_Advances.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(datechooser, "There are empty fields");
         }
     }//GEN-LAST:event_save1ActionPerformed
 
@@ -1019,9 +1039,9 @@ public class GL_Other_Advances extends javax.swing.JPanel {
             
         }
 
-        } catch (NumberFormatException e) {
+        } catch (Exception e) {
             qty.setText(null);
-            System.out.println("Excp");
+           // System.out.println("Excp");
         }
     
     
@@ -1042,6 +1062,11 @@ public class GL_Other_Advances extends javax.swing.JPanel {
     private void supplier_idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supplier_idActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_supplier_idActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+       clear();
+       
+    }//GEN-LAST:event_jButton4ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -26,7 +26,7 @@
      green_leaf_transactions.`coarse_leaf_kg` AS green_leaf_transactions_coarse_leaf_kg,
      green_leaf_transactions.`other` AS green_leaf_transactions_other,
      green_leaf_transactions.`net_qty` AS green_leaf_transactions_net_qty,
-     green_leaf_transactions.`self_transport` AS green_leaf_transactions_self_transport,
+     green_leaf_transactions.`transport` AS green_leaf_transactions_self_transport,
      green_leaf_transactions.`tr_id` AS green_leaf_transactions_tr_id
 FROM
      `green_leaf_transactions` green_leaf_transactions
@@ -45,7 +45,7 @@ Order by   green_leaf_transactions.`category_code` ,green_leaf_transactions.`tr_
 	<field name="green_leaf_transactions_coarse_leaf_kg" class="java.lang.Double"/>
 	<field name="green_leaf_transactions_other" class="java.lang.Double"/>
 	<field name="green_leaf_transactions_net_qty" class="java.lang.Double"/>
-	<field name="green_leaf_transactions_self_transport" class="java.lang.String"/>
+	<field name="green_leaf_transactions_self_transport" class="java.lang.Double"/>
 	<field name="green_leaf_transactions_tr_id" class="java.lang.Integer"/>
 	<variable name="Groupsum" class="java.lang.Double" resetType="Group" resetGroup="green_leaf_transactions_category_code" calculation="Sum">
 		<variableExpression><![CDATA[$F{green_leaf_transactions_net_qty}]]></variableExpression>

@@ -6,6 +6,7 @@
 	<parameter name="USER" class="java.lang.String"/>
 	<parameter name="to_date" class="java.util.Date"/>
 	<parameter name="from_date" class="java.util.Date"/>
+	<parameter name="route" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT
      green_leaf_transactions.`tr_id` AS green_leaf_transactions_tr_id,
@@ -20,12 +21,13 @@
      green_leaf_transactions.`coarse_leaf_kg` AS green_leaf_transactions_coarse_leaf_kg,
      green_leaf_transactions.`other` AS green_leaf_transactions_other,
      green_leaf_transactions.`net_qty` AS green_leaf_transactions_net_qty,
-     green_leaf_transactions.`self_transport` AS green_leaf_transactions_self_transport
+     green_leaf_transactions.`transport` AS green_leaf_transactions_self_transport
 FROM
      `green_leaf_transactions` green_leaf_transactions
 WHERE
      tr_date >= $P{from_date}
- AND tr_date <= $P{to_date}]]>
+ AND tr_date <= $P{to_date}
+AND category_code = $P{route}]]>
 	</queryString>
 	<field name="green_leaf_transactions_tr_id" class="java.lang.Integer"/>
 	<field name="green_leaf_transactions_tr_date" class="java.sql.Date"/>
@@ -39,7 +41,7 @@ WHERE
 	<field name="green_leaf_transactions_coarse_leaf_kg" class="java.lang.Double"/>
 	<field name="green_leaf_transactions_other" class="java.lang.Double"/>
 	<field name="green_leaf_transactions_net_qty" class="java.lang.Double"/>
-	<field name="green_leaf_transactions_self_transport" class="java.lang.String"/>
+	<field name="green_leaf_transactions_self_transport" class="java.lang.Double"/>
 	<variable name="TITLE" class="java.lang.String"/>
 	<variable name="count" class="java.lang.Integer" calculation="Count">
 		<variableExpression><![CDATA[$F{green_leaf_transactions_tr_id}]]></variableExpression>
