@@ -23,6 +23,9 @@ public class MainWindow extends javax.swing.JFrame {
 
     public MainWindow() {
         initComponents();
+        int a = (int) (Math.random()*10);
+       // System.out.println(a);
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BogodaAreal"+a+".jpg")));
         this.setIconImage(new ImageIcon(getClass().getResource("ICON2.png")).getImage());
         Info.setText("");
         String s = userAC.get_current_user();
@@ -125,6 +128,9 @@ public class MainWindow extends javax.swing.JFrame {
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jButton8.setText("jButton8");
+        jButton8.setToolTipText("Supplier Bill Summery");
+        jButton8.setIconTextGap(1);
+        jButton8.setInheritsPopupMenu(true);
         jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton8ActionPerformed(evt);
@@ -142,6 +148,7 @@ public class MainWindow extends javax.swing.JFrame {
         });
 
         jButton9.setText("jButton8");
+        jButton9.setToolTipText("Task Manager");
         jButton9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton9ActionPerformed(evt);
@@ -303,7 +310,6 @@ public class MainWindow extends javax.swing.JFrame {
         Main_Content.add(jLabel3);
         jLabel3.setBounds(-230, 130, 770, 420);
 
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BogodaAreal.png"))); // NOI18N
         jLabel7.setText("jLabel3");
         jLabel7.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         Main_Content.add(jLabel7);
@@ -435,7 +441,7 @@ public class MainWindow extends javax.swing.JFrame {
         jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 102, 0)));
 
         Info.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        Info.setForeground(new java.awt.Color(255, 0, 51));
+        Info.setForeground(new java.awt.Color(51, 51, 51));
         Info.setText("jLabel2");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);

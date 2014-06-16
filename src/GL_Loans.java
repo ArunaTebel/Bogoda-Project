@@ -1,4 +1,8 @@
 
+import java.awt.Component;
+import java.awt.KeyEventDispatcher;
+import java.awt.KeyboardFocusManager;
+import java.awt.Window;
 import java.awt.event.ItemEvent;
 import java.awt.event.KeyEvent;
 import java.sql.Date;
@@ -7,6 +11,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ComboBoxModel;
 import javax.swing.JOptionPane;
 
 /*
@@ -30,7 +35,11 @@ public class GL_Loans extends javax.swing.JPanel {
 
     public GL_Loans() {
         initComponents();
-
+        //Thread a = new Thread(new combo(supplier_id));
+       // a.start();
+        
+                
+          
         String selection = (String) cash_cheque_combo.getSelectedItem();
 
         if (selection.equalsIgnoreCase("Cash")) {
@@ -39,6 +48,106 @@ public class GL_Loans extends javax.swing.JPanel {
         }
        double rate = dbm.checknReturnDoubleData("rate_details", "Code_name", "LOAN-R", "rate");
        rateField.setText(""+rate);
+    }
+    
+    public class combo implements Runnable{
+        javax.swing.JComboBox Combo;
+        int count = 0;
+             String temp ="";
+    public combo(javax.swing.JComboBox combo){
+    
+    Combo = combo;
+    
+    }
+    
+    public void run(){
+       // System.out.println("THREAD");    
+           count= 0;
+           //temp= null;
+            
+    KeyboardFocusManager.getCurrentKeyboardFocusManager()
+  .addKeyEventDispatcher(new KeyEventDispatcher() {
+      @Override
+      public boolean dispatchKeyEvent(KeyEvent e) {
+      char a = e.getKeyChar();
+      int b =e.getKeyCode();
+      int id = e.getID();
+      Object obj = new Object();
+      obj = Combo.getModel();
+     // if()
+      if( id== KeyEvent.KEY_PRESSED&& b==KeyEvent.VK_BACK_SPACE){
+          temp = temp.substring(0, count-1);
+          System.out.println(temp);
+            count--;
+           Combo.setModel(new javax.swing.DefaultComboBoxModel(getStringArrayfilter("rate_details", "Code_name",""+temp,count)));
+           Combo.getEditor().setItem(temp);
+           Combo.showPopup();
+        
+          
+         // Combo.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("suppliers", "sup_id")));
+      }
+      if(id== KeyEvent.KEY_PRESSED &&  b!=KeyEvent.VK_DOWN&&  b!=KeyEvent.VK_UP &&  b!=KeyEvent.VK_ENTER&&  b!=KeyEvent.VK_BACK_SPACE){
+           
+          temp =temp+a ;
+             System.out.println(temp);
+            
+              count++;
+              //int i = 0;
+             // while(i<count){
+                  
+              //}
+          //getStringArrayfilter("rate_details", "Code_name",""+a);
+          Combo.setModel(new javax.swing.DefaultComboBoxModel(getStringArrayfilter("rate_details", "Code_name",""+temp,count)));
+           
+         //  Combo.repaint();
+         Combo.showPopup();
+         Combo.getEditor().setItem(temp.substring(0, count-1));
+                                                      }
+        return false;
+      }
+});
+    
+
+    
+    
+    }
+    
+    
+    
+    }
+    
+     public String[] getStringArrayfilter(String table_name, String column_name,String letter,int COUNT) {
+
+        int count = 0;
+        DatabaseManager dbm = DatabaseManager.getDbCon();
+        try {
+            ResultSet query = dbm.query("SELECT " + column_name + " FROM " + table_name + "");
+            while (query.next()) {
+               // System.out.println(count);
+                count++;
+            }
+            String[] array = new String[count + 1];
+            array[0] = null;
+            count = 0;
+            ResultSet query2 = dbm.query("SELECT " + column_name + " FROM " + table_name + "");
+            while (query2.next()) {
+                try {
+                    if(query2.getObject(column_name).toString().substring(0,COUNT).equalsIgnoreCase(letter)){
+                 array[count] = query2.getString(column_name);
+                count++;
+                }
+                } catch (Exception e) {
+                }
+   //  System.out.println(query2.getObject(column_name).toString().substring(0,COUNT));
+                
+                //System.out.println(query2.getObject(column_name).toString());
+               
+            }
+            return array;
+        } catch (SQLException ex) {
+
+        }
+        return null;
     }
 
     /**
@@ -301,6 +410,11 @@ public class GL_Loans extends javax.swing.JPanel {
 
         jLabel7.setText("Payment");
 
+        amountField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                amountFieldFocusGained(evt);
+            }
+        });
         amountField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 amountFieldKeyReleased(evt);
@@ -413,6 +527,11 @@ public class GL_Loans extends javax.swing.JPanel {
         supplier_id.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 supplier_idActionPerformed(evt);
+            }
+        });
+        supplier_id.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                supplier_idFocusGained(evt);
             }
         });
         supplier_id.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -708,7 +827,7 @@ public class GL_Loans extends javax.swing.JPanel {
               //  transaction = transaction + 1;
                // System.out.println(transaction + " " + year);
                 Date loanDate1 = new Date(Integer.parseInt(year) - 1900, Integer.parseInt(month) - 1, 1);
-                dbm.insert("INSERT INTO gl_loans(sup_id,loan_id,amount,installments,rate,date,issue_date,monthly_amount) VALUES('" + supId + "','" + 0 + "','" + amount + "','" + installments + "','" + rate + "','" + loanDate1 + "','" + loanDate + "','" + monthlyPay + "')");
+                dbm.insert("INSERT INTO gl_loans(sup_id,loan_id,type,amount,installments,rate,date,issue_date,monthly_amount) VALUES('" + supId + "','" + 0 + "','Issued This month','" + amount + "','" + installments + "','" + rate + "','" + loanDate1 + "','" + loanDate + "','" + monthlyPay + "')");
                int transaction = dbm.readLastRow("gl_loans", "tr_id");
                dbm.updateDatabase("gl_loans", "tr_id",transaction, "loan_id", transaction);
                 for (i = 1; i < allMonths.length; i++) {
@@ -717,7 +836,7 @@ public class GL_Loans extends javax.swing.JPanel {
                     }
                     //System.out.println(year);
                     Date date = new Date(Integer.parseInt(year) - 1900, Integer.parseInt(allMonths[i]) - 1, 1);
-                    dbm.insert("INSERT INTO gl_loans(sup_id,loan_id,amount,installments,rate,date,issue_date,monthly_amount) VALUES('" + supId + "','" + transaction + "','" + amount + "','" + installments + "','" + rate + "','" + date + "','" + loanDate + "','" + monthlyPay + "')");
+                    dbm.insert("INSERT INTO gl_loans(sup_id,loan_id,type,amount,installments,rate,date,issue_date,monthly_amount) VALUES('" + supId + "','" + transaction + "','Previous','" + amount + "','" + installments + "','" + rate + "','" + date + "','" + loanDate + "','" + monthlyPay + "')");
                 }
                 installmentsField.setText("");
                // rateField.setText("");
@@ -1151,6 +1270,17 @@ public class GL_Loans extends javax.swing.JPanel {
     private void rateFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_rateFieldKeyPressed
         // TODO add your handling code here:
     }//GEN-LAST:event_rateFieldKeyPressed
+
+    private void supplier_idFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_supplier_idFocusGained
+        Thread a = new Thread(new combo(supplier_id)); 
+        
+        a.start();
+       
+    }//GEN-LAST:event_supplier_idFocusGained
+
+    private void amountFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_amountFieldFocusGained
+        
+    }//GEN-LAST:event_amountFieldFocusGained
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
