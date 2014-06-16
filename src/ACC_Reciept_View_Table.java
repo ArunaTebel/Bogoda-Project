@@ -63,6 +63,52 @@ public class ACC_Reciept_View_Table extends javax.swing.JFrame {
          db.Filtered_table_For_Reciepts_For_Date_Credit_Two_Search(table, search_column1, search_element1,search_element2,1,50, search_column2, search_element3);
     }
     
+    
+    
+    /////////////////////////////////////////////////////////////////////////////////////////////////
+    
+     public void Table_Fill_All( int a , int b){
+        ACC_View_Database_Handling db = new ACC_View_Database_Handling();
+        db.Fill_table_without_filtering(table,a,b);
+    }
+    
+    public void Table_Fill_Debit_Search(String search_column,Object search_element,int a,int b){
+        ACC_View_Database_Handling db = new ACC_View_Database_Handling();
+        db.Filtered_table_For_Reciepts_Debit_Search(table,search_column,search_element,a,b);
+    }
+    public void Table_Fill_Credit_Search(String search_column,Object search_element,int a,int b){
+        ACC_View_Database_Handling db = new ACC_View_Database_Handling();
+        db.Filtered_table_For_Reciepts_Credit_Search(table,search_column,search_element,a,b);
+    }
+    public void Table_Fill_Date_Search(String search_column,Object search_element1,Object search_element2,int a,int b){
+        ACC_View_Database_Handling db = new ACC_View_Database_Handling();
+        db.Filtered_table_For_Reciepts_For_Date_Debit_Search(table,search_column,search_element1,search_element2,a,b);
+    }
+    
+    public void Table_Fill_Debit_Debit_Search(String search_column1,Object search_element1,String search_column2,Object search_element2,int a,int b){
+         ACC_View_Database_Handling db = new ACC_View_Database_Handling();
+         db.Filtered_table_For_Reciepts_Debit_Debit_Search(table, search_column1, search_element1,a,b, search_column2, search_element2);
+    }
+    
+    public void Table_Fill_Credit_Credit_Search(String search_column1,Object search_element1,String search_column2,Object search_element2,int a,int b){
+         ACC_View_Database_Handling db = new ACC_View_Database_Handling();
+         db.Filtered_table_For_Reciepts_Credit_Credit_Search(table, search_column1, search_element1,a,b, search_column2, search_element2);
+    }
+    
+    public void Table_Fill_Debit_Credit_Search(String search_column1,Object search_element1,String search_column2,Object search_element2,int a,int b){
+         ACC_View_Database_Handling db = new ACC_View_Database_Handling();
+         db.Filtered_table_For_Reciepts_Debit_Credit_Search(table, search_column1, search_element1,a,b, search_column2, search_element2);
+    }
+    
+    public void Table_Fill_Date_Debit_Search(String search_column1,Object search_element1,Object search_element2,String search_column2,Object search_element3,int a,int b){
+         ACC_View_Database_Handling db = new ACC_View_Database_Handling();
+         db.Filtered_table_For_Reciepts_For_Date_Debit_Two_Search(table, search_column1, search_element1,search_element2,a,b, search_column2, search_element3);
+    }
+    
+    public void Table_Fill_Date_Credit_Search(String search_column1,Object search_element1,Object search_element2,String search_column2,Object search_element3,int a,int b){
+         ACC_View_Database_Handling db = new ACC_View_Database_Handling();
+         db.Filtered_table_For_Reciepts_For_Date_Credit_Two_Search(table, search_column1, search_element1,search_element2,a,b, search_column2, search_element3);
+    }
    
     
     
@@ -344,6 +390,7 @@ public class ACC_Reciept_View_Table extends javax.swing.JFrame {
             }
 
         } */
+        
     }//GEN-LAST:event_jButton5ActionPerformed
 
     ACC_Edit_Receipts edit = new ACC_Edit_Receipts();
