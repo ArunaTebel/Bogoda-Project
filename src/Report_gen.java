@@ -40,9 +40,18 @@ public class Report_gen {
             //HashMap param = new HashMap();
             //param.put("Date",jTextField1.getText() );
        // String report="C:\\Users\\Pramo\\Documents\\NetBeansProjects\\Lec\\src\\report4.jrxml";
-        JasperReport jr=JasperCompileManager.compileReport(report_location+report_name);
-        JOptionPane.showMessageDialog(null, "compliled");
-        JasperPrint jp=JasperFillManager.fillReport(jr, param,dbm.conn);
+       
+         JasperPrint jp = null;
+         try {
+             JOptionPane.showMessageDialog(null, "complilng");
+              JasperReport jr=JasperCompileManager.compileReport(report_location+report_name);
+              JOptionPane.showMessageDialog(null, "compliled");
+               jp=JasperFillManager.fillReport(jr, param,dbm.conn);
+         } catch (Exception e) {
+            
+               JOptionPane.showMessageDialog(null, e.getMessage());
+         }
+       
         JOptionPane.showMessageDialog(null, "filled");
         
            // JasperViewer.viewReport(jp);
