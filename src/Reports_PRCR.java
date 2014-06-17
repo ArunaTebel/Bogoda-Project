@@ -26,7 +26,7 @@ import net.sf.jasperreports.view.JasperViewer;
  *
  * @author Pramo
  */
-public class Reports_GL extends javax.swing.JPanel {
+public class Reports_PRCR extends javax.swing.JPanel {
 GL_report_generator report_gen = new GL_report_generator();
 Date_Handler date_handler = new Date_Handler();
  UIDefaults defaults = UIManager.getLookAndFeelDefaults();
@@ -35,7 +35,7 @@ Date_Handler date_handler = new Date_Handler();
     /**
      * Creates new form Reports_GL
      */
-    public Reports_GL() {
+    public Reports_PRCR() {
          defaults.put("nimbusOrange", defaults.get("nimbusBase"));
         UIManager.getLookAndFeelDefaults().put("nimbusOrange", (new Color(51, 153, 0)));
         initComponents();
@@ -146,7 +146,7 @@ Date_Handler date_handler = new Date_Handler();
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jButton6.setText("Daily Transactions");
+        jButton6.setText("EPF Monthly Report");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);

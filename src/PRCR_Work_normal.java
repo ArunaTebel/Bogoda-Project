@@ -22,13 +22,12 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
 
     /**
      * Creates new form PRCR_Work_normal
-     */   
-    Interface_Events interface_events=new Interface_Events();
+     */
+    Interface_Events interface_events = new Interface_Events();
     Date_Handler datehandler = new Date_Handler();
     DateChooser_text datechooser = new DateChooser_text();
     DatabaseManager dbm = DatabaseManager.getDbCon();
     private int rows = 0;
-   
 
     public PRCR_Work_normal() {
         initComponents();
@@ -63,18 +62,18 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
         try {
             //use new_1 and new_2 if any other deduction type is needd to be added
             dbm.insert("CREATE TABLE pr_workdata_" + yr_mnth + "(code INT,"
-                    + "division VARCHAR(15),"+"register_or_casual INT,"
-                    + "normal_days INT,"+"normal_pay DOUBLE," + "sundays INT,"
-                    +"sunday_pay DOUBLE,"+"total_pay DOUBLE,"+ "ot_before_hours INT,"
-                    + "ot_before_amount DOUBLE,"+ "ot_after_hours INT,"+"ot_after_amount DOUBLE,"
-                    +"incentive1 DOUBLE,"+"incentive2 DOUBLE,"+ "extra_pay DOUBLE,"
-                    +"gross_pay DOUBLE,"+"tea DOUBLE,"+"salary_adv DOUBLE,"+"fest_adv DOUBLE,"
-                    +"food DOUBLE,"+"loan DOUBLE,"+"bank DOUBLE,"+"epf10 DOUBLE,"+"epf12 DOUBLE,"
-                    +"total_epf DOUBLE,"+"etf DOUBLE,"+"ceb DOUBLE,"+"teacher DOUBLE,"+"chemical DOUBLE,"
-                    +"pay_slip DOUBLE,"+"fine DOUBLE,"+"welfare DOUBLE,"+"kovil DOUBLE,"+"new_1 DOUBLE,"+"new_2 DOUBLE,"+"other_ded1 DOUBLE,"
-                    +"meals DOUBLE,"+"other_ded2 DOUBLE,"+"pension DOUBLE,"
-                    +"other_ded3 DOUBLE,"+"stamp DOUBLE,"+"pre_debt DOUBLE,"+"total_ded DOUBLE,"
-                    + "full_salary DOUBLE," +"coins DOUBLE,"+"paid_amount DOUBLE,"+"next_month DOUBLE,"+ "n_5000 INT,"
+                    + "division VARCHAR(15)," + "register_or_casual INT,"
+                    + "normal_days INT," + "normal_pay DOUBLE," + "sundays INT,"
+                    + "sunday_pay DOUBLE," + "total_pay DOUBLE," + "ot_before_hours INT,"
+                    + "ot_before_amount DOUBLE," + "ot_after_hours INT," + "ot_after_amount DOUBLE,"
+                    + "incentive1 DOUBLE," + "incentive2 DOUBLE," + "extra_pay DOUBLE,"
+                    + "gross_pay DOUBLE," + "tea DOUBLE," + "salary_adv DOUBLE," + "fest_adv DOUBLE,"
+                    + "food DOUBLE," + "loan DOUBLE," + "bank DOUBLE," + "epf10 DOUBLE," + "epf12 DOUBLE,"
+                    + "total_epf DOUBLE," + "etf DOUBLE," + "ceb DOUBLE," + "teacher DOUBLE," + "chemical DOUBLE,"
+                    + "pay_slip DOUBLE," + "fine DOUBLE," + "welfare DOUBLE," + "kovil DOUBLE," + "new_1 DOUBLE," + "new_2 DOUBLE," + "other_ded1 DOUBLE,"
+                    + "meals DOUBLE," + "other_ded2 DOUBLE," + "pension DOUBLE,"
+                    + "other_ded3 DOUBLE," + "stamp DOUBLE," + "pre_debt DOUBLE," + "total_ded DOUBLE,"
+                    + "full_salary DOUBLE," + "coins DOUBLE," + "paid_amount DOUBLE," + "next_month DOUBLE," + "n_5000 INT,"
                     + "n_2000 INT," + "n_1000 INT," + "n_500 INT," + "n_100 INT," + "n_50 INT," + "n_20 INT," + "n_10 INT);");
         } catch (SQLException ex) {
             //Logger.getLogger(test.class.getName()).log(Level.SEVERE, null, ex);
@@ -82,13 +81,61 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
         }
         ///DONT DELETE checkroll_personalinfo SQL table
         //copying worker's codes to newly created table
-        CopyTable3Columns("checkroll_personalinfo", "code","division","register_or_casual", "pr_workdata_" + yr_mnth, "code","division","register_or_casual");
+        CopyTable3Columns("checkroll_personalinfo", "code", "division", "register_or_casual", "pr_workdata_" + yr_mnth, "code", "division", "register_or_casual");
+        //copy the previous month's 'next_month' amount to 'pre_debt' column in this month
+
+        GetPreDebts(yr_mnth);
+
         System.out.println("table copied");
-         JOptionPane.showMessageDialog(null, "New checkroll table is created for this month\n", "Message", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "New checkroll table is created for this month\n", "Message", JOptionPane.INFORMATION_MESSAGE);
 
     }
+
+    //method to copy the previous month's 'next_month' amount to 'pre_debt' column in this month
+    public void GetPreDebts(String yrmnth) {
+        String prv_yrmnth = ReturnPrvMnthTableName(yrmnth);
+        int no_of_codes = getColumnsize("pr_workdata_" + yrmnth, "code");
+        int codes[] = new int[no_of_codes];
+        codes=getIntArray("pr_workdata_" + prv_yrmnth, "code");
+        double pre_debt_amount = 0;
+        for (int i = 0; i < no_of_codes; i++) {
+            if (dbm.checknReturnData("pr_workdata_" + prv_yrmnth, "code", codes[i], "next_month") != null) {
+
+                pre_debt_amount = Double.parseDouble(dbm.checknReturnData("pr_workdata_" + prv_yrmnth, "code", codes[i], "next_month"));
+                pre_debt_amount=-pre_debt_amount;
+            }
+
+            dbm.updateDatabase("pr_workdata_" + yrmnth, "code", codes[i], "pre_debt", pre_debt_amount);
+
+        }
+    }
+
+    //method to return previous month table name(only yr_mnth) when this month's table name(only yr_mnth) is given
+    //input 2014_01 output 2013_12
+    public String ReturnPrvMnthTableName(String thisMnth) {
+        String[] year_month = new String[2];
+        int[] yr_mnth_int = new int[2];
+        year_month = thisMnth.split("_");
+        yr_mnth_int[0] = Integer.parseInt(year_month[0]);
+        yr_mnth_int[1] = Integer.parseInt(year_month[1]);
+        if (yr_mnth_int[1] == 1) {
+            yr_mnth_int[0] = yr_mnth_int[0] - 1;
+            yr_mnth_int[1] = 12;
+        } else {
+            yr_mnth_int[1] = yr_mnth_int[1] - 1;
+        }
+        String prvMnth;
+        if (yr_mnth_int[1] > 9) {
+            prvMnth = String.valueOf(yr_mnth_int[0]) + "_" + String.valueOf(yr_mnth_int[1]);
+        } else {
+            prvMnth = String.valueOf(yr_mnth_int[0]) + "_0" + String.valueOf(yr_mnth_int[1]);
+        }
+        return prvMnth;
+    }
+
+    ;
     
-    public void CopyTable2Columns(String table_name1, String table1_column1,String table1_column2, String table_name2, String table2_column1,String table2_column2) {
+    public void CopyTable2Columns(String table_name1, String table1_column1, String table1_column2, String table_name2, String table2_column1, String table2_column2) {
 
         DatabaseManager dbm = DatabaseManager.getDbCon();
         try {
@@ -96,8 +143,8 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
             while (query.next()) {
 
                 try {
-                   // dbCon.insert("INSERT INTO bank(bank_id,bank_name) VALUES('" + bankCode + "','" + bankName + "')");
-                    dbm.insert("INSERT INTO " + table_name2 + "(" + table2_column1 + ","+table2_column2+") VALUES('" + query.getString(table1_column1) + "','"+query.getString(table1_column2)+"')");
+                    // dbCon.insert("INSERT INTO bank(bank_id,bank_name) VALUES('" + bankCode + "','" + bankName + "')");
+                    dbm.insert("INSERT INTO " + table_name2 + "(" + table2_column1 + "," + table2_column2 + ") VALUES('" + query.getString(table1_column1) + "','" + query.getString(table1_column2) + "')");
                 } catch (SQLException ex) {
                     MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
                 }
@@ -105,12 +152,10 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
         } catch (SQLException ex) {
 
         }
-        
-        
+
     }
-    
-    
-    public void CopyTable3Columns(String table_name1, String table1_column1,String table1_column2, String table1_column3,String table_name2, String table2_column1, String table2_column2, String table2_column3) {
+
+    public void CopyTable3Columns(String table_name1, String table1_column1, String table1_column2, String table1_column3, String table_name2, String table2_column1, String table2_column2, String table2_column3) {
 
         DatabaseManager dbm = DatabaseManager.getDbCon();
         try {
@@ -118,8 +163,8 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
             while (query.next()) {
 
                 try {
-                   // dbCon.insert("INSERT INTO bank(bank_id,bank_name) VALUES('" + bankCode + "','" + bankName + "')");
-                    dbm.insert("INSERT INTO " + table_name2 + "(" + table2_column1 + ","+table2_column2+","+table2_column3+") VALUES('" + query.getString(table1_column1) + "','"+query.getString(table1_column2)+"','"+query.getString(table1_column3)+"')");
+                    // dbCon.insert("INSERT INTO bank(bank_id,bank_name) VALUES('" + bankCode + "','" + bankName + "')");
+                    dbm.insert("INSERT INTO " + table_name2 + "(" + table2_column1 + "," + table2_column2 + "," + table2_column3 + ") VALUES('" + query.getString(table1_column1) + "','" + query.getString(table1_column2) + "','" + query.getString(table1_column3) + "')");
                 } catch (SQLException ex) {
                     MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
                 }
@@ -129,25 +174,72 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
         }
     }
 
-    private void saveDataToWorkEntry(Date date){
+    public int[] getIntArray(String table_name, String column_name) {
+
+        int count = 0;
+        DatabaseManager dbm = DatabaseManager.getDbCon();
+        try {
+            ResultSet query = dbm.query("SELECT " + column_name + " FROM " + table_name + "");
+            while (query.next()) {
+                count++;
+            }
+            int[] array = new int[count];
+            count = 0;
+            ResultSet query2 = dbm.query("SELECT " + column_name + " FROM " + table_name + "");
+            while (query2.next()) {
+                array[count] = query2.getInt(column_name);
+                count++;
+            }
+            return array;
+        } catch (SQLException ex) {
+
+        }
+        return null;
+
+    }
+
+    public int getColumnsize(String table_name, String column_name) {
+
+        int count = 0;
+        DatabaseManager dbm = DatabaseManager.getDbCon();
+        try {
+            ResultSet query = dbm.query("SELECT " + column_name + " FROM " + table_name + "");
+            while (query.next()) {
+                count++;
+            }
+
+        } catch (SQLException ex) {
+
+        }
+        return count;
+        //return null;
+
+    }
+
+    private void saveDataToWorkEntry(Date date) {
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         int rowd;
         rowd = 0;
-            for (; rowd < table.getRowCount(); rowd++) {
-                if (table.getValueAt(rowd, 0) != null) {
-            try {
-                dbCon.insert("INSERT INTO prcr_checkroll_workentry(date,normalday_or_sunday,emp_code,work_code,ot_day,ot_night) VALUES('" +date + "','"+getNormalOrSun()+"','"+table.getValueAt(rowd, 0)+"','"+table.getValueAt(rowd, 2)+"','"+table.getValueAt(rowd, 3)+"','"+table.getValueAt(rowd, 4)+"')");
-            } catch (SQLException ex) {
-                Logger.getLogger(PRCR_Add_Employee.class.getName()).log(Level.SEVERE, null, ex);
+        for (; rowd < table.getRowCount(); rowd++) {
+            if (table.getValueAt(rowd, 0) != null) {
+                try {
+                    dbCon.insert("INSERT INTO prcr_checkroll_workentry(date,normalday_or_sunday,emp_code,work_code,ot_day,ot_night) VALUES('" + date + "','" + getNormalOrSun() + "','" + table.getValueAt(rowd, 0) + "','" + table.getValueAt(rowd, 2) + "','" + table.getValueAt(rowd, 3) + "','" + table.getValueAt(rowd, 4) + "')");
+                } catch (SQLException ex) {
+                    Logger.getLogger(PRCR_Add_Employee.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
-                }}
+        }
 
     }
-    private String getNormalOrSun(){
-    if(sunday.isSelected()){
-        return "s";
-    }else{return "n";}
+
+    private String getNormalOrSun() {
+        if (sunday.isSelected()) {
+            return "s";
+        } else {
+            return "n";
+        }
     }
+
     //store data to work entry tables(ex. table name-:pr_workdata_2014_03)
     //ex-:table name=2014_03
     //ne_date=2014_03_05
@@ -205,11 +297,11 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
 
                     //updating newly created tables
           /*          try {
-                        dbm.insert("INSERT INTO d_" + ne_date + "(name,emp_code,work_code,division) VALUES('" + rows + "','" + table.getValueAt(rows, 0) + "','" + work_code + "','" + division + "')");
-                    } catch (SQLException ex) {
-                        Logger.getLogger(PRCR_Work_normal.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    */
+                     dbm.insert("INSERT INTO d_" + ne_date + "(name,emp_code,work_code,division) VALUES('" + rows + "','" + table.getValueAt(rows, 0) + "','" + work_code + "','" + division + "')");
+                     } catch (SQLException ex) {
+                     Logger.getLogger(PRCR_Work_normal.class.getName()).log(Level.SEVERE, null, ex);
+                     }
+                     */
                 }
             }
             JOptionPane.showMessageDialog(null, "Details are saved for the \n" + tdate, "Message", JOptionPane.INFORMATION_MESSAGE);
@@ -263,11 +355,11 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
 
                     //update date tables for work code details
                   /*  try {
-                        dbm.insert("INSERT INTO d_" + ne_date + "(name,emp_code,work_code,division) VALUES('" + rows + "','" + table.getValueAt(rows, 0) + "','" + work_code + "','" + division + "')");
-                    } catch (SQLException ex) {
-                        Logger.getLogger(PRCR_Work_normal.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    */
+                     dbm.insert("INSERT INTO d_" + ne_date + "(name,emp_code,work_code,division) VALUES('" + rows + "','" + table.getValueAt(rows, 0) + "','" + work_code + "','" + division + "')");
+                     } catch (SQLException ex) {
+                     Logger.getLogger(PRCR_Work_normal.class.getName()).log(Level.SEVERE, null, ex);
+                     }
+                     */
                 }
             }
             JOptionPane.showMessageDialog(null, "Details are saved for the \n" + tdate, "Message", JOptionPane.INFORMATION_MESSAGE);
@@ -275,41 +367,42 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
         }
     }
 
-    public void ClearTable(){
-         int rows = 0;
-         int column=0;
-         int k =table.getRowCount();
-            while(table.getValueAt(rows,0)!=null) {
-                for(column=0;column<6;column++){
-                    table.setValueAt(null, rows, column);
-                }
-                rows++;
-            
+    public void ClearTable() {
+        int rows = 0;
+        int column = 0;
+        int k = table.getRowCount();
+        while (table.getValueAt(rows, 0) != null) {
+            for (column = 0; column < 6; column++) {
+                table.setValueAt(null, rows, column);
             }
-            this.rows=0;
+            rows++;
+
+        }
+        this.rows = 0;
     }
-    
-    public void ClearSelectedRow(){
-           int selectedIndex=table.getSelectedRow();
-        int filledRows=0;
-        
-        while(table.getValueAt(filledRows,0)!=null){
+
+    public void ClearSelectedRow() {
+        int selectedIndex = table.getSelectedRow();
+        int filledRows = 0;
+
+        while (table.getValueAt(filledRows, 0) != null) {
             filledRows++;
         }
-        
+
         int i;
-       for(i=selectedIndex;i<filledRows;i++){
-           table.setValueAt( table.getValueAt(i+1, 0) ,i  ,0  );
-            table.setValueAt( table.getValueAt(i+1, 1) ,i  ,1  );
-        table.setValueAt( table.getValueAt(i+1, 2) ,i  ,2  );
-         table.setValueAt( table.getValueAt(i+1, 3) ,i  ,3  );
-          table.setValueAt( table.getValueAt(i+1, 4) ,i  ,4  );
-           table.setValueAt( table.getValueAt(i+1, 5) ,i  ,5  );
-       }
+        for (i = selectedIndex; i < filledRows; i++) {
+            table.setValueAt(table.getValueAt(i + 1, 0), i, 0);
+            table.setValueAt(table.getValueAt(i + 1, 1), i, 1);
+            table.setValueAt(table.getValueAt(i + 1, 2), i, 2);
+            table.setValueAt(table.getValueAt(i + 1, 3), i, 3);
+            table.setValueAt(table.getValueAt(i + 1, 4), i, 4);
+            table.setValueAt(table.getValueAt(i + 1, 5), i, 5);
+        }
         System.out.println(filledRows);
-        rows=filledRows-1;
-        
+        rows = filledRows - 1;
+
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -834,14 +927,13 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
         //java.sql.Date tdate = new java.sql.Date(date.getDate().getTime());
 
       //addDateTable(tdate);//store data of workers worked in each division in each day   REMOVED INTENTIONALLY
-
         String month = null;
         String year = null;
-        Date tdate=null;
+        Date tdate = null;
 
         String ndate = null;
         try {
-            tdate=datechooser.Return_date(yearfield1,monthfield1,dayfield1);
+            tdate = datechooser.Return_date(yearfield1, monthfield1, dayfield1);
         } catch (ParseException ex) {
             Logger.getLogger(PRCR_Work_normal.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -859,46 +951,44 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
 
         saveData(tablename, ne_date, tdate);
         saveDataToWorkEntry(tdate);
-    
-        
 
 
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-try{
-        if(empCode_JC.getSelectedItem().toString().length()!=0){
-        table.setValueAt(empCode_JC.getSelectedItem(), rows, 0);
-        table.setValueAt(empName.getText(), rows, 1);
-        table.setValueAt(workCode.getSelectedItem(), rows, 2);
-        table.setValueAt(division_jc.getSelectedItem(), rows, 5);
-        if (otday.getText().length() == 0) {
-            table.setValueAt("0", rows, 3);
+        try {
+            if (empCode_JC.getSelectedItem().toString().length() != 0) {
+                table.setValueAt(empCode_JC.getSelectedItem(), rows, 0);
+                table.setValueAt(empName.getText(), rows, 1);
+                table.setValueAt(workCode.getSelectedItem(), rows, 2);
+                table.setValueAt(division_jc.getSelectedItem(), rows, 5);
+                if (otday.getText().length() == 0) {
+                    table.setValueAt("0", rows, 3);
 
-        } else {
-            table.setValueAt(otday.getText(), rows, 3);
-        }
+                } else {
+                    table.setValueAt(otday.getText(), rows, 3);
+                }
 
-        if (otnight.getText().length() == 0) {
-            table.setValueAt("0", rows, 4);
+                if (otnight.getText().length() == 0) {
+                    table.setValueAt("0", rows, 4);
 
-        } else {
-            table.setValueAt(otnight.getText(), rows, 4);
-        }
-        rows++;
-        // TODO add your handling code here:
-        empCode_JC.setSelectedItem(null);
-        otday.setText(null);
-        otnight.setText(null);
-        empCode_JC.requestFocus();
-        }else{
+                } else {
+                    table.setValueAt(otnight.getText(), rows, 4);
+                }
+                rows++;
+                // TODO add your handling code here:
+                empCode_JC.setSelectedItem(null);
+                otday.setText(null);
+                otnight.setText(null);
+                empCode_JC.requestFocus();
+            } else {
+                JOptionPane.showMessageDialog(null, "Enter the employee code\n", "Message", JOptionPane.INFORMATION_MESSAGE);
+                empCode_JC.requestFocus();
+            }
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Enter the employee code\n", "Message", JOptionPane.INFORMATION_MESSAGE);
-             empCode_JC.requestFocus();
+            empCode_JC.requestFocus();
         }
-}catch(Exception e){
-    JOptionPane.showMessageDialog(null, "Enter the employee code\n", "Message", JOptionPane.INFORMATION_MESSAGE);
-     empCode_JC.requestFocus();
-}
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void division_jcItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_division_jcItemStateChanged
@@ -919,11 +1009,10 @@ try{
 
             division_lb.setText("" + Name);
         }
-        
-        
+
         empCode_JC.requestFocus();
-         
-        
+
+
     }//GEN-LAST:event_division_jcItemStateChanged
 
     private void workCodeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_workCodeItemStateChanged
@@ -961,7 +1050,7 @@ try{
             }
             empName.setText("" + Name);
         }
-        
+
         W_code.requestFocus();
         W_code.selectAll();
     }//GEN-LAST:event_empCode_JCItemStateChanged
@@ -976,8 +1065,8 @@ try{
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         PRCR_viewNedit_workentry jf = new PRCR_viewNedit_workentry();
-                jf.setVisible(true);
-                jf.setExtendedState(PRCR_viewNedit_workentry.MAXIMIZED_BOTH);
+        jf.setVisible(true);
+        jf.setExtendedState(PRCR_viewNedit_workentry.MAXIMIZED_BOTH);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void monthfield1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_monthfield1KeyPressed
@@ -1214,12 +1303,12 @@ try{
                 dayfield1.selectAll();
             }                                           // /// decrementing normal values
         } else if (dayfield1.getText().equals("2") || dayfield1.getText().equals("3") || dayfield1.getText().equals("4") || dayfield1.getText().equals("5")
-            || dayfield1.getText().equals("6") || dayfield1.getText().equals("7") || dayfield1.getText().equals("8") || dayfield1.getText().equals("9")
-            || dayfield1.getText().equals("10") || dayfield1.getText().equals("11") || dayfield1.getText().equals("12") || dayfield1.getText().equals("13") || dayfield1.getText().equals("14")
-            || dayfield1.getText().equals("15") || dayfield1.getText().equals("16") || dayfield1.getText().equals("17") || dayfield1.getText().equals("18")
-            || dayfield1.getText().equals("19") || dayfield1.getText().equals("20") || dayfield1.getText().equals("21") || dayfield1.getText().equals("22")
-            || dayfield1.getText().equals("23") || dayfield1.getText().equals("24") || dayfield1.getText().equals("25") || dayfield1.getText().equals("26")
-            || dayfield1.getText().equals("27") || dayfield1.getText().equals("28") || dayfield1.getText().equals("29") || dayfield1.getText().equals("30") || dayfield1.getText().equals("31")) {
+                || dayfield1.getText().equals("6") || dayfield1.getText().equals("7") || dayfield1.getText().equals("8") || dayfield1.getText().equals("9")
+                || dayfield1.getText().equals("10") || dayfield1.getText().equals("11") || dayfield1.getText().equals("12") || dayfield1.getText().equals("13") || dayfield1.getText().equals("14")
+                || dayfield1.getText().equals("15") || dayfield1.getText().equals("16") || dayfield1.getText().equals("17") || dayfield1.getText().equals("18")
+                || dayfield1.getText().equals("19") || dayfield1.getText().equals("20") || dayfield1.getText().equals("21") || dayfield1.getText().equals("22")
+                || dayfield1.getText().equals("23") || dayfield1.getText().equals("24") || dayfield1.getText().equals("25") || dayfield1.getText().equals("26")
+                || dayfield1.getText().equals("27") || dayfield1.getText().equals("28") || dayfield1.getText().equals("29") || dayfield1.getText().equals("30") || dayfield1.getText().equals("31")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
 
                 dayfield1.setText("" + (Integer.parseInt(dayfield1.getText()) - 1));
@@ -1296,12 +1385,12 @@ try{
                     monthfield1.setText(datechooser.Return_month(mnth + 1));
                     // incrementing normal values/////////////////////// for february separately
                 } else if (dayfield1.getText().equals("1") || dayfield1.getText().equals("2") || dayfield1.getText().equals("3") || dayfield1.getText().equals("4") || dayfield1.getText().equals("5")
-                    || dayfield1.getText().equals("6") || dayfield1.getText().equals("7") || dayfield1.getText().equals("8") || dayfield1.getText().equals("9")
-                    || dayfield1.getText().equals("10") || dayfield1.getText().equals("11") || dayfield1.getText().equals("12") || dayfield1.getText().equals("13") || dayfield1.getText().equals("14")
-                    || dayfield1.getText().equals("15") || dayfield1.getText().equals("16") || dayfield1.getText().equals("17") || dayfield1.getText().equals("18")
-                    || dayfield1.getText().equals("19") || dayfield1.getText().equals("20") || dayfield1.getText().equals("21") || dayfield1.getText().equals("22")
-                    || dayfield1.getText().equals("23") || dayfield1.getText().equals("24") || dayfield1.getText().equals("25") || dayfield1.getText().equals("26")
-                    || dayfield1.getText().equals("27") || dayfield1.getText().equals("28") || dayfield1.getText().equals("29") || dayfield1.getText().equals("30") || dayfield1.getText().equals("31")) {
+                        || dayfield1.getText().equals("6") || dayfield1.getText().equals("7") || dayfield1.getText().equals("8") || dayfield1.getText().equals("9")
+                        || dayfield1.getText().equals("10") || dayfield1.getText().equals("11") || dayfield1.getText().equals("12") || dayfield1.getText().equals("13") || dayfield1.getText().equals("14")
+                        || dayfield1.getText().equals("15") || dayfield1.getText().equals("16") || dayfield1.getText().equals("17") || dayfield1.getText().equals("18")
+                        || dayfield1.getText().equals("19") || dayfield1.getText().equals("20") || dayfield1.getText().equals("21") || dayfield1.getText().equals("22")
+                        || dayfield1.getText().equals("23") || dayfield1.getText().equals("24") || dayfield1.getText().equals("25") || dayfield1.getText().equals("26")
+                        || dayfield1.getText().equals("27") || dayfield1.getText().equals("28") || dayfield1.getText().equals("29") || dayfield1.getText().equals("30") || dayfield1.getText().equals("31")) {
 
                     dayfield1.setText("" + (Integer.parseInt(dayfield1.getText()) + 1));
 
@@ -1310,12 +1399,12 @@ try{
             }
             // incrementing normal values
         } else if (dayfield1.getText().equals("1") || dayfield1.getText().equals("2") || dayfield1.getText().equals("3") || dayfield1.getText().equals("4") || dayfield1.getText().equals("5")
-            || dayfield1.getText().equals("6") || dayfield1.getText().equals("7") || dayfield1.getText().equals("8") || dayfield1.getText().equals("9")
-            || dayfield1.getText().equals("10") || dayfield1.getText().equals("11") || dayfield1.getText().equals("12") || dayfield1.getText().equals("13") || dayfield1.getText().equals("14")
-            || dayfield1.getText().equals("15") || dayfield1.getText().equals("16") || dayfield1.getText().equals("17") || dayfield1.getText().equals("18")
-            || dayfield1.getText().equals("19") || dayfield1.getText().equals("20") || dayfield1.getText().equals("21") || dayfield1.getText().equals("22")
-            || dayfield1.getText().equals("23") || dayfield1.getText().equals("24") || dayfield1.getText().equals("25") || dayfield1.getText().equals("26")
-            || dayfield1.getText().equals("27") || dayfield1.getText().equals("28") || dayfield1.getText().equals("29") || dayfield1.getText().equals("30") || dayfield1.getText().equals("31")) {
+                || dayfield1.getText().equals("6") || dayfield1.getText().equals("7") || dayfield1.getText().equals("8") || dayfield1.getText().equals("9")
+                || dayfield1.getText().equals("10") || dayfield1.getText().equals("11") || dayfield1.getText().equals("12") || dayfield1.getText().equals("13") || dayfield1.getText().equals("14")
+                || dayfield1.getText().equals("15") || dayfield1.getText().equals("16") || dayfield1.getText().equals("17") || dayfield1.getText().equals("18")
+                || dayfield1.getText().equals("19") || dayfield1.getText().equals("20") || dayfield1.getText().equals("21") || dayfield1.getText().equals("22")
+                || dayfield1.getText().equals("23") || dayfield1.getText().equals("24") || dayfield1.getText().equals("25") || dayfield1.getText().equals("26")
+                || dayfield1.getText().equals("27") || dayfield1.getText().equals("28") || dayfield1.getText().equals("29") || dayfield1.getText().equals("30") || dayfield1.getText().equals("31")) {
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
 
                 dayfield1.setText("" + (Integer.parseInt(dayfield1.getText()) + 1));
@@ -1348,47 +1437,47 @@ try{
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-       ClearSelectedRow(); // TODO add your handling code here:
-       
+        ClearSelectedRow(); // TODO add your handling code here:
+
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void division_jcKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_division_jcKeyPressed
- if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
             empCode_JC.requestFocus();
 
         }        // TODO add your handling code here:
     }//GEN-LAST:event_division_jcKeyPressed
 
     private void empCode_JCKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_empCode_JCKeyPressed
- if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
             workCode.requestFocus();
 
         }        // TODO add your handling code here:
     }//GEN-LAST:event_empCode_JCKeyPressed
 
     private void workCodeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_workCodeKeyPressed
- if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
             otday.requestFocus();
 
         }        // TODO add your handling code here:
     }//GEN-LAST:event_workCodeKeyPressed
 
     private void otdayKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_otdayKeyPressed
- if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
-           otnight.requestFocus();
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
+            otnight.requestFocus();
 
         }        // TODO add your handling code here:
     }//GEN-LAST:event_otdayKeyPressed
 
     private void otnightKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_otnightKeyPressed
- if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
-           jButton1.requestFocus();
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
+            jButton1.requestFocus();
 
         }        // TODO add your handling code here:
     }//GEN-LAST:event_otnightKeyPressed
 
     private void jButton1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jButton1FocusGained
-       interface_events.Respond_enter(jButton1, evt); // TODO add your handling code here:
+        interface_events.Respond_enter(jButton1, evt); // TODO add your handling code here:
     }//GEN-LAST:event_jButton1FocusGained
 
     private void W_codeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_W_codeActionPerformed
@@ -1396,10 +1485,10 @@ try{
     }//GEN-LAST:event_W_codeActionPerformed
 
     private void W_codeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_W_codeKeyPressed
-       if(evt.getKeyCode()==KeyEvent.VK_ENTER){
-           workCode.setSelectedItem(W_code.getText());
-           otday.requestFocus();
-       }
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            workCode.setSelectedItem(W_code.getText());
+            otday.requestFocus();
+        }
     }//GEN-LAST:event_W_codeKeyPressed
 
     private void workCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_workCodeActionPerformed

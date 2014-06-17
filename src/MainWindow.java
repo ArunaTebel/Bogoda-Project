@@ -23,6 +23,9 @@ public class MainWindow extends javax.swing.JFrame {
 
     public MainWindow() {
         initComponents();
+        int a = (int) (Math.random()*10);
+       // System.out.println(a);
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BogodaAreal"+a+".jpg")));
         this.setIconImage(new ImageIcon(getClass().getResource("ICON2.png")).getImage());
         Info.setText("");
         String s = userAC.get_current_user();
@@ -107,6 +110,7 @@ public class MainWindow extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem8 = new javax.swing.JMenuItem();
@@ -125,6 +129,9 @@ public class MainWindow extends javax.swing.JFrame {
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jButton8.setText("jButton8");
+        jButton8.setToolTipText("Supplier Bill Summery");
+        jButton8.setIconTextGap(1);
+        jButton8.setInheritsPopupMenu(true);
         jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton8ActionPerformed(evt);
@@ -142,6 +149,7 @@ public class MainWindow extends javax.swing.JFrame {
         });
 
         jButton9.setText("jButton8");
+        jButton9.setToolTipText("Task Manager");
         jButton9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton9ActionPerformed(evt);
@@ -303,7 +311,6 @@ public class MainWindow extends javax.swing.JFrame {
         Main_Content.add(jLabel3);
         jLabel3.setBounds(-230, 130, 770, 420);
 
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BogodaAreal.png"))); // NOI18N
         jLabel7.setText("jLabel3");
         jLabel7.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         Main_Content.add(jLabel7);
@@ -435,7 +442,7 @@ public class MainWindow extends javax.swing.JFrame {
         jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 102, 0)));
 
         Info.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        Info.setForeground(new java.awt.Color(255, 0, 51));
+        Info.setForeground(new java.awt.Color(51, 51, 51));
         Info.setText("jLabel2");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -534,6 +541,14 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
         jMenu2.add(jMenuItem2);
+
+        jMenuItem4.setText("File Locations");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem4);
 
         jMenuBar1.add(jMenu2);
 
@@ -980,6 +995,18 @@ public class MainWindow extends javax.swing.JFrame {
 System.exit(0);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+         file_locations reports_home = new file_locations();
+
+        Main_Content.removeAll();
+
+        reports_home.setSize(Main_Content.getSize());
+
+        Main_Content.add(reports_home);
+        validate();
+        repaint();
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1057,6 +1084,7 @@ System.exit(0);
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;

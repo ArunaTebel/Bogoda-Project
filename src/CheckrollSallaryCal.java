@@ -932,12 +932,18 @@ public class CheckrollSallaryCal {
         setFinalSalary();
         System.out.println("final salary-checkroll"+FinalSalary);
                   dbm.updateDatabase("pr_workdata_" + st, "code", employCode, "full_salary", FinalSalary);
-                  
-                  pettyCash=FinalSalary%10;//"coins" and "paid_amount" will be calculated and updated in data base when the getFinalSalary() is called from out side
+                 if(FinalSalary>0){
+                  pettyCash=FinalSalary%10;//"coins" and "paid_amount" will be calculated and updated to database when the getFinalSalary() is called from out side
                   dbm.updateDatabase("pr_workdata_" + st, "code", employCode, "coins", pettyCash);
                   paid_amount=FinalSalary-pettyCash;
                   dbm.updateDatabase("pr_workdata_" + st, "code", employCode, "paid_amount", paid_amount);
-                  
+                  dbm.updateDatabase("pr_workdata_" + st, "code", employCode, "next_month", pettyCash);
+                 }
+                 else{
+                 dbm.updateDatabase("pr_workdata_" + st, "code", employCode, "coins", 0);
+                 dbm.updateDatabase("pr_workdata_" + st, "code", employCode, "paid_amount", 0);
+                 dbm.updateDatabase("pr_workdata_" + st, "code", employCode, "next_month", FinalSalary);
+                 }
         return FinalSalary;
     }
     

@@ -406,7 +406,7 @@ PRCR_checkroll_salary_process csp = new PRCR_checkroll_salary_process();
             csp.Set_month(month.getText());//set the month(ex:2014_03) in the object
             csp.processCheckrollSalary();        // TODO add your handling code here:
 
-            csObject.Set_year(year.getText());//set the margin dates in date_margin_text
+            csObject.Set_year(year.getText());//set the margin dates in date_margin_text 
             csObject.Set_month(month.getText());
             csObject.setMargin();
             date_margin_text.setText(String.valueOf(csObject.getMargin()));

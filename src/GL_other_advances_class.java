@@ -189,8 +189,8 @@ public class GL_other_advances_class {
               //  System.out.println(transaction + " " + year);
                 Date loanDate1 = new Date(Integer.parseInt(year) - 1900, Integer.parseInt(month) - 1, 1);
                // System.out.println(loanDate1);
-            dbCon.insert("INSERT INTO gl_other_advances(advance_id,Date,issue_date,id,item_name,item_type,item_rate,item_quantity,installments,amount,total_amount,date_time,user)"
-                        + " VALUES('"+0+"','" + loanDate1 + "','" + date + "','" + sup_id + "','" + item_name + "','" + item_type + "','" + item_rate + "','" + quantity + "','" + installments + "','" + amount + "','" + total_amount + "','" + date_time + "','" + user + "')");
+            dbCon.insert("INSERT INTO gl_other_advances(advance_id,type,Date,issue_date,id,item_name,item_type,item_rate,item_quantity,installments,amount,total_amount,date_time,user)"
+                        + " VALUES('"+0+"','Issued This month','" + loanDate1 + "','" + date + "','" + sup_id + "','" + item_name + "','" + item_type + "','" + item_rate + "','" + quantity + "','" + installments + "','" + amount + "','" + total_amount + "','" + date_time + "','" + user + "')");
             int transaction = dbm.readLastRow("gl_other_advances", "tr_no");
               //  transaction = transaction + 1;
                 dbCon.updateDatabase("gl_other_advances", "tr_no", transaction, "advance_id", transaction);
@@ -201,8 +201,8 @@ public class GL_other_advances_class {
                     //System.out.println(year);
                     Date date1 = new Date(Integer.parseInt(year) - 1900, Integer.parseInt(allMonths[i]) - 1, 1);
                    // System.out.println(date1);
-                    dbCon.insert("INSERT INTO gl_other_advances(advance_id,Date,issue_date,id,item_name,item_type,item_rate,item_quantity,installments,amount,total_amount,date_time,user)"
-                        + " VALUES('" + transaction + "','" + date1 + "','" + date + "','" + sup_id + "','" + item_name + "','" + item_type + "','" + item_rate + "','" + quantity + "','" + installments + "','" + amount + "','" + total_amount + "','" + date_time + "','" + user + "')");
+                    dbCon.insert("INSERT INTO gl_other_advances(advance_id,type,Date,issue_date,id,item_name,item_type,item_rate,item_quantity,installments,amount,total_amount,date_time,user)"
+                        + " VALUES('" + transaction + "','Previous','" + date1 + "','" + date + "','" + sup_id + "','" + item_name + "','" + item_type + "','" + item_rate + "','" + quantity + "','" + installments + "','" + amount + "','" + total_amount + "','" + date_time + "','" + user + "')");
              }
 
                 // JOptionPane.showMessageDialog(null, "Success");
