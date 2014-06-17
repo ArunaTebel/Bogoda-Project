@@ -155,17 +155,15 @@ DatabaseManager dbm = new DatabaseManager();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        HashMap param = new HashMap();
-               // Date Return_date1 = datechooser.Return_date(yearfield, monthfield, dayfield);
-               // Date Return_date2 = datechooser.Return_date(yearfield2, monthfield2, dayfield2);
-              //  param.put("from_date", Return_date1);
-               // param.put("to_date", Return_date2);
-                param.put("USER",new UserAccountControl().get_current_user());
-                param.put("a", "Income");
-                // Date Return_date = datechooser.Return_date(yearfield, monthfield, dayfield);
-                String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
+           Reports_Acc rep = new Reports_Acc();
 
-                generate.create("Account", "D:\\", param, location, "idde2.jrxml");
+        content.removeAll();
+
+        rep.setSize(content.getSize());
+
+       content.add(rep);
+        validate();
+        repaint();
     }//GEN-LAST:event_jButton3ActionPerformed
 
 
