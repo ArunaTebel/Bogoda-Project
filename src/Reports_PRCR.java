@@ -71,7 +71,7 @@ Date_Handler date_handler = new Date_Handler();
         content = new javax.swing.JPanel();
         progress = new javax.swing.JProgressBar();
 
-        setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 153, 0), 3));
+        setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 153), 3));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
