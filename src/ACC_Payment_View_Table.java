@@ -64,6 +64,57 @@ public class ACC_Payment_View_Table extends javax.swing.JFrame {
          db.Filtered_table_For_Payments_For_Date_Debit_Two_Search(table, search_column1, search_element1,search_element2,1,50, search_column2, search_element3);
     }
     
+   ////////
+    public void Table_Fill_Alln(int a, int b){
+        ACC_View_Database_Handling_Payment db = new ACC_View_Database_Handling_Payment();
+        db.Fill_table_without_filtering(table,a,b);
+    }
+    
+   
+    public void Table_Fill_Credit_Searchn(String search_column,Object search_element,int a, int b){
+        ACC_View_Database_Handling_Payment db = new ACC_View_Database_Handling_Payment();
+        db.Filtered_table_For_Payments_Credit_Search(table,search_column,search_element,a,b);
+    }
+    public void Table_Fill_Debit_Searchn(String search_column,Object search_element,int a, int b){
+        ACC_View_Database_Handling_Payment db = new ACC_View_Database_Handling_Payment();
+        db.Filtered_table_For_Payments_Debit_Search(table,search_column,search_element,a,b);
+    }
+    public void Table_Fill_Date_Searchn(String search_column,Object search_element1,Object search_element2,int a, int b){
+        ACC_View_Database_Handling_Payment db = new ACC_View_Database_Handling_Payment();
+        db.Filtered_table_For_Payments_For_Date_Credit_Search(table,search_column,search_element1,search_element2,a,b);
+    }
+    
+    public void Table_Fill_Credit_Credit_Searchn(String search_column1,Object search_element1,String search_column2,Object search_element2,int a, int b){
+         ACC_View_Database_Handling_Payment db = new ACC_View_Database_Handling_Payment();
+         db.Filtered_table_For_Payments_Credit_Credit_Search(table, search_column1, search_element1,a,b, search_column2, search_element2);
+    }
+    
+    public void Table_Fill_Debit_Debit_Searchn(String search_column1,Object search_element1,String search_column2,Object search_element2,int a, int b){
+         ACC_View_Database_Handling_Payment db = new ACC_View_Database_Handling_Payment();
+         System.out.println("colombo");
+         db.Filtered_table_For_Payments_Debit_Debit_Search(table, search_column1, search_element1,a,b, search_column2, search_element2);
+    }
+    
+    public void Table_Fill_Credit_Debit_Searchn(String search_column1,Object search_element1,String search_column2,Object search_element2,int a, int b){
+         ACC_View_Database_Handling_Payment db = new ACC_View_Database_Handling_Payment();
+         db.Filtered_table_For_Payments_Credit_Debit_Search(table, search_column1, search_element1,a,b, search_column2, search_element2);
+    }
+    
+    public void Table_Fill_Date_Credit_Searchn(String search_column1,Object search_element1,Object search_element2,String search_column2,Object search_element3,int a, int b){
+         ACC_View_Database_Handling_Payment db = new ACC_View_Database_Handling_Payment();
+         db.Filtered_table_For_Payments_For_Date_Credit_Two_Search(table, search_column1, search_element1,search_element2,a,b, search_column2, search_element3);
+    }
+    
+    public void Table_Fill_Date_Debit_Searchn(String search_column1,Object search_element1,Object search_element2,String search_column2,Object search_element3,int a, int b){
+         ACC_View_Database_Handling_Payment db = new ACC_View_Database_Handling_Payment();
+         db.Filtered_table_For_Payments_For_Date_Debit_Two_Search(table, search_column1, search_element1,search_element2,a,b, search_column2, search_element3);
+    }
+    
+    
+    //////////////////
+    
+    
+    
    
     
     
