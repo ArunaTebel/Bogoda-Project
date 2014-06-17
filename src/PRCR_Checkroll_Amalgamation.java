@@ -501,7 +501,7 @@ public class PRCR_Checkroll_Amalgamation extends javax.swing.JFrame {
                 ResultSet query = dbma.query("SELECT * FROM division_details WHERE code =" + item + "");
                 while (query.next()) {
                     Name = query.getString("division");
-                    System.out.println(Name);
+                    
                 }
             } catch (SQLException ex) {
                 System.out.println("error");
@@ -536,6 +536,8 @@ public class PRCR_Checkroll_Amalgamation extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // ClearTable();
         
+        createNewDatabaseTableforAmalgamation();
+        
         jTable1.setBackground(Color.WHITE);
         jTable1.setForeground(Color.BLACK);
         
@@ -547,7 +549,7 @@ public class PRCR_Checkroll_Amalgamation extends javax.swing.JFrame {
         jTable1.getTableHeader().setFont( new Font( "Arial" , Font.PLAIN, 7 ));
         int columnsize = getColumnsize("workcode_details", "code");
 
-        System.out.println(columnsize);
+        
         String workCode[] = new String[columnsize];
         String Section[] = new String[columnsize];
         int j = 0;
@@ -576,7 +578,7 @@ public class PRCR_Checkroll_Amalgamation extends javax.swing.JFrame {
          "division", "BG", "work_code", "ABVF", "normalday_or_sunday", "n");
          System.out.println(k);*/
         for (int i = 0; i < columnsize; i++) {
-            System.out.println(workCode[i]);
+            
             
 
             normaldays = checknReturnNoOfData("prcr_checkroll_workentry", "date", getST(monthfield2.getText(), yearfield2.getText()),
@@ -602,7 +604,7 @@ public class PRCR_Checkroll_Amalgamation extends javax.swing.JFrame {
        j=0;
         
         for (int i = 0; i < columnsize; i++) {
-            System.out.println(workCode[i]);
+           
 
             normaldays = checknReturnNoOfData("prcr_checkroll_workentry", "date", getST(monthfield2.getText(), yearfield2.getText()),
                     "division", division_jc.getSelectedItem().toString(), "work_code", workCode[i], "normalday_or_sunday", "n");
@@ -632,6 +634,18 @@ public class PRCR_Checkroll_Amalgamation extends javax.swing.JFrame {
                 jTable1.setValueAt(normaldays * normalDaysrate + sundays * sundayrate + otdayhrs * otDayrate + otnighthrs * otNightRate, j, 7);
                 grandtotalT = grandtotalT + (normaldays * normalDaysrate + sundays * sundayrate + otdayhrs * otDayrate + otnighthrs * otNightRate);
                 j++;
+                //write data in to database table for amalgamation to generate reports
+                 try {
+                     double workdayss=normaldays + sundays;
+                     double workdayspayy=normaldays * normalDaysrate + sundays * sundayrate;
+                     double othourss=otdayhrs + otnighthrs;
+                     double othourspayy=otdayhrs * otDayrate + otnighthrs * otNightRate;
+                     double grandtotall=normaldays * normalDaysrate + sundays * sundayrate + otdayhrs * otDayrate + otnighthrs * otNightRate;
+                    dbm.insert("INSERT INTO prcr_checkroll_amalgamation_report(work_code,section,work_days,work_days_pay,ot_hours,ot_hours_pay,grand_total) VALUES('" + workCode[i]+ "','" + Section[i] + "','" + workdayss + "','" + workdayspayy + "','" + othourss + "','" + othourspayy + "','"+grandtotall+"')");
+                } catch (SQLException ex) {
+                     System.out.println("error-couldnt write data in to amalgamation database table");
+                }
+                
 
             }
         }
@@ -670,7 +684,21 @@ public class PRCR_Checkroll_Amalgamation extends javax.swing.JFrame {
          GrandTotal.setText(String.valueOf(grandtotal)); */
 
     }//GEN-LAST:event_jButton1ActionPerformed
-
+    public void createNewDatabaseTableforAmalgamation(){
+       
+     try {
+         dbm.DeleteTable("prcr_checkroll_amalgamation_report");
+            //use new_1 and new_2 if any other deduction type is needd to be added
+            dbm.insert("CREATE TABLE prcr_checkroll_amalgamation_report(work_code VARCHAR(30),"
+                    + "section VARCHAR(50)," + "work_days DOUBLE,"
+                    + "work_days_pay DOUBLE," + "ot_hours DOUBLE," + "ot_hours_pay DOUBLE,"
+                    + "coins DOUBLE," + "grand_total DOUBLE);");
+        } catch (SQLException ex) {
+            //Logger.getLogger(test.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println(ex.getMessage());
+        }
+    
+    }
     private void workDaysActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_workDaysActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_workDaysActionPerformed
@@ -725,16 +753,16 @@ private void print() {
         try {
             ResultSet query = dbm.query("SELECT * FROM " + table_name + "");
             while (query.next()) {
-                 System.out.println(query.getString(date_column).substring(0,7)+"  "+st);
-                 System.out.println(query.getString(divCodeColumn)+" "+divCode);
-                 System.out.println(query.getString(workCodeColumn)+"  "+workCode);
-                 System.out.println(query.getString(column_need_to_check)+"  "+element_to_check);
-                 System.out.println(query.getString(date_column).substring(0, 7).equals(st) && query.getString(divCodeColumn).equals(divCode) && query.getString(workCodeColumn).equals(workCode) && query.getString(column_need_to_check).equals(element_to_check));
-                 
-System.out.println("gssgsdg   gsdg "+division_jc.getSelectedItem().toString());
+//                 System.out.println(query.getString(date_column).substring(0,7)+"  "+st);
+//                 System.out.println(query.getString(divCodeColumn)+" "+divCode);
+//                 System.out.println(query.getString(workCodeColumn)+"  "+workCode);
+//                 System.out.println(query.getString(column_need_to_check)+"  "+element_to_check);
+//                 System.out.println(query.getString(date_column).substring(0, 7).equals(st) && query.getString(divCodeColumn).equals(divCode) && query.getString(workCodeColumn).equals(workCode) && query.getString(column_need_to_check).equals(element_to_check));
+//                 
+//System.out.println("gssgsdg   gsdg "+division_jc.getSelectedItem().toString());
                 if (query.getString(date_column).substring(0, 7).equals(st) && query.getString(divCodeColumn).equals(divCode) && query.getString(workCodeColumn).equals(workCode) && query.getString(column_need_to_check).equals(element_to_check)) {
                     count++;
-                     System.err.println(count);
+                    
                 }
             }
             return count;
@@ -771,7 +799,7 @@ System.out.println("gssgsdg   gsdg "+division_jc.getSelectedItem().toString());
         } else {
             st = year + "-" + datehandler.return_index(month);
         }
-        System.out.println(st);
+        
         return st;
     }
 
