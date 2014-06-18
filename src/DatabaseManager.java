@@ -1,4 +1,5 @@
 
+
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -10,6 +11,7 @@ import java.util.logging.Logger;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.Statement;
+import javax.swing.JOptionPane;
 
 public final class DatabaseManager {
 
@@ -90,6 +92,15 @@ public final class DatabaseManager {
         return 0;
     }
     
+    public int readFirstRow(String table, String coloumn) throws SQLException{
+        DatabaseManager dbm = DatabaseManager.getDbCon();
+        ResultSet rs1 = dbm.query("SELECT " + coloumn + " FROM " + table);
+        if(rs1.next())
+            return (rs1.getInt(coloumn));
+        return 0;
+    }
+  
+    
     public String checknReturnStringData(String table_name, String table_column_giving, String row_element, String table_column_need) {
         DatabaseManager dbm = DatabaseManager.getDbCon();
         try {
@@ -162,6 +173,16 @@ public final class DatabaseManager {
         return true;
     }
 
+    public void update(String table, String coloumn1, String coloumn2, Object first, Object second, String coloumnN, Object new1){
+        DatabaseManager dbm = DatabaseManager.getDbCon();
+        try {
+            dbm.insert("UPDATE " + table + " SET " + coloumnN + " ='" + new1 + "' WHERE " + coloumn1 + "='" + first + " 'AND " + coloumn2 + " ='" + second + "'");
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    
     public void newDayTable(Date date) {
         DatabaseManager dbm = DatabaseManager.getDbCon();
         try {
@@ -197,6 +218,27 @@ public final class DatabaseManager {
         return null;
     }
     
+    public int[] getValuesArray(String table, String coloumn, String neededColoumn, String match){
+        try {
+            int count = 0;
+            DatabaseManager dbm = DatabaseManager.getDbCon();
+            ResultSet rs1 = dbm.query("SELECT * FROM " + table + " WHERE " + coloumn + " ='" + match + "'");
+            while (rs1.next())
+                count++;
+            int[] valuesArray = new int[count];
+            count = 0;
+            ResultSet rs2 = dbm.query("SELECT * FROM " + table + " WHERE " + coloumn + " ='" + match + "'");
+            while (rs2.next()) {
+                valuesArray[count] = rs2.getInt(neededColoumn);
+                count++;
+            }
+            return valuesArray;
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Error");
+        }
+        return null;
+    }
     
      public String[] getStringArray1(String table_name, String column_name) {
 
@@ -218,7 +260,7 @@ public final class DatabaseManager {
             }
             return array;
         } catch (SQLException ex) {
-
+            
         }
         return null;
     }

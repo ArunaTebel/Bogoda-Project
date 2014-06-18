@@ -26,7 +26,7 @@ public class MainWindow extends javax.swing.JFrame {
         int a = (int) (Math.random()*10);
        // System.out.println(a);
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BogodaAreal"+a+".jpg")));
-        this.setIconImage(new ImageIcon(getClass().getResource("ICON2.png")).getImage());
+        //this.setIconImage(new ImageIcon(getClass().getResource("ICON2.png")).getImage());
         Info.setText("");
         String s = userAC.get_current_user();
         TimeCheck time = new TimeCheck(s);
@@ -542,7 +542,7 @@ public class MainWindow extends javax.swing.JFrame {
         });
         jMenu2.add(jMenuItem2);
 
-        jMenuItem4.setText("File Locations");
+        jMenuItem4.setText("Change File Locations");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem4ActionPerformed(evt);
@@ -726,6 +726,8 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
         User_id.setText("AdminNL");
+        
+        Thread t = new Thread(new WelfareThread());
 
         String pwd = dbm.checknReturnStringData("user_data", "user_name", User_id.getText(), "pwd");
 
