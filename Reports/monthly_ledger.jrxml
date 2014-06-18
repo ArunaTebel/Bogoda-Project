@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="1224" pageHeight="792" columnWidth="1184" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b4a7e90f-236c-48e1-b463-a16c40591ab1">
+	<property name="ireport.zoom" value="3.0"/>
+	<property name="ireport.x" value="2350"/>
+	<property name="ireport.y" value="192"/>
+	<parameter name="USER" class="java.lang.String"/>
+	<parameter name="month" class="java.lang.String"/>
+	<parameter name="year" class="java.lang.String"/>
+	<parameter name="Month" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     gl_monthly_ledger_current.`year` AS gl_monthly_ledger_current_year,
+     gl_monthly_ledger_current.`month` AS gl_monthly_ledger_current_month,
+     gl_monthly_ledger_current.`sup_id` AS gl_monthly_ledger_current_sup_id,
+     gl_monthly_ledger_current.`name` AS gl_monthly_ledger_current_name,
+     gl_monthly_ledger_current.`total_kg` AS gl_monthly_ledger_current_total_kg,
+     gl_monthly_ledger_current.`set_value` AS gl_monthly_ledger_current_set_value,
+     gl_monthly_ledger_current.`gross_amount` AS gl_monthly_ledger_current_gross_amount,
+     gl_monthly_ledger_current.`coins_bf` AS gl_monthly_ledger_current_coins_bf,
+     gl_monthly_ledger_current.`total_payable` AS gl_monthly_ledger_current_total_payable,
+     gl_monthly_ledger_current.`pre_debts` AS gl_monthly_ledger_current_pre_debts,
+     gl_monthly_ledger_current.`cash_advances` AS gl_monthly_ledger_current_cash_advances,
+     gl_monthly_ledger_current.`other_advances` AS gl_monthly_ledger_current_other_advances,
+     gl_monthly_ledger_current.`cards` AS gl_monthly_ledger_current_cards,
+     gl_monthly_ledger_current.`transport` AS gl_monthly_ledger_current_transport,
+     gl_monthly_ledger_current.`total_deduction` AS gl_monthly_ledger_current_total_deduction,
+     gl_monthly_ledger_current.`net_amount` AS gl_monthly_ledger_current_net_amount,
+     gl_monthly_ledger_current.`tax` AS gl_monthly_ledger_current_tax,
+     gl_monthly_ledger_current.`final_payable` AS gl_monthly_ledger_current_final_payable,
+     gl_monthly_ledger_current.`coins_cf` AS gl_monthly_ledger_current_coins_cf,
+     gl_monthly_ledger_current.`final_amount` AS gl_monthly_ledger_current_final_amount,
+     gl_monthly_ledger_current.`welfare` AS gl_monthly_ledger_current_welfare
+FROM
+     `gl_monthly_ledger_current` gl_monthly_ledger_current
+WHERE
+     year = $P{year}
+ AND month = $P{month}]]>
+	</queryString>
+	<field name="gl_monthly_ledger_current_year" class="java.lang.String"/>
+	<field name="gl_monthly_ledger_current_month" class="java.lang.String"/>
+	<field name="gl_monthly_ledger_current_sup_id" class="java.lang.Integer"/>
+	<field name="gl_monthly_ledger_current_name" class="java.lang.String"/>
+	<field name="gl_monthly_ledger_current_total_kg" class="java.lang.Double"/>
+	<field name="gl_monthly_ledger_current_set_value" class="java.lang.Double"/>
+	<field name="gl_monthly_ledger_current_gross_amount" class="java.lang.Double"/>
+	<field name="gl_monthly_ledger_current_coins_bf" class="java.lang.Double"/>
+	<field name="gl_monthly_ledger_current_total_payable" class="java.lang.Double"/>
+	<field name="gl_monthly_ledger_current_pre_debts" class="java.lang.Double"/>
+	<field name="gl_monthly_ledger_current_cash_advances" class="java.lang.Double"/>
+	<field name="gl_monthly_ledger_current_other_advances" class="java.lang.Double"/>
+	<field name="gl_monthly_ledger_current_cards" class="java.lang.Double"/>
+	<field name="gl_monthly_ledger_current_transport" class="java.lang.Double"/>
+	<field name="gl_monthly_ledger_current_total_deduction" class="java.lang.Double"/>
+	<field name="gl_monthly_ledger_current_net_amount" class="java.lang.Double"/>
+	<field name="gl_monthly_ledger_current_tax" class="java.lang.Double"/>
+	<field name="gl_monthly_ledger_current_final_payable" class="java.lang.Double"/>
+	<field name="gl_monthly_ledger_current_coins_cf" class="java.lang.Double"/>
+	<field name="gl_monthly_ledger_current_final_amount" class="java.lang.Double"/>
+	<field name="gl_monthly_ledger_current_welfare" class="java.lang.Double"/>
+	<variable name="TITLE" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="6" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="85" splitType="Stretch">
+			<line>
+				<reportElement x="5" y="62" width="1183" height="1" uuid="292404ee-21c4-44ec-86e1-654ddf5dc03b"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#666666"/>
+				</graphicElement>
+			</line>
+			<textField evaluationTime="Report">
+				<reportElement x="604" y="63" width="40" height="20" uuid="a28f6025-2bc0-4bc1-a2d3-6de88975440a"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="524" y="63" width="80" height="20" uuid="c7b2c106-44fc-4aed-b3a9-e5ad706e21ea"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="18" width="15" height="20" uuid="b253ceae-65b5-4d6e-bd4d-cd9f29f5de4c"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[by:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="1" y="59" width="1183" height="1" uuid="e13c4d67-1e7f-4c1c-96d2-2316ab27579e"/>
+			</line>
+			<staticText>
+				<reportElement x="921" y="12" width="216" height="27" uuid="75b687d7-fe40-4adf-9851-27816341e992"/>
+				<textElement>
+					<font fontName="Segoe UI Light" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bogoda Group Tea Factory]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="998" y="33" width="114" height="20" uuid="fe112270-8629-41c5-b43e-d57409be5b2e"/>
+				<text><![CDATA[Kolawenigama, Deniyaya]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="15" y="19" width="100" height="20" uuid="a7284fb9-5755-493b-9033-b8778b4d88dd"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{USER}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="1" y="0" width="1183" height="1" uuid="aeb39eae-cf99-495a-9b95-9031f30f70b7"/>
+			</line>
+			<staticText>
+				<reportElement x="1" y="7" width="81" height="11" uuid="3e709542-151f-4b92-8a79-9527db2b951e"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Report generated:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement x="82" y="7" width="100" height="11" uuid="54a20eec-890c-4e8c-9249-a8bf0da283f9"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="65" width="117" height="20" uuid="4de33a45-e30f-434c-a793-b1dacaf24ef8"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Monthly Ledger for]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="116" y="65" width="100" height="20" uuid="c2ae7620-d052-4351-b7f8-de5c11d703c6"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{Month}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="27" splitType="Stretch">
+			<line>
+				<reportElement x="1" y="23" width="1182" height="1" uuid="8b820536-4e3c-4646-9176-72c78990b115"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="4" width="41" height="20" uuid="d9d6da50-4e2c-466c-a10c-2f087e1cb5ae"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Year]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="47" y="4" width="35" height="20" uuid="505e539c-5c08-430e-8573-148060461486"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Month]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="92" y="4" width="43" height="20" uuid="7162df63-af39-4048-9ab2-38af931617fe"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sup_ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="135" y="5" width="59" height="20" uuid="bdb14de0-fb66-46e5-92d1-e13f0fdf6f35"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="236" y="5" width="43" height="20" uuid="2893ef6b-e67f-4973-8de3-6ae61f6e669f"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total_kg]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="280" y="5" width="47" height="20" uuid="5a7bcc90-6d5c-40e9-aaf4-9885c8156bcd"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Set_value]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="332" y="5" width="59" height="20" uuid="900f9123-7c7d-4dbd-89f4-5dd456db9ebc"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Gross_amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="397" y="5" width="41" height="20" uuid="819c4b0b-a6b7-43d4-a9fc-e15a8dc4b076"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Coins_bf]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="443" y="5" width="53" height="20" uuid="4466035c-d39a-442a-9a54-e6d8df7af3c5"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Payable]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="501" y="5" width="43" height="20" uuid="03b9e562-a3d8-4718-a47b-bb6037f735ae"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Pre:debts]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="548" y="5" width="56" height="20" uuid="baad758d-0b48-4288-90a0-8e0627ad31df"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cash ad:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="603" y="5" width="59" height="20" uuid="3b595291-74c5-4bc8-b68f-748f04bf863b"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Other ad:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="664" y="5" width="29" height="20" uuid="624f1bfb-da8e-418d-a4c6-1c5eef6c1b78"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cards]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="767" y="5" width="59" height="20" uuid="00d0604a-19c2-401d-b633-f65e08831754"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Transport]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="826" y="5" width="59" height="20" uuid="50413eee-370b-4f5a-b247-a6ed516e8a35"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total deduct]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="885" y="5" width="59" height="20" uuid="2cb12dc1-99e1-4789-bbc4-307108da6e85"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Net amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="944" y="5" width="59" height="20" uuid="c9b88a1a-ddbd-41fa-8b65-cb3b5ba996d0"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tax]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1003" y="5" width="59" height="20" uuid="98cd292e-ff5d-44cc-9e03-cbec701ff55f"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FinalPayable]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1062" y="5" width="59" height="20" uuid="e931c606-9e3f-429d-aea0-8965fa69149f"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Coins cf:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1121" y="5" width="67" height="20" uuid="06f89e65-2865-4cd4-922c-88d38e023cbe"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Final Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="705" y="5" width="50" height="20" uuid="e463f9eb-40e0-4fb9-9458-e3311b0c0bf3"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Welfare]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="23" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="41" height="20" uuid="13ff4592-80cd-4dd6-ae78-845ff5499752"/>
+				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_year}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="135" y="0" width="101" height="20" uuid="c5f37db0-02cd-4ae8-a65f-a04877bb653c"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="236" y="0" width="43" height="20" uuid="d24a226a-b7a1-4ff0-81ac-1278a8c28b76"/>
+				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_total_kg}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00">
+				<reportElement x="280" y="0" width="37" height="20" uuid="b267273e-30ae-4454-8993-97507d985961"/>
+				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_set_value}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00">
+				<reportElement x="332" y="0" width="59" height="20" uuid="70ac2c2c-679a-4a7a-acce-a13383ae7cf7"/>
+				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_gross_amount}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00">
+				<reportElement x="397" y="0" width="41" height="20" uuid="a31f9878-840a-43e5-b1c4-edaae89bce9f"/>
+				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_coins_bf}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00">
+				<reportElement x="443" y="0" width="53" height="20" uuid="694fabe4-78c1-4171-9db4-2f7abb212e95"/>
+				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_total_payable}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00">
+				<reportElement x="501" y="0" width="43" height="20" uuid="d745c884-32bc-41af-b063-19dbaeb0e074"/>
+				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_pre_debts}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00">
+				<reportElement x="548" y="0" width="56" height="20" uuid="ba793725-1bc4-4a9f-9457-04a4151cfa6e"/>
+				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_cash_advances}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00">
+				<reportElement x="603" y="0" width="59" height="20" uuid="aa55a324-ef08-4e35-9fd7-d850357c7225"/>
+				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_other_advances}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="664" y="0" width="29" height="20" uuid="9fa42695-7c1d-414a-9036-2c167b9a41e3"/>
+				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_cards}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00">
+				<reportElement x="767" y="0" width="59" height="20" uuid="b0ad1e41-dd49-4af1-97be-3db7b18495a9"/>
+				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_transport}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00;(-###0.00)">
+				<reportElement x="826" y="0" width="59" height="20" uuid="17501598-f9f7-4d20-84cf-07c27eebf372"/>
+				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_total_deduction}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00">
+				<reportElement x="885" y="0" width="59" height="20" uuid="47e9ad28-508f-4a3f-9e64-7048f4b09abf"/>
+				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_net_amount}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00">
+				<reportElement x="944" y="0" width="59" height="20" uuid="538c7088-f863-4055-ab61-5aa3b9f8a77c"/>
+				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_tax}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00;(-###0.00)">
+				<reportElement x="1003" y="0" width="59" height="20" uuid="5b55ac5f-66d0-4339-adf1-9c9111466a20"/>
+				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_final_payable}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00">
+				<reportElement x="1062" y="0" width="59" height="20" uuid="d7da7418-a227-4df6-9371-34b4ebe87878"/>
+				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_coins_cf}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;(-#,##0.00)">
+				<reportElement x="1121" y="0" width="59" height="20" uuid="96cd0900-51b9-4fac-88d3-8fb819904bf7"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_final_amount}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="47" y="0" width="35" height="20" uuid="e78a15ca-f9b9-43ab-84b6-bc8a8b14f793"/>
+				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_month}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="92" y="0" width="43" height="20" uuid="01995187-f13a-4f23-8ca9-4f73c88c6282"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_sup_id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="705" y="0" width="50" height="20" uuid="7ff00425-e0df-4646-a41f-cb6499e20d14"/>
+				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_welfare}]]></textFieldExpression>
+			</textField>
+			<line direction="BottomUp">
+				<reportElement x="495" y="1" width="1" height="20" uuid="1ed3ab97-fe4f-49bf-9984-f0c2c77e47e7"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<line direction="BottomUp">
+				<reportElement x="879" y="1" width="1" height="20" uuid="7e0239fe-6896-472a-aa8b-099ed4f659ee"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="18" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="33" splitType="Stretch">
+			<line>
+				<reportElement x="1" y="-13" width="1182" height="1" uuid="0d048f90-0a60-4753-b7bf-906c8bd8f6af"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

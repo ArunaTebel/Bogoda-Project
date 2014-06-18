@@ -11,6 +11,7 @@ import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -32,7 +33,7 @@ public class Report_gen {
     public String create(String file_name, String save_location,HashMap param,String report_location,String report_name){
      try{
          
-         JOptionPane.showMessageDialog(null, "Inside");
+        // JOptionPane.showMessageDialog(null, "Inside");
             Calendar currentDate = Calendar.getInstance();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
         String dateNow = formatter.format(currentDate.getTime());
@@ -42,29 +43,27 @@ public class Report_gen {
        // String report="C:\\Users\\Pramo\\Documents\\NetBeansProjects\\Lec\\src\\report4.jrxml";
        
          JasperPrint jp = null;
-         try {
+       
              JOptionPane.showMessageDialog(null, "complilng");
+            // JasperReport jr = (JasperReport)JRLoader.loadObjectFromFile(report_location+report_name);
               JasperReport jr=JasperCompileManager.compileReport(report_location+report_name);
               JOptionPane.showMessageDialog(null, "compliled");
-               jp=JasperFillManager.fillReport(jr, param,dbm.conn);
-         } catch (Exception e) {
-            
-               JOptionPane.showMessageDialog(null, e.getMessage());
-         }
-       
-        JOptionPane.showMessageDialog(null, "filled");
+              
+        
+        jp=JasperFillManager.fillReport(jr, param,dbm.conn);
+       // JOptionPane.showMessageDialog(null, "filled");
         
            // JasperViewer.viewReport(jp);
            // File pdf = File.createTempFile("output.", ".pdf");
 JasperExportManager.exportReportToPdfFile(jp,save_location+file_name+dateNow+".pdf" );
-JOptionPane.showMessageDialog(null, "pdf convert");
+//JOptionPane.showMessageDialog(null, "pdf convert");
 File myFile = new File(save_location+file_name+dateNow+".pdf");
-JOptionPane.showMessageDialog(null, "File saved");
+//JOptionPane.showMessageDialog(null, "File saved");
         Desktop.getDesktop().open(myFile);
        
         return dateNow;
         }catch(Exception e){
-            System.out.println(e.getMessage());
+           // System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(null, e.getMessage());
             return null;
         }}
