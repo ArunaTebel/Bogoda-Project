@@ -945,7 +945,7 @@ public class ACC_payments extends javax.swing.JPanel {
             
             for (int j = 0; j <= i - 1; j++) {
                 debit_acnt_name = dbm.checknReturnData("account_names", "account_id", Integer.parseInt((String) debit_account_code_table.getValueAt(j, 0)), "account_name");
-                raobject.addToDebitDataBase(Integer.parseInt(recieptNo.getText()), Integer.parseInt((String) debit_account_code_table.getValueAt(j, 0)), debit_acnt_name, (String) debit_description_table.getValueAt(j, 0), Double.parseDouble((String) debit_amount_table.getValueAt(j, 0)));
+                raobject.addToDebitDataBase( Integer.parseInt((String) debit_account_code_table.getValueAt(j, 0)), debit_acnt_name, (String) debit_description_table.getValueAt(j, 0), Double.parseDouble((String) debit_amount_table.getValueAt(j, 0)));
             }
             
             // adding the relevant value to the current balance of the debit account

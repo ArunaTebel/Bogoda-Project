@@ -19,14 +19,14 @@ import java.util.logging.Logger;
 public class ACC_journals extends javax.swing.JPanel {
 
     Journals_account jaobject = new Journals_account();
-    
-    MessageBox msg =new MessageBox();
-    
-    DateChooser_text datechooser=new DateChooser_text();
-    Date_Handler datehandler =new Date_Handler();
-    
+
+    MessageBox msg = new MessageBox();
+
+    DateChooser_text datechooser = new DateChooser_text();
+    Date_Handler datehandler = new Date_Handler();
+
     Interface_Events interface_events = new Interface_Events();
-    
+
     public int stringToIntNum(String s) {
         if (s.length() == 0) {
             return 0;
@@ -53,8 +53,8 @@ public class ACC_journals extends javax.swing.JPanel {
 
         }
     }
-    
-    public void foucs(){
+
+    public void foucs() {
         this.requestFocus();
         save.setEnabled(false);
         ref_no.requestFocus();
@@ -901,28 +901,28 @@ public class ACC_journals extends javax.swing.JPanel {
 
     private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
         try {
-            boolean addToMainJournalDataBase=false;
+            boolean addToMainJournalDataBase = false;
             jaobject.setRefNo(ref_no.getText());
             jaobject.setJournalNo(journal_no.getText());
             jaobject.setDate(datechooser.Return_date(yearfield, monthfield, dayfield));
             jaobject.setPayType(pay_type.getSelectedItem().toString());
-            
+
             DatabaseManager dbm = DatabaseManager.getDbCon();
-            
+
             // Adding main common parts of the interface
             if ("Cheque".equals(jaobject.getPayType())) {
-                
+
                 jaobject.setBankCode(Integer.parseInt(bank_code.getSelectedItem().toString()));
-                
+
                 jaobject.setBankName(dbm.checknReturnData("bank", "bank_id", jaobject.getBankCode(), "bank_name"));
                 jaobject.setBranchCode(Integer.parseInt(branch_code.getSelectedItem().toString()));
-                
+
                 jaobject.setBranchName(dbm.checknReturnData("bank_branch", "branch_id", jaobject.getBranchCode(), "branch_name"));
                 jaobject.setChequeNo(chequeNo.getText());
-                
+
                 java.sql.Date date2 = new java.sql.Date(chequeDate.getDate().getTime());
                 jaobject.setChequeDate(date2);
-                
+
                 addToMainJournalDataBase = jaobject.addToMainJournalDataBaseBank();
             } else {
                 jaobject.setBankCode(0);
@@ -933,91 +933,123 @@ public class ACC_journals extends javax.swing.JPanel {
                 jaobject.setChequeNo(null);
                 addToMainJournalDataBase = jaobject.addToMainJournalDataBaseCash();
             }
-            
-            
-            
+
             if (addToMainJournalDataBase == true) {
-                
+
                 msg.showMessage("Journal Entry is saved to Transaction no-" + jaobject.Get_Tr_no(), "Receipt", "info");
-                
+
                 // Debit Side of the interface
-                
-                
-                int i=0;
-                while(debit_account_code_table.getValueAt(i, 0)!= null){
+                int i = 0;
+                while (debit_account_code_table.getValueAt(i, 0) != null) {
                     i++;
                 }
                 String debit_acnt_name;
-                
-                for(int j=0;j<=i-1;j++){
-                    debit_acnt_name = dbm.checknReturnData("account_names", "account_id",Integer.parseInt((String) debit_account_code_table.getValueAt(j, 0)), "account_name");
-                    jaobject.addToDebitDataBase( Integer.parseInt((String) debit_account_code_table.getValueAt(j, 0)),debit_acnt_name, (String) debit_description_table.getValueAt(j, 0),Double.parseDouble((String) debit_amount_table.getValueAt(j, 0)));
+
+                for (int j = 0; j <= i - 1; j++) {
+                    debit_acnt_name = dbm.checknReturnData("account_names", "account_id", Integer.parseInt((String) debit_account_code_table.getValueAt(j, 0)), "account_name");
+                    jaobject.addToDebitDataBase(Integer.parseInt((String) debit_account_code_table.getValueAt(j, 0)), debit_acnt_name, (String) debit_description_table.getValueAt(j, 0), Double.parseDouble((String) debit_amount_table.getValueAt(j, 0)));
                 }
-                
-                
+
                 // Credit Side of the interface
-                
-                i=0;
-                while(credit_account_code_table.getValueAt(i, 0)!= null){
+                i = 0;
+                while (credit_account_code_table.getValueAt(i, 0) != null) {
                     i++;
                 }
-                
+
                 String credit_acnt_name;
-                
-                for(int j=0;j<=i-1;j++){
-                    credit_acnt_name = dbm.checknReturnData("account_names", "account_id",Integer.parseInt((String) credit_account_code_table.getValueAt(j, 0)), "account_name");
-                    jaobject.addToCreditDataBase(Integer.parseInt((String) credit_account_code_table.getValueAt(j, 0)),credit_acnt_name, (String) credit_description_table.getValueAt(j, 0),Double.parseDouble((String) credit_amount_table.getValueAt(j, 0)));
+
+                for (int j = 0; j <= i - 1; j++) {
+                    credit_acnt_name = dbm.checknReturnData("account_names", "account_id", Integer.parseInt((String) credit_account_code_table.getValueAt(j, 0)), "account_name");
+                    jaobject.addToCreditDataBase(Integer.parseInt((String) credit_account_code_table.getValueAt(j, 0)), credit_acnt_name, (String) credit_description_table.getValueAt(j, 0), Double.parseDouble((String) credit_amount_table.getValueAt(j, 0)));
                 }
-                
+
                 // adding the relevant value to the current balance of the debit account
-                
-                
-                
                 String acnt_class;
                 double debit_value;
                 double debit_updated_value;
-                i=0;
-                while(debit_account_code_table.getValueAt(i,0)!=null){
-                    debit_value=Double.parseDouble((String)debit_amount_table.getValueAt(i, 0));
-                    acnt_class=dbm.checknReturnData("account_names","account_id",Integer.parseInt((String) debit_account_code_table.getValueAt(i, 0)),"account_class");
-                    if("Current Asset".equals(acnt_class) || "Fixed Asset".equals(acnt_class) || "Expense".equals(acnt_class)){
-                        debit_updated_value=Double.parseDouble((String)dbm.checknReturnData("account_names","account_id",Integer.parseInt((String) debit_account_code_table.getValueAt(i, 0)),"current_balance"))+ debit_value;
+                i = 0;
+                while (debit_account_code_table.getValueAt(i, 0) != null) {
+                    debit_value = Double.parseDouble((String) debit_amount_table.getValueAt(i, 0));
+                    acnt_class = dbm.checknReturnData("account_names", "account_id", Integer.parseInt((String) debit_account_code_table.getValueAt(i, 0)), "account_class");
+                    if ("Current Asset".equals(acnt_class) || "Fixed Asset".equals(acnt_class) || "Expense".equals(acnt_class)) {
+                        debit_updated_value = Double.parseDouble((String) dbm.checknReturnData("account_names", "account_id", Integer.parseInt((String) debit_account_code_table.getValueAt(i, 0)), "current_balance")) + debit_value;
+                    } else {
+                        debit_updated_value = Double.parseDouble((String) dbm.checknReturnData("account_names", "account_id", Integer.parseInt((String) debit_account_code_table.getValueAt(i, 0)), "current_balance")) - debit_value;
                     }
-                    else{
-                        debit_updated_value=Double.parseDouble((String)dbm.checknReturnData("account_names","account_id",Integer.parseInt((String) debit_account_code_table.getValueAt(i, 0)),"current_balance"))- debit_value;
-                    }
-                    dbm.updateDatabase("account_names", "account_id",Integer.parseInt((String)debit_account_code_table.getValueAt(i, 0)), "current_balance",debit_updated_value);
+                    dbm.updateDatabase("account_names", "account_id", Integer.parseInt((String) debit_account_code_table.getValueAt(i, 0)), "current_balance", debit_updated_value);
                     i++;
                 }
-                
-                
+
                 // adding the relevant value to the current balance of the credit account
-                
-                i=0;
-                acnt_class=null;
+                i = 0;
+                acnt_class = null;
                 double credit_value;
                 double credit_updated_value;
-                while(credit_account_code_table.getValueAt(i,0)!=null){
-                    credit_value=Double.parseDouble((String)credit_amount_table.getValueAt(i, 0));
-                    acnt_class=dbm.checknReturnData("account_names","account_id",Integer.parseInt((String) credit_account_code_table.getValueAt(i, 0)),"account_class");
-                    if("Current Asset".equals(acnt_class) || "Fixed Asset".equals(acnt_class) || "Expense".equals(acnt_class)){
-                        credit_updated_value=Double.parseDouble((String)dbm.checknReturnData("account_names","account_id",Integer.parseInt((String) credit_account_code_table.getValueAt(i, 0)),"current_balance"))- credit_value;
+                while (credit_account_code_table.getValueAt(i, 0) != null) {
+                    credit_value = Double.parseDouble((String) credit_amount_table.getValueAt(i, 0));
+                    acnt_class = dbm.checknReturnData("account_names", "account_id", Integer.parseInt((String) credit_account_code_table.getValueAt(i, 0)), "account_class");
+                    if ("Current Asset".equals(acnt_class) || "Fixed Asset".equals(acnt_class) || "Expense".equals(acnt_class)) {
+                        credit_updated_value = Double.parseDouble((String) dbm.checknReturnData("account_names", "account_id", Integer.parseInt((String) credit_account_code_table.getValueAt(i, 0)), "current_balance")) - credit_value;
+                    } else {
+                        credit_updated_value = Double.parseDouble((String) dbm.checknReturnData("account_names", "account_id", Integer.parseInt((String) credit_account_code_table.getValueAt(i, 0)), "current_balance")) + credit_value;
                     }
-                    else{
-                        credit_updated_value=Double.parseDouble((String)dbm.checknReturnData("account_names","account_id",Integer.parseInt((String) credit_account_code_table.getValueAt(i, 0)),"current_balance"))+ credit_value;
-                    }
-                    dbm.updateDatabase("account_names", "account_id",Integer.parseInt((String)credit_account_code_table.getValueAt(i, 0)), "current_balance",credit_updated_value);
+                    dbm.updateDatabase("account_names", "account_id", Integer.parseInt((String) credit_account_code_table.getValueAt(i, 0)), "current_balance", credit_updated_value);
                     i++;
                 }
+
+                ref_no.setText(null);
+                journal_no.setText(null);
+                pay_type.setSelectedIndex(0);
+                bank_code.setSelectedIndex(0);
+                branch_code.setSelectedIndex(0);
+                bank_name.setText(null);
+                branch_name.setText(null);
+                chequeNo.setText(null);
+                debit_account_code.setSelectedIndex(0);
+                debit_description.setText(null);
+                debit_amount.setText(null);
+                debit_account_name.setText(null);
+                credit_account_code.setSelectedIndex(0);
+                credit_account_name.setText(null);
+                credit_description.setText(null);
+                credit_amount.setText(null);
+                debit_total.setText(null);
+                credit_total.setText(null);
+                difference.setText(null);
+                
+                // clear credit table all
+            {
+            int j = 0;
+            while (credit_account_code_table.getValueAt(j, 0) != null) {
+                credit_account_code_table.setValueAt(null, j, 0);
+                credit_description_table.setValueAt(null, j, 0);
+                credit_amount_table.setValueAt(null, j, 0);
+                j++;
+            }
+            }
+            
+            // clear debit table all
+            {
+             int j = 0;
+            while (debit_account_code_table.getValueAt(j, 0) != null) {
+                debit_account_code_table.setValueAt(null, j, 0);
+                debit_description_table.setValueAt(null, j, 0);
+                debit_amount_table.setValueAt(null, j, 0);
+                j++;
+            }
+            }
+            
+            ref_no.requestFocus();
+
             }
         } catch (ParseException ex) {
             Logger.getLogger(ACC_journals.class.getName()).log(Level.SEVERE, null, ex);
         }
-      
+
     }//GEN-LAST:event_saveActionPerformed
 
     private void bank_codeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_bank_codeItemStateChanged
-         DatabaseManager dbm = DatabaseManager.getDbCon();
+        /*  DatabaseManager dbm = DatabaseManager.getDbCon();
          String Name = null;
          if (evt.getStateChange() == ItemEvent.SELECTED) {
          int item = Integer.parseInt(evt.getItem().toString());
@@ -1030,7 +1062,23 @@ public class ACC_journals extends javax.swing.JPanel {
          }
          bank_name.setText("" + Name);
          }
-         interface_events.Change_focus_Enterkey_c(branch_code, null);
+         interface_events.Change_focus_Enterkey_c(branch_code, null);*/
+
+        DatabaseManager dbm = DatabaseManager.getDbCon();
+        String Name = null;
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            int item = Integer.parseInt(evt.getItem().toString());
+            try {
+                ResultSet query = dbm.query("SELECT * FROM bank WHERE bank_id =" + item + "");
+                while (query.next()) {
+                    Name = query.getString("bank_name");
+                }
+            } catch (SQLException ex) {
+            }
+            bank_name.setText("" + Name);
+        }
+
+        branch_code.requestFocusInWindow();
     }//GEN-LAST:event_bank_codeItemStateChanged
 
     private void bank_codeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bank_codeActionPerformed
@@ -1038,7 +1086,7 @@ public class ACC_journals extends javax.swing.JPanel {
     }//GEN-LAST:event_bank_codeActionPerformed
 
     private void branch_codeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_branch_codeItemStateChanged
-           DatabaseManager dbm = DatabaseManager.getDbCon();
+        /*           DatabaseManager dbm = DatabaseManager.getDbCon();
          String Name = null;
          if (evt.getStateChange() == ItemEvent.SELECTED) {
          int item = Integer.parseInt(evt.getItem().toString());
@@ -1051,49 +1099,65 @@ public class ACC_journals extends javax.swing.JPanel {
          }
          branch_name.setText("" + Name);
          }
-         interface_events.Change_focus_Enterkey_t(chequeNo, null);
+         interface_events.Change_focus_Enterkey_t(chequeNo, null); */
+
+        DatabaseManager dbm = DatabaseManager.getDbCon();
+        String Name = null;
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            int item = Integer.parseInt(evt.getItem().toString());
+            try {
+                ResultSet query = dbm.query("SELECT * FROM bank_branch WHERE branch_id =" + item + "");
+                while (query.next()) {
+                    Name = query.getString("branch_name");
+                }
+            } catch (SQLException ex) {
+            }
+            branch_name.setText("" + Name);
+        }
+
+        chequeNo.requestFocusInWindow();
     }//GEN-LAST:event_branch_codeItemStateChanged
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-                                                        
-        int i=0;
-        while(credit_account_code_table.getValueAt(i, 0)!=null){
+
+        int i = 0;
+        while (credit_account_code_table.getValueAt(i, 0) != null) {
             i++;
         }
         i--;
         credit_account_code_table.setValueAt(null, i, 0);
         credit_description_table.setValueAt(null, i, 0);
         credit_amount_table.setValueAt(null, i, 0);
-        
-        double tot=0;
-         i=0;
-        while(credit_account_code_table.getValueAt(i, 0)!= null){
-            tot=tot+Double.parseDouble((String) credit_amount_table.getValueAt(i, 0));
+
+        double tot = 0;
+        i = 0;
+        while (credit_account_code_table.getValueAt(i, 0) != null) {
+            tot = tot + Double.parseDouble((String) credit_amount_table.getValueAt(i, 0));
             i++;
         }
-        credit_total.setText(""+tot);
-       difference.setText(""+(stringToDoubleNum(debit_total.getText())-stringToDoubleNum(credit_total.getText())));
-                               
+        credit_total.setText("" + tot);
+        difference.setText("" + (stringToDoubleNum(debit_total.getText()) - stringToDoubleNum(credit_total.getText())));
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-           int i=0;
-        while(debit_account_code_table.getValueAt(i, 0)!=null){
+        int i = 0;
+        while (debit_account_code_table.getValueAt(i, 0) != null) {
             i++;
         }
         i--;
         debit_account_code_table.setValueAt(null, i, 0);
         debit_description_table.setValueAt(null, i, 0);
         debit_amount_table.setValueAt(null, i, 0);
-        
-        double tot=0;
-         i=0;
-        while(debit_account_code_table.getValueAt(i, 0)!= null){
-            tot=tot+Double.parseDouble((String) debit_amount_table.getValueAt(i, 0));
+
+        double tot = 0;
+        i = 0;
+        while (debit_account_code_table.getValueAt(i, 0) != null) {
+            tot = tot + Double.parseDouble((String) debit_amount_table.getValueAt(i, 0));
             i++;
         }
-        debit_total.setText(""+tot);
-       difference.setText(""+(stringToDoubleNum(debit_total.getText())-stringToDoubleNum(credit_total.getText())));
+        debit_total.setText("" + tot);
+        difference.setText("" + (stringToDoubleNum(debit_total.getText()) - stringToDoubleNum(credit_total.getText())));
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void sendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendActionPerformed
@@ -1114,10 +1178,10 @@ public class ACC_journals extends javax.swing.JPanel {
             i++;
         }
         debit_total.setText("" + tot);
-        difference.setText(""+(stringToDoubleNum(debit_total.getText())-stringToDoubleNum(credit_total.getText())));
+        difference.setText("" + (stringToDoubleNum(debit_total.getText()) - stringToDoubleNum(credit_total.getText())));
 
         credit_account_code.requestFocus();
-                
+
 
     }//GEN-LAST:event_sendActionPerformed
 
@@ -1132,9 +1196,8 @@ public class ACC_journals extends javax.swing.JPanel {
         credit_amount_table.setValueAt(credit_amount.getText(), i, 0);
         credit_account_code.setSelectedIndex(0);
         credit_amount.setText(null);
-        
+
         // Total calculation
-        
         double tot = 0;
         i = 0;
         while (credit_account_code_table.getValueAt(i, 0) != null) {
@@ -1142,67 +1205,64 @@ public class ACC_journals extends javax.swing.JPanel {
             i++;
         }
         credit_total.setText("" + tot);
-       
+
         // Difference Calculation
-        
-        difference.setText(""+(stringToDoubleNum(debit_total.getText())-stringToDoubleNum(credit_total.getText())));
-        
-        
-        if(Double.parseDouble(difference.getText())==0){
-            
-            if(ref_no.getText().length()!=0 && journal_no.getText().length()!=0 && debit_account_code_table.getValueAt(0, 0)!=null && credit_account_code_table.getValueAt(0, 0)!=null){
+        difference.setText("" + (stringToDoubleNum(debit_total.getText()) - stringToDoubleNum(credit_total.getText())));
+
+        if (Double.parseDouble(difference.getText()) == 0) {
+
+            if (ref_no.getText().length() != 0 && journal_no.getText().length() != 0 && debit_account_code_table.getValueAt(0, 0) != null && credit_account_code_table.getValueAt(0, 0) != null) {
                 save.setEnabled(true);
                 save.requestFocus();
-            
+
             }
-        }
-        else{
-            msg.showMessage("There is a Difference","Journal Entry","info");
+        } else {
+            msg.showMessage("There is a Difference", "Journal Entry", "info");
             credit_account_code.requestFocus();
         }
-       
+
 
     }//GEN-LAST:event_send2ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-         int i=0;
-        while(debit_account_code_table.getValueAt(i, 0)!=null){
+        int i = 0;
+        while (debit_account_code_table.getValueAt(i, 0) != null) {
             debit_account_code_table.setValueAt(null, i, 0);
             debit_description_table.setValueAt(null, i, 0);
             debit_amount_table.setValueAt(null, i, 0);
             i++;
         }
-        double tot=0;
-         i=0;
-        while(debit_account_code_table.getValueAt(i, 0)!= null){
-            tot=tot+Double.parseDouble((String) debit_amount_table.getValueAt(i, 0));
+        double tot = 0;
+        i = 0;
+        while (debit_account_code_table.getValueAt(i, 0) != null) {
+            tot = tot + Double.parseDouble((String) debit_amount_table.getValueAt(i, 0));
             i++;
         }
-        debit_total.setText(""+tot);
-        difference.setText(""+(stringToDoubleNum(debit_total.getText())-stringToDoubleNum(credit_total.getText())));
-        
+        debit_total.setText("" + tot);
+        difference.setText("" + (stringToDoubleNum(debit_total.getText()) - stringToDoubleNum(credit_total.getText())));
+
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-         int i=0;
-        while(credit_account_code_table.getValueAt(i, 0)!=null){
+        int i = 0;
+        while (credit_account_code_table.getValueAt(i, 0) != null) {
             credit_account_code_table.setValueAt(null, i, 0);
             credit_description_table.setValueAt(null, i, 0);
             credit_amount_table.setValueAt(null, i, 0);
             i++;
         }
-        double tot=0;
-         i=0;
-        while(credit_account_code_table.getValueAt(i, 0)!= null){
-            tot=tot+Double.parseDouble((String) credit_amount_table.getValueAt(i, 0));
+        double tot = 0;
+        i = 0;
+        while (credit_account_code_table.getValueAt(i, 0) != null) {
+            tot = tot + Double.parseDouble((String) credit_amount_table.getValueAt(i, 0));
             i++;
         }
-        credit_total.setText(""+tot);
-        difference.setText(""+(stringToDoubleNum(debit_total.getText())-stringToDoubleNum(credit_total.getText())));
+        credit_total.setText("" + tot);
+        difference.setText("" + (stringToDoubleNum(debit_total.getText()) - stringToDoubleNum(credit_total.getText())));
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void debit_account_codeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_debit_account_codeItemStateChanged
-          DatabaseManager dbm = DatabaseManager.getDbCon();
+        DatabaseManager dbm = DatabaseManager.getDbCon();
         String Name = null;
         if (evt.getStateChange() == ItemEvent.SELECTED) {
             int item = Integer.parseInt(evt.getItem().toString());
@@ -1219,24 +1279,24 @@ public class ACC_journals extends javax.swing.JPanel {
     }//GEN-LAST:event_debit_account_codeItemStateChanged
 
     private void credit_account_codeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_credit_account_codeItemStateChanged
-          DatabaseManager dbm = DatabaseManager.getDbCon();
-      if(credit_account_code.getSelectedItem()!=null){
-          if(credit_account_code.getSelectedIndex()!=0){
-          String Name = null;
-        if (evt.getStateChange() == ItemEvent.SELECTED) {
-            int item = Integer.parseInt(evt.getItem().toString());
-            try {
-                ResultSet query = dbm.query("SELECT * FROM account_names WHERE account_id =" + item + "");
-                while (query.next()) {
-                    Name = query.getString("account_name");
+        DatabaseManager dbm = DatabaseManager.getDbCon();
+        if (credit_account_code.getSelectedItem() != null) {
+            if (credit_account_code.getSelectedIndex() != 0) {
+                String Name = null;
+                if (evt.getStateChange() == ItemEvent.SELECTED) {
+                    int item = Integer.parseInt(evt.getItem().toString());
+                    try {
+                        ResultSet query = dbm.query("SELECT * FROM account_names WHERE account_id =" + item + "");
+                        while (query.next()) {
+                            Name = query.getString("account_name");
+                        }
+                    } catch (SQLException ex) {
+                    }
+                    credit_account_name.setText("" + Name);
                 }
-            } catch (SQLException ex) {
+                credit_description.requestFocus();
             }
-            credit_account_name.setText("" + Name);
         }
-        credit_description.requestFocus();
-      }
-    }
     }//GEN-LAST:event_credit_account_codeItemStateChanged
 
     private void debit_descriptionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_debit_descriptionFocusLost
@@ -1404,7 +1464,6 @@ public class ACC_journals extends javax.swing.JPanel {
 
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
             journal_no.requestFocus();
-         
 
         }
     }//GEN-LAST:event_monthfieldKeyPressed
@@ -1425,7 +1484,6 @@ public class ACC_journals extends javax.swing.JPanel {
 
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
             journal_no.requestFocus();
-            
 
         }
     }//GEN-LAST:event_yearfieldKeyPressed
@@ -1479,12 +1537,12 @@ public class ACC_journals extends javax.swing.JPanel {
                 dayfield.selectAll();
             }                                           // /// decrementing normal values
         } else if (dayfield.getText().equals("2") || dayfield.getText().equals("3") || dayfield.getText().equals("4") || dayfield.getText().equals("5")
-            || dayfield.getText().equals("6") || dayfield.getText().equals("7") || dayfield.getText().equals("8") || dayfield.getText().equals("9")
-            || dayfield.getText().equals("10") || dayfield.getText().equals("11") || dayfield.getText().equals("12") || dayfield.getText().equals("13") || dayfield.getText().equals("14")
-            || dayfield.getText().equals("15") || dayfield.getText().equals("16") || dayfield.getText().equals("17") || dayfield.getText().equals("18")
-            || dayfield.getText().equals("19") || dayfield.getText().equals("20") || dayfield.getText().equals("21") || dayfield.getText().equals("22")
-            || dayfield.getText().equals("23") || dayfield.getText().equals("24") || dayfield.getText().equals("25") || dayfield.getText().equals("26")
-            || dayfield.getText().equals("27") || dayfield.getText().equals("28") || dayfield.getText().equals("29") || dayfield.getText().equals("30") || dayfield.getText().equals("31")) {
+                || dayfield.getText().equals("6") || dayfield.getText().equals("7") || dayfield.getText().equals("8") || dayfield.getText().equals("9")
+                || dayfield.getText().equals("10") || dayfield.getText().equals("11") || dayfield.getText().equals("12") || dayfield.getText().equals("13") || dayfield.getText().equals("14")
+                || dayfield.getText().equals("15") || dayfield.getText().equals("16") || dayfield.getText().equals("17") || dayfield.getText().equals("18")
+                || dayfield.getText().equals("19") || dayfield.getText().equals("20") || dayfield.getText().equals("21") || dayfield.getText().equals("22")
+                || dayfield.getText().equals("23") || dayfield.getText().equals("24") || dayfield.getText().equals("25") || dayfield.getText().equals("26")
+                || dayfield.getText().equals("27") || dayfield.getText().equals("28") || dayfield.getText().equals("29") || dayfield.getText().equals("30") || dayfield.getText().equals("31")) {
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
 
                 dayfield.setText("" + (Integer.parseInt(dayfield.getText()) - 1));
@@ -1561,12 +1619,12 @@ public class ACC_journals extends javax.swing.JPanel {
                     monthfield.setText(datechooser.Return_month(mnth + 1));
                     // incrementing normal values/////////////////////// for february separately
                 } else if (dayfield.getText().equals("1") || dayfield.getText().equals("2") || dayfield.getText().equals("3") || dayfield.getText().equals("4") || dayfield.getText().equals("5")
-                    || dayfield.getText().equals("6") || dayfield.getText().equals("7") || dayfield.getText().equals("8") || dayfield.getText().equals("9")
-                    || dayfield.getText().equals("10") || dayfield.getText().equals("11") || dayfield.getText().equals("12") || dayfield.getText().equals("13") || dayfield.getText().equals("14")
-                    || dayfield.getText().equals("15") || dayfield.getText().equals("16") || dayfield.getText().equals("17") || dayfield.getText().equals("18")
-                    || dayfield.getText().equals("19") || dayfield.getText().equals("20") || dayfield.getText().equals("21") || dayfield.getText().equals("22")
-                    || dayfield.getText().equals("23") || dayfield.getText().equals("24") || dayfield.getText().equals("25") || dayfield.getText().equals("26")
-                    || dayfield.getText().equals("27") || dayfield.getText().equals("28") || dayfield.getText().equals("29") || dayfield.getText().equals("30") || dayfield.getText().equals("31")) {
+                        || dayfield.getText().equals("6") || dayfield.getText().equals("7") || dayfield.getText().equals("8") || dayfield.getText().equals("9")
+                        || dayfield.getText().equals("10") || dayfield.getText().equals("11") || dayfield.getText().equals("12") || dayfield.getText().equals("13") || dayfield.getText().equals("14")
+                        || dayfield.getText().equals("15") || dayfield.getText().equals("16") || dayfield.getText().equals("17") || dayfield.getText().equals("18")
+                        || dayfield.getText().equals("19") || dayfield.getText().equals("20") || dayfield.getText().equals("21") || dayfield.getText().equals("22")
+                        || dayfield.getText().equals("23") || dayfield.getText().equals("24") || dayfield.getText().equals("25") || dayfield.getText().equals("26")
+                        || dayfield.getText().equals("27") || dayfield.getText().equals("28") || dayfield.getText().equals("29") || dayfield.getText().equals("30") || dayfield.getText().equals("31")) {
 
                     dayfield.setText("" + (Integer.parseInt(dayfield.getText()) + 1));
 
@@ -1575,12 +1633,12 @@ public class ACC_journals extends javax.swing.JPanel {
             }
             // incrementing normal values
         } else if (dayfield.getText().equals("1") || dayfield.getText().equals("2") || dayfield.getText().equals("3") || dayfield.getText().equals("4") || dayfield.getText().equals("5")
-            || dayfield.getText().equals("6") || dayfield.getText().equals("7") || dayfield.getText().equals("8") || dayfield.getText().equals("9")
-            || dayfield.getText().equals("10") || dayfield.getText().equals("11") || dayfield.getText().equals("12") || dayfield.getText().equals("13") || dayfield.getText().equals("14")
-            || dayfield.getText().equals("15") || dayfield.getText().equals("16") || dayfield.getText().equals("17") || dayfield.getText().equals("18")
-            || dayfield.getText().equals("19") || dayfield.getText().equals("20") || dayfield.getText().equals("21") || dayfield.getText().equals("22")
-            || dayfield.getText().equals("23") || dayfield.getText().equals("24") || dayfield.getText().equals("25") || dayfield.getText().equals("26")
-            || dayfield.getText().equals("27") || dayfield.getText().equals("28") || dayfield.getText().equals("29") || dayfield.getText().equals("30") || dayfield.getText().equals("31")) {
+                || dayfield.getText().equals("6") || dayfield.getText().equals("7") || dayfield.getText().equals("8") || dayfield.getText().equals("9")
+                || dayfield.getText().equals("10") || dayfield.getText().equals("11") || dayfield.getText().equals("12") || dayfield.getText().equals("13") || dayfield.getText().equals("14")
+                || dayfield.getText().equals("15") || dayfield.getText().equals("16") || dayfield.getText().equals("17") || dayfield.getText().equals("18")
+                || dayfield.getText().equals("19") || dayfield.getText().equals("20") || dayfield.getText().equals("21") || dayfield.getText().equals("22")
+                || dayfield.getText().equals("23") || dayfield.getText().equals("24") || dayfield.getText().equals("25") || dayfield.getText().equals("26")
+                || dayfield.getText().equals("27") || dayfield.getText().equals("28") || dayfield.getText().equals("29") || dayfield.getText().equals("30") || dayfield.getText().equals("31")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
 
                 dayfield.setText("" + (Integer.parseInt(dayfield.getText()) + 1));
@@ -1595,7 +1653,6 @@ public class ACC_journals extends javax.swing.JPanel {
 
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
             journal_no.requestFocus();
-            
 
         }
     }//GEN-LAST:event_dayfieldKeyPressed
@@ -1603,11 +1660,11 @@ public class ACC_journals extends javax.swing.JPanel {
     private void datePicker1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datePicker1ActionPerformed
         java.sql.Date datef = new java.sql.Date(datePicker1.getDate().getTime());
 
-        dayfield.setText(""+Integer.parseInt(datehandler.get_day(datef)));
+        dayfield.setText("" + Integer.parseInt(datehandler.get_day(datef)));
         monthfield.setText(datehandler.get_month(datef));
         yearfield.setText(datehandler.get_year(datef));
         journal_no.requestFocus();
-        
+
     }//GEN-LAST:event_datePicker1ActionPerformed
 
     private void ref_noKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ref_noKeyPressed
@@ -1619,16 +1676,15 @@ public class ACC_journals extends javax.swing.JPanel {
     }//GEN-LAST:event_journal_noKeyPressed
 
     private void pay_typeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pay_typeKeyPressed
-        if(pay_type.getSelectedItem()=="Cash"){
+        if (pay_type.getSelectedItem() == "Cash") {
             interface_events.Change_focus_Enterkey_c(debit_account_code, evt);
-        }
-        else{
+        } else {
             interface_events.Change_focus_Enterkey_c(bank_code, evt);
         }
     }//GEN-LAST:event_pay_typeKeyPressed
 
     private void debit_account_codeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_debit_account_codeKeyPressed
-       
+
     }//GEN-LAST:event_debit_account_codeKeyPressed
 
     private void debit_descriptionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_debit_descriptionKeyPressed
@@ -1636,11 +1692,11 @@ public class ACC_journals extends javax.swing.JPanel {
     }//GEN-LAST:event_debit_descriptionKeyPressed
 
     private void debit_amountKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_debit_amountKeyPressed
-        interface_events.Change_focus_Enterkey_t_b(ref_no,send, evt);
+        interface_events.Change_focus_Enterkey_t_b(ref_no, send, evt);
     }//GEN-LAST:event_debit_amountKeyPressed
 
     private void pay_typeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_pay_typeItemStateChanged
-        
+
     }//GEN-LAST:event_pay_typeItemStateChanged
 
     private void sendFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_sendFocusGained
@@ -1652,7 +1708,7 @@ public class ACC_journals extends javax.swing.JPanel {
     }//GEN-LAST:event_credit_descriptionKeyPressed
 
     private void credit_amountKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_credit_amountKeyPressed
-        interface_events.Change_focus_Enterkey_t_b(ref_no,send2, evt);
+        interface_events.Change_focus_Enterkey_t_b(ref_no, send2, evt);
     }//GEN-LAST:event_credit_amountKeyPressed
 
     private void send2FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_send2FocusGained

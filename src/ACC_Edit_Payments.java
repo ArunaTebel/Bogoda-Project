@@ -47,29 +47,29 @@ public class ACC_Edit_Payments extends javax.swing.JFrame {
 
     public void Fill_Edit_Form(int tr_no) {
         try {
-            refNo.setText(dbm.checknReturnStringDataReceipts("account_reciept_creditside", "tr_no", tr_no, "ref_no"));
-            recieptNo.setText(dbm.checknReturnStringDataReceipts("account_reciept_creditside", "tr_no", tr_no, "reciept_no"));
-            payType.setSelectedItem(dbm.checknReturnStringDataReceipts("account_reciept_creditside", "tr_no", tr_no, "pay_type"));
-            if ("Cheque".equals(dbm.checknReturnStringDataReceipts("account_reciept_creditside", "tr_no", tr_no, "pay_type"))) {
-                bankCode.setSelectedItem(dbm.checknReturnStringDataReceipts("account_reciept_creditside", "tr_no", tr_no, "bank_id"));
-                branchCode.setSelectedItem(dbm.checknReturnStringDataReceipts("account_reciept_creditside", "tr_no", tr_no, "branch_id"));
-                chequeNo.setText(dbm.checknReturnStringDataReceipts("account_reciept_creditside", "tr_no", tr_no, "cheque_no"));
-                chequeDate.setDate(java.sql.Date.valueOf(dbm.checknReturnStringDataReceipts("account_reciept_creditside", "tr_no", tr_no, "cheque_date")));
+            refNo.setText(dbm.checknReturnStringDataReceipts("account_payment_creditside", "tr_no", tr_no, "ref_no"));
+            recieptNo.setText(dbm.checknReturnStringDataReceipts("account_payment_creditside", "tr_no", tr_no, "payment_no"));
+            payType.setSelectedItem(dbm.checknReturnStringDataReceipts("account_payment_creditside", "tr_no", tr_no, "pay_type"));
+            if ("Cheque".equals(dbm.checknReturnStringDataReceipts("account_payment_creditside", "tr_no", tr_no, "pay_type"))) {
+                bankCode.setSelectedItem(dbm.checknReturnStringDataReceipts("account_payment_creditside", "tr_no", tr_no, "bank_id"));
+                branchCode.setSelectedItem(dbm.checknReturnStringDataReceipts("account_payment_creditside", "tr_no", tr_no, "branch_id"));
+                chequeNo.setText(dbm.checknReturnStringDataReceipts("account_payment_creditside", "tr_no", tr_no, "cheque_no"));
+                chequeDate.setDate(java.sql.Date.valueOf(dbm.checknReturnStringDataReceipts("account_payment_creditside", "tr_no", tr_no, "cheque_date")));
             }
 
             String[] s = new String[3];
-            s = dbm.checknReturnStringDataReceipts("account_reciept_creditside", "tr_no", tr_no, "date").split("-");
+            s = dbm.checknReturnStringDataReceipts("account_payment_creditside", "tr_no", tr_no, "date").split("-");
             yearfield.setText(s[0]);
             monthfield.setText(datehandler.Return_month(Integer.parseInt(s[1])));
             dayfield.setText(""+Integer.parseInt(s[2]));
             
             
             
-            credit_accountCode.setSelectedItem(dbm.checknReturnStringDataReceipts("account_reciept_creditside", "tr_no", tr_no, "credit_account_id"));
-            debit_description.setText(dbm.checknReturnStringDataReceipts("account_reciept_creditside", "tr_no", tr_no, "credit_description"));
-            creditAmount.setText(dbm.checknReturnStringDataReceipts("account_reciept_creditside", "tr_no", tr_no, "credit_amount"));
+            credit_accountCode.setSelectedItem(dbm.checknReturnStringDataReceipts("account_payment_creditside", "tr_no", tr_no, "credit_account_id"));
+            debit_description.setText(dbm.checknReturnStringDataReceipts("account_payment_creditside", "tr_no", tr_no, "credit_description"));
+            creditAmount.setText(dbm.checknReturnStringDataReceipts("account_payment_creditside", "tr_no", tr_no, "credit_amount"));
 
-            before_edited_credit_amount = Double.parseDouble(dbm.checknReturnStringDataReceipts("account_reciept_creditside", "tr_no", tr_no, "credit_amount"));
+            before_edited_credit_amount = Double.parseDouble(dbm.checknReturnStringDataReceipts("account_payment_creditside", "tr_no", tr_no, "credit_amount"));
 
             db.Inserting_To_The_Table_Filtered_Payment_Credit_Search(debit_account_code_table, "debit_account_id", 0, 1, 50, "tr_no", tr_no, 0);
             db.Inserting_To_The_Table_Filtered_Payment_Credit_Search(debit_description_table, "debit_description", 0, 1, 50, "tr_no", tr_no, 0);
@@ -1527,7 +1527,7 @@ public class ACC_Edit_Payments extends javax.swing.JFrame {
             
           
 
-            raobject.setCredit_accountName(dbm.checknReturnStringDataReceipts("account_names", "account_id",2, "account_name"));
+            raobject.setCredit_accountName(dbm.checknReturnStringDataReceipts("account_names", "account_id",Integer.parseInt(credit_accountCode.getSelectedItem().toString()), "account_name"));
           //  raobject.setCredit_accountName(credit_accountName.getText());
           
             raobject.setCredit_description(debit_description.getText());

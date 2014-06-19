@@ -939,7 +939,8 @@ public class ACC_recepts extends javax.swing.JPanel {
             
             for (int j = 0; j <= i - 1; j++) {
                 credit_acnt_name = dbm.checknReturnData("account_names", "account_id", Integer.parseInt((String) credit_account_code_table.getValueAt(j, 0)), "account_name");
-                raobject.addToCreditDataBase(Integer.parseInt(recieptNo.getText()), Integer.parseInt((String) credit_account_code_table.getValueAt(j, 0)), credit_acnt_name, (String) credit_description_table.getValueAt(j, 0), Double.parseDouble((String) credit_amount_table.getValueAt(j, 0)));
+                
+                raobject.addToCreditDataBase(Integer.parseInt((String) credit_account_code_table.getValueAt(j, 0)), credit_acnt_name, (String) credit_description_table.getValueAt(j, 0), Double.parseDouble((String) credit_amount_table.getValueAt(j, 0)));
             }
             
             // adding the relevant value to the current balance of the credit account
