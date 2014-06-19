@@ -234,22 +234,9 @@ public class PRCRHolidayPayFactory {
     
     public static void main(String[] args){
         PRCRHolidayPayFactory ex = new PRCRHolidayPayFactory();
-        int i, j;
-        /*for(i=0;i<ex.maleRanges.length;i++)
-            System.out.println(ex.maleRanges[i][0] + " - " + ex.maleRanges[i][1]);
-        System.out.println(ex.epfRate);*/
         ex.getFactoryWorkerCodes();
-        /*for(i=0;i<ex.factoryWorkerCodes.length;i++)
-            System.out.println(ex.factoryWorkerCodes[i] + " - " + ex.genderCodes[i]);*/
         ex.getWorkDaysNPayment();
         ex.getLastYearHolidays();
-        /*for(i=0;i<ex.factoryWorkerCodes.length;i++){
-            for(j=0;j<12;j++)
-                System.out.println(ex.factoryWorkerCodes[i] + " - " + ex.workDaysPerMonth[i][j] + " - " + ex.paymentPerMonth[i][j]);
-            System.out.println("-----------------------");
-        }
-        for(i=0;i<ex.factoryWorkerCodes.length;i++)
-            System.out.println(ex.lastYearHolidays[i]);*/
         ex.updateTable();
     }
 }

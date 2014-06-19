@@ -1012,6 +1012,7 @@ public void Update_pr_workData(String tablename,Object code,String column,String
 
                     if (dbm.checknReturnData("pr_workdata_" + tablename, "code", code, column) != null) {
                         amount_u= Double.parseDouble(dbm.checknReturnData("pr_workdata_" + tablename, "code", code, column));
+                        
                     } else {
                         amount_u= 0;
                     }
@@ -1021,7 +1022,7 @@ public void Update_pr_workData(String tablename,Object code,String column,String
                         amount_u=amount_u;
                     }
                     dbm.updateDatabase("pr_workdata_" + tablename, "code", code, column, amount_u);
-
+                    System.err.println("ddss"+tablename+" "+code);
 
 }
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed

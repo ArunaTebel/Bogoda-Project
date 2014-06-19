@@ -563,34 +563,34 @@ public class PRCR_salary_checkrollpay extends javax.swing.JPanel {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-       
-        spiObject.Set_year(year.getText());
-        spiObject.Set_month(month.getText());
-        
-        spiObject.setMargin();
-        spiObject.setEmployCode(Integer.parseInt(code.getSelectedItem().toString()));
-        //name.setText(spiObject.setName());
-        normalDays.setText(String.valueOf(spiObject.getNormalDays()));
-        normalAmount.setText(String.valueOf(spiObject.getNormalDaysAmount()));
-        sundays.setText(String.valueOf(spiObject.getSundays()));
-        sundayAmount.setText(String.valueOf(spiObject.getSundayAmount()));
-        incentivesT.setText(String.valueOf(spiObject.getIncentive1Amount()));
-        incentivesT2.setText(String.valueOf(spiObject.getIncentive2Amount()));
-        date_margin_text.setText(String.valueOf(spiObject.getMargin()));
-        
-        etfRate.setText(String.valueOf(spiObject.getETFRate()));
-        etfAmount.setText(String.valueOf(spiObject.getETFContribution()));
-        epfRate.setText(String.valueOf(spiObject.getEPFRate()));
-        epfAmount.setText(String.valueOf(spiObject.getEPFContribution()));
-        welfareRate.setText(String.valueOf(spiObject.getWelfareRate()));
-        welfareAmount.setText(String.valueOf(spiObject.getWelfareContribution()));
-        otbHours.setText(String.valueOf(spiObject.getOTBeforeHours()));
-        otbRate.setText(String.valueOf(spiObject.getOTBeforeRate()));
-        otbAmount.setText(String.valueOf(spiObject.getOTBeforeAmount()));
-        otaHours.setText(String.valueOf(spiObject.getOTAfterHours()));
-        otaRate.setText(String.valueOf(spiObject.getOTAfterRate()));
-        otaAmount.setText(String.valueOf(spiObject.getOTAfterAmount()));
-        fullPay.setText(String.valueOf(spiObject.getFinalSalary()));
+//       
+//        spiObject.Set_year(year.getText());
+//        spiObject.Set_month(month.getText());
+//        
+//        spiObject.setMargin();
+//        spiObject.setEmployCode(Integer.parseInt(code.getSelectedItem().toString()));
+//        //name.setText(spiObject.setName());
+//        normalDays.setText(String.valueOf(spiObject.getNormalDays()));
+//        normalAmount.setText(String.valueOf(spiObject.getNormalDaysAmount()));
+//        sundays.setText(String.valueOf(spiObject.getSundays()));
+//        sundayAmount.setText(String.valueOf(spiObject.getSundayAmount()));
+//        incentivesT.setText(String.valueOf(spiObject.getIncentive1Amount()));
+//        incentivesT2.setText(String.valueOf(spiObject.getIncentive2Amount()));
+//        date_margin_text.setText(String.valueOf(spiObject.getMargin()));
+//        
+//        etfRate.setText(String.valueOf(spiObject.getETFRate()));
+//        etfAmount.setText(String.valueOf(spiObject.getETFContribution()));
+//        epfRate.setText(String.valueOf(spiObject.getEPFRate()));
+//        epfAmount.setText(String.valueOf(spiObject.getEPFContribution()));
+//        welfareRate.setText(String.valueOf(spiObject.getWelfareRate()));
+//        welfareAmount.setText(String.valueOf(spiObject.getWelfareContribution()));
+//        otbHours.setText(String.valueOf(spiObject.getOTBeforeHours()));
+//        otbRate.setText(String.valueOf(spiObject.getOTBeforeRate()));
+//        otbAmount.setText(String.valueOf(spiObject.getOTBeforeAmount()));
+//        otaHours.setText(String.valueOf(spiObject.getOTAfterHours()));
+//        otaRate.setText(String.valueOf(spiObject.getOTAfterRate()));
+//        otaAmount.setText(String.valueOf(spiObject.getOTAfterAmount()));
+//        fullPay.setText(String.valueOf(spiObject.getFinalSalary()));
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void welfareAmountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_welfareAmountActionPerformed
@@ -798,10 +798,10 @@ public class PRCR_salary_checkrollpay extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        spiObject.Set_year(year.getText());
-        spiObject.Set_month(month.getText());
-        PRCR_change_margin_dates pcm=new PRCR_change_margin_dates(spiObject.getString());
-        pcm.setVisible(true);
+//        spiObject.Set_year(year.getText());
+//        spiObject.Set_month(month.getText());
+//        PRCR_change_margin_dates pcm=new PRCR_change_margin_dates(spiObject.getString());
+//        pcm.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed

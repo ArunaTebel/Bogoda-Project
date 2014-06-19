@@ -14,13 +14,15 @@ import java.sql.SQLException;
 public class PRCR_add_margin_dates extends javax.swing.JFrame {
 DatabaseManager dbm=DatabaseManager.getDbCon();
 private String month;
+private String division;
     /**
      * Creates new form PRCR_add_margin_dates
      */
-    public PRCR_add_margin_dates(String month) {
+    public PRCR_add_margin_dates(String month,String division) {
         initComponents();
         this.month=month;
-        jLabel2.setText(month);
+        jLabel2.setText(month+" for Division :"+division);
+        this.division=division;
         
     }
      public PRCR_add_margin_dates() {
@@ -90,6 +92,7 @@ private String month;
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        System.err.println("1"+month+division);
         addToDataBase();
         this.dispose();
         // TODO add your handling code here:
@@ -98,7 +101,7 @@ private String month;
      public void addToDataBase() {
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         try {
-            dbCon.insert("INSERT INTO prcr_margin_dates(month,margin) VALUES('" + month + "','" + Integer.parseInt(jTextField1.getText()) + "')");
+            dbCon.insert("INSERT INTO prcr_margin_dates(month,division,margin) VALUES('" + month + "','" + division + "','" + Integer.parseInt(jTextField1.getText()) + "')");
         } catch (SQLException ex) {
             MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
         }

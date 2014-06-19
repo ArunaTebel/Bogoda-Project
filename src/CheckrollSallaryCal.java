@@ -120,6 +120,7 @@ public class CheckrollSallaryCal {
     private String month;
     private String year;
     private String st;
+    private String division;
     private double extrapay;
 
     public CheckrollSallaryCal() {//NC
@@ -249,10 +250,10 @@ public class CheckrollSallaryCal {
     }
 
     public void setMargin() {//should change
-        if (checkDataAvailability("prcr_margin_dates", "month", st, "margin")) {
-            this.margin = Integer.parseInt(checknReturnDataForStrings("prcr_margin_dates", "month", st, "margin"));
+        if (checkDataAvailability("prcr_margin_dates", "month", st,"division",division,"margin")) {
+            this.margin = Integer.parseInt(dbm.filterReturn2StringData("prcr_margin_dates", "month", st,"division",division, "margin"));
         }else{
-        PRCR_add_margin_dates amd=new PRCR_add_margin_dates(st);
+        PRCR_add_margin_dates amd=new PRCR_add_margin_dates(st,division);
         amd.setVisible(true);
         System.out.println("back to main");
 //        this.margin = Integer.parseInt(checknReturnDataForStrings("prcr_margin_dates", "month", st, "margin"));
@@ -260,12 +261,15 @@ public class CheckrollSallaryCal {
         }
 
     }
+public void setDivision(String division){
+this.division=division;
 
-    public boolean checkDataAvailability(String table_name, String table_column_giving, String row_element, String table_column_need) {
+}
+    public boolean checkDataAvailability(String table_name, String table_column_giving1, String row_element1,String table_column_giving2, String row_element2, String table_column_need) {
         DatabaseManager dbm = DatabaseManager.getDbCon();
         String s;
         try {
-            ResultSet query = dbm.query("SELECT * FROM " + table_name + " where " + table_column_giving + " LIKE '" + row_element + "'");
+            ResultSet query = dbm.query("SELECT * FROM " + table_name + " where " + table_column_giving1 + " LIKE '" + row_element1 + "' AND " + table_column_giving2 + " LIKE '" + row_element2 + "'");
             while (query.next()) {
                 s = query.getString(table_column_need);
                 return true;

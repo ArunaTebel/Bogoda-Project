@@ -29,6 +29,8 @@ public class PRCR_Checkroll_Summar extends javax.swing.JFrame {
         Date_Handler datehandler = new Date_Handler();
     DateChooser_text datechooser = new DateChooser_text();
     DatabaseManager dbm = DatabaseManager.getDbCon();
+    PRCR_Checkroll_Amalgamation_Report rep=new PRCR_Checkroll_Amalgamation_Report();
+    
     public PRCR_Checkroll_Summar() {
         initComponents();
     }
@@ -457,99 +459,98 @@ public class PRCR_Checkroll_Summar extends javax.swing.JFrame {
     }//GEN-LAST:event_yearfield2KeyPressed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
-        createNewDatabaseTable_CheckrollSummaryReport();
-        try {
-                double normaldayss= checknReturnIntTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "normal_days") ;
-                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"Normal days"+ "','" + normaldayss + "')");
-                double sundayss= checknReturnIntTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "sundays") ;
-                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"Sundays"+ "','" + sundayss + "')");
-                double normalpayy= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "normal_pay") ;
-                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"Normal day pay"+ "','" + normalpayy + "')");
-                double sundaypayy= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "sunday_pay") ;
-                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"Sunday pay"+ "','" + sundaypayy + "')");
-                double totalpayy= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "total_pay") ;
-                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"Total pay"+ "','" + totalpayy + "')");
-                double otbrfhrs= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "ot_before_hours") ;
-                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"OT Before Hours"+ "','" + otbrfhrs+ "')");
-                double otbframnt= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "ot_before_amount") ;
-                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"OT Before pay"+ "','" + otbframnt + "')");
-                double otaftrhrs= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "ot_after_hours") ;
-                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"OT After hours"+ "','" + otaftrhrs + "')");
-                double otaftramnt= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "ot_after_amount") ;
-                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"OT After Amount"+ "','" + otaftramnt + "')");
-                double incentive1= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "incentive1") ;
-                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"Incentive 1"+ "','" + incentive1 + "')");
-                double incentive2= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "incentive2") ;
-                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"Incentive 2"+ "','" + incentive2 + "')");
-                double grosspay= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "gross_pay") ;
-                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"Gross pay"+ "','" + grosspay + "')");
-                double tea= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "tea") ;
-                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"Tea"+ "','" + tea + "')");
-                double salaryadv= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "salary_adv") ;
-                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"Salary Advance"+ "','" + salaryadv + "')");
-                double festadv= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "fest_adv") ;
-                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"Festival Advance"+ "','" + festadv + "')");
-                double food= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "food") ;
-                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"Food"+ "','" + food + "')");
-                double loan= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "loan") ;
-                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"Loan"+ "','" + loan + "')");
-                double epf10= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "epf10") ;
-                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"EPF 10"+ "','" + epf10 + "')");
-                double epf12= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "epf12") ;
-                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"EPF 12"+ "','" + epf12 + "')");
-                double totepf= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "total_epf") ;
-                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"Total EPF "+ "','" + totepf + "')");        
-                double etf= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "etf") ;
-                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"ETF"+ "','" + etf + "')");
-                double ceb= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "ceb") ;
-                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"CEB"+ "','" + ceb + "')");
-                double teacher= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "teacher") ;
-                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"Teacher"+ "','" + teacher + "')");
-                double chem= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "chemical") ;
-                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"CHEMICAL"+ "','" + chem + "')");
-                double payslip= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "pay_slip") ;
-                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"Pay slip"+ "','" + payslip + "')");
-                double fine= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "fine") ;
-                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"Fines"+ "','" + fine + "')");
-                double welf= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "welfare") ;
-                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"Welfare"+ "','" + welf + "')");
-                double kovil= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "kovil") ;
-                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"Kovil"+ "','" + kovil + "')");
-                double new_1= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "new_1") ;
-                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"New 1"+ "','" + new_1 + "')");
-                double new_2= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "new_2") ;
-                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"New 2"+ "','" + new_2 + "')");
-                double other1= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "other_ded1") ;
-                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"Other Deduction 1"+ "','" + other1 + "')");
-                double meals= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "meals") ;
-                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"Meals"+ "','" + meals + "')");
-                double other2= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "other_ded2") ;
-                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"Other Deduction 2"+ "','" + other2 + "')");
-                double pension= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "pension") ;
-                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"Pension"+ "','" + pension + "')");
-                double predebt= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "pre_debt") ;
-                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"Pre Debts"+ "','" + predebt + "')");
-                double totalded= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "total_ded") ;
-                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"Total Deduction"+ "','" + totalded + "')");
-                double fullsal= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "full_salary") ;
-                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"Full Salary"+ "','" + fullsal + "')");
-                double coins= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "coins") ;
-                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"Coins"+ "','" + coins + "')");
-                double paid= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "paid_amount") ;
-                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"Paid Amount"+ "','" + paid + "')");
-                double nextmnth= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "next_month") ;
-                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"Next Month"+ "','" + nextmnth+ "')");
-                
-                
-                
-                
-                
-                
-                
-        } catch (SQLException ex) {
-                     System.out.println("error-couldnt write data in to checkrollsummaryreport database table");
-                }
+//        createNewDatabaseTable_CheckrollSummaryReport();
+//        try {
+//                double normaldayss= checknReturnIntTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "normal_days") ;
+//                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"Normal days"+ "','" + normaldayss + "')");
+//                double sundayss= checknReturnIntTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "sundays") ;
+//                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"Sundays"+ "','" + sundayss + "')");
+//                double normalpayy= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "normal_pay") ;
+//                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"Normal day pay"+ "','" + normalpayy + "')");
+//                double sundaypayy= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "sunday_pay") ;
+//                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"Sunday pay"+ "','" + sundaypayy + "')");
+//                double totalpayy= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "total_pay") ;
+//                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"Total pay"+ "','" + totalpayy + "')");
+//                double otbrfhrs= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "ot_before_hours") ;
+//                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"OT Before Hours"+ "','" + otbrfhrs+ "')");
+//                double otbframnt= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "ot_before_amount") ;
+//                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"OT Before pay"+ "','" + otbframnt + "')");
+//                double otaftrhrs= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "ot_after_hours") ;
+//                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"OT After hours"+ "','" + otaftrhrs + "')");
+//                double otaftramnt= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "ot_after_amount") ;
+//                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"OT After Amount"+ "','" + otaftramnt + "')");
+//                double incentive1= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "incentive1") ;
+//                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"Incentive 1"+ "','" + incentive1 + "')");
+//                double incentive2= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "incentive2") ;
+//                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"Incentive 2"+ "','" + incentive2 + "')");
+//                double grosspay= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "gross_pay") ;
+//                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"Gross pay"+ "','" + grosspay + "')");
+//                double tea= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "tea") ;
+//                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"Tea"+ "','" + tea + "')");
+//                double salaryadv= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "salary_adv") ;
+//                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"Salary Advance"+ "','" + salaryadv + "')");
+//                double festadv= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "fest_adv") ;
+//                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"Festival Advance"+ "','" + festadv + "')");
+//                double food= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "food") ;
+//                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"Food"+ "','" + food + "')");
+//                double loan= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "loan") ;
+//                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"Loan"+ "','" + loan + "')");
+//                double epf10= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "epf10") ;
+//                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"EPF 10"+ "','" + epf10 + "')");
+//                double epf12= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "epf12") ;
+//                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"EPF 12"+ "','" + epf12 + "')");
+//                double totepf= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "total_epf") ;
+//                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"Total EPF "+ "','" + totepf + "')");        
+//                double etf= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "etf") ;
+//                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"ETF"+ "','" + etf + "')");
+//                double ceb= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "ceb") ;
+//                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"CEB"+ "','" + ceb + "')");
+//                double teacher= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "teacher") ;
+//                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"Teacher"+ "','" + teacher + "')");
+//                double chem= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "chemical") ;
+//                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"CHEMICAL"+ "','" + chem + "')");
+//                double payslip= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "pay_slip") ;
+//                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"Pay slip"+ "','" + payslip + "')");
+//                double fine= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "fine") ;
+//                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"Fines"+ "','" + fine + "')");
+//                double welf= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "welfare") ;
+//                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"Welfare"+ "','" + welf + "')");
+//                double kovil= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "kovil") ;
+//                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"Kovil"+ "','" + kovil + "')");
+//                double new_1= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "new_1") ;
+//                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"New 1"+ "','" + new_1 + "')");
+//                double new_2= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "new_2") ;
+//                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"New 2"+ "','" + new_2 + "')");
+//                double other1= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "other_ded1") ;
+//                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"Other Deduction 1"+ "','" + other1 + "')");
+//                double meals= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "meals") ;
+//                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"Meals"+ "','" + meals + "')");
+//                double other2= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "other_ded2") ;
+//                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"Other Deduction 2"+ "','" + other2 + "')");
+//                double pension= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "pension") ;
+//                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"Pension"+ "','" + pension + "')");
+//                double predebt= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "pre_debt") ;
+//                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"Pre Debts"+ "','" + predebt + "')");
+//                double totalded= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "total_ded") ;
+//                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"Total Deduction"+ "','" + totalded + "')");
+//                double fullsal= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "full_salary") ;
+//                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"Full Salary"+ "','" + fullsal + "')");
+//                double coins= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "coins") ;
+//                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"Coins"+ "','" + coins + "')");
+//                double paid= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "paid_amount") ;
+//                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"Paid Amount"+ "','" + paid + "')");
+//                double nextmnth= checknReturnDoubleTotal("pr_workdata_"+getST(monthfield2.getText(),yearfield2.getText()), "division", division_jc.getSelectedItem().toString(), "next_month") ;
+//                dbm.insert("INSERT INTO prcr_checkroll_summary_report(column_1,amount) VALUES('" +"Next Month"+ "','" + nextmnth+ "')");
+//                
+//                
+//                
+//                
+//                
+//                
+//                
+//        } catch (SQLException ex) {
+//                     System.out.println("error-couldnt write data in to checkrollsummaryreport database table");
+//                }
         
         
         
@@ -683,17 +684,17 @@ public class PRCR_Checkroll_Summar extends javax.swing.JFrame {
          
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    public void createNewDatabaseTable_CheckrollSummaryReport(){
-          try {
-         dbm.DeleteTable("prcr_checkroll_summary_report");
-            //use new_1 and new_2 if any other deduction type is needd to be added
-            dbm.insert("CREATE TABLE prcr_checkroll_summary_report(column_1 VARCHAR(60),"
-                    + "amount DOUBLE);");
-        } catch (SQLException ex) {
-            //Logger.getLogger(test.class.getName()).log(Level.SEVERE, null, ex);
-            System.err.println(ex.getMessage());
-        }
-    }
+//    public void createNewDatabaseTable_CheckrollSummaryReport(){
+//          try {
+//         dbm.DeleteTable("prcr_checkroll_summary_report");
+//            //use new_1 and new_2 if any other deduction type is needd to be added
+//            dbm.insert("CREATE TABLE prcr_checkroll_summary_report(column_1 VARCHAR(60),"
+//                    + "amount DOUBLE);");
+//        } catch (SQLException ex) {
+//            //Logger.getLogger(test.class.getName()).log(Level.SEVERE, null, ex);
+//            System.err.println(ex.getMessage());
+//        }
+//    }
     // Division column is the column in your database which divisions are entered
     // String division is the division you want to check. Give division as a string 
    
@@ -788,7 +789,8 @@ public String getST(String month,String year) {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         
-        print(); // TODO add your handling code here:
+                rep.CreateReport(getST(monthfield2.getText(),yearfield2.getText()), division_jc.getSelectedItem().toString());
+ 
     }//GEN-LAST:event_jButton2ActionPerformed
 private void print() {
     Document document = new Document(PageSize.A4);

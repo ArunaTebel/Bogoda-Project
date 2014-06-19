@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
 public class PersonalInfo {
     
     private String name;
+    private String sinhalaName;
     private int code;
     private String division;
     private String NIC;
@@ -53,6 +54,7 @@ public class PersonalInfo {
      public PersonalInfo(){
     
         this.name=null;
+        this.sinhalaName=null;
         this.code=0;
         this.division=null;
         this.NIC=null;
@@ -72,6 +74,10 @@ public class PersonalInfo {
      public void setName(String name){
          this.name=name;
      }
+     public void setSinhalaName(String sinname){
+         this.sinhalaName=sinname;
+     }
+     
      public void setCode(int code){
          this.code=code;
      }
@@ -135,6 +141,10 @@ public class PersonalInfo {
      public String getName(){
          return name;
      }
+     public String getSinhalaName(){
+         return sinhalaName;
+     }
+     
      public int getCode(){
          return code;
      }
@@ -180,7 +190,7 @@ public class PersonalInfo {
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         try {
             
-            dbCon.insert("INSERT INTO personal_info(name,code,nic,dob,tel_no,blood_group,register_or_not,checkroll_or_staff,basic_salary,etf_enable,epf_no,welfare_enable) VALUES('" + name + "','" + code + "','"+NIC+"','"+DOB+"','"+telNo+"','"+bloodGrp+"','"+registerOrNot+"','"+checkrollOrStaff+"','"+basicSalary+"','"+ETF+"','"+EPF+"','"+welfare+"')");
+            dbCon.insert("INSERT INTO personal_info(name,sinhala_name,code,nic,dob,tel_no,blood_group,register_or_not,checkroll_or_staff,basic_salary,etf_enable,epf_no,welfare_enable) VALUES('" + name + "','" + sinhalaName + "','" + code + "','"+NIC+"','"+DOB+"','"+telNo+"','"+bloodGrp+"','"+registerOrNot+"','"+checkrollOrStaff+"','"+basicSalary+"','"+ETF+"','"+EPF+"','"+welfare+"')");
             
             if(permanentDate!=null){//if permanent date is not given show message else save it
             dbCon.updateDatabase( "personal_info","code",code,"permanent_date",permanentDate);

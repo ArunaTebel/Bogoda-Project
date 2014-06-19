@@ -17,13 +17,16 @@ public class PRCR_change_margin_dates extends javax.swing.JFrame {
      * Creates new form PRCR_change_margin_dates
      */
     private String month;
+    private String division;
+    DatabaseManager dbm=DatabaseManager.getDbCon();
     public PRCR_change_margin_dates() {
         initComponents();
         this.month=null;
     }
-    public PRCR_change_margin_dates(String s) {
+    public PRCR_change_margin_dates(String s,String d) {
         initComponents();
         this.month=s;
+        this.division=d;
     }
 
     /**
@@ -88,14 +91,15 @@ public class PRCR_change_margin_dates extends javax.swing.JFrame {
     }//GEN-LAST:event_changeActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-      updateDatabase("prcr_margin_dates", "month", month, "margin",Integer.parseInt(change.getText()) );
-        this.dispose();
+      updateDatabase("prcr_margin_dates", "month", month,"division",division, "margin",Integer.parseInt(change.getText()) );
+        System.err.println(month+division);  
+      this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
-public boolean updateDatabase(String table_name, String table_column_giving, Object row_element, String table_column_need, Object update_element) {
+public boolean updateDatabase(String table_name, String table_column_giving1, Object row_element1,String table_column_giving2, Object row_element2, String table_column_need, Object update_element) {
         DatabaseManager dbm = DatabaseManager.getDbCon();
         try {
 
-            dbm.insert("UPDATE " + table_name + " SET " + table_column_need + " ='" + update_element + "' where " + table_column_giving + " LIKE '" + row_element + "'");
+            dbm.insert("UPDATE " + table_name + " SET " + table_column_need + " ='" + update_element + "' where " + table_column_giving1 + " LIKE '" + row_element1 + "' AND " + table_column_giving2 + " LIKE '" + row_element2 + "'");
 
         } catch (SQLException ex) {
             MessageBox.showMessage(ex.getMessage(), "SQL ERROR", "error");

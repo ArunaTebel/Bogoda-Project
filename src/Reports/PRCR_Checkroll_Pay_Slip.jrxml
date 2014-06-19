@@ -1,0 +1,687 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b4a7e90f-236c-48e1-b463-a16c40591ab1">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="USER" class="java.lang.String"/>
+	<parameter name="Month" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     prcr_checkroll_ledger_report.`code` AS prcr_checkroll_ledger_report_code,
+     prcr_checkroll_ledger_report.`division` AS prcr_checkroll_ledger_report_division,
+     prcr_checkroll_ledger_report.`register_or_casual` AS prcr_checkroll_ledger_report_register_or_casual,
+     prcr_checkroll_ledger_report.`normal_days` AS prcr_checkroll_ledger_report_normal_days,
+     prcr_checkroll_ledger_report.`normal_pay` AS prcr_checkroll_ledger_report_normal_pay,
+     prcr_checkroll_ledger_report.`sundays` AS prcr_checkroll_ledger_report_sundays,
+     prcr_checkroll_ledger_report.`sunday_pay` AS prcr_checkroll_ledger_report_sunday_pay,
+     prcr_checkroll_ledger_report.`total_pay` AS prcr_checkroll_ledger_report_total_pay,
+     prcr_checkroll_ledger_report.`ot_before_hours` AS prcr_checkroll_ledger_report_ot_before_hours,
+     prcr_checkroll_ledger_report.`ot_before_amount` AS prcr_checkroll_ledger_report_ot_before_amount,
+     prcr_checkroll_ledger_report.`ot_after_hours` AS prcr_checkroll_ledger_report_ot_after_hours,
+     prcr_checkroll_ledger_report.`ot_after_amount` AS prcr_checkroll_ledger_report_ot_after_amount,
+     prcr_checkroll_ledger_report.`incentive1` AS prcr_checkroll_ledger_report_incentive1,
+     prcr_checkroll_ledger_report.`incentive2` AS prcr_checkroll_ledger_report_incentive2,
+     prcr_checkroll_ledger_report.`extra_pay` AS prcr_checkroll_ledger_report_extra_pay,
+     prcr_checkroll_ledger_report.`gross_pay` AS prcr_checkroll_ledger_report_gross_pay,
+     prcr_checkroll_ledger_report.`tea` AS prcr_checkroll_ledger_report_tea,
+     prcr_checkroll_ledger_report.`salary_adv` AS prcr_checkroll_ledger_report_salary_adv,
+     prcr_checkroll_ledger_report.`fest_adv` AS prcr_checkroll_ledger_report_fest_adv,
+     prcr_checkroll_ledger_report.`food` AS prcr_checkroll_ledger_report_food,
+     prcr_checkroll_ledger_report.`loan` AS prcr_checkroll_ledger_report_loan,
+     prcr_checkroll_ledger_report.`bank` AS prcr_checkroll_ledger_report_bank,
+     prcr_checkroll_ledger_report.`epf10` AS prcr_checkroll_ledger_report_epf10,
+     prcr_checkroll_ledger_report.`epf12` AS prcr_checkroll_ledger_report_epf12,
+     prcr_checkroll_ledger_report.`total_epf` AS prcr_checkroll_ledger_report_total_epf,
+     prcr_checkroll_ledger_report.`etf` AS prcr_checkroll_ledger_report_etf,
+     prcr_checkroll_ledger_report.`ceb` AS prcr_checkroll_ledger_report_ceb,
+     prcr_checkroll_ledger_report.`teacher` AS prcr_checkroll_ledger_report_teacher,
+     prcr_checkroll_ledger_report.`chemical` AS prcr_checkroll_ledger_report_chemical,
+     prcr_checkroll_ledger_report.`pay_slip` AS prcr_checkroll_ledger_report_pay_slip,
+     prcr_checkroll_ledger_report.`fine` AS prcr_checkroll_ledger_report_fine,
+     prcr_checkroll_ledger_report.`welfare` AS prcr_checkroll_ledger_report_welfare,
+     prcr_checkroll_ledger_report.`kovil` AS prcr_checkroll_ledger_report_kovil,
+     prcr_checkroll_ledger_report.`meals` AS prcr_checkroll_ledger_report_meals,
+     prcr_checkroll_ledger_report.`pension` AS prcr_checkroll_ledger_report_pension,
+     prcr_checkroll_ledger_report.`stamp` AS prcr_checkroll_ledger_report_stamp,
+     prcr_checkroll_ledger_report.`pre_debt` AS prcr_checkroll_ledger_report_pre_debt,
+     prcr_checkroll_ledger_report.`total_ded` AS prcr_checkroll_ledger_report_total_ded,
+     prcr_checkroll_ledger_report.`full_salary` AS prcr_checkroll_ledger_report_full_salary,
+     prcr_checkroll_ledger_report.`coins` AS prcr_checkroll_ledger_report_coins,
+     prcr_checkroll_ledger_report.`paid_amount` AS prcr_checkroll_ledger_report_paid_amount,
+     personal_info.`sinhala_name` AS personal_info_sinhala_name,
+     personal_info.`code` AS personal_info_code,
+     prcr_checkroll_ledger_report.`next_month` AS prcr_checkroll_ledger_report_next_month,
+     prcr_checkroll_ledger_report.`other_ded1` AS prcr_checkroll_ledger_report_other_ded1
+FROM
+     `personal_info` personal_info INNER JOIN `prcr_checkroll_ledger_report` prcr_checkroll_ledger_report ON personal_info.`code` = prcr_checkroll_ledger_report.`code`]]>
+	</queryString>
+	<field name="prcr_checkroll_ledger_report_code" class="java.lang.Integer"/>
+	<field name="prcr_checkroll_ledger_report_division" class="java.lang.String"/>
+	<field name="prcr_checkroll_ledger_report_register_or_casual" class="java.lang.Integer"/>
+	<field name="prcr_checkroll_ledger_report_normal_days" class="java.lang.Integer"/>
+	<field name="prcr_checkroll_ledger_report_normal_pay" class="java.lang.Double"/>
+	<field name="prcr_checkroll_ledger_report_sundays" class="java.lang.Integer"/>
+	<field name="prcr_checkroll_ledger_report_sunday_pay" class="java.lang.Double"/>
+	<field name="prcr_checkroll_ledger_report_total_pay" class="java.lang.Double"/>
+	<field name="prcr_checkroll_ledger_report_ot_before_hours" class="java.lang.Integer"/>
+	<field name="prcr_checkroll_ledger_report_ot_before_amount" class="java.lang.Double"/>
+	<field name="prcr_checkroll_ledger_report_ot_after_hours" class="java.lang.Integer"/>
+	<field name="prcr_checkroll_ledger_report_ot_after_amount" class="java.lang.Double"/>
+	<field name="prcr_checkroll_ledger_report_incentive1" class="java.lang.Double"/>
+	<field name="prcr_checkroll_ledger_report_incentive2" class="java.lang.Double"/>
+	<field name="prcr_checkroll_ledger_report_extra_pay" class="java.lang.Double"/>
+	<field name="prcr_checkroll_ledger_report_gross_pay" class="java.lang.Double"/>
+	<field name="prcr_checkroll_ledger_report_tea" class="java.lang.Double"/>
+	<field name="prcr_checkroll_ledger_report_salary_adv" class="java.lang.Double"/>
+	<field name="prcr_checkroll_ledger_report_fest_adv" class="java.lang.Double"/>
+	<field name="prcr_checkroll_ledger_report_food" class="java.lang.Double"/>
+	<field name="prcr_checkroll_ledger_report_loan" class="java.lang.Double"/>
+	<field name="prcr_checkroll_ledger_report_bank" class="java.lang.Double"/>
+	<field name="prcr_checkroll_ledger_report_epf10" class="java.lang.Double"/>
+	<field name="prcr_checkroll_ledger_report_epf12" class="java.lang.Double"/>
+	<field name="prcr_checkroll_ledger_report_total_epf" class="java.lang.Double"/>
+	<field name="prcr_checkroll_ledger_report_etf" class="java.lang.Double"/>
+	<field name="prcr_checkroll_ledger_report_ceb" class="java.lang.Double"/>
+	<field name="prcr_checkroll_ledger_report_teacher" class="java.lang.Double"/>
+	<field name="prcr_checkroll_ledger_report_chemical" class="java.lang.Double"/>
+	<field name="prcr_checkroll_ledger_report_pay_slip" class="java.lang.Double"/>
+	<field name="prcr_checkroll_ledger_report_fine" class="java.lang.Double"/>
+	<field name="prcr_checkroll_ledger_report_welfare" class="java.lang.Double"/>
+	<field name="prcr_checkroll_ledger_report_kovil" class="java.lang.Double"/>
+	<field name="prcr_checkroll_ledger_report_meals" class="java.lang.Double"/>
+	<field name="prcr_checkroll_ledger_report_pension" class="java.lang.Double"/>
+	<field name="prcr_checkroll_ledger_report_stamp" class="java.lang.Double"/>
+	<field name="prcr_checkroll_ledger_report_pre_debt" class="java.lang.Double"/>
+	<field name="prcr_checkroll_ledger_report_total_ded" class="java.lang.Double"/>
+	<field name="prcr_checkroll_ledger_report_full_salary" class="java.lang.Double"/>
+	<field name="prcr_checkroll_ledger_report_coins" class="java.lang.Double"/>
+	<field name="prcr_checkroll_ledger_report_paid_amount" class="java.lang.Double"/>
+	<field name="personal_info_sinhala_name" class="java.lang.String"/>
+	<field name="personal_info_code" class="java.lang.Integer"/>
+	<field name="prcr_checkroll_ledger_report_next_month" class="java.lang.Double"/>
+	<field name="prcr_checkroll_ledger_report_other_ded1" class="java.lang.Double"/>
+	<variable name="TITLE" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="14" splitType="Stretch">
+			<staticText>
+				<reportElement x="3" y="1" width="81" height="11" uuid="3e709542-151f-4b92-8a79-9527db2b951e"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Report generated:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="184" y="0" width="15" height="12" uuid="b253ceae-65b5-4d6e-bd4d-cd9f29f5de4c"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[by:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement x="84" y="1" width="100" height="11" uuid="54a20eec-890c-4e8c-9249-a8bf0da283f9"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="200" y="0" width="100" height="12" uuid="a7284fb9-5755-493b-9033-b8778b4d88dd"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{USER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="552" splitType="Stretch">
+			<textField>
+				<reportElement x="197" y="2" width="58" height="15" uuid="b8cdcde4-5a20-4c3a-a516-1db9dfbaf4d5"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_code}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="456" y="41" width="99" height="15" uuid="d6084e0b-0507-4d5f-88da-f493c5789eae"/>
+				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_division}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="201" y="120" width="58" height="15" uuid="4ed3c397-d507-448d-8891-723dc2b0898e"/>
+				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_register_or_casual}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="201" y="135" width="58" height="15" uuid="181965b3-2a41-4c1e-992d-4b3b634a5f2a"/>
+				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_normal_days}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="201" y="150" width="58" height="15" uuid="4d4bb29f-4bc2-4bad-9071-c9aebe5b3b13"/>
+				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_normal_pay}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="199" y="165" width="58" height="15" uuid="e13517e8-b28f-41d4-b9a2-db7d38b2736b"/>
+				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_sundays}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="199" y="180" width="58" height="15" uuid="c604b7d1-df67-41f1-abe7-538797b5dd65"/>
+				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_sunday_pay}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="201" y="195" width="58" height="15" uuid="b25728ef-5dfb-44a3-a983-2f488283b4cf"/>
+				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_total_pay}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="201" y="210" width="58" height="15" uuid="d3099e77-76c6-4957-b0d9-d7c170c5503a"/>
+				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_ot_before_hours}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="201" y="225" width="58" height="15" uuid="dec074cc-5906-4829-850b-10733c9ae571"/>
+				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_ot_before_amount}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="201" y="240" width="58" height="15" uuid="2166b34d-af2f-4881-a317-ceb301f10065"/>
+				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_ot_after_hours}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="199" y="255" width="58" height="15" uuid="4b46b61b-eb43-4f67-bbba-f06eb67c6874"/>
+				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_ot_after_amount}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="199" y="270" width="58" height="15" uuid="492e6e27-4ed9-4b8e-905b-bdd9f3624d93"/>
+				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_incentive1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="199" y="285" width="58" height="15" uuid="f6d6ff2d-7781-4948-baf3-b73f2b0f6a52"/>
+				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_incentive2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="201" y="300" width="58" height="15" uuid="d93d6dd9-3ddf-4fe9-a8a3-3b70203007c9"/>
+				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_extra_pay}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="199" y="315" width="58" height="15" uuid="e4ea7a84-dea0-4075-94e8-49b73fd2cafc"/>
+				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_gross_pay}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="199" y="330" width="58" height="15" uuid="b0cebba4-c5be-4bf6-b36d-e386ecc1f1db"/>
+				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_tea}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="199" y="345" width="58" height="15" uuid="de503029-7544-4e81-a941-088753988067"/>
+				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_salary_adv}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="199" y="360" width="58" height="15" uuid="fb5c199e-f595-4d12-af78-4cd261d67806"/>
+				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_fest_adv}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="199" y="375" width="58" height="15" uuid="458ecbea-0f50-4bba-b495-48535b190e33"/>
+				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_food}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="197" y="410" width="58" height="15" uuid="204e23b1-09a6-40a2-a990-a1f91a5e30ac"/>
+				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_loan}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="197" y="425" width="58" height="15" uuid="bb7477b4-6365-4d7d-9413-2736befac35d"/>
+				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_bank}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="195" y="447" width="58" height="15" uuid="ae8dd37b-9739-4813-b201-c5cec0103e98"/>
+				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_epf10}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="493" y="134" width="58" height="15" uuid="9db2aa0e-ac7b-47ef-a11c-f8ee9a92b033"/>
+				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_total_epf}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="493" y="152" width="58" height="15" uuid="3fb582c5-9906-474a-a935-51db5cf1321a"/>
+				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_etf}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="493" y="167" width="58" height="15" uuid="320becf5-3cf8-4199-b0fa-6b7fd0007f70"/>
+				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_ceb}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="493" y="182" width="58" height="15" uuid="9087ade0-042e-4950-9cf7-f84990a11b87"/>
+				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_teacher}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="493" y="197" width="58" height="15" uuid="d99c92a2-5534-4c2e-a44a-9a039138222f"/>
+				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_chemical}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="493" y="212" width="58" height="15" uuid="e9b37707-3b41-4abf-9e75-0a91b111bf5c"/>
+				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_pay_slip}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="493" y="227" width="58" height="15" uuid="97ab6d31-10e9-4cc3-9962-8e3c53eb3452"/>
+				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_fine}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="493" y="242" width="58" height="15" uuid="739c4076-c951-404a-9897-e4da1481e52c"/>
+				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_welfare}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="493" y="257" width="58" height="15" uuid="44b39593-ce1c-4896-b469-7a26e674ae8a"/>
+				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_kovil}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="493" y="272" width="58" height="15" uuid="cf5aa117-a395-42e7-bbcb-97b98b233262"/>
+				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_meals}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="493" y="293" width="58" height="15" uuid="f2300b6a-e251-4fa1-ad71-221c343f7695"/>
+				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_pension}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="493" y="314" width="58" height="15" uuid="e0ade99b-3242-4cb3-9d64-765625ef6e5e"/>
+				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_stamp}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="493" y="331" width="58" height="15" uuid="ee2d94ec-e218-4f29-a58c-60fc4b4ecc04"/>
+				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_pre_debt}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="493" y="348" width="58" height="15" uuid="a8d2f6ff-a252-41b3-a96d-0079608708f5"/>
+				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_total_ded}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="493" y="364" width="58" height="15" uuid="38786809-de0b-439d-9875-810278336fa7"/>
+				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_full_salary}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="493" y="383" width="58" height="15" uuid="aafcb838-abbf-437f-8827-24f30c4d1c25"/>
+				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_coins}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="493" y="398" width="58" height="15" uuid="94248554-e619-4593-ac8a-892a7bc23e2d"/>
+				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_paid_amount}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="204" y="46" width="58" height="15" uuid="2022c6ab-5da5-4256-9cde-59388557a63d"/>
+				<textElement>
+					<font fontName="Ds-Chamika"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{personal_info_sinhala_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="493" y="428" width="58" height="15" uuid="c8555645-fef3-429c-9661-8673dedc621c"/>
+				<textFieldExpression><![CDATA[$F{personal_info_code}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="493" y="448" width="58" height="15" uuid="24a61154-5a15-41d4-9923-edc913454e78"/>
+				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_next_month}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="493" y="459" width="58" height="15" uuid="329758de-9940-460b-ba54-056d936ab1ed"/>
+				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_other_ded1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="402" y="41" width="54" height="15" uuid="82d9e9ac-53cf-4366-be6f-28b705c2e19c"/>
+				<textElement>
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Division   -]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="123" width="167" height="15" uuid="f264b2a2-55e1-4dc9-bfa7-879aa227f3f6"/>
+				<textElement>
+					<font fontName="Ds-Chamika" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[,shdmosxps Ndjh]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="139" width="167" height="15" uuid="44e6d3b3-1c10-45b6-b97d-0619603dd9ca"/>
+				<textElement>
+					<font fontName="Ds-Chamika" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[idudJH osk]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="155" width="167" height="15" uuid="d510de55-c23d-44eb-9d6f-68780cf51646"/>
+				<textElement>
+					<font fontName="Ds-Chamika" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[idudJH osk f.jSus]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="171" width="167" height="15" uuid="7c7edb44-d163-4de2-8efb-94484ec1b59b"/>
+				<textElement>
+					<font fontName="Ds-Chamika" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[brsod osk ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="187" width="167" height="15" uuid="5490bbc3-7ba6-48a3-a02f-68409492fcb6"/>
+				<textElement>
+					<font fontName="Ds-Chamika" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[jsfYaI osk f.jsuS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="203" width="167" height="15" uuid="dcc1299f-b544-45b8-91b6-72d3e97f32b2"/>
+				<textElement>
+					<font fontName="Ds-Chamika" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[tl;j]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="218" width="167" height="15" uuid="8f09ffef-1c87-48a6-8238-59a1ec46f02f"/>
+				<textElement>
+					<font fontName="Ds-Chamika" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[w;sld, wvq meh]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="235" width="167" height="15" uuid="775b90ba-201a-4a5e-8a5b-f0c4adbcd823"/>
+				<textElement>
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[prcr_checkroll_ledger_report_ot_before_amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="251" width="167" height="15" uuid="c482def3-b79d-482b-bbe2-9cb75103e6f1"/>
+				<textElement>
+					<font fontName="Ds-Chamika" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[w;sld, jevs meh ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="267" width="167" height="15" uuid="cdc7c737-be7e-45c9-b275-637bb25c73e6"/>
+				<textElement>
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[prcr_checkroll_ledger_report_ot_after_amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="283" width="167" height="15" uuid="b59c7814-f644-4ba9-9568-7f1b28e3f784"/>
+				<textElement>
+					<font fontName="Ds-Chamika" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[osrs oSukd 01]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="299" width="167" height="15" uuid="fe1d3007-29b6-4415-bf14-b127cd050ebe"/>
+				<textElement>
+					<font fontName="Ds-Chamika" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[osrs oSukd 02]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="315" width="167" height="15" uuid="77ab0990-187e-44f9-bf6e-e66df836f778"/>
+				<textElement>
+					<font fontName="Ds-Chamika" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[wu;r tl; lsrSu 01]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="331" width="167" height="15" uuid="41d5f49d-c48e-4889-bca1-174c92ab3b9f"/>
+				<textElement>
+					<font fontName="Ds-Chamika" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[uqJ tl;j]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="347" width="167" height="15" uuid="8b14f115-a90a-47ff-8fe4-82ff6cc72000"/>
+				<textElement>
+					<font fontName="Ds-Chamika" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[f;a fld<]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="363" width="167" height="15" uuid="2329dd66-98cb-45b6-afa4-51c5343b1c2c"/>
+				<textElement>
+					<font fontName="Ds-Chamika" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[jegqma w;a;sldru]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="379" width="167" height="15" uuid="588526c6-08b7-457f-b08a-4e6e164c29b1"/>
+				<textElement>
+					<font fontName="Ds-Chamika" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[W;aij w;a;sldru]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="395" width="167" height="15" uuid="c34eaf79-399e-414a-ae4b-1318679426ad"/>
+				<textElement>
+					<font fontName="Ds-Chamika" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[wdydr oj]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="411" width="167" height="15" uuid="c25e755e-4512-40a0-b04c-a852882a5c36"/>
+				<textElement>
+					<font fontName="Ds-Chamika" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Kh iy fmd<sh]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="430" width="167" height="15" uuid="1a73b469-e137-4f6b-b7e4-8bda6f71c3ba"/>
+				<textElement>
+					<font fontName="Ds-Chamika" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[nexl b;reu]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="450" width="167" height="15" uuid="e4ca65da-e96b-48f2-8a0f-58d28936a8a2"/>
+				<textElement>
+					<font fontName="Ds-Chamika" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[wr:idOl 10]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="289" y="123" width="189" height="15" uuid="61c7429d-008a-41c5-a010-9ff7f106f043"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[prcr_checkroll_ledger_report_epf12]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="289" y="137" width="189" height="15" uuid="cdb51ea6-9ded-4d16-9e30-dfae9fcb56c2"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[prcr_checkroll_ledger_report_total_epf]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="289" y="153" width="189" height="15" uuid="62ae20cf-a462-4040-8f7f-fb59eb007b17"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[prcr_checkroll_ledger_report_etf]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="289" y="168" width="189" height="15" uuid="f92a3dac-8b99-466e-b59c-6a9e9695a8c3"/>
+				<textElement>
+					<font fontName="Ds-Chamika" isBold="true"/>
+				</textElement>
+				<text><![CDATA[jsoq,s%%%h]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="289" y="183" width="189" height="15" uuid="e8d7c23e-7ddc-4356-a690-b0403edc684e"/>
+				<textElement>
+					<font fontName="Ds-Chamika" isBold="true"/>
+				</textElement>
+				<text><![CDATA[wOHdmk]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="289" y="201" width="189" height="15" uuid="a0b7aeba-fab8-42d3-8a75-d4936c3e6655"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[prcr_checkroll_ledger_report_chemical]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="289" y="218" width="189" height="15" uuid="d1b53ec8-43b5-4aec-a57d-5c13fbec9e5f"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[prcr_checkroll_ledger_report_pay_slip]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="289" y="233" width="189" height="15" uuid="98f92df8-3298-49cf-9fb2-29d0c736d81a"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[prcr_checkroll_ledger_report_fine]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="289" y="249" width="189" height="15" uuid="728a5d34-a2e0-48a8-844e-6cdeecb6b159"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[prcr_checkroll_ledger_report_welfare]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="289" y="266" width="189" height="15" uuid="0c67d209-ba48-4fe3-844d-9c16f547ba74"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[prcr_checkroll_ledger_report_kovil]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="289" y="282" width="189" height="15" uuid="b9f52adc-ff96-458c-8d80-d076fbce379f"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[prcr_checkroll_ledger_report_meals]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="289" y="297" width="189" height="15" uuid="0b4a6eae-df39-4aef-abfc-4e1e737a98ae"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[prcr_checkroll_ledger_report_pension]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="289" y="314" width="189" height="15" uuid="b08bb1a7-b5d0-465f-a4d2-d32dde3080eb"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[prcr_checkroll_ledger_report_stamp]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="289" y="330" width="189" height="15" uuid="602b2fb3-220d-4774-98cd-ca79307b8a80"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[prcr_checkroll_ledger_report_pre_debt]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="289" y="345" width="189" height="15" uuid="b3c7a472-0e6e-4989-886d-8f794a892699"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[prcr_checkroll_ledger_report_total_ded]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="289" y="361" width="189" height="15" uuid="eb8bd77f-f8ef-4a22-bd2e-8a9cbfc8098a"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[prcr_checkroll_ledger_report_full_salary]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="289" y="376" width="189" height="15" uuid="bf236d3c-8de7-49e1-b004-0f79ad6db3f2"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[prcr_checkroll_ledger_report_coins]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="289" y="391" width="189" height="15" uuid="7a33b9d8-7493-4ffa-ba54-8ac92467ba07"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[prcr_checkroll_ledger_report_paid_amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="41" width="189" height="15" uuid="d74328a4-be08-4ea4-b769-ac01ab70bd89"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[personal_info_sinhala_name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="289" y="428" width="189" height="15" uuid="b0a2d281-2536-4f63-aba7-3cc21a86f356"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[personal_info_code]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="289" y="442" width="189" height="15" uuid="b6c5e111-0d07-4c6a-abac-d6c1bc3f9694"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[prcr_checkroll_ledger_report_next_month]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="289" y="461" width="189" height="15" uuid="6a0f42ba-765a-4414-8b6f-32b4914dbd5c"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[prcr_checkroll_ledger_report_other_ded1]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="335" y="0" width="216" height="27" uuid="75b687d7-fe40-4adf-9851-27816341e992"/>
+				<textElement>
+					<font fontName="Segoe UI Light" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bogoda Group Tea Factory]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="412" y="21" width="114" height="20" uuid="fe112270-8629-41c5-b43e-d57409be5b2e"/>
+				<text><![CDATA[Kolawenigama, Deniyaya]]></text>
+			</staticText>
+			<line>
+				<reportElement x="3" y="0" width="554" height="1" uuid="8b820536-4e3c-4646-9176-72c78990b115"/>
+			</line>
+			<textField>
+				<reportElement x="493" y="123" width="58" height="15" uuid="1a9d00c9-d341-4e45-9831-127cb2c7a0b1"/>
+				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_epf12}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="3" y="1" width="167" height="15" uuid="ef538c34-df7b-4431-b7d1-7fead5d55930"/>
+				<textElement>
+					<font fontName="Ds-Chamika" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[idudcsl wxlh]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="456" y="56" width="100" height="15" uuid="c6940b40-e402-4052-8f2a-ed44c788453c"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{Month}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="402" y="56" width="54" height="15" uuid="c5a811fa-559a-4daa-bdfa-e34ab5c6771b"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ Month   -]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

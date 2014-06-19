@@ -35,6 +35,7 @@ public class PRCR_Checkroll_Amalgamation extends javax.swing.JFrame {
     Date_Handler datehandler = new Date_Handler();
     DateChooser_text datechooser = new DateChooser_text();
     DatabaseManager dbm = DatabaseManager.getDbCon();
+    PRCR_Checkroll_Amalgamation_Report rep=new PRCR_Checkroll_Amalgamation_Report();
 
     public PRCR_Checkroll_Amalgamation() {
         initComponents();
@@ -70,7 +71,7 @@ public class PRCR_Checkroll_Amalgamation extends javax.swing.JFrame {
         GrandTotal = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         datepanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -218,7 +219,7 @@ public class PRCR_Checkroll_Amalgamation extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(41, 41, 41)
                         .addComponent(jLabel2)
@@ -228,26 +229,25 @@ public class PRCR_Checkroll_Amalgamation extends javax.swing.JFrame {
                         .addComponent(datepanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(108, 108, 108)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(68, 68, 68)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton2))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 595, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addGap(299, 299, 299)
-                                .addComponent(workDays, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(workDaysPay, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(OTHours, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(OThoursPay, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(COins, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(GrandTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 595, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                            .addGap(299, 299, 299)
+                            .addComponent(workDays, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(workDaysPay, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(OTHours, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(OThoursPay, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(COins, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GrandTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(42, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -536,7 +536,7 @@ public class PRCR_Checkroll_Amalgamation extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // ClearTable();
         
-        createNewDatabaseTableforAmalgamation();
+        //createNewDatabaseTableforAmalgamation();
         
         jTable1.setBackground(Color.WHITE);
         jTable1.setForeground(Color.BLACK);
@@ -635,16 +635,16 @@ public class PRCR_Checkroll_Amalgamation extends javax.swing.JFrame {
                 grandtotalT = grandtotalT + (normaldays * normalDaysrate + sundays * sundayrate + otdayhrs * otDayrate + otnighthrs * otNightRate);
                 j++;
                 //write data in to database table for amalgamation to generate reports
-                 try {
-                     double workdayss=normaldays + sundays;
-                     double workdayspayy=normaldays * normalDaysrate + sundays * sundayrate;
-                     double othourss=otdayhrs + otnighthrs;
-                     double othourspayy=otdayhrs * otDayrate + otnighthrs * otNightRate;
-                     double grandtotall=normaldays * normalDaysrate + sundays * sundayrate + otdayhrs * otDayrate + otnighthrs * otNightRate;
-                    dbm.insert("INSERT INTO prcr_checkroll_amalgamation_report(work_code,section,work_days,work_days_pay,ot_hours,ot_hours_pay,grand_total) VALUES('" + workCode[i]+ "','" + Section[i] + "','" + workdayss + "','" + workdayspayy + "','" + othourss + "','" + othourspayy + "','"+grandtotall+"')");
-                } catch (SQLException ex) {
-                     System.out.println("error-couldnt write data in to amalgamation database table");
-                }
+//                 try {
+//                     double workdayss=normaldays + sundays;
+//                     double workdayspayy=normaldays * normalDaysrate + sundays * sundayrate;
+//                     double othourss=otdayhrs + otnighthrs;
+//                     double othourspayy=otdayhrs * otDayrate + otnighthrs * otNightRate;
+//                     double grandtotall=normaldays * normalDaysrate + sundays * sundayrate + otdayhrs * otDayrate + otnighthrs * otNightRate;
+//                    dbm.insert("INSERT INTO prcr_checkroll_amalgamation_report(work_code,section,work_days,work_days_pay,ot_hours,ot_hours_pay,grand_total) VALUES('" + workCode[i]+ "','" + Section[i] + "','" + workdayss + "','" + workdayspayy + "','" + othourss + "','" + othourspayy + "','"+grandtotall+"')");
+//                } catch (SQLException ex) {
+//                     System.out.println("error-couldnt write data in to amalgamation database table");
+//                }
                 
 
             }
@@ -684,21 +684,21 @@ public class PRCR_Checkroll_Amalgamation extends javax.swing.JFrame {
          GrandTotal.setText(String.valueOf(grandtotal)); */
 
     }//GEN-LAST:event_jButton1ActionPerformed
-    public void createNewDatabaseTableforAmalgamation(){
-       
-     try {
-         dbm.DeleteTable("prcr_checkroll_amalgamation_report");
-            //use new_1 and new_2 if any other deduction type is needd to be added
-            dbm.insert("CREATE TABLE prcr_checkroll_amalgamation_report(work_code VARCHAR(30),"
-                    + "section VARCHAR(50)," + "work_days DOUBLE,"
-                    + "work_days_pay DOUBLE," + "ot_hours DOUBLE," + "ot_hours_pay DOUBLE,"
-                    + "coins DOUBLE," + "grand_total DOUBLE);");
-        } catch (SQLException ex) {
-            //Logger.getLogger(test.class.getName()).log(Level.SEVERE, null, ex);
-            System.err.println(ex.getMessage());
-        }
-    
-    }
+//    public void createNewDatabaseTableforAmalgamation(){
+//       
+//     try {
+//         dbm.DeleteTable("prcr_checkroll_amalgamation_report");
+//            //use new_1 and new_2 if any other deduction type is needd to be added
+//            dbm.insert("CREATE TABLE prcr_checkroll_amalgamation_report(work_code VARCHAR(30),"
+//                    + "section VARCHAR(50)," + "work_days DOUBLE,"
+//                    + "work_days_pay DOUBLE," + "ot_hours DOUBLE," + "ot_hours_pay DOUBLE,"
+//                    + "coins DOUBLE," + "grand_total DOUBLE);");
+//        } catch (SQLException ex) {
+//            //Logger.getLogger(test.class.getName()).log(Level.SEVERE, null, ex);
+//            System.err.println(ex.getMessage());
+//        }
+//    
+//    }
     private void workDaysActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_workDaysActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_workDaysActionPerformed
@@ -732,15 +732,7 @@ private void print() {
   }
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 //       print(); 
-        
-        MessageFormat header=new MessageFormat("Check roll Amalgamation"
-                + "\n"+"                                   Bogoda");
-        MessageFormat footer=new MessageFormat("Page{0,number,integer}");
-        try{
-            jTable1.print(JTable.PrintMode.FIT_WIDTH, header, footer);
-        }catch(java.awt.print.PrinterException e){
-          System.err.format("Cannot print %s%n",e.getMessage());
-        }
+     rep.CreateReport(division_jc.getSelectedItem().toString(), getST(monthfield2.getText(), yearfield2.getText()));
     }//GEN-LAST:event_jButton2ActionPerformed
 // Date column is the column in your database which dates are entered
     // String month is the month you want to check. Give month as a string ex:- 01 for January, 09 for September

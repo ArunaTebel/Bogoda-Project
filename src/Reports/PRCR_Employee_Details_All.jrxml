@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="1008" pageHeight="792" columnWidth="968" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b4a7e90f-236c-48e1-b463-a16c40591ab1">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="USER" class="java.lang.String"/>
+	<parameter name="DIVISION" class="java.lang.String"/>
+	<parameter name="REGISTER" class="java.lang.String"/>
+	<parameter name="col" class="java.lang.String"/>
+	<parameter name="a" class="java.lang.String"/>
+	<parameter name="b" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     checkroll_personalinfo.`code` AS checkroll_personalinfo_code,
+     checkroll_personalinfo.`division` AS checkroll_personalinfo_division,
+     checkroll_personalinfo.`gender` AS checkroll_personalinfo_gender,
+     checkroll_personalinfo.`register_or_casual` AS checkroll_personalinfo_register_or_casual,
+     personal_info.`name` AS personal_info_name,
+     personal_info.`sinhala_name` AS personal_info_sinhala_name,
+     personal_info.`code` AS personal_info_code,
+     personal_info.`nic` AS personal_info_nic,
+     personal_info.`dob` AS personal_info_dob,
+     personal_info.`tel_no` AS personal_info_tel_no,
+     personal_info.`blood_group` AS personal_info_blood_group,
+     personal_info.`register_or_not` AS personal_info_register_or_not,
+     personal_info.`checkroll_or_staff` AS personal_info_checkroll_or_staff,
+     personal_info.`joined_date` AS personal_info_joined_date,
+     personal_info.`permanent_date` AS personal_info_permanent_date,
+     personal_info.`basic_salary` AS personal_info_basic_salary,
+     personal_info.`etf_enable` AS personal_info_etf_enable,
+     personal_info.`epf_no` AS personal_info_epf_no,
+     personal_info.`welfare_enable` AS personal_info_welfare_enable
+FROM
+     `personal_info` personal_info INNER JOIN `checkroll_personalinfo` checkroll_personalinfo ON personal_info.`code` = checkroll_personalinfo.`code`
+where 
+
+$P!{col} = $P{DIVISION} AND
+$P!{a} = $P{b}]]>
+	</queryString>
+	<field name="checkroll_personalinfo_code" class="java.lang.Integer"/>
+	<field name="checkroll_personalinfo_division" class="java.lang.String"/>
+	<field name="checkroll_personalinfo_gender" class="java.lang.Integer"/>
+	<field name="checkroll_personalinfo_register_or_casual" class="java.lang.Integer"/>
+	<field name="personal_info_name" class="java.lang.String"/>
+	<field name="personal_info_sinhala_name" class="java.lang.String"/>
+	<field name="personal_info_code" class="java.lang.Integer"/>
+	<field name="personal_info_nic" class="java.lang.String"/>
+	<field name="personal_info_dob" class="java.sql.Date"/>
+	<field name="personal_info_tel_no" class="java.lang.String"/>
+	<field name="personal_info_blood_group" class="java.lang.String"/>
+	<field name="personal_info_register_or_not" class="java.lang.String"/>
+	<field name="personal_info_checkroll_or_staff" class="java.lang.String"/>
+	<field name="personal_info_joined_date" class="java.sql.Date"/>
+	<field name="personal_info_permanent_date" class="java.sql.Date"/>
+	<field name="personal_info_basic_salary" class="java.lang.Double"/>
+	<field name="personal_info_etf_enable" class="java.lang.String"/>
+	<field name="personal_info_epf_no" class="java.lang.Integer"/>
+	<field name="personal_info_welfare_enable" class="java.lang.String"/>
+	<variable name="TITLE" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="6" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="85" splitType="Stretch">
+			<line>
+				<reportElement x="15" y="62" width="953" height="1" uuid="292404ee-21c4-44ec-86e1-654ddf5dc03b"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#666666"/>
+				</graphicElement>
+			</line>
+			<textField evaluationTime="Report">
+				<reportElement x="604" y="63" width="40" height="20" uuid="a28f6025-2bc0-4bc1-a2d3-6de88975440a"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="524" y="63" width="80" height="20" uuid="c7b2c106-44fc-4aed-b3a9-e5ad706e21ea"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="18" width="15" height="20" uuid="b253ceae-65b5-4d6e-bd4d-cd9f29f5de4c"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[by:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="1" y="59" width="968" height="1" uuid="e13c4d67-1e7f-4c1c-96d2-2316ab27579e"/>
+			</line>
+			<staticText>
+				<reportElement x="727" y="12" width="216" height="27" uuid="75b687d7-fe40-4adf-9851-27816341e992"/>
+				<textElement>
+					<font fontName="Segoe UI Light" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bogoda Group Tea Factory]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="804" y="33" width="114" height="20" uuid="fe112270-8629-41c5-b43e-d57409be5b2e"/>
+				<text><![CDATA[Kolawenigama, Deniyaya]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="15" y="19" width="100" height="20" uuid="a7284fb9-5755-493b-9033-b8778b4d88dd"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{USER}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="1" y="0" width="968" height="1" uuid="aeb39eae-cf99-495a-9b95-9031f30f70b7"/>
+			</line>
+			<staticText>
+				<reportElement x="1" y="7" width="81" height="11" uuid="3e709542-151f-4b92-8a79-9527db2b951e"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Report generated:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement x="82" y="7" width="100" height="11" uuid="54a20eec-890c-4e8c-9249-a8bf0da283f9"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="38" width="166" height="20" uuid="3c47ecc5-3ebc-4ec2-a929-0a0508c94803"/>
+				<text><![CDATA[Employee Details]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="43" splitType="Stretch">
+			<line>
+				<reportElement x="1" y="42" width="967" height="1" uuid="8b820536-4e3c-4646-9176-72c78990b115"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="5" width="46" height="37" uuid="8ef02349-1e16-4abd-9af5-115d255232b0"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Emp. Code]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="167" y="5" width="47" height="37" uuid="9d40301f-5965-45df-a8a8-75a33e4b1480"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Division Code]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="215" y="6" width="62" height="36" uuid="11769733-fdf6-4c0b-8067-9b6cbbe567c5"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Gender(Male-1 Female-0 )]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="277" y="5" width="63" height="37" uuid="1e01328e-b764-401b-af2d-f3906d474320"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Register(1) Or Casual(0)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="391" y="5" width="46" height="37" uuid="04eb9eec-de2e-4920-9919-c19b34c23d5f"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date Of Birth]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="438" y="5" width="62" height="37" uuid="5e6d5abf-ffd1-4a2a-998f-f3b02460f3b3"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Telephone Number]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="500" y="5" width="46" height="37" uuid="56ab20dd-8143-461d-a477-fe65a530fa4c"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Blood Group]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="598" y="5" width="46" height="37" uuid="9ffdb901-97eb-4eda-92e6-b2c9116f39a7"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Joined Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="645" y="5" width="52" height="37" uuid="d017655f-f53f-4bf1-80d1-4a2b0d1d640a"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Permanent Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="698" y="5" width="62" height="37" uuid="1866a943-404d-460e-9337-45711cf72d0e"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Basic Salary(Staff only)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="760" y="6" width="51" height="20" uuid="3a38df95-e062-4de4-85f2-3567f39b1a8f"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ETF]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="811" y="6" width="47" height="20" uuid="ec64ed1a-5270-40f0-8f75-d710dfa2d908"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[EPF No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="46" y="6" width="62" height="20" uuid="83562164-f03c-4bbd-ba44-879131737e4b"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="858" y="6" width="52" height="20" uuid="ae742986-b65b-46f9-9588-b5554e95b0c4"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Welfare]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="109" y="5" width="58" height="37" uuid="1408207a-b4b1-421b-9aa0-12cde4d16d17"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Emp.Name(Sinhala)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="340" y="5" width="50" height="37" uuid="1cd1070e-4dc1-4a46-93d3-d0b2462109cd"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Staff Or Checkroll]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="547" y="6" width="49" height="20" uuid="cb05ccc5-a136-4c10-aa34-a2f8c0c775ba"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[NIC No.]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="45" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="1" width="46" height="20" uuid="c78691c9-3886-43f1-aafd-2fa2df892077"/>
+				<textFieldExpression><![CDATA[$F{checkroll_personalinfo_code}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="167" y="1" width="47" height="20" uuid="59610753-e984-47db-a7df-d97d495d63d0"/>
+				<textFieldExpression><![CDATA[$F{checkroll_personalinfo_division}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="215" y="1" width="62" height="20" uuid="1364aa33-6846-4819-a9ab-40b241bb1245"/>
+				<textFieldExpression><![CDATA[$F{checkroll_personalinfo_gender}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="277" y="1" width="62" height="20" uuid="71c651c8-40d8-43f7-a573-5170ca56d29c"/>
+				<textFieldExpression><![CDATA[$F{checkroll_personalinfo_register_or_casual}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="391" y="0" width="46" height="34" uuid="449b9f7f-8059-44b2-8b7c-8eb6a4310575"/>
+				<textFieldExpression><![CDATA[$F{personal_info_dob}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="438" y="1" width="62" height="20" uuid="0452e14a-8ecd-4366-a1e9-e2bb0d87755b"/>
+				<textFieldExpression><![CDATA[$F{personal_info_tel_no}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="598" y="1" width="46" height="20" uuid="afb71e68-d270-4627-8b2f-3d2dc5759a98"/>
+				<textFieldExpression><![CDATA[$F{personal_info_joined_date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="645" y="1" width="52" height="20" uuid="9726fe07-25c7-4ed9-a93d-7edfc8f115ff"/>
+				<textFieldExpression><![CDATA[$F{personal_info_permanent_date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="698" y="1" width="62" height="20" uuid="0a61f1ad-b05b-4fc0-8860-9abb9ab37846"/>
+				<textFieldExpression><![CDATA[$F{personal_info_basic_salary}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="760" y="1" width="51" height="20" uuid="8e83b549-b366-4671-8159-303335da8153"/>
+				<textFieldExpression><![CDATA[$F{personal_info_etf_enable}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="811" y="1" width="47" height="20" uuid="499fd7ca-8535-4788-b32b-b5902ec4ad26"/>
+				<textFieldExpression><![CDATA[$F{personal_info_epf_no}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="340" y="1" width="50" height="20" uuid="56fc7109-018b-4d88-aab2-1f3283fd3114"/>
+				<textFieldExpression><![CDATA[$F{personal_info_checkroll_or_staff}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="547" y="1" width="49" height="20" uuid="f834544e-1f6b-42fe-b209-8c57ede4b8e3"/>
+				<textFieldExpression><![CDATA[$F{personal_info_nic}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="500" y="1" width="46" height="20" uuid="8c1f6a1e-1fed-47b1-b540-98bf5d7ff793"/>
+				<textFieldExpression><![CDATA[$F{personal_info_blood_group}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="858" y="1" width="52" height="20" uuid="0e1e72c8-daed-4311-bc3b-c4f7dba21b79"/>
+				<textFieldExpression><![CDATA[$F{personal_info_welfare_enable}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="46" y="1" width="62" height="34" uuid="1009c9bc-2f9d-4841-a791-d53891f3461f"/>
+				<textFieldExpression><![CDATA[$F{personal_info_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="109" y="1" width="58" height="34" uuid="85ce582a-e8d2-4eca-b156-da5eb363d793"/>
+				<textFieldExpression><![CDATA[$F{personal_info_sinhala_name}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="18" splitType="Stretch">
+			<line>
+				<reportElement x="1" y="5" width="967" height="1" uuid="0d048f90-0a60-4753-b7bf-906c8bd8f6af"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="33" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

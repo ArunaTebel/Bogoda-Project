@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b4a7e90f-236c-48e1-b463-a16c40591ab1">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="220"/>
+	<parameter name="USER" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     checkroll_pay_info.`checkroll` AS checkroll_pay_info_checkroll,
+     checkroll_pay_info.`normalday_rate` AS checkroll_pay_info_normalday_rate,
+     checkroll_pay_info.`sunday_rate` AS checkroll_pay_info_sunday_rate,
+     checkroll_pay_info.`incentive_1` AS checkroll_pay_info_incentive_1,
+     checkroll_pay_info.`incentive_2` AS checkroll_pay_info_incentive_2,
+     checkroll_pay_info.`margin` AS checkroll_pay_info_margin,
+     checkroll_pay_info.`otrate_before` AS checkroll_pay_info_otrate_before,
+     checkroll_pay_info.`otrate_after` AS checkroll_pay_info_otrate_after,
+     checkroll_pay_info.`epf` AS checkroll_pay_info_epf,
+     checkroll_pay_info.`epf2` AS checkroll_pay_info_epf2,
+     checkroll_pay_info.`etf` AS checkroll_pay_info_etf,
+     checkroll_pay_info.`welfare` AS checkroll_pay_info_welfare
+FROM
+     `checkroll_pay_info` checkroll_pay_info]]>
+	</queryString>
+	<field name="checkroll_pay_info_normalday_rate" class="java.lang.Double"/>
+	<field name="checkroll_pay_info_sunday_rate" class="java.lang.Double"/>
+	<field name="checkroll_pay_info_incentive_1" class="java.lang.Double"/>
+	<field name="checkroll_pay_info_incentive_2" class="java.lang.Double"/>
+	<field name="checkroll_pay_info_margin" class="java.lang.Double"/>
+	<field name="checkroll_pay_info_otrate_before" class="java.lang.Double"/>
+	<field name="checkroll_pay_info_otrate_after" class="java.lang.Double"/>
+	<field name="checkroll_pay_info_epf" class="java.lang.Double"/>
+	<field name="checkroll_pay_info_epf2" class="java.lang.Double"/>
+	<field name="checkroll_pay_info_etf" class="java.lang.Double"/>
+	<field name="checkroll_pay_info_welfare" class="java.lang.Double"/>
+	<variable name="TITLE" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="85" splitType="Stretch">
+			<staticText>
+				<reportElement x="1" y="3" width="81" height="11" uuid="3e709542-151f-4b92-8a79-9527db2b951e"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Report generated:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="16" width="15" height="20" uuid="b253ceae-65b5-4d6e-bd4d-cd9f29f5de4c"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[by:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="1" y="57" width="555" height="1" uuid="e13c4d67-1e7f-4c1c-96d2-2316ab27579e"/>
+			</line>
+			<staticText>
+				<reportElement x="340" y="9" width="216" height="27" uuid="75b687d7-fe40-4adf-9851-27816341e992"/>
+				<textElement>
+					<font fontName="Segoe UI Light" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bogoda Group Tea Factory]]></text>
+			</staticText>
+			<line>
+				<reportElement x="1" y="0" width="555" height="1" uuid="aeb39eae-cf99-495a-9b95-9031f30f70b7"/>
+			</line>
+			<staticText>
+				<reportElement x="417" y="30" width="114" height="20" uuid="fe112270-8629-41c5-b43e-d57409be5b2e"/>
+				<text><![CDATA[Kolawenigama, Deniyaya]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement x="82" y="3" width="100" height="11" uuid="54a20eec-890c-4e8c-9249-a8bf0da283f9"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="15" y="17" width="100" height="20" uuid="a7284fb9-5755-493b-9033-b8778b4d88dd"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{USER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="152" y="36" width="175" height="20" uuid="832ef647-95db-4cc0-8669-d363bb60816c"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Checkroll Rate Details]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="5" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="27" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="457" splitType="Stretch">
+			<textField>
+				<reportElement x="302" y="38" width="50" height="20" uuid="876880b2-1fd4-4d48-ab5c-c449b5f907af"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{checkroll_pay_info_normalday_rate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="302" y="73" width="50" height="20" uuid="947ce2af-6e9a-4136-8126-43c64166fa90"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{checkroll_pay_info_sunday_rate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="302" y="108" width="50" height="20" uuid="f573cf57-8dbb-4896-af1f-52234144526b"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{checkroll_pay_info_incentive_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="302" y="143" width="50" height="20" uuid="b0996403-bd57-43f8-9368-b8f05ebaf552"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{checkroll_pay_info_incentive_2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="303" y="180" width="50" height="20" uuid="9b1a73e9-d70b-49b2-b457-014f120bbd0e"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{checkroll_pay_info_otrate_before}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="303" y="215" width="50" height="20" uuid="4d36ee60-7e5d-4131-adc4-5b1b070729dd"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{checkroll_pay_info_otrate_after}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="303" y="250" width="50" height="20" uuid="c6e76513-21d9-4b35-834a-54dfff1b8633"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{checkroll_pay_info_epf}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="303" y="285" width="50" height="20" uuid="2acff2b9-aeec-4ce7-9564-3a78382a8198"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{checkroll_pay_info_epf2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="303" y="320" width="50" height="20" uuid="dc0b08b6-2558-4039-907c-04574fdc69e8"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{checkroll_pay_info_etf}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="303" y="358" width="50" height="20" uuid="0db29d3b-4721-47e5-abba-2580a5d6a805"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{checkroll_pay_info_welfare}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="131" y="38" width="151" height="20" uuid="593cfb11-9c59-4a85-afce-fdbc4d54a316"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Normalday rate]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="131" y="73" width="151" height="20" uuid="2da60dd0-907c-4488-a53d-4eda7953b594"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sunday rate]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="132" y="108" width="151" height="20" uuid="11bf9f8d-09fe-414c-a3b4-5942b1bbd842"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Incentive_1]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="131" y="143" width="151" height="20" uuid="945d9033-dac2-4076-b9b3-1eee2fbfe9c5"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Incentive_2]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="132" y="180" width="151" height="20" uuid="7c117a42-88ac-4adf-8392-73b9d482aa90"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[OT Day Rate]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="132" y="215" width="151" height="20" uuid="fbb1b4a4-195f-4e3c-953f-36b72475a71f"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[OT NIght Rate]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="132" y="250" width="151" height="20" uuid="cc6a3b29-457b-43c9-9d51-99cf87c76047"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[EPF 10]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="132" y="285" width="151" height="20" uuid="4ad301c6-91b3-4813-ad64-ae7db6128fe6"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[EPF 12]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="132" y="320" width="151" height="20" uuid="1901f033-a7da-4c1e-b91c-c161726cf28a"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ETF]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="132" y="358" width="151" height="20" uuid="ae55820d-06ea-45cb-8703-5f7396631674"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[checkroll_pay_info_welfare]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="18" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="33" splitType="Stretch">
+			<line>
+				<reportElement x="1" y="-13" width="554" height="1" uuid="0d048f90-0a60-4753-b7bf-906c8bd8f6af"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

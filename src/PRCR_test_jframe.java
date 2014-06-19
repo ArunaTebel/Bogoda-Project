@@ -9,7 +9,6 @@ import java.sql.SQLException;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Dhananjaya
@@ -19,9 +18,10 @@ public class PRCR_test_jframe extends javax.swing.JFrame {
     /**
      * Creates new form PRCR_test_jframe
      */
-    Date_Handler datehandler=new Date_Handler();
-    DatabaseManager dbm=DatabaseManager.getDbCon();
+    Date_Handler datehandler = new Date_Handler();
+    DatabaseManager dbm = DatabaseManager.getDbCon();
     CheckrollSallaryCal csObject = new CheckrollSallaryCal();
+
     public PRCR_test_jframe() {
         initComponents();
     }
@@ -66,7 +66,7 @@ public class PRCR_test_jframe extends javax.swing.JFrame {
             }
         });
 
-        jLabel15.setText("Date margin of this month");
+        jLabel15.setText("Date margin of this month and Division");
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -133,22 +133,9 @@ public class PRCR_test_jframe extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(63, 63, 63)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(date_margin_text, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(109, 109, 109)
+                        .addGap(172, 172, 172)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -159,7 +146,21 @@ public class PRCR_test_jframe extends javax.swing.JFrame {
                                 .addGap(98, 98, 98)
                                 .addComponent(division_combo, 0, 1, Short.MAX_VALUE)))
                         .addGap(60, 60, 60)
-                        .addComponent(division_lb, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(division_lb, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton1)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(44, 44, 44)
+                                .addComponent(date_margin_text, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(27, 27, 27)
+                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(72, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -216,9 +217,9 @@ public class PRCR_test_jframe extends javax.swing.JFrame {
     }//GEN-LAST:event_date_margin_textActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-       csObject.Set_year(year.getText());
-       csObject.Set_month(month.getText());
-        PRCR_change_margin_dates pcm=new PRCR_change_margin_dates(csObject.getString());
+        csObject.Set_year(year.getText());
+        csObject.Set_month(month.getText());
+        PRCR_change_margin_dates pcm = new PRCR_change_margin_dates(csObject.getString(), division_combo.getSelectedItem().toString());
         pcm.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -398,18 +399,26 @@ public class PRCR_test_jframe extends javax.swing.JFrame {
     }//GEN-LAST:event_yearKeyPressed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-PRCR_checkroll_salary_process csp = new PRCR_checkroll_salary_process();
-            csp.setDivision(division_combo.getSelectedItem().toString());
-            csp.setReg(register_or_casual_combo.getSelectedItem().toString());
-            
-            csp.Set_year(year.getText());
-            csp.Set_month(month.getText());//set the month(ex:2014_03) in the object
-            csp.processCheckrollSalary();        // TODO add your handling code here:
+        PRCR_checkroll_salary_process csp = new PRCR_checkroll_salary_process();
+        csp.setDivision(division_combo.getSelectedItem().toString());
+        csp.setReg(register_or_casual_combo.getSelectedItem().toString());
 
-            csObject.Set_year(year.getText());//set the margin dates in date_margin_text 
-            csObject.Set_month(month.getText());
-            csObject.setMargin();
-            date_margin_text.setText(String.valueOf(csObject.getMargin()));
+        csp.Set_year(year.getText());
+        csp.Set_month(month.getText());//set the month(ex:2014_03) in the object
+        csp.processCheckrollSalary();        // TODO add your handling code here:
+
+//            csObject.Set_year(year.getText());//set the margin dates in date_margin_text 
+//            csObject.Set_month(month.getText());
+//            csObject.setDivision(division_combo.getSelectedItem().toString());
+//            csObject.setMargin();
+        String st;
+        if (datehandler.return_index(month.getText()) < 10) {
+            st = year.getText() + "_0" + datehandler.return_index(month.getText());
+        } else {
+            st = year.getText() + "_" + datehandler.return_index(month.getText());
+        }
+        System.out.println(st);
+        date_margin_text.setText(dbm.filterReturn2StringData("prcr_margin_dates", "month", st, "division", division_combo.getSelectedItem().toString(), "margin"));
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void division_comboItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_division_comboItemStateChanged

@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b4a7e90f-236c-48e1-b463-a16c40591ab1">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="USER" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     prcr_ledger_second_half.`entry` AS prcr_ledger_second_half_entry,
+     prcr_ledger_second_half.`code` AS prcr_ledger_second_half_code,
+     prcr_ledger_second_half.`jul_epf` AS prcr_ledger_second_half_jul_epf,
+     prcr_ledger_second_half.`aug_total_pay` AS prcr_ledger_second_half_aug_total_pay,
+     prcr_ledger_second_half.`aug_epf` AS prcr_ledger_second_half_aug_epf,
+     prcr_ledger_second_half.`sep_total_pay` AS prcr_ledger_second_half_sep_total_pay,
+     prcr_ledger_second_half.`sep_epf` AS prcr_ledger_second_half_sep_epf,
+     prcr_ledger_second_half.`oct_total_pay` AS prcr_ledger_second_half_oct_total_pay,
+     prcr_ledger_second_half.`oct_epf` AS prcr_ledger_second_half_oct_epf,
+     prcr_ledger_second_half.`nov_total_pay` AS prcr_ledger_second_half_nov_total_pay,
+     prcr_ledger_second_half.`nov_epf` AS prcr_ledger_second_half_nov_epf,
+     prcr_ledger_second_half.`dec_total_pay` AS prcr_ledger_second_half_dec_total_pay,
+     prcr_ledger_second_half.`dec_epf` AS prcr_ledger_second_half_dec_epf,
+     personal_info.`name` AS personal_info_name,
+     personal_info.`code` AS personal_info_code,
+     personal_info.`nic` AS personal_info_nic,
+     personal_info.`epf_no` AS personal_info_epf_no,
+     prcr_ledger_second_half.`jul_total_pay` AS prcr_ledger_second_half_jul_total_pay
+FROM
+     `personal_info` personal_info INNER JOIN `prcr_ledger_second_half` prcr_ledger_second_half ON personal_info.`code` = prcr_ledger_second_half.`code`]]>
+	</queryString>
+	<field name="personal_info_name" class="java.lang.String"/>
+	<field name="personal_info_epf_no" class="java.lang.Integer"/>
+	<field name="personal_info_nic" class="java.lang.String"/>
+	<field name="prcr_ledger_second_half_jul_total_pay" class="java.lang.Double"/>
+	<field name="prcr_ledger_second_half_jul_epf" class="java.lang.Double"/>
+	<field name="prcr_ledger_second_half_aug_total_pay" class="java.lang.Double"/>
+	<field name="prcr_ledger_second_half_aug_epf" class="java.lang.Double"/>
+	<field name="prcr_ledger_second_half_sep_total_pay" class="java.lang.Double"/>
+	<field name="prcr_ledger_second_half_sep_epf" class="java.lang.Double"/>
+	<field name="prcr_ledger_second_half_oct_total_pay" class="java.lang.Double"/>
+	<field name="prcr_ledger_second_half_oct_epf" class="java.lang.Double"/>
+	<field name="prcr_ledger_second_half_nov_total_pay" class="java.lang.Double"/>
+	<field name="prcr_ledger_second_half_nov_epf" class="java.lang.Double"/>
+	<field name="prcr_ledger_second_half_dec_total_pay" class="java.lang.Double"/>
+	<field name="prcr_ledger_second_half_dec_epf" class="java.lang.Double"/>
+	<variable name="TITLE" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="81" splitType="Stretch">
+			<staticText>
+				<reportElement x="1" y="3" width="81" height="11" uuid="3e709542-151f-4b92-8a79-9527db2b951e"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Report generated:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="16" width="15" height="20" uuid="b253ceae-65b5-4d6e-bd4d-cd9f29f5de4c"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[by:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="1" y="57" width="555" height="1" uuid="e13c4d67-1e7f-4c1c-96d2-2316ab27579e"/>
+			</line>
+			<staticText>
+				<reportElement x="340" y="9" width="216" height="27" uuid="75b687d7-fe40-4adf-9851-27816341e992"/>
+				<textElement>
+					<font fontName="Segoe UI Light" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bogoda Group Tea Factory]]></text>
+			</staticText>
+			<line>
+				<reportElement x="1" y="0" width="555" height="1" uuid="aeb39eae-cf99-495a-9b95-9031f30f70b7"/>
+			</line>
+			<staticText>
+				<reportElement x="417" y="30" width="114" height="20" uuid="fe112270-8629-41c5-b43e-d57409be5b2e"/>
+				<text><![CDATA[Kolawenigama, Deniyaya]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement x="82" y="3" width="100" height="11" uuid="54a20eec-890c-4e8c-9249-a8bf0da283f9"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="15" y="17" width="100" height="20" uuid="a7284fb9-5755-493b-9033-b8778b4d88dd"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{USER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="33" splitType="Stretch">
+			<line>
+				<reportElement x="1" y="-26" width="555" height="1" uuid="292404ee-21c4-44ec-86e1-654ddf5dc03b"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#666666"/>
+				</graphicElement>
+			</line>
+			<textField evaluationTime="Report">
+				<reportElement x="276" y="6" width="40" height="20" uuid="a28f6025-2bc0-4bc1-a2d3-6de88975440a"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="196" y="6" width="80" height="20" uuid="c7b2c106-44fc-4aed-b3a9-e5ad706e21ea"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="151" height="20" uuid="04cdd8d3-45a3-4ecb-9070-c869ed2703d0"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[EPF 6 Month 2nd half]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="63" splitType="Stretch">
+			<line>
+				<reportElement x="2" y="51" width="554" height="1" uuid="8b820536-4e3c-4646-9176-72c78990b115"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="22" width="37" height="27" uuid="3a549cd3-12e4-456f-bbed-bc20627a12da"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="37" y="22" width="37" height="27" uuid="94899031-410e-4878-9d49-5e1a7b335d93"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[EPF No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="74" y="22" width="37" height="27" uuid="85aefe20-f2f9-4a54-a583-43e28c7926c2"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NIC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="111" y="22" width="37" height="27" uuid="b00a625f-615b-4fdd-8130-16e5d2f47c87"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Earnings]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="148" y="22" width="37" height="27" uuid="e96db1bf-df39-47f0-ae14-87f2990ba863"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Contribution]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="185" y="22" width="37" height="27" uuid="098642d0-829e-4bf2-b457-f5717571433e"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Earnings]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="222" y="22" width="37" height="27" uuid="518d0a30-9eea-4d2f-9436-e93d2ad2652a"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Contribution]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="259" y="22" width="37" height="27" uuid="d4d5abd8-36d7-487b-86de-5cca8238004e"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Earnings]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="296" y="22" width="37" height="27" uuid="a8b3b9c3-da27-4f91-ae35-526311707972"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Contribution]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="333" y="22" width="37" height="27" uuid="166c7720-e2d7-452e-b606-815791bf9544"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Earnings]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="370" y="22" width="37" height="27" uuid="f64d5713-fc5b-402b-85b3-d05aa78e9ea5"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Contribution]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="407" y="22" width="37" height="27" uuid="cb10a2be-ad0b-4475-93fc-b7fdc434f1d0"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Earnings]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="444" y="22" width="37" height="27" uuid="ad772e31-3c8b-4217-aa06-cbbdb30d5faa"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Contribution]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="481" y="22" width="37" height="27" uuid="82ffae71-6250-4564-9a57-c82255ea604f"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Earnings]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="518" y="22" width="37" height="27" uuid="3b6a3456-e149-4aba-a59d-e9f2567ae101"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Contribution]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="111" y="2" width="71" height="20" uuid="f8df8951-829e-4543-9b5d-bc4bc4c0f03a"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[July]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="185" y="2" width="71" height="20" uuid="715aa2c4-b420-464c-af83-fb8317f14389"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[August]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="259" y="2" width="71" height="20" uuid="df4417c9-106c-4fe0-9f49-881f6808d0fe"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sepetember]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="333" y="2" width="71" height="20" uuid="894a4108-084b-4f6c-ae55-6ff250935eac"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[October]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="481" y="2" width="71" height="20" uuid="5220a01b-1294-4486-8afe-8c7de1f55d5d"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[December]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="407" y="2" width="71" height="20" uuid="43532b8f-3975-40fb-9f0c-4c015612169b"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[November]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="23" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="37" height="20" uuid="b5d0acf6-0453-47be-a55a-a3ecb050448b"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{personal_info_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="37" y="0" width="37" height="20" uuid="c16ad53a-f373-4d91-904c-f3da1a76bb88"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{personal_info_epf_no}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="74" y="0" width="37" height="20" uuid="ecbb8a2c-7186-48cb-8b13-cc6fed0f8c37"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{personal_info_nic}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="111" y="0" width="37" height="20" uuid="b815dd44-17b7-4a1b-937b-a51c91c8e32d"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{prcr_ledger_second_half_jul_total_pay}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="185" y="0" width="37" height="20" uuid="3d6234bd-1c61-425d-8a78-7a52babcede6"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{prcr_ledger_second_half_aug_total_pay}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="222" y="0" width="37" height="20" uuid="a4affc4a-d686-48ca-9a54-06130806aefd"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{prcr_ledger_second_half_aug_epf}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="259" y="0" width="37" height="20" uuid="8f347ab4-ddae-487b-ad11-d584487cd871"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{prcr_ledger_second_half_sep_total_pay}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="296" y="0" width="37" height="20" uuid="13337ece-75cd-49f1-8fbd-5167a46c2a17"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{prcr_ledger_second_half_sep_epf}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="333" y="0" width="37" height="20" uuid="8521f27f-f7a1-4caf-a981-caaad5920afd"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{prcr_ledger_second_half_oct_total_pay}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="370" y="0" width="37" height="20" uuid="29d45006-5bba-4703-aea4-0bd9e70bcfc0"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{prcr_ledger_second_half_oct_epf}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="407" y="0" width="37" height="20" uuid="00b7b873-bc32-4291-94b5-05f0604696b8"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{prcr_ledger_second_half_nov_total_pay}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="444" y="0" width="37" height="20" uuid="9cf23dac-222e-4637-9d97-b65e3c8a2286"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{prcr_ledger_second_half_nov_epf}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="481" y="0" width="37" height="20" uuid="5a838329-ef0c-4be4-8e4f-e8646dbf2a75"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{prcr_ledger_second_half_dec_total_pay}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="518" y="0" width="37" height="20" uuid="4e1a9d66-e97c-419b-b0d9-0b1e99867e7a"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{prcr_ledger_second_half_dec_epf}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="151" y="0" width="37" height="20" uuid="514a4cb1-3866-4d38-9ff6-81d0a9ec07ba"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{prcr_ledger_second_half_jul_epf}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="18" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="33" splitType="Stretch">
+			<line>
+				<reportElement x="1" y="-13" width="554" height="1" uuid="0d048f90-0a60-4753-b7bf-906c8bd8f6af"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

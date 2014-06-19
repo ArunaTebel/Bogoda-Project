@@ -71,6 +71,8 @@ public class PRCR_checkroll_salary_process {
         array=checknReturnIntArrayForNoteAnalysis("pr_workdata_"+st, "register_or_casual", reg, "division",division,"code");
         
         abcd.setString(st);
+        abcd.setDivision(division);
+        
         abcd.setMargin();
         
         for (int i = 0; i < columnSize; i++) {
