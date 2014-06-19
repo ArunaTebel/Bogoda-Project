@@ -36,8 +36,22 @@ where sup_id =$P{sup}  and (( year > $P{from_year} or ( year = $P{from_year} and
 	<field name="gl_monthly_ledger_current_other_advances" class="java.lang.Double"/>
 	<field name="gl_monthly_ledger_current_final_amount" class="java.lang.Double"/>
 	<variable name="TITLE" class="java.lang.String"/>
-	<variable name="sum" class="java.lang.Double"/>
-	<variable name="variable2" class="java.lang.String"/>
+	<variable name="sum" class="java.lang.Double">
+		<variableExpression><![CDATA[$F{gl_monthly_ledger_current_final_amount}]]></variableExpression>
+	</variable>
+	<variable name="totsum" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{gl_monthly_ledger_current_total_kg}]]></variableExpression>
+	</variable>
+	<variable name="loan" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{gl_monthly_ledger_current_loans}]]></variableExpression>
+	</variable>
+	<variable name="cash" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{gl_monthly_ledger_current_cash_advances}]]></variableExpression>
+	</variable>
+	<variable name="other" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{gl_monthly_ledger_current_other_advances}]]></variableExpression>
+	</variable>
+	<variable name="variable5" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -257,6 +271,10 @@ where sup_id =$P{sup}  and (( year > $P{from_year} or ( year = $P{from_year} and
 			<textField>
 				<reportElement x="495" y="7" width="61" height="20" uuid="ef8cdfec-4c87-4075-9d65-06cfcb5feeb9"/>
 				<textFieldExpression><![CDATA[$V{sum}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="235" y="7" width="100" height="20" uuid="b62945c4-96f3-4f82-8cd5-d2ef154d16bb"/>
+				<textFieldExpression><![CDATA[$V{totsum}]]></textFieldExpression>
 			</textField>
 		</band>
 	</summary>
