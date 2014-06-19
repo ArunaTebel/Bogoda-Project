@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report6" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b4a7e90f-236c-48e1-b463-a16c40591ab1">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="55"/>
 	<parameter name="USER" class="java.lang.String"/>
 	<queryString language="SQL">
 		<![CDATA[SELECT
@@ -37,6 +37,9 @@ FROM
 	<field name="account_reciept_creditside_credit_description" class="java.lang.String"/>
 	<field name="account_reciept_creditside_credit_amount" class="java.lang.Double"/>
 	<variable name="TITLE" class="java.lang.String"/>
+	<variable name="variable1" class="java.lang.String" resetType="None">
+		<variableExpression><![CDATA[$F{account_reciept_debitside_tr_no}+$F{account_reciept_debitside_debit_account_id}]]></variableExpression>
+	</variable>
 	<group name="account_reciept_debitside_tr_no">
 		<groupExpression><![CDATA[$F{account_reciept_debitside_tr_no}]]></groupExpression>
 	</group>
@@ -184,7 +187,7 @@ FROM
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="43" splitType="Stretch">
+		<band height="63" splitType="Stretch">
 			<textField>
 				<reportElement uuid="1f7ba11e-6ea3-4301-a2d0-de85c2a80a80" x="150" y="0" width="47" height="20"/>
 				<textElement/>
@@ -216,9 +219,9 @@ FROM
 				<textFieldExpression><![CDATA[$F{account_reciept_creditside_credit_description}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="1f7ba11e-6ea3-4301-a2d0-de85c2a80a80" x="104" y="0" width="47" height="20"/>
+				<reportElement uuid="1f7ba11e-6ea3-4301-a2d0-de85c2a80a80" x="15" y="19" width="390" height="20"/>
 				<textElement/>
-				<textFieldExpression><![CDATA[$F{account_reciept_debitside_tr_no}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{account_reciept_debitside_tr_no}  ]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="1f7ba11e-6ea3-4301-a2d0-de85c2a80a80" x="342" y="19" width="64" height="20"/>
@@ -234,6 +237,11 @@ FROM
 				<reportElement uuid="1f7ba11e-6ea3-4301-a2d0-de85c2a80a80" x="478" y="19" width="74" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{account_reciept_creditside_credit_amount}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="a5f1c26b-68a6-485e-8493-c43955a86c82" x="15" y="39" width="301" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{account_reciept_debitside_tr_no}.toString()+"          "+$F{account_reciept_creditside_credit_description}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

@@ -226,10 +226,7 @@ where sup_id =$P{sup}  and (( year > $P{from_year} or ( year = $P{from_year} and
 				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_loans}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="124" y="0" width="111" height="20" uuid="3f511c95-7046-497e-9255-0364ca7f50fa"/>
-				<textElement>
-					<font size="8"/>
-				</textElement>
+				<reportElement x="124" y="0" width="55" height="20" uuid="3f511c95-7046-497e-9255-0364ca7f50fa"/>
 				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_name}]]></textFieldExpression>
 			</textField>
 			<textField>
