@@ -128,7 +128,8 @@ public class MainWindow extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(153, 153, 153));
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jButton8.setText("jButton8");
+        jButton8.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        jButton8.setText("B");
         jButton8.setToolTipText("Supplier Bill Summery");
         jButton8.setIconTextGap(1);
         jButton8.setInheritsPopupMenu(true);
@@ -148,7 +149,8 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
 
-        jButton9.setText("jButton8");
+        jButton9.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        jButton9.setText("T");
         jButton9.setToolTipText("Task Manager");
         jButton9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -610,45 +612,45 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        DateChooser_text addbrnch = new DateChooser_text();
-
-        Main_Content.removeAll();
-
-        addbrnch.setSize(Main_Content.getSize());
-
-        Main_Content.add(addbrnch);
-        validate();
-        repaint();
-        addbrnch.focus();
+//        DateChooser_text addbrnch = new DateChooser_text();
+//
+//        Main_Content.removeAll();
+//
+//        addbrnch.setSize(Main_Content.getSize());
+//
+//        Main_Content.add(addbrnch);
+//        validate();
+//        repaint();
+//        addbrnch.focus();
        
        
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        ACC_Reciept_View view = new ACC_Reciept_View();
-
-        Main_Content.removeAll();
-        view.Start();
-
-        view.setSize(Main_Content.getSize());
-
-        Main_Content.add(view);
-        validate();
-        repaint();
-        //  view.focus();
+//        ACC_Reciept_View view = new ACC_Reciept_View();
+//
+//        Main_Content.removeAll();
+//        view.Start();
+//
+//        view.setSize(Main_Content.getSize());
+//
+//        Main_Content.add(view);
+//        validate();
+//        repaint();
+//        //  view.focus();
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-        ACC_Payment_View view = new ACC_Payment_View();
-
-        Main_Content.removeAll();
-        view.Start();
-
-        view.setSize(Main_Content.getSize());
-
-        Main_Content.add(view);
-        validate();
-        repaint();
+//        ACC_Payment_View view = new ACC_Payment_View();
+//
+//        Main_Content.removeAll();
+//        view.Start();
+//
+//        view.setSize(Main_Content.getSize());
+//
+//        Main_Content.add(view);
+//        validate();
+//        repaint();
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
