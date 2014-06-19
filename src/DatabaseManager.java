@@ -218,6 +218,29 @@ public final class DatabaseManager {
         return null;
     }
     
+    public int[] getArray(String table_name, String column_name) {
+
+        int count = 0;
+        DatabaseManager dbm = DatabaseManager.getDbCon();
+        try {
+            ResultSet query = dbm.query("SELECT " + column_name + " FROM " + table_name + "");
+            while (query.next()) {
+                count++;
+            }
+            int[] array = new int[count];
+            count = 0;
+            ResultSet query2 = dbm.query("SELECT " + column_name + " FROM " + table_name + "");
+            while (query2.next()) {
+                array[count] = query2.getInt(column_name);
+                count++;
+            }
+            return array;
+        } catch (SQLException ex) {
+
+        }
+        return null;
+    }
+    
     public int[] getValuesArray(String table, String coloumn, String neededColoumn, String match){
         try {
             int count = 0;
@@ -240,6 +263,27 @@ public final class DatabaseManager {
         return null;
     }
     
+    public int[] getValuesArrayN(String table, String coloumn, String neededColoumn, String match){
+        try {
+            int count = 0;
+            DatabaseManager dbm = DatabaseManager.getDbCon();
+            ResultSet rs1 = dbm.query("SELECT * FROM " + table + " WHERE " + coloumn + " NOT LIKE '" + match + "'");
+            while (rs1.next())
+                count++;
+            int[] valuesArray = new int[count];
+            count = 0;
+            ResultSet rs2 = dbm.query("SELECT * FROM " + table + " WHERE " + coloumn + " NOT LIKE '" + match + "'");
+            while (rs2.next()) {
+                valuesArray[count] = rs2.getInt(neededColoumn);
+                count++;
+            }
+            return valuesArray;
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Error");
+        }
+        return null;
+    }
      public String[] getStringArray1(String table_name, String column_name) {
 
         int count = 0;
@@ -264,6 +308,28 @@ public final class DatabaseManager {
         }
         return null;
     }
+     
+    public String[] PRCRWorkerSearch(String table, String coloumn1, String coloumn2, String coloumn3, Object element1, Object element2, Object element3, String target){
+        DatabaseManager dbm = DatabaseManager.getDbCon();
+        String workcodes[];
+        int i = 0;
+        try {
+            ResultSet rs1 = dbm.query("SELECT * FROM " + table + " WHERE " + coloumn1 + " ='" + element1 + " 'AND " + coloumn2 + " ='" + element2 + " 'AND " + coloumn3 + " ='" + element3 + "'");
+            while(rs1.next())
+                i++;
+            workcodes = new String[i];
+            i = 0;
+            ResultSet rs2 = dbm.query("SELECT * FROM " + table + " WHERE " + coloumn1 + " ='" + element1 + " 'AND " + coloumn2 + " ='" + element2 + " 'AND " + coloumn3 + " ='" + element3 + "'");
+            while(rs2.next()){
+                workcodes[i] = rs2.getString(target);
+                i++;
+            }
+            return workcodes;
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    } 
     
 
     public String[] search_PRCR(String table_name, String column_1, String column_2, Object element_1, Object element_2, String needed_column) {

@@ -674,7 +674,8 @@ DateChooser_text date_chooser= new DateChooser_text();
       
         supplier.addToDatabase();
         if(welf.getSelectedItem().toString().equals("New Register")){
-        reportgen.wel_new_reg(Integer.parseInt(code));}
+       // reportgen.wel_new_reg(Integer.parseInt(code));
+        }
         JOptionPane.showMessageDialog(payment_method, "Saved");
     }//GEN-LAST:event_saveActionPerformed
 
@@ -850,7 +851,8 @@ DateChooser_text date_chooser= new DateChooser_text();
       
         supplier.update();
         if(welf.getSelectedItem().toString().equals("New Register")){
-        reportgen.wel_new_reg(Integer.parseInt(code));}
+       // reportgen.wel_new_reg(Integer.parseInt(code));
+        }
         JOptionPane.showMessageDialog(payment_method, "Updated");
     }//GEN-LAST:event_cancelActionPerformed
 

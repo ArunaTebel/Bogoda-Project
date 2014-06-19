@@ -170,7 +170,7 @@ public class GreenLeaf {
     public void addToDataBase() {
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         try {
-            dbCon.insert("INSERT INTO green_leaf_transactions(tr_date,tr_id,sup_id,category_code,no_of_sacks,total_kg,sack_kg,water_kg,coarse_leaf_kg,other,transport,leaf_category,net_qty) VALUES('" + date + "','" + transaction_id + "','" + supplierCode + "','" + categoryCode + "','" + noOfSacks + "','" + totalWeight +"','" + sacksWeight + "','" + water +"','" + coarseLeaf + "','" + other+"','" + selfTransport+"','" +leafCategory+"','"+netQuantity+"')");
+            dbCon.insert("INSERT INTO green_leaf_transactions(tr_date,sup_id,category_code,no_of_sacks,total_kg,sack_kg,water_kg,coarse_leaf_kg,other,transport,leaf_category,net_qty) VALUES('" + date + "','" + supplierCode + "','" + categoryCode + "','" + noOfSacks + "','" + totalWeight +"','" + sacksWeight + "','" + water +"','" + coarseLeaf + "','" + other+"','" + selfTransport+"','" +leafCategory+"','"+netQuantity+"')");
              
 
         } catch (SQLException ex) {
@@ -184,6 +184,15 @@ public class GreenLeaf {
     }
 
     public void editDataBase() {
+          DatabaseManager dbCon = DatabaseManager.getDbCon();
+            try {
+             //   System.out.println("UPDATE  green_leaf_transactions SET tr_date= '"+date+",sup_id='"+supplierCode+"',category_code= '"+categoryCode+"',no_of_sacks= '"+noOfSacks+"',total_kg= '"+totalWeight+"',sack_kg= '"+sacksWeight+"',water_kg= '"+water+"',coarse_leaf_kg= '"+coarseLeaf+"',other= '"+other+"',transport= '"+selfTransport+"',leaf_category= '"+leafCategory+"',net_qty='"+netQuantity+"' WHERE tr_id = '"+transaction_id+"'");
+            dbCon.insert("UPDATE  green_leaf_transactions SET tr_date= '"+date+"',sup_id='"+supplierCode+"',category_code= '"+categoryCode+"',no_of_sacks= '"+noOfSacks+"',total_kg= '"+totalWeight+"',sack_kg= '"+sacksWeight+"',water_kg= '"+water+"',coarse_leaf_kg= '"+coarseLeaf+"',other= '"+other+"',transport= '"+selfTransport+"',leaf_category= '"+leafCategory+"',net_qty='"+netQuantity+"' WHERE tr_id = '"+transaction_id+"'");
+             
+
+        } catch (SQLException ex) {
+            MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
+        }
 
     }
 }

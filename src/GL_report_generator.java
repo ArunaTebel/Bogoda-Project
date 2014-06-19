@@ -247,9 +247,13 @@ public class GL_report_generator {
                //  System.out.println("week totals done:");
 
                 // System.out.println("init:");
+                try{
                 dbCon.insert("INSERT INTO weekly_advance_current(entry,year,month,sup_id,sup_name,c_w1,c_w2,c_w3,c_w4,cash_total,o_w1,o_w2,o_w3,o_w4,other_total,total) VALUES('" + year + month + sup + "','" + year + "','" + month + "','" + sup + "','" + name + "','" + output[0] + "','" + output[1] + "','" + output[2] + "','" + output[3] + "','" + output[4] + "','" + output[5] + "','" + output[6] + "','" + output[7] + "','" + output[8] + "','" + output[9] + "','" + output[10] + "')");
-                // System.out.println("wrt:");
-                //  dbCon.insert("INSERT INTO daily_transactions_current(year,month,sup_id,day_1,Total) VALUES('" + year + "','" + month + "','"  + sup + "','" + day_totals[0] +  "','"+ total + "')");
+                } catch(Exception e){
+                    
+                      dbCon.insert("UPDATE  weekly_advance_current SET year='"+year+"',month='"+month+"',sup_id='"+sup+"',sup_name='"+name+"',c_w1='"+output[0]+"',c_w2='"+output[1]+"',c_w3='"+output[2]+"',c_w4='"+output[3]+"',cash_total='"+output[4]+"',o_w1='"+output[5]+"',o_w2='"+output[6]+"',o_w3='"+output[7]+"',o_w4='"+output[8]+"',other_total='"+output[9]+"',total='"+output[10]+"' WHERE entry = '"+year+month+sup+"'");
+                    System.out.println("UPS");
+                } //  dbCon.insert("INSERT INTO daily_transactions_current(year,month,sup_id,day_1,Total) VALUES('" + year + "','" + month + "','"  + sup + "','" + day_totals[0] +  "','"+ total + "')");
                 // k++;
             }
         } catch (SQLException ex) {
@@ -258,21 +262,69 @@ public class GL_report_generator {
         }
         update_taskmanager(year, month, task);
     }
+public double get_loans(int sup_id, String year, String month) //take year and month and return daily totals for the specific user 
+    {
+       // double[] cash_total = new double[32];
+       // double[] other_total = new double[32];
+        double output = 0;
+       // double[] cash_new_month = new double[32];
+       // double[] other_new_month = new double[32];
 
-    public void monthly_ledger_calc(String year, String month) {
+        double[] a = new double[10];
+
+       
+        //j = 0;
+      
+
+        Date date1 = java.sql.Date.valueOf(year + "-" + month + "-" + "08");
+        
+        Date date4;
+        if (month.equals("12")) {
+            date4 = java.sql.Date.valueOf(String.valueOf(Integer.parseInt(year) + 1) + "-" + date_handler.get_next_month(month) + "-" + "07");
+        } else {
+            date4 = java.sql.Date.valueOf(year + "-" + date_handler.get_next_month(month) + "-" + "07");
+        }
+
+        // System.out.println(date1+"----"+date2+"----"+date3+"-----"+date4);
+        DatabaseManager dbm = DatabaseManager.getDbCon();
+        try {
+
+            ResultSet query = dbm.query("SELECT * FROM " + "gl_loans" + " where " + "sup_id" + " = '" + sup_id + " 'AND " + "date" + " BETWEEN'" + date1 + "' AND '" + date4 + "'");
+
+            while (query.next()) {
+                //System.out.println("query 1");
+               // int dates = Integer.parseInt(date_handler.get_day(query.getDate("ordered_date")));
+                // System.out.println(query.getDouble("amount"));
+                output += query.getDouble("monthly_amount");
+
+            }
+
+        } catch (SQLException ex) {
+           // System.out.println("Loans error");
+            output = 0;
+
+        }
+
+       
+
+
+        return output;
+    }
+    public void monthly_ledger_calc(String year, String month) throws SQLException {
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         int k = 0;
         String task = "3";
 
-        try {
+      
             ResultSet query = dbCon.query("SELECT * FROM suppliers");
 
             while (query.next()) {
                 int sup = query.getInt("sup_id");
                 String name = query.getString("sup_name");
+                String pay = query.getString("sup_pay_type");
                 //String trans_code = query.getString("")
-                // System.out.println(sup);
-
+                 System.out.println(pay);
+                double loans = get_loans(sup, year, month);
                 // String trans_code = dbm.checknReturnData("suppliers", "sup_id", sup, "trans_rate");
                 //System.out.println(trans_code);
                 double trans = dbm.checknReturnDoubleData("daily_transactions_current", "entry", year + month + sup, "trans");
@@ -292,7 +344,12 @@ public class GL_report_generator {
                 coinsbf = 0;
                 }
 
+                double welf = 0;
                 
+                welf = dbm.checknReturnDoubleData("welfare", "entry", year+month+sup, "amount");
+                   // System.out.println("WELFARE OK"+welf);
+                
+               
                 double cash_advance = dbm.checknReturnDoubleData("weekly_advance_current", "entry", year + month + sup, "cash_total");
                 double other_advance = dbm.checknReturnDoubleData("weekly_advance_current", "entry", year + month + sup, "other_total");
                 double tax = dbm.checknReturnDoubleData("rate_details", "Code_name", "INTAX", "rate");
@@ -301,7 +358,7 @@ public class GL_report_generator {
                 if (total_kg == 0) {
                     cards = 0;
                 }
-                double net_amount = ((coinsbf + (total_kg * leaf_rate)) - (pre_debts + cash_advance + other_advance + cards + trans));
+                double net_amount = ((coinsbf + (total_kg * leaf_rate)) - (pre_debts + cash_advance + other_advance + cards +loans+ trans+welf));
                 double plusTax;
                 if (net_amount > 25000) {
                     plusTax = tax;
@@ -310,23 +367,36 @@ public class GL_report_generator {
                 }
                 double coinscf = ((net_amount + plusTax) % 10);
                 if (net_amount < 0) {
-                    coinscf = coinsbf;
+                    coinscf = 0;
                 }
-
+                double bal_cf= 0;
+                double final_total = ((net_amount + plusTax) - coinscf);
+                if(final_total<0){
+                 bal_cf = 0-final_total;
+                         
+                final_total= 0;
+                
+                
+                }
+  try {
                 //double Grand_total =
-                dbCon.insert("INSERT INTO gl_monthly_ledger_current(entry,year,month,sup_id,name,total_kg,set_value,gross_amount,coins_bf,total_payable,pre_debts,cash_advances,other_advances,cards,transport,total_deduction,net_amount,tax,final_payable,coins_cf,final_amount) "
-                        + "VALUES('" + year + month + sup + "','" + year + "','" + month + "','" + sup + "','" + name + "','" + total_kg + "','" + leaf_rate + "','" + (total_kg * leaf_rate) + "','" + coinsbf + "','" + (coinsbf + (total_kg * leaf_rate)) + "','" + pre_debts + "','" + cash_advance + "','" + other_advance + "','" + cards + "','" + trans + "','" + (pre_debts + cash_advance + other_advance + cards + trans) + "','" + net_amount + "','" + plusTax + "','" + (net_amount + plusTax) + "','" + coinscf + "','" + ((net_amount + plusTax) - coinscf) + "')");
+                dbCon.insert("INSERT INTO gl_monthly_ledger_current(entry,year,month,sup_id,name,pay,total_kg,set_value,gross_amount,coins_bf,total_payable,pre_debts,cash_advances,other_advances,loans,cards,transport,welfare,total_deduction,net_amount,tax,final_payable,coins_cf,final_amount,bal_cf) "
+                        + "VALUES('" + year + month + sup + "','" + year + "','" + month + "','" + sup + "','" + name + "','" + pay + "','" + total_kg + "','" + leaf_rate + "','" + (total_kg * leaf_rate) + "','" + coinsbf + "','" + (coinsbf + (total_kg * leaf_rate)) + "','" + pre_debts + "','" + cash_advance + "','" + other_advance + "','" + loans + "','" + cards + "','" + trans + "','" + welf + "','" + (pre_debts + cash_advance + other_advance + cards +loans+ trans+welf) + "','" + net_amount + "','" + plusTax + "','" + (net_amount + plusTax) + "','" + coinscf + "','" + final_total + "','" + bal_cf + "')");
                 //  dbCon.insert("INSERT INTO daily_transactions_current(year,month,sup_id,day_1,Total) VALUES('" + year + "','" + month + "','"  + sup + "','" + day_totals[0] +  "','"+ total + "')");
                 k++;
                 System.out.println(k);
 
             }
-        } catch (SQLException ex) {
-            MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
+         catch (SQLException ex) {
+            //MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
+            dbCon.insert("UPDATE  gl_monthly_ledger_current SET year='"+year+"',month='"+month+"',sup_id='"+sup+"',name='"+name+"',pay='"+pay+"',total_kg='"+total_kg+"',set_value='"+leaf_rate+"',gross_amount='"+(total_kg * leaf_rate)+"',coins_bf='"+coinsbf+"',total_payable='"+(coinsbf + (total_kg * leaf_rate))+"',pre_debts='"+pre_debts+"',cash_advances='"+cash_advance+"',other_advances='"+other_advance+"',loans ='"+loans+"',cards='"+cards+"',transport='"+trans+"',welfare = '"+welf+"',total_deduction='"+ (pre_debts + cash_advance + other_advance + cards + trans)+"',net_amount='"+net_amount+"',tax='"+plusTax+"',final_payable='"+(net_amount + plusTax)+"',coins_cf='"+coinscf +"',final_amount='"+final_total +"',bal_cf='"+bal_cf +"' Where entry = '"+year+month+sup+"'");
+               
 
         }
-        update_taskmanager(year, month, task);
+       
 
+    }
+             update_taskmanager(year, month, task);
     }
 
     public void update_taskmanager(String year, String month, String task) {
@@ -336,7 +406,9 @@ public class GL_report_generator {
             dbCon.insert("INSERT INTO task_manager(entry,status,date) VALUES('" + year + month + task + "','DONE','" + Nowdate + "')");
         } catch (SQLException ex) {
             try {
+                JOptionPane.showMessageDialog(null, "Need to update");
                 dbCon.insert("UPDATE task_manager SET status ='DONE', date ='" + Nowdate + "' WHERE entry='" + year + month + task + "'");
+                
                 Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
             } catch (SQLException ex1) {
                 Logger.getLogger(GL_report_generator.class.getName()).log(Level.SEVERE, null, ex1);
@@ -344,7 +416,37 @@ public class GL_report_generator {
         }
 
     }
-
+    
+     public void pre_debt_and_coin_Update(String year,String month){
+        double coin=0, debts = 0;
+        int sup =0;
+        String task = "4";
+        try {
+            DatabaseManager dbCon = DatabaseManager.getDbCon();
+            ResultSet query = dbCon.query("SELECT * FROM gl_monthly_ledger_current WHERE year = '"+year+"' AND month= '"+month+"' ");
+            
+            while (query.next()) {
+                coin=query.getDouble("coins_cf");
+                debts = query.getDouble("bal_cf");
+                sup = query.getInt("sup_id");
+                
+                try{
+                 dbCon.insert("INSERT INTO supplier_pre_debt_coins(entry,sup_id,pre_debts,coins,month) VALUES('" + year + month + sup + "','" +  sup + "','" + debts + "','" +coin + "','" + year+month + "')");
+                } catch(Exception e){
+                dbCon.insert("UPDATE supplier_pre_debt_coins SET sup_id ='"+sup+"', pre_debts= '"+debts+"',coins = '"+coin+"',month = '"+year+month+"' WHERE entry = '"+year+month+sup+"'");
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(GL_report_generator.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    
+    
+    
+         update_taskmanager(year, month, task);
+    
+    }
+    
+/*
     public void update_welfare(String year, String month) {
       DatabaseManager dbCon = DatabaseManager.getDbCon();
         int index = 0;
@@ -589,7 +691,8 @@ public class GL_report_generator {
                 return false;    }
 
     }
-    
+    */
+   
     
    
 

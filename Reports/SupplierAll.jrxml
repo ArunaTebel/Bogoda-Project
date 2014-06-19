@@ -3,7 +3,6 @@
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<parameter name="cat_id" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT
      suppliers.`sup_id` AS suppliers_sup_id,
@@ -21,11 +20,9 @@
      suppliers.`trans_rate` AS suppliers_trans_rate,
      suppliers.`leaf_rate_code` AS suppliers_leaf_rate_code,
      suppliers.`welfare` AS suppliers_welfare,
-     suppliers.`welf_rem` AS suppliers_welf_rem
+     suppliers.`welf_num` AS suppliers_welf_rem
 FROM
-     `suppliers` suppliers
-
-]]>
+     `suppliers` suppliers]]>
 	</queryString>
 	<field name="suppliers_sup_id" class="java.lang.Integer"/>
 	<field name="suppliers_sup_name" class="java.lang.String"/>

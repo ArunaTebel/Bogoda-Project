@@ -112,12 +112,25 @@ public class Task_manager extends javax.swing.JPanel {
     progress_task.setValue(100);
     }
      }
+      public class predebts_coins implements Runnable{
+    public void run(){
+    Thread a = new Thread(new Background(35));
+    a.start();
+    report_gen.pre_debt_and_coin_Update(yearfield.getText(), datehandler.return_month_as_num(monthfield.getText()));
+    a.stop();
+    progress_task.setValue(100);
+    }
+     }
     
      public class monthly_ledger implements Runnable{
     public void run(){
     Thread a = new Thread(new Background(35));
     a.start();
-    report_gen.monthly_ledger_calc(yearfield.getText(), datehandler.return_month_as_num(monthfield.getText()));
+        try {
+            report_gen.monthly_ledger_calc(yearfield.getText(), datehandler.return_month_as_num(monthfield.getText()));
+        } catch (SQLException ex) {
+            Logger.getLogger(Task_manager.class.getName()).log(Level.SEVERE, null, ex);
+        }
     a.stop();
     progress_task.setValue(100);
     }  
@@ -165,15 +178,19 @@ public class Task_manager extends javax.swing.JPanel {
      Thread DT = new Thread(new daily_trans());
         Thread WA = new Thread(new weekly_advance());
         Thread ML = new Thread(new monthly_ledger());
+        Thread PDC = new Thread(new predebts_coins());
         info.setText("Daily transactions processing....");
-        if(GL1.isSelected()){ DT.run();}
-         set_task_man(year, month);
+        if(GL1.isSelected()){ DT.run(); set_task_man(year, month);}
+        
           info.setText("Weekly advances list processing.....");
-         if(GL2.isSelected()){WA.run();}
-          set_task_man(year, month);
+         if(GL2.isSelected()){WA.run();set_task_man(year, month);}
+          
           info.setText("Monthly ledger processing.....");
-          if(GL3.isSelected()){ML.run();}
-     set_task_man(year, month);
+          if(GL3.isSelected()){ML.run(); set_task_man(year, month);}
+    
+     info.setText("Bought Forward Balances and Coins Balances Updating.....");
+     if(GL4.isSelected()){PDC.run(); set_task_man(year, month);}
+    
     }
     
     }
@@ -371,7 +388,7 @@ public class Task_manager extends javax.swing.JPanel {
         GLLabel4.setText("jLabel2");
 
         GL4.setBackground(new java.awt.Color(255, 255, 255));
-        GL4.setText("Cash Payment List");
+        GL4.setText("Update Bal_CF and Coins");
         GL4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 GL4ActionPerformed(evt);
@@ -384,10 +401,10 @@ public class Task_manager extends javax.swing.JPanel {
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel13Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(GL4, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(53, 53, 53)
+                .addComponent(GL4)
+                .addGap(32, 32, 32)
                 .addComponent(GLLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
                 .addComponent(GLdate4)
                 .addContainerGap())
         );
@@ -560,7 +577,7 @@ public class Task_manager extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 505, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -582,7 +599,7 @@ public class Task_manager extends javax.swing.JPanel {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 643, Short.MAX_VALUE)
+            .addGap(0, 659, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -595,7 +612,7 @@ public class Task_manager extends javax.swing.JPanel {
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 643, Short.MAX_VALUE)
+            .addGap(0, 659, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

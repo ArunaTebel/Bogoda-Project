@@ -61,11 +61,44 @@ public class Report_GL_Payments extends javax.swing.JPanel {
         public report(String PAY,int delay) {
             pay= PAY;
             DEL= delay;
+            String dateNow= null;
         }
 
         @Override
         public void run() {
+            String dateNow= null;
+            double limit =dbm.checknReturnDoubleData("rate_details", "Code_name", "CASH_LIMIT", "rate");
+            if(jCheckBox1.isSelected()){
+        pay = "CASH";
+            
+            
+            Thread a = new Thread(new Background(DEL));
 
+            
+            HashMap param = new HashMap();
+            param.put("USER", user.get_current_user());
+            param.put("pay_type", pay);
+            param.put("cash_limit", limit);
+            param.put("year", yearfield.getText());
+            param.put("month", datehandler.return_month_as_num(monthfield.getText()));
+            param.put("Month", datehandler.Return_month_full(datehandler.return_index(monthfield.getText())) + " " + yearfield.getText().toString());
+
+            // b.start();
+            a.start();
+            
+
+            String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
+
+            dateNow= generate.create("PaymentList", saveloc, param, location, "GL_Cashpayment.jrxml");
+            a.stop();
+            jProgressBar1.setValue(100);
+            
+            
+            
+            }
+        else if (jCheckBox2.isSelected()){
+        pay = "BANK";
+        
             Thread a = new Thread(new Background(DEL));
 
             
@@ -82,9 +115,49 @@ public class Report_GL_Payments extends javax.swing.JPanel {
 
             String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
 
-           String dateNow= generate.create("PaymentList", "D:\\", param, location, "GL_Cashpayment.jrxml");
+            dateNow= generate.create("PaymentList", saveloc, param, location, "GL_bankpayment.jrxml");
             a.stop();
             jProgressBar1.setValue(100);
+        
+        
+        
+        
+        }
+        else if(jCheckBox3.isSelected()){
+        pay = "CASH";
+        
+        
+            Thread a = new Thread(new Background(DEL));
+
+            
+            HashMap param = new HashMap();
+            param.put("USER", user.get_current_user());
+            param.put("cash_limit", limit);
+            param.put("pay_type", pay);
+            param.put("year", yearfield.getText());
+            param.put("month", datehandler.return_month_as_num(monthfield.getText()));
+            param.put("Month", datehandler.Return_month_full(datehandler.return_index(monthfield.getText())) + " " + yearfield.getText().toString());
+
+            // b.start();
+            a.start();
+            
+
+            String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
+
+            dateNow= generate.create("PaymentList", saveloc, param, location, "GL_Chequepayment.jrxml");
+            a.stop();
+            jProgressBar1.setValue(100);
+        
+        
+        
+        
+        
+        }
+        else{JOptionPane.showMessageDialog(datechooser, "Please Select Pay type");
+         dateNow= null;
+        
+        }
+
             try {
                 generate.savename(dateNow, "PaymentList", yearfield.getText()+datehandler.return_month_as_num(monthfield.getText()));
             } catch (SQLException ex) {
@@ -113,6 +186,7 @@ public class Report_GL_Payments extends javax.swing.JPanel {
     Report_gen generate = new Report_gen();
     UserAccountControl user = new UserAccountControl();
     DatabaseManager dbm = new DatabaseManager();
+    String saveloc = dbm.checknReturnStringData("file_locations", "description", "ReportSave", "location");
 
     public void focus() {
         monthfield.requestFocus();
@@ -523,7 +597,7 @@ public class Report_GL_Payments extends javax.swing.JPanel {
         String save_location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
         
         String file_name= dbm.checknReturnStringData("last_report", "type", "Monthly_Ledger", "filename");
-        File myFile = new File("D:\\"+file_name+".pdf");
+        File myFile = new File(saveloc+file_name+".pdf");
         try {
             Desktop.getDesktop().open(myFile);
         } catch (IOException ex) {
@@ -537,13 +611,7 @@ public class Report_GL_Payments extends javax.swing.JPanel {
 
     private void view1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_view1ActionPerformed
         String pay = null;
-        if(jCheckBox1.isSelected()){
-        pay = "CASH";}
-        else if (jCheckBox2.isSelected()){
-        pay = "BANK";}
-        else if(jCheckBox3.isSelected()){
-        pay = "CHEQUE";}
-        else{JOptionPane.showMessageDialog(datechooser, "Please Select Pay type");}
+        
         
         
         Thread b = new Thread(new report(pay,10));

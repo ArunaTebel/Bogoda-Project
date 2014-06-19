@@ -77,7 +77,7 @@ public class Report_GL_daily_transactions extends javax.swing.JPanel {
 
             String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
 
-           String dateNow= generate.create("Daily_tansactions_", "D:\\", param, location, "Daily_transactions.jrxml");
+           String dateNow= generate.create("Daily_tansactions_", saveloc, param, location, "Daily_transactions.jrxml");
             a.stop();
             jProgressBar1.setValue(100);
             try {
@@ -112,7 +112,7 @@ public class Report_GL_daily_transactions extends javax.swing.JPanel {
 
             String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
 
-           String dateNow= generate.create("Daily_tansactions_", "D:\\", param, location, "Daily_transactions.jrxml");
+           String dateNow= generate.create("Daily_tansactions_", saveloc, param, location, "Daily_transactions.jrxml");
             a.stop();
             jProgressBar1.setValue(100);
             try {
@@ -163,6 +163,7 @@ public class Report_GL_daily_transactions extends javax.swing.JPanel {
     Report_gen generate = new Report_gen();
     UserAccountControl user = new UserAccountControl();
     DatabaseManager dbm = new DatabaseManager();
+    String saveloc = dbm.checknReturnStringData("file_locations", "description", "ReportSave", "location");
 
     public void focus() {
         //dayfield.requestFocus();
@@ -553,7 +554,7 @@ public class Report_GL_daily_transactions extends javax.swing.JPanel {
         String save_location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
         
         String file_name= dbm.checknReturnStringData("last_report", "type", "Daily_tansactions_", "filename");
-        File myFile = new File("D:\\"+file_name+".pdf");
+        File myFile = new File(saveloc+file_name+".pdf");
         try {
             Desktop.getDesktop().open(myFile);
         } catch (IOException ex) {

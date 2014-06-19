@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b4a7e90f-236c-48e1-b463-a16c40591ab1">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="29"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="USER" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT
@@ -90,7 +90,7 @@ order by bank_id]]>
 			<staticText>
 				<reportElement x="1" y="0" width="100" height="20" uuid="29699860-36bf-4606-931a-c00384953311"/>
 				<textElement>
-					<font size="14" isBold="true"/>
+					<font fontName="Ds-Chamika" size="14" isBold="true"pdfEncoding="Cp1254"/>
 				</textElement>
 				<text><![CDATA[Bank Details]]></text>
 			</staticText>
@@ -128,6 +128,9 @@ order by bank_id]]>
 			</textField>
 			<textField>
 				<reportElement x="277" y="0" width="277" height="20" uuid="5a1be439-b227-4f50-9da2-7ee3d583aaf5"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{bank_bank_name}]]></textFieldExpression>
 			</textField>
 			<line>
@@ -152,6 +155,11 @@ order by bank_id]]>
 		</band>
 	</pageFooter>
 	<summary>
-		<band height="42" splitType="Stretch"/>
+		<band height="337" splitType="Stretch">
+			<image>
+				<reportElement x="15" y="28" width="533" height="272" uuid="b9f2d810-3e90-40bd-a7dd-6591d2f12fd6"/>
+				<imageExpression><![CDATA["C:\\Users\\Pramo\\Desktop\\Picture5.jpg"]]></imageExpression>
+			</image>
+		</band>
 	</summary>
 </jasperReport>

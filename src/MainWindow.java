@@ -23,9 +23,9 @@ public class MainWindow extends javax.swing.JFrame {
 
     public MainWindow() {
         initComponents();
-        int a = (int) (Math.random()*10);
+      //  int a = (int) (Math.random()*10);
        // System.out.println(a);
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BogodaAreal"+a+".jpg")));
+     //  jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BogodaAreal"+2+".jpg")));
         //this.setIconImage(new ImageIcon(getClass().getResource("ICON2.png")).getImage());
         Info.setText("");
         String s = userAC.get_current_user();
@@ -311,6 +311,7 @@ public class MainWindow extends javax.swing.JFrame {
         Main_Content.add(jLabel3);
         jLabel3.setBounds(-230, 130, 770, 420);
 
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BogodaAreal8.jpg"))); // NOI18N
         jLabel7.setText("jLabel3");
         jLabel7.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         Main_Content.add(jLabel7);
@@ -1043,7 +1044,10 @@ System.exit(0);
 
             @Override
             public void run() {
-
+                  try{System.out.println("going sleep");
+                      Thread.sleep(1500);
+                      }
+                  catch(Exception e) {}
                 MainWindow jf = new MainWindow();
                 jf.setVisible(true);
                 jf.setExtendedState(MainWindow.MAXIMIZED_BOTH);

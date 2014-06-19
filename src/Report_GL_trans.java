@@ -70,7 +70,7 @@ UIDefaults defaults = UIManager.getLookAndFeelDefaults();
                 // Date Return_date = datechooser.Return_date(yearfield, monthfield, dayfield);
                 String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
                 a.start();
-                generate.create("GL_trans", "D:\\", param, location, "GL_trans_all.jrxml");
+                generate.create("GL_trans", saveloc, param, location, "GL_trans_all.jrxml");
                 a.stop();;
                 jProgressBar1.setValue(100);
             } catch (ParseException ex) {
@@ -88,7 +88,7 @@ UIDefaults defaults = UIManager.getLookAndFeelDefaults();
                 // Date Return_date = datechooser.Return_date(yearfield, monthfield, dayfield);
                 String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
                 a.start();
-                generate.create("GL_trans", "D:\\", param, location, "GL_trans_Gcategory.jrxml");
+                generate.create("GL_trans", saveloc, param, location, "GL_trans_Gcategory.jrxml");
                  a.stop();;
                 jProgressBar1.setValue(100);
             } catch (ParseException ex) {
@@ -106,7 +106,7 @@ UIDefaults defaults = UIManager.getLookAndFeelDefaults();
                 // Date Return_date = datechooser.Return_date(yearfield, monthfield, dayfield);
                 String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
                 a.start();
-                generate.create("GL_trans", "D:\\", param, location, "GL_trans_all_rout.jrxml");
+                generate.create("GL_trans", saveloc, param, location, "GL_trans_all_rout.jrxml");
                  a.stop();;
                 jProgressBar1.setValue(100);
             } catch (ParseException ex) {
@@ -124,7 +124,7 @@ UIDefaults defaults = UIManager.getLookAndFeelDefaults();
                 // Date Return_date = datechooser.Return_date(yearfield, monthfield, dayfield);
                 String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
                 a.start();
-                generate.create("GL_trans", "D:\\", param, location, "GL_trans_gsupp.jrxml");
+                generate.create("GL_trans", saveloc, param, location, "GL_trans_gsupp.jrxml");
                  a.stop();;
                 jProgressBar1.setValue(100);
             } catch (ParseException ex) {
@@ -143,7 +143,7 @@ UIDefaults defaults = UIManager.getLookAndFeelDefaults();
                 // Date Return_date = datechooser.Return_date(yearfield, monthfield, dayfield);
                 String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
                 a.start();
-                generate.create("GL_trans", "D:\\", param, location, "GL_trans_all_user.jrxml");
+                generate.create("GL_trans", saveloc, param, location, "GL_trans_all_user.jrxml");
                  a.stop();;
                 jProgressBar1.setValue(100);
             } catch (ParseException ex) {
@@ -171,6 +171,7 @@ UIDefaults defaults = UIManager.getLookAndFeelDefaults();
     Date_Handler datehandler = new Date_Handler();
     Report_gen generate = new Report_gen();
     DatabaseManager dbm = new DatabaseManager();
+    String saveloc = dbm.checknReturnStringData("file_locations", "description", "ReportSave", "location");
 
     public void focus() {
         dayfield.requestFocus();
@@ -1251,7 +1252,7 @@ UIDefaults defaults = UIManager.getLookAndFeelDefaults();
                 // Date Return_date = datechooser.Return_date(yearfield, monthfield, dayfield);
                 String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
                 jProgressBar1.setValue(60);
-                generate.create("GL_trans", "D:\\", param, location, "GL_trans_all.jrxml");
+                generate.create("GL_trans", saveloc, param, location, "GL_trans_all.jrxml");
                 jProgressBar1.setValue(95);
             } catch (ParseException ex) {
                 Logger.getLogger(Report_GL_trans.class.getName()).log(Level.SEVERE, null, ex);
@@ -1268,7 +1269,7 @@ UIDefaults defaults = UIManager.getLookAndFeelDefaults();
                 // Date Return_date = datechooser.Return_date(yearfield, monthfield, dayfield);
                 String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
 
-                generate.create("GL_trans", "D:\\", param, location, "GL_trans_Gcategory.jrxml");
+                generate.create("GL_trans", saveloc, param, location, "GL_trans_Gcategory.jrxml");
             } catch (ParseException ex) {
                 Logger.getLogger(Report_GL_trans.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -1284,7 +1285,7 @@ UIDefaults defaults = UIManager.getLookAndFeelDefaults();
                 // Date Return_date = datechooser.Return_date(yearfield, monthfield, dayfield);
                 String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
 
-                generate.create("GL_trans", "D:\\", param, location, "GL_trans_all_rout.jrxml");
+                generate.create("GL_trans", saveloc, param, location, "GL_trans_all_rout.jrxml");
             } catch (ParseException ex) {
                 Logger.getLogger(Report_GL_trans.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -1300,7 +1301,7 @@ UIDefaults defaults = UIManager.getLookAndFeelDefaults();
                 // Date Return_date = datechooser.Return_date(yearfield, monthfield, dayfield);
                 String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
 
-                generate.create("GL_trans", "D:\\", param, location, "GL_trans_gsupp.jrxml");
+                generate.create("GL_trans", saveloc, param, location, "GL_trans_gsupp.jrxml");
             } catch (ParseException ex) {
                 Logger.getLogger(Report_GL_trans.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -1317,7 +1318,7 @@ UIDefaults defaults = UIManager.getLookAndFeelDefaults();
                 // Date Return_date = datechooser.Return_date(yearfield, monthfield, dayfield);
                 String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
 
-                generate.create("GL_trans", "D:\\", param, location, "GL_trans_all_user.jrxml");
+                generate.create("GL_trans", saveloc, param, location, "GL_trans_all_user.jrxml");
             } catch (ParseException ex) {
                 Logger.getLogger(Report_GL_trans.class.getName()).log(Level.SEVERE, null, ex);
             }

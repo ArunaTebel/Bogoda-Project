@@ -65,7 +65,7 @@ public class Report_GL_cadvance extends javax.swing.JPanel {
 
                     String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
 
-                    generate.create("GL_CADVANCE", "D:\\", param, location, "GL_cadvance.jrxml");
+                    generate.create("GL_CADVANCE", saveloc, param, location, "GL_cadvance.jrxml");
                     a.stop();
                     jProgressBar1.setValue(100);
                 } catch (ParseException ex) {
@@ -90,7 +90,7 @@ public class Report_GL_cadvance extends javax.swing.JPanel {
 
                         String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
 
-                        generate.create("GL_CADVANCE", "D:\\", param, location, "GL_cadvance_all_user.jrxml");
+                        generate.create("GL_CADVANCE", saveloc, param, location, "GL_cadvance_all_user.jrxml");
                         a.stop();
                         jProgressBar1.setValue(100);
                     } catch (ParseException ex) {
@@ -112,7 +112,7 @@ public class Report_GL_cadvance extends javax.swing.JPanel {
 
                     String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
 
-                    generate.create("GL_CADVANCE", "D:\\", param, location, "GL_cadvance_overad.jrxml");
+                    generate.create("GL_CADVANCE", saveloc, param, location, "GL_cadvance_overad.jrxml");
                     a.stop();
                     jProgressBar1.setValue(100);
                 } catch (ParseException ex) {
@@ -172,6 +172,7 @@ public class Report_GL_cadvance extends javax.swing.JPanel {
     Report_gen generate = new Report_gen();
     UserAccountControl user = new UserAccountControl();
     DatabaseManager dbm = new DatabaseManager();
+    String saveloc = dbm.checknReturnStringData("file_locations", "description", "ReportSave", "location");
 
     public void focus() {
         dayfield.requestFocus();

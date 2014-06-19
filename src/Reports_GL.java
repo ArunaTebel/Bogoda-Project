@@ -32,6 +32,7 @@ Date_Handler date_handler = new Date_Handler();
  UIDefaults defaults = UIManager.getLookAndFeelDefaults();
   Report_gen generate = new Report_gen();
     UserAccountControl user = new UserAccountControl();
+   
     /**
      * Creates new form Reports_GL
      */
@@ -43,6 +44,7 @@ Date_Handler date_handler = new Date_Handler();
        
     }
     DatabaseManager dbm = new DatabaseManager();
+      String saveloc = dbm.checknReturnStringData("file_locations", "description", "ReportSave", "location");
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -327,7 +329,7 @@ Date_Handler date_handler = new Date_Handler();
         HashMap param = new HashMap();
        param.put("USER", user.get_current_user());
         
-        Thread b = new Thread(new call_thread("GL_Rate", "D:\\\\", param, "Rate_details",1));
+        Thread b = new Thread(new call_thread("GL_Rate", saveloc, param, "Rate_details",1));
         b.start();
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -335,7 +337,7 @@ Date_Handler date_handler = new Date_Handler();
        HashMap param = new HashMap();
        param.put("USER", user.get_current_user());
         
-        Thread b = new Thread(new call_thread("GL_CAT", "D:\\\\", param, "Gl_category",1));
+        Thread b = new Thread(new call_thread("GL_CAT", saveloc, param, "Gl_category",1));
         b.start();
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -343,7 +345,7 @@ Date_Handler date_handler = new Date_Handler();
         HashMap param = new HashMap();
        param.put("USER", user.get_current_user());
         
-        Thread b = new Thread(new call_thread("GL_CAT", "D:\\\\", param, "Bank_details",1));
+        Thread b = new Thread(new call_thread("GL_CAT", saveloc, param, "Bank_details",1));
         b.start();
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -351,7 +353,7 @@ Date_Handler date_handler = new Date_Handler();
          HashMap param = new HashMap();
        param.put("USER", user.get_current_user());
         
-        Thread b = new Thread(new call_thread("GL_CAT", "D:\\\\", param, "Branch",1));
+        Thread b = new Thread(new call_thread("GL_CAT", saveloc, param, "Branch",1));
         b.start();
     }//GEN-LAST:event_jButton5ActionPerformed
 
@@ -361,7 +363,7 @@ Date_Handler date_handler = new Date_Handler();
       HashMap param = new HashMap();
       param.put("USER", user.get_current_user());
       param.put("Month", date_handler.Return_month_full(3)+" 2014");
-      Thread b  = new Thread(new call_thread("Daily_tansactions_", "D:\\\\", param,"Daily_transactions", 10));
+      Thread b  = new Thread(new call_thread("Daily_tansactions_", saveloc, param,"Daily_transactions", 10));
      // b.start();
       t1.start();
       a.start();
