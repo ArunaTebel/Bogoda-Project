@@ -398,7 +398,7 @@ public class Payments_accounts {
         return true;
     }
 
-    public boolean addToDebitDataBase(int ref_num, int debit_acnt_code, String debit_acnt_name, String debit_descriptn, double debit_amount) {
+    public boolean addToDebitDataBase(int debit_acnt_code, String debit_acnt_name, String debit_descriptn, double debit_amount) {
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         try {
             dbCon.insert("INSERT INTO account_payment_debitside(tr_no,debit_account_id,debit_account_name,debit_description,debit_amount) VALUES('" + tr_no + "','" + debit_acnt_code + "','" + debit_acnt_name + "','" + debit_descriptn + "','" + debit_amount + "')");

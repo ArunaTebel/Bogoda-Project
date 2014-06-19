@@ -401,20 +401,27 @@ Date_Handler date_handler = new Date_Handler();
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        Report_GL_cadvance pgreenleaf = new Report_GL_cadvance();
+       Report_Acc_Payments accr = new Report_Acc_Payments();
 
         content.removeAll();
 
-        pgreenleaf.setSize(content.getSize());
+        accr.setSize(content.getSize());
 
-        content.add(pgreenleaf);
+        content.add(accr);
         validate();
         repaint();
-        pgreenleaf.focus();
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        // TODO add your handling code here:
+       Report_Acc_Journals accr = new Report_Acc_Journals();
+
+        content.removeAll();
+
+        accr.setSize(content.getSize());
+
+        content.add(accr);
+        validate();
+        repaint();
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed

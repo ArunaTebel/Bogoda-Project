@@ -4,7 +4,9 @@
 	<property name="ireport.x" value="251"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="USER" class="java.lang.String"/>
-	<queryString language="SQL">
+	<parameter name="a" class="java.lang.String"/>
+	<parameter name="b" class="java.lang.String"/>
+	<queryString>
 		<![CDATA[SELECT
      account_reciept_debitside.`tr_no` AS account_reciept_debitside_tr_no,
      account_reciept_debitside.`reciept_no` AS account_reciept_debitside_reciept_no,
@@ -27,9 +29,14 @@
      account_reciept_creditside.`credit_description` AS account_reciept_creditside_credit_description,
      account_reciept_creditside.`credit_amount` AS account_reciept_creditside_credit_amount
 FROM
-     `account_reciept_creditside` account_reciept_creditside LEFT OUTER JOIN `account_reciept_debitside` account_reciept_debitside ON account_reciept_creditside.`tr_no` = account_reciept_debitside.`tr_no`]]>
+     `account_reciept_creditside` account_reciept_creditside LEFT OUTER JOIN `account_reciept_debitside` account_reciept_debitside ON account_reciept_creditside.`tr_no` = account_reciept_debitside.`tr_no`
+
+where
+
+	$P!{a} = $P{b} ]]>
 	</queryString>
 	<field name="account_reciept_debitside_tr_no" class="java.lang.Integer"/>
+	<field name="account_reciept_debitside_reciept_no" class="java.lang.String"/>
 	<field name="account_reciept_debitside_ref_no" class="java.lang.String"/>
 	<field name="account_reciept_debitside_date" class="java.sql.Date"/>
 	<field name="account_reciept_debitside_pay_type" class="java.lang.String"/>
@@ -37,7 +44,9 @@ FROM
 	<field name="account_reciept_debitside_debit_account_name" class="java.lang.String"/>
 	<field name="account_reciept_debitside_debit_description" class="java.lang.String"/>
 	<field name="account_reciept_debitside_bank_id" class="java.lang.Integer"/>
+	<field name="account_reciept_debitside_bank_name" class="java.lang.String"/>
 	<field name="account_reciept_debitside_branch_id" class="java.lang.Integer"/>
+	<field name="account_reciept_debitside_branch_name" class="java.lang.String"/>
 	<field name="account_reciept_debitside_cheque_no" class="java.lang.String"/>
 	<field name="account_reciept_debitside_cheque_date" class="java.sql.Date"/>
 	<field name="account_reciept_debitside_debit_amount" class="java.lang.Double"/>

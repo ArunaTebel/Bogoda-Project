@@ -1527,7 +1527,7 @@ public class ACC_Edit_Receipts extends javax.swing.JFrame {
             
           
 
-            raobject.setDebit_accountName(dbm.checknReturnStringDataReceipts("account_names", "account_id",2, "account_name"));
+            raobject.setDebit_accountName(dbm.checknReturnStringDataReceipts("account_names", "account_id",Integer.parseInt(debit_accountCode.getSelectedItem().toString()), "account_name"));
           //  raobject.setDebit_accountName(debit_accountName.getText());
           
             raobject.setDebit_description(debit_description.getText());

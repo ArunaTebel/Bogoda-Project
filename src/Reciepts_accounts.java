@@ -398,7 +398,7 @@ public class Reciepts_accounts {
         return true;
     }
 
-    public boolean addToCreditDataBase(int ref_num, int credit_acnt_code, String credit_acnt_name, String credit_descriptn, double credit_amount) {
+    public boolean addToCreditDataBase(int credit_acnt_code, String credit_acnt_name, String credit_descriptn, double credit_amount) {
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         try {
             dbCon.insert("INSERT INTO account_reciept_creditside(tr_no,credit_account_id,credit_account_name,credit_description,credit_amount) VALUES('" + tr_no + "','" + credit_acnt_code + "','" + credit_acnt_name + "','" + credit_descriptn + "','" + credit_amount + "')");
