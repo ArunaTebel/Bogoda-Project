@@ -1,20 +1,27 @@
 
 import java.awt.event.KeyEvent;
+import java.sql.Date;
 import java.text.ParseException;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.UIDefaults;
+import javax.swing.UIManager;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author IDDAMALGODA
  */
 public class Report_Acc_Reciepts extends javax.swing.JPanel {
+
+    UIDefaults defaults = UIManager.getLookAndFeelDefaults();
+    DatabaseManager dbm = new DatabaseManager();
+    Report_gen generate = new Report_gen();
 
     /**
      * Creates new form Report_Acc_Reciepts
@@ -23,13 +30,203 @@ public class Report_Acc_Reciepts extends javax.swing.JPanel {
         initComponents();
         jPanel5.setVisible(false);
         jPanel2.setVisible(false);
+
     }
-    
+
+    public class Background implements Runnable {
+
+        @Override
+        public void run() {
+           //  jProgressBar1.setIndeterminate(true);
+            // view.setEnabled(false);
+            jProgressBar1.setVisible(true);
+            int a = (int) (Math.random() * 500);
+            //System.out.println(a);
+            for (int i = 0; i <= 3000 + a; i++) {
+                jProgressBar1.setValue(100 * i / 4000);
+                jProgressBar1.repaint();
+
+                try {
+                    Thread.sleep(1);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Reports_GL.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+        }
+    }
+
+    public class report implements Runnable {
+
+        @Override
+        public void run() {
+           //  jProgressBar1.setIndeterminate(true);
+
+            Thread a = new Thread(new Background());
+
+            if (!andbutton.isSelected()) {
+
+                if (field_choice1.getSelectedItem().toString() == "All") {
+                    HashMap param = new HashMap();
+                    param.put("USER", new UserAccountControl().get_current_user());
+                    jProgressBar1.setValue(45);
+                    jProgressBar1.repaint();
+                    String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
+                    a.start();
+                    generate.create("Account Receipts", "D:\\", param, location, "Account Receipt All.jrxml");
+                    a.stop();
+                    ;
+                    jProgressBar1.setValue(100);
+                }
+                else if ( field_choice1.getSelectedItem().toString()=="Date"){
+                    try {
+                        HashMap param = new HashMap();
+                        param.put("USER", new UserAccountControl().get_current_user());
+                        param.put("Date1", datechooser.Return_date(yearfield,monthfield,dayfield));
+                        param.put("Date2", datechooser.Return_date(yearfield2,monthfield2,dayfield2));
+                        jProgressBar1.setValue(45);
+                        jProgressBar1.repaint();
+                        String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
+                        a.start();
+                        generate.create("Account Receipts", "D:\\", param, location, "Account Receipt Date.jrxml");
+                        a.stop();
+                        ;
+                        jProgressBar1.setValue(100);
+                    } catch (ParseException ex) {
+                        Logger.getLogger(Report_Acc_Reciepts.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                else if (field_choice1.getSelectedItem().toString() == "Transaction No.") {
+                    HashMap param = new HashMap();
+                    param.put("USER", new UserAccountControl().get_current_user());
+                    param.put("a", field.getText());
+                    jProgressBar1.setValue(45);
+                    jProgressBar1.repaint();
+                    String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
+                    a.start();
+                    generate.create("Account Receipts", "D:\\", param, location, "Account Receipt Tr.jrxml");
+                    a.stop();
+                    ;
+                    jProgressBar1.setValue(100);
+                }
+                else {
+                    HashMap param = new HashMap();
+                    param.put("USER", new UserAccountControl().get_current_user());
+                    param.put("a", Return_String_Field(search.getText()));
+                    param.put("b", field.getText());
+                    jProgressBar1.setValue(45);
+                    jProgressBar1.repaint();
+                    String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
+                    a.start();
+                    generate.create("Account Receipts", "D:\\", param, location, "Account Receipt.jrxml");
+                    a.stop();
+                    ;
+                    jProgressBar1.setValue(100);
+                }
+            }
+            else{
+                //////// When andbutton is not activated
+                
+                if(field_choice1.getSelectedItem().toString()=="Date"){
+                    if(field_choice2.getSelectedItem().toString()=="Transaction No."){
+                        try {
+                        HashMap param = new HashMap();
+                        param.put("USER", new UserAccountControl().get_current_user());
+                        param.put("Date1", datechooser.Return_date(yearfield,monthfield,dayfield));
+                        param.put("Date2", datechooser.Return_date(yearfield2,monthfield2,dayfield2));
+                        param.put("a", field1.getText());
+                        jProgressBar1.setValue(45);
+                        jProgressBar1.repaint();
+                        String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
+                        a.start();
+                        generate.create("Account Receipts", "D:\\", param, location, "Account Receipt Date And Tr.jrxml");
+                        a.stop();
+                        ;
+                        jProgressBar1.setValue(100);
+                    } catch (ParseException ex) {
+                        Logger.getLogger(Report_Acc_Reciepts.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    }
+                    else{
+                          try {
+                        HashMap param = new HashMap();
+                        param.put("USER", new UserAccountControl().get_current_user());
+                        param.put("Date1", datechooser.Return_date(yearfield,monthfield,dayfield));
+                        param.put("Date2", datechooser.Return_date(yearfield2,monthfield2,dayfield2));
+                        param.put("a", Return_String_Field(search1.getText()));
+                        param.put("b", field1.getText());
+                        jProgressBar1.setValue(45);
+                        jProgressBar1.repaint();
+                        String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
+                        a.start();
+                        generate.create("Account Receipts", "D:\\", param, location, "Account Receipt Date And Normal.jrxml");
+                        a.stop();
+                        ;
+                        jProgressBar1.setValue(100);
+                    } catch (ParseException ex) {
+                        Logger.getLogger(Report_Acc_Reciepts.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    }
+                }
+                else if(field_choice1.getSelectedItem().toString()=="Transaction No."){
+                    
+                    HashMap param = new HashMap();
+                    param.put("USER", new UserAccountControl().get_current_user());
+                    param.put("a", field.getText());
+                    param.put("b", Return_String_Field(search1.getText()));
+                    param.put("c", field1.getText());
+                    jProgressBar1.setValue(45);
+                    jProgressBar1.repaint();
+                    String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
+                    a.start();
+                    generate.create("Account Receipts", "D:\\", param, location, "Account Receipt Tr And Normal.jrxml");
+                    a.stop();
+                    ;
+                    jProgressBar1.setValue(100);
+                }
+                else if(field_choice2.getSelectedItem().toString()=="Transaction No."){
+                    
+                    HashMap param = new HashMap();
+                    param.put("USER", new UserAccountControl().get_current_user());
+                    param.put("c", field.getText());
+                    param.put("b", Return_String_Field(search.getText()));
+                    param.put("a", field1.getText());
+                    jProgressBar1.setValue(45);
+                    jProgressBar1.repaint();
+                    String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
+                    a.start();
+                    generate.create("Account Receipts", "D:\\", param, location, "Account Receipt Tr And Normal.jrxml");
+                    a.stop();
+                    ;
+                    jProgressBar1.setValue(100);
+                }
+                else{
+                    
+                     HashMap param = new HashMap();
+                    param.put("USER", new UserAccountControl().get_current_user());
+                    param.put("a", Return_String_Field(search.getText()));
+                    param.put("b", field.getText());
+                    param.put("c", Return_String_Field(search1.getText()));
+                    param.put("d", field1.getText());
+                    jProgressBar1.setValue(45);
+                    jProgressBar1.repaint();
+                    String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
+                    a.start();
+                    generate.create("Account Receipts", "D:\\", param, location, "Account Receipt AndNormal.jrxml");
+                    a.stop();
+                    ;
+                    jProgressBar1.setValue(100);
+                    
+                }
+                
+            }
+        }
+    }
     DateChooser_text datechooser = new DateChooser_text();
 
     Date_Handler datehandler = new Date_Handler();
 
-     String[] combo = new String[10];
+    String[] combo = new String[10];
 
     public void Set_Combo() {
 
@@ -51,12 +248,12 @@ public class Report_Acc_Reciepts extends javax.swing.JPanel {
 
         if (field_choice1.getSelectedIndex() != 0) {
             int i = 0;
-            int j = field_choice1.getSelectedIndex()-1;
+            int j = field_choice1.getSelectedIndex() - 1;
             for (i = 0; i < j; i++) {
                 arr2[i] = arr[i];
             }
             for (i = j + 1; i < 11; i++) {
-                arr2[i -1] = arr[i];
+                arr2[i - 1] = arr[i];
             }
             combo = arr2;
         } else {
@@ -65,7 +262,7 @@ public class Report_Acc_Reciepts extends javax.swing.JPanel {
         }
 
     }
-    
+
     public String Return_String_Field(String s) {
         switch (s) {
             case "Transaction No.":
@@ -131,6 +328,7 @@ public class Report_Acc_Reciepts extends javax.swing.JPanel {
         search1 = new javax.swing.JLabel();
         andbutton = new javax.swing.JRadioButton();
         jButton1 = new javax.swing.JButton();
+        jProgressBar1 = new javax.swing.JProgressBar();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 5));
 
@@ -451,7 +649,10 @@ public class Report_Acc_Reciepts extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 529, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(138, 138, 138)
+                .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(69, 69, 69))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
@@ -465,7 +666,10 @@ public class Report_Acc_Reciepts extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 403, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(362, Short.MAX_VALUE)
+                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
@@ -743,12 +947,12 @@ public class Report_Acc_Reciepts extends javax.swing.JPanel {
                 dayfield.selectAll();
             }                                           // /// decrementing normal values
         } else if (dayfield.getText().equals("2") || dayfield.getText().equals("3") || dayfield.getText().equals("4") || dayfield.getText().equals("5")
-            || dayfield.getText().equals("6") || dayfield.getText().equals("7") || dayfield.getText().equals("8") || dayfield.getText().equals("9")
-            || dayfield.getText().equals("10") || dayfield.getText().equals("11") || dayfield.getText().equals("12") || dayfield.getText().equals("13") || dayfield.getText().equals("14")
-            || dayfield.getText().equals("15") || dayfield.getText().equals("16") || dayfield.getText().equals("17") || dayfield.getText().equals("18")
-            || dayfield.getText().equals("19") || dayfield.getText().equals("20") || dayfield.getText().equals("21") || dayfield.getText().equals("22")
-            || dayfield.getText().equals("23") || dayfield.getText().equals("24") || dayfield.getText().equals("25") || dayfield.getText().equals("26")
-            || dayfield.getText().equals("27") || dayfield.getText().equals("28") || dayfield.getText().equals("29") || dayfield.getText().equals("30") || dayfield.getText().equals("31")) {
+                || dayfield.getText().equals("6") || dayfield.getText().equals("7") || dayfield.getText().equals("8") || dayfield.getText().equals("9")
+                || dayfield.getText().equals("10") || dayfield.getText().equals("11") || dayfield.getText().equals("12") || dayfield.getText().equals("13") || dayfield.getText().equals("14")
+                || dayfield.getText().equals("15") || dayfield.getText().equals("16") || dayfield.getText().equals("17") || dayfield.getText().equals("18")
+                || dayfield.getText().equals("19") || dayfield.getText().equals("20") || dayfield.getText().equals("21") || dayfield.getText().equals("22")
+                || dayfield.getText().equals("23") || dayfield.getText().equals("24") || dayfield.getText().equals("25") || dayfield.getText().equals("26")
+                || dayfield.getText().equals("27") || dayfield.getText().equals("28") || dayfield.getText().equals("29") || dayfield.getText().equals("30") || dayfield.getText().equals("31")) {
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
 
                 dayfield.setText("" + (Integer.parseInt(dayfield.getText()) - 1));
@@ -825,12 +1029,12 @@ public class Report_Acc_Reciepts extends javax.swing.JPanel {
                     monthfield.setText(datechooser.Return_month(mnth + 1));
                     // incrementing normal values/////////////////////// for february separately
                 } else if (dayfield.getText().equals("1") || dayfield.getText().equals("2") || dayfield.getText().equals("3") || dayfield.getText().equals("4") || dayfield.getText().equals("5")
-                    || dayfield.getText().equals("6") || dayfield.getText().equals("7") || dayfield.getText().equals("8") || dayfield.getText().equals("9")
-                    || dayfield.getText().equals("10") || dayfield.getText().equals("11") || dayfield.getText().equals("12") || dayfield.getText().equals("13") || dayfield.getText().equals("14")
-                    || dayfield.getText().equals("15") || dayfield.getText().equals("16") || dayfield.getText().equals("17") || dayfield.getText().equals("18")
-                    || dayfield.getText().equals("19") || dayfield.getText().equals("20") || dayfield.getText().equals("21") || dayfield.getText().equals("22")
-                    || dayfield.getText().equals("23") || dayfield.getText().equals("24") || dayfield.getText().equals("25") || dayfield.getText().equals("26")
-                    || dayfield.getText().equals("27") || dayfield.getText().equals("28") || dayfield.getText().equals("29") || dayfield.getText().equals("30") || dayfield.getText().equals("31")) {
+                        || dayfield.getText().equals("6") || dayfield.getText().equals("7") || dayfield.getText().equals("8") || dayfield.getText().equals("9")
+                        || dayfield.getText().equals("10") || dayfield.getText().equals("11") || dayfield.getText().equals("12") || dayfield.getText().equals("13") || dayfield.getText().equals("14")
+                        || dayfield.getText().equals("15") || dayfield.getText().equals("16") || dayfield.getText().equals("17") || dayfield.getText().equals("18")
+                        || dayfield.getText().equals("19") || dayfield.getText().equals("20") || dayfield.getText().equals("21") || dayfield.getText().equals("22")
+                        || dayfield.getText().equals("23") || dayfield.getText().equals("24") || dayfield.getText().equals("25") || dayfield.getText().equals("26")
+                        || dayfield.getText().equals("27") || dayfield.getText().equals("28") || dayfield.getText().equals("29") || dayfield.getText().equals("30") || dayfield.getText().equals("31")) {
 
                     dayfield.setText("" + (Integer.parseInt(dayfield.getText()) + 1));
 
@@ -839,12 +1043,12 @@ public class Report_Acc_Reciepts extends javax.swing.JPanel {
             }
             // incrementing normal values
         } else if (dayfield.getText().equals("1") || dayfield.getText().equals("2") || dayfield.getText().equals("3") || dayfield.getText().equals("4") || dayfield.getText().equals("5")
-            || dayfield.getText().equals("6") || dayfield.getText().equals("7") || dayfield.getText().equals("8") || dayfield.getText().equals("9")
-            || dayfield.getText().equals("10") || dayfield.getText().equals("11") || dayfield.getText().equals("12") || dayfield.getText().equals("13") || dayfield.getText().equals("14")
-            || dayfield.getText().equals("15") || dayfield.getText().equals("16") || dayfield.getText().equals("17") || dayfield.getText().equals("18")
-            || dayfield.getText().equals("19") || dayfield.getText().equals("20") || dayfield.getText().equals("21") || dayfield.getText().equals("22")
-            || dayfield.getText().equals("23") || dayfield.getText().equals("24") || dayfield.getText().equals("25") || dayfield.getText().equals("26")
-            || dayfield.getText().equals("27") || dayfield.getText().equals("28") || dayfield.getText().equals("29") || dayfield.getText().equals("30") || dayfield.getText().equals("31")) {
+                || dayfield.getText().equals("6") || dayfield.getText().equals("7") || dayfield.getText().equals("8") || dayfield.getText().equals("9")
+                || dayfield.getText().equals("10") || dayfield.getText().equals("11") || dayfield.getText().equals("12") || dayfield.getText().equals("13") || dayfield.getText().equals("14")
+                || dayfield.getText().equals("15") || dayfield.getText().equals("16") || dayfield.getText().equals("17") || dayfield.getText().equals("18")
+                || dayfield.getText().equals("19") || dayfield.getText().equals("20") || dayfield.getText().equals("21") || dayfield.getText().equals("22")
+                || dayfield.getText().equals("23") || dayfield.getText().equals("24") || dayfield.getText().equals("25") || dayfield.getText().equals("26")
+                || dayfield.getText().equals("27") || dayfield.getText().equals("28") || dayfield.getText().equals("29") || dayfield.getText().equals("30") || dayfield.getText().equals("31")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
 
                 dayfield.setText("" + (Integer.parseInt(dayfield.getText()) + 1));
@@ -1109,12 +1313,12 @@ public class Report_Acc_Reciepts extends javax.swing.JPanel {
                 dayfield2.selectAll();
             }                                           // /// decrementing normal values
         } else if (dayfield2.getText().equals("2") || dayfield2.getText().equals("3") || dayfield2.getText().equals("4") || dayfield2.getText().equals("5")
-            || dayfield2.getText().equals("6") || dayfield2.getText().equals("7") || dayfield2.getText().equals("8") || dayfield2.getText().equals("9")
-            || dayfield2.getText().equals("10") || dayfield2.getText().equals("11") || dayfield2.getText().equals("12") || dayfield2.getText().equals("13") || dayfield2.getText().equals("14")
-            || dayfield2.getText().equals("15") || dayfield2.getText().equals("16") || dayfield2.getText().equals("17") || dayfield2.getText().equals("18")
-            || dayfield2.getText().equals("19") || dayfield2.getText().equals("20") || dayfield2.getText().equals("21") || dayfield2.getText().equals("22")
-            || dayfield2.getText().equals("23") || dayfield2.getText().equals("24") || dayfield2.getText().equals("25") || dayfield2.getText().equals("26")
-            || dayfield2.getText().equals("27") || dayfield2.getText().equals("28") || dayfield2.getText().equals("29") || dayfield2.getText().equals("30") || dayfield2.getText().equals("31")) {
+                || dayfield2.getText().equals("6") || dayfield2.getText().equals("7") || dayfield2.getText().equals("8") || dayfield2.getText().equals("9")
+                || dayfield2.getText().equals("10") || dayfield2.getText().equals("11") || dayfield2.getText().equals("12") || dayfield2.getText().equals("13") || dayfield2.getText().equals("14")
+                || dayfield2.getText().equals("15") || dayfield2.getText().equals("16") || dayfield2.getText().equals("17") || dayfield2.getText().equals("18")
+                || dayfield2.getText().equals("19") || dayfield2.getText().equals("20") || dayfield2.getText().equals("21") || dayfield2.getText().equals("22")
+                || dayfield2.getText().equals("23") || dayfield2.getText().equals("24") || dayfield2.getText().equals("25") || dayfield2.getText().equals("26")
+                || dayfield2.getText().equals("27") || dayfield2.getText().equals("28") || dayfield2.getText().equals("29") || dayfield2.getText().equals("30") || dayfield2.getText().equals("31")) {
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
 
                 dayfield2.setText("" + (Integer.parseInt(dayfield2.getText()) - 1));
@@ -1191,12 +1395,12 @@ public class Report_Acc_Reciepts extends javax.swing.JPanel {
                     monthfield2.setText(datechooser.Return_month(mnth + 1));
                     // incrementing normal values/////////////////////// for february separately
                 } else if (dayfield2.getText().equals("1") || dayfield2.getText().equals("2") || dayfield2.getText().equals("3") || dayfield2.getText().equals("4") || dayfield2.getText().equals("5")
-                    || dayfield2.getText().equals("6") || dayfield2.getText().equals("7") || dayfield2.getText().equals("8") || dayfield2.getText().equals("9")
-                    || dayfield2.getText().equals("10") || dayfield2.getText().equals("11") || dayfield2.getText().equals("12") || dayfield2.getText().equals("13") || dayfield2.getText().equals("14")
-                    || dayfield2.getText().equals("15") || dayfield2.getText().equals("16") || dayfield2.getText().equals("17") || dayfield2.getText().equals("18")
-                    || dayfield2.getText().equals("19") || dayfield2.getText().equals("20") || dayfield2.getText().equals("21") || dayfield2.getText().equals("22")
-                    || dayfield2.getText().equals("23") || dayfield2.getText().equals("24") || dayfield2.getText().equals("25") || dayfield2.getText().equals("26")
-                    || dayfield2.getText().equals("27") || dayfield2.getText().equals("28") || dayfield2.getText().equals("29") || dayfield2.getText().equals("30") || dayfield2.getText().equals("31")) {
+                        || dayfield2.getText().equals("6") || dayfield2.getText().equals("7") || dayfield2.getText().equals("8") || dayfield2.getText().equals("9")
+                        || dayfield2.getText().equals("10") || dayfield2.getText().equals("11") || dayfield2.getText().equals("12") || dayfield2.getText().equals("13") || dayfield2.getText().equals("14")
+                        || dayfield2.getText().equals("15") || dayfield2.getText().equals("16") || dayfield2.getText().equals("17") || dayfield2.getText().equals("18")
+                        || dayfield2.getText().equals("19") || dayfield2.getText().equals("20") || dayfield2.getText().equals("21") || dayfield2.getText().equals("22")
+                        || dayfield2.getText().equals("23") || dayfield2.getText().equals("24") || dayfield2.getText().equals("25") || dayfield2.getText().equals("26")
+                        || dayfield2.getText().equals("27") || dayfield2.getText().equals("28") || dayfield2.getText().equals("29") || dayfield2.getText().equals("30") || dayfield2.getText().equals("31")) {
 
                     dayfield2.setText("" + (Integer.parseInt(dayfield2.getText()) + 1));
 
@@ -1205,12 +1409,12 @@ public class Report_Acc_Reciepts extends javax.swing.JPanel {
             }
             // incrementing normal values
         } else if (dayfield2.getText().equals("1") || dayfield2.getText().equals("2") || dayfield2.getText().equals("3") || dayfield2.getText().equals("4") || dayfield2.getText().equals("5")
-            || dayfield2.getText().equals("6") || dayfield2.getText().equals("7") || dayfield2.getText().equals("8") || dayfield2.getText().equals("9")
-            || dayfield2.getText().equals("10") || dayfield2.getText().equals("11") || dayfield2.getText().equals("12") || dayfield2.getText().equals("13") || dayfield2.getText().equals("14")
-            || dayfield2.getText().equals("15") || dayfield2.getText().equals("16") || dayfield2.getText().equals("17") || dayfield2.getText().equals("18")
-            || dayfield2.getText().equals("19") || dayfield2.getText().equals("20") || dayfield2.getText().equals("21") || dayfield2.getText().equals("22")
-            || dayfield2.getText().equals("23") || dayfield2.getText().equals("24") || dayfield2.getText().equals("25") || dayfield2.getText().equals("26")
-            || dayfield2.getText().equals("27") || dayfield2.getText().equals("28") || dayfield2.getText().equals("29") || dayfield2.getText().equals("30") || dayfield2.getText().equals("31")) {
+                || dayfield2.getText().equals("6") || dayfield2.getText().equals("7") || dayfield2.getText().equals("8") || dayfield2.getText().equals("9")
+                || dayfield2.getText().equals("10") || dayfield2.getText().equals("11") || dayfield2.getText().equals("12") || dayfield2.getText().equals("13") || dayfield2.getText().equals("14")
+                || dayfield2.getText().equals("15") || dayfield2.getText().equals("16") || dayfield2.getText().equals("17") || dayfield2.getText().equals("18")
+                || dayfield2.getText().equals("19") || dayfield2.getText().equals("20") || dayfield2.getText().equals("21") || dayfield2.getText().equals("22")
+                || dayfield2.getText().equals("23") || dayfield2.getText().equals("24") || dayfield2.getText().equals("25") || dayfield2.getText().equals("26")
+                || dayfield2.getText().equals("27") || dayfield2.getText().equals("28") || dayfield2.getText().equals("29") || dayfield2.getText().equals("30") || dayfield2.getText().equals("31")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
 
                 dayfield2.setText("" + (Integer.parseInt(dayfield2.getText()) + 1));
@@ -1240,8 +1444,6 @@ public class Report_Acc_Reciepts extends javax.swing.JPanel {
 
     private void field_choice2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_field_choice2ItemStateChanged
 
-        
-        
         search1.setText(field_choice2.getSelectedItem().toString());
 
     }//GEN-LAST:event_field_choice2ItemStateChanged
@@ -1270,59 +1472,68 @@ public class Report_Acc_Reciepts extends javax.swing.JPanel {
 
     ACC_Reciept_View_Table tbl = new ACC_Reciept_View_Table();
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        tbl.Clear_Table();
+        /*  tbl.Clear_Table();
 
-        tbl.setVisible(true);
-        tbl.setExtendedState(ACC_Reciept_View_Table.MAXIMIZED_BOTH);
-        if (search.getText() == "All") {
-            tbl.Table_Fill_All();
+         tbl.setVisible(true);
+         tbl.setExtendedState(ACC_Reciept_View_Table.MAXIMIZED_BOTH);
+         if (search.getText() == "All") {
+         tbl.Table_Fill_All();
 
-        } else if (andbutton.isSelected()) {
-            if ("Date".equals(search.getText())) {
-                if ((search1.getText() == "Credit Account ID" || search1.getText() == "Credit Description" || search1.getText() == "Credit Amount")) {
-                    try {
-                        tbl.Table_Fill_Date_Credit_Search(Return_String_Field(search.getText()), datechooser.Return_date(yearfield, monthfield, dayfield), datechooser.Return_date(yearfield2, monthfield2, dayfield2), Return_String_Field(search1.getText()), field1.getText());
-                    } catch (ParseException ex) {
-                        Logger.getLogger(ACC_Reciept_View.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                } else {
-                    try {
-                        tbl.Table_Fill_Date_Debit_Search(Return_String_Field(search.getText()), datechooser.Return_date(yearfield, monthfield, dayfield), datechooser.Return_date(yearfield2, monthfield2, dayfield2), Return_String_Field(search1.getText()), field1.getText());
-                    } catch (ParseException ex) {
-                        Logger.getLogger(ACC_Reciept_View.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-            } else if (search.getText() == "Credit Account ID" || search.getText() == "Credit Description" || search.getText() == "Credit Amount") {
-                if (search1.getText() == "Credit Account ID" || search1.getText() == "Credit Description" || search1.getText() == "Credit Amount") {
-                    tbl.Table_Fill_Credit_Credit_Search(Return_String_Field(search.getText()), field.getText(), Return_String_Field(search1.getText()), field1.getText());
-                } else {
-                    tbl.Table_Fill_Debit_Credit_Search(Return_String_Field(search1.getText()), field1.getText(), Return_String_Field(search.getText()), field.getText());
-                }
-            } else {
-                if (search1.getText() == "Credit Account ID" || search1.getText() == "Credit Description" || search1.getText() == "Credit Amount") {
-                    tbl.Table_Fill_Debit_Credit_Search(Return_String_Field(search.getText()), field.getText(), Return_String_Field(search1.getText()), field1.getText());
-                } else {
-                    tbl.Table_Fill_Debit_Debit_Search(Return_String_Field(search.getText()), field.getText(), Return_String_Field(search1.getText()), field1.getText());
-                }
-            }
+         } else if (andbutton.isSelected()) {
+         if ("Date".equals(search.getText())) {
+         if ((search1.getText() == "Credit Account ID" || search1.getText() == "Credit Description" || search1.getText() == "Credit Amount")) {
+         try {
+         tbl.Table_Fill_Date_Credit_Search(Return_String_Field(search.getText()), datechooser.Return_date(yearfield, monthfield, dayfield), datechooser.Return_date(yearfield2, monthfield2, dayfield2), Return_String_Field(search1.getText()), field1.getText());
+         } catch (ParseException ex) {
+         Logger.getLogger(ACC_Reciept_View.class.getName()).log(Level.SEVERE, null, ex);
+         }
+         } else {
+         try {
+         tbl.Table_Fill_Date_Debit_Search(Return_String_Field(search.getText()), datechooser.Return_date(yearfield, monthfield, dayfield), datechooser.Return_date(yearfield2, monthfield2, dayfield2), Return_String_Field(search1.getText()), field1.getText());
+         } catch (ParseException ex) {
+         Logger.getLogger(ACC_Reciept_View.class.getName()).log(Level.SEVERE, null, ex);
+         }
+         }
+         } else if (search.getText() == "Credit Account ID" || search.getText() == "Credit Description" || search.getText() == "Credit Amount") {
+         if (search1.getText() == "Credit Account ID" || search1.getText() == "Credit Description" || search1.getText() == "Credit Amount") {
+         tbl.Table_Fill_Credit_Credit_Search(Return_String_Field(search.getText()), field.getText(), Return_String_Field(search1.getText()), field1.getText());
+         } else {
+         tbl.Table_Fill_Debit_Credit_Search(Return_String_Field(search1.getText()), field1.getText(), Return_String_Field(search.getText()), field.getText());
+         }
+         } else {
+         if (search1.getText() == "Credit Account ID" || search1.getText() == "Credit Description" || search1.getText() == "Credit Amount") {
+         tbl.Table_Fill_Debit_Credit_Search(Return_String_Field(search.getText()), field.getText(), Return_String_Field(search1.getText()), field1.getText());
+         } else {
+         tbl.Table_Fill_Debit_Debit_Search(Return_String_Field(search.getText()), field.getText(), Return_String_Field(search1.getText()), field1.getText());
+         }
+         }
 
-        } else {
+         } else {
 
-            if ("Date".equals(search.getText())) {
-                try {
-                    tbl.Table_Fill_Date_Search(Return_String_Field(search.getText()), datechooser.Return_date(yearfield, monthfield, dayfield), datechooser.Return_date(yearfield2, monthfield2, dayfield2));
-                } catch (ParseException ex) {
-                    Logger.getLogger(ACC_Reciept_View.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            } else if (search.getText() == "Credit Account ID" || search.getText() == "Credit Description" || search.getText() == "Credit Amount") {
+         if ("Date".equals(search.getText())) {
+         try {
+         tbl.Table_Fill_Date_Search(Return_String_Field(search.getText()), datechooser.Return_date(yearfield, monthfield, dayfield), datechooser.Return_date(yearfield2, monthfield2, dayfield2));
+         } catch (ParseException ex) {
+         Logger.getLogger(ACC_Reciept_View.class.getName()).log(Level.SEVERE, null, ex);
+         }
+         } else if (search.getText() == "Credit Account ID" || search.getText() == "Credit Description" || search.getText() == "Credit Amount") {
 
-                tbl.Table_Fill_Credit_Search(Return_String_Field(search.getText()), field.getText());
-            } else {
-                tbl.Table_Fill_Debit_Search(Return_String_Field(search.getText()), field.getText());
+         tbl.Table_Fill_Credit_Search(Return_String_Field(search.getText()), field.getText());
+         } else {
+         tbl.Table_Fill_Debit_Search(Return_String_Field(search.getText()), field.getText());
 
-            }
-        }
+         }
+         }*/
 
+        /* if(!andbutton.isSelected()){
+         String fieldv = Return_String_Field(search.getText());
+         String para =  field.getText();
+            
+         HashMap rep = new HashMap();
+            
+         } */
+        Thread s = new Thread(new report());
+        s.start();
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
@@ -1336,7 +1547,6 @@ public class Report_Acc_Reciepts extends javax.swing.JPanel {
     private javax.swing.JTextField dayfield2;
     private javax.swing.JTextField field;
     private javax.swing.JTextField field1;
-    private javax.swing.JComboBox field_choice;
     private javax.swing.JComboBox field_choice1;
     private javax.swing.JComboBox field_choice2;
     private javax.swing.JButton jButton1;
@@ -1345,10 +1555,10 @@ public class Report_Acc_Reciepts extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JTextField monthfield;
