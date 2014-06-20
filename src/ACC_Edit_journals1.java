@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -132,8 +133,6 @@ public class ACC_Edit_journals1 extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         debit_account_code_table = new javax.swing.JTable();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        debit_description_table = new javax.swing.JTable();
         jScrollPane6 = new javax.swing.JScrollPane();
         debit_amount_table = new javax.swing.JTable();
         debit_account_code = new javax.swing.JComboBox();
@@ -145,8 +144,11 @@ public class ACC_Edit_journals1 extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
         debit_account_name = new javax.swing.JLabel();
         send = new javax.swing.JButton();
+        jButton10 = new javax.swing.JButton();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        debit_description_table = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -658,27 +660,6 @@ public class ACC_Edit_journals1 extends javax.swing.JFrame {
         jScrollPane4.setViewportView(debit_account_code_table);
         credit_account_code_table.setAutoResizeMode(credit_account_code_table.AUTO_RESIZE_OFF);
 
-        debit_description_table.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null}
-            },
-            new String [] {
-                "Discription"
-            }
-        ));
-        debit_description_table.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jScrollPane5.setViewportView(debit_description_table);
-        credit_account_code_table.setAutoResizeMode(credit_account_code_table.AUTO_RESIZE_OFF);
-
         debit_amount_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null},
@@ -794,9 +775,7 @@ public class ACC_Edit_journals1 extends javax.swing.JFrame {
                                         .addComponent(debit_amount, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, 0)
-                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, 0)
+                                .addGap(167, 167, 167)
                                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(debit_account_name, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -817,8 +796,7 @@ public class ACC_Edit_journals1 extends javax.swing.JFrame {
                     .addComponent(send))
                 .addGap(3, 3, 3)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE)
-                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE)
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
@@ -832,11 +810,49 @@ public class ACC_Edit_journals1 extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jButton10.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jButton10.setForeground(new java.awt.Color(255, 51, 51));
+        jButton10.setText("DELETE ENTRY");
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
+
+        debit_description_table.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null}
+            },
+            new String [] {
+                "Discription"
+            }
+        ));
+        debit_description_table.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jScrollPane5.setViewportView(debit_description_table);
+        credit_account_code_table.setAutoResizeMode(credit_account_code_table.AUTO_RESIZE_OFF);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 873, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(376, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jButton10)
+                        .addGap(372, 372, 372))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(336, 336, 336))))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
@@ -866,7 +882,12 @@ public class ACC_Edit_journals1 extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 523, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
+                .addGap(428, 428, 428)
+                .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
@@ -1786,6 +1807,59 @@ public class ACC_Edit_journals1 extends javax.swing.JFrame {
         interface_events.Respond_enter(send, evt);
     }//GEN-LAST:event_sendFocusGained
 
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        int reply = JOptionPane.showConfirmDialog(null,"Are You Sure?" , "Delete Entry", JOptionPane.YES_NO_OPTION);
+
+        if(reply==JOptionPane.YES_OPTION){
+            
+            dbm.CheckNDeleteFromDataBase("account_journal_main","tr_no",tr_no);
+            dbm.CheckNDeleteFromDataBase("account_journal_debitside","tr_no",tr_no);
+            dbm.CheckNDeleteFromDataBase("account_journal_creditside","tr_no",tr_no);
+
+             ref_no.setText(null);
+                journal_no.setText(null);
+                pay_type.setSelectedIndex(0);
+                bank_code.setSelectedIndex(0);
+                branch_code.setSelectedIndex(0);
+                bank_name.setText(null);
+                branch_name.setText(null);
+                chequeNo.setText(null);
+                debit_account_code.setSelectedIndex(0);
+                debit_description.setText(null);
+                debit_amount.setText(null);
+                debit_account_name.setText(null);
+                credit_account_code.setSelectedIndex(0);
+                credit_account_name.setText(null);
+                credit_description.setText(null);
+                credit_amount.setText(null);
+                debit_total.setText(null);
+                credit_total.setText(null);
+                difference.setText(null);
+                
+                // clear credit table all
+            {
+            int j = 0;
+            while (credit_account_code_table.getValueAt(j, 0) != null) {
+                credit_account_code_table.setValueAt(null, j, 0);
+                credit_description_table.setValueAt(null, j, 0);
+                credit_amount_table.setValueAt(null, j, 0);
+                j++;
+            }
+            }
+            
+            // clear debit table all
+            {
+             int j = 0;
+            while (debit_account_code_table.getValueAt(j, 0) != null) {
+                debit_account_code_table.setValueAt(null, j, 0);
+                debit_description_table.setValueAt(null, j, 0);
+                debit_amount_table.setValueAt(null, j, 0);
+                j++;
+            }
+            }
+        }
+    }//GEN-LAST:event_jButton10ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1850,6 +1924,7 @@ public class ACC_Edit_journals1 extends javax.swing.JFrame {
     private javax.swing.JTextField debit_total;
     private javax.swing.JTextField difference;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
