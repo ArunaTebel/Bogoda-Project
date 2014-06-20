@@ -297,6 +297,11 @@ public class ACC_journals extends javax.swing.JPanel {
         });
 
         jButton7.setText("Cancel");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
 
         jButton8.setText("Quit");
 
@@ -851,8 +856,7 @@ public class ACC_journals extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(82, 82, 82))
         );
         layout.setVerticalGroup(
@@ -1211,7 +1215,7 @@ public class ACC_journals extends javax.swing.JPanel {
 
         if (Double.parseDouble(difference.getText()) == 0) {
 
-            if (ref_no.getText().length() != 0 && journal_no.getText().length() != 0 && debit_account_code_table.getValueAt(0, 0) != null && credit_account_code_table.getValueAt(0, 0) != null) {
+            if (ref_no.getText().length() != 0 && debit_account_code_table.getValueAt(0, 0) != null && credit_account_code_table.getValueAt(0, 0) != null) {
                 save.setEnabled(true);
                 save.requestFocus();
 
@@ -1691,8 +1695,19 @@ public class ACC_journals extends javax.swing.JPanel {
         interface_events.Change_focus_Enterkey_t(debit_amount, evt);
     }//GEN-LAST:event_debit_descriptionKeyPressed
 
+    Check_Entries chk = new Check_Entries();
+    
     private void debit_amountKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_debit_amountKeyPressed
         interface_events.Change_focus_Enterkey_t_b(ref_no, send, evt);
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (chk.isDouble(debit_amount.getText())) {
+                interface_events.Change_focus_Enterkey_t_b(ref_no, send, evt);
+            } else {
+
+                msg.showMessage("Enter A Valid Amount Here", "Please Check Again", "info");
+
+            }
+        }
     }//GEN-LAST:event_debit_amountKeyPressed
 
     private void pay_typeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_pay_typeItemStateChanged
@@ -1708,7 +1723,17 @@ public class ACC_journals extends javax.swing.JPanel {
     }//GEN-LAST:event_credit_descriptionKeyPressed
 
     private void credit_amountKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_credit_amountKeyPressed
-        interface_events.Change_focus_Enterkey_t_b(ref_no, send2, evt);
+        
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (chk.isDouble(credit_amount.getText())) {
+               interface_events.Change_focus_Enterkey_t_b(ref_no, send2, evt);
+            } else {
+
+                msg.showMessage("Enter A Valid Amount Here", "Please Check Again", "info");
+
+            }
+        }
+        
     }//GEN-LAST:event_credit_amountKeyPressed
 
     private void send2FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_send2FocusGained
@@ -1722,6 +1747,51 @@ public class ACC_journals extends javax.swing.JPanel {
     private void saveFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_saveFocusGained
         interface_events.Respond_enter(save, evt);
     }//GEN-LAST:event_saveFocusGained
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        ref_no.setText(null);
+                journal_no.setText(null);
+                pay_type.setSelectedIndex(0);
+                bank_code.setSelectedIndex(0);
+                branch_code.setSelectedIndex(0);
+                bank_name.setText(null);
+                branch_name.setText(null);
+                chequeNo.setText(null);
+                debit_account_code.setSelectedIndex(0);
+                debit_description.setText(null);
+                debit_amount.setText(null);
+                debit_account_name.setText(null);
+                credit_account_code.setSelectedIndex(0);
+                credit_account_name.setText(null);
+                credit_description.setText(null);
+                credit_amount.setText(null);
+                debit_total.setText(null);
+                credit_total.setText(null);
+                difference.setText(null);
+                
+                // clear credit table all
+            {
+            int j = 0;
+            while (credit_account_code_table.getValueAt(j, 0) != null) {
+                credit_account_code_table.setValueAt(null, j, 0);
+                credit_description_table.setValueAt(null, j, 0);
+                credit_amount_table.setValueAt(null, j, 0);
+                j++;
+            }
+            }
+            
+            // clear debit table all
+            {
+             int j = 0;
+            while (debit_account_code_table.getValueAt(j, 0) != null) {
+                debit_account_code_table.setValueAt(null, j, 0);
+                debit_description_table.setValueAt(null, j, 0);
+                debit_amount_table.setValueAt(null, j, 0);
+                j++;
+            }
+            }
+            ref_no.requestFocus();
+    }//GEN-LAST:event_jButton7ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
