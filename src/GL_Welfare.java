@@ -688,7 +688,12 @@ public class GL_Welfare extends javax.swing.JPanel {
                 try {
                     dbm.insert("INSERT INTO welfare(entry,month,sup_id,months_on_welfare,new_old,suspended_months,suspended_remain,before_after) VALUES('" + entry + "','" + thisMonth + "','" + supId + "','" + newMonths + "','" + 1 + "','" + suspended + "','" + remain + "','" + before + "')");
                 } catch (SQLException ex) {
-                    Logger.getLogger(GL_Welfare.class.getName()).log(Level.SEVERE, null, ex);
+                    try {
+                        dbm.insert("UPDATE  welfare SET month='"+thisMonth+"',sup_id='"+supId+"',months_on_welfare='"+newMonths+"',new_old='"+1+"',suspended_months='"+suspended+"',suspended_remain='"+remain+"',before_after='"+before+"' WHERE entry = '"+entry+"'");
+                    } catch (SQLException ex1) {
+                        Logger.getLogger(GL_Welfare.class.getName()).log(Level.SEVERE, null, ex1);
+                    }
+              
                 }
             } else {
                 dbm.update("welfare", "month", "sup_id", thisMonth, supId, "suspended_months", suspended);
