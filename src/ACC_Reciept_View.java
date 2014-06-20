@@ -23,6 +23,11 @@ public class ACC_Reciept_View extends javax.swing.JPanel {
         jPanel4.setVisible(false);
         jPanel2.setVisible(false);
     }
+    
+    public void focus(){   
+        this.requestFocus();
+        field_choice.requestFocus();
+    }
 
     String[] combo = new String[10];
 
@@ -110,6 +115,11 @@ public class ACC_Reciept_View extends javax.swing.JPanel {
                 jButton1ActionPerformed(evt);
             }
         });
+        jButton1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jButton1FocusGained(evt);
+            }
+        });
 
         andbutton.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         andbutton.setText("And");
@@ -143,6 +153,11 @@ public class ACC_Reciept_View extends javax.swing.JPanel {
         field.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 fieldActionPerformed(evt);
+            }
+        });
+        field.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                fieldKeyPressed(evt);
             }
         });
 
@@ -1331,6 +1346,18 @@ public class ACC_Reciept_View extends javax.swing.JPanel {
     private void andbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_andbuttonActionPerformed
         field_choice1.setModel(new javax.swing.DefaultComboBoxModel(combo));
     }//GEN-LAST:event_andbuttonActionPerformed
+
+    Interface_Events interface_events = new Interface_Events();
+    private void fieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            
+                interface_events.Change_focus_Enterkey_t_b(field, jButton1, evt);
+            }
+    }//GEN-LAST:event_fieldKeyPressed
+
+    private void jButton1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jButton1FocusGained
+           interface_events.Respond_enter(jButton1, evt);
+    }//GEN-LAST:event_jButton1FocusGained
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

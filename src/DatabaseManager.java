@@ -73,7 +73,7 @@ public final class DatabaseManager {
     public String checknReturnData(String table_name, String table_column_giving, Object row_element, String table_column_need) {
         DatabaseManager dbm = DatabaseManager.getDbCon();
         try {
-            ResultSet query = dbm.query("SELECT * FROM " + table_name + " WHERE " + table_column_giving + " =" + row_element + "");
+            ResultSet query = dbm.query("SELECT * FROM " + table_name + " WHERE " + table_column_giving + " LIKE '" + row_element + "'");
             while (query.next()) {
                 return (query.getString(table_column_need));
             }

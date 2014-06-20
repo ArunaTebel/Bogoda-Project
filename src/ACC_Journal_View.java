@@ -22,6 +22,13 @@ public class ACC_Journal_View extends javax.swing.JPanel {
         initComponents();
         jPanel4.setVisible(false);
         jPanel2.setVisible(false);
+        
+    }
+    
+    
+    public void focus(){    
+        this.requestFocus();
+        field_choice.requestFocus();
     }
 
     /*   String[] combo = new String[10];
@@ -118,6 +125,11 @@ public class ACC_Journal_View extends javax.swing.JPanel {
         field.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 fieldActionPerformed(evt);
+            }
+        });
+        field.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                fieldKeyPressed(evt);
             }
         });
 
@@ -343,10 +355,16 @@ public class ACC_Journal_View extends javax.swing.JPanel {
 
         jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
-        jButton1.setText("Search");
+        jButton1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jButton1.setText("SEARCH");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+        jButton1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jButton1FocusGained(evt);
             }
         });
 
@@ -1204,6 +1222,19 @@ public class ACC_Journal_View extends javax.swing.JPanel {
         yearfield.setText(datehandler.get_year(datef));
         jButton1.requestFocus();
     }//GEN-LAST:event_datePicker3ActionPerformed
+
+    Interface_Events interface_events = new Interface_Events();
+    private void fieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            
+                interface_events.Change_focus_Enterkey_t_b(field, jButton1, evt);
+            }
+    }//GEN-LAST:event_fieldKeyPressed
+
+    private void jButton1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jButton1FocusGained
+        
+           interface_events.Respond_enter(jButton1, evt);
+    }//GEN-LAST:event_jButton1FocusGained
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
