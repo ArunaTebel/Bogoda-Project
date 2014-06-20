@@ -32,6 +32,7 @@ public class GL_BillsummeryPanel extends javax.swing.JPanel {
         defaults.put("nimbusOrange", defaults.get("nimbusBase"));
         UIManager.getLookAndFeelDefaults().put("nimbusOrange", (new Color(51, 153, 0)));
         initComponents();
+        pedet.setText("0.0");
         int[] day = new int[31];
         int n = 0;
         while(n<31){  day[n]=0;  n++;}
@@ -109,6 +110,52 @@ public class GL_BillsummeryPanel extends javax.swing.JPanel {
             k++;
          }
          set_day_values(day_values_int);
+         //////////////////////////////////////////////////////////////////loans/////////////////////////////////////////////////////
+          ((DefaultTableModel) jTable4.getModel()).setNumRows(0);
+           p = 0;
+                q = 0;
+               while (p < 1000) {
+                   while (q < 5) {
+
+                       values[p][q] = null;
+                       q++;
+                   }
+                p++;
+               }
+        double loans_tot = 0;
+        i = 0;
+             
+        // if(Integer.parseInt(dayfield.getText())<(Integer.parseInt(datehandler.get_advance_month_split_day())+1))
+      //   {      
+               
+       //      values = billsum.advance_table(sup, year, datehandler.get_prev_month(datehandler.return_month_as_num(month)));}
+      //   else{
+             values= billsum.loans_table(sup, year, datehandler.return_month_as_num(month));//}
+          while (i < 1000 && values[i][0]!=null) {
+            j=0;
+            
+           
+
+            ((DefaultTableModel) jTable4.getModel()).setNumRows(i + 1);
+            //chek = values[i][0];
+            while (j < 5) {
+                
+                jTable4.setValueAt(values[i][j], i, j);
+                
+             
+               
+                j++;
+            }
+             loans_tot+=Double.parseDouble(values[i][4]); 
+                 i++;
+        }
+       
+         
+         
+         
+         
+         
+         
          
         /////////////////////////////////////////////////////////cash advance/////////////////////////////////////////////////////////
        ((DefaultTableModel) jTable2.getModel()).setNumRows(0);
@@ -187,15 +234,21 @@ public class GL_BillsummeryPanel extends javax.swing.JPanel {
                  i++;
                  x++;
         }
-            Advance_tot.setText(""+Ad_total);
-            TotalKG.setText(""+total);
-            total_ad.setText(""+Ad_total);
-            balBF.setText("0.0");
-            loans.setText("0.0");
-            
-    
-    
-    
+//            Advance_tot.setText(billsum.two_dec_places(""+Ad_total));
+//            TotalKG.setText(billsum.two_dec_places(""+total));
+//            loantot.setText(billsum.two_dec_places(""+loans_tot));
+//            total_ad.setText(billsum.two_dec_places(""+Ad_total));
+//            balBF.setText(billsum.two_dec_places(dbm.checknReturnData("supplier_pre_debt_coins", "entry", year+ datehandler.return_month_as_num(month)+sup, "pre_debts")));
+//            loans.setText(billsum.two_dec_places(""+loans_tot));
+            System.out.println(month);
+        if(datehandler.return_month_as_num(month).equals("01")){year = (Integer.parseInt(year)-1)+"";}
+        System.out.println(year);
+             Advance_tot.setText(""+Ad_total);
+              TotalKG.setText(""+total);
+               loantot.setText(""+loans_tot);
+                 total_ad.setText(""+Ad_total);
+            pedet.setText(dbm.checknReturnData("supplier_pre_debt_coins", "entry", year+ datehandler.get_prev_month(datehandler.return_month_as_num(month))+sup, "pre_debts"));
+            loans.setText(""+loans_tot);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -214,7 +267,7 @@ public class GL_BillsummeryPanel extends javax.swing.JPanel {
         jPanel4 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTable4 = new javax.swing.JTable();
-        jTextField9 = new javax.swing.JTextField();
+        loantot = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
@@ -224,10 +277,9 @@ public class GL_BillsummeryPanel extends javax.swing.JPanel {
         total_ad = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField8 = new javax.swing.JTextField();
+        pedet = new javax.swing.JTextField();
         gross_amount = new javax.swing.JTextField();
         final_total = new javax.swing.JTextField();
-        balBF = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
@@ -379,7 +431,7 @@ public class GL_BillsummeryPanel extends javax.swing.JPanel {
                         .addContainerGap(284, Short.MAX_VALUE)
                         .addComponent(jLabel13)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(loantot, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -388,7 +440,7 @@ public class GL_BillsummeryPanel extends javax.swing.JPanel {
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(loantot, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel13)))
         );
 
@@ -406,14 +458,10 @@ public class GL_BillsummeryPanel extends javax.swing.JPanel {
 
         jLabel5.setText("Total (KG)");
 
+        pedet.setBackground(new java.awt.Color(255, 153, 153));
+
         final_total.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         final_total.setForeground(new java.awt.Color(204, 0, 0));
-
-        balBF.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                balBFKeyPressed(evt);
-            }
-        });
 
         jLabel7.setText("Total Advances");
 
@@ -427,29 +475,25 @@ public class GL_BillsummeryPanel extends javax.swing.JPanel {
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel6Layout.createSequentialGroup()
                             .addComponent(jLabel6)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addComponent(Set, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel6Layout.createSequentialGroup()
-                            .addGap(16, 16, 16)
-                            .addComponent(jLabel9)
-                            .addGap(18, 18, 18)
-                            .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING))
-                    .addComponent(jLabel5))
+                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGap(29, 29, 29)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(TotalKG, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(loans, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(balBF, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(total_ad, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(gross_amount, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(TotalKG, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
+                            .addComponent(loans, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
+                            .addComponent(total_ad, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
+                            .addComponent(gross_amount, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
+                            .addComponent(pedet))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -482,9 +526,8 @@ public class GL_BillsummeryPanel extends javax.swing.JPanel {
                             .addComponent(jLabel8))
                         .addGap(13, 13, 13)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(balBF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel9)
-                            .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(pedet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(final_total, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1534,22 +1577,22 @@ public class GL_BillsummeryPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_datePicker1ActionPerformed
 
     private void SetKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_SetKeyPressed
-       if(TotalKG.getText()!= null && total_ad.getText() != null && loans.getText()!= null && balBF.getText()!= null){
+         
+                 
+        
+        if(TotalKG.getText()!= null && total_ad.getText() != null && loans.getText()!= null && pedet.getText()!= null){
         
         if(evt.getKeyCode()==KeyEvent.VK_ENTER){
          gross_amount.setText(""+(Double.parseDouble(Set.getText())*Double.parseDouble(TotalKG.getText())));
-        final_total.setText(""+(Double.parseDouble(gross_amount.getText())-Double.parseDouble(total_ad.getText())));
-        if((Double.parseDouble(gross_amount.getText())-Double.parseDouble(total_ad.getText()))>0){
+         double rem = Double.parseDouble(gross_amount.getText())-Double.parseDouble(total_ad.getText())-Double.parseDouble(pedet.getText())-Double.parseDouble(loans.getText());
+        final_total.setText(""+rem);
+        if(rem>0){
         
         final_total.setForeground(new java.awt.Color(0, 153, 0));}
         else{   final_total.setForeground(new java.awt.Color(204, 0, 0));                    }
         
         }}
     }//GEN-LAST:event_SetKeyPressed
-
-    private void balBFKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_balBFKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_balBFKeyPressed
 
     private void monthfieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_monthfieldKeyReleased
         // TODO add your handling code here:
@@ -1662,7 +1705,6 @@ public class GL_BillsummeryPanel extends javax.swing.JPanel {
     private javax.swing.JTable Supplies;
     private javax.swing.JTextField Supply_total;
     private javax.swing.JTextField TotalKG;
-    private javax.swing.JTextField balBF;
     private com.michaelbaranov.microba.calendar.DatePicker datePicker1;
     private javax.swing.JPanel datepanel;
     private javax.swing.JLabel day1;
@@ -1754,10 +1796,10 @@ public class GL_BillsummeryPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable4;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
     private javax.swing.JTextField loans;
+    private javax.swing.JTextField loantot;
     private javax.swing.JTextField monthfield;
+    private javax.swing.JTextField pedet;
     private javax.swing.JComboBox supplier_id;
     private javax.swing.JLabel supplier_name;
     private javax.swing.JTextField total_ad;

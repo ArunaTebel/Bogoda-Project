@@ -129,7 +129,7 @@ public class Date_Handler {
         //String[] array = new String[3];
         //array = s.split("-");
         
-        if(Integer.parseInt(month)<10){
+        if(Integer.parseInt(month)<10 && !month.equals("01")){
          next_month = "0"+(Integer.parseInt(month)-1);
         }
         else if(month.equals("01")){
@@ -139,7 +139,7 @@ public class Date_Handler {
         else if(month.equals("10")){
         next_month = "09";
         }
-        else{
+        else {
         next_month = (Integer.parseInt(month)-1)+"";
         }
         return next_month;
