@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b4a7e90f-236c-48e1-b463-a16c40591ab1">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="144"/>
+	<property name="ireport.y" value="136"/>
 	<parameter name="USER" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT
@@ -17,11 +17,13 @@
      welfare.`amount` AS welfare_amount,
      suppliers.`sup_id` AS suppliers_sup_id,
      suppliers.`cat_id` AS suppliers_cat_id,
-     category.`category_name` AS category_category_name
+     category.`category_name` AS category_category_name,
+     suppliers.`sup_name` AS suppliers_sup_name
 FROM
      `suppliers` suppliers INNER JOIN `welfare` welfare ON suppliers.`sup_id` = welfare.`sup_id`
      INNER JOIN `category` category ON suppliers.`cat_id` = category.`category_id`
-order by  suppliers.`cat_id`]]>
+ORDER BY
+     suppliers.`cat_id` ASC]]>
 	</queryString>
 	<field name="welfare_entry" class="java.lang.Integer"/>
 	<field name="welfare_month" class="java.lang.String"/>
@@ -35,13 +37,15 @@ order by  suppliers.`cat_id`]]>
 	<field name="suppliers_sup_id" class="java.lang.Integer"/>
 	<field name="suppliers_cat_id" class="java.lang.String"/>
 	<field name="category_category_name" class="java.lang.String"/>
+	<field name="suppliers_sup_name" class="java.lang.String"/>
 	<variable name="TITLE" class="java.lang.String"/>
 	<group name="category_category_name">
 		<groupExpression><![CDATA[$F{category_category_name}]]></groupExpression>
 		<groupHeader>
-			<band height="50">
+			<band height="29">
 				<textField>
-					<reportElement x="1" y="0" width="50" height="20" uuid="6bab98a3-6548-41b3-a919-5c012fd2475e"/>
+					<reportElement uuid="6bab98a3-6548-41b3-a919-5c012fd2475e" x="1" y="2" width="81" height="20"/>
+					<textElement verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{suppliers_cat_id}]]></textFieldExpression>
 				</textField>
 			</band>
@@ -53,52 +57,53 @@ order by  suppliers.`cat_id`]]>
 	<title>
 		<band height="81" splitType="Stretch">
 			<staticText>
-				<reportElement x="1" y="3" width="81" height="11" uuid="3e709542-151f-4b92-8a79-9527db2b951e"/>
+				<reportElement uuid="3e709542-151f-4b92-8a79-9527db2b951e" x="1" y="3" width="81" height="11"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[Report generated:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="16" width="15" height="20" uuid="b253ceae-65b5-4d6e-bd4d-cd9f29f5de4c"/>
+				<reportElement uuid="b253ceae-65b5-4d6e-bd4d-cd9f29f5de4c" x="0" y="16" width="15" height="20"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[by:]]></text>
 			</staticText>
 			<line>
-				<reportElement x="1" y="57" width="555" height="1" uuid="e13c4d67-1e7f-4c1c-96d2-2316ab27579e"/>
+				<reportElement uuid="e13c4d67-1e7f-4c1c-96d2-2316ab27579e" x="1" y="57" width="555" height="1"/>
 			</line>
 			<staticText>
-				<reportElement x="340" y="9" width="216" height="27" uuid="75b687d7-fe40-4adf-9851-27816341e992"/>
+				<reportElement uuid="75b687d7-fe40-4adf-9851-27816341e992" x="340" y="9" width="216" height="27"/>
 				<textElement>
 					<font fontName="Segoe UI Light" size="16" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Bogoda Group Tea Factory]]></text>
 			</staticText>
 			<line>
-				<reportElement x="1" y="0" width="555" height="1" uuid="aeb39eae-cf99-495a-9b95-9031f30f70b7"/>
+				<reportElement uuid="aeb39eae-cf99-495a-9b95-9031f30f70b7" x="1" y="0" width="555" height="1"/>
 			</line>
 			<staticText>
-				<reportElement x="417" y="30" width="114" height="20" uuid="fe112270-8629-41c5-b43e-d57409be5b2e"/>
+				<reportElement uuid="fe112270-8629-41c5-b43e-d57409be5b2e" x="417" y="30" width="114" height="20"/>
+				<textElement/>
 				<text><![CDATA[Kolawenigama, Deniyaya]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="1" y="60" width="209" height="20" uuid="9b4308a9-ed35-425b-8f5f-5ef25592fa06"/>
+				<reportElement uuid="9b4308a9-ed35-425b-8f5f-5ef25592fa06" x="1" y="60" width="209" height="20"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{TITLE}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy HH.mm.ss">
-				<reportElement x="82" y="3" width="100" height="11" uuid="54a20eec-890c-4e8c-9249-a8bf0da283f9"/>
+				<reportElement uuid="54a20eec-890c-4e8c-9249-a8bf0da283f9" x="82" y="3" width="100" height="11"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="15" y="17" width="100" height="20" uuid="a7284fb9-5755-493b-9033-b8778b4d88dd"/>
+				<reportElement uuid="a7284fb9-5755-493b-9033-b8778b4d88dd" x="15" y="17" width="100" height="20"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
@@ -107,138 +112,160 @@ order by  suppliers.`cat_id`]]>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="33" splitType="Stretch">
+		<band height="29" splitType="Stretch">
 			<line>
-				<reportElement x="1" y="-26" width="555" height="1" uuid="292404ee-21c4-44ec-86e1-654ddf5dc03b"/>
+				<reportElement uuid="292404ee-21c4-44ec-86e1-654ddf5dc03b" x="1" y="-26" width="555" height="1"/>
 				<graphicElement>
 					<pen lineWidth="0.5" lineColor="#666666"/>
 				</graphicElement>
 			</line>
 			<textField evaluationTime="Report">
-				<reportElement x="276" y="6" width="40" height="20" uuid="a28f6025-2bc0-4bc1-a2d3-6de88975440a"/>
+				<reportElement uuid="a28f6025-2bc0-4bc1-a2d3-6de88975440a" x="276" y="6" width="40" height="20"/>
 				<textElement>
 					<font isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="196" y="6" width="80" height="20" uuid="c7b2c106-44fc-4aed-b3a9-e5ad706e21ea"/>
+				<reportElement uuid="c7b2c106-44fc-4aed-b3a9-e5ad706e21ea" x="196" y="6" width="80" height="20"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="415" y="6" width="100" height="20" forecolor="#666666" uuid="e98f9243-d437-44e0-9e87-4d2a37742252"/>
+				<reportElement uuid="e98f9243-d437-44e0-9e87-4d2a37742252" x="415" y="6" width="100" height="20" forecolor="#666666"/>
+				<textElement/>
 				<textFieldExpression><![CDATA[$V{TITLE}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="27" splitType="Stretch">
+		<band height="45" splitType="Stretch">
 			<line>
-				<reportElement x="1" y="23" width="554" height="1" uuid="8b820536-4e3c-4646-9176-72c78990b115"/>
+				<reportElement uuid="8b820536-4e3c-4646-9176-72c78990b115" x="10" y="44" width="554" height="1"/>
 			</line>
 			<staticText>
-				<reportElement x="0" y="5" width="50" height="20" uuid="fd0e3be7-f681-4345-adb1-c722459a3db3"/>
+				<reportElement uuid="7dc284fd-2d26-46de-833a-74bc78a2b36f" x="34" y="18" width="32" height="26"/>
 				<textElement>
-					<font isBold="true"/>
+					<font size="10" isBold="true"/>
 				</textElement>
-				<text><![CDATA[entry]]></text>
+				<text><![CDATA[Year Month]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="50" y="5" width="50" height="20" uuid="7dc284fd-2d26-46de-833a-74bc78a2b36f"/>
-				<textElement>
+				<reportElement uuid="18911678-d97c-4b69-9687-b4bfda129ab9" x="77" y="18" width="19" height="26"/>
+				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[month]]></text>
+				<text><![CDATA[Sup ID]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="100" y="5" width="50" height="20" uuid="18911678-d97c-4b69-9687-b4bfda129ab9"/>
-				<textElement>
+				<reportElement uuid="d746339f-b8ee-44e8-996e-268447c6d3e0" x="198" y="0" width="48" height="44"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[sup_id]]></text>
+				<text><![CDATA[Rem. Months New Reg]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="150" y="5" width="50" height="20" uuid="d746339f-b8ee-44e8-996e-268447c6d3e0"/>
+				<reportElement uuid="81885f5e-bad1-4bc3-b026-f6f271f9af3d" x="253" y="25" width="38" height="20"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[months_on_welfare]]></text>
+				<text><![CDATA[Status]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="220" y="5" width="50" height="20" uuid="81885f5e-bad1-4bc3-b026-f6f271f9af3d"/>
-				<textElement>
+				<reportElement uuid="40725426-1b9a-4972-8801-766244998cff" x="355" y="18" width="54" height="27"/>
+				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[new_old]]></text>
+				<text><![CDATA[Suspended Months]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="295" y="5" width="50" height="20" uuid="40725426-1b9a-4972-8801-766244998cff"/>
-				<textElement>
+				<reportElement uuid="be95d37c-218e-42cb-ad91-90627302f061" x="412" y="18" width="50" height="27"/>
+				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[sus_months]]></text>
+				<text><![CDATA[Sus. Rem. Months]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="360" y="5" width="50" height="20" uuid="be95d37c-218e-42cb-ad91-90627302f061"/>
+				<reportElement uuid="70800f83-8ca3-428a-80d3-03bc0484409a" x="467" y="18" width="45" height="27"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[sus_remain]]></text>
+				<text><![CDATA[Before / After]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="421" y="5" width="50" height="20" uuid="70800f83-8ca3-428a-80d3-03bc0484409a"/>
+				<reportElement uuid="1cb00f34-9b86-4d80-afb8-4e54cc8f3c3d" x="511" y="25" width="38" height="20"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[before_after]]></text>
+				<text><![CDATA[Amount]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="494" y="5" width="50" height="20" uuid="1cb00f34-9b86-4d80-afb8-4e54cc8f3c3d"/>
+				<reportElement uuid="40725426-1b9a-4972-8801-766244998cff" x="298" y="24" width="58" height="20"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[amount]]></text>
+				<text><![CDATA[Suspended]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d746339f-b8ee-44e8-996e-268447c6d3e0" x="120" y="24" width="65" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sup. Name]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="23" splitType="Stretch">
+		<band height="30" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="0" width="50" height="20" uuid="83539ef1-bb05-496c-bebb-ec4791b99461"/>
-				<textFieldExpression><![CDATA[$F{welfare_entry}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="50" y="0" width="50" height="20" uuid="3150475c-75c8-4a9b-8a5b-a5688992d8fd"/>
+				<reportElement uuid="3150475c-75c8-4a9b-8a5b-a5688992d8fd" x="38" y="2" width="35" height="20"/>
+				<textElement/>
 				<textFieldExpression><![CDATA[$F{welfare_month}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="100" y="0" width="50" height="20" uuid="ff837a5d-4226-47ad-b31d-6bc6b4ad9d45"/>
+				<reportElement uuid="ff837a5d-4226-47ad-b31d-6bc6b4ad9d45" x="69" y="2" width="34" height="20"/>
+				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{welfare_sup_id}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="150" y="0" width="50" height="20" uuid="9cb2c8d6-de82-465d-b816-6d7e7cf94f60"/>
-				<textFieldExpression><![CDATA[$F{welfare_months_on_welfare}]]></textFieldExpression>
+				<reportElement uuid="9cb2c8d6-de82-465d-b816-6d7e7cf94f60" x="206" y="2" width="34" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[( $F{welfare_months_on_welfare}<0 ? "-" : $F{welfare_months_on_welfare} )]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="220" y="0" width="50" height="20" uuid="b40259ec-f556-412b-8d87-e11b5e2cf2ed"/>
-				<textFieldExpression><![CDATA[$F{welfare_new_old}]]></textFieldExpression>
+				<reportElement uuid="b40259ec-f556-412b-8d87-e11b5e2cf2ed" x="248" y="2" width="52" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[( $F{welfare_new_old}==1 ? "New Reg." : "Registered" )]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="295" y="0" width="50" height="20" uuid="27528ad4-ac29-499c-b1b7-df403204cf2d"/>
-				<textFieldExpression><![CDATA[$F{welfare_suspended_months}]]></textFieldExpression>
+				<reportElement uuid="27528ad4-ac29-499c-b1b7-df403204cf2d" x="358" y="3" width="50" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[( $F{welfare_suspended_months}<0 ? "-" : $F{welfare_suspended_months} )]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="360" y="0" width="50" height="20" uuid="d4af612b-ec01-44fa-b6f8-b5087ed859bb"/>
-				<textFieldExpression><![CDATA[$F{welfare_suspended_remain}]]></textFieldExpression>
+				<reportElement uuid="d4af612b-ec01-44fa-b6f8-b5087ed859bb" x="412" y="3" width="50" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[( $F{welfare_suspended_remain}<0 ? "-" : $F{welfare_suspended_remain} )]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="5882f3c8-5c25-4bdf-b070-2cefb8eeafcd" x="467" y="2" width="45" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[( $F{welfare_before_after}<0 ? null : ( $F{welfare_before_after}==0 ? "After" : "Before" ) )]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="421" y="0" width="50" height="20" uuid="5882f3c8-5c25-4bdf-b070-2cefb8eeafcd"/>
-				<textFieldExpression><![CDATA[$F{welfare_before_after}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="494" y="0" width="50" height="20" uuid="e82f6319-a601-443f-b1c0-3bfb94e17dfa"/>
+				<reportElement uuid="e82f6319-a601-443f-b1c0-3bfb94e17dfa" x="511" y="2" width="37" height="20"/>
+				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{welfare_amount}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="27528ad4-ac29-499c-b1b7-df403204cf2d" x="305" y="2" width="51" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[( $F{welfare_suspended_months}>0 ? "Suspended" : " " )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="ff837a5d-4226-47ad-b31d-6bc6b4ad9d45" x="103" y="2" width="104" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{suppliers_sup_name}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -248,7 +275,7 @@ order by  suppliers.`cat_id`]]>
 	<pageFooter>
 		<band height="33" splitType="Stretch">
 			<line>
-				<reportElement x="1" y="-13" width="554" height="1" uuid="0d048f90-0a60-4753-b7bf-906c8bd8f6af"/>
+				<reportElement uuid="0d048f90-0a60-4753-b7bf-906c8bd8f6af" x="1" y="-13" width="554" height="1"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>

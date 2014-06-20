@@ -101,14 +101,12 @@
     <Component class="javax.swing.JComboBox" name="view">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="7">
+          <StringArray count="5">
             <StringItem index="0" value="---------"/>
-            <StringItem index="1" value="Accounts"/>
-            <StringItem index="2" value="Receipts"/>
-            <StringItem index="3" value="Payments"/>
-            <StringItem index="4" value="Journals"/>
-            <StringItem index="5" value="Bank Codes"/>
-            <StringItem index="6" value="----------"/>
+            <StringItem index="1" value="Receipts"/>
+            <StringItem index="2" value="Payments"/>
+            <StringItem index="3" value="Journals"/>
+            <StringItem index="4" value="----------"/>
           </StringArray>
         </Property>
       </Properties>
@@ -152,6 +150,7 @@
         <Property name="text" type="java.lang.String" value="Reports"/>
       </Properties>
       <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton4ActionPerformed"/>
         <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jButton4FocusGained"/>
         <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jButton4KeyReleased"/>
       </Events>

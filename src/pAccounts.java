@@ -72,7 +72,7 @@ public class pAccounts extends javax.swing.JPanel {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        view.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "---------", "Accounts", "Receipts", "Payments", "Journals", "Bank Codes", "----------" }));
+        view.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "---------", "Receipts", "Payments", "Journals", "----------" }));
         view.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 viewItemStateChanged(evt);
@@ -108,6 +108,11 @@ public class pAccounts extends javax.swing.JPanel {
         });
 
         jButton4.setText("Reports");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
         jButton4.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jButton4FocusGained(evt);
@@ -468,6 +473,18 @@ public class pAccounts extends javax.swing.JPanel {
         NW.paint(home,"Journals");
         NW.setVisible(true);
     }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+          Reports_Acc rep = new Reports_Acc();
+
+        GL_content.removeAll();
+
+        rep.setSize(GL_content.getSize());
+
+       GL_content.add(rep);
+        validate();
+        repaint();
+    }//GEN-LAST:event_jButton4ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
