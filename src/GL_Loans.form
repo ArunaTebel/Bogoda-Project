@@ -657,6 +657,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="rateField">
       <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rateFieldActionPerformed"/>
         <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="rateFieldKeyPressed"/>
         <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="rateFieldKeyReleased"/>
       </Events>
@@ -691,6 +692,7 @@
       </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="DatabaseManager dbm = DatabaseManager.getDbCon();&#xa;supplier_id.putClientProperty(&quot;JComboBox.isTableCellEditor&quot;, Boolean.TRUE);"/>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
       </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="name">

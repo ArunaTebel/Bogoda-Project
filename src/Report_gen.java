@@ -44,10 +44,10 @@ public class Report_gen {
        
          JasperPrint jp = null;
        
-             JOptionPane.showMessageDialog(null, "complilng");
+           //  JOptionPane.showMessageDialog(null, "complilng");
             // JasperReport jr = (JasperReport)JRLoader.loadObjectFromFile(report_location+report_name);
               JasperReport jr=JasperCompileManager.compileReport(report_location+report_name);
-              JOptionPane.showMessageDialog(null, "compliled");
+             // JOptionPane.showMessageDialog(null, "compliled");
               
         
         jp=JasperFillManager.fillReport(jr, param,dbm.conn);
