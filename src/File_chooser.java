@@ -23,6 +23,8 @@ public class File_chooser extends javax.swing.JPanel {
     public File_chooser() {
         initComponents();
     }
+    
+    DatabaseManager dbm = new DatabaseManager();
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -35,7 +37,8 @@ public class File_chooser extends javax.swing.JPanel {
 
         jFileChooser1 = new javax.swing.JFileChooser();
 
-        jFileChooser1.setCurrentDirectory(new java.io.File("D:\\Cash Advance Books"));
+        jFileChooser1.setCurrentDirectory(new File(dbm.checknReturnStringData("file_locations", "description", "CashAdvance", "location"))
+        );
         jFileChooser1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jFileChooser1ActionPerformed(evt);
