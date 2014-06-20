@@ -11,12 +11,12 @@ import javax.swing.table.DefaultTableModel;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Pramo
  */
 public class GL_other_advance_save extends javax.swing.JPanel {
+
     GL_other_advances_class oadvance = new GL_other_advances_class();
     int i = 0;
 
@@ -35,7 +35,7 @@ public class GL_other_advance_save extends javax.swing.JPanel {
     }
 
     public void set_table(int bottom, int top) {
-       // System.out.println(a+"-this is rntries---");
+        // System.out.println(a+"-this is rntries---");
         if (a % 50 == 0) {
             no_of_pages = a / 50;
 
@@ -43,7 +43,7 @@ public class GL_other_advance_save extends javax.swing.JPanel {
             no_of_pages = a / 50 + 1;
 
         }
-       // System.out.println("num of pages"+no_of_pages);
+        // System.out.println("num of pages"+no_of_pages);
         page_info.setText("Page 1 of" + " " + no_of_pages);
         dbm.Inserting_To_The_Table(table, "gl_other_advance_book", "tr_no", 0, bottom, top);
         dbm.Inserting_To_The_Table(table, "gl_other_advance_book", "Date", 1, bottom, top);
@@ -55,7 +55,7 @@ public class GL_other_advance_save extends javax.swing.JPanel {
         dbm.Inserting_To_The_Table(table, "gl_other_advance_book", "item_rate", 7, bottom, top);
         dbm.Inserting_To_The_Table(table, "gl_other_advance_book", "item_quantity", 8, bottom, top);
         dbm.Inserting_To_The_Table(table, "gl_other_advance_book", "total_amount", 9, bottom, top);
- //System.out.println("sheeeeeeeeeeet");
+        //System.out.println("sheeeeeeeeeeet");
     }
 
     /**
@@ -65,6 +65,15 @@ public class GL_other_advance_save extends javax.swing.JPanel {
         initComponents();
         table.setAutoCreateRowSorter(true);
         supplier_id.setSelectedItem("All");
+        
+             /// calculating quantity total
+        double tot = 0;
+        int k = 0;
+        while (table.getValueAt(k, 0) != null) {
+            tot = tot + Double.parseDouble(table.getValueAt(k, 8).toString());
+            k++;
+        }
+        qty_total.setText("" + tot);
     }
 
     /**
@@ -86,6 +95,8 @@ public class GL_other_advance_save extends javax.swing.JPanel {
         jButton5 = new javax.swing.JButton();
         supplier_id = new javax.swing.JComboBox();
         jButton1 = new javax.swing.JButton();
+        qty_total = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -263,6 +274,11 @@ public class GL_other_advance_save extends javax.swing.JPanel {
             }
         });
 
+        qty_total.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel1.setText("Total Quantity");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -270,9 +286,18 @@ public class GL_other_advance_save extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(qty_total, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel1))))
+                .addContainerGap(11, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -283,6 +308,10 @@ public class GL_other_advance_save extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(62, 62, 62)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(70, 70, 70)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(qty_total, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -344,7 +373,16 @@ public class GL_other_advance_save extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-         removeSelectedRows(table);
+        removeSelectedRows(table);
+         /// calculating quantity total
+            
+            int k = 0;
+            tot=0;
+            while (table.getValueAt(k, 0) != null) {
+                tot = tot + Double.parseDouble(table.getValueAt(k, 8).toString());
+                k++;
+            }
+            qty_total.setText("" + tot);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -406,15 +444,24 @@ public class GL_other_advance_save extends javax.swing.JPanel {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
 
     }//GEN-LAST:event_jButton5ActionPerformed
-
+    double tot=0;
     private void supplier_idItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_supplier_idItemStateChanged
-        if (supplier_id.getSelectedItem().toString().equals( "All")) {
+        if (supplier_id.getSelectedItem().toString().equals("All")) {
             table_handler.clear_table(table, 10, 50);
-           // System.out.println("ok");
+            // System.out.println("ok");
             set_table(1, 50);
-             int i = 0;
+            int i = 0;
+                 /// calculating quantity total
+            
+            int k = 0;
+            tot=0;
+            while (table.getValueAt(k, 0) != null) {
+                tot = tot + Double.parseDouble(table.getValueAt(k, 8).toString());
+                k++;
+            }
+            qty_total.setText("" + tot);
         }
-         if (!supplier_id.getSelectedItem().equals( "All")) {
+        if (!supplier_id.getSelectedItem().equals("All")) {
 
             table_handler.clear_table(table, 10, 50);
             a_2 = filter.Filtered_table(table, "gl_other_advance_book", supplier_id.getSelectedItem().toString(), 1, 50);
@@ -427,6 +474,16 @@ public class GL_other_advance_save extends javax.swing.JPanel {
             }
             page_info.setText("Page 1 of" + " " + no_of_pages);
             int i = 0;
+            
+            /// calculating quantity total
+            
+            int k = 0;
+            tot=0;
+            while (table.getValueAt(k, 0) != null) {
+                tot = tot + Double.parseDouble(table.getValueAt(k, 8).toString());
+                k++;
+            }
+            qty_total.setText("" + tot);
         }
     }//GEN-LAST:event_supplier_idItemStateChanged
 
@@ -436,52 +493,57 @@ public class GL_other_advance_save extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         int reply = JOptionPane.showConfirmDialog(jButton4,
-                        "Are you SURE?"+"\n"+"This will close the current book"+"\n"+"make sure you have finalized the book", "Attention!", JOptionPane.YES_NO_OPTION);
-        if(reply == JOptionPane.YES_OPTION){
-        
-        
-        
-        
-        try {
-            oadvance.enter();
-        } catch (SQLException ex) {
-            Logger.getLogger(GL_other_advance_save.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        try {
-            dbm.insert("Truncate table gl_other_advance_book");
-        } catch (SQLException ex) {
-            Logger.getLogger(GL_other_advance_save.class.getName()).log(Level.SEVERE, null, ex);
-            
-        }
-         int k = 0;
-        int j = 0;
-        while (k <= 49) {
-            j = 0;
+                "Are you SURE?" + "\n" + "This will close the current book" + "\n" + "make sure you have finalized the book", "Attention!", JOptionPane.YES_NO_OPTION);
+        if (reply == JOptionPane.YES_OPTION) {
 
-            while (j < 10) {
-
-                table.setValueAt(null, k, j);
-                j++;
+            try {
+                oadvance.enter();
+            } catch (SQLException ex) {
+                Logger.getLogger(GL_other_advance_save.class.getName()).log(Level.SEVERE, null, ex);
             }
-            k++;
+            try {
+                dbm.insert("Truncate table gl_other_advance_book");
+            } catch (SQLException ex) {
+                Logger.getLogger(GL_other_advance_save.class.getName()).log(Level.SEVERE, null, ex);
+
+            }
+            int k = 0;
+            int j = 0;
+            while (k <= 49) {
+                j = 0;
+
+                while (j < 10) {
+
+                    table.setValueAt(null, k, j);
+                    j++;
+                }
+                k++;
+            }
+
+        } else {
         }
         
-        }
-        else{}
+         /// calculating quantity total
+            
+            int k = 0;
+            tot=0;
+            while (table.getValueAt(k, 0) != null) {
+                tot = tot + Double.parseDouble(table.getValueAt(k, 8).toString());
+                k++;
+            }
+            qty_total.setText("" + tot);
     }//GEN-LAST:event_jButton1ActionPerformed
-  public void removeSelectedRows(JTable table) {
+    public void removeSelectedRows(JTable table) {
         int m = i / 50;
         DefaultTableModel model = (DefaultTableModel) this.table.getModel();
         int[] rows = table.getSelectedRows();
-      //  deleted += rows.length;
+        //  deleted += rows.length;
         for (int n = 0; n < rows.length; n++) {
-            
-            
-           
+
             dbm.CheckNDeleteFromDataBase("gl_other_advance_book", "tr_no", table.getValueAt(rows[n] - n, 0));
             set_table(i + 1, i + 50);
 
-          //  System.out.println(table.getValueAt(rows[i] - i, 0));
+            //  System.out.println(table.getValueAt(rows[i] - i, 0));
             // model.removeRow(rows[i] - i);
         }
         int k = 0;
@@ -503,7 +565,7 @@ public class GL_other_advance_save extends javax.swing.JPanel {
             a = dbm.Checking_Length_Of_The_Table("gl_other_advance_book", "tr_no");
         }
        // return deleted;
-        
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -512,9 +574,11 @@ public class GL_other_advance_save extends javax.swing.JPanel {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel page_info;
+    private javax.swing.JLabel qty_total;
     private javax.swing.JComboBox supplier_id;
     private javax.swing.JTable table;
     // End of variables declaration//GEN-END:variables
