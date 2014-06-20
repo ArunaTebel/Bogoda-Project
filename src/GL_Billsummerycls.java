@@ -279,4 +279,68 @@ public class GL_Billsummerycls {
     
     return total;
     }
+    
+    
+     public String[][] loans_table(int sup_id, String year, String month) {
+        String[][] total = new String[1000][6];
+        int k = 0;
+        int j = 0;
+        while (j < 1000) {
+            while (k < 6) {
+                total[k][j] = null;
+                k++;
+            }
+
+            j++;
+        }
+        j = 0;
+        int i = 0;
+         Date date4;                      //INPUT MONTH AS NUMBER EX: 03
+           
+        Date date1 = java.sql.Date.valueOf(year + "-" + month + "-" + "08");
+        
+         if(month.equals("12")){
+         date4 = java.sql.Date.valueOf(String.valueOf(Integer.parseInt(year)+1) + "-" + datehandler.get_next_month(month) + "-" + "07");
+         }
+         
+         else{ 
+             date4 = java.sql.Date.valueOf(year + "-" + datehandler.get_next_month(month) + "-" + "07");}
+           
+        DatabaseManager dbm = DatabaseManager.getDbCon();
+        try {
+
+            ResultSet query = dbm.query("SELECT * FROM " + "gl_loans" + " where " + "sup_id" + " = '" + sup_id + " 'AND " + "date" + " BETWEEN'" + date1 + "' AND '" + date4 + "'");
+
+            while (query.next()) {
+                total[i][0] = datehandler.get_date_as_a_String(query.getDate("date"));
+                
+                total[i][1] = datehandler.get_date_as_a_String(query.getDate("issue_date"));
+                total[i][2] = query.getString("amount");
+                total[i][3]= query.getString("installments");
+                total[i][4] = String.valueOf(query.getDouble("monthly_amount"));
+                 System.out.println(total[i][4]);
+                i++;
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+
+        }
+        return total;
+    }
+     public String two_dec_places(String num){
+          String re= null;
+         if(num.contains(".")){
+         System.out.println(num);
+     String[] temp;
+         
+     temp = num.split(".");
+     System.out.println(temp[0]+"-----------------"+temp[1]);
+      re = temp[0]+"."+temp[1].substring(0, 1);
+     
+     
+     
+         }
+     return re;
+     }
 }
