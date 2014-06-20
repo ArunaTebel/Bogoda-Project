@@ -1,0 +1,975 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b4a7e90f-236c-48e1-b463-a16c40591ab1">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="USER" class="java.lang.String"/>
+	<parameter name="year" class="java.lang.String"/>
+	<parameter name="month" class="java.lang.String"/>
+	<parameter name="Month" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     gl_monthly_ledger_current.`sup_id` AS gl_monthly_ledger_current_sup_id,
+     gl_monthly_ledger_current.`name` AS gl_monthly_ledger_current_name,
+     gl_monthly_ledger_current.`total_kg` AS gl_monthly_ledger_current_total_kg,
+     gl_monthly_ledger_current.`set_value` AS gl_monthly_ledger_current_set_value,
+     gl_monthly_ledger_current.`gross_amount` AS gl_monthly_ledger_current_gross_amount,
+     gl_monthly_ledger_current.`coins_bf` AS gl_monthly_ledger_current_coins_bf,
+     gl_monthly_ledger_current.`total_payable` AS gl_monthly_ledger_current_total_payable,
+     gl_monthly_ledger_current.`pre_debts` AS gl_monthly_ledger_current_pre_debts,
+     gl_monthly_ledger_current.`cash_advances` AS gl_monthly_ledger_current_cash_advances,
+     gl_monthly_ledger_current.`other_advances` AS gl_monthly_ledger_current_other_advances,
+     gl_monthly_ledger_current.`loans` AS gl_monthly_ledger_current_loans,
+     gl_monthly_ledger_current.`cards` AS gl_monthly_ledger_current_cards,
+     gl_monthly_ledger_current.`transport` AS gl_monthly_ledger_current_transport,
+     gl_monthly_ledger_current.`welfare` AS gl_monthly_ledger_current_welfare,
+     gl_monthly_ledger_current.`total_deduction` AS gl_monthly_ledger_current_total_deduction,
+     gl_monthly_ledger_current.`net_amount` AS gl_monthly_ledger_current_net_amount,
+     gl_monthly_ledger_current.`tax` AS gl_monthly_ledger_current_tax,
+     gl_monthly_ledger_current.`final_payable` AS gl_monthly_ledger_current_final_payable,
+     gl_monthly_ledger_current.`coins_cf` AS gl_monthly_ledger_current_coins_cf,
+     gl_monthly_ledger_current.`final_amount` AS gl_monthly_ledger_current_final_amount,
+     gl_monthly_ledger_current.`bal_cf` AS gl_monthly_ledger_current_bal_cf,
+     daily_transactions_current.`day_1` AS daily_transactions_current_day_1,
+     daily_transactions_current.`day_2` AS daily_transactions_current_day_2,
+     daily_transactions_current.`day_3` AS daily_transactions_current_day_3,
+     daily_transactions_current.`day_4` AS daily_transactions_current_day_4,
+     daily_transactions_current.`day_5` AS daily_transactions_current_day_5,
+     daily_transactions_current.`day_6` AS daily_transactions_current_day_6,
+     daily_transactions_current.`day_7` AS daily_transactions_current_day_7,
+     daily_transactions_current.`day_8` AS daily_transactions_current_day_8,
+     daily_transactions_current.`day_9` AS daily_transactions_current_day_9,
+     daily_transactions_current.`day_10` AS daily_transactions_current_day_10,
+     daily_transactions_current.`day_11` AS daily_transactions_current_day_11,
+     daily_transactions_current.`day_12` AS daily_transactions_current_day_12,
+     daily_transactions_current.`day_13` AS daily_transactions_current_day_13,
+     daily_transactions_current.`day_14` AS daily_transactions_current_day_14,
+     daily_transactions_current.`day_15` AS daily_transactions_current_day_15,
+     daily_transactions_current.`day_16` AS daily_transactions_current_day_16,
+     daily_transactions_current.`day_17` AS daily_transactions_current_day_17,
+     daily_transactions_current.`day_18` AS daily_transactions_current_day_18,
+     daily_transactions_current.`day_19` AS daily_transactions_current_day_19,
+     daily_transactions_current.`day_20` AS daily_transactions_current_day_20,
+     daily_transactions_current.`day_21` AS daily_transactions_current_day_21,
+     daily_transactions_current.`day_22` AS daily_transactions_current_day_22,
+     daily_transactions_current.`day_23` AS daily_transactions_current_day_23,
+     daily_transactions_current.`day_24` AS daily_transactions_current_day_24,
+     daily_transactions_current.`day_25` AS daily_transactions_current_day_25,
+     daily_transactions_current.`day_26` AS daily_transactions_current_day_26,
+     daily_transactions_current.`day_27` AS daily_transactions_current_day_27,
+     daily_transactions_current.`day_28` AS daily_transactions_current_day_28,
+     daily_transactions_current.`day_29` AS daily_transactions_current_day_29,
+     daily_transactions_current.`day_30` AS daily_transactions_current_day_30,
+     daily_transactions_current.`day_31` AS daily_transactions_current_day_31,
+     daily_transactions_current.`Total` AS daily_transactions_current_Total,
+     gl_monthly_ledger_current.`year` AS gl_monthly_ledger_current_year,
+     gl_monthly_ledger_current.`month` AS gl_monthly_ledger_current_month
+FROM
+     `daily_transactions_current` daily_transactions_current INNER JOIN `gl_monthly_ledger_current` gl_monthly_ledger_current ON daily_transactions_current.`entry` = gl_monthly_ledger_current.`entry`
+     AND gl_monthly_ledger_current.`sup_id` = daily_transactions_current.`sup_id`
+WHERE
+      gl_monthly_ledger_current.`year`=$P{year} AND gl_monthly_ledger_current.`month` =$P{month} and  gl_monthly_ledger_current.`final_amount`!=0
+order by  gl_monthly_ledger_current.`sup_id`]]>
+	</queryString>
+	<field name="gl_monthly_ledger_current_sup_id" class="java.lang.Integer"/>
+	<field name="gl_monthly_ledger_current_name" class="java.lang.String"/>
+	<field name="gl_monthly_ledger_current_total_kg" class="java.lang.Double"/>
+	<field name="gl_monthly_ledger_current_set_value" class="java.lang.Double"/>
+	<field name="gl_monthly_ledger_current_gross_amount" class="java.lang.Double"/>
+	<field name="gl_monthly_ledger_current_coins_bf" class="java.lang.Double"/>
+	<field name="gl_monthly_ledger_current_total_payable" class="java.lang.Double"/>
+	<field name="gl_monthly_ledger_current_pre_debts" class="java.lang.Double"/>
+	<field name="gl_monthly_ledger_current_cash_advances" class="java.lang.Double"/>
+	<field name="gl_monthly_ledger_current_other_advances" class="java.lang.Double"/>
+	<field name="gl_monthly_ledger_current_loans" class="java.lang.Double"/>
+	<field name="gl_monthly_ledger_current_cards" class="java.lang.Double"/>
+	<field name="gl_monthly_ledger_current_transport" class="java.lang.Double"/>
+	<field name="gl_monthly_ledger_current_welfare" class="java.lang.Double"/>
+	<field name="gl_monthly_ledger_current_total_deduction" class="java.lang.Double"/>
+	<field name="gl_monthly_ledger_current_net_amount" class="java.lang.Double"/>
+	<field name="gl_monthly_ledger_current_tax" class="java.lang.Double"/>
+	<field name="gl_monthly_ledger_current_final_payable" class="java.lang.Double"/>
+	<field name="gl_monthly_ledger_current_coins_cf" class="java.lang.Double"/>
+	<field name="gl_monthly_ledger_current_final_amount" class="java.lang.Double"/>
+	<field name="gl_monthly_ledger_current_bal_cf" class="java.lang.Double"/>
+	<field name="daily_transactions_current_day_1" class="java.lang.Double"/>
+	<field name="daily_transactions_current_day_2" class="java.lang.Double"/>
+	<field name="daily_transactions_current_day_3" class="java.lang.Double"/>
+	<field name="daily_transactions_current_day_4" class="java.lang.Double"/>
+	<field name="daily_transactions_current_day_5" class="java.lang.Double"/>
+	<field name="daily_transactions_current_day_6" class="java.lang.Double"/>
+	<field name="daily_transactions_current_day_7" class="java.lang.Double"/>
+	<field name="daily_transactions_current_day_8" class="java.lang.Double"/>
+	<field name="daily_transactions_current_day_9" class="java.lang.Double"/>
+	<field name="daily_transactions_current_day_10" class="java.lang.Double"/>
+	<field name="daily_transactions_current_day_11" class="java.lang.Double"/>
+	<field name="daily_transactions_current_day_12" class="java.lang.Double"/>
+	<field name="daily_transactions_current_day_13" class="java.lang.Double"/>
+	<field name="daily_transactions_current_day_14" class="java.lang.Double"/>
+	<field name="daily_transactions_current_day_15" class="java.lang.Double"/>
+	<field name="daily_transactions_current_day_16" class="java.lang.Double"/>
+	<field name="daily_transactions_current_day_17" class="java.lang.Double"/>
+	<field name="daily_transactions_current_day_18" class="java.lang.Double"/>
+	<field name="daily_transactions_current_day_19" class="java.lang.Double"/>
+	<field name="daily_transactions_current_day_20" class="java.lang.Double"/>
+	<field name="daily_transactions_current_day_21" class="java.lang.Double"/>
+	<field name="daily_transactions_current_day_22" class="java.lang.Double"/>
+	<field name="daily_transactions_current_day_23" class="java.lang.Double"/>
+	<field name="daily_transactions_current_day_24" class="java.lang.Double"/>
+	<field name="daily_transactions_current_day_25" class="java.lang.Double"/>
+	<field name="daily_transactions_current_day_26" class="java.lang.Double"/>
+	<field name="daily_transactions_current_day_27" class="java.lang.Double"/>
+	<field name="daily_transactions_current_day_28" class="java.lang.Double"/>
+	<field name="daily_transactions_current_day_29" class="java.lang.Double"/>
+	<field name="daily_transactions_current_day_30" class="java.lang.Double"/>
+	<field name="daily_transactions_current_day_31" class="java.lang.Double"/>
+	<field name="daily_transactions_current_Total" class="java.lang.Double"/>
+	<field name="gl_monthly_ledger_current_year" class="java.lang.String"/>
+	<field name="gl_monthly_ledger_current_month" class="java.lang.String"/>
+	<variable name="TITLE" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="371" splitType="Stretch">
+			<rectangle>
+				<reportElement x="2" y="4" width="571" height="345" uuid="0b102bfe-124c-47db-a44f-f4271fe0f7a1"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement x="46" y="43" width="23" height="20" uuid="f9e9431a-a321-475a-aaa7-469c489ad2b7"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_sup_id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="125" y="43" width="215" height="20" uuid="88d7cdd6-ff62-408c-a8f3-3e0ed3b24e75"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_name}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="110" y="78" width="67" height="20" uuid="3a2eb12b-106b-48dd-8777-76962724c188"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_total_kg}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="110" y="98" width="67" height="20" uuid="a05530da-562d-49cc-ba75-205a30ad161a"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_set_value}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="110" y="118" width="67" height="20" uuid="4b28f3d1-64db-4083-8b07-e60c8f471622"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_gross_amount}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="110" y="138" width="67" height="20" uuid="ae2778cc-6c7e-44e4-8533-19d7dbb66dfe"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_coins_bf}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="110" y="218" width="67" height="20" uuid="3de7c9ca-99ff-498c-9b7d-7f745da0abf4"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_total_payable}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="302" y="78" width="69" height="20" uuid="41dc8e98-ff95-4076-beaa-8b328eb06bbd"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_pre_debts}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="302" y="98" width="69" height="20" uuid="ff331943-633f-4d9d-a44a-6884cce8a85e"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_cash_advances}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="302" y="118" width="69" height="20" uuid="2eb7bced-2070-447b-a361-5d0bad75fc94"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_other_advances}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="302" y="138" width="69" height="20" uuid="d00e8a03-5b4b-458c-aed9-e6bad7d04c5b"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_loans}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="302" y="158" width="69" height="20" uuid="03fb7c43-730a-48d9-b3cf-6e95e9d3eb16"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_cards}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="302" y="178" width="69" height="20" uuid="48781aac-476b-43b2-adb8-fd3074a357de"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_transport}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="302" y="198" width="69" height="20" uuid="47b8bc38-6ba9-4d38-95a9-b3104a6d503b"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_welfare}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="302" y="218" width="69" height="20" uuid="ff8ce320-1900-4688-b0ef-da48b1257469"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_total_deduction}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="484" y="78" width="70" height="20" uuid="7a77d9fb-667c-46ff-93ee-6fc360fa7d4e"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_net_amount}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="484" y="98" width="70" height="20" uuid="2a611cbd-6f09-4f40-83f5-84c04fe8944c"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_tax}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="484" y="118" width="70" height="20" uuid="5b84fb5d-f793-4cd0-a854-14fc7e42a811"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_final_payable}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="350" y="8" width="216" height="27" uuid="75b687d7-fe40-4adf-9851-27816341e992"/>
+				<textElement>
+					<font fontName="Segoe UI Light" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bogoda Group Tea Factory]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="427" y="29" width="114" height="20" uuid="fe112270-8629-41c5-b43e-d57409be5b2e"/>
+				<text><![CDATA[Kolawenigama, Deniyaya]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement x="340" y="338" width="100" height="11" uuid="54a20eec-890c-4e8c-9249-a8bf0da283f9"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="452" y="337" width="100" height="11" uuid="a7284fb9-5755-493b-9033-b8778b4d88dd"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{USER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="259" y="338" width="81" height="11" uuid="3e709542-151f-4b92-8a79-9527db2b951e"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Report generated:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="437" y="336" width="15" height="11" uuid="b253ceae-65b5-4d6e-bd4d-cd9f29f5de4c"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[by:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="1" y="60" width="571" height="1" uuid="e13c4d67-1e7f-4c1c-96d2-2316ab27579e"/>
+			</line>
+			<line>
+				<reportElement x="1" y="3" width="571" height="1" uuid="aeb39eae-cf99-495a-9b95-9031f30f70b7"/>
+			</line>
+			<staticText>
+				<reportElement x="201" y="138" width="44" height="20" uuid="0467892c-9a71-4c74-850c-f4c85bc94c7e"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Loans]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="201" y="158" width="61" height="20" uuid="691ac4ec-d38b-4e96-9e79-b2633e391385"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Stationary]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="201" y="178" width="80" height="20" uuid="112513a5-fb46-476e-a9df-6d9dad4d034d"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Transport]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="201" y="198" width="80" height="20" uuid="589d4804-4c27-4c2d-92cc-b93cf083356a"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Welfare]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="201" y="218" width="80" height="20" uuid="b975201e-f324-4f7b-96a5-1b4e4cfacd65"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Deduction]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="397" y="78" width="60" height="20" uuid="342111e6-7871-4792-91d7-39d9f1e0c605"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Net Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="397" y="98" width="64" height="20" uuid="7574a7a7-7cac-41a7-b04b-17772fe65769"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Income Tax]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="397" y="118" width="64" height="20" uuid="29a065d0-cf84-4fb1-93f9-2cc9f46856d0"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Final Payable]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="398" y="138" width="48" height="20" uuid="782c829a-c42b-4264-a03e-c8c198bff3a5"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Coins cf]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="397" y="158" width="47" height="20" uuid="b184b3b7-69f7-4707-906a-685b3506b08f"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="430" y="199" width="47" height="20" uuid="52da3e0e-b604-4648-b721-76153abe6279"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Balance]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="201" y="118" width="80" height="20" uuid="2726d85c-1aea-48b9-9e25-6a3989e4e13c"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[OtherAdvances]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="201" y="98" width="80" height="20" uuid="3cc4835e-e591-4095-a7b4-25f91223c94c"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Cash Advances]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="201" y="78" width="80" height="20" uuid="4f9b0b74-ceea-4c55-bf5b-e38c0b2ff6b3"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Previous Debits]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="23" y="218" width="70" height="20" uuid="860b4d72-10a6-4917-bf11-d771257f941c"/>
+				<textElement>
+					<font isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[Total Payable]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="18" y="138" width="70" height="20" uuid="5470562b-9634-4f7e-8d32-846dc4e7bc29"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Coins bf]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="18" y="118" width="70" height="20" uuid="c11d3336-9092-4826-bb2b-7764f6f160ab"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Gross Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="18" y="98" width="70" height="20" uuid="63f151a0-6220-431b-9f36-2cc717ae2cb4"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Pay Value]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="18" y="78" width="70" height="20" uuid="9985080d-ea84-433a-b5ec-cd00ed6b808d"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Total KG]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="43" width="35" height="20" uuid="6d0c7763-bb4f-4879-8c90-4cb1e93a5ea6"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="43" width="44" height="20" uuid="3df2e9b7-07c7-4563-b558-083aaf679e22"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sup ID]]></text>
+			</staticText>
+			<line>
+				<reportElement x="2" y="337" width="570" height="1" uuid="0d048f90-0a60-4753-b7bf-906c8bd8f6af"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+			<textField pattern="#,##0.00">
+				<reportElement x="484" y="138" width="70" height="20" uuid="20938bed-9f1c-4493-952a-60b415dfcd55"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_coins_cf}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="484" y="158" width="70" height="20" uuid="08bdaab0-6cb0-4021-bf74-1a8f1fed0eb5"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_final_amount}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="484" y="200" width="70" height="20" uuid="5d38c2b5-498f-4ce5-acc5-2eb71eeaed77"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_bal_cf}]]></textFieldExpression>
+			</textField>
+			<rectangle radius="10">
+				<reportElement x="23" y="242" width="543" height="89" uuid="8385df81-10bc-4c22-b869-6b2d961ba827"/>
+			</rectangle>
+			<textField pattern="###0" isBlankWhenNull="false">
+				<reportElement x="70" y="267" width="30" height="20" uuid="d35a163d-094a-4d66-ad6a-c4ff9b582083"/>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0">
+				<reportElement x="100" y="267" width="30" height="20" uuid="97f8c8fd-3d2f-4337-899b-66e553dbed91"/>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_2}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0">
+				<reportElement x="130" y="267" width="30" height="20" uuid="87f20add-4e92-471c-98f6-55a450dcf8bf"/>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_3}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0">
+				<reportElement x="160" y="267" width="30" height="20" uuid="406df993-e233-4da8-a6b8-17d457b39cdb"/>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_4}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0">
+				<reportElement x="189" y="267" width="30" height="20" uuid="e7542dfb-cc8f-4a60-8f16-8e264752429c"/>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_5}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0">
+				<reportElement x="218" y="267" width="30" height="20" uuid="e3624104-07cd-4ee0-8a97-ddae97c4eb13"/>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_6}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0">
+				<reportElement x="247" y="267" width="30" height="20" uuid="6d67f4cc-d1a7-43f7-ad22-c24ed78aa5a1"/>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_7}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0">
+				<reportElement x="276" y="267" width="30" height="20" uuid="b393ac62-bffc-4bdd-9449-85c6c08f2a66"/>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_8}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0">
+				<reportElement x="306" y="267" width="30" height="20" uuid="a6c1c039-1bcb-465d-b1a2-3b9bf30be4de"/>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_9}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0">
+				<reportElement x="336" y="267" width="30" height="20" uuid="888846e9-6c96-4041-8f29-a30c8d93bc7d"/>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_10}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0">
+				<reportElement x="366" y="267" width="30" height="20" uuid="69d95094-9b87-4987-8eed-7c4d2b07300e"/>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_11}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0">
+				<reportElement x="397" y="267" width="30" height="20" uuid="195ec96e-af5d-44ba-8323-ae06fc517f72"/>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_12}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0">
+				<reportElement x="428" y="267" width="30" height="20" uuid="76fd508d-8bff-41de-a1eb-fe5706b28773"/>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_13}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0">
+				<reportElement x="459" y="267" width="30" height="20" uuid="523f909a-70a9-485c-9648-1404ce158689"/>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_14}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0">
+				<reportElement x="490" y="267" width="30" height="20" uuid="24ec32a8-559d-4e86-9a8c-676e769d7c1c"/>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_15}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0">
+				<reportElement x="521" y="267" width="30" height="20" uuid="4651a233-c110-4a46-89f7-d03e1cef776c"/>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_16}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0">
+				<reportElement x="69" y="307" width="31" height="20" uuid="50f30457-2a6c-4984-84e1-6d7603329401"/>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_17}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0">
+				<reportElement x="100" y="307" width="30" height="20" uuid="38dc3661-0f52-43f9-911e-bbc2c8b32cbb"/>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_18}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0">
+				<reportElement x="130" y="307" width="30" height="20" uuid="01f0503f-4fd6-4fd7-b210-e64c8ad5d6eb"/>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_19}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0">
+				<reportElement x="162" y="307" width="27" height="20" uuid="4278d517-095d-49eb-8145-65a32de591ba"/>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_20}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0">
+				<reportElement x="190" y="307" width="29" height="20" uuid="f8419935-48ae-4c00-ae65-b87a68647398"/>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_21}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0">
+				<reportElement x="219" y="307" width="28" height="20" uuid="1189b090-5a99-4c7e-adb4-0d563c50a082"/>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_22}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0">
+				<reportElement x="247" y="307" width="30" height="20" uuid="4cedca2e-0841-44f3-a7cc-947241789bdb"/>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_23}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0">
+				<reportElement x="277" y="307" width="29" height="20" uuid="a8ae693f-aa50-4df8-9928-a13be82e13dd"/>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_24}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0">
+				<reportElement x="306" y="307" width="30" height="20" uuid="620b6beb-74ed-401d-b03c-f03e67bdb78f"/>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_25}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0">
+				<reportElement x="336" y="307" width="30" height="20" uuid="78e867c6-534d-4748-9a61-324a7153c08e"/>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_26}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0">
+				<reportElement x="366" y="307" width="30" height="20" uuid="574fadd7-7348-4fc1-8fce-fa1bcc3f9ed1"/>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_27}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0">
+				<reportElement x="397" y="307" width="30" height="20" uuid="effdd0f1-3cfb-4cd8-afe1-58d0b84fcc11"/>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_28}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0">
+				<reportElement x="427" y="307" width="31" height="20" uuid="0e324d89-b320-44e1-8cea-c6c474112ed9"/>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_29}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0">
+				<reportElement x="459" y="307" width="30" height="20" uuid="fa1368cd-9ee2-4901-b1c7-d706223e2730"/>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_30}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0">
+				<reportElement x="488" y="307" width="32" height="20" uuid="eaceedd2-76b7-482e-b15b-061ccfea8464"/>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_31}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="30" y="246" width="40" height="20" uuid="13b4c778-6749-4acf-a0ff-d249efffbf68"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="267" width="40" height="20" uuid="65012143-0fdc-49f6-a092-0b99b9616f9c"/>
+				<text><![CDATA[Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="287" width="39" height="20" uuid="95cd69a9-dac0-410b-b895-7e694d648a9f"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Day]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="307" width="40" height="20" uuid="3d06f091-3a7b-49cb-bac9-641f6e2a5ea5"/>
+				<text><![CDATA[Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="70" y="247" width="30" height="20" uuid="ce63d44c-caa1-49b9-b53e-50b200a841fb"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[1]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="247" width="30" height="20" uuid="ce10be1b-ae76-4549-886b-e1f5152e4039"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[2]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="130" y="247" width="30" height="20" uuid="a352b87a-6539-4092-b7f2-276ccdd42f32"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[3]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="160" y="247" width="30" height="20" uuid="2b629fe8-34f7-494b-a0c1-b5f365abda0c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[4]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="190" y="247" width="30" height="20" uuid="882a3907-cfa7-4494-860a-41a5c37171c3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[5]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="220" y="247" width="30" height="20" uuid="c6e6ec29-f635-4f84-b49f-14c1c7822d84"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[6]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="248" y="247" width="30" height="20" uuid="3fb7a58c-1a6f-40c8-aaa0-69b5d0b1ddd1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[7]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="278" y="247" width="30" height="20" uuid="203a725d-64b6-4ae1-a14a-1669b1b2e151"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[8]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="307" y="247" width="30" height="20" uuid="a8a4e5c4-9911-4121-82d6-ceb711d3898d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[9]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="337" y="247" width="30" height="20" uuid="69344d9f-2a50-406c-babe-fb675a0df412"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[10]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="366" y="247" width="30" height="20" uuid="fb90d340-d33f-4802-bafe-9e6c7365b667"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[11]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="398" y="247" width="30" height="20" uuid="0f8f9b30-6b29-4c6e-94a0-57a8b8a835ba"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[12]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="429" y="247" width="30" height="20" uuid="a3710551-1cb0-4939-a40b-dba1d6b234d4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[13]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="459" y="247" width="30" height="20" uuid="a8cf51db-1090-48fb-82b4-011e29799e90"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[14]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="490" y="247" width="30" height="20" uuid="7837146a-5200-4aaa-8f1d-23bb5e54a4ae"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[15]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="520" y="247" width="30" height="20" uuid="42340644-1c68-4888-bb76-63b657094c9a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[16]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="69" y="287" width="30" height="20" uuid="1dea5985-9df4-423d-93e3-e4e68cb2d83b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[17]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="287" width="30" height="20" uuid="13a39c32-ef9e-4575-ac67-db0ed963dbfb"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[18]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="130" y="287" width="30" height="20" uuid="dfc323ce-9528-4b95-9346-917bf44e605e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[19]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="161" y="287" width="30" height="20" uuid="621606a0-ebd2-4157-91c5-2e571df11e63"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[20]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="191" y="287" width="30" height="20" uuid="6b52bee2-35a6-45cf-bdfc-71c0903b26a4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[21]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="219" y="287" width="30" height="20" uuid="22c4e5eb-6917-4f28-affa-476e34f80f59"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[22]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="249" y="287" width="30" height="20" uuid="85a20590-f2dd-4186-ae34-23750acef4e4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[23]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="277" y="287" width="30" height="20" uuid="05602f7d-e92f-41a0-987b-7fa6cb2dbd1c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[24]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="307" y="287" width="30" height="20" uuid="567cc21a-2c34-4ad4-8bfb-3a6ba947178e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[25]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="336" y="287" width="30" height="20" uuid="b2f326a1-757a-42af-8128-fda2e0ca6ac4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[26]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="366" y="287" width="30" height="20" uuid="f6e3fdbe-f69f-4763-b8bb-609158bfde79"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[27]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="397" y="287" width="30" height="20" uuid="17c0a758-fd3c-49c8-bff2-291264430707"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[28]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="427" y="287" width="30" height="20" uuid="60bb1461-427a-4c2d-a70e-1e88c73681b1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[29]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="459" y="287" width="30" height="20" uuid="209ab5c6-f649-4110-ad10-3d4f9f8c5c74"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[30]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="491" y="287" width="30" height="20" uuid="be3b5d46-fc89-4b8b-9780-24d4eac5eceb"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[28]]></text>
+			</staticText>
+			<line>
+				<reportElement x="68" y="246" width="1" height="81" uuid="6c2a5af9-bb69-4fe5-a82a-1322cc366055"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="30" y="286" width="520" height="1" uuid="84eb98a1-b776-4d20-b733-02dba3888c06"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="20" y="218" width="157" height="1" uuid="d92a9e26-2bad-4b5c-8e26-cebe5abba87c"/>
+			</line>
+			<line>
+				<reportElement x="201" y="218" width="170" height="1" uuid="e8e3c7cf-3002-4e5d-909d-e17edcd14526"/>
+			</line>
+			<line>
+				<reportElement x="398" y="158" width="156" height="1" uuid="7376fcdf-d764-4c89-875a-83b9971cf034"/>
+			</line>
+			<line>
+				<reportElement x="398" y="177" width="156" height="1" uuid="ac044ec4-290f-48e0-aeac-44e7f8da8bc8"/>
+			</line>
+			<line>
+				<reportElement x="20" y="237" width="534" height="1" uuid="9795c657-87db-47dc-ac55-63f0fdd6e9b0"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="189" y="78" width="1" height="140" uuid="e7d1e084-b4d1-465b-a842-4ccbcb7602eb"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="383" y="78" width="1" height="140" uuid="e14238c6-49e7-4ffb-81dc-a0ad51756b93"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="3" y="9" width="174" height="20" uuid="394390d2-07e5-417f-bc94-9aec75fd668e"/>
+				<textFieldExpression><![CDATA[$P{Month}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

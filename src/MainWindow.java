@@ -731,10 +731,13 @@ public class MainWindow extends javax.swing.JFrame {
         User_id.setText("AdminNL");
         
         Thread t = new Thread(new WelfareThread());
+        Thread t1 = new Thread(new PRCRWelfareThread());
+        t.start();
+        t1.start();
 
-        String pwd = dbm.checknReturnStringData("user_data", "user_name", User_id.getText(), "pwd");
+        //String pwd = dbm.checknReturnStringData("user_data", "user_name", User_id.getText(), "pwd");
 
-   //   if(Pass.getText().equalsIgnoreCase(pwd)){  
+    //  if(Pass.getText().equalsIgnoreCase(pwd)){  
         jButton1.setEnabled(true);
         jButton2.setEnabled(true);
         jButton3.setEnabled(true);
@@ -780,7 +783,7 @@ public class MainWindow extends javax.swing.JFrame {
         //================================================================================================================
 
         Info.setText("Login Successfull");
-    //  }
+      //}
 
         /*  else {
           
