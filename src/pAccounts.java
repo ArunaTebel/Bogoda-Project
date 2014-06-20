@@ -433,12 +433,15 @@ public class pAccounts extends javax.swing.JPanel {
         if(view.getSelectedItem().toString()=="Journals"){
             jview.setVisible(true);
             jview.Start();
+            jview.focus();
         }
         else if(view.getSelectedItem().toString()=="Receipts"){
             rview.setVisible(true);
+            rview.focus();
         }
         if(view.getSelectedItem().toString()=="Payments"){
             pview.setVisible(true);
+            pview.focus();
         }
     }//GEN-LAST:event_viewItemStateChanged
 

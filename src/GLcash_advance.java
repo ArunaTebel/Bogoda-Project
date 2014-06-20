@@ -847,7 +847,7 @@ public class GLcash_advance extends javax.swing.JPanel {
     }//GEN-LAST:event_Save1ActionPerformed
 
     private void Save1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_Save1FocusGained
-        // TODO add your handling code here:
+        interface_events.Respond_enter(Save1, evt);
     }//GEN-LAST:event_Save1FocusGained
 
     private void EmergencyItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_EmergencyItemStateChanged
