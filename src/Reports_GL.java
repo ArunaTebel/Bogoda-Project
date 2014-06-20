@@ -460,7 +460,16 @@ Date_Handler date_handler = new Date_Handler();
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        // TODO add your handling code here:
+         Report_GL_otheradd pgreenleaf = new Report_GL_otheradd();
+
+        content.removeAll();
+
+        pgreenleaf.setSize(content.getSize());
+
+        content.add(pgreenleaf);
+        validate();
+        repaint();
+        pgreenleaf.focus();
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
