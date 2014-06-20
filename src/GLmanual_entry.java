@@ -32,6 +32,7 @@ public class GLmanual_entry extends javax.swing.JPanel {
 
     public GLmanual_entry() {
         initComponents();
+        delete.setEnabled(false);
         leaf_cat.setSelectedItem("A"); // default///////////////////////////////////////////////////////////////////////////////////////////////
     }
 
@@ -105,6 +106,7 @@ public class GLmanual_entry extends javax.swing.JPanel {
         jPanel6 = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
         edit = new javax.swing.JTextField();
+        delete = new javax.swing.JButton();
 
         jLabel1.setText("User ID");
 
@@ -660,6 +662,14 @@ public class GLmanual_entry extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
+        delete.setForeground(new java.awt.Color(255, 51, 51));
+        delete.setText("DELETE ENTRY");
+        delete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -752,10 +762,12 @@ public class GLmanual_entry extends javax.swing.JPanel {
                                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                     .addComponent(sendButton)))))
                                     .addGap(22, 22, 22))))))
-                .addGap(40, 65, Short.MAX_VALUE)
+                .addGap(50, 65, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(delete)
+                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -830,7 +842,9 @@ public class GLmanual_entry extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(45, 45, 45)
-                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -1662,9 +1676,35 @@ double trans = Double.parseDouble(dbm.checknReturnStringData("category", "catego
         } catch (PropertyVetoException ex) {
             JOptionPane.showMessageDialog(datechooser, ex.getMessage());
         }
-                
+                delete.setEnabled(true);
        }
     }//GEN-LAST:event_editKeyPressed
+
+    
+    private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
+        dbm.CheckNDeleteFromDataBase("green_leaf_transactions","tr_id",Integer.parseInt(edit.getText()));
+        
+        int k = 0;
+            int j = 0;
+            while (table.getValueAt(k, 0) != null) {
+
+                j = 0;
+                while (j < 10) {
+
+                    table.setValueAt(null, k, j);
+                    j++;
+                }
+                k++;
+            }
+            supplier_id.setSelectedIndex(0);
+            leaf_cat.setSelectedIndex(0);
+            category_name.setText(" ");
+
+            category_code.setSelectedIndex(0);
+            edit.setText(null);
+            category_code.requestFocusInWindow();
+
+    }//GEN-LAST:event_deleteActionPerformed
     public double convertString(String s) {
         if (s.length() == 0) {
             return 0;
@@ -1680,6 +1720,7 @@ double trans = Double.parseDouble(dbm.checknReturnStringData("category", "catego
     private com.michaelbaranov.microba.calendar.DatePicker datePicker1;
     private javax.swing.JPanel datepanel;
     private javax.swing.JTextField dayfield;
+    private javax.swing.JButton delete;
     private javax.swing.JTextField edit;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

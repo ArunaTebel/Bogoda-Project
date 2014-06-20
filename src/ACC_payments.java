@@ -23,6 +23,8 @@ public class ACC_payments extends javax.swing.JPanel {
 
     public ACC_payments() {
            initComponents();
+           jButton6.setEnabled(true);
+           
         // set cheque part invisible at the begining
         String selection = (String) payType.getSelectedItem();
 
@@ -340,6 +342,11 @@ public class ACC_payments extends javax.swing.JPanel {
         });
 
         jButton7.setText("Cancel");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
 
         jButton8.setText("Quit");
         jButton8.addActionListener(new java.awt.event.ActionListener() {
@@ -844,6 +851,16 @@ public class ACC_payments extends javax.swing.JPanel {
 
     private void debit_amountKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_debit_amountKeyPressed
         interface_events.Change_focus_Enterkey_t_b(refNo, jButton5, evt);
+        
+         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (chk.isDouble(debit_amount.getText())) {
+               interface_events.Change_focus_Enterkey_t_b(refNo, jButton5, evt);
+            } else {
+
+                msg.showMessage("Enter A Valid Amount Here", "Please Check Again", "info");
+
+            }
+        }
     }//GEN-LAST:event_debit_amountKeyPressed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -1096,8 +1113,21 @@ public class ACC_payments extends javax.swing.JPanel {
         interface_events.Change_focus_Enterkey_t(creditAmount, evt);
     }//GEN-LAST:event_credit_descriptionKeyPressed
 
+    Check_Entries chk = new Check_Entries();
+    
     private void creditAmountKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_creditAmountKeyPressed
         interface_events.Change_focus_Enterkey_c(debit_account_code, evt);
+        
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (chk.isDouble(creditAmount.getText())) {
+                interface_events.Change_focus_Enterkey_c(debit_account_code, evt);
+            } else {
+
+                msg.showMessage("Enter A Valid Amount Here", "Please Check Again", "info");
+
+            }
+        }
+        
     }//GEN-LAST:event_creditAmountKeyPressed
 
     private void payTypeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_payTypeItemStateChanged
@@ -1177,6 +1207,8 @@ public class ACC_payments extends javax.swing.JPanel {
         }
 
         else {
+            
+            jButton6.setEnabled(true);
             jButton6.requestFocusInWindow();
         } 
 
@@ -1552,6 +1584,39 @@ public class ACC_payments extends javax.swing.JPanel {
         yearfield.setText(datehandler.get_year(datef));
         recieptNo.requestFocus();
     }//GEN-LAST:event_datePicker1ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        
+         
+            int j = 0;
+            while (debit_account_code_table.getValueAt(j, 0) != null) {
+                debit_account_code_table.setValueAt(null, j, 0);
+                debit_description_table.setValueAt(null, j, 0);
+                debit_amount_table.setValueAt(null, j, 0);
+                j++;
+            }
+
+            recieptNo.setText(null);
+            refNo.setText(null);
+            payType.setSelectedIndex(0);
+            bankCode.setSelectedIndex(0);
+            branchCode.setSelectedIndex(0);
+            bankName.setText(null);
+            branchName.setText(null);
+            chequeNo.setText(null);
+            credit_accountCode.setSelectedIndex(0);
+            credit_description.setText(null);
+            creditAmount.setText(null);
+            credit_accountName.setText(null);
+            debit_account_code.setSelectedIndex(0);
+            debit_account_name.setText(null);
+            debit_description.setText(null);
+            debit_amount.setText(null);
+            total.setText(null);
+            difference.setText(null);
+            
+            refNo.requestFocus();
+    }//GEN-LAST:event_jButton7ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
