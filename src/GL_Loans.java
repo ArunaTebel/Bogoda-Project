@@ -1,8 +1,8 @@
 
 import java.awt.Component;
-import java.awt.KeyEventDispatcher;
-import java.awt.KeyboardFocusManager;
-import java.awt.Window;
+import java.awt.HeadlessException;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.KeyEvent;
 import java.sql.Date;
@@ -11,7 +11,6 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.ComboBoxModel;
 import javax.swing.JOptionPane;
 
 /*
@@ -27,103 +26,55 @@ public class GL_Loans extends javax.swing.JPanel {
 
     DateChooser_text datechooser = new DateChooser_text();
     Date_Handler datehandler = new Date_Handler();
-     DatabaseManager dbm = new DatabaseManager();
-    /**
-     * Creates new form GL_Loans
-     */
+    DatabaseManager dbm = new DatabaseManager();
+
     Interface_Events interface_events = new Interface_Events();
+
+    public static int k;
+    public static Thread t;
 
     public GL_Loans() {
         initComponents();
-        //Thread a = new Thread(new combo(supplier_id));
-       // a.start();
-        
-                
-          
+        k = 5;
+
+        Component[] comps = supplier_id.getComponents();
+        for (Component comp : comps) {
+            comp.addFocusListener(new ComponentFocusListener());
+        }
+
         String selection = (String) cash_cheque_combo.getSelectedItem();
 
         if (selection.equalsIgnoreCase("Cash")) {
-
             Cheque_pay.setVisible(false);
         }
-       double rate = dbm.checknReturnDoubleData("rate_details", "Code_name", "LOAN-R", "rate");
-       rateField.setText(""+rate);
-    }
-    
-    public class combo implements Runnable{
-        javax.swing.JComboBox Combo;
-        int count = 0;
-             String temp ="";
-    public combo(javax.swing.JComboBox combo){
-    
-    Combo = combo;
-    
-    }
-    
-    public void run(){
-       // System.out.println("THREAD");    
-           count= 0;
-           //temp= null;
-            
-    KeyboardFocusManager.getCurrentKeyboardFocusManager()
-  .addKeyEventDispatcher(new KeyEventDispatcher() {
-      @Override
-      public boolean dispatchKeyEvent(KeyEvent e) {
-      char a = e.getKeyChar();
-      int b =e.getKeyCode();
-      int id = e.getID();
-      Object obj = new Object();
-      obj = Combo.getModel();
-     // if()
-      if( id== KeyEvent.KEY_PRESSED&& b==KeyEvent.VK_BACK_SPACE){
-          temp = temp.substring(0, count-1);
-          System.out.println(temp);
-            count--;
-           Combo.setModel(new javax.swing.DefaultComboBoxModel(getStringArrayfilter("rate_details", "Code_name",""+temp,count)));
-           Combo.getEditor().setItem(temp);
-           Combo.showPopup();
-        
-          
-         // Combo.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("suppliers", "sup_id")));
-      }
-      if(id== KeyEvent.KEY_PRESSED &&  b!=KeyEvent.VK_DOWN&&  b!=KeyEvent.VK_UP &&  b!=KeyEvent.VK_ENTER&&  b!=KeyEvent.VK_BACK_SPACE){
-           
-          temp =temp+a ;
-             System.out.println(temp);
-            
-              count++;
-              //int i = 0;
-             // while(i<count){
-                  
-              //}
-          //getStringArrayfilter("rate_details", "Code_name",""+a);
-          Combo.setModel(new javax.swing.DefaultComboBoxModel(getStringArrayfilter("rate_details", "Code_name",""+temp,count)));
-           
-         //  Combo.repaint();
-         Combo.showPopup();
-         Combo.getEditor().setItem(temp.substring(0, count-1));
-                                                      }
-        return false;
-      }
-});
-    
 
-    
-    
+        double rate = dbm.checknReturnDoubleData("rate_details", "Code_name", "LOAN_R", "rate");
+        rateField.setText("" + rate);
     }
-    
-    
-    
+
+    static class ComponentFocusListener implements FocusListener {
+
+        @Override
+        public void focusGained(FocusEvent e) {
+            k = 5;
+            t = new Thread(new Combo(supplier_id));
+            t.start();
+        }
+
+        @Override
+        public void focusLost(FocusEvent e) {
+            k = 0;
+            t.stop();
+        }
     }
-    
-     public String[] getStringArrayfilter(String table_name, String column_name,String letter,int COUNT) {
+
+    public String[] getStringArrayfilter(String table_name, String column_name, String letter, int COUNT) {
 
         int count = 0;
         DatabaseManager dbm = DatabaseManager.getDbCon();
         try {
             ResultSet query = dbm.query("SELECT " + column_name + " FROM " + table_name + "");
             while (query.next()) {
-               // System.out.println(count);
                 count++;
             }
             String[] array = new String[count + 1];
@@ -132,20 +83,17 @@ public class GL_Loans extends javax.swing.JPanel {
             ResultSet query2 = dbm.query("SELECT " + column_name + " FROM " + table_name + "");
             while (query2.next()) {
                 try {
-                    if(query2.getObject(column_name).toString().substring(0,COUNT).equalsIgnoreCase(letter)){
-                 array[count] = query2.getString(column_name);
-                count++;
+                    if (query2.getObject(column_name).toString().length() > COUNT) {
+                        if (query2.getObject(column_name).toString().substring(0, COUNT).equalsIgnoreCase(letter)) {
+                            array[count] = query2.getString(column_name);
+                            count++;
+                        }
+                    }
+                } catch (SQLException e) {
                 }
-                } catch (Exception e) {
-                }
-   //  System.out.println(query2.getObject(column_name).toString().substring(0,COUNT));
-                
-                //System.out.println(query2.getObject(column_name).toString());
-               
             }
             return array;
         } catch (SQLException ex) {
-
         }
         return null;
     }
@@ -501,6 +449,11 @@ public class GL_Loans extends javax.swing.JPanel {
 
         jLabel19.setText("Intrest Rate%");
 
+        rateField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rateFieldActionPerformed(evt);
+            }
+        });
         rateField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 rateFieldKeyPressed(evt);
@@ -736,12 +689,10 @@ public class GL_Loans extends javax.swing.JPanel {
 
         if (selection.equalsIgnoreCase("Cash")) {
             Cheque_pay.setVisible(false);
-
         }
 
         if (selection.equalsIgnoreCase("Cheque")) {
             Cheque_pay.setVisible(true);
-
         }
     }//GEN-LAST:event_cash_cheque_comboActionPerformed
 
@@ -754,13 +705,12 @@ public class GL_Loans extends javax.swing.JPanel {
     }//GEN-LAST:event_installmentsFieldActionPerformed
 
     private void installmentsFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_installmentsFieldKeyReleased
-         double rate = Double.parseDouble(rateField.getText());
+        double rate = Double.parseDouble(rateField.getText());
         double amount = Double.parseDouble(amountField.getText());
-             double   installments = Integer.parseInt(installmentsField.getText());
-               double monthlyPay = amount * (1 + rate * 0.01) / installments;
-               payField.setText(""+monthlyPay);
+        double installments = Integer.parseInt(installmentsField.getText());
+        double monthlyPay = amount * (1 + rate * 0.01) / installments;
+        payField.setText("" + monthlyPay);
         interface_events.Change_focus_Enterkey_t_t(installmentsField, rateField, evt);
-        
     }//GEN-LAST:event_installmentsFieldKeyReleased
 
     private void rateFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_rateFieldKeyReleased
@@ -790,12 +740,11 @@ public class GL_Loans extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "One or more inputs not give!");
         } else {
             try {
-               
                 double rate, monthlyPay, amount;
                 int installments, supId;
                 String month, year, day;
                 if (rateField.getText().equals("")) {
-                    rate = dbm.checknReturnDoubleData("rate_details", "Code_name", "LOAN-R", "rate");
+                    rate = dbm.checknReturnDoubleData("rate_details", "Code_name", "LOAN_R", "rate");
                     rateField.setText("" + rate + "");
                 } else {
                     rate = Double.parseDouble(rateField.getText());
@@ -803,51 +752,59 @@ public class GL_Loans extends javax.swing.JPanel {
                 amount = Double.parseDouble(amountField.getText());
                 installments = Integer.parseInt(installmentsField.getText());
                 monthlyPay = amount * (1 + rate * 0.01) / installments;
-               // System.out.println(monthlyPay);
                 payField.setText("" + monthlyPay + "");
                 Date loanDate = datechooser.Return_date(yearfield, monthfield, dayfield);
                 month = datehandler.get_month_as_num(loanDate);
                 year = yearfield.getText();
                 day = dayfield.getText();
+                int date1 = Integer.parseInt(day);
                 supId = Integer.parseInt((String) supplier_id.getSelectedItem());
                 String[] allMonths = new String[installments];
-                //System.out.println("xxxx " + month + " xxxx");
                 int i;
                 int monthNum = Integer.parseInt(month);
                 int newMonth;
-                for (i = 0; i < allMonths.length; i++) {
-                    newMonth = monthNum + i;
-                    if (newMonth > 12) {
-                        newMonth = newMonth - 12;
+                if (date1 < 8) {
+                    for (i = 0; i < allMonths.length; i++) {
+                        newMonth = monthNum + i - 1;
+                        if (newMonth > 12) {
+                            newMonth = newMonth - 12;
+                        }
+                        allMonths[i] = String.valueOf(newMonth);
                     }
-                    allMonths[i] = String.valueOf(newMonth);
-                    //System.out.println("---> " + allMonths[i]);
+                } else {
+                    for (i = 0; i < allMonths.length; i++) {
+                        newMonth = monthNum + i;
+                        if (newMonth > 12) {
+                            newMonth = newMonth - 12;
+                        }
+                        allMonths[i] = String.valueOf(newMonth);
+                    }
                 }
-               
-              //  transaction = transaction + 1;
-               // System.out.println(transaction + " " + year);
-                Date loanDate1 = new Date(Integer.parseInt(year) - 1900, Integer.parseInt(month) - 1, 1);
+                Date loanDate1;
+                if(date1<8){
+                    loanDate1 = new Date(Integer.parseInt(year) - 1900, Integer.parseInt(month) - 2, 8);
+                }
+                else{
+                    loanDate1 = new Date(Integer.parseInt(year) - 1900, Integer.parseInt(month) - 1, 8);
+                }
                 dbm.insert("INSERT INTO gl_loans(sup_id,loan_id,type,amount,installments,rate,date,issue_date,monthly_amount) VALUES('" + supId + "','" + 0 + "','Issued This month','" + amount + "','" + installments + "','" + rate + "','" + loanDate1 + "','" + loanDate + "','" + monthlyPay + "')");
-               int transaction = dbm.readLastRow("gl_loans", "tr_id");
-               dbm.updateDatabase("gl_loans", "tr_id",transaction, "loan_id", transaction);
+                int transaction = dbm.readLastRow("gl_loans", "tr_id");
+                dbm.updateDatabase("gl_loans", "tr_id", transaction, "loan_id", transaction);
                 for (i = 1; i < allMonths.length; i++) {
                     if (allMonths[i - 1].equals("12")) {
                         year = String.valueOf(Integer.parseInt(year) + 1);
                     }
-                    //System.out.println(year);
-                    Date date = new Date(Integer.parseInt(year) - 1900, Integer.parseInt(allMonths[i]) - 1, 1);
+                    Date date = new Date(Integer.parseInt(year) - 1900, Integer.parseInt(allMonths[i]) - 1, 8);
                     dbm.insert("INSERT INTO gl_loans(sup_id,loan_id,type,amount,installments,rate,date,issue_date,monthly_amount) VALUES('" + supId + "','" + transaction + "','Previous','" + amount + "','" + installments + "','" + rate + "','" + date + "','" + loanDate + "','" + monthlyPay + "')");
                 }
                 installmentsField.setText("");
-               // rateField.setText("");
                 amountField.setText("");
                 payField.setText("");
                 JOptionPane.showMessageDialog(datechooser, "Success");
-            } catch (Exception ex) {
+            } catch (HeadlessException | NumberFormatException | SQLException | ParseException ex) {
                 Logger.getLogger(GL_Loans.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(datechooser, "There are empty fields");
             }
-
         }
     }//GEN-LAST:event_BSaveActionPerformed
 
@@ -875,28 +832,16 @@ public class GL_Loans extends javax.swing.JPanel {
                         }
                     } catch (SQLException ex) {
                     }
-
-                    /*if (!category_code.getSelectedItem().toString().equals(category)) {
-                     JOptionPane.showMessageDialog(other, "Supplier Category Exception!");
-
-                     }*/
                     name.setText("" + Name);
-
-                    //no_of_sacks.requestFocusInWindow();
                     jLabel14.setText(" ");
                 }
-
-            } catch (Exception e) {
-
+            } catch (NumberFormatException e) {
                 supplier_id.setSelectedIndex(0);
-
             }
         }
-        // do something with object}
     }//GEN-LAST:event_supplier_idItemStateChanged
 
     private void supplier_idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supplier_idActionPerformed
-        //System.out.println("OK");
 
     }//GEN-LAST:event_supplier_idActionPerformed
 
@@ -905,154 +850,155 @@ public class GL_Loans extends javax.swing.JPanel {
     }//GEN-LAST:event_supplier_idKeyReleased
 
     private void monthfieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_monthfieldKeyPressed
-        if (monthfield.getText().equals("Jan")) {
-            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
-                monthfield.setText("Dec");
-                int yr = Integer.parseInt(yearfield.getText());
+        switch (monthfield.getText()) {
+            case "Jan":
+                if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                    monthfield.setText("Dec");
+                    int yr = Integer.parseInt(yearfield.getText());
 
-                yearfield.setText("" + (yr - 1));
-                monthfield.selectAll();
+                    yearfield.setText("" + (yr - 1));
+                    monthfield.selectAll();
 
-            }
-            if (evt.getKeyCode() == KeyEvent.VK_UP) {
-                monthfield.setText("Feb");
-                monthfield.selectAll();
-            }
+                }
+                if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                    monthfield.setText("Feb");
+                    monthfield.selectAll();
+                }
+                break;
+            case "Feb":
+                if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                    monthfield.setText("Jan");
+                    int yr = Integer.parseInt(yearfield.getText());
+                    monthfield.selectAll();
 
-        } else if (monthfield.getText().equals("Feb")) {
-            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
-                monthfield.setText("Jan");
-                int yr = Integer.parseInt(yearfield.getText());
-                monthfield.selectAll();
+                }
+                if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                    monthfield.setText("Mar");
+                    monthfield.selectAll();
+                }
+                break;
+            case "Mar":
+                if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                    monthfield.setText("Feb");
+                    int yr = Integer.parseInt(yearfield.getText());
+                    monthfield.selectAll();
+                }
+                if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                    monthfield.setText("Apr");
+                    monthfield.selectAll();
+                }
+                break;
+            case "Apr":
+                if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                    monthfield.setText("Mar");
+                    int yr = Integer.parseInt(yearfield.getText());
+                    monthfield.selectAll();
+                }
+                if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                    monthfield.setText("May");
+                    monthfield.selectAll();
+                }
+                break;
+            case "May":
+                if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                    monthfield.setText("Apr");
+                    int yr = Integer.parseInt(yearfield.getText());
+                    monthfield.selectAll();
 
-            }
-            if (evt.getKeyCode() == KeyEvent.VK_UP) {
-                monthfield.setText("Mar");
-                monthfield.selectAll();
-            }
+                }
+                if (evt.getKeyCode() == KeyEvent.VK_UP) {
 
-        } else if (monthfield.getText().equals("Mar")) {
-            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
-                monthfield.setText("Feb");
-                int yr = Integer.parseInt(yearfield.getText());
-                monthfield.selectAll();
-            }
-            if (evt.getKeyCode() == KeyEvent.VK_UP) {
-                monthfield.setText("Apr");
-                monthfield.selectAll();
-            }
+                    monthfield.setText("Jun");
+                    monthfield.selectAll();
+                }
+                break;
+            case "Jun":
+                if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                    monthfield.setText("May");
+                    int yr = Integer.parseInt(yearfield.getText());
+                    monthfield.selectAll();
 
-        } else if (monthfield.getText().equals("Apr")) {
-            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
-                monthfield.setText("Mar");
-                int yr = Integer.parseInt(yearfield.getText());
-                monthfield.selectAll();
-            }
-            if (evt.getKeyCode() == KeyEvent.VK_UP) {
-                monthfield.setText("May");
-                monthfield.selectAll();
-            }
+                }
+                if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                    monthfield.setText("Jul");
+                    monthfield.selectAll();
+                }
+                break;
+            case "Jul":
+                if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                    monthfield.setText("Jun");
+                    int yr = Integer.parseInt(yearfield.getText());
+                    monthfield.selectAll();
 
-        } else if (monthfield.getText().equals("May")) {
-            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
-                monthfield.setText("Apr");
-                int yr = Integer.parseInt(yearfield.getText());
-                monthfield.selectAll();
+                }
+                if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                    monthfield.setText("Aug");
+                    monthfield.selectAll();
+                }
+                break;
+            case "Aug":
+                if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                    monthfield.setText("Jul");
+                    int yr = Integer.parseInt(yearfield.getText());
+                    monthfield.selectAll();
 
-            }
-            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                }
+                if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                    monthfield.setText("Sep");
+                    monthfield.selectAll();
+                }
+                break;
+            case "Sep":
+                if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                    monthfield.setText("Aug");
+                    int yr = Integer.parseInt(yearfield.getText());
+                    monthfield.selectAll();
 
-                monthfield.setText("Jun");
-                monthfield.selectAll();
-            }
+                }
+                if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                    monthfield.setText("Oct");
+                    monthfield.selectAll();
+                }
+                break;
+            case "Oct":
+                if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                    monthfield.setText("Sep");
+                    int yr = Integer.parseInt(yearfield.getText());
+                    monthfield.selectAll();
 
-        } else if (monthfield.getText().equals("Jun")) {
-            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
-                monthfield.setText("May");
-                int yr = Integer.parseInt(yearfield.getText());
-                monthfield.selectAll();
+                }
+                if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                    monthfield.setText("Nov");
+                    monthfield.selectAll();
+                }
+                break;
+            case "Nov":
+                if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                    monthfield.setText("Oct");
+                    int yr = Integer.parseInt(yearfield.getText());
+                    monthfield.selectAll();
 
-            }
-            if (evt.getKeyCode() == KeyEvent.VK_UP) {
-                monthfield.setText("Jul");
-                monthfield.selectAll();
-            }
+                }
+                if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                    monthfield.setText("Dec");
+                    monthfield.selectAll();
+                }
+                break;
+            case "Dec":
+                if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                    monthfield.setText("Nov");
+                    int yr = Integer.parseInt(yearfield.getText());
+                    monthfield.selectAll();
 
-        } else if (monthfield.getText().equals("Jul")) {
-            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
-                monthfield.setText("Jun");
-                int yr = Integer.parseInt(yearfield.getText());
-                monthfield.selectAll();
+                }
+                if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                    monthfield.setText("Jan");
+                    int yr = Integer.parseInt(yearfield.getText());
 
-            }
-            if (evt.getKeyCode() == KeyEvent.VK_UP) {
-                monthfield.setText("Aug");
-                monthfield.selectAll();
-            }
-
-        } else if (monthfield.getText().equals("Aug")) {
-            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
-                monthfield.setText("Jul");
-                int yr = Integer.parseInt(yearfield.getText());
-                monthfield.selectAll();
-
-            }
-            if (evt.getKeyCode() == KeyEvent.VK_UP) {
-                monthfield.setText("Sep");
-                monthfield.selectAll();
-            }
-
-        } else if (monthfield.getText().equals("Sep")) {
-            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
-                monthfield.setText("Aug");
-                int yr = Integer.parseInt(yearfield.getText());
-                monthfield.selectAll();
-
-            }
-            if (evt.getKeyCode() == KeyEvent.VK_UP) {
-                monthfield.setText("Oct");
-                monthfield.selectAll();
-            }
-
-        } else if (monthfield.getText().equals("Oct")) {
-            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
-                monthfield.setText("Sep");
-                int yr = Integer.parseInt(yearfield.getText());
-                monthfield.selectAll();
-
-            }
-            if (evt.getKeyCode() == KeyEvent.VK_UP) {
-                monthfield.setText("Nov");
-                monthfield.selectAll();
-            }
-
-        } else if (monthfield.getText().equals("Nov")) {
-            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
-                monthfield.setText("Oct");
-                int yr = Integer.parseInt(yearfield.getText());
-                monthfield.selectAll();
-
-            }
-            if (evt.getKeyCode() == KeyEvent.VK_UP) {
-                monthfield.setText("Dec");
-                monthfield.selectAll();
-            }
-
-        } else if (monthfield.getText().equals("Dec")) {
-            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
-                monthfield.setText("Nov");
-                int yr = Integer.parseInt(yearfield.getText());
-                monthfield.selectAll();
-
-            }
-            if (evt.getKeyCode() == KeyEvent.VK_UP) {
-                monthfield.setText("Jan");
-                int yr = Integer.parseInt(yearfield.getText());
-
-                yearfield.setText("" + (yr + 1));
-                monthfield.selectAll();
-            }
-
+                    yearfield.setText("" + (yr + 1));
+                    monthfield.selectAll();
+                }
+                break;
         }
         if (evt.getKeyCode() == KeyEvent.VK_LEFT) {
             dayfield.requestFocus();
@@ -1061,11 +1007,6 @@ public class GL_Loans extends javax.swing.JPanel {
         if (evt.getKeyCode() == KeyEvent.VK_RIGHT) {
             yearfield.requestFocus();
             yearfield.selectAll();
-        }
-
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
-            // category_code.requestFocus();
-
         }
     }//GEN-LAST:event_monthfieldKeyPressed
 
@@ -1082,76 +1023,106 @@ public class GL_Loans extends javax.swing.JPanel {
             monthfield.requestFocus();
             monthfield.selectAll();
         }
-
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
-            //category_code.requestFocus();
-
-        }
     }//GEN-LAST:event_yearfieldKeyPressed
 
     private void dayfieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dayfieldKeyPressed
-        ///////////////////////////////////////////////////  Days Decrement/////////////////////////////////////////////////////////////////////////////
-
-        if (dayfield.getText().equals("1")) {           // Jumping to 31 and 30 from 1st
-            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
-
-                if (monthfield.getText().equals("Feb") || monthfield.getText().equals("Apr") || monthfield.getText().equals("Jun") || monthfield.getText().equals("Aug") || monthfield.getText().equals("Sep") || monthfield.getText().equals("Nov") || monthfield.getText().equals("Feb")) {
-                    dayfield.setText("31");
-
-                    int mnth = datechooser.return_index(monthfield.getText());
-                    monthfield.setText(datechooser.Return_month(mnth - 1));
-
-                } else if (monthfield.getText().equals("May") || monthfield.getText().equals("Jul") || monthfield.getText().equals("Oct") || monthfield.getText().equals("Dec")) {
-                    dayfield.setText("30");
-                    int mnth = datechooser.return_index(monthfield.getText());
-                    monthfield.setText(datechooser.Return_month(mnth - 1));
-
-                } else if (monthfield.getText().equals("Mar")) {     // from march 1st jump to 28th or 29th checking leap years
-                    int yr = Integer.parseInt(yearfield.getText());
-                    if (yr % 4 == 0) {
-                        if (yr % 100 == 0) {
-                            if (yr % 400 == 0) {
-                                dayfield.setText("29"); // Leap Year
-                            }
+        switch (dayfield.getText()) {
+            case "1":
+                if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                    switch (monthfield.getText()) {
+                        case "Feb":
+                        case "Apr":
+                        case "Jun":
+                        case "Aug":
+                        case "Sep":
+                        case "Nov": {
+                            dayfield.setText("31");
+                            int mnth = datechooser.return_index(monthfield.getText());
+                            monthfield.setText(datechooser.Return_month(mnth - 1));
+                            break;
                         }
-                        if (yr % 100 == 0) {
-                            if (yr % 400 != 0) {
-                                dayfield.setText("28"); // not a leap year
-                            }
+                        case "May":
+                        case "Jul":
+                        case "Oct":
+                        case "Dec": {
+                            dayfield.setText("30");
+                            int mnth = datechooser.return_index(monthfield.getText());
+                            monthfield.setText(datechooser.Return_month(mnth - 1));
+                            break;
                         }
-                        dayfield.setText("29");       // leap year
+                        case "Mar": {
+                            int yr = Integer.parseInt(yearfield.getText());
+                            if (yr % 4 == 0) {
+                                if (yr % 100 == 0) {
+                                    if (yr % 400 == 0) {
+                                        dayfield.setText("29");
+                                    }
+                                }
+                                if (yr % 100 == 0) {
+                                    if (yr % 400 != 0) {
+                                        dayfield.setText("28");
+                                    }
+                                }
+                                dayfield.setText("29");
+                            }
+                            if (yr % 4 != 0) {
+                                dayfield.setText("28");
+                            }
 
+                            int mnth = datechooser.return_index(monthfield.getText());
+                            monthfield.setText(datechooser.Return_month(mnth - 1));
+                            break;
+                        }
+                        case "Jan": {
+                            dayfield.setText("31");
+                            int yr = Integer.parseInt(yearfield.getText());
+                            monthfield.setText("Dec");
+                            yearfield.setText("" + (yr - 1));
+                            break;
+                        }
                     }
-                    if (yr % 4 != 0) {
-                        dayfield.setText("28");       // not a leap year
-                    }
-                    int mnth = datechooser.return_index(monthfield.getText());
-                    monthfield.setText(datechooser.Return_month(mnth - 1));
-
-                } else if (monthfield.getText().equals("Jan")) {            // From jan 1st jump to december 31st decrementing year
-                    dayfield.setText("31");
-
-                    int yr = Integer.parseInt(yearfield.getText());
-                    monthfield.setText("Dec");
-                    yearfield.setText("" + (yr - 1));    // year
+                    dayfield.selectAll();
                 }
-                dayfield.selectAll();
-            }                                           // /// decrementing normal values
-        } else if (dayfield.getText().equals("2") || dayfield.getText().equals("3") || dayfield.getText().equals("4") || dayfield.getText().equals("5")
-                || dayfield.getText().equals("6") || dayfield.getText().equals("7") || dayfield.getText().equals("8") || dayfield.getText().equals("9")
-                || dayfield.getText().equals("10") || dayfield.getText().equals("11") || dayfield.getText().equals("12") || dayfield.getText().equals("13") || dayfield.getText().equals("14")
-                || dayfield.getText().equals("15") || dayfield.getText().equals("16") || dayfield.getText().equals("17") || dayfield.getText().equals("18")
-                || dayfield.getText().equals("19") || dayfield.getText().equals("20") || dayfield.getText().equals("21") || dayfield.getText().equals("22")
-                || dayfield.getText().equals("23") || dayfield.getText().equals("24") || dayfield.getText().equals("25") || dayfield.getText().equals("26")
-                || dayfield.getText().equals("27") || dayfield.getText().equals("28") || dayfield.getText().equals("29") || dayfield.getText().equals("30") || dayfield.getText().equals("31")) {
-            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                break;
+            case "2":
+            case "3":
+            case "4":
+            case "5":
+            case "6":
+            case "7":
+            case "8":
+            case "9":
+            case "10":
+            case "11":
+            case "12":
+            case "13":
+            case "14":
+            case "15":
+            case "16":
+            case "17":
+            case "18":
+            case "19":
+            case "20":
+            case "21":
+            case "22":
+            case "23":
+            case "24":
+            case "25":
+            case "26":
+            case "27":
+            case "28":
+            case "29":
+            case "30":
+            case "31":
+                if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
 
-                dayfield.setText("" + (Integer.parseInt(dayfield.getText()) - 1));
-                dayfield.selectAll();
-            }
+                    dayfield.setText("" + (Integer.parseInt(dayfield.getText()) - 1));
+                    dayfield.selectAll();
+                }
+                break;
         }
-        /////////////////////////////////////////////////  Days Increment///////////////////////////////////////////////////////////////////////////////////////////////////
-        if (dayfield.getText().equals("30")) {               // from 30th to 1st of next month
+
+        if (dayfield.getText().equals("30")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
 
                 if (monthfield.getText().equals("Apr") || monthfield.getText().equals("Jun") || monthfield.getText().equals("Sep") || monthfield.getText().equals("Nov")) {
@@ -1165,34 +1136,37 @@ public class GL_Loans extends javax.swing.JPanel {
                 dayfield.selectAll();
             }
 
-        } else if (dayfield.getText().equals("31")) {            // from 31st to 1st of next month
+        } else if (dayfield.getText().equals("31")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
-
-                if (monthfield.getText().equals("Jan") || monthfield.getText().equals("Mar") || monthfield.getText().equals("May") || monthfield.getText().equals("Jul") || monthfield.getText().equals("Aug") || monthfield.getText().equals("Oct")) {
-                    dayfield.setText("1");
-
-                    int mnth = datechooser.return_index(monthfield.getText());
-                    monthfield.setText(datechooser.Return_month(mnth + 1));
-
-                } else if (monthfield.getText().equals("Dec")) {      // December to january incrementing the year
-
-                    dayfield.setText("1");
-
-                    int yr = Integer.parseInt(yearfield.getText());
-                    monthfield.setText("Jan");
-                    yearfield.setText("" + (yr + 1));
+                switch (monthfield.getText()) {
+                    case "Jan":
+                    case "Mar":
+                    case "May":
+                    case "Jul":
+                    case "Aug":
+                    case "Oct":
+                        dayfield.setText("1");
+                        int mnth = datechooser.return_index(monthfield.getText());
+                        monthfield.setText(datechooser.Return_month(mnth + 1));
+                        break;
+                    case "Dec":
+                        dayfield.setText("1");
+                        int yr = Integer.parseInt(yearfield.getText());
+                        monthfield.setText("Jan");
+                        yearfield.setText("" + (yr + 1));
+                        break;
                 }
                 dayfield.selectAll();
             }
 
-        } else if (monthfield.getText().equals("Feb")) {                    // for february
+        } else if (monthfield.getText().equals("Feb")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
-                if (dayfield.getText().equals("28")) {                    // at 28 check for leap year
+                if (dayfield.getText().equals("28")) {
                     int yr = Integer.parseInt(yearfield.getText());
                     if (yr % 4 == 0) {
                         if (yr % 100 == 0) {
                             if (yr % 400 == 0) {
-                                dayfield.setText("29"); // Leap Year       // increment to 29
+                                dayfield.setText("29");
                             }
                         }
                         if (yr % 100 == 0) {
@@ -1200,25 +1174,21 @@ public class GL_Loans extends javax.swing.JPanel {
                                 dayfield.setText("1");
                                 int mnth = datechooser.return_index(monthfield.getText());
                                 monthfield.setText(datechooser.Return_month(mnth + 1));
-
-                                // not a leap year                             // jump to next month
                             }
                         }
-                        dayfield.setText("29");       // leap year             // increment to 29th
-
+                        dayfield.setText("29");
                     }
                     if (yr % 4 != 0) {
                         dayfield.setText("1");
                         int mnth = datechooser.return_index(monthfield.getText());
-                        monthfield.setText(datechooser.Return_month(mnth + 1));                  // not a leap year
+                        monthfield.setText(datechooser.Return_month(mnth + 1));
                     }
 
-                } else if (dayfield.getText().equals("29")) {              // at 29 jump to next month normally
+                } else if (dayfield.getText().equals("29")) {
                     dayfield.setText("1");
 
                     int mnth = datechooser.return_index(monthfield.getText());
                     monthfield.setText(datechooser.Return_month(mnth + 1));
-                    // incrementing normal values/////////////////////// for february separately
                 } else if (dayfield.getText().equals("1") || dayfield.getText().equals("2") || dayfield.getText().equals("3") || dayfield.getText().equals("4") || dayfield.getText().equals("5")
                         || dayfield.getText().equals("6") || dayfield.getText().equals("7") || dayfield.getText().equals("8") || dayfield.getText().equals("9")
                         || dayfield.getText().equals("10") || dayfield.getText().equals("11") || dayfield.getText().equals("12") || dayfield.getText().equals("13") || dayfield.getText().equals("14")
@@ -1232,7 +1202,6 @@ public class GL_Loans extends javax.swing.JPanel {
                 }
                 dayfield.selectAll();
             }
-            // incrementing normal values
         } else if (dayfield.getText().equals("1") || dayfield.getText().equals("2") || dayfield.getText().equals("3") || dayfield.getText().equals("4") || dayfield.getText().equals("5")
                 || dayfield.getText().equals("6") || dayfield.getText().equals("7") || dayfield.getText().equals("8") || dayfield.getText().equals("9")
                 || dayfield.getText().equals("10") || dayfield.getText().equals("11") || dayfield.getText().equals("12") || dayfield.getText().equals("13") || dayfield.getText().equals("14")
@@ -1251,11 +1220,6 @@ public class GL_Loans extends javax.swing.JPanel {
             monthfield.requestFocus();
             monthfield.selectAll();
         }
-
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
-            //   category_code.requestFocus();
-
-        }
     }//GEN-LAST:event_dayfieldKeyPressed
 
     private void datePicker1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datePicker1ActionPerformed
@@ -1264,7 +1228,6 @@ public class GL_Loans extends javax.swing.JPanel {
         dayfield.setText(Integer.parseInt(datehandler.get_day(datef)) + "");
         monthfield.setText(datehandler.get_month(datef));
         yearfield.setText(datehandler.get_year(datef));
-        // category_code.requestFocus();
     }//GEN-LAST:event_datePicker1ActionPerformed
 
     private void rateFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_rateFieldKeyPressed
@@ -1272,15 +1235,16 @@ public class GL_Loans extends javax.swing.JPanel {
     }//GEN-LAST:event_rateFieldKeyPressed
 
     private void supplier_idFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_supplier_idFocusGained
-        Thread a = new Thread(new combo(supplier_id)); 
-        
-        a.start();
-       
+
     }//GEN-LAST:event_supplier_idFocusGained
 
     private void amountFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_amountFieldFocusGained
-        
+
     }//GEN-LAST:event_amountFieldFocusGained
+
+    private void rateFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rateFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rateFieldActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1337,7 +1301,7 @@ public class GL_Loans extends javax.swing.JPanel {
     private javax.swing.JLabel name;
     private javax.swing.JTextField payField;
     private javax.swing.JTextField rateField;
-    private javax.swing.JComboBox supplier_id;
+    public static javax.swing.JComboBox supplier_id;
     private javax.swing.JTextField yearfield;
     // End of variables declaration//GEN-END:variables
 }

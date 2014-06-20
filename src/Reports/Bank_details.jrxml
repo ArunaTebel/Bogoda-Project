@@ -90,7 +90,7 @@ order by bank_id]]>
 			<staticText>
 				<reportElement x="1" y="0" width="100" height="20" uuid="29699860-36bf-4606-931a-c00384953311"/>
 				<textElement>
-					<font fontName="Ds-Chamika" size="14" isBold="true"pdfEncoding="Cp1254"/>
+					<font fontName="Ds-Chamika" size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Bank Details]]></text>
 			</staticText>
