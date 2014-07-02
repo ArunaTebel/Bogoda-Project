@@ -22,6 +22,7 @@ public class Task_manager extends javax.swing.JPanel {
     Date_Handler datehandler = new Date_Handler();
     DatabaseManager dbm = new DatabaseManager();
     GL_report_generator report_gen = new GL_report_generator();
+    Update update = new Update();
 
     /**
      * Creates new form Task_manager
@@ -938,8 +939,15 @@ public class Task_manager extends javax.swing.JPanel {
     }//GEN-LAST:event_GL6ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-Thread a = new Thread(new task_green_leaf());
-        a.start();
+if(update.check_update(yearfield.getText(), datehandler.return_month_as_num(monthfield.getText()))){
+ 
+    System.out.println("Updated");
+         
+
+}
+        
+//       Thread a = new Thread(new task_green_leaf());
+//        a.start();
         
         
         

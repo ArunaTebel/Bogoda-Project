@@ -278,8 +278,8 @@ WHERE
 					<pen lineStyle="Double"/>
 				</graphicElement>
 			</line>
-			<textField>
-				<reportElement x="503" y="8" width="69" height="20" uuid="a3a3158d-7d2c-4812-b137-10af620ba744"/>
+			<textField pattern="#,##0.00">
+				<reportElement x="475" y="8" width="97" height="20" uuid="a3a3158d-7d2c-4812-b137-10af620ba744"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>

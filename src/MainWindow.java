@@ -23,10 +23,14 @@ public class MainWindow extends javax.swing.JFrame {
 
     public MainWindow() {
         initComponents();
-      //  int a = (int) (Math.random()*10);
-       // System.out.println(a);
-     //  jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BogodaAreal"+2+".jpg")));
-        //this.setIconImage(new ImageIcon(getClass().getResource("ICON2.png")).getImage());
+       int a = (int) (Math.random()*10);
+     //  System.out.println(a);
+       try{
+      jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("BogodaAreal"+a+".jpg")));
+       } catch(NullPointerException e){
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("BogodaAreal"+1+".jpg")));
+       }
+        this.setIconImage(new ImageIcon(getClass().getResource("Bogoda icon.ico")).getImage());
         Info.setText("");
         String s = userAC.get_current_user();
         TimeCheck time = new TimeCheck(s);
@@ -52,6 +56,7 @@ public class MainWindow extends javax.swing.JFrame {
         jButton10.setEnabled(false);
         jButton11.setEnabled(false);
         jButton12.setEnabled(false);
+        jButton15.setEnabled(false);
         topBar.setEnabled(false);
         //jButton14.setEnabled(false);
         jMenu1.setEnabled(false);
@@ -116,6 +121,7 @@ public class MainWindow extends javax.swing.JFrame {
         jMenuItem8 = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
 
         jMenuItem5.setText("jMenuItem5");
 
@@ -574,13 +580,21 @@ public class MainWindow extends javax.swing.JFrame {
         jMenu3.add(jMenuItem8);
         jMenu3.add(jSeparator2);
 
-        jMenuItem1.setText("Rate Detail");
+        jMenuItem1.setText("Rate Details");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
             }
         });
         jMenu3.add(jMenuItem1);
+
+        jMenuItem6.setText("Manegement Rates");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem6);
 
         jMenuBar1.add(jMenu3);
 
@@ -735,9 +749,9 @@ public class MainWindow extends javax.swing.JFrame {
         t.start();
         t1.start();
 
-        //String pwd = dbm.checknReturnStringData("user_data", "user_name", User_id.getText(), "pwd");
-
-    //  if(Pass.getText().equalsIgnoreCase(pwd)){  
+//        String pwd = dbm.checknReturnStringData("user_data", "user_name", User_id.getText(), "pwd");
+//
+//        if(Pass.getText().equalsIgnoreCase(pwd)){  
         jButton1.setEnabled(true);
         jButton2.setEnabled(true);
         jButton3.setEnabled(true);
@@ -750,6 +764,7 @@ public class MainWindow extends javax.swing.JFrame {
         jButton10.setEnabled(true);
         jButton11.setEnabled(true);
         jButton12.setEnabled(true);
+        jButton15.setEnabled(true);
         topBar.setEnabled(true);
         jMenu1.setEnabled(true);
         jMenu2.setEnabled(true);
@@ -783,15 +798,15 @@ public class MainWindow extends javax.swing.JFrame {
         //================================================================================================================
 
         Info.setText("Login Successfull");
-      //}
+     // }
 
-        /*  else {
+       /*   else {
           
          Info.setText("Incorrect Username or Password. Please try Again.");
          Pass.setText("");
          Pass.requestFocus();
-         }
-         */
+         }*/
+         
         //topBar.setText("Welcome " + userAC.get_current_user() + "! Today is " + datehandler.get_today_date());
     }//GEN-LAST:event_jButton14ActionPerformed
 
@@ -954,6 +969,7 @@ public class MainWindow extends javax.swing.JFrame {
         Main_Content.add(bill);
         validate();
         repaint();
+        bill.focus("Enter Sup ID");
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void User_idKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_User_idKeyReleased
@@ -1015,6 +1031,19 @@ System.exit(0);
         repaint();
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        Add_Management_rates rate = new Add_Management_rates();
+                
+
+        Main_Content.removeAll();
+
+        rate.setSize(Main_Content.getSize());
+
+        Main_Content.add(rate);
+        validate();
+        repaint();
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1049,10 +1078,10 @@ System.exit(0);
 
             @Override
             public void run() {
-                  try{System.out.println("going sleep");
-                      Thread.sleep(1500);
-                      }
-                  catch(Exception e) {}
+//                  try{System.out.println("going sleep");
+//                      Thread.sleep(1500);
+//                      }
+//                  catch(Exception e) {}
                 MainWindow jf = new MainWindow();
                 jf.setVisible(true);
                 jf.setExtendedState(MainWindow.MAXIMIZED_BOTH);
@@ -1097,6 +1126,7 @@ System.exit(0);
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JPanel jPanel1;

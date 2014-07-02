@@ -27,76 +27,43 @@ public class GL_Loans extends javax.swing.JPanel {
     DateChooser_text datechooser = new DateChooser_text();
     Date_Handler datehandler = new Date_Handler();
     DatabaseManager dbm = new DatabaseManager();
+    GL_Billsummerycls bill = new GL_Billsummerycls();
+            
+   
 
     Interface_Events interface_events = new Interface_Events();
 
-    public static int k;
-    public static Thread t;
+    
+   
 
     public GL_Loans() {
         initComponents();
-        k = 5;
+        set_val.setText(dbm.checknReturnStringData("rate_details", "Code_name", "GLSET", "rate")+"");
+        
 
-        Component[] comps = supplier_id.getComponents();
-        for (Component comp : comps) {
-            comp.addFocusListener(new ComponentFocusListener());
-        }
+       
+//       for (Component comp : comps) {
+//            System.out.println(comp);
+//            comp.addFocusListener(new ComponentFocusListener());
+//       }
+         Component[] comps = supplier_id.getComponents();
+        // comps[2].addFocusListener(new Combofill(supplier_id,"rate_details","Code_name"));
+        comps[2].addFocusListener(new Combofill(supplier_id,"suppliers","sup_id"));
 
         String selection = (String) cash_cheque_combo.getSelectedItem();
+      
 
         if (selection.equalsIgnoreCase("Cash")) {
             Cheque_pay.setVisible(false);
         }
 
-        double rate = dbm.checknReturnDoubleData("rate_details", "Code_name", "LOAN_R", "rate");
+        double rate = dbm.checknReturnDoubleData("rate_details", "Code_name", "LOAN-R", "rate");
         rateField.setText("" + rate);
     }
+    
+    
 
-    static class ComponentFocusListener implements FocusListener {
 
-        @Override
-        public void focusGained(FocusEvent e) {
-            k = 5;
-            t = new Thread(new Combo(supplier_id));
-            t.start();
-        }
-
-        @Override
-        public void focusLost(FocusEvent e) {
-            k = 0;
-            t.stop();
-        }
-    }
-
-    public String[] getStringArrayfilter(String table_name, String column_name, String letter, int COUNT) {
-
-        int count = 0;
-        DatabaseManager dbm = DatabaseManager.getDbCon();
-        try {
-            ResultSet query = dbm.query("SELECT " + column_name + " FROM " + table_name + "");
-            while (query.next()) {
-                count++;
-            }
-            String[] array = new String[count + 1];
-            array[0] = null;
-            count = 0;
-            ResultSet query2 = dbm.query("SELECT " + column_name + " FROM " + table_name + "");
-            while (query2.next()) {
-                try {
-                    if (query2.getObject(column_name).toString().length() > COUNT) {
-                        if (query2.getObject(column_name).toString().substring(0, COUNT).equalsIgnoreCase(letter)) {
-                            array[count] = query2.getString(column_name);
-                            count++;
-                        }
-                    }
-                } catch (SQLException e) {
-                }
-            }
-            return array;
-        } catch (SQLException ex) {
-        }
-        return null;
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -130,7 +97,7 @@ public class GL_Loans extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
-        jTextField8 = new javax.swing.JTextField();
+        set_val = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jButton6 = new javax.swing.JButton();
@@ -138,7 +105,7 @@ public class GL_Loans extends javax.swing.JPanel {
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
+        max_alw = new javax.swing.JLabel();
         cash_cheque_combo = new javax.swing.JComboBox();
         jLabel7 = new javax.swing.JLabel();
         amountField = new javax.swing.JTextField();
@@ -262,6 +229,11 @@ public class GL_Loans extends javax.swing.JPanel {
         jLabel13.setText("Set Value");
 
         jButton1.setText("Save Value");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -271,7 +243,7 @@ public class GL_Loans extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel13)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(set_val, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
                 .addContainerGap(18, Short.MAX_VALUE))
@@ -282,7 +254,7 @@ public class GL_Loans extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
-                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(set_val, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -322,8 +294,8 @@ public class GL_Loans extends javax.swing.JPanel {
         jLabel15.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel15.setText("Rs");
 
-        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel14.setText("00.00");
+        max_alw.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        max_alw.setText("00.00");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -335,7 +307,7 @@ public class GL_Loans extends javax.swing.JPanel {
                 .addGap(22, 22, 22)
                 .addComponent(jLabel15)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel14)
+                .addComponent(max_alw)
                 .addGap(0, 40, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -345,7 +317,7 @@ public class GL_Loans extends javax.swing.JPanel {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jLabel15)
-                    .addComponent(jLabel14))
+                    .addComponent(max_alw))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -364,8 +336,14 @@ public class GL_Loans extends javax.swing.JPanel {
             }
         });
         amountField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                amountFieldKeyPressed(evt);
+            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 amountFieldKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                amountFieldKeyTyped(evt);
             }
         });
 
@@ -697,7 +675,9 @@ public class GL_Loans extends javax.swing.JPanel {
     }//GEN-LAST:event_cash_cheque_comboActionPerformed
 
     private void amountFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_amountFieldKeyReleased
-        interface_events.Change_focus_Enterkey_t_t(amountField, installmentsField, evt);
+       
+      
+       
     }//GEN-LAST:event_amountFieldKeyReleased
 
     private void installmentsFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_installmentsFieldActionPerformed
@@ -705,12 +685,15 @@ public class GL_Loans extends javax.swing.JPanel {
     }//GEN-LAST:event_installmentsFieldActionPerformed
 
     private void installmentsFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_installmentsFieldKeyReleased
+        try{
+        
         double rate = Double.parseDouble(rateField.getText());
         double amount = Double.parseDouble(amountField.getText());
         double installments = Integer.parseInt(installmentsField.getText());
         double monthlyPay = amount * (1 + rate * 0.01) / installments;
         payField.setText("" + monthlyPay);
         interface_events.Change_focus_Enterkey_t_t(installmentsField, rateField, evt);
+        } catch(Exception cd){}
     }//GEN-LAST:event_installmentsFieldKeyReleased
 
     private void rateFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_rateFieldKeyReleased
@@ -809,7 +792,7 @@ public class GL_Loans extends javax.swing.JPanel {
     }//GEN-LAST:event_BSaveActionPerformed
 
     private void supplier_idItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_supplier_idItemStateChanged
-        if (supplier_id.getSelectedIndex() != 0) {
+    //    if (supplier_id.getSelectedIndex() != 0) {
             try {
 
                 DatabaseManager dbm = DatabaseManager.getDbCon();
@@ -825,20 +808,18 @@ public class GL_Loans extends javax.swing.JPanel {
                     } catch (SQLException ex) {
                     }
 
-                    try {
-                        ResultSet query = dbm.query("SELECT * FROM suppliers WHERE sup_id =" + item + "");
-                        while (query.next()) {
-                            category = query.getString("cat_id");
-                        }
-                    } catch (SQLException ex) {
-                    }
+                     max_alw.setText(""+bill.bill_sum_cal(Integer.parseInt(supplier_id.getSelectedItem().toString()), yearfield.getText(), datehandler.return_month_as_num(monthfield.getText()),(Double.parseDouble(set_val.getText()))));
+        
                     name.setText("" + Name);
-                    jLabel14.setText(" ");
+                    
+                    amountField.requestFocus();
+                    // max_alw.setText(""+bill.bill_sum_cal(Integer.parseInt(supplier_id.getSelectedItem().toString()), yearfield.getText(), datehandler.return_month_as_num(monthfield.getText()),(Double.parseDouble(set_val.getText()))));
+        
                 }
             } catch (NumberFormatException e) {
                 supplier_id.setSelectedIndex(0);
             }
-        }
+      //  }
     }//GEN-LAST:event_supplier_idItemStateChanged
 
     private void supplier_idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supplier_idActionPerformed
@@ -1246,6 +1227,21 @@ public class GL_Loans extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_rateFieldActionPerformed
 
+    private void amountFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_amountFieldKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_amountFieldKeyTyped
+
+    private void amountFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_amountFieldKeyPressed
+       interface_events.Change_focus_Enterkey_t_t(amountField, installmentsField, evt);
+    }//GEN-LAST:event_amountFieldKeyPressed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+      dbm.updateDatabase("rate_details", "Code_name", "GLSET","rate", Double.parseDouble(set_val.getText()));
+       
+       double a =  bill.bill_sum_cal(Integer.parseInt(supplier_id.getSelectedItem().toString()), yearfield.getText(), datehandler.return_month_as_num(monthfield.getText()), Double.parseDouble(set_val.getText()));
+     max_alw.setText(""+a);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BSave;
@@ -1267,7 +1263,6 @@ public class GL_Loans extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
@@ -1295,12 +1290,13 @@ public class GL_Loans extends javax.swing.JPanel {
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
+    private javax.swing.JLabel max_alw;
     private javax.swing.JTextField monthfield;
     private javax.swing.JLabel name;
     private javax.swing.JTextField payField;
     private javax.swing.JTextField rateField;
+    private javax.swing.JTextField set_val;
     public static javax.swing.JComboBox supplier_id;
     private javax.swing.JTextField yearfield;
     // End of variables declaration//GEN-END:variables

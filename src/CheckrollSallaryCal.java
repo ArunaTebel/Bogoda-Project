@@ -255,9 +255,9 @@ public class CheckrollSallaryCal {
         }else{
         PRCR_add_margin_dates amd=new PRCR_add_margin_dates(st,division);
         amd.setVisible(true);
-        System.out.println("back to main");
+       // System.out.println("back to main");
 //        this.margin = Integer.parseInt(checknReturnDataForStrings("prcr_margin_dates", "month", st, "margin"));
-            System.out.println("back to main2");
+        //    System.out.println("back to main2");
         }
 
     }
@@ -393,8 +393,8 @@ this.division=division;
         }else{
         EPFContribution=0;
         }
-        System.out.println(s);
-        System.out.println(EPFContribution);
+     //   System.out.println(s);
+       // System.out.println(EPFContribution);
     }
 
     public void setEPFRate2() {
@@ -415,15 +415,15 @@ this.division=division;
         }else{
         EPFContribution2=0;
         }
-        System.out.println("EPF2"+EPFContribution2);
+      //  System.out.println("EPF2"+EPFContribution2);
         
     }
     
      public void setTotalEPF(){
      totalEPF=EPFContribution+EPFContribution2;
-         System.out.println(totalEPF+"total EPF");
+        // System.out.println(totalEPF+"total EPF");
      dbm.updateDatabase("pr_workdata_" + st, "code",employCode, "total_epf", totalEPF);
-         System.out.println("total_epf was updated");
+     //    System.out.println("total_epf was updated");
      
      }
     public void setETFRate() {
@@ -618,7 +618,7 @@ this.division=division;
         getEPFContribution2();//this has to be called here to update database column total_EPF
         getETFContribution();
     }
-       public void setPreMonthCoins(){
+    /*   public void setPreMonthCoins(){
         if(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "prev_month_coins")!=null){
         this.prv_month_coins = Integer.parseInt(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "prev_month_coins"));
         }else{
@@ -626,7 +626,7 @@ this.division=division;
         }
     
     }
-     
+     */
 
     public void setPettyCash() {
         pettyCash=getFinalSalary()%10;
@@ -634,7 +634,7 @@ this.division=division;
     }
 
     public void setFinalSalary() {
-        FinalSalary = getGrosspay()-getTotalDed()+ getPreMonthCoins();
+        FinalSalary = getGrosspay()-getTotalDed();//+ getPreMonthCoins();
         
     }
 
@@ -860,7 +860,7 @@ this.division=division;
     public double getOther_Ded1(){
         setOther_Ded1();
         dbm.updateDatabase("pr_workdata_" + st, "code",employCode, "other_ded1", other_ded1);
-        System.out.println("other deduction 1 updated");
+       // System.out.println("other deduction 1 updated");
         return other_ded1;
     
     }
@@ -898,10 +898,10 @@ this.division=division;
     
     }
      
-     public double getPreMonthCoins(){
+    /* public double getPreMonthCoins(){
         setPreMonthCoins();
         return prv_month_coins;
-    }
+    }*/
     public double getWelfareRate() {
         setWelfareRate();
         return welfareRate;
@@ -934,7 +934,7 @@ this.division=division;
     public double getFinalSalary() {
         
         setFinalSalary();
-        System.out.println("final salary-checkroll"+FinalSalary);
+       // System.out.println("final salary-checkroll"+FinalSalary);
                   dbm.updateDatabase("pr_workdata_" + st, "code", employCode, "full_salary", FinalSalary);
                  if(FinalSalary>0){
                   pettyCash=FinalSalary%10;//"coins" and "paid_amount" will be calculated and updated to database when the getFinalSalary() is called from out side

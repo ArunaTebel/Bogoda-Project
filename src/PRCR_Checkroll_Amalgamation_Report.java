@@ -40,10 +40,10 @@ public class PRCR_Checkroll_Amalgamation_Report {
         double sundays = 0;
         double otnighthrs = 0;
         double otdayhrs = 0;
-        double normalDaysrate = Integer.parseInt(dbm.checknReturnData("checkroll_pay_info", "checkroll", 1, "normalday_rate"));
-        double sundayrate = Integer.parseInt(dbm.checknReturnData("checkroll_pay_info", "checkroll", 1, "sunday_rate"));
-        double otDayrate = Integer.parseInt(dbm.checknReturnData("checkroll_pay_info", "checkroll", 1, "otrate_before"));
-        double otNightRate = Integer.parseInt(dbm.checknReturnData("checkroll_pay_info", "checkroll", 1, "otrate_after"));
+        double normalDaysrate = Double.parseDouble(dbm.checknReturnData("checkroll_pay_info", "checkroll", 1, "normalday_rate"));
+        double sundayrate = Double.parseDouble(dbm.checknReturnData("checkroll_pay_info", "checkroll", 1, "sunday_rate"));
+        double otDayrate = Double.parseDouble(dbm.checknReturnData("checkroll_pay_info", "checkroll", 1, "otrate_before"));
+        double otNightRate = Double.parseDouble(dbm.checknReturnData("checkroll_pay_info", "checkroll", 1, "otrate_after"));
 
         double workdaysT = 0;
         double workdayspayT = 0;

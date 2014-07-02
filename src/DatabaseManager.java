@@ -21,8 +21,9 @@ public final class DatabaseManager {
 
     DatabaseManager() {
 
-        String url = "jdbc:mysql://192.168.1.71/";
-        //String url = "jdbc:mysql://localhost:3306/";
+       //String url = "jdbc:mysql://192.168.1.71/";
+      // String userName = "BG";
+        String url = "jdbc:mysql://localhost:3306/";
         String dbName = "bogoda";
         String driver = "com.mysql.jdbc.Driver";
         String userName = "root";
@@ -764,8 +765,37 @@ public final class DatabaseManager {
         }
         return 0;
     }
+     
+     
+     // Copy data from one table and append to another
+     
+     public void copy_and_append(String old_table,String new_table){
+         DatabaseManager dbm = DatabaseManager.getDbCon();
+        try {
+            ResultSet query = dbm.query("INSERT INTO "+new_table+" SELECT * FROM "+old_table+"");
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+     }
+     
+     
+     // copy data to a new table
+     
+     public void copy_to_new_table(String old_table,String new_table){
+         DatabaseManager dbm = DatabaseManager.getDbCon();
+        try {
+            dbm.query("SELECT * INTO aa FROM account_journal_creditside WHERE 1=0");
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+     }
+     
+     
 
 }
 
 
 // category gategory id int------> String
+
+
+

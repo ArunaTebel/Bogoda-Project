@@ -109,6 +109,16 @@ public class Rate_Details {
         }
 
     }
+     public void addToDataBase2() {
+        DatabaseManager dbCon = DatabaseManager.getDbCon();
+        try {
+            dbCon.insert("INSERT INTO rate_manegement_details(Code_name,Name,rate) VALUES('" + code + "','" + name +  "','" + rate + "')");
+
+        } catch (SQLException ex) {
+            MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
+        }
+
+    }
 
     
 

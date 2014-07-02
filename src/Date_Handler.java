@@ -455,7 +455,7 @@ public String get_day(Date date) {
       }
       else{MM= ""+res_month;}
         //System.out.println(year+"-----"+MM);
-       return year+MM;
+       return year+"-"+MM;
     
     }
    
