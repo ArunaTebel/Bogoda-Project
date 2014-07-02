@@ -26,24 +26,29 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="jLabel1" max="32767" attributes="0"/>
-                  <Component id="jButton2" alignment="0" max="32767" attributes="0"/>
-                  <Component id="jButton3" alignment="0" max="32767" attributes="0"/>
-                  <Component id="jButton4" alignment="0" max="32767" attributes="0"/>
-                  <Component id="jButton7" alignment="0" max="32767" attributes="0"/>
-                  <Component id="jButton6" alignment="0" max="32767" attributes="0"/>
-                  <Component id="jButton1" alignment="0" max="32767" attributes="0"/>
-                  <Component id="Add_combo" alignment="0" max="32767" attributes="0"/>
-                  <Component id="view" max="32767" attributes="0"/>
-              </Group>
-              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jButton5" min="-2" pref="19" max="-2" attributes="0"/>
-                  <Component id="jButton9" min="-2" pref="19" max="-2" attributes="0"/>
-                  <Component id="jButton10" min="-2" pref="19" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="jLabel1" max="32767" attributes="0"/>
+                          <Component id="jButton2" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jButton3" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jButton4" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jButton7" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jButton6" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jButton1" alignment="0" max="32767" attributes="0"/>
+                          <Component id="Add_combo" alignment="0" max="32767" attributes="0"/>
+                          <Component id="view" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jButton5" min="-2" pref="19" max="-2" attributes="0"/>
+                          <Component id="jButton9" min="-2" pref="19" max="-2" attributes="0"/>
+                          <Component id="jButton10" min="-2" pref="19" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Component id="jButton8" min="-2" pref="131" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
               <Component id="GL_content" max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -67,7 +72,9 @@
               </Group>
               <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
               <Component id="jButton4" min="-2" pref="35" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <Component id="jButton8" min="-2" pref="35" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jButton6" min="-2" pref="13" max="-2" attributes="0"/>
               <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
               <Component id="Add_combo" min="-2" pref="35" max="-2" attributes="0"/>
@@ -75,8 +82,8 @@
               <Component id="jButton7" min="-2" pref="13" max="-2" attributes="0"/>
               <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
               <Component id="view" min="-2" pref="35" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-              <Component id="jLabel1" pref="268" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jLabel1" min="-2" pref="242" max="-2" attributes="0"/>
           </Group>
           <Component id="GL_content" max="32767" attributes="0"/>
       </Group>
@@ -88,12 +95,12 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="715" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="707" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="536" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
@@ -218,6 +225,16 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton10ActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="jButton8">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Update"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton8ActionPerformed"/>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jButton8FocusGained"/>
+        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jButton8KeyReleased"/>
       </Events>
     </Component>
   </SubComponents>
