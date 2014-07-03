@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b4a7e90f-236c-48e1-b463-a16c40591ab1">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="27"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Crosstab Data Text" hAlign="Center"/>
+	<parameter name="USER" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     daily_transactions_current.`entry` AS daily_transactions_current_entry,
+     daily_transactions_current.`year` AS daily_transactions_current_year,
+     daily_transactions_current.`month` AS daily_transactions_current_month,
+     daily_transactions_current.`sup_id` AS daily_transactions_current_sup_id,
+     daily_transactions_current.`sup_name` AS daily_transactions_current_sup_name,
+     daily_transactions_current.`day_1` AS daily_transactions_current_day_1,
+     daily_transactions_current.`day_2` AS daily_transactions_current_day_2,
+     daily_transactions_current.`day_3` AS daily_transactions_current_day_3,
+     daily_transactions_current.`day_4` AS daily_transactions_current_day_4,
+     daily_transactions_current.`day_5` AS daily_transactions_current_day_5,
+     daily_transactions_current.`day_6` AS daily_transactions_current_day_6,
+     daily_transactions_current.`day_7` AS daily_transactions_current_day_7,
+     daily_transactions_current.`day_8` AS daily_transactions_current_day_8,
+     daily_transactions_current.`day_9` AS daily_transactions_current_day_9,
+     daily_transactions_current.`day_10` AS daily_transactions_current_day_10,
+     daily_transactions_current.`day_11` AS daily_transactions_current_day_11,
+     daily_transactions_current.`day_12` AS daily_transactions_current_day_12,
+     daily_transactions_current.`day_13` AS daily_transactions_current_day_13,
+     daily_transactions_current.`day_14` AS daily_transactions_current_day_14,
+     daily_transactions_current.`day_15` AS daily_transactions_current_day_15,
+     daily_transactions_current.`day_16` AS daily_transactions_current_day_16,
+     daily_transactions_current.`day_17` AS daily_transactions_current_day_17,
+     daily_transactions_current.`day_18` AS daily_transactions_current_day_18,
+     daily_transactions_current.`day_19` AS daily_transactions_current_day_19,
+     daily_transactions_current.`day_20` AS daily_transactions_current_day_20,
+     daily_transactions_current.`day_21` AS daily_transactions_current_day_21,
+     daily_transactions_current.`day_22` AS daily_transactions_current_day_22,
+     daily_transactions_current.`day_23` AS daily_transactions_current_day_23,
+     daily_transactions_current.`day_24` AS daily_transactions_current_day_24,
+     daily_transactions_current.`day_25` AS daily_transactions_current_day_25,
+     daily_transactions_current.`day_26` AS daily_transactions_current_day_26,
+     daily_transactions_current.`day_27` AS daily_transactions_current_day_27,
+     daily_transactions_current.`day_28` AS daily_transactions_current_day_28,
+     daily_transactions_current.`day_29` AS daily_transactions_current_day_29,
+     daily_transactions_current.`day_30` AS daily_transactions_current_day_30,
+     daily_transactions_current.`day_31` AS daily_transactions_current_day_31,
+     daily_transactions_current.`Total` AS daily_transactions_current_Total,
+     daily_transactions_current.`trans` AS daily_transactions_current_trans
+FROM
+     `daily_transactions_current` daily_transactions_current]]>
+	</queryString>
+	<field name="daily_transactions_current_year" class="java.lang.String"/>
+	<field name="daily_transactions_current_month" class="java.lang.String"/>
+	<field name="daily_transactions_current_sup_id" class="java.lang.Integer"/>
+	<field name="daily_transactions_current_sup_name" class="java.lang.String"/>
+	<field name="daily_transactions_current_Total" class="java.lang.Double"/>
+	<variable name="TITLE" class="java.lang.String"/>
+	<title>
+		<band height="81" splitType="Stretch">
+			<staticText>
+				<reportElement x="1" y="3" width="81" height="11" uuid="3e709542-151f-4b92-8a79-9527db2b951e"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Report generated:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="16" width="15" height="20" uuid="b253ceae-65b5-4d6e-bd4d-cd9f29f5de4c"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[by:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="1" y="57" width="555" height="1" uuid="e13c4d67-1e7f-4c1c-96d2-2316ab27579e"/>
+			</line>
+			<staticText>
+				<reportElement x="340" y="9" width="216" height="27" uuid="75b687d7-fe40-4adf-9851-27816341e992"/>
+				<textElement>
+					<font fontName="Segoe UI Light" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bogoda Group Tea Factory]]></text>
+			</staticText>
+			<line>
+				<reportElement x="1" y="0" width="555" height="1" uuid="aeb39eae-cf99-495a-9b95-9031f30f70b7"/>
+			</line>
+			<staticText>
+				<reportElement x="417" y="30" width="114" height="20" uuid="fe112270-8629-41c5-b43e-d57409be5b2e"/>
+				<text><![CDATA[Kolawenigama, Deniyaya]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="1" y="60" width="209" height="20" uuid="9b4308a9-ed35-425b-8f5f-5ef25592fa06"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TITLE}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement x="82" y="3" width="100" height="11" uuid="54a20eec-890c-4e8c-9249-a8bf0da283f9"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="15" y="17" width="100" height="20" uuid="a7284fb9-5755-493b-9033-b8778b4d88dd"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{USER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="33" splitType="Stretch">
+			<line>
+				<reportElement x="1" y="-26" width="555" height="1" uuid="292404ee-21c4-44ec-86e1-654ddf5dc03b"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#666666"/>
+				</graphicElement>
+			</line>
+			<textField evaluationTime="Report">
+				<reportElement x="276" y="6" width="40" height="20" uuid="a28f6025-2bc0-4bc1-a2d3-6de88975440a"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="196" y="6" width="80" height="20" uuid="c7b2c106-44fc-4aed-b3a9-e5ad706e21ea"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="415" y="6" width="100" height="20" forecolor="#666666" uuid="e98f9243-d437-44e0-9e87-4d2a37742252"/>
+				<textFieldExpression><![CDATA[$V{TITLE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<summary>
+		<band height="115" splitType="Stretch">
+			<crosstab>
+				<reportElement x="0" y="0" width="555" height="115" uuid="93cc26fc-0f22-46e1-8db0-58afb845017b"/>
+				<rowGroup name="daily_transactions_current_sup_id" width="70" totalPosition="End">
+					<bucket class="java.lang.Integer">
+						<bucketExpression><![CDATA[$F{daily_transactions_current_sup_id}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents backcolor="#F0F8FF" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<textField>
+								<reportElement style="Crosstab Data Text" x="0" y="0" width="70" height="25" uuid="23b38b2b-f28d-4e47-8b0e-9318322565d4"/>
+								<textFieldExpression><![CDATA[$V{daily_transactions_current_sup_id}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents backcolor="#005FB3" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<staticText>
+								<reportElement x="0" y="0" width="140" height="25" forecolor="#FFFFFF" uuid="5b4d89dc-ecbc-40d6-a1f3-e4b56af0b815"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<text><![CDATA[Total daily_transactions_current_sup_id]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<rowGroup name="daily_transactions_current_sup_name" width="70" totalPosition="End">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{daily_transactions_current_sup_name}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents backcolor="#F0F8FF" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<textField>
+								<reportElement style="Crosstab Data Text" x="0" y="0" width="70" height="25" uuid="c9419b27-3324-4766-9c1b-34d5ff0daa66"/>
+								<textFieldExpression><![CDATA[$V{daily_transactions_current_sup_name}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents backcolor="#BFE1FF" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<staticText>
+								<reportElement x="0" y="0" width="70" height="25" uuid="96a00f35-f19d-4c09-9d94-a8c232d6d2c3"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<text><![CDATA[Total daily_transactions_current_sup_name]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<columnGroup name="daily_transactions_current_year" height="30" totalPosition="End">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{daily_transactions_current_year}]]></bucketExpression>
+					</bucket>
+					<crosstabColumnHeader>
+						<cellContents backcolor="#F0F8FF" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<textField>
+								<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="30" uuid="64f564d2-1331-4c26-8d2f-2f5fe186a739"/>
+								<textFieldExpression><![CDATA[$V{daily_transactions_current_year}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabColumnHeader>
+					<crosstabTotalColumnHeader>
+						<cellContents backcolor="#005FB3" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<staticText>
+								<reportElement x="0" y="0" width="50" height="60" forecolor="#FFFFFF" uuid="83bbcaa3-a0ea-4292-8066-ad68872975c7"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<text><![CDATA[Total daily_transactions_current_year]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalColumnHeader>
+				</columnGroup>
+				<columnGroup name="daily_transactions_current_month" height="30" totalPosition="End">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{daily_transactions_current_month}]]></bucketExpression>
+					</bucket>
+					<crosstabColumnHeader>
+						<cellContents backcolor="#F0F8FF" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<textField>
+								<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="30" uuid="c094c765-8038-41e1-96fb-630f488b4d68"/>
+								<textFieldExpression><![CDATA[$V{daily_transactions_current_month}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabColumnHeader>
+					<crosstabTotalColumnHeader>
+						<cellContents backcolor="#BFE1FF" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<staticText>
+								<reportElement x="0" y="0" width="50" height="30" uuid="fba13f89-5ddd-4f67-b8aa-3ac904960b8a"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<text><![CDATA[Total daily_transactions_current_month]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalColumnHeader>
+				</columnGroup>
+				<measure name="daily_transactions_current_TotalMeasure" class="java.lang.Double">
+					<measureExpression><![CDATA[$F{daily_transactions_current_Total}]]></measureExpression>
+				</measure>
+				<crosstabCell width="50" height="25">
+					<cellContents>
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25" uuid="74d4db53-9cbd-4346-95be-d2275a4a7c3f"/>
+							<textFieldExpression><![CDATA[$V{daily_transactions_current_TotalMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell height="25" rowTotalGroup="daily_transactions_current_sup_id">
+					<cellContents backcolor="#005FB3" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25" forecolor="#FFFFFF" uuid="0c52a784-f171-44e9-a043-1da87e5d8031"/>
+							<textFieldExpression><![CDATA[$V{daily_transactions_current_TotalMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="50" columnTotalGroup="daily_transactions_current_year">
+					<cellContents backcolor="#005FB3" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25" forecolor="#FFFFFF" uuid="b89dbbcd-d5e2-4084-93bc-757c38b95c06"/>
+							<textFieldExpression><![CDATA[$V{daily_transactions_current_TotalMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell rowTotalGroup="daily_transactions_current_sup_id" columnTotalGroup="daily_transactions_current_year">
+					<cellContents backcolor="#005FB3" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25" forecolor="#FFFFFF" uuid="20e887a3-e880-4747-b5b1-282a4df0ef4b"/>
+							<textFieldExpression><![CDATA[$V{daily_transactions_current_TotalMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="50" columnTotalGroup="daily_transactions_current_month">
+					<cellContents backcolor="#BFE1FF" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25" uuid="6aa919a1-9c9e-4076-8181-7bace9facd91"/>
+							<textFieldExpression><![CDATA[$V{daily_transactions_current_TotalMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell rowTotalGroup="daily_transactions_current_sup_id" columnTotalGroup="daily_transactions_current_month">
+					<cellContents backcolor="#005FB3" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25" forecolor="#FFFFFF" uuid="2260a30f-1aad-4cdd-ae77-4bdba6ae63b7"/>
+							<textFieldExpression><![CDATA[$V{daily_transactions_current_TotalMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell height="25" rowTotalGroup="daily_transactions_current_sup_name">
+					<cellContents backcolor="#BFE1FF" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25" uuid="fe1f73c7-84a5-4cc4-bb62-968c7066e0b3"/>
+							<textFieldExpression><![CDATA[$V{daily_transactions_current_TotalMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell rowTotalGroup="daily_transactions_current_sup_name" columnTotalGroup="daily_transactions_current_year">
+					<cellContents backcolor="#005FB3" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25" forecolor="#FFFFFF" uuid="d66b425c-fb11-4127-a9a9-91e904692e45"/>
+							<textFieldExpression><![CDATA[$V{daily_transactions_current_TotalMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell rowTotalGroup="daily_transactions_current_sup_name" columnTotalGroup="daily_transactions_current_month">
+					<cellContents backcolor="#BFE1FF" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25" uuid="57182e4e-8890-4bdd-a7f8-2ac1154683f6"/>
+							<textFieldExpression><![CDATA[$V{daily_transactions_current_TotalMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+			</crosstab>
+		</band>
+	</summary>
+</jasperReport>

@@ -458,6 +458,26 @@ public String get_day(Date date) {
        return year+"-"+MM;
     
     }
+    public String Reverse_months(String Year, String Month, int index){
+    int i = 0;
+     
+      int year = Integer.parseInt(Year);
+      int month = Integer.parseInt(Month);
+    int res_month = month-index;
+      if(res_month<=0){
+        res_month = res_month+12;
+        year = year-1;
+      }
+      String MM;
+      if(res_month<10){
+      MM="0"+res_month;
+      
+      }
+      else{MM= ""+res_month;}
+        //System.out.println(year+"-----"+MM);
+       return year+"-"+MM;
+    
+    }
    
    
    

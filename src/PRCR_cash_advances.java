@@ -956,15 +956,11 @@ public void ClearTable(){
         new1_date = ne_date.toString();
         String tablename = new1_date.substring(0, 7);
 
-        if (dbm.TableExistence("pr_workdata_" + tablename) == false) {
-           // CreateNewMonthTable(tablename);
-             JOptionPane.showMessageDialog(null, "This month's Check roll table has not yet been created!Data not saved \n", "Message", JOptionPane.INFORMATION_MESSAGE);
-        }
-        else{
-        saveData(tablename, tdate);
+        
+        //saveData(tablename, tdate);//this is not required since we calculate salary end of the month using advance book
         saveDataToAdvanceBook(tdate);
         ClearTable();
-        }
+        
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void saveDataToAdvanceBook(Date date){

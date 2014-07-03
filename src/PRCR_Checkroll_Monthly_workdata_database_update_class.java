@@ -149,11 +149,11 @@ public class PRCR_Checkroll_Monthly_workdata_database_update_class implements Ru
         CopyTable3Columns("checkroll_personalinfo", "code", "division", "register_or_casual", "pr_workdata_" + yr_mnth, "code", "division", "register_or_casual");
         //copy the previous month's 'next_month' amount to 'pre_debt' column in this month
         PRCR_test_jframe.newmonthC.setSelected(true);
-        PRCR_test_jframe.newmonthL.setText("New Month Table Created");
+        PRCR_test_jframe.newmonthL.setText("New Month Table has been created");
 
         PRCR_test_jframe.prvdebtsL.setText("Previous Debts are being updated");
         GetPreDebts(yr_mnth);
-        PRCR_test_jframe.prvdebtsL.setText("Previous Debts updated");
+        PRCR_test_jframe.prvdebtsL.setText("Previous Debts has been updated");
         PRCR_test_jframe.prvdebtsC.setSelected(true);
 
         System.out.println("table copied");
@@ -254,23 +254,7 @@ public class PRCR_Checkroll_Monthly_workdata_database_update_class implements Ru
         }
     }
 
-//    public void createNewDatabaseTableforAmalgamation(){
-//       
-//     try {
-//         if(dbm.TableExistence("prcr_checkroll_amalgamation_report")){
-//         dbm.DeleteTable("prcr_checkroll_amalgamation_report");
-//         dbm.insert("DROP TABLE prcr_checkroll_amalgamation_report");}
-//            //use new_1 and new_2 if any other deduction type is needd to be added
-//            dbm.insert("CREATE TABLE prcr_checkroll_amalgamation_report(work_code VARCHAR(30),"
-//                    + "section VARCHAR(50)," + "work_days DOUBLE,"
-//                    + "work_days_pay DOUBLE," + "ot_hours DOUBLE," + "ot_hours_pay DOUBLE,"
-//                    + "coins DOUBLE," + "grand_total DOUBLE);");
-//        } catch (SQLException ex) {
-//            //Logger.getLogger(test.class.getName()).log(Level.SEVERE, null, ex);
-//            System.err.println(ex.getMessage());
-//        }
-//    
-//    }
+
     public void duplicateTable(String original_table_name, String table_copy_name) {
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         try {
@@ -392,19 +376,47 @@ public class PRCR_Checkroll_Monthly_workdata_database_update_class implements Ru
         //return null;
 
     }
+    
+        public int getActiveWorkersColumnsize(String table_name) {
+ System.out.println("in getactive "+table_name);
+        int count = 0;
+        DatabaseManager dbm = DatabaseManager.getDbCon();
+        try {
+            ResultSet query = dbm.query("SELECT * FROM " + table_name + "");
+            while (query.next()) {
+                System.out.println(query.getInt("active")+"\n");
+                if(query.getInt("active")==1){
+                count++;
+                   System.out.println("count "+count);
+                }
+            }
+            return count;
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return count;
+        //return null;
+
+    }
+
 
     @Override
     public void run() {
 
-        columnsize = getColumnsize("checkroll_personalinfo", "code");//uncomment below lines !
-
-        try {
-            // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            CreateNewMonthTable(st);
-        } catch (SQLException ex) {
-            Logger.getLogger(PRCR_Checkroll_Monthly_workdata_database_update_class.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        columnsize = getColumnsize("pr_workdata_" + st, "code");
+//      columnsize = getColumnsize("checkroll_personalinfo", "code");//uncomment below lines !
+//
+//        try {
+//            // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//            CreateNewMonthTable(st);
+//        } catch (SQLException ex) {
+//            Logger.getLogger(PRCR_Checkroll_Monthly_workdata_database_update_class.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        
+        
+        columnsize = getActiveWorkersColumnsize("pr_workdata_" + st);
+        
+       // columnsize=8;
         int active = 0;
         int inactive = 0;
 
@@ -418,33 +430,7 @@ public class PRCR_Checkroll_Monthly_workdata_database_update_class implements Ru
         // Section = getStringArray("workcode_details", "work");
         // ((DefaultTableModel) jTable1.getModel()).setNumRows(columnsize + 2);
         // ClearTable(columnsize + 2);
-        double normaldays = 0;
-        double sundays = 0;
-        double otnighthrs = 0;
-        double otdayhrs = 0;
-        double tea = 0;
-        double fes_adv = 0;
-        double cash_advance = 0;
-        double food = 0;
-        double loan = 0;
-        double ceb = 0;
-        double teacher = 0;
-        double chemical = 0;
-        double payslip = 0;
-        double fine = 0;
-        double meals = 0;
-        double pension = 0;
-        double welfare = 0;
-        double kovil = 0;
-        double other1 = 0;
-        double other2 = 0;
-
-        double workdaysT = 0;
-        double workdayspayT = 0;
-        double othoursT = 0;
-        double othourspayT = 0;
-        double coinsT = 0;
-        double grandtotalT = 0;
+      
 
         //   int k=checknReturnNoOfData("prcr_checkroll_workentry", "date", "2014-03",
         //  "division", "BG", "work_code", "ABVF", "normalday_or_sunday", "n");
@@ -455,85 +441,7 @@ public class PRCR_Checkroll_Monthly_workdata_database_update_class implements Ru
         // System.out.println(workentryst);
         PRCR_test_jframe.workdetailsL.setText("Work Details are being updated");
         UpdateWorkDetails("prcr_checkroll_workentry", "date", workentryst);
-        /*
-         for (int i = 0; i < columnsize; i++) {
-         PRCR_test_jframe.workdetailsP.setValue((100*i)/columnsize);
-           
-         normaldays=sundays=otdayhrs=otnighthrs=0;
-
-         normaldays = checknReturnNoOfData("prcr_checkroll_workentry", "date", workentryst,
-         "emp_code", Code[i], "normalday_or_sunday", "n");
-
-         sundays = checknReturnNoOfData("prcr_checkroll_workentry", "date", workentryst,
-         "emp_code", Code[i], "normalday_or_sunday", "s");
-         otdayhrs = checknReturnTotal("prcr_checkroll_workentry", "date", workentryst,
-         "emp_code", Code[i], "ot_day");
-         otnighthrs = checknReturnTotal("prcr_checkroll_workentry", "date", workentryst,
-         "emp_code", Code[i], "ot_night");
-         tea= checknReturnAdvanceTotal("prcr_other_advance_book", "date", workentryst,"code", Code[i], "type","TEA", "amount");
-         fes_adv= checknReturnAdvanceTotal("prcr_other_advance_book", "date", workentryst,"code", Code[i], "type","FESTIVAL", "amount");
-         food= checknReturnAdvanceTotal("prcr_other_advance_book", "date", workentryst,"code", Code[i], "type","FOODSTUFFS", "amount");
-         loan= checknReturnAdvanceTotal("prcr_other_advance_book", "date", workentryst,"code", Code[i], "type","LOAN", "amount");
-         ceb= checknReturnAdvanceTotal("prcr_other_advance_book", "date", workentryst,"code", Code[i], "type","CEB", "amount");
-         teacher= checknReturnAdvanceTotal("prcr_other_advance_book", "date", workentryst,"code", Code[i], "type", "TEACHER", "amount");
-         chemical= checknReturnAdvanceTotal("prcr_other_advance_book", "date", workentryst,"code", Code[i], "type", "CHEMICAL", "amount");
-         payslip= checknReturnAdvanceTotal("prcr_other_advance_book", "date", workentryst,"code", Code[i], "type", "PAYSLIP", "amount");
-         fine= checknReturnAdvanceTotal("prcr_other_advance_book", "date", workentryst,"code", Code[i], "type", "FINE", "amount");
-         meals= checknReturnAdvanceTotal("prcr_other_advance_book", "date", workentryst,"code", Code[i], "type", "MEALS", "amount");
-         pension= checknReturnAdvanceTotal("prcr_other_advance_book", "date", workentryst,"code", Code[i], "type", "PENSION", "amount");
-         welfare= checknReturnAdvanceTotal("prcr_other_advance_book", "date", workentryst,"code", Code[i], "type", "WELFARE", "amount");
-         kovil= checknReturnAdvanceTotal("prcr_other_advance_book", "date", workentryst,"code", Code[i], "type", "KOVIL", "amount");
-         other1= checknReturnAdvanceTotal("prcr_other_advance_book", "date", workentryst,"code", Code[i], "type", "OTHER_1", "amount");
-         other2= checknReturnAdvanceTotal("prcr_other_advance_book", "date", workentryst,"code", Code[i], "type", "OTHER_2", "amount");
-         cash_advance= checknReturnAdvanceTotal("prcr_cash_advance_book", "date", workentryst,"code", Code[i], "type","CASH ADVANCE", "amount");
-            
-            
-            
-            
-         try{
-         dbm.updateDatabase("pr_workdata_"+st, "code",Code[i],"normal_days", normaldays);
-         dbm.updateDatabase("pr_workdata_"+st, "code",Code[i],"sundays", sundays);
-         dbm.updateDatabase("pr_workdata_"+st, "code",Code[i],"ot_before_hours", otdayhrs);
-         dbm.updateDatabase("pr_workdata_"+st, "code",Code[i],"ot_after_hours", otnighthrs);
-         dbm.updateDatabase("pr_workdata_"+st, "code",Code[i],"tea",tea );
-         dbm.updateDatabase("pr_workdata_"+st, "code",Code[i],"fest_adv",fes_adv );
-         dbm.updateDatabase("pr_workdata_"+st, "code",Code[i],"food",food );
-         dbm.updateDatabase("pr_workdata_"+st, "code",Code[i],"loan",loan );
-         dbm.updateDatabase("pr_workdata_"+st, "code",Code[i],"ceb",ceb );
-         dbm.updateDatabase("pr_workdata_"+st, "code",Code[i],"teacher",teacher );
-         dbm.updateDatabase("pr_workdata_"+st, "code",Code[i],"chemical",chemical );
-         dbm.updateDatabase("pr_workdata_"+st, "code",Code[i],"pay_slip",payslip );
-         dbm.updateDatabase("pr_workdata_"+st, "code",Code[i],"fine",fine );
-         dbm.updateDatabase("pr_workdata_"+st, "code",Code[i],"meals",meals );
-         dbm.updateDatabase("pr_workdata_"+st, "code",Code[i],"pension",pension );
-         dbm.updateDatabase("pr_workdata_"+st, "code",Code[i],"welfare",welfare );
-         dbm.updateDatabase("pr_workdata_"+st, "code",Code[i],"kovil",kovil );
-         dbm.updateDatabase("pr_workdata_"+st, "code",Code[i],"new_1",other1 );
-         dbm.updateDatabase("pr_workdata_"+st, "code",Code[i],"new_2",other2 );
-         dbm.updateDatabase("pr_workdata_"+st, "code",Code[i],"salary_adv", cash_advance);
-            
-            
-         if(i%10==0){System.out.println(i+"-"+Code[i]);}
-         }catch(Exception e){
-         System.out.println("Error in sql "+e.getMessage());
-         }
-            
-         if (normaldays == 0 && sundays == 0 && otdayhrs == 0 && otnighthrs == 0 && tea==0 && fes_adv==0 &&
-         food == 0 && loan == 0 && ceb == 0 && teacher == 0 && chemical==0 && payslip==0 &&
-         fine == 0 && meals == 0 && pension == 0 && welfare == 0 && kovil==0 && other1==0 && other2==0 && cash_advance==0
-         ) {
-
-         dbm.updateDatabase("pr_workdata_"+st, "code",Code[i],"active",0);   
-         inactive++;
-         }
-         else{
-         dbm.updateDatabase("pr_workdata_"+st, "code",Code[i],"active",1);  
-         active++;
-         System.out.println("active"+Code[i]);
-         }
-         // PRCR_test_jframe.MessageTex.append("Number of Active Workers:"+active+"Inactive Workers"+inactive);
-              
-         }*/
+      
         PRCR_test_jframe.workdetailsL.setText("Work Details has been updated");
         PRCR_test_jframe.workdetailsC.setSelected(true);
         updateCashNOtherAdvances("date", workentryst);
@@ -560,9 +468,9 @@ public class PRCR_Checkroll_Monthly_workdata_database_update_class implements Ru
 
             }
         }
-        PRCR_test_jframe.salarycalL.setText("Salary Calculated for every division");
+        PRCR_test_jframe.salarycalL.setText("Salary has been calculated for all divisions");
 
-        PRCR_test_jframe.salarycaloverallL.setText("Salary Calculated");
+        PRCR_test_jframe.salarycaloverallL.setText("Salary has been Calculated");
         PRCR_test_jframe.salarycaloverallC.setSelected(true);
 
     }

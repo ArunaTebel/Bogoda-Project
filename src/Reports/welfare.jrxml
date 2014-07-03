@@ -5,6 +5,8 @@
 	<property name="ireport.y" value="0"/>
 	<parameter name="USER" class="java.lang.String"/>
 	<parameter name="Month" class="java.lang.String"/>
+	<parameter name="month" class="java.lang.String"/>
+	<parameter name="year" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT
      welfare.`entry` AS welfare_entry,
@@ -24,10 +26,9 @@ FROM
      `suppliers` suppliers INNER JOIN `welfare` welfare ON suppliers.`sup_id` = welfare.`sup_id`
      INNER JOIN `category` category ON suppliers.`cat_id` = category.`category_id`
 
-
+WHERE month =$P{month}
 ORDER BY
-     suppliers.`cat_id` ASC
-]]>
+     suppliers.`cat_id` ASC]]>
 	</queryString>
 	<field name="welfare_entry" class="java.lang.Integer"/>
 	<field name="welfare_month" class="java.lang.String"/>

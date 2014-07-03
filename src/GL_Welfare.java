@@ -33,7 +33,7 @@ public class GL_Welfare extends javax.swing.JPanel {
      */
     public GL_Welfare() {
         initComponents();
-        calcfigures(reg, Nreg, sus, attention, "2013", "10");
+        calcfigures(reg, Nreg, sus, attention, yearfield.getText(), datehandler.return_month_as_num(monthfield.getText()));
         // ((DefaultTableModel) jTable1.getModel()).setNumRows(2);
         
     }
@@ -50,12 +50,13 @@ public class GL_Welfare extends javax.swing.JPanel {
         int newRegNum = 0;
         int susNum = 0;
         String table = "welfare";
-        String coloumnG = "month";
-        Calendar currentDate = Calendar.getInstance();
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        String day = formatter.format(currentDate.getTime());
-        int monthNow = Integer.parseInt(day.substring(5, 7));
-        String thisMonth = day.substring(0, 5) + monthNow;
+        String coloumnG = "month2";
+      //  Calendar currentDate = Calendar.getInstance();
+//        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+//        String day = formatter.format(currentDate.getTime());
+//        int monthNow = Integer.parseInt(day.substring(5, 7));
+        //String thisMonth = day.substring(0, 5) + monthNow;
+        String thisMonth = year+month;
         int supId = 0;
         String table1 = "suppliers";
         String coloumnG1 = "sup_id";
@@ -74,9 +75,9 @@ public class GL_Welfare extends javax.swing.JPanel {
                 ResultSet rs2 = dbm.query("SELECT * FROM " + table1 + " where " + coloumnG1 + " = '" + thisMonth + "'");
                 while (rs2.next()) {
                     double[] total = new double[33];
-                    String year1 = day.substring(0, 5);
-                    String month1 = day.substring(5, 7);
-                    total = reportgen.get_day_totals(supId, year1, month1);
+                    //String year1 = day.substring(0, 5);
+                    //String month1 = day.substring(5, 7);
+                    total = reportgen.get_day_totals(supId, year, month);
                     int i = 0;
                     double Total = 0;
                     while (i < 32) {
@@ -601,15 +602,16 @@ public class GL_Welfare extends javax.swing.JPanel {
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         HashMap param = new HashMap();
                 //jProgressBar1.setValue(10);
-        
-        param.put("month", yearfield.getText() + datehandler.return_month_as_num(monthfield.getText()));
+        datehandler.Reverse_months(yearfield.getText(), datehandler.return_month_as_num(monthfield.getText()), 12);
+        param.put("month", yearfield.getText() + "-"+Integer.parseInt(datehandler.return_month_as_num(monthfield.getText())));
         // param.put("to_date", Return_date2);
         param.put("USER", new UserAccountControl().get_current_user());
 
         // Date Return_date = datechooser.Return_date(yearfield, monthfield, dayfield);
         String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
+         String Slocation = dbm.checknReturnStringData("file_locations", "description", "ReportSave", "location");
         
-        generate.create("GL_welfare", "D:\\", param, location, "welfare.jrxml");
+        generate.create("GL_welfare", Slocation, param, location, "welfareCross.jrxml");
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -631,10 +633,12 @@ public class GL_Welfare extends javax.swing.JPanel {
              }*/
             
             String day = formatter.format(currentDate.getTime());
-            int month = Integer.parseInt(day.substring(5, 7));
-            String thisMonth = day.substring(0, 5) + month;
+          //  int month = Integer.parseInt(day.substring(5, 7));
+            //
+            String thisMonth = yearfield.getText() + "-"+Integer.parseInt(datehandler.return_month_as_num(monthfield.getText()));
+            String thisMonth2 = yearfield.getText() +datehandler.return_month_as_num(monthfield.getText());
             
-            int newMonths = (int) dbm.checknReturnDoubleData("rate_details", "Code_name", "WELF_M", "rate");
+            int newMonths = (int) dbm.checknReturnDoubleData("rate_details", "Code_name", "WELF_M", "rate")-1;
             
             String supId = null;
             if (supplier_id.getSelectedIndex() == 0 || supplier_id.getEditor().getItem().equals("") || supplier_id.getSelectedItem() == null) {
@@ -643,7 +647,7 @@ public class GL_Welfare extends javax.swing.JPanel {
                 supId = supplier_id.getSelectedItem().toString();
             }
            try { 
-            entry = Integer.parseInt(day.substring(0, 4) + day.substring(5, 7) + supId);}
+            entry = Integer.parseInt(thisMonth2 + supId);}
            catch (Exception e){
                  JOptionPane.showMessageDialog(attention, "Sup id error!");
            }
@@ -686,10 +690,10 @@ public class GL_Welfare extends javax.swing.JPanel {
                 newRegisterd = 1;
                  newOld = 1;
                 try {
-                    dbm.insert("INSERT INTO welfare(entry,month,sup_id,months_on_welfare,new_old,suspended_months,suspended_remain,before_after) VALUES('" + entry + "','" + thisMonth + "','" + supId + "','" + newMonths + "','" + 1 + "','" + suspended + "','" + remain + "','" + before + "')");
+                    dbm.insert("INSERT INTO welfare(entry,month,month2,sup_id,months_on_welfare,new_old,suspended_months,suspended_remain,before_after) VALUES('" + entry + "','" + thisMonth + "','" + thisMonth2 + "','" + supId + "','" + newMonths + "','" + 1 + "','" + suspended + "','" + remain + "','" + before + "')");
                 } catch (SQLException ex) {
                     try {
-                        dbm.insert("UPDATE  welfare SET month='"+thisMonth+"',sup_id='"+supId+"',months_on_welfare='"+newMonths+"',new_old='"+1+"',suspended_months='"+suspended+"',suspended_remain='"+remain+"',before_after='"+before+"' WHERE entry = '"+entry+"'");
+                        dbm.insert("UPDATE  welfare SET month='"+thisMonth+"',month2='"+thisMonth2+"',sup_id='"+supId+"',months_on_welfare='"+newMonths+"',new_old='"+1+"',suspended_months='"+suspended+"',suspended_remain='"+remain+"',before_after='"+before+"' WHERE entry = '"+entry+"'");
                     } catch (SQLException ex1) {
                         Logger.getLogger(GL_Welfare.class.getName()).log(Level.SEVERE, null, ex1);
                     }
@@ -700,14 +704,14 @@ public class GL_Welfare extends javax.swing.JPanel {
                 dbm.update("welfare", "month", "sup_id", thisMonth, supId, "suspended_remain", remain);
                 dbm.update("welfare", "month", "sup_id", thisMonth, supId, "before_after", before);
             }
-            calcfigures(reg, Nreg, sus, attention, "2013", "10");
+            calcfigures(reg, Nreg, sus, attention,yearfield.getText(),datehandler.return_month_as_num(monthfield.getText()));
 
          //String thisMonthsave = yearfield.getText() + "-" + Integer.parseInt(datehandler.return_month_as_num(monthfield.getText()));
        // DatabaseManager dbm = new DatabaseManager();
        ////////////////////////////////////////////////////////////// Update code/////////////////////////////////////////////////////////
             
         //ADD NEW OLD VALUE
-            
+            newOld = Integer.parseInt(dbm.checknReturnData("welfare", "sup_id", supId, "new_old"));
             double amount = 0;
             
             int oldRate = (int) dbm.checknReturnDoubleData("rate_details", "Code_name", "WELF_RATE", "rate");
@@ -751,8 +755,7 @@ public class GL_Welfare extends javax.swing.JPanel {
         String thisMonth = yearfield.getText() + "-" + Integer.parseInt(datehandler.return_month_as_num(monthfield.getText()));
         
         DatabaseManager dbm = new DatabaseManager();
-        String examount = dbm.checknReturnData("welfare", "month", thisMonth, "amount");
-        if(examount!=null){
+       
         String table = "welfare";
         String coloumnG = "month";
         String coloumnN = null;
@@ -762,13 +765,17 @@ public class GL_Welfare extends javax.swing.JPanel {
         int remain = 0;
         int before = 0;
         double amount = 0;
-        
+            System.out.println("Running qwelf");
         int oldRate = (int) dbm.checknReturnDoubleData("rate_details", "Code_name", "WELF_RATE", "rate");
         int newRate = (int) dbm.checknReturnDoubleData("rate_details", "Code_name", "WELF_NEW", "rate");
         
         try {
             ResultSet query = dbm.query("SELECT * FROM " + table + " where " + coloumnG + " = '" + thisMonth + "'");
             while (query.next()) {
+                coloumnN = "sup_id";
+                supId = query.getInt(coloumnN);
+                 String examount = dbm.filterReturn2StringData("welfare", "sup_id", supId+"","month",thisMonth, "amount");
+        if(examount==null){
                 coloumnN = "new_old";
                 newOld = query.getInt(coloumnN);
                 coloumnN = "suspended_months";
@@ -777,8 +784,7 @@ public class GL_Welfare extends javax.swing.JPanel {
                 remain = query.getInt(coloumnN);
                 coloumnN = "before_after";
                 before = query.getInt(coloumnN);
-                coloumnN = "sup_id";
-                supId = query.getInt(coloumnN);
+                
                 if (remain >= 0) {
                     if ((remain == 0 && before == 0) || (remain == suspended && before == 1)) {
                         if (newOld == 0) {
@@ -797,13 +803,13 @@ public class GL_Welfare extends javax.swing.JPanel {
                     }                    
                 }
                 dbm.update("welfare", "month", "sup_id", thisMonth, supId, "amount", amount);                
-            }
+            }}
         } catch (SQLException ex) {
             Logger.getLogger(GL_Welfare.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         //reportgen.update_welfare(yearfield.getText(), datehandler.return_month_as_num(monthfield.getText()));
-        }    //reportgen.update_taskmanager(yearfield.getText(), datehandler.return_month_as_num(monthfield.getText()), "4");
+           //reportgen.update_taskmanager(yearfield.getText(), datehandler.return_month_as_num(monthfield.getText()), "4");
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void monthfieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_monthfieldKeyPressed
@@ -966,7 +972,8 @@ public class GL_Welfare extends javax.swing.JPanel {
         }
         
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
-            //  dayfield2.requestFocus();
+             calcfigures(reg, Nreg, sus, attention, yearfield.getText(), datehandler.return_month_as_num(monthfield.getText()));
+     
             // dayfield2.selectAll();
 
         }
@@ -987,7 +994,8 @@ public class GL_Welfare extends javax.swing.JPanel {
         }
         
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
-            //   dayfield2.requestFocus();
+            calcfigures(reg, Nreg, sus, attention, yearfield.getText(), datehandler.return_month_as_num(monthfield.getText()));
+     
             //  dayfield2.selectAll();
 
         }
@@ -999,7 +1007,8 @@ public class GL_Welfare extends javax.swing.JPanel {
         // dayfield.setText(datehandler.get_day(datef));
         monthfield.setText(datehandler.get_month(datef));
         yearfield.setText(datehandler.get_year(datef));
-        //  dayfield2.requestFocus();
+         calcfigures(reg, Nreg, sus, attention, yearfield.getText(), datehandler.return_month_as_num(monthfield.getText()));
+     
         // dayfield2.selectAll();
     }//GEN-LAST:event_datePicker1ActionPerformed
 

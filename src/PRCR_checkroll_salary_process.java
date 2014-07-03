@@ -61,14 +61,14 @@ public class PRCR_checkroll_salary_process {
         CheckrollSallaryCal abcd = new CheckrollSallaryCal();
         int columnSize = 0;
        // columnSize = getColumnsize("pr_workdata_"+st, "code");
-        columnSize=checknReturnNumberOfEntriesForNoteAnalysis("pr_workdata_"+st, "register_or_casual", reg, "division",division,"code");
+        columnSize=checknReturnNumberOfEntriesForNoteAnalysis("pr_workdata_"+st, "register_or_casual", reg, "division",division,"active","1","code");
         
         System.out.println("colmnsiz"+columnSize);
 
         int array[] = new int[columnSize];
        // double arraySal[] = new double[columnSize];
         //array = getIntArray("pr_workdata_"+st, "code");
-        array=checknReturnIntArrayForNoteAnalysis("pr_workdata_"+st, "register_or_casual", reg, "division",division,"code");
+        array=checknReturnIntArrayForNoteAnalysis("pr_workdata_"+st, "register_or_casual", reg, "division",division,"active","1","code");
         
         abcd.setString(st);
         abcd.setDivision(division);
@@ -78,7 +78,7 @@ public class PRCR_checkroll_salary_process {
         for (int i = 0; i < columnSize; i++) {
             PRCR_test_jframe.salarycaloverallP.setValue(((PRCR_Checkroll_Monthly_workdata_database_update_class.salarycalprogressbar+1)*100)/PRCR_Checkroll_Monthly_workdata_database_update_class.columnsize);
            PRCR_Checkroll_Monthly_workdata_database_update_class.salarycalprogressbar++;
-            PRCR_test_jframe.salaryCalP.setValue((100*i)/columnSize);
+            PRCR_test_jframe.salaryCalP.setValue((100*(i+1))/columnSize);
             
             abcd.setEmployCode(array[i]);
             //arraySal[i] = abc.getFinalSalary(st);
@@ -129,14 +129,14 @@ public class PRCR_checkroll_salary_process {
         return null;
 
     }
-    public int[] checknReturnIntArrayForNoteAnalysis(String table_name, String table_column_giving1, Object row_element1, String table_column_giving2, Object row_element2, String table_column_need) {
+    public int[] checknReturnIntArrayForNoteAnalysis(String table_name, String table_column_giving1, Object row_element1, String table_column_giving2, Object row_element2,String table_column_giving3, Object row_element3, String table_column_need) {
         DatabaseManager dbm = DatabaseManager.getDbCon();
         int count=0;
-        int num = checknReturnNumberOfEntriesForNoteAnalysis(table_name, table_column_giving1, row_element1, table_column_giving2, row_element2,table_column_need);
+        int num = checknReturnNumberOfEntriesForNoteAnalysis(table_name, table_column_giving1, row_element1, table_column_giving2, row_element2,table_column_giving3, row_element3,table_column_need);
         int[] arr = new int[num];
         try {
             //     ResultSet query = dbm.query("SELECT * FROM " + table_name + " WHERE " + table_column_giving1 + " ='" + row_element1 + " 'AND " + table_column_giving2 +" <'" + row_element2 + "'");
-            ResultSet query = dbm.query("SELECT * FROM " + table_name + " WHERE " + table_column_giving1 + " ='" + row_element1 + " 'AND " + table_column_giving2 + " LIKE'" + row_element2 + "'");
+            ResultSet query = dbm.query("SELECT * FROM " + table_name + " WHERE " + table_column_giving1 + " ='" + row_element1 + " 'AND " + table_column_giving2 + " LIKE'" + row_element2 + "' AND "+table_column_giving3+" LIKE '"+row_element3+"'");
 
             while (query.next()) {
                 arr[count]=query.getInt(table_column_need);
@@ -173,25 +173,25 @@ public class PRCR_checkroll_salary_process {
         return null;
 
     }
-      public double[] checknReturnDoubleArrayForNoteAnalysis(String table_name, String table_column_giving1, Object row_element1, String table_column_giving2, Object row_element2, String table_column_need) {
-        DatabaseManager dbm = DatabaseManager.getDbCon();
-        int count=0;
-        int num = checknReturnNumberOfEntriesForNoteAnalysis(table_name, table_column_giving1, row_element1, table_column_giving2, row_element2,table_column_need);
-        double[] arr = new double[num];
-        try {
-            //     ResultSet query = dbm.query("SELECT * FROM " + table_name + " WHERE " + table_column_giving1 + " ='" + row_element1 + " 'AND " + table_column_giving2 +" <'" + row_element2 + "'");
-            ResultSet query = dbm.query("SELECT * FROM " + table_name + " WHERE " + table_column_giving1 + " ='" + row_element1 + " 'AND " + table_column_giving2 + " LIKE'" + row_element2 + "'");
-
-            while (query.next()) {
-                arr[count]=query.getDouble(table_column_need);
-                count++;
-            }
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-            //return ""+ex.getErrorCode();            
-        }
-        return arr;
-    }
+//      public double[] checknReturnDoubleArrayForNoteAnalysis(String table_name, String table_column_giving1, Object row_element1, String table_column_giving2, Object row_element2, String table_column_need) {
+//        DatabaseManager dbm = DatabaseManager.getDbCon();
+//        int count=0;
+//        int num = checknReturnNumberOfEntriesForNoteAnalysis(table_name, table_column_giving1, row_element1, table_column_giving2, row_element2,table_column_need);
+//        double[] arr = new double[num];
+//        try {
+//            //     ResultSet query = dbm.query("SELECT * FROM " + table_name + " WHERE " + table_column_giving1 + " ='" + row_element1 + " 'AND " + table_column_giving2 +" <'" + row_element2 + "'");
+//            ResultSet query = dbm.query("SELECT * FROM " + table_name + " WHERE " + table_column_giving1 + " ='" + row_element1 + " 'AND " + table_column_giving2 + " LIKE'" + row_element2 + "'");
+//
+//            while (query.next()) {
+//                arr[count]=query.getDouble(table_column_need);
+//                count++;
+//            }
+//        } catch (SQLException ex) {
+//            System.out.println(ex.getMessage());
+//            //return ""+ex.getErrorCode();            
+//        }
+//        return arr;
+//    }
     
       
 //used in earlier version
@@ -214,12 +214,12 @@ public class PRCR_checkroll_salary_process {
     }
 
    //used to get the number of codes in the "code" column where column "register_or_casual"=1 and "division"=BG  
-    public int checknReturnNumberOfEntriesForNoteAnalysis(String table_name, String table_column_giving1, Object row_element1, String table_column_giving2, Object row_element2, String table_column_need) {
+    public int checknReturnNumberOfEntriesForNoteAnalysis(String table_name, String table_column_giving1, Object row_element1, String table_column_giving2, Object row_element2, String table_column_giving3, Object row_element3, String table_column_need) {
         DatabaseManager dbm = DatabaseManager.getDbCon();
         int count = 0;
         try {
             //     ResultSet query = dbm.query("SELECT * FROM " + table_name + " WHERE " + table_column_giving1 + " ='" + row_element1 + " 'AND " + table_column_giving2 +" <'" + row_element2 + "'");
-            ResultSet query = dbm.query("SELECT * FROM " + table_name + " WHERE " + table_column_giving1 + " ='" + row_element1 + " 'AND " + table_column_giving2 + " LIKE'" + row_element2 + "'");
+            ResultSet query = dbm.query("SELECT * FROM " + table_name + " WHERE " + table_column_giving1 + " ='" + row_element1 + " 'AND " + table_column_giving2 + " LIKE'" + row_element2 + "' AND "+table_column_giving3+" LIKE '"+row_element3+"'");
 
             while (query.next()) {
                 count++;

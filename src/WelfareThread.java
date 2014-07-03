@@ -26,7 +26,7 @@ public class WelfareThread implements Runnable{
         int isUpdated = -1;
         String day = formatter.format(currentDate.getTime());
         int month = Integer.parseInt(day.substring(5, 7));
-        String thisMonth, lastMonth;
+        String thisMonth, lastMonth,thismonth2;
         int entry = 0, i;
         
         try {
@@ -39,6 +39,11 @@ public class WelfareThread implements Runnable{
         if(isUpdated!=month){
             thisMonth = day.substring(0, 5) + month;
             lastMonth = day.substring(0, 5) + (month-1);
+            if(month<10){
+            thismonth2= day.substring(0,4)+"0"+month;}
+            else{
+            thismonth2= day.substring(0,4)+month;}
+            
             /*try {
                 entry = dbm.readLastRow("welfare", "entry");
             } catch (SQLException ex) {
@@ -54,6 +59,7 @@ public class WelfareThread implements Runnable{
             int[] entryArray = new int[supIdArray.length];
             
             for(i=0;i<supIdArray.length;i++){
+                //System.out.println(supIdArray[i]);
                 entryArray[i] = Integer.parseInt(day.substring(0, 4) + day.substring(5, 7) + supIdArray[i]);
             }
             
@@ -77,7 +83,7 @@ public class WelfareThread implements Runnable{
             
             for(i=0;i<supIdArray.length;i++){
                 try {
-                    dbm.insert("INSERT INTO welfare(entry,month,sup_id,months_on_welfare,new_old,suspended_months,suspended_remain,before_after) VALUES('" + entryArray[i] + "','" + thisMonth + "','" + supIdArray[i] + "','" + monthsArray[i] + "','" + newOldArray[i] + "','" + suspendedArray[i] + "','" + remainingArray[i] + "','" + beforeAfterArray[i] + "')");
+                    dbm.insert("INSERT INTO welfare(entry,month,month2,sup_id,months_on_welfare,new_old,suspended_months,suspended_remain,before_after) VALUES('" + entryArray[i] + "','" + thisMonth + "','" + thismonth2 + "','" + supIdArray[i] + "','" + monthsArray[i] + "','" + newOldArray[i] + "','" + suspendedArray[i] + "','" + remainingArray[i] + "','" + beforeAfterArray[i] + "')");
                 } catch (SQLException ex) {
                     Logger.getLogger(WelfareThread.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -86,7 +92,7 @@ public class WelfareThread implements Runnable{
             
             dbm.updateDatabase("is_welfare_updated", "is_updated", isUpdated, "is_updated", month);
             
-            JOptionPane.showMessageDialog(null, "Done");
+            JOptionPane.showMessageDialog(null, "Welfare Updated");
         }
     }
     

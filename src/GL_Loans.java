@@ -770,7 +770,7 @@ public class GL_Loans extends javax.swing.JPanel {
                 else{
                     loanDate1 = new Date(Integer.parseInt(year) - 1900, Integer.parseInt(month) - 1, 8);
                 }
-                dbm.insert("INSERT INTO gl_loans(sup_id,loan_id,type,amount,installments,rate,date,issue_date,monthly_amount) VALUES('" + supId + "','" + 0 + "','Issued This month','" + amount + "','" + installments + "','" + rate + "','" + loanDate1 + "','" + loanDate + "','" + monthlyPay + "')");
+                dbm.insert("INSERT INTO gl_loans(sup_id,loan_id,type,amount,installments,rate,date,issue_date,monthly_amount) VALUES('" + supId + "','" + 0 + "','Current month','" + amount + "','" + installments + "','" + rate + "','" + loanDate1 + "','" + loanDate + "','" + monthlyPay + "')");
                 int transaction = dbm.readLastRow("gl_loans", "tr_id");
                 dbm.updateDatabase("gl_loans", "tr_id", transaction, "loan_id", transaction);
                 for (i = 1; i < allMonths.length; i++) {

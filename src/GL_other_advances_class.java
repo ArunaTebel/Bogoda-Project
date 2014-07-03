@@ -199,7 +199,7 @@ public class GL_other_advances_class {
                     loanDate1 = new Date(Integer.parseInt(year) - 1900, Integer.parseInt(month) - 1, 8);
                 }
                 dbCon.insert("INSERT INTO gl_other_advances(advance_id,type,Date,issue_date,id,item_name,item_type,item_rate,item_quantity,installments,amount,total_amount,date_time,user)"
-                        + " VALUES('" + 0 + "','Issued This month','" + loanDate1 + "','" + date + "','" + sup_id + "','" + item_name + "','" + item_type + "','" + item_rate + "','" + quantity + "','" + installments + "','" + amount + "','" + total_amount + "','" + date_time + "','" + user + "')");
+                        + " VALUES('" + 0 + "','Current month','" + loanDate1 + "','" + date + "','" + sup_id + "','" + item_name + "','" + item_type + "','" + item_rate + "','" + quantity + "','" + installments + "','" + amount + "','" + total_amount + "','" + date_time + "','" + user + "')");
                 int transaction = dbm.readLastRow("gl_other_advances", "tr_no");
                 dbCon.updateDatabase("gl_other_advances", "tr_no", transaction, "advance_id", transaction);
                 for (i = 1; i < allMonths.length; i++) {
