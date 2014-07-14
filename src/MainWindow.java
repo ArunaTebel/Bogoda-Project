@@ -1,7 +1,19 @@
 
 import java.awt.event.KeyEvent;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.net.UnknownHostException;
+import java.nio.channels.NetworkChannel;
 import java.sql.SQLException;
+import java.util.Enumeration;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 
 /*
@@ -22,15 +34,21 @@ public class MainWindow extends javax.swing.JFrame {
     UserAccountControl userAC = new UserAccountControl();
 
     public MainWindow() {
+       // userAC.validate();
+        
+      //  
         initComponents();
+    //    String ss = System.getProperty("user.name");
+        
        int a = (int) (Math.random()*10);
      //  System.out.println(a);
        try{
       jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("BogodaAreal"+a+".jpg")));
+      this.setIconImage(new ImageIcon(getClass().getResource("iconpng.png")).getImage());
        } catch(NullPointerException e){
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("BogodaAreal"+1+".jpg")));
        }
-        this.setIconImage(new ImageIcon(getClass().getResource("Bogoda icon.ico")).getImage());
+      
         Info.setText("");
         String s = userAC.get_current_user();
         TimeCheck time = new TimeCheck(s);
@@ -332,7 +350,7 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel8.setBounds(120, 240, 90, 40);
 
         topBar.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
-        topBar.setForeground(new java.awt.Color(215, 215, 215));
+        topBar.setForeground(new java.awt.Color(204, 204, 204));
         topBar.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         topBar.setVerifyInputWhenFocusTarget(false);
         topBar.addActionListener(new java.awt.event.ActionListener() {
@@ -420,6 +438,11 @@ public class MainWindow extends javax.swing.JFrame {
         });
 
         jButton6.setText("Bogoda Stores");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
         jButton6.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jButton6FocusGained(evt);
@@ -969,7 +992,7 @@ public class MainWindow extends javax.swing.JFrame {
         Main_Content.add(bill);
         validate();
         repaint();
-        bill.focus("Enter Sup ID");
+        bill.focus("SupID");
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void User_idKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_User_idKeyReleased
@@ -1043,6 +1066,20 @@ System.exit(0);
         validate();
         repaint();
     }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        topBar.setBackground(new java.awt.Color(100, 100, 0));
+        BGS_Advance bgs = new BGS_Advance();
+
+        Main_Content.removeAll();
+
+        bgs.setSize(Main_Content.getSize());
+
+        Main_Content.add(bgs);
+        validate();
+        repaint();
+        //pgreenleaf.focus();
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
      * @param args the command line arguments

@@ -25,7 +25,8 @@ public class PRCRWelfareThread implements Runnable{
         int isUpdated = -1;
         String day = formatter.format(currentDate.getTime());
         int month = Integer.parseInt(day.substring(5, 7));
-        String thisMonth, lastMonth;
+        int year = Integer.parseInt(day.substring(0, 4));
+        String thisMonth, lastMonth, thismonth2;
         int entry = 0, i;
         
         try {
@@ -38,6 +39,13 @@ public class PRCRWelfareThread implements Runnable{
         if(isUpdated!=month){
             thisMonth = day.substring(0, 5) + month;
             lastMonth = day.substring(0, 5) + (month-1);
+            if(month==1){
+                lastMonth = (year-1) + "-12";
+            }
+            if(month<10){
+            thismonth2= day.substring(0,4)+"0"+month;}
+            else{
+            thismonth2= day.substring(0,4)+month;}
             /*try {
                 entry = dbm.readLastRow("prcr_welfare", "entry");
             } catch (SQLException ex) {

@@ -45,7 +45,7 @@ public class GL_BillsummeryPanel extends javax.swing.JPanel {
     public void focus(String sup){
     this.requestFocus();
     supplier_id.requestFocus();
-    
+    supplier_id.setSelectedItem(sup);
     supplier_id.getEditor().selectAll();
     
     

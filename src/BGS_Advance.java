@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
  *
  * @author Pramo
  */
-public class GL_Other_Advances extends javax.swing.JPanel {
+public class BGS_Advance extends javax.swing.JPanel {
     
     Interface_Events interface_events = new Interface_Events();
     DatabaseManager dbm = DatabaseManager.getDbCon();
@@ -29,7 +29,7 @@ public class GL_Other_Advances extends javax.swing.JPanel {
     /**
      * Creates new form GL_Other_Advances
      */
-    public GL_Other_Advances() {
+    public BGS_Advance() {
         initComponents();
          Component[] comps = Discription_code.getComponents();
         comps[2].addFocusListener(new Combofill(Discription_code,"rate_details","Code_name"));
@@ -129,7 +129,7 @@ public class GL_Other_Advances extends javax.swing.JPanel {
 
         jLabel17.setText("Description Code");
 
-        jPanel1.setBackground(new java.awt.Color(0, 102, 0));
+        jPanel1.setBackground(new java.awt.Color(102, 102, 0));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 51, 153)));
         jPanel1.setForeground(new java.awt.Color(0, 102, 0));
 
@@ -183,7 +183,7 @@ public class GL_Other_Advances extends javax.swing.JPanel {
 
         amount.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
 
-        jPanel2.setBackground(new java.awt.Color(0, 102, 0));
+        jPanel2.setBackground(new java.awt.Color(102, 102, 0));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 153)));
 
         jButton6.setText("Supplier Status");
@@ -222,7 +222,7 @@ public class GL_Other_Advances extends javax.swing.JPanel {
         jButton8.setText("View");
         jButton8.setToolTipText("View Codes");
 
-        Rate.setBackground(new java.awt.Color(204, 255, 204));
+        Rate.setBackground(new java.awt.Color(204, 204, 0));
 
         qty.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1090,7 +1090,7 @@ public class GL_Other_Advances extends javax.swing.JPanel {
             
             cadvance.set_date(datechooser.Return_date(yearfield, monthfield, dayfield));
             cadvance.set_sup_name(supplier_name.getText());
-            cadvance.addToDataBase();
+            cadvance.enter_directly();
            clear();
             JOptionPane.showMessageDialog(datechooser, "Saved");
         } catch (Exception ex) {

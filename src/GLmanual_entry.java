@@ -1,5 +1,8 @@
 
+
+import groovy.json.internal.Exceptions;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.ItemEvent;
 import java.awt.event.KeyEvent;
 import java.beans.PropertyVetoException;
@@ -33,7 +36,10 @@ public class GLmanual_entry extends javax.swing.JPanel {
     public GLmanual_entry() {
         initComponents();
         delete.setEnabled(false);
-        leaf_cat.setSelectedItem("A"); // default///////////////////////////////////////////////////////////////////////////////////////////////
+        leaf_cat.setSelectedItem("A");
+           Component[] comps = category_code.getComponents();
+       
+        comps[2].addFocusListener(new Combofill(category_code,"category", "category_id"));// default///////////////////////////////////////////////////////////////////////////////////////////////
     }
 
     public void focus() // Focus event to bring focus to the jpanel
@@ -865,7 +871,7 @@ public class GLmanual_entry extends javax.swing.JPanel {
           //  System.out.println(trans);
             int i = 0;
            // boolean st;
-
+           if(table.getValueAt(0, 0)!=null){
             while (table.getValueAt(i, 0) != null) {
                 globject.setSupplierCode(Integer.parseInt((String) table.getValueAt(i, 0)));
                 globject.setLeafCategory((String) table.getValueAt(i, 9));
@@ -884,10 +890,15 @@ public class GLmanual_entry extends javax.swing.JPanel {
                globject.setSelfTransport(trans);
                // System.out.println("");
 
-                globject.addToDataBase();
-                System.out.println("saved");
+               
                 i++;
+                 globject.addToDataBase();
             }
+            JOptionPane.showMessageDialog(self_transport, "Success!");
+           }
+           else{JOptionPane.showMessageDialog(self_transport, "Empty fields detected");}
+            
+                //System.out.println("saved");
             int k = 0;
             int j = 0;
             while (table.getValueAt(k, 0) != null) {
@@ -909,13 +920,13 @@ public class GLmanual_entry extends javax.swing.JPanel {
 
             category_code.setSelectedIndex(0);
             category_code.requestFocusInWindow();
-
-        } catch (ParseException ex) {
-             
-            
+           
+        } catch (Exception ex) {
+             System.out.println(ex.getMessage());
+            JOptionPane.showMessageDialog(datechooser, "Error! Check inputs");
         }
 
-      JOptionPane.showMessageDialog(self_transport, "Success!");
+    
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void supplier_idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supplier_idActionPerformed
@@ -1035,7 +1046,8 @@ public class GLmanual_entry extends javax.swing.JPanel {
     }//GEN-LAST:event_otherFocusLost
 
     private void sendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendButtonActionPerformed
-double trans = Double.parseDouble(dbm.checknReturnStringData("category", "category_id", category_code.getSelectedItem().toString(), "extra_rate"));
+jButton1.setEnabled(true);
+        double trans = Double.parseDouble(dbm.checknReturnStringData("category", "category_id", category_code.getSelectedItem().toString(), "extra_rate"));
         if (supplier_id.getSelectedItem() == null) {
             jLabel14.setText("Please Choose Supplir ID");
         } else if (leaf_cat.getSelectedItem() == null) {
@@ -1046,10 +1058,11 @@ double trans = Double.parseDouble(dbm.checknReturnStringData("category", "catego
             while (table.getValueAt(i, 0) != null) {
                 i++;
             }
-            if(i>99){
+            if(i>97){
              JOptionPane.showMessageDialog(other, "Table length exceeded.Please Save And reEnter last entry!");
              
             }
+            else {
             
             int j = 0;
             Boolean if_equal_return_1 = false;
@@ -1098,6 +1111,7 @@ double trans = Double.parseDouble(dbm.checknReturnStringData("category", "catego
                 
                     table.setValueAt(trans, i, 8);
                 
+            }
             }
             supplier_id.requestFocusInWindow(); // request focus
             supplier_id.setSelectedItem(null);   // setting null
@@ -1682,6 +1696,11 @@ double trans = Double.parseDouble(dbm.checknReturnStringData("category", "catego
 
     
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
+         int reply = JOptionPane.showConfirmDialog(other,
+                        "Are you Sure?" + "\n" + "Delete entry "+ edit.getText()+"?", "Confirm", JOptionPane.YES_NO_OPTION);
+                if (reply == JOptionPane.NO_OPTION) {}
+                if (reply == JOptionPane.YES_OPTION) {
+        
         dbm.CheckNDeleteFromDataBase("green_leaf_transactions","tr_id",Integer.parseInt(edit.getText()));
         
         int k = 0;
@@ -1703,6 +1722,9 @@ double trans = Double.parseDouble(dbm.checknReturnStringData("category", "catego
             category_code.setSelectedIndex(0);
             edit.setText(null);
             category_code.requestFocusInWindow();
+                    JOptionPane.showMessageDialog(datechooser, "Deleted");
+            
+                }
 
     }//GEN-LAST:event_deleteActionPerformed
     public double convertString(String s) {

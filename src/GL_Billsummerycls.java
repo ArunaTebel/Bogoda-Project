@@ -374,7 +374,7 @@ public class GL_Billsummerycls {
             while (i < len) {
                 tem = num.substring(i, i + 1);
                 if (tem.equals(".")) {
-                    System.out.println("gottcha");
+                    //System.out.println("gottcha");
                     if (len >= i + 3) {
                         re = num.substring(0, i + 3);
                     } else {
@@ -383,7 +383,7 @@ public class GL_Billsummerycls {
                 }
                 i++;
             }
-            System.out.println(re);
+           // System.out.println(re);
            
 
     // temp = num.split(".");

@@ -76,7 +76,6 @@ public class GL_Loans extends javax.swing.JPanel {
 
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
         jLabel16 = new javax.swing.JLabel();
         Cheque_pay = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -106,6 +105,7 @@ public class GL_Loans extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         max_alw = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
         cash_cheque_combo = new javax.swing.JComboBox();
         jLabel7 = new javax.swing.JLabel();
         amountField = new javax.swing.JTextField();
@@ -133,9 +133,6 @@ public class GL_Loans extends javax.swing.JPanel {
         jLabel2.setText("Name ");
 
         jLabel1.setText("User ID");
-
-        jButton2.setText("View");
-        jButton2.setToolTipText("View Details");
 
         jLabel16.setText("Rs");
 
@@ -297,6 +294,14 @@ public class GL_Loans extends javax.swing.JPanel {
         max_alw.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         max_alw.setText("00.00");
 
+        jButton2.setText("View");
+        jButton2.setToolTipText("View Details");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -308,7 +313,9 @@ public class GL_Loans extends javax.swing.JPanel {
                 .addComponent(jLabel15)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(max_alw)
-                .addGap(0, 40, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jButton2)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -317,7 +324,8 @@ public class GL_Loans extends javax.swing.JPanel {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jLabel15)
-                    .addComponent(max_alw))
+                    .addComponent(max_alw)
+                    .addComponent(jButton2))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -553,9 +561,7 @@ public class GL_Loans extends javax.swing.JPanel {
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(layout.createSequentialGroup()
                                                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jButton2)
-                                                .addGap(32, 32, 32)
+                                                .addGap(93, 93, 93)
                                                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addGroup(layout.createSequentialGroup()
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -598,7 +604,7 @@ public class GL_Loans extends javax.swing.JPanel {
                                             .addGroup(layout.createSequentialGroup()
                                                 .addGap(42, 42, 42)
                                                 .addComponent(Cheque_pay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                                .addGap(292, 292, 292)))
+                                .addGap(223, 223, 223)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -623,7 +629,6 @@ public class GL_Loans extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton2)
                             .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1241,6 +1246,16 @@ public class GL_Loans extends javax.swing.JPanel {
        double a =  bill.bill_sum_cal(Integer.parseInt(supplier_id.getSelectedItem().toString()), yearfield.getText(), datehandler.return_month_as_num(monthfield.getText()), Double.parseDouble(set_val.getText()));
      max_alw.setText(""+a);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        try{
+        GL_Billsummery bill = new GL_Billsummery(supplier_id.getSelectedItem().toString());
+         bill.setVisible(true);
+        }catch (Exception e){
+         GL_Billsummery bill = new GL_Billsummery("SupID");
+         bill.setVisible(true);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

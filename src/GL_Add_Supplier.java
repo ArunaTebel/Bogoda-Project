@@ -2,7 +2,10 @@
 
 import java.awt.event.KeyEvent;
 import java.beans.PropertyVetoException;
+import java.sql.SQLException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,6 +24,7 @@ DatabaseManager dbm = new DatabaseManager();
 Interface_Events interface_events = new Interface_Events();
 GL_report_generator reportgen = new GL_report_generator();
 DateChooser_text date_chooser= new DateChooser_text();
+Date_Handler date_handler = new Date_Handler();
         
     /**
      * Creates new form GL_Add_Supplier
@@ -30,8 +34,128 @@ DateChooser_text date_chooser= new DateChooser_text();
     public GL_Add_Supplier() {
         initComponents();
         trans_rate.setSelectedIndex(2);
+        welf.setSelectedIndex(1);
     }
+ 
+    public void add_welf(){
+    
+            
+           
+            
+            DatabaseManager dbm = new DatabaseManager();
+            Calendar currentDate = Calendar.getInstance();
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            
+            int entry = 0;
+            /*try {
+             entry = dbm.readLastRow("welfare", "entry") + 1;
+             } catch (SQLException ex) {
+             Logger.getLogger(GL_Welfare.class.getName()).log(Level.SEVERE, null, ex);
+             }*/
+            
+            String day = formatter.format(currentDate.getTime());
+            int month = Integer.parseInt(day.substring(5, 7));
+            //
+            String thisMonth = day.substring(0, 5) + month;
+            String thisMonth2 = day.substring(0, 4) + day.substring(5, 7);
+            
+            int newMonths = (int) dbm.checknReturnDoubleData("rate_details", "Code_name", "WELF_M", "rate")-1;
+            
+            String supId = null;
+            if (supplier_id.getSelectedIndex() == 0 || supplier_id.getEditor().getItem().equals("") || supplier_id.getSelectedItem() == null) {
+                JOptionPane.showMessageDialog(null, "Supplier Id not Given!");
+            } else {
+                supId = supplier_id.getSelectedItem().toString();
+            }
+           try { 
+            entry = Integer.parseInt(thisMonth2 + supId);}
+           catch (Exception e){
+                 JOptionPane.showMessageDialog(null, "Sup id error!");
+           }
+            
+            int suspended = -1;
+            int remain = -1;
+            int before = 0;
+            int multi = 1;
+            
+            
+            
+            
+            int newRegisterd = 0;
+            int newOld = 0;
+           
+                newRegisterd = 1;
+                 newOld = 1;
+                try {
+                    dbm.insert("INSERT INTO welfare(entry,month,month2,sup_id,months_on_welfare,new_old,suspended_months,suspended_remain,before_after) VALUES('" + entry + "','" + thisMonth + "','" + thisMonth2 + "','" + supId + "','" + newMonths + "','" + 1 + "','" + suspended + "','" + remain + "','" + before + "')");
+                } catch (SQLException ex) {
+                    try {
+                        dbm.insert("UPDATE  welfare SET month='"+thisMonth+"',month2='"+thisMonth2+"',sup_id='"+supId+"',months_on_welfare='"+newMonths+"',new_old='"+1+"',suspended_months='"+suspended+"',suspended_remain='"+remain+"',before_after='"+before+"' WHERE entry = '"+entry+"'");
+                    } catch (SQLException ex1) {
+                        Logger.getLogger(GL_Welfare.class.getName()).log(Level.SEVERE, null, ex1);
+                       
+                    }
+              
+                }
+           
+           // calcfigures(reg, Nreg, sus, attention,yearfield.getText(),datehandler.return_month_as_num(monthfield.getText()));
 
+         //String thisMonthsave = yearfield.getText() + "-" + Integer.parseInt(datehandler.return_month_as_num(monthfield.getText()));
+       // DatabaseManager dbm = new DatabaseManager();
+       ////////////////////////////////////////////////////////////// Update code/////////////////////////////////////////////////////////
+            
+        //ADD NEW OLD VALUE
+            newOld = Integer.parseInt(dbm.checknReturnData("welfare", "sup_id", supId, "new_old"));
+            double amount = 0;
+            
+            int oldRate = (int) dbm.checknReturnDoubleData("rate_details", "Code_name", "WELF_RATE", "rate");
+            int newRate = (int) dbm.checknReturnDoubleData("rate_details", "Code_name", "WELF_NEW", "rate");
+            
+            if (remain >= 0) {
+                if ((remain == 0 && before == 0) || (remain == suspended && before == 1)) {
+                    if (newOld == 0) {
+                        amount = (suspended+1) * oldRate;
+                    } else {
+                        amount = (suspended+1) * newRate;
+                    }
+                } else {
+                    amount = 0;
+                }
+            } else {
+                if (newOld == 0) {
+                    amount = oldRate*(multi+1);
+                } else {
+                    amount = newRate;
+                }                
+            }
+            dbm.update("welfare", "month", "sup_id", thisMonth, supId, "amount", amount);
+
+            /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+               
+    
+    
+    }
+    
+    public void clear(){
+    supplier_id.setSelectedIndex(0);
+    sup_name.setText("");
+    sup_name_sinhala.setText("");
+    Cat_code.setSelectedIndex(0);
+    trans_rate.setSelectedIndex(0);
+    trans_rate1.setSelectedIndex(0);
+    bank_code.setSelectedIndex(0);
+    branch_code.setSelectedIndex(0);
+    acc_no.setText("");
+    tel.setText("");
+    address.setText("");
+    cat_name.setText("");
+    cat_name1.setText("");
+    cat_name2.setText("");
+    bank_name.setText("");
+    branch_name.setText("");
+    
+    
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -69,9 +193,6 @@ DateChooser_text date_chooser= new DateChooser_text();
         acc_no = new javax.swing.JTextField();
         tel = new javax.swing.JTextField();
         address = new javax.swing.JTextField();
-        view_cat_codes = new javax.swing.JButton();
-        view_bank_codes = new javax.swing.JButton();
-        view_branch_codes = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         save = new javax.swing.JButton();
         cancel = new javax.swing.JButton();
@@ -89,11 +210,9 @@ DateChooser_text date_chooser= new DateChooser_text();
         date = new com.michaelbaranov.microba.calendar.DatePicker();
         cat_name1 = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
-        view_cat_codes1 = new javax.swing.JButton();
         trans_rate1 = new javax.swing.JComboBox();
         jLabel21 = new javax.swing.JLabel();
         cat_name2 = new javax.swing.JTextField();
-        view_cat_codes2 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         welf = new javax.swing.JComboBox();
         jLabel10 = new javax.swing.JLabel();
@@ -183,12 +302,6 @@ DateChooser_text date_chooser= new DateChooser_text();
             }
         });
 
-        view_cat_codes.setText("View Codes");
-
-        view_bank_codes.setText("View Codes");
-
-        view_branch_codes.setText("View Codes");
-
         jPanel1.setBackground(new java.awt.Color(0, 102, 0));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 51, 153)));
 
@@ -260,11 +373,9 @@ DateChooser_text date_chooser= new DateChooser_text();
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(quit)
-                            .addComponent(cancel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(quit)
+                        .addComponent(cancel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(save, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
                     .addComponent(cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
@@ -274,6 +385,11 @@ DateChooser_text date_chooser= new DateChooser_text();
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 153)));
 
         jButton6.setText("Supplier Status");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         jButton7.setText("Supplies");
 
@@ -342,6 +458,7 @@ DateChooser_text date_chooser= new DateChooser_text();
             }
         });
 
+        Cat_code.putClientProperty("JComboBox.isTableCellEditor", Boolean.TRUE);
         Cat_code.setEditable(true);
         supplier_id.putClientProperty("JComboBox.isTableCellEditor", Boolean.TRUE);
         Cat_code.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("category", "category_id")));
@@ -380,9 +497,8 @@ DateChooser_text date_chooser= new DateChooser_text();
 
         jLabel20.setText("Rs");
 
-        view_cat_codes1.setText("View Codes");
-
         trans_rate1.setEditable(true);
+        supplier_id.putClientProperty("JComboBox.isTableCellEditor", Boolean.TRUE);
         trans_rate1.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("leaf_category", "category_name"))
         );
         trans_rate1.addItemListener(new java.awt.event.ItemListener() {
@@ -396,11 +512,9 @@ DateChooser_text date_chooser= new DateChooser_text();
             }
         });
 
-        jLabel21.setText("Transport Rate");
+        jLabel21.setText("Leaf Rate");
 
         cat_name2.setBackground(new java.awt.Color(153, 255, 153));
-
-        view_cat_codes2.setText("View Codes");
 
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -474,9 +588,7 @@ DateChooser_text date_chooser= new DateChooser_text();
                                 .addGap(47, 47, 47)
                                 .addComponent(jLabel16)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(bank_name, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(9, 9, 9)
-                                .addComponent(view_bank_codes))
+                                .addComponent(bank_name, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(acc_no, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(address, javax.swing.GroupLayout.PREFERRED_SIZE, 488, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -492,8 +604,7 @@ DateChooser_text date_chooser= new DateChooser_text();
                                     .addComponent(jLabel18)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addComponent(branch_name, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(9, 9, 9)
-                                    .addComponent(view_branch_codes))))
+                                    .addGap(96, 96, 96))))
                         .addGap(276, 276, 276)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(4, 4, 4))
@@ -504,36 +615,30 @@ DateChooser_text date_chooser= new DateChooser_text();
                                 .addComponent(supplier_id, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(payment_method, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(sup_name_sinhala, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(sup_name, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(trans_rate1, 0, 1, Short.MAX_VALUE)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(Cat_code, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(trans_rate, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(jLabel14)
-                                            .addGap(6, 6, 6)
-                                            .addComponent(cat_name, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(jLabel20)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(cat_name1, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addComponent(cat_name2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(payment_method, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(sup_name_sinhala, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(sup_name, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGap(16, 16, 16)
-                                        .addComponent(view_cat_codes2))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(trans_rate1, 0, 1, Short.MAX_VALUE)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(Cat_code, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(trans_rate, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(view_cat_codes1, javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(view_cat_codes, javax.swing.GroupLayout.Alignment.TRAILING))))))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addGroup(layout.createSequentialGroup()
+                                                    .addComponent(jLabel14)
+                                                    .addGap(6, 6, 6)
+                                                    .addComponent(cat_name, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addGroup(layout.createSequentialGroup()
+                                                    .addComponent(jLabel20)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                    .addComponent(cat_name1, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addComponent(cat_name2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(91, 91, 91)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
@@ -556,29 +661,27 @@ DateChooser_text date_chooser= new DateChooser_text();
                         .addComponent(jLabel4))
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(sup_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(14, 14, 14)
+                        .addComponent(sup_name, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(sup_name_sinhala, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
-                .addGap(11, 11, 11)
+                .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cat_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel14)
                     .addComponent(Cat_code, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel15)
-                    .addComponent(jLabel3)
-                    .addComponent(view_cat_codes))
+                    .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(trans_rate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(cat_name1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel20)
-                    .addComponent(view_cat_codes1))
+                    .addComponent(jLabel20))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(trans_rate1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel21))
@@ -586,11 +689,7 @@ DateChooser_text date_chooser= new DateChooser_text();
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(payment_method, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(view_cat_codes2)
-                            .addComponent(cat_name2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(cat_name2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -605,18 +704,14 @@ DateChooser_text date_chooser= new DateChooser_text();
                             .addComponent(branch_code, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel8)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(bank_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel16))
-                            .addComponent(view_bank_codes))
-                        .addGap(17, 17, 17)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(branch_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel18))
-                            .addComponent(view_branch_codes))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(bank_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel16))
+                        .addGap(20, 20, 20)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(branch_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel18))
+                        .addGap(14, 14, 14)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(acc_no, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel9))
@@ -646,14 +741,21 @@ DateChooser_text date_chooser= new DateChooser_text();
 
     private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
         //reading data from the textfields....
+        try{
+         String bankCode= "0";
+        String branchCode= "0";
         String name = sup_name.getText();
         String nameSin = sup_name_sinhala.getText();
         String code = supplier_id.getSelectedItem().toString();
         String catCode = Cat_code.getSelectedItem().toString();
         String transRate = trans_rate.getSelectedItem().toString();
         String payMethod = payment_method.getSelectedItem().toString();
-        String bankCode = bank_code.getSelectedItem().toString();
-        String branchCode = branch_code.getSelectedItem().toString();
+        try{
+        bankCode = bank_code.getSelectedItem().toString();
+        branchCode = branch_code.getSelectedItem().toString();
+        }catch (Exception es){
+     
+        }
         String accNo = acc_no.getText();
         String leaf =trans_rate1.getSelectedItem().toString();
         String active = "YES";
@@ -671,12 +773,21 @@ DateChooser_text date_chooser= new DateChooser_text();
 
         supplier = new Supplier(Integer.parseInt(code), name, nameSin,  addr, telephone, payMethod, Integer.parseInt(bankCode),
                 Integer.parseInt(branchCode), accNo, catCode, sqlDate, transRate, leaf, active, welfare, welf_num, welf_d, welf_dn);
-      
-        supplier.addToDatabase();
+    
         if(welf.getSelectedItem().toString().equals("New Register")){
-       // reportgen.wel_new_reg(Integer.parseInt(code));
+      add_welf();
         }
-        JOptionPane.showMessageDialog(payment_method, "Saved");
+          try{
+        supplier.addToDatabase();
+         JOptionPane.showMessageDialog(payment_method, "Saved");
+      }
+      catch(Exception ee){}
+       
+       } catch(Exception e){
+            System.out.println(e);
+         JOptionPane.showMessageDialog(date_chooser, "Empty Fields Detected");
+        }
+        // It will notify all the empty comboboxes other than bank and branch ids, and wont complain about text fields
     }//GEN-LAST:event_saveActionPerformed
 
     private void supplier_idItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_supplier_idItemStateChanged
@@ -685,28 +796,35 @@ DateChooser_text date_chooser= new DateChooser_text();
                 sup_name.setText(dbm.checknReturnData("suppliers", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "sup_name"));
                 sup_name_sinhala.setText(dbm.checknReturnData("suppliers", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "sup_sin_name"));
                 Cat_code.setSelectedItem(dbm.checknReturnData("suppliers", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "cat_id"));
-                //trans_rate.setSelectedItem(dbm.checknReturnStringData("suppliers", "sup_id", supplier_id.getSelectedItem().toString(), "trans_code"));
-                trans_rate.setSelectedItem(dbm.checknReturnData("suppliers", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "trans_rate"));
+                trans_rate.setSelectedItem(dbm.checknReturnStringData("suppliers", "sup_id", supplier_id.getSelectedItem().toString(), "trans_code"));
+              //  trans_rate.setSelectedItem(dbm.checknReturnData("suppliers", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "trans_rate"));
                 payment_method.setSelectedItem(dbm.checknReturnData("suppliers", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "sup_pay_type"));
                 address.setText(dbm.checknReturnData("suppliers", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "sup_address"));
                 tel.setText(dbm.checknReturnData("suppliers", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "sup_tel"));
                 bank_code.setSelectedItem(dbm.checknReturnData("suppliers", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "bank_id"));
                 branch_code.setSelectedItem(dbm.checknReturnData("suppliers", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "branch_id"));
-                welf.setSelectedItem(dbm.checknReturnData("suppliers", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "welfare"));
+             //   welf.setSelectedItem(dbm.checknReturnData("suppliers", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "welfare"));
                 trans_rate1.setSelectedItem(dbm.checknReturnData("suppliers", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "leaf_rate_code"));
-                sup_name.requestFocusInWindow();
+               
                 //date.setDate(dbm.checknReturnData("suppliers", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "sup_doc"));
                 String date1 = dbm.checknReturnData("suppliers", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "sup_doc");
                 java.sql.Date Datef = null;
+                try{
                 Datef=java.sql.Date.valueOf(date1);
-                
+                } catch (Exception e){
+                    
+                    Datef=java.sql.Date.valueOf(date_handler.get_today_date());
+                }
                 
                 date.setDate(Datef);
+                
             } catch (PropertyVetoException ex) {
                 Logger.getLogger(GL_Add_Supplier.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-
+       
+      sup_name.requestFocus();
+       
        
         
     }//GEN-LAST:event_supplier_idItemStateChanged
@@ -748,11 +866,11 @@ DateChooser_text date_chooser= new DateChooser_text();
    if(trans_rate.getSelectedItem()!=null){
             cat_name1.setText(dbm.checknReturnStringData("tranport_rates", "Trans_id", trans_rate.getSelectedItem().toString(), "Trans_rate"));
              
-           
+           trans_rate1.requestFocusInWindow();  
         }
              
         
-        payment_method.requestFocusInWindow();
+      
     }//GEN-LAST:event_trans_rateItemStateChanged
 
     private void trans_rateKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_trans_rateKeyPressed
@@ -810,8 +928,9 @@ DateChooser_text date_chooser= new DateChooser_text();
         if(trans_rate.getSelectedItem()!=null){
             cat_name2.setText(dbm.checknReturnStringData("leaf_category", "category_name", trans_rate1.getSelectedItem().toString(), "category_id"));
              
-           
+                 payment_method.requestFocus();
         }
+  
     }//GEN-LAST:event_trans_rate1ItemStateChanged
 
     private void trans_rate1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_trans_rate1KeyPressed
@@ -819,18 +938,25 @@ DateChooser_text date_chooser= new DateChooser_text();
     }//GEN-LAST:event_trans_rate1KeyPressed
 
     private void quitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quitActionPerformed
-        // TODO add your handling code here:
+        clear();
     }//GEN-LAST:event_quitActionPerformed
 
     private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
+ try{
+         String bankCode= "0";
+        String branchCode= "0";
+        
         String name = sup_name.getText();
         String nameSin = sup_name_sinhala.getText();
         String code = supplier_id.getSelectedItem().toString();
         String catCode = Cat_code.getSelectedItem().toString();
         String transRate = trans_rate.getSelectedItem().toString();
         String payMethod = payment_method.getSelectedItem().toString();
-        String bankCode = bank_code.getSelectedItem().toString();
-        String branchCode = branch_code.getSelectedItem().toString();
+        try{
+        bankCode = bank_code.getSelectedItem().toString();
+        branchCode = branch_code.getSelectedItem().toString();
+        }catch (Exception es){
+      }
         String accNo = acc_no.getText();
         String leaf =trans_rate1.getSelectedItem().toString();
         String active = "YES";
@@ -851,18 +977,42 @@ DateChooser_text date_chooser= new DateChooser_text();
       
         supplier.update();
         if(welf.getSelectedItem().toString().equals("New Register")){
-       // reportgen.wel_new_reg(Integer.parseInt(code));
+     
+      add_welf();
+        
         }
         JOptionPane.showMessageDialog(payment_method, "Updated");
+         } catch(Exception e){
+            System.out.println(e);
+         JOptionPane.showMessageDialog(date_chooser, "Empty Fields Detected");
+        }
+        // It will notify all the empty comboboxes other than bank and branch ids, and wont complain about text fields
     }//GEN-LAST:event_cancelActionPerformed
 
     private void cancel1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancel1ActionPerformed
-        // TODO add your handling code here:
+      int reply = JOptionPane.showConfirmDialog(cat_name,
+                        "Are you Sure?" + "\n" + "Delete Supplier "+ supplier_id.getSelectedItem()+"?", "Confirm", JOptionPane.YES_NO_OPTION);
+                if (reply == JOptionPane.NO_OPTION) {}
+                if (reply == JOptionPane.YES_OPTION) {
+                
+        
+        dbm.CheckNDeleteFromDataBase("suppliers", "sup_id", supplier_id.getSelectedItem());
+        clear();}
     }//GEN-LAST:event_cancel1ActionPerformed
 
     private void cancel1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cancel1KeyPressed
         // TODO add your handling code here:
     }//GEN-LAST:event_cancel1KeyPressed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+         try{
+        GL_Billsummery bill = new GL_Billsummery(supplier_id.getSelectedItem().toString());
+         bill.setVisible(true);
+        }catch (Exception e){
+         GL_Billsummery bill = new GL_Billsummery("SupID");
+         bill.setVisible(true);
+        }
+    }//GEN-LAST:event_jButton6ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -916,11 +1066,6 @@ DateChooser_text date_chooser= new DateChooser_text();
     private javax.swing.JTextField tel;
     private javax.swing.JComboBox trans_rate;
     private javax.swing.JComboBox trans_rate1;
-    private javax.swing.JButton view_bank_codes;
-    private javax.swing.JButton view_branch_codes;
-    private javax.swing.JButton view_cat_codes;
-    private javax.swing.JButton view_cat_codes1;
-    private javax.swing.JButton view_cat_codes2;
     private javax.swing.JComboBox welf;
     // End of variables declaration//GEN-END:variables
 }

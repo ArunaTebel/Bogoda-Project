@@ -26,15 +26,15 @@ public class GL_Billsummery extends javax.swing.JFrame {
     /**
      *
      */
-    public GL_Billsummery() {
+    public GL_Billsummery(String sup) {
         defaults.put("nimbusOrange", defaults.get("nimbusBase"));
         UIManager.getLookAndFeelDefaults().put("nimbusOrange", (new Color(51, 153, 0)));
         initComponents();
         
          GL_BillsummeryPanel bill = new GL_BillsummeryPanel();
-
+      
         main_content.removeAll();
-
+       bill.focus(sup);
         bill.setSize(main_content.getSize());
 
         main_content.add(bill);
@@ -113,7 +113,7 @@ public class GL_Billsummery extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GL_Billsummery().setVisible(true);
+                new GL_Billsummery("").setVisible(true);
 
             }
         });
