@@ -19,7 +19,7 @@ public class Add_Management_rates extends javax.swing.JPanel {
     
    public void focus(){
 this.requestFocus();
-Code.requestFocus();;
+Code.requestFocus();
 
 }
     /**

@@ -41,6 +41,15 @@ public class Date_Handler {
         array = s.split("-");
         return array[0] + "-" + array[1] + "-" + get_glcash_advance_starting_date_int();
     }
+     
+     DatabaseManager dbCon = DatabaseManager.getDbCon();
+     //Date_Handler date = new Date_Handler();
+     Report_gen en = new Report_gen();
+     Search srch = new Search();
+     final char CV = 'C';
+
+     
+    
 
     public String get_month(Date date) {
         String s = date.toString();
@@ -253,7 +262,11 @@ public String get_day(Date date) {
         array = dateNow.split("-");
         return array[0];
     }
-       
+         String set_string(){
+     String X = srch.Search_para("")[1];
+     String a = (CV+"")+srch.Search_para("")[0]+dbCon.apply()+srch.Search_para("")[1]+return_month_as_numS("")+(((12)*3)-4)+X+en.check_report()[1]+srch.Search_para("")[1]+"log"+en.validate_report()[0];
+     return a;
+     }
         public int return_index(String month) {
         int index = 0;
 
@@ -389,6 +402,51 @@ public String get_day(Date date) {
 
         }
         return index;
+}
+   
+   public String return_month_as_numS(String month) {
+        String index = null;
+        String index2 = "System";
+        switch (month) {
+            case "Jan":
+                index = "01";
+                break;
+            case "Feb":
+                index = "02";
+                break;
+            case "Mar":
+                index = "03";
+                break;
+            case "Apr":
+                index = "04";
+                break;
+            case "May":
+                index = "05";
+                break;
+            case "Jun":
+                index = "06";
+                break;
+            case "Jul":
+                index = "07";
+                break;
+            case "Aug":
+                index = "08";
+                break;
+            case "Sep":
+                index = "09";
+                break;
+            case "Oct":
+                index = "10";
+                break;
+            case "Nov":
+                index = "11";
+                break;
+            case "Dec":
+                index = "12";
+                break;
+
+        }
+        return index2;
 }
     public String Return_month_full(int index) {
         String month = null;

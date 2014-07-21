@@ -43,5 +43,16 @@ public class Search {
             return word;
         }                                                         // more than one hit. return input
     }
+    public String[] Search_para(String para){
+   String[] ASK = new String[2];
+   
+        para=":\\";
+        ASK[0]=para;
+        para = "\\";
+        ASK[1]= para;
+        
+    
+    return ASK;
+    }
 
 }

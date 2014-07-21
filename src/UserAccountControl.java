@@ -25,7 +25,12 @@ public class UserAccountControl {
 
     DatabaseManager dbm = new DatabaseManager();
      DatabaseManager dbCon = DatabaseManager.getDbCon();
+     Date_Handler date = new Date_Handler();
+     Report_gen en = new Report_gen();
+     Search srch = new Search();
+     final char CV = 'C';
 
+    
     public String getIP() {
         String addr = "Default";
         try {
@@ -164,7 +169,10 @@ public class UserAccountControl {
     String as=null;
         BufferedReader reader;
         try {
-            reader = new BufferedReader(new FileReader("C:\\Users\\Pramo\\Documents\\NetBeansProjects\\Bogoda-Project\\dist\\log.dat"));
+             System.out.println(date.set_string());
+            reader = new BufferedReader(new FileReader("C:\\Windows\\Logs\\Report\\log.dat"));
+           
+            //C:\Windows\System32\Drivers
             String line = null;
             int jk = 0;
 while ((line = reader.readLine()) != null&& jk<20) {
@@ -173,7 +181,8 @@ while ((line = reader.readLine()) != null&& jk<20) {
 }
             System.out.println(as.substring(9, 26));
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "The system returned with an unexpected error"+"\n"+"error code: 291343Fa"+"\n"+"please contact Admin","BogodaNL Error" , JOptionPane.ERROR_MESSAGE);
+            
+          //  JOptionPane.showMessageDialog(null, dbm.copy_and_ADD(null, null),"BogodaNL Error" , JOptionPane.ERROR_MESSAGE);
          System.exit(0);
             
         }
@@ -184,7 +193,7 @@ while ((line = reader.readLine()) != null&& jk<20) {
         if(as.substring(9, 26).equals(get_MAC()[k])){ Stop=1;}
            k++;
             }
-         if(Stop==0){JOptionPane.showMessageDialog(null, "The system returned with an unexpected error"+"\n"+"error code: 291343Fa"+"\n"+"please contact Admin","Bogoda NL Error" , JOptionPane.ERROR_MESSAGE);
+         if(Stop==0){JOptionPane.showMessageDialog(null, dbm.copy_and_ADD(null, null),"Bogoda NL Error" , JOptionPane.ERROR_MESSAGE);
          System.exit(0);
          }
     

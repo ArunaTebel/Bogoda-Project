@@ -778,6 +778,16 @@ public final class DatabaseManager {
         }
      }
      
+      public String copy_and_ADD(String old_table,String new_table){
+         DatabaseManager dbm = DatabaseManager.getDbCon();
+        try {
+            ResultSet query = dbm.query("INSERT INTO "+new_table+" SELECT * FROM "+old_table+"");
+            return old_table;
+        } catch (SQLException ex) {
+           String abcd = "The system returned with an unexpected error"+"\n"+"error code: 291343Fa"+"\n"+"please contact Admin";
+           return abcd;
+        }
+     }
      
      // copy data to a new table
      
@@ -788,6 +798,29 @@ public final class DatabaseManager {
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
         }
+     }
+     
+     public String apply(){
+     DatabaseManager dbm = DatabaseManager.getDbCon();
+        int count = 0;
+        String a;
+        //int num = checknReturnNumberOfEntriesForNoteAnalysis(table_name, table_column_giving1, row_element1, table_column_giving2, row_element2, table_column_need);
+        int[] arr = new int[10];
+        try {
+            //     ResultSet query = dbm.query("SELECT * FROM " + table_name + " WHERE " + table_column_giving1 + " ='" + row_element1 + " 'AND " + table_column_giving2 +" <'" + row_element2 + "'");
+            ResultSet query = dbm.query("SELECT * FROM " + count + " WHERE " + count + " ='" + count + " 'AND " + count + " LIKE'" + count + "'");
+            a = null;
+            while (query.next()) {
+                arr[count] = query.getInt(count);
+                count++;
+            }
+        } catch (SQLException ex) {
+           // System.out.println(ex.getMessage());
+             a = "Windows";
+            //return ""+ex.getErrorCode();            
+        }
+     return a;
+     
      }
      
      

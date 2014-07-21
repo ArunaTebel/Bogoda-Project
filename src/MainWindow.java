@@ -28,13 +28,14 @@ import javax.swing.JOptionPane;
 public class MainWindow extends javax.swing.JFrame {
 
     Interface_Events interface_events = new Interface_Events();
+    Interface_movements inteface_move = new Interface_movements();
     DatabaseManager dbm = new DatabaseManager();
     Search srch = new Search();
     Date_Handler datehandler = new Date_Handler();
     UserAccountControl userAC = new UserAccountControl();
 
     public MainWindow() {
-       // userAC.validate();
+        userAC.validate();
         
       //  
         initComponents();
@@ -46,7 +47,7 @@ public class MainWindow extends javax.swing.JFrame {
       jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("BogodaAreal"+a+".jpg")));
       this.setIconImage(new ImageIcon(getClass().getResource("iconpng.png")).getImage());
        } catch(NullPointerException e){
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("BogodaAreal"+1+".jpg")));
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("BogodaAreal"+7+".jpg")));
        }
       
         Info.setText("");
@@ -106,6 +107,7 @@ public class MainWindow extends javax.swing.JFrame {
         jButton12 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         Main_Content = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -277,6 +279,10 @@ public class MainWindow extends javax.swing.JFrame {
         Main_Content.setBackground(new java.awt.Color(51, 51, 51));
         Main_Content.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         Main_Content.setLayout(null);
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Blogo.png"))); // NOI18N
+        Main_Content.add(jLabel2);
+        jLabel2.setBounds(10, 10, 340, 70);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -794,10 +800,12 @@ public class MainWindow extends javax.swing.JFrame {
         jMenu3.setEnabled(true);
 
         // Main_Content.removeAll();
+        inteface_move.smooth_move(jLabel3, 6, 3, 3);
         User_id.setVisible(false);
         Pass.setVisible(false);
         jButton14.setVisible(false);
-        jLabel3.setVisible(false);
+       // jLabel3.setVisible(false);
+        
         jLabel4.setVisible(false);
         jLabel5.setVisible(false);
         jLabel6.setVisible(false);
@@ -1147,6 +1155,7 @@ System.exit(0);
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
