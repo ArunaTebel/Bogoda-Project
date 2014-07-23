@@ -101,7 +101,7 @@ Date_Handler date_handler = new Date_Handler();
             }
         });
 
-        jButton5.setText("Banks");
+        jButton5.setText("Branches");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);

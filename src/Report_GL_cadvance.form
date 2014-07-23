@@ -330,7 +330,7 @@
         </Component>
         <Component class="javax.swing.JCheckBox" name="overad">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Over Advance"/>
+            <Property name="text" type="java.lang.String" value="Special Permission Advance"/>
           </Properties>
           <Events>
             <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="overadItemStateChanged"/>

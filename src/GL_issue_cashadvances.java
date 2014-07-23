@@ -1,5 +1,6 @@
 
 import java.util.HashMap;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -493,7 +494,10 @@ String adloc = dbm.checknReturnStringData("file_locations", "description", "Cash
          New_windows_theme NW = new New_windows_theme();
        // NW.setVisible(true);
        File_chooser home = new File_chooser();
+       
+
         NW.paint(home);
+        NW.setLocation(150, 150);
         NW.setVisible(true);
     }//GEN-LAST:event_jButton7ActionPerformed
     public int removeSelectedRows(JTable table) {

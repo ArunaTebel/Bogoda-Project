@@ -871,6 +871,7 @@
           </Properties>
           <Events>
             <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="dayfieldKeyPressed"/>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="dayfieldKeyReleased"/>
           </Events>
         </Component>
         <Component class="com.michaelbaranov.microba.calendar.DatePicker" name="datePicker1">

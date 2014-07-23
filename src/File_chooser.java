@@ -22,6 +22,7 @@ public class File_chooser extends javax.swing.JPanel {
      */
     public File_chooser() {
         initComponents();
+        
     }
     
     DatabaseManager dbm = new DatabaseManager();
@@ -77,4 +78,6 @@ public class File_chooser extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFileChooser jFileChooser1;
     // End of variables declaration//GEN-END:variables
+
+    
 }
