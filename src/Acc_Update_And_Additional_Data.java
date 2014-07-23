@@ -1,4 +1,5 @@
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -39,4 +40,65 @@ public class Acc_Update_And_Additional_Data {
 
     }
 
+    public void update_account_balances() {
+        
+        
+        // under this method all the current balances of the accounts will be transfered in to their op balances + the current balances
+        // will be recorded in a new table as the op balances for the new year + they also be recorded in the previous years table as closing balances
+        
+        DatabaseManager dbm = DatabaseManager.getDbCon();
+        Date_Handler dt = new Date_Handler();
+        
+        String new_table_name = dt.get_today_year()+"_balances";
+        String previous_year_table_name = (Integer.parseInt(dt.get_today_year())-1)+"_balances";
+        
+        double temp =0;
+         
+        try {
+            dbm.insert("CREATE TABLE " + new_table_name + "(account_code varchar(50),op_bal double,clo_bal double)");
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        if(dbm.TableExistence(previous_year_table_name)==true){
+            
+            try {
+                ResultSet query = dbm.query("SELECT * FROM account_names");
+                while(query.next()){
+                    temp=Double.parseDouble(query.getString("current_balance"));
+                    
+                    dbm.updateDatabase(previous_year_table_name,"account_code",query.getString("account_id"),"clo_bal",temp);
+                    
+                 //   dbm.insert("INSERT INTO "+new_table_name+"(account_code,op_bal,clo_bal) VALUES('"+query.getString("account_id")+"','"+temp+"',0)");
+                    
+                 //   dbm.updateDatabase("account_names","account_id",Integer.parseInt(query.getString("account_id")),"opening_balance", temp);
+                    
+                }
+                
+            } catch (SQLException ex) {
+                Logger.getLogger(Acc_Update_And_Additional_Data.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        try {
+                ResultSet query = dbm.query("SELECT * FROM account_names");
+                while(query.next()){
+                    temp=Double.parseDouble(query.getString("current_balance"));
+                    
+                    //dbm.updateDatabase(previous_year_table_name,"account_code",query.getString("account_id"),"clo_bal",temp);
+                    
+                    dbm.insert("INSERT INTO "+new_table_name+"(account_code,op_bal,clo_bal) VALUES('"+query.getString("account_id")+"','"+temp+"',0)");
+                    
+                    dbm.updateDatabase("account_names","account_id",Integer.parseInt(query.getString("account_id")),"opening_balance", temp);
+                    
+                }
+                
+            } catch (SQLException ex) {
+                Logger.getLogger(Acc_Update_And_Additional_Data.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+                
+        
+    }
 }
+
+
