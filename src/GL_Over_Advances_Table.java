@@ -3,8 +3,12 @@ import java.awt.event.KeyEvent;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.JProgressBar;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
@@ -22,6 +26,7 @@ public class GL_Over_Advances_Table extends javax.swing.JPanel {
 
     // GL_other_advances_class oadvance = new GL_other_advances_class();
     GL_Over_Advance overadvance = new GL_Over_Advance();
+    Report_gen gen = new Report_gen();
     int i = 0;
 
     int no_of_pages;
@@ -33,6 +38,7 @@ public class GL_Over_Advances_Table extends javax.swing.JPanel {
     Common_Other_Advance_Database_Handling filter = new Common_Other_Advance_Database_Handling();
     Table_handler table_handler = new Table_handler();
     Date_Handler datehandler = new Date_Handler();
+    UserAccountControl user = new UserAccountControl();
 
     public void focus() {
         this.requestFocusInWindow();
@@ -40,6 +46,8 @@ public class GL_Over_Advances_Table extends javax.swing.JPanel {
     }
 
     public void set_table(int bottom, int top) {
+        a = dbm.Checking_Length_Of_The_Table("gl_over_advance", "sup_id");
+        
         //System.out.println(a+"-this is entries---");
         if (a % 50 == 0) {
             no_of_pages = a / 50;
@@ -71,11 +79,146 @@ public class GL_Over_Advances_Table extends javax.swing.JPanel {
     public GL_Over_Advances_Table() {
         initComponents();
         set_val.setText(dbm.checknReturnStringData("rate_details", "Code_name", "GLSET", "rate") + "");
-
+        margin.setText("0");
+                
         table.setAutoCreateRowSorter(true);
-        supplier_id.setSelectedItem("All");
+       // supplier_id.setSelectedItem("All");
     }
+   
+    
+    public class Cal implements Runnable{
+    
+     public void run(){
+     table_handler.clear_table(table, 11, 50);
+     progress.setMaximum(200);
+     progress.setValue(2);
+         try {
+            try {
+                dbm.insert("Truncate table gl_over_advance");
+                 
+            } catch (SQLException ex) {
+                Logger.getLogger(GL_other_advance_save.class.getName()).log(Level.SEVERE, null, ex);
 
+            }
+
+            String year = yearfield3.getText();
+            String month = datehandler.return_month_as_num(monthfield3.getText());
+            String cyear = yearfield2.getText();
+            String cmonth = datehandler.return_month_as_num(monthfield2.getText());
+
+            Date date4;                      //INPUT MONTH AS NUMBER EX: 03
+
+            Date date1 = java.sql.Date.valueOf(year + "-" + month + "-" + "08");
+
+            if (month.equals("12")) {
+                date4 = java.sql.Date.valueOf(String.valueOf(Integer.parseInt(year) + 1) + "-" + datehandler.get_next_month(month) + "-" + "07");
+            } else {
+                date4 = java.sql.Date.valueOf(year + "-" + datehandler.get_next_month(month) + "-" + "07");
+            }
+          //  System.out.println(date1 + "----->" + date4);
+
+            ResultSet query = dbm.query("SELECT * FROM gl_cash_advance where  " + "ordered_date" + " BETWEEN'" + date1 + "' AND '" + date4 + "'");
+            double[] out = new double[5];
+            double[] out1 = new double[5];
+            double[] out2 = new double[5];
+            double[] out3 = new double[5];
+            double[] outcurr = new double[5];
+            int sup;
+            double set = Double.parseDouble(set_val.getText());
+            double remain = 0, remain2 = 0, remain3 = 0, remain4 = 0, remcurrent = 0;
+            String name, cat;
+            int kl = 0;
+            while (query.next()&& kl<200) {
+                sup = query.getInt("sup_id");
+                System.out.println(sup);
+                // name = query.getString("sup_name");
+                // cat = query.getString("cat_id");
+                
+                // System.out.println(temp1[0]+"--"+temp1[1]);
+                
+                 outcurr = overadvance.calculate(sup, cyear, cmonth);
+                 remcurrent = outcurr[0] * set - (outcurr[1] + outcurr[2] + outcurr[3] + outcurr[4]);
+                 
+                 if (remcurrent < Integer.parseInt(margin.getText())) {
+                     
+                     System.out.println(sup+"----------------");
+                     name = dbm.checknReturnData("suppliers", "sup_id", sup, "sup_name");
+                cat = dbm.checknReturnData("suppliers", "sup_id", sup, "cat_id");
+                String[] temp1 = new String[2];
+                String[] temp2 = new String[2];
+                String[] temp3 = new String[2];
+                temp1 = datehandler.forwad_months(year, month, 1).split("-");
+                temp2 = datehandler.forwad_months(year, month, 2).split("-");
+                temp3 = datehandler.forwad_months(year, month, 3).split("-");
+                out1 = overadvance.calculate(sup, temp1[0], temp1[1]);
+                out2 = overadvance.calculate(sup, temp2[0], temp2[1]);
+                out3 = overadvance.calculate(sup, temp3[0], temp3[1]);
+                out = overadvance.calculate(sup, year, month);
+               
+
+                ////////////////////////////////////////// table header change////////////////////////////////
+                JTableHeader th = table.getTableHeader();
+                TableColumnModel tcm = th.getColumnModel();
+                TableColumn current = tcm.getColumn(4);
+                TableColumn next = tcm.getColumn(5);
+                TableColumn next1 = tcm.getColumn(6);
+                TableColumn next2 = tcm.getColumn(7);
+
+                next.setHeaderValue(datehandler.Return_month(Integer.parseInt(temp1[1])));
+                next1.setHeaderValue(datehandler.Return_month(Integer.parseInt(temp2[1])));
+                next2.setHeaderValue(datehandler.Return_month(Integer.parseInt(temp3[1])));
+                current.setHeaderValue(datehandler.Return_month(Integer.parseInt(month)));
+                th.repaint();
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                remain = out[0] * set - (out[1] + out[2] + out[3] + out[4]);
+                remain2 = out1[0] * set - (out1[1] + out1[2] + out1[3] + out1[4]);
+                remain3 = out2[0] * set - (out2[1] + out2[2] + out2[3] + out2[4]);
+                remain4 = out3[0] * set - (out3[1] + out3[2] + out3[3] + out3[4]);
+                
+                
+                    //System.out.println("INSERT INTO gl_over_advance(sup_id,sup_name,category_code,cash_ad,other_ad,loans,bal_bf,set,total_kg,recovered,remain) VALUES('" + sup + "','" + name + "','" + cat + "','" + out[1] + "','" + out[2] + "','" + out[3] + "','" + out[4] + "','" + set + "','" + out[0] + "','" + set*out[0] + "','" + remain + "')");
+                    try {
+                        dbm.insert("INSERT INTO gl_over_advance(sup_id,sup_name,category_code,cash_ad,other_ad,loans,bal_bf,set_val,total_kg,recovered,remain) VALUES('" + sup + "','" + name + "','" + cat + "','" + out[1] + "','" + remain + "','" + remain2 + "','" + remain3 + "','" + remain4 + "','" + outcurr[0] + "','" + (set) * (outcurr[0]) + "','" + remcurrent + "')");
+                        progress.setValue(kl);
+                        kl++;
+                      
+                    
+                    } catch (Exception ee) {
+                        System.out.println(ee.getMessage());
+
+                    }
+
+                }
+               
+            }
+            
+            if(kl==200){
+                JOptionPane.showMessageDialog(table, "Entry Limit exceeded"+"\n"+"Showing first 200 results"+"\n"+"Try adjusting margin");
+            
+            }
+          
+        } catch (SQLException ex) {
+            Logger.getLogger(GL_Over_Advances_Table.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+ set_table(1, 50);
+     
+     
+     
+     
+     progress.setValue(200);
+     
+     
+     
+     
+     
+     }
+    
+    
+    
+    
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -105,10 +248,15 @@ public class GL_Over_Advances_Table extends javax.swing.JPanel {
         datePicker4 = new com.michaelbaranov.microba.calendar.DatePicker();
         jLabel9 = new javax.swing.JLabel();
         jButton5 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
+        progress = new javax.swing.JProgressBar();
+        jPanel2 = new javax.swing.JPanel();
         set_val = new javax.swing.JTextField();
         jButton6 = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
+        margin = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -330,6 +478,8 @@ public class GL_Over_Advances_Table extends javax.swing.JPanel {
             }
         });
 
+        progress.setStringPainted(true);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -358,6 +508,8 @@ public class GL_Over_Advances_Table extends javax.swing.JPanel {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jButton5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(progress, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jButton3))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 765, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -387,21 +539,17 @@ public class GL_Over_Advances_Table extends javax.swing.JPanel {
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 412, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton3)))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(progress, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
-        jButton1.setText("Calculate");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        jLabel6.setText("Set Value");
+        jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         set_val.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -416,12 +564,84 @@ public class GL_Over_Advances_Table extends javax.swing.JPanel {
             }
         });
 
+        jLabel6.setText("Set Value");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(set_val, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(set_val, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton6)
+                .addContainerGap())
+        );
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jLabel10.setText("Margin");
+
+        margin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                marginActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Calculate");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         jButton7.setText("View Report");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton7ActionPerformed(evt);
             }
         });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(margin, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10)
+                    .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(margin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -432,13 +652,8 @@ public class GL_Over_Advances_Table extends javax.swing.JPanel {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton6)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(set_val, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -448,16 +663,10 @@ public class GL_Over_Advances_Table extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(139, 139, 139)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(set_val, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton6)
-                        .addGap(61, 61, 61)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(67, 67, 67)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(87, 87, 87)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(20, 20, 20))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -610,111 +819,9 @@ public class GL_Over_Advances_Table extends javax.swing.JPanel {
     }//GEN-LAST:event_supplier_idActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {
-            try {
-                dbm.insert("Truncate table gl_over_advance");
-                 table_handler.clear_table(table, 11, 50);
-            } catch (SQLException ex) {
-                Logger.getLogger(GL_other_advance_save.class.getName()).log(Level.SEVERE, null, ex);
-
-            }
-
-            String year = yearfield3.getText();
-            String month = datehandler.return_month_as_num(monthfield3.getText());
-            String cyear = yearfield2.getText();
-            String cmonth = datehandler.return_month_as_num(monthfield2.getText());
-
-            Date date4;                      //INPUT MONTH AS NUMBER EX: 03
-
-            Date date1 = java.sql.Date.valueOf(year + "-" + month + "-" + "08");
-
-            if (month.equals("12")) {
-                date4 = java.sql.Date.valueOf(String.valueOf(Integer.parseInt(year) + 1) + "-" + datehandler.get_next_month(month) + "-" + "07");
-            } else {
-                date4 = java.sql.Date.valueOf(year + "-" + datehandler.get_next_month(month) + "-" + "07");
-            }
-          //  System.out.println(date1 + "----->" + date4);
-
-            ResultSet query = dbm.query("SELECT * FROM gl_cash_advance where  " + "ordered_date" + " BETWEEN'" + date1 + "' AND '" + date4 + "'");
-            double[] out = new double[5];
-            double[] out1 = new double[5];
-            double[] out2 = new double[5];
-            double[] out3 = new double[5];
-            double[] outcurr = new double[5];
-            int sup;
-            double set = Double.parseDouble(set_val.getText());
-            double remain = 0, remain2 = 0, remain3 = 0, remain4 = 0, remcurrent = 0;
-            String name, cat;
-            int kl = 0;
-            while (query.next()) {
-                sup = query.getInt("sup_id");
-              //  System.out.println(sup);
-                // name = query.getString("sup_name");
-                // cat = query.getString("cat_id");
-                
-                // System.out.println(temp1[0]+"--"+temp1[1]);
-                
-                 outcurr = overadvance.calculate(sup, cyear, cmonth);
-                 remcurrent = outcurr[0] * set - (outcurr[1] + outcurr[2] + outcurr[3] + outcurr[4]);
-                 
-                 if (remcurrent < 0) {
-                     
-                     
-                     name = dbm.checknReturnData("suppliers", "sup_id", sup, "sup_name");
-                cat = dbm.checknReturnData("suppliers", "sup_id", sup, "cat_id");
-                String[] temp1 = new String[2];
-                String[] temp2 = new String[2];
-                String[] temp3 = new String[2];
-                temp1 = datehandler.forwad_months(year, month, 1).split("-");
-                temp2 = datehandler.forwad_months(year, month, 2).split("-");
-                temp3 = datehandler.forwad_months(year, month, 3).split("-");
-                out1 = overadvance.calculate(sup, temp1[0], temp1[1]);
-                out2 = overadvance.calculate(sup, temp2[0], temp2[1]);
-                out3 = overadvance.calculate(sup, temp3[0], temp3[1]);
-                out = overadvance.calculate(sup, year, month);
-               
-
-                ////////////////////////////////////////// table header change////////////////////////////////
-                JTableHeader th = table.getTableHeader();
-                TableColumnModel tcm = th.getColumnModel();
-                TableColumn current = tcm.getColumn(4);
-                TableColumn next = tcm.getColumn(5);
-                TableColumn next1 = tcm.getColumn(6);
-                TableColumn next2 = tcm.getColumn(7);
-
-                next.setHeaderValue(datehandler.Return_month(Integer.parseInt(temp1[1])));
-                next1.setHeaderValue(datehandler.Return_month(Integer.parseInt(temp2[1])));
-                next2.setHeaderValue(datehandler.Return_month(Integer.parseInt(temp3[1])));
-                current.setHeaderValue(datehandler.Return_month(Integer.parseInt(month)));
-                th.repaint();
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                remain = out[0] * set - (out[1] + out[2] + out[3] + out[4]);
-                remain2 = out1[0] * set - (out1[1] + out1[2] + out1[3] + out1[4]);
-                remain3 = out2[0] * set - (out2[1] + out2[2] + out2[3] + out2[4]);
-                remain4 = out3[0] * set - (out3[1] + out3[2] + out3[3] + out3[4]);
-                
-                
-                    //System.out.println("INSERT INTO gl_over_advance(sup_id,sup_name,category_code,cash_ad,other_ad,loans,bal_bf,set,total_kg,recovered,remain) VALUES('" + sup + "','" + name + "','" + cat + "','" + out[1] + "','" + out[2] + "','" + out[3] + "','" + out[4] + "','" + set + "','" + out[0] + "','" + set*out[0] + "','" + remain + "')");
-                    try {
-                        dbm.insert("INSERT INTO gl_over_advance(sup_id,sup_name,category_code,cash_ad,other_ad,loans,bal_bf,set_val,total_kg,recovered,remain) VALUES('" + sup + "','" + name + "','" + cat + "','" + out[1] + "','" + remain + "','" + remain2 + "','" + remain3 + "','" + remain4 + "','" + outcurr[0] + "','" + (set) * (outcurr[0]) + "','" + remcurrent + "')");
-                         
-                        set_table(1, 50);
-                    
-                    } catch (Exception ee) {
-                        System.out.println(ee.getMessage());
-
-                    }
-
-                }
-                kl++;
-            }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(GL_Over_Advances_Table.class.getName()).log(Level.SEVERE, null, ex);
-        }
-       
-
+        
+        Thread a = new Thread(new Cal());
+    a.start();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void set_valKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_set_valKeyPressed
@@ -892,8 +999,8 @@ public class GL_Over_Advances_Table extends javax.swing.JPanel {
         }
 
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
-            //  dayfield2.requestFocus();
-            // dayfield2.selectAll();
+             monthfield3.requestFocus();
+            monthfield3.selectAll();
 
         }
     }//GEN-LAST:event_monthfield2KeyPressed
@@ -920,7 +1027,7 @@ public class GL_Over_Advances_Table extends javax.swing.JPanel {
     }//GEN-LAST:event_yearfield2KeyPressed
 
     private void datePicker3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datePicker3ActionPerformed
-        java.sql.Date datef = new java.sql.Date(datePicker1.getDate().getTime());
+        java.sql.Date datef = new java.sql.Date(datePicker3.getDate().getTime());
 
         // dayfield.setText(datehandler.get_day(datef));
         monthfield2.setText(datehandler.get_month(datef));
@@ -1122,23 +1229,43 @@ public class GL_Over_Advances_Table extends javax.swing.JPanel {
     }//GEN-LAST:event_yearfield3KeyPressed
 
     private void datePicker4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datePicker4ActionPerformed
-        java.sql.Date datef = new java.sql.Date(datePicker1.getDate().getTime());
+        java.sql.Date datef = new java.sql.Date(datePicker3.getDate().getTime());
         monthfield3.setText(datehandler.get_month(datef));
         yearfield3.setText(datehandler.get_year(datef));
     }//GEN-LAST:event_datePicker4ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // TODO add your handling code here:
+        String year = yearfield3.getText();
+            String month = datehandler.return_month_as_num(monthfield3.getText());
+            String cyear = yearfield2.getText();
+            String cmonth = datehandler.return_month_as_num(monthfield2.getText());
+        String[] temp1 = new String[2];
+                String[] temp2 = new String[2];
+                String[] temp3 = new String[2];
+                temp1 = datehandler.forwad_months(year, month, 1).split("-");
+                temp2 = datehandler.forwad_months(year, month, 2).split("-");
+                temp3 = datehandler.forwad_months(year, month, 3).split("-");
+        String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
+         String saveloc = dbm.checknReturnStringData("file_locations", "description", "ReportSave", "location");
+        HashMap param = new HashMap();
+        param.put("month1",datehandler.Return_month(Integer.parseInt(month)));
+        param.put("month2",datehandler.Return_month(Integer.parseInt(temp1[1])));
+        param.put("month3",datehandler.Return_month(Integer.parseInt(temp2[1])));
+        param.put("month4",datehandler.Return_month(Integer.parseInt(temp3[1])));
+        param.put("Currentmonth",datehandler.Return_month_full(Integer.parseInt(cmonth)));
+        param.put("USER", user.get_current_user());
+        
+        gen.create("OverAdvance", saveloc, param, location, "GL_over_advance.jrxml");
     }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void marginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_marginActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_marginActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.michaelbaranov.microba.calendar.DatePicker datePicker1;
-    private com.michaelbaranov.microba.calendar.DatePicker datePicker2;
     private com.michaelbaranov.microba.calendar.DatePicker datePicker3;
     private com.michaelbaranov.microba.calendar.DatePicker datePicker4;
-    private javax.swing.JPanel datepanel;
-    private javax.swing.JPanel datepanel1;
     private javax.swing.JPanel datepanel2;
     private javax.swing.JPanel datepanel3;
     private javax.swing.JButton jButton1;
@@ -1148,6 +1275,7 @@ public class GL_Over_Advances_Table extends javax.swing.JPanel {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -1156,16 +1284,14 @@ public class GL_Over_Advances_Table extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField monthfield;
-    private javax.swing.JTextField monthfield1;
+    private javax.swing.JTextField margin;
     private javax.swing.JTextField monthfield2;
     private javax.swing.JTextField monthfield3;
     private javax.swing.JLabel page_info;
+    private javax.swing.JProgressBar progress;
     private javax.swing.JTextField set_val;
     private javax.swing.JComboBox supplier_id;
     private javax.swing.JTable table;
-    private javax.swing.JTextField yearfield;
-    private javax.swing.JTextField yearfield1;
     private javax.swing.JTextField yearfield2;
     private javax.swing.JTextField yearfield3;
     // End of variables declaration//GEN-END:variables

@@ -1,7 +1,10 @@
 
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 import javax.swing.ImageIcon;
+import javax.swing.UIDefaults;
+import javax.swing.UIManager;
 
 
 /*
@@ -21,11 +24,13 @@ public class MainWindow extends javax.swing.JFrame {
     Search srch = new Search();
     Date_Handler datehandler = new Date_Handler();
     UserAccountControl userAC = new UserAccountControl();
+    UIDefaults defaults = UIManager.getLookAndFeelDefaults();
 
     public MainWindow() {
         //userAC.validate();
         
-      //  
+      //   defaults.put("nimbusOrange", defaults.get("nimbusBase"));
+        UIManager.getLookAndFeelDefaults().put("nimbusOrange", (new Color(51, 153, 0)));
         initComponents();
     //    String ss = System.getProperty("user.name");
         

@@ -333,7 +333,7 @@ public class PRCR_test_jframe extends javax.swing.JFrame {
             st = year.getText() + "_" + datehandler.return_index(month.getText());
         }
         System.out.println(st);
-        b = new Thread(new PRCR_Checkroll_Monthly_workdata_database_update_class(st));
+        b = new Thread(new PRCR_Checkroll_Monthly_workdata_database_update_class(st, year.getText(),month.getText()));
         b.start();
     }//GEN-LAST:event_jButton2ActionPerformed
 
