@@ -32,8 +32,8 @@ public class ACC_recepts extends javax.swing.JPanel {
         initComponents();
         // set cheque part invisible at the begining
         String selection = (String) payType.getSelectedItem();
-        
-         jButton6.setEnabled(false);
+
+        jButton6.setEnabled(false);
 
         if (selection.equalsIgnoreCase("Cash")) {
 
@@ -1051,19 +1051,48 @@ public class ACC_recepts extends javax.swing.JPanel {
 
     private void debit_accountCodeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_debit_accountCodeItemStateChanged
         DatabaseManager dbm = DatabaseManager.getDbCon();
-        String Name = null;
-        if (evt.getStateChange() == ItemEvent.SELECTED) {
-            int item = Integer.parseInt(evt.getItem().toString());
-            try {
-                ResultSet query = dbm.query("SELECT * FROM account_names WHERE account_id =" + item + "");
-                while (query.next()) {
-                    Name = query.getString("account_name");
+        /* String Name = null;
+         if (evt.getStateChange() == ItemEvent.SELECTED) {
+         int item = Integer.parseInt(evt.getItem().toString());
+         try {
+         ResultSet query = dbm.query("SELECT * FROM account_names WHERE account_id =" + item + "");
+         while (query.next()) {
+         Name = query.getString("account_name");
+         }
+         } catch (SQLException ex) {
+         }
+         debit_accountName.setText("" + Name);
+         }
+         debit_description.requestFocusInWindow(); */
+        
+        Check_Entries chk = new Check_Entries();
+
+        try{
+            if (dbm.checkWhetherDataExists("account_names", "account_id", Integer.parseInt(debit_accountCode.getSelectedItem().toString())) == 1 || debit_accountCode.getSelectedIndex() == 0 || debit_accountCode.getSelectedItem().toString() == null) {
+                String Name = null;
+                if (evt.getStateChange() == ItemEvent.SELECTED) {
+                    int item = Integer.parseInt(evt.getItem().toString());
+                    try {
+                        ResultSet query = dbm.query("SELECT * FROM account_names WHERE account_id =" + item + "");
+                        while (query.next()) {
+                            Name = query.getString("account_name");
+                        }
+                    } catch (SQLException ex) {
+                    }
+                    debit_accountName.setText("" + Name);
                 }
-            } catch (SQLException ex) {
+                debit_description.requestFocusInWindow();
+            } else {
+                msg.showMessage("Invalid Account Code", "Receipt", "info");
+                debit_accountCode.setSelectedIndex(0);
             }
-            debit_accountName.setText("" + Name);
         }
-        debit_description.requestFocusInWindow();
+        catch(Exception e){
+            
+        }
+        
+       
+        
 
     }//GEN-LAST:event_debit_accountCodeItemStateChanged
 
@@ -1128,7 +1157,24 @@ public class ACC_recepts extends javax.swing.JPanel {
 
     private void credit_account_codeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_credit_account_codeItemStateChanged
         DatabaseManager dbm = DatabaseManager.getDbCon();
-        String Name = null;
+      /*  String Name = null;
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            int item = Integer.parseInt(evt.getItem().toString());
+            try {
+                ResultSet query = dbm.query("SELECT * FROM account_names WHERE account_id =" + item + "");
+                while (query.next()) {
+                    Name = query.getString("account_name");
+                }
+            } catch (SQLException ex) {
+            }
+            credit_account_name.setText("" + Name);
+        }
+        credit_description.requestFocusInWindow(); */
+        
+        
+         try{
+            if (dbm.checkWhetherDataExists("account_names", "account_id", Integer.parseInt(credit_account_code.getSelectedItem().toString())) == 1 || credit_account_code.getSelectedIndex() == 0 || credit_account_code.getSelectedItem().toString() == null) {
+               String Name = null;
         if (evt.getStateChange() == ItemEvent.SELECTED) {
             int item = Integer.parseInt(evt.getItem().toString());
             try {
@@ -1141,6 +1187,17 @@ public class ACC_recepts extends javax.swing.JPanel {
             credit_account_name.setText("" + Name);
         }
         credit_description.requestFocusInWindow();
+            } else {
+                msg.showMessage("Invalid Account Code", "Receipt", "info");
+                credit_account_code.setSelectedIndex(0);
+            }
+        }
+        catch(Exception e){
+            
+        }
+        
+        
+        
     }//GEN-LAST:event_credit_account_codeItemStateChanged
 
     private void debit_descriptionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_debit_descriptionFocusLost
@@ -1156,7 +1213,7 @@ public class ACC_recepts extends javax.swing.JPanel {
 
         interface_events.Change_focus_Enterkey_t(dayfield, evt);
         dayfield.selectAll();
-       // if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+        // if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
         // recieptNo.setBackground(new java.awt.Color(255, 0, 153));
         //}
     }//GEN-LAST:event_refNoKeyPressed
@@ -1206,8 +1263,8 @@ public class ACC_recepts extends javax.swing.JPanel {
     }//GEN-LAST:event_credit_descriptionKeyPressed
 
     private void credit_amountKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_credit_amountKeyPressed
-        
-         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             if (chk.isDouble(credit_amount.getText())) {
                 interface_events.Change_focus_Enterkey_t_b(refNo, jButton5, evt);
             } else {
@@ -1615,36 +1672,35 @@ public class ACC_recepts extends javax.swing.JPanel {
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
 
-        
-                int j = 0;
-                while (credit_account_code_table.getValueAt(j, 0) != null) {
-                    credit_account_code_table.setValueAt(null, j, 0);
-                    credit_description_table.setValueAt(null, j, 0);
-                    credit_amount_table.setValueAt(null, j, 0);
-                    j++;
-                }
+        int j = 0;
+        while (credit_account_code_table.getValueAt(j, 0) != null) {
+            credit_account_code_table.setValueAt(null, j, 0);
+            credit_description_table.setValueAt(null, j, 0);
+            credit_amount_table.setValueAt(null, j, 0);
+            j++;
+        }
 
-                recieptNo.setText(null);
-                refNo.setText(null);
-                payType.setSelectedIndex(0);
-                bankCode.setSelectedIndex(0);
-                branchCode.setSelectedIndex(0);
-                bankName.setText(null);
-                branchName.setText(null);
-                chequeNo.setText(null);
-                debit_accountCode.setSelectedIndex(0);
-                debit_description.setText(null);
-                debitAmount.setText(null);
-                debit_accountName.setText(null);
-                credit_account_code.setSelectedIndex(0);
-                credit_account_name.setText(null);
-                credit_description.setText(null);
-                credit_amount.setText(null);
-                total.setText(null);
-                difference.setText(null);
-                
-                refNo.requestFocus();
-        
+        recieptNo.setText(null);
+        refNo.setText(null);
+        payType.setSelectedIndex(0);
+        bankCode.setSelectedIndex(0);
+        branchCode.setSelectedIndex(0);
+        bankName.setText(null);
+        branchName.setText(null);
+        chequeNo.setText(null);
+        debit_accountCode.setSelectedIndex(0);
+        debit_description.setText(null);
+        debitAmount.setText(null);
+        debit_accountName.setText(null);
+        credit_account_code.setSelectedIndex(0);
+        credit_account_name.setText(null);
+        credit_description.setText(null);
+        credit_amount.setText(null);
+        total.setText(null);
+        difference.setText(null);
+
+        refNo.requestFocus();
+
     }//GEN-LAST:event_jButton7ActionPerformed
 
 

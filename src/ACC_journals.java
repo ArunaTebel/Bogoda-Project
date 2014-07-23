@@ -1020,30 +1020,30 @@ public class ACC_journals extends javax.swing.JPanel {
                 debit_total.setText(null);
                 credit_total.setText(null);
                 difference.setText(null);
-                
+
                 // clear credit table all
-            {
-            int j = 0;
-            while (credit_account_code_table.getValueAt(j, 0) != null) {
-                credit_account_code_table.setValueAt(null, j, 0);
-                credit_description_table.setValueAt(null, j, 0);
-                credit_amount_table.setValueAt(null, j, 0);
-                j++;
-            }
-            }
-            
-            // clear debit table all
-            {
-             int j = 0;
-            while (debit_account_code_table.getValueAt(j, 0) != null) {
-                debit_account_code_table.setValueAt(null, j, 0);
-                debit_description_table.setValueAt(null, j, 0);
-                debit_amount_table.setValueAt(null, j, 0);
-                j++;
-            }
-            }
-            
-            ref_no.requestFocus();
+                {
+                    int j = 0;
+                    while (credit_account_code_table.getValueAt(j, 0) != null) {
+                        credit_account_code_table.setValueAt(null, j, 0);
+                        credit_description_table.setValueAt(null, j, 0);
+                        credit_amount_table.setValueAt(null, j, 0);
+                        j++;
+                    }
+                }
+
+                // clear debit table all
+                {
+                    int j = 0;
+                    while (debit_account_code_table.getValueAt(j, 0) != null) {
+                        debit_account_code_table.setValueAt(null, j, 0);
+                        debit_description_table.setValueAt(null, j, 0);
+                        debit_amount_table.setValueAt(null, j, 0);
+                        j++;
+                    }
+                }
+
+                ref_no.requestFocus();
 
             }
         } catch (ParseException ex) {
@@ -1267,25 +1267,22 @@ public class ACC_journals extends javax.swing.JPanel {
 
     private void debit_account_codeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_debit_account_codeItemStateChanged
         DatabaseManager dbm = DatabaseManager.getDbCon();
-        String Name = null;
-        if (evt.getStateChange() == ItemEvent.SELECTED) {
-            int item = Integer.parseInt(evt.getItem().toString());
-            try {
-                ResultSet query = dbm.query("SELECT * FROM account_names WHERE account_id =" + item + "");
-                while (query.next()) {
-                    Name = query.getString("account_name");
-                }
-            } catch (SQLException ex) {
-            }
-            debit_account_name.setText("" + Name);
-        }
-        debit_description.requestFocus();
-    }//GEN-LAST:event_debit_account_codeItemStateChanged
+        /* String Name = null;
+         if (evt.getStateChange() == ItemEvent.SELECTED) {
+         int item = Integer.parseInt(evt.getItem().toString());
+         try {
+         ResultSet query = dbm.query("SELECT * FROM account_names WHERE account_id =" + item + "");
+         while (query.next()) {
+         Name = query.getString("account_name");
+         }
+         } catch (SQLException ex) {
+         }
+         debit_account_name.setText("" + Name);
+         }
+         debit_description.requestFocus();*/
 
-    private void credit_account_codeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_credit_account_codeItemStateChanged
-        DatabaseManager dbm = DatabaseManager.getDbCon();
-        if (credit_account_code.getSelectedItem() != null) {
-            if (credit_account_code.getSelectedIndex() != 0) {
+        try {
+            if (dbm.checkWhetherDataExists("account_names", "account_id", Integer.parseInt(debit_account_code.getSelectedItem().toString())) == 1 || debit_account_code.getSelectedIndex() == 0 || debit_account_code.getSelectedItem().toString() == null) {
                 String Name = null;
                 if (evt.getStateChange() == ItemEvent.SELECTED) {
                     int item = Integer.parseInt(evt.getItem().toString());
@@ -1296,10 +1293,63 @@ public class ACC_journals extends javax.swing.JPanel {
                         }
                     } catch (SQLException ex) {
                     }
-                    credit_account_name.setText("" + Name);
+                    debit_account_name.setText("" + Name);
                 }
-                credit_description.requestFocus();
+                debit_description.requestFocus();
+            } else {
+                msg.showMessage("Invalid Account Code", "Receipt", "info");
+                debit_account_code.setSelectedIndex(0);
             }
+        } catch (Exception e) {
+
+        }
+    }//GEN-LAST:event_debit_account_codeItemStateChanged
+
+    private void credit_account_codeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_credit_account_codeItemStateChanged
+        DatabaseManager dbm = DatabaseManager.getDbCon();
+        /* if (credit_account_code.getSelectedItem() != null) {
+         if (credit_account_code.getSelectedIndex() != 0) {
+         String Name = null;
+         if (evt.getStateChange() == ItemEvent.SELECTED) {
+         int item = Integer.parseInt(evt.getItem().toString());
+         try {
+         ResultSet query = dbm.query("SELECT * FROM account_names WHERE account_id =" + item + "");
+         while (query.next()) {
+         Name = query.getString("account_name");
+         }
+         } catch (SQLException ex) {
+         }
+         credit_account_name.setText("" + Name);
+         }
+         credit_description.requestFocus();
+         }
+         } */
+
+        try {
+            if (dbm.checkWhetherDataExists("account_names", "account_id", Integer.parseInt(credit_account_code.getSelectedItem().toString())) == 1 || credit_account_code.getSelectedIndex() == 0 || credit_account_code.getSelectedItem().toString() == null) {
+                if (credit_account_code.getSelectedItem() != null) {
+                    if (credit_account_code.getSelectedIndex() != 0) {
+                        String Name = null;
+                        if (evt.getStateChange() == ItemEvent.SELECTED) {
+                            int item = Integer.parseInt(evt.getItem().toString());
+                            try {
+                                ResultSet query = dbm.query("SELECT * FROM account_names WHERE account_id =" + item + "");
+                                while (query.next()) {
+                                    Name = query.getString("account_name");
+                                }
+                            } catch (SQLException ex) {
+                            }
+                            credit_account_name.setText("" + Name);
+                        }
+                        credit_description.requestFocus();
+                    }
+                }
+            } else {
+                msg.showMessage("Invalid Account Code", "Receipt", "info");
+                credit_account_code.setSelectedIndex(0);
+            }
+        } catch (Exception e) {
+
         }
     }//GEN-LAST:event_credit_account_codeItemStateChanged
 
@@ -1696,7 +1746,7 @@ public class ACC_journals extends javax.swing.JPanel {
     }//GEN-LAST:event_debit_descriptionKeyPressed
 
     Check_Entries chk = new Check_Entries();
-    
+
     private void debit_amountKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_debit_amountKeyPressed
         interface_events.Change_focus_Enterkey_t_b(ref_no, send, evt);
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
@@ -1723,17 +1773,17 @@ public class ACC_journals extends javax.swing.JPanel {
     }//GEN-LAST:event_credit_descriptionKeyPressed
 
     private void credit_amountKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_credit_amountKeyPressed
-        
+
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             if (chk.isDouble(credit_amount.getText())) {
-               interface_events.Change_focus_Enterkey_t_b(ref_no, send2, evt);
+                interface_events.Change_focus_Enterkey_t_b(ref_no, send2, evt);
             } else {
 
                 msg.showMessage("Enter A Valid Amount Here", "Please Check Again", "info");
 
             }
         }
-        
+
     }//GEN-LAST:event_credit_amountKeyPressed
 
     private void send2FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_send2FocusGained
@@ -1750,27 +1800,27 @@ public class ACC_journals extends javax.swing.JPanel {
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         ref_no.setText(null);
-                journal_no.setText(null);
-                pay_type.setSelectedIndex(0);
-                bank_code.setSelectedIndex(0);
-                branch_code.setSelectedIndex(0);
-                bank_name.setText(null);
-                branch_name.setText(null);
-                chequeNo.setText(null);
-                debit_account_code.setSelectedIndex(0);
-                debit_description.setText(null);
-                debit_amount.setText(null);
-                debit_account_name.setText(null);
-                credit_account_code.setSelectedIndex(0);
-                credit_account_name.setText(null);
-                credit_description.setText(null);
-                credit_amount.setText(null);
-                debit_total.setText(null);
-                credit_total.setText(null);
-                difference.setText(null);
-                
-                // clear credit table all
-            {
+        journal_no.setText(null);
+        pay_type.setSelectedIndex(0);
+        bank_code.setSelectedIndex(0);
+        branch_code.setSelectedIndex(0);
+        bank_name.setText(null);
+        branch_name.setText(null);
+        chequeNo.setText(null);
+        debit_account_code.setSelectedIndex(0);
+        debit_description.setText(null);
+        debit_amount.setText(null);
+        debit_account_name.setText(null);
+        credit_account_code.setSelectedIndex(0);
+        credit_account_name.setText(null);
+        credit_description.setText(null);
+        credit_amount.setText(null);
+        debit_total.setText(null);
+        credit_total.setText(null);
+        difference.setText(null);
+
+        // clear credit table all
+        {
             int j = 0;
             while (credit_account_code_table.getValueAt(j, 0) != null) {
                 credit_account_code_table.setValueAt(null, j, 0);
@@ -1778,19 +1828,19 @@ public class ACC_journals extends javax.swing.JPanel {
                 credit_amount_table.setValueAt(null, j, 0);
                 j++;
             }
-            }
-            
-            // clear debit table all
-            {
-             int j = 0;
+        }
+
+        // clear debit table all
+        {
+            int j = 0;
             while (debit_account_code_table.getValueAt(j, 0) != null) {
                 debit_account_code_table.setValueAt(null, j, 0);
                 debit_description_table.setValueAt(null, j, 0);
                 debit_amount_table.setValueAt(null, j, 0);
                 j++;
             }
-            }
-            ref_no.requestFocus();
+        }
+        ref_no.requestFocus();
     }//GEN-LAST:event_jButton7ActionPerformed
 
 
