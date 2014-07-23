@@ -26,7 +26,7 @@ public class Report_GL_cadvance extends javax.swing.JPanel {
         @Override
         public void run() {
             //  jProgressBar1.setIndeterminate(true);
-            view.setEnabled(false);
+           // view.setEnabled(false);
             jProgressBar1.setVisible(true);
             int a = (int) (Math.random() * 500);
             //System.out.println(a);
@@ -365,7 +365,7 @@ public class Report_GL_cadvance extends javax.swing.JPanel {
 
         jLabel3.setText("Group by");
 
-        overad.setText("Over Advance");
+        overad.setText("Special Permission Advance");
         overad.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 overadItemStateChanged(evt);

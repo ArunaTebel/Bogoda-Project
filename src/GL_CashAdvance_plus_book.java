@@ -71,7 +71,7 @@ Interface_Events interface_events = new Interface_Events();
             }
         });
 
-        jButton3.setBackground(new java.awt.Color(0, 102, 0));
+        jButton3.setBackground(new java.awt.Color(153, 0, 0));
         jButton3.setForeground(new java.awt.Color(255, 255, 255));
         jButton3.setText("Over Advances");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -99,9 +99,9 @@ Interface_Events interface_events = new Interface_Events();
                 .addComponent(jButton1)
                 .addGap(0, 0, 0)
                 .addComponent(jButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(jButton3)
-                .addGap(0, 600, Short.MAX_VALUE))
+                .addGap(0, 606, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -120,6 +120,7 @@ Interface_Events interface_events = new Interface_Events();
         interface_events.insertpanel(cashadvance, content_panel);
         jButton2.setBackground(new java.awt.Color(0, 102, 0));
         jButton1.setBackground(new java.awt.Color(0, 0, 0));
+        jButton3.setBackground(new java.awt.Color(153, 0, 0));
        cashadvance.focus();
         
         
@@ -132,6 +133,7 @@ Interface_Events interface_events = new Interface_Events();
         cashadvance.focus();
         jButton1.setBackground(new java.awt.Color(0, 102, 0));
          jButton2.setBackground(new java.awt.Color(0, 0, 0));
+         jButton3.setBackground(new java.awt.Color(153, 0, 0));
          cashadvance.set_table(1,50);
          
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -157,8 +159,9 @@ interface_events.Respond_enter(jButton2, evt);
         interface_events.insertpanel(overadvance, content_panel);
         overadvance.focus();
         jButton1.setBackground(new java.awt.Color(0, 102, 0));
-         jButton2.setBackground(new java.awt.Color(0, 0, 0));
-         overadvance.set_table(1,50);
+         jButton2.setBackground(new java.awt.Color(0, 102, 0));
+         jButton3.setBackground(new java.awt.Color(0, 0, 0));
+        // overadvance.set_table(1,50);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton3FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jButton3FocusGained

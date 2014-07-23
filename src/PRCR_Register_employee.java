@@ -220,7 +220,7 @@ public class PRCR_Register_employee extends javax.swing.JFrame {
         try {
             //java.sql.Date permanentD = new java.sql.Date(date.getDate().getTime());
             
-            dbm.updateDatabase("personal_info", "code", code.getText(),"register_or_not","Registered") ;
+            dbm.updateDatabase("personal_info", "code", code.getText(),"register_or_not","REGISTER") ;
             
             dbm.updateDatabase("personal_info", "code", code.getText(),"permanent_date",datechooser.Return_date(yearfield, monthfield, dayfield)) ;
             

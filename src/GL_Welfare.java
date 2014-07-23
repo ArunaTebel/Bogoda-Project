@@ -602,10 +602,14 @@ public class GL_Welfare extends javax.swing.JPanel {
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         HashMap param = new HashMap();
                 //jProgressBar1.setValue(10);
-        datehandler.Reverse_months(yearfield.getText(), datehandler.return_month_as_num(monthfield.getText()), 12);
+        String[] temp = datehandler.Reverse_months(yearfield.getText(), datehandler.return_month_as_num(monthfield.getText()), 12).split("-");
+        System.out.println(temp[0]+temp[1]);
         param.put("month", yearfield.getText() + "-"+Integer.parseInt(datehandler.return_month_as_num(monthfield.getText())));
         // param.put("to_date", Return_date2);
         param.put("USER", new UserAccountControl().get_current_user());
+        
+        param.put("12month", temp[0]+temp[1]);
+        
 
         // Date Return_date = datechooser.Return_date(yearfield, monthfield, dayfield);
         String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");

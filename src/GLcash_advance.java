@@ -890,7 +890,10 @@ public class GLcash_advance extends javax.swing.JPanel {
             cadvance.set_sup_name(supplier_name.getText());
             cadvance.set_pay_type(cash_cheque_combo.getSelectedItem().toString());
             cadvance.addToDataBase();
-
+            supplier_id.setSelectedIndex(0);
+                    supplier_name.setText(" ");
+                    amount.setText(null);
+                    supplier_id.requestFocusInWindow();
         } catch (ParseException ex) {
             Logger.getLogger(GLcash_advance.class.getName()).log(Level.SEVERE, null, ex);
         }

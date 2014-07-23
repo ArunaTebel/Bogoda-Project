@@ -7,6 +7,7 @@
 	<parameter name="USER" class="java.lang.String"/>
 	<parameter name="Month" class="java.lang.String"/>
 	<parameter name="year" class="java.lang.String"/>
+	<parameter name="12month" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT
      welfare.`entry` AS welfare_entry,
@@ -26,9 +27,9 @@
 FROM
      `suppliers` suppliers INNER JOIN `welfare` welfare ON suppliers.`sup_id` = welfare.`sup_id`
      INNER JOIN `category` category ON suppliers.`cat_id` = category.`category_id`
+where month2>$P{12month}
 ORDER BY
-     suppliers.`cat_id` ASC, welfare.`month2`
-  ]]>
+     suppliers.`cat_id` ASC, welfare.`month2`]]>
 	</queryString>
 	<field name="welfare_entry" class="java.lang.Integer"/>
 	<field name="welfare_month" class="java.lang.String"/>

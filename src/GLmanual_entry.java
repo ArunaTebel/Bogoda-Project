@@ -256,10 +256,10 @@ public class GLmanual_entry extends javax.swing.JPanel {
             }
         });
         category_code.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+            }
             public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
                 category_codeCaretPositionChanged(evt);
-            }
-            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
 
@@ -601,6 +601,9 @@ public class GLmanual_entry extends javax.swing.JPanel {
         dayfield.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 dayfieldKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                dayfieldKeyReleased(evt);
             }
         });
 
@@ -1576,10 +1579,7 @@ jButton1.setEnabled(true);
             monthfield.selectAll();
         }
 
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
-            category_code.requestFocus();
-
-        }
+       
 
     }//GEN-LAST:event_dayfieldKeyPressed
 
@@ -1727,6 +1727,13 @@ jButton1.setEnabled(true);
                 }
 
     }//GEN-LAST:event_deleteActionPerformed
+
+    private void dayfieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dayfieldKeyReleased
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
+            category_code.requestFocus();
+
+        }
+    }//GEN-LAST:event_dayfieldKeyReleased
     public double convertString(String s) {
         if (s.length() == 0) {
             return 0;
