@@ -67,10 +67,10 @@ public class CheckrollSallaryCal {
     private double incentive1Amount;
     private double incentive2Amount;
     private double OTBeforeRate;
-    private int OTBeforeHours;
+    private double OTBeforeHours;
     private double OTBeforeAmount;
     private double OTAfterRate;
-    private int OTAfterHours;
+    private double OTAfterHours;
     private double OTAfterAmount;
     private double totalBasicSalary;
     private double grosspay;
@@ -121,7 +121,11 @@ public class CheckrollSallaryCal {
     private String year;
     private String st;
     private String division;
-    private double extrapay;
+    private double extrapaycash;
+     private double extrapayoverkilos;
+      private double extrapayholidaypay;
+       private double extrapaymay;
+        private double totalextrapay;
 
     public CheckrollSallaryCal() {//NC
         this.employCode = 0;
@@ -144,7 +148,7 @@ public class CheckrollSallaryCal {
         this.fineDeductions = 0;
         this.storeDeductions = 0;
         this.pettyCash = 0;
-        this.extrapay = 0;
+        this.totalextrapay = 0;
         this.month = null;
         this.year = null;
         this.st = null;
@@ -325,7 +329,7 @@ this.division=division;
 
     public void setOTBeforeHours() {
         if(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "ot_before_hours")!=null){
-        this.OTBeforeHours = Integer.parseInt(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "ot_before_hours"));
+        this.OTBeforeHours = Double.parseDouble(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "ot_before_hours"));
         }else{
         this.OTBeforeHours=0;
         }
@@ -349,7 +353,7 @@ this.division=division;
 
     public void setOTAfterHours() {
         if(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "ot_after_hours")!=null){
-        this.OTAfterHours = Integer.parseInt(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "ot_after_hours"));
+        this.OTAfterHours = Double.parseDouble(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "ot_after_hours"));
         }else{
         this.OTAfterHours=0;
         }
@@ -361,11 +365,40 @@ this.division=division;
     }
 
     public void setExtrapayAmount() {
-        if(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "extra_pay")!=null){
-        this.extrapay = Double.parseDouble(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "extra_pay"));
+        
+        //calculate bonus extra pay(extra_pay_may) 
+        int normaldaysbfr17=0;
+        int sundaysbfr17=0;
+        normaldaysbfr17=dbm.checknReturnData("pr_workdata_" + st, "code", employCode,"normal_days_bfr17")!=null?Integer.parseInt(dbm.checknReturnData("pr_workdata_" + st, "code", employCode,"normal_days_bfr17")):0;
+        sundaysbfr17=dbm.checknReturnData("pr_workdata_" + st, "code", employCode,"sundays_bfr17")!=null?Integer.parseInt(dbm.checknReturnData("pr_workdata_" + st, "code", employCode,"sundays_bfr17")):0;
+        this.extrapaymay=normaldaysbfr17*getNormaldaysRate()+sundaysbfr17*getSundayRate();
+         dbm.updateDatabase("pr_workdata_" + st, "code", employCode,"extra_pay_may", this.extrapaymay);
+        
+        //calculate total extrapay
+        if(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "extra_pay_cash")!=null){
+        this.extrapaycash = Double.parseDouble(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "extra_pay_cash"));
         }else{
-        this.extrapay=0;
+        this.extrapaycash=0;
         }
+        if(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "extra_pay_overkilos")!=null){
+        this.extrapayoverkilos = Double.parseDouble(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "extra_pay_overkilos"));
+        }else{
+        this.extrapayoverkilos=0;
+        }
+        if(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "extra_pay_holiday")!=null){
+        this.extrapayholidaypay = Double.parseDouble(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "extra_pay_holiday"));
+        }else{
+        this.extrapayholidaypay=0;
+        }
+       
+        
+        
+        
+        this.totalextrapay=extrapaycash+extrapayoverkilos+extrapayholidaypay+extrapaymay;
+        
+        
+        
+        
     }
 
     public void setTotalBasicSallary() {
@@ -387,8 +420,8 @@ this.division=division;
 
     public void setEPFContribution() {
         String s=null;
-        s = dbm.checknReturnData("personal_info","code" , employCode,"register_or_not");
-        if(s.equals("Registered")){
+        s = dbm.checknReturnData("checkroll_personalinfo","code" , employCode,"register_or_casual");
+        if(s.equals("1")){
         EPFContribution = getTotalBasicSallary() * (getEPFRate() / 100);
         }else{
         EPFContribution=0;
@@ -409,8 +442,8 @@ this.division=division;
 
     public void setEPFContribution2() {
          String s=null;
-        s = dbm.checknReturnData("personal_info","code" , employCode,"register_or_not");
-        if(s.equals("Registered")){
+        s = dbm.checknReturnData("checkroll_personalinfo","code" , employCode,"register_or_casual");
+        if(s.equals("1")){
         EPFContribution2 = totalBasicSalary * (getEPFRate2() / 100);
         }else{
         EPFContribution2=0;
@@ -438,8 +471,8 @@ this.division=division;
 
     public void setETFContribution() {
          String s=null;
-        s = dbm.checknReturnData("personal_info","code" , employCode,"register_or_not");
-        if(s.equals("Registered")){
+        s = dbm.checknReturnData("checkroll_personalinfo","code" , employCode,"register_or_casual");
+        if(s.equals("1")){
         ETFContribution = totalBasicSalary * (getETFRate() / 100);
         }else{
         ETFContribution=0;
@@ -471,7 +504,7 @@ this.division=division;
 
     public void setTeaDed(){
         if(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "tea")!=null){
-        this.tea_ded = Integer.parseInt(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "tea"));
+        this.tea_ded =Double.parseDouble(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "tea"));
         }else{
         this.tea_ded=0;
         }
@@ -479,7 +512,7 @@ this.division=division;
     }
     public void setSalaryAdv(){
         if(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "salary_adv")!=null){
-        this.salary_adv = Integer.parseInt(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "salary_adv"));
+        this.salary_adv = Double.parseDouble(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "salary_adv"));
         }else{
         this.salary_adv=0;
         }
@@ -487,7 +520,7 @@ this.division=division;
     }
     public void setFestAdv(){
         if(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "fest_adv")!=null){
-        this.fest_adv = Integer.parseInt(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "fest_adv"));
+        this.fest_adv = Double.parseDouble(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "fest_adv"));
         }else{
         this.fest_adv=0;
         }
@@ -495,7 +528,7 @@ this.division=division;
     }
     public void setFoodDed(){
         if(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "food")!=null){
-        this.food_ded = Integer.parseInt(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "food"));
+        this.food_ded = Double.parseDouble(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "food"));
         }else{
         this.food_ded=0;
         }
@@ -503,7 +536,7 @@ this.division=division;
     }
     public void setLoanDed(){
         if(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "loan")!=null){
-        this.loan = Integer.parseInt(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "loan"));
+        this.loan = Double.parseDouble(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "loan"));
         }else{
         this.loan=0;
         }
@@ -512,7 +545,7 @@ this.division=division;
     
     public void setCEBDed(){
         if(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "ceb")!=null){
-        this.ceb_ded = Integer.parseInt(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "ceb"));
+        this.ceb_ded = Double.parseDouble(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "ceb"));
         }else{
         this.ceb_ded=0;
         }
@@ -521,7 +554,7 @@ this.division=division;
     
     public void setTeacherDed(){
         if(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "teacher")!=null){
-        this.teacher_ded = Integer.parseInt(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "teacher"));
+        this.teacher_ded = Double.parseDouble(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "teacher"));
         }else{
         this.teacher_ded=0;
         }
@@ -529,7 +562,7 @@ this.division=division;
     }
     public void setChemicalDed(){
         if(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "chemical")!=null){
-        this.chemical_ded = Integer.parseInt(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "chemical"));
+        this.chemical_ded =Double.parseDouble(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "chemical"));
         }else{
         this.chemical_ded=0;
         }
@@ -538,7 +571,7 @@ this.division=division;
     
     public void setPayslipDed(){
         if(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "pay_slip")!=null){
-        this.payslip_ded= Integer.parseInt(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "pay_slip"));
+        this.payslip_ded= Double.parseDouble(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "pay_slip"));
         }else{
         this.payslip_ded=0;
         }
@@ -547,7 +580,7 @@ this.division=division;
     
     public void setFineDed(){
         if(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "fine")!=null){
-        this.fine_ded = Integer.parseInt(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "fine"));
+        this.fine_ded = Double.parseDouble(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "fine"));
         }else{
         this.fine_ded=0;
         }
@@ -556,7 +589,7 @@ this.division=division;
     
     public void setWelafareDed(){
         if(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "welfare")!=null){
-        this.welfare_ded = Integer.parseInt(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "welfare"));
+        this.welfare_ded =Double.parseDouble(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "welfare"));
         }else{
         this.welfare_ded=0;
         }
@@ -565,7 +598,7 @@ this.division=division;
     
     public void setKovilDed(){
         if(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "kovil")!=null){
-        this.tea_ded = Integer.parseInt(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "kovil"));
+        this.tea_ded =Double.parseDouble(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "kovil"));
         }else{
         this.tea_ded=0;
         }
@@ -579,7 +612,7 @@ this.division=division;
    
     public void setMealsDed(){
         if(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "meals")!=null){
-        this.meals_ded = Integer.parseInt(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "meals"));
+        this.meals_ded =Double.parseDouble(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "meals"));
         }else{
         this.meals_ded=0;
         }
@@ -591,7 +624,7 @@ this.division=division;
     }
      public void setPensionDed(){
         if(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "pension")!=null){
-        this.pension_ded = Integer.parseInt(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "pension"));
+        this.pension_ded = Double.parseDouble(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "pension"));
         }else{
         this.pension_ded=0;
         }
@@ -605,7 +638,7 @@ this.division=division;
      
      public void setPreDebt(){
         if(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "pre_debt")!=null){
-        this.pre_debt = Integer.parseInt(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "pre_debt"));
+        this.pre_debt = Double.parseDouble(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "pre_debt"));
         }else{
         this.pre_debt=0;
         }
@@ -717,7 +750,7 @@ this.division=division;
         return OTBeforeRate;
     }
 
-    public int getOTBeforeHours() {
+    public double getOTBeforeHours() {
         setOTBeforeHours();
         return OTBeforeHours;
     }
@@ -733,7 +766,7 @@ this.division=division;
         return OTAfterRate;
     }
 
-    public int getOTAfterHours() {
+    public double getOTAfterHours() {
         setOTAfterHours();
         return OTAfterHours;
     }
@@ -747,7 +780,8 @@ this.division=division;
 
     public double getExtrapayAmount() {
         setExtrapayAmount();
-        return extrapay;
+         dbm.updateDatabase("pr_workdata_" + st, "code", employCode, "extra_pay", totalextrapay);
+        return totalextrapay;
     }
 
     public double getTotalBasicSallary() {

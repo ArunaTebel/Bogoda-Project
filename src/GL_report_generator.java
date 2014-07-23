@@ -2,7 +2,6 @@
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -23,8 +22,13 @@ public class GL_report_generator {
     Date_Handler date_handler = new Date_Handler();
 
     public GL_report_generator() {
+        
+        
     }
 
+    public void other_advance_categorize(){}
+    
+    
     public double[] get_day_totals(int sup_id, String year, String month) //take year and month and return daily totals for the specific user 
     {
         double[] total = new double[33];
@@ -118,6 +122,7 @@ public class GL_report_generator {
         double[] output = new double[11];
         double[] cash_new_month = new double[32];
         double[] other_new_month = new double[32];
+        double[] cat_totals = new double[7];
 
         double[] a = new double[10];
 
@@ -133,10 +138,13 @@ public class GL_report_generator {
         //j = 0;
         int i = 0;
         while (i < 11) {
+            
+            if(i<7){cat_totals[i]=0;}
             output[i] = 0;
 
             i++;
         }
+        
 
         Date date1 = java.sql.Date.valueOf(year + "-" + month + "-" + "08");
         Date date2 = java.sql.Date.valueOf(year + "-" + month + "-" + "21");
@@ -174,9 +182,34 @@ public class GL_report_generator {
             while (query.next()) {
                 ///System.out.println("query 2");
                 int dates = Integer.parseInt(date_handler.get_day(query.getDate("Date")));
+                double tot =query.getDouble("total_amount");
+                other_total[dates] += tot;
+                String type= "other";
+                
+                type = query.getString("item_type");
+                if(type.equals("Tea")){cat_totals[0]+=tot;}
+                else if(type.equals("Manure")){cat_totals[1]+=tot;}
+                else if(type.equals("Chemicals")){cat_totals[2]+=tot;}
+                else if(type.equals("Shop")){cat_totals[3]+=tot;}
+                else if(type.equals("Coir Bags")){cat_totals[4]+=tot;}
+                else if(type.equals("Spray Tanks")){cat_totals[5]+=tot;}
+                else{cat_totals[6]+=tot;}
+                
+                
+                // 
 
-                other_total[dates] += query.getDouble("total_amount");
-
+            }
+            
+            try{
+            dbm.insert("INSERT INTO other_advance_totals(entry,year,month,sup_id,tea,manure,chem,shop,bags,tanks,other) VALUES('" + year + month + sup_id + "','" + year + "','" + month + "','" + sup_id + "','" + cat_totals[0] + "','" + cat_totals[1] + "','" + cat_totals[2] + "','" +cat_totals[3] + "','" + cat_totals[4] + "','" + cat_totals[5] + "','" + cat_totals[6] + "')");
+            } catch(Exception e){
+              try{    
+            dbm.insert("UPDATE  other_advance_totals SET year='"+year+"',month='"+month+"',sup_id='"+sup_id+"',tea='"+cat_totals[0]+"',manure='"+cat_totals[1]+"',chem='"+cat_totals[2]+"',shop='"+cat_totals[3]+"',bags='"+cat_totals[4]+"',tanks='"+cat_totals[5]+"',other='"+cat_totals[6]+"' WHERE entry = '"+year+month+sup_id+"'");
+              } catch(Exception ee){
+                  System.out.println(ee.getMessage());
+              
+              }    
+            
             }
 
         } catch (SQLException ex) {
@@ -396,7 +429,7 @@ public double get_loans(int sup_id, String year, String month) //take year and m
        
 
     }
-             update_taskmanager(year, month, task);
+          //   update_taskmanager(year, month, task);
     }
 
     public void update_taskmanager(String year, String month, String task) {

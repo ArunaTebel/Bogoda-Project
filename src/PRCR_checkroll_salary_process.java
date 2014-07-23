@@ -76,7 +76,7 @@ public class PRCR_checkroll_salary_process {
         abcd.setMargin();
         PRCR_test_jframe.salarycalL.setText("Salary is being calculated for division    "+division+"("+((reg==1)?"Register":"Casual")+")");
         for (int i = 0; i < columnSize; i++) {
-            PRCR_test_jframe.salarycaloverallP.setValue(((PRCR_Checkroll_Monthly_workdata_database_update_class.salarycalprogressbar+1)*100)/PRCR_Checkroll_Monthly_workdata_database_update_class.columnsize);
+            PRCR_test_jframe.salarycaloverallP.setValue(((PRCR_Checkroll_Monthly_workdata_database_update_class.salarycalprogressbar+1)*100)/(PRCR_Checkroll_Monthly_workdata_database_update_class.columnsize+1));
            PRCR_Checkroll_Monthly_workdata_database_update_class.salarycalprogressbar++;
             PRCR_test_jframe.salaryCalP.setValue((100*(i+1))/columnSize);
             

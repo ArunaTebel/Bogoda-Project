@@ -10,9 +10,9 @@
  */
 public class Interface_movements {
     
-    public void smooth_move(javax.swing.JLabel pic, int Dir, double X, double Y){
+    public void smooth_move(javax.swing.JComponent pic, int Dir, double X, double Y, int speed){
        
-     Thread a = new Thread(new move(pic,Dir,X,Y));
+     Thread a = new Thread(new move(pic,Dir,X,Y,speed));
         a.start();
     
     }
@@ -21,14 +21,15 @@ public class Interface_movements {
     
     
     public class move implements Runnable{
-        javax.swing.JLabel PIC;
-        int DIR;
+        javax.swing.JComponent PIC;
+        int DIR, SPEED;
         double XX,YY;
-        public move(javax.swing.JLabel pic, int Dir, double X, double Y){
+        public move(javax.swing.JComponent pic, int Dir, double X, double Y, int speed){
         PIC = pic;
         DIR = Dir;
         XX= X;
         YY= Y;
+        SPEED = speed;
         
         
         }
@@ -66,7 +67,7 @@ public class Interface_movements {
         
     i=i+0.005;
      try {
-                    Thread.sleep(1);
+                    Thread.sleep(SPEED);
                 } catch (InterruptedException ex) {
                     //Logger.getLogger.class.getName()).log(Level.SEVERE, null, ex);
                 }

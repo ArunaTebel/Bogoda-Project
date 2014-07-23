@@ -223,7 +223,9 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
         for (; rowd < table.getRowCount(); rowd++) {
             if (table.getValueAt(rowd, 0) != null) {
                 try {
-                    dbCon.insert("INSERT INTO prcr_checkroll_workentry(date,normalday_or_sunday,emp_code,work_code,ot_day,ot_night) VALUES('" + date + "','" + getNormalOrSun() + "','" + table.getValueAt(rowd, 0) + "','" + table.getValueAt(rowd, 2) + "','" + table.getValueAt(rowd, 3) + "','" + table.getValueAt(rowd, 4) + "')");
+                    dbCon.insert("INSERT INTO prcr_checkroll_workentry(date,normalday_or_sunday,emp_code,work_code,ot_day,ot_night,division) VALUES('" + date + "','" + getNormalOrSun() + "','" + table.getValueAt(rowd, 0) + "','" + table.getValueAt(rowd, 2) + "','" + table.getValueAt(rowd, 3) + "','" + table.getValueAt(rowd, 4) + "','" + table.getValueAt(rowd, 5) + "')");
+                JOptionPane.showMessageDialog(null, "Details are saved for the \n" + date, "Message", JOptionPane.INFORMATION_MESSAGE);
+
                 } catch (SQLException ex) {
                     Logger.getLogger(PRCR_Add_Employee.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -244,128 +246,128 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
     //ex-:table name=2014_03
     //ne_date=2014_03_05
     //tdate=2014/03/05
-    private void saveData(String tablename, StringBuilder ne_date, Date tdate) {
-        String division = null;
-        String work_code = null;
-        division = (String) division_jc.getSelectedItem();
-        work_code = (String) workCode.getSelectedItem();
-        if (sunday.isSelected() == false) {
-            int rows = 0;
-            for (; rows < table.getRowCount(); rows++) {
-                if (table.getValueAt(rows, 0) != null) {
-                    int normaldays = 0;
-
-                    System.out.println(table.getValueAt(rows, 0));
-                    if (dbm.checknReturnData("pr_workdata_" + tablename, "code", table.getValueAt(rows, 0), "normal_days") != null) {
-                        normaldays = Integer.parseInt(dbm.checknReturnData("pr_workdata_" + tablename, "code", table.getValueAt(rows, 0), "normal_days"));
-                    } else {
-                        normaldays = 0;
-                    }
-
-                    normaldays++;
-                    dbm.updateDatabase("pr_workdata_" + tablename, "code", table.getValueAt(rows, 0), "normal_days", normaldays);
-                    //overtime-day
-                    double dhours = 0;
-
-                    if (dbm.checknReturnData("pr_workdata_" + tablename, "code", table.getValueAt(rows, 0), "ot_before_hours") != null) {
-                        dhours = Double.parseDouble(dbm.checknReturnData("pr_workdata_" + tablename, "code", table.getValueAt(rows, 0), "ot_before_hours"));
-                    } else {
-                        dhours = 0;
-                    }
-                    if (table.getValueAt(rows, 3) != null) {
-                        dhours = dhours + Double.parseDouble((String) table.getValueAt(rows, 3));
-                    } else {
-                        dhours = dhours;
-                    }
-                    dbm.updateDatabase("pr_workdata_" + tablename, "code", table.getValueAt(rows, 0), "ot_before_hours", dhours);
-
-                    //overtime after
-                    double ahours = 0;
-
-                    if (dbm.checknReturnData("pr_workdata_" + tablename, "code", table.getValueAt(rows, 0), "ot_after_hours") != null) {
-                        ahours = Double.parseDouble(dbm.checknReturnData("pr_workdata_" + tablename, "code", table.getValueAt(rows, 0), "ot_after_hours"));
-                    } else {
-                        ahours = 0;
-                    }
-                    if (table.getValueAt(rows, 4) != null) {
-                        ahours = ahours + Double.parseDouble((String) table.getValueAt(rows, 4));
-                    } else {
-                        ahours = ahours;
-                    }
-
-                    dbm.updateDatabase("pr_workdata_" + tablename, "code", table.getValueAt(rows, 0), "ot_after_hours", ahours);
-
-                    //updating newly created tables
-          /*          try {
-                     dbm.insert("INSERT INTO d_" + ne_date + "(name,emp_code,work_code,division) VALUES('" + rows + "','" + table.getValueAt(rows, 0) + "','" + work_code + "','" + division + "')");
-                     } catch (SQLException ex) {
-                     Logger.getLogger(PRCR_Work_normal.class.getName()).log(Level.SEVERE, null, ex);
-                     }
-                     */
-                }
-            }
-            JOptionPane.showMessageDialog(null, "Details are saved for the \n" + tdate, "Message", JOptionPane.INFORMATION_MESSAGE);
-
-        } else {
-            int rows = 0;
-            for (; rows < table.getRowCount(); rows++) {
-                if (table.getValueAt(rows, 0) != null) {
-                    int sundays = 0;
-                    System.out.println(table.getValueAt(rows, 0));
-                    if (dbm.checknReturnData("pr_workdata_" + tablename, "code", table.getValueAt(rows, 0), "sundays") != null) {
-
-                        sundays = Integer.parseInt(dbm.checknReturnData("pr_workdata_" + tablename, "code", table.getValueAt(rows, 0), "sundays"));
-                    } else {
-                        sundays = 0;
-                    }
-
-                    sundays++;
-                    dbm.updateDatabase("pr_workdata_" + tablename, "code", table.getValueAt(rows, 0), "sundays", sundays);
-
-                    //overtime-day
-                    double dhours = 0;
-
-                    if (dbm.checknReturnData("pr_workdata_" + tablename, "code", table.getValueAt(rows, 0), "ot_before_hours") != null) {
-                        dhours = Double.parseDouble(dbm.checknReturnData("pr_workdata_" + tablename, "code", table.getValueAt(rows, 0), "ot_before_hours"));
-                    } else {
-                        dhours = 0;
-                    }
-                    if (table.getValueAt(rows, 3) != null) {
-                        dhours = dhours + Double.parseDouble((String) table.getValueAt(rows, 3));
-                    } else {
-                        dhours = dhours;
-                    }
-                    dbm.updateDatabase("pr_workdata_" + tablename, "code", table.getValueAt(rows, 0), "ot_before_hours", dhours);
-
-                    //overtime after
-                    double ahours = 0;
-
-                    if (dbm.checknReturnData("pr_workdata_" + tablename, "code", table.getValueAt(rows, 0), "ot_after_hours") != null) {
-                        ahours = Double.parseDouble(dbm.checknReturnData("pr_workdata_" + tablename, "code", table.getValueAt(rows, 0), "ot_after_hours"));
-                    } else {
-                        ahours = 0;
-                    }
-                    if (table.getValueAt(rows, 4) != null) {
-                        ahours = ahours + Double.parseDouble((String) table.getValueAt(rows, 4));
-                    } else {
-                        ahours = ahours;
-                    }
-
-                    dbm.updateDatabase("pr_workdata_" + tablename, "code", table.getValueAt(rows, 0), "ot_after_hours", ahours);
-
-                    //update date tables for work code details
-                  /*  try {
-                     dbm.insert("INSERT INTO d_" + ne_date + "(name,emp_code,work_code,division) VALUES('" + rows + "','" + table.getValueAt(rows, 0) + "','" + work_code + "','" + division + "')");
-                     } catch (SQLException ex) {
-                     Logger.getLogger(PRCR_Work_normal.class.getName()).log(Level.SEVERE, null, ex);
-                     }
-                     */
-                }
-            }
-            JOptionPane.showMessageDialog(null, "Details are saved for the \n" + tdate, "Message", JOptionPane.INFORMATION_MESSAGE);
-            ClearTable();
-        }
-    }
+//    private void saveData(String tablename, StringBuilder ne_date, Date tdate) {
+//        String division = null;
+//        String work_code = null;
+//        //division = (String) division_jc.getSelectedItem();
+//        work_code = (String) workCode.getSelectedItem();
+//        if (sunday.isSelected() == false) {
+//            int rows = 0;
+//            for (; rows < table.getRowCount(); rows++) {
+//                if (table.getValueAt(rows, 0) != null) {
+//                    int normaldays = 0;
+//
+//                    System.out.println(table.getValueAt(rows, 0));
+//                    if (dbm.checknReturnData("pr_workdata_" + tablename, "code", table.getValueAt(rows, 0), "normal_days") != null) {
+//                        normaldays = Integer.parseInt(dbm.checknReturnData("pr_workdata_" + tablename, "code", table.getValueAt(rows, 0), "normal_days"));
+//                    } else {
+//                        normaldays = 0;
+//                    }
+//
+//                    normaldays++;
+//                    dbm.updateDatabase("pr_workdata_" + tablename, "code", table.getValueAt(rows, 0), "normal_days", normaldays);
+//                    //overtime-day
+//                    double dhours = 0;
+//
+//                    if (dbm.checknReturnData("pr_workdata_" + tablename, "code", table.getValueAt(rows, 0), "ot_before_hours") != null) {
+//                        dhours = Double.parseDouble(dbm.checknReturnData("pr_workdata_" + tablename, "code", table.getValueAt(rows, 0), "ot_before_hours"));
+//                    } else {
+//                        dhours = 0;
+//                    }
+//                    if (table.getValueAt(rows, 3) != null) {
+//                        dhours = dhours + Double.parseDouble((String) table.getValueAt(rows, 3));
+//                    } else {
+//                        dhours = dhours;
+//                    }
+//                    dbm.updateDatabase("pr_workdata_" + tablename, "code", table.getValueAt(rows, 0), "ot_before_hours", dhours);
+//
+//                    //overtime after
+//                    double ahours = 0;
+//
+//                    if (dbm.checknReturnData("pr_workdata_" + tablename, "code", table.getValueAt(rows, 0), "ot_after_hours") != null) {
+//                        ahours = Double.parseDouble(dbm.checknReturnData("pr_workdata_" + tablename, "code", table.getValueAt(rows, 0), "ot_after_hours"));
+//                    } else {
+//                        ahours = 0;
+//                    }
+//                    if (table.getValueAt(rows, 4) != null) {
+//                        ahours = ahours + Double.parseDouble((String) table.getValueAt(rows, 4));
+//                    } else {
+//                        ahours = ahours;
+//                    }
+//
+//                    dbm.updateDatabase("pr_workdata_" + tablename, "code", table.getValueAt(rows, 0), "ot_after_hours", ahours);
+//
+//                    //updating newly created tables
+//          /*          try {
+//                     dbm.insert("INSERT INTO d_" + ne_date + "(name,emp_code,work_code,division) VALUES('" + rows + "','" + table.getValueAt(rows, 0) + "','" + work_code + "','" + division + "')");
+//                     } catch (SQLException ex) {
+//                     Logger.getLogger(PRCR_Work_normal.class.getName()).log(Level.SEVERE, null, ex);
+//                     }
+//                     */
+//                }
+//            }
+//            JOptionPane.showMessageDialog(null, "Details are saved for the \n" + tdate, "Message", JOptionPane.INFORMATION_MESSAGE);
+//
+//        } else {
+//            int rows = 0;
+//            for (; rows < table.getRowCount(); rows++) {
+//                if (table.getValueAt(rows, 0) != null) {
+//                    int sundays = 0;
+//                    System.out.println(table.getValueAt(rows, 0));
+//                    if (dbm.checknReturnData("pr_workdata_" + tablename, "code", table.getValueAt(rows, 0), "sundays") != null) {
+//
+//                        sundays = Integer.parseInt(dbm.checknReturnData("pr_workdata_" + tablename, "code", table.getValueAt(rows, 0), "sundays"));
+//                    } else {
+//                        sundays = 0;
+//                    }
+//
+//                    sundays++;
+//                    dbm.updateDatabase("pr_workdata_" + tablename, "code", table.getValueAt(rows, 0), "sundays", sundays);
+//
+//                    //overtime-day
+//                    double dhours = 0;
+//
+//                    if (dbm.checknReturnData("pr_workdata_" + tablename, "code", table.getValueAt(rows, 0), "ot_before_hours") != null) {
+//                        dhours = Double.parseDouble(dbm.checknReturnData("pr_workdata_" + tablename, "code", table.getValueAt(rows, 0), "ot_before_hours"));
+//                    } else {
+//                        dhours = 0;
+//                    }
+//                    if (table.getValueAt(rows, 3) != null) {
+//                        dhours = dhours + Double.parseDouble((String) table.getValueAt(rows, 3));
+//                    } else {
+//                        dhours = dhours;
+//                    }
+//                    dbm.updateDatabase("pr_workdata_" + tablename, "code", table.getValueAt(rows, 0), "ot_before_hours", dhours);
+//
+//                    //overtime after
+//                    double ahours = 0;
+//
+//                    if (dbm.checknReturnData("pr_workdata_" + tablename, "code", table.getValueAt(rows, 0), "ot_after_hours") != null) {
+//                        ahours = Double.parseDouble(dbm.checknReturnData("pr_workdata_" + tablename, "code", table.getValueAt(rows, 0), "ot_after_hours"));
+//                    } else {
+//                        ahours = 0;
+//                    }
+//                    if (table.getValueAt(rows, 4) != null) {
+//                        ahours = ahours + Double.parseDouble((String) table.getValueAt(rows, 4));
+//                    } else {
+//                        ahours = ahours;
+//                    }
+//
+//                    dbm.updateDatabase("pr_workdata_" + tablename, "code", table.getValueAt(rows, 0), "ot_after_hours", ahours);
+//
+//                    //update date tables for work code details
+//                  /*  try {
+//                     dbm.insert("INSERT INTO d_" + ne_date + "(name,emp_code,work_code,division) VALUES('" + rows + "','" + table.getValueAt(rows, 0) + "','" + work_code + "','" + division + "')");
+//                     } catch (SQLException ex) {
+//                     Logger.getLogger(PRCR_Work_normal.class.getName()).log(Level.SEVERE, null, ex);
+//                     }
+//                     */
+//                }
+//            }
+//            JOptionPane.showMessageDialog(null, "Details are saved for the \n" + tdate, "Message", JOptionPane.INFORMATION_MESSAGE);
+//            ClearTable();
+//        }
+//    }
 
     public void ClearTable() {
         int rows = 0;
@@ -418,7 +420,6 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
-        jLabel2 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         empCode_JC = new javax.swing.JComboBox();
@@ -430,9 +431,6 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
         jButton8 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        division_jc = new javax.swing.JComboBox();
-        division_lb = new javax.swing.JLabel();
-        work_code = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         otnight = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
@@ -617,8 +615,6 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
             table.getColumnModel().getColumn(4).setPreferredWidth(40);
         }
 
-        jLabel2.setText("Division");
-
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel1.setText("Employee Code");
@@ -733,20 +729,6 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
         );
 
         jLabel4.setText("Work Code");
-
-        division_jc.putClientProperty("JComboBox.isTableCellEditor", Boolean.TRUE);
-        division_jc.setEditable(true);
-        division_jc.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("division_details", "code")));
-        division_jc.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                division_jcItemStateChanged(evt);
-            }
-        });
-        division_jc.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                division_jcKeyPressed(evt);
-            }
-        });
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -909,12 +891,7 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(26, 26, 26)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(1, 1, 1)
-                                        .addComponent(jLabel2)
-                                        .addGap(34, 34, 34)
-                                        .addComponent(division_jc, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel4)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -932,15 +909,8 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
                                 .addComponent(sunday)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(40, 40, 40)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(division_lb, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(work_code, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(10, 10, 10))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(6, 6, 6)
@@ -967,37 +937,26 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jButton3)
                                 .addGap(27, 27, 27)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(sunday)
-                                    .addComponent(division_lb, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(18, 18, 18)
+                                .addComponent(sunday)))
+                        .addGap(36, 36, 36)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(41, 41, 41)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(workCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(W_code, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel8)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(work_code, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(357, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel2)
-                                    .addComponent(division_jc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(21, 21, 21)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel4)
-                                    .addComponent(workCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(W_code, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel8)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jButton1)
-                                        .addGap(73, 73, 73)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton1)
+                                .addGap(73, 73, 73)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -1023,13 +982,13 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
         new1_date = ne_date.toString();
         String tablename = new1_date.substring(0, 7);
 
-        if (dbm.TableExistence("pr_workdata_" + tablename) == false) {
-            CreateNewMonthTable(tablename);
-        }
-
-        saveData(tablename, ne_date, tdate);
+//        if (dbm.TableExistence("pr_workdata_" + tablename) == false) {
+//            CreateNewMonthTable(tablename);
+//        }
+//
+//        saveData(tablename, ne_date, tdate);
         saveDataToWorkEntry(tdate);
-
+        ClearTable();
 
     }//GEN-LAST:event_jButton6ActionPerformed
 
@@ -1039,7 +998,8 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
                 table.setValueAt(empCode_JC.getSelectedItem(), rows, 0);
                 table.setValueAt(empName.getText(), rows, 1);
                 table.setValueAt(workCode.getSelectedItem(), rows, 2);
-                table.setValueAt(division_jc.getSelectedItem(), rows, 5);
+              
+                table.setValueAt( dbm.checknReturnData("checkroll_personalinfo","code", empCode_JC.getSelectedItem(),"division"), rows, 5);//get the division from checkroll_personalinfo
                 if (otday.getText().length() == 0) {
                     table.setValueAt("0", rows, 3);
 
@@ -1069,30 +1029,6 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void division_jcItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_division_jcItemStateChanged
-        DatabaseManager dbma = DatabaseManager.getDbCon();
-        String Name = null;
-        if (evt.getStateChange() == ItemEvent.SELECTED) {
-            String item = evt.getItem().toString();
-
-            try {
-                ResultSet query = dbma.query("SELECT * FROM division_details WHERE code =" + item + "");
-                while (query.next()) {
-                    Name = query.getString("division");
-                    System.out.println(Name);
-                }
-            } catch (SQLException ex) {
-                System.out.println("error");
-            }
-
-            division_lb.setText("" + Name);
-        }
-
-        empCode_JC.requestFocus();
-
-
-    }//GEN-LAST:event_division_jcItemStateChanged
-
     private void workCodeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_workCodeItemStateChanged
         String Name = null;
         if (evt.getStateChange() == ItemEvent.SELECTED) {
@@ -1104,7 +1040,7 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
                 }
             } catch (SQLException ex) {
             }
-            work_code.setText("" + Name);
+           // work_code.setText("" + Name);
         }
         W_code.setText(workCode.getSelectedItem().toString());
         otday.requestFocus();
@@ -1496,7 +1432,7 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
         }
 
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
-            division_jc.requestFocus();
+            empCode_JC.requestFocus();
 
         }
     }//GEN-LAST:event_dayfield1KeyPressed
@@ -1518,13 +1454,6 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
         ClearSelectedRow(); // TODO add your handling code here:
 
     }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void division_jcKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_division_jcKeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
-            empCode_JC.requestFocus();
-
-        }        // TODO add your handling code here:
-    }//GEN-LAST:event_division_jcKeyPressed
 
     private void empCode_JCKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_empCode_JCKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
@@ -1579,8 +1508,6 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
     private com.michaelbaranov.microba.calendar.DatePicker datePick1;
     private javax.swing.JPanel datepanel;
     private javax.swing.JTextField dayfield1;
-    private javax.swing.JComboBox division_jc;
-    private javax.swing.JLabel division_lb;
     private javax.swing.JComboBox empCode_JC;
     private javax.swing.JLabel empName;
     private javax.swing.JButton jButton1;
@@ -1590,7 +1517,6 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1608,7 +1534,6 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
     private javax.swing.JCheckBox sunday;
     private javax.swing.JTable table;
     private javax.swing.JComboBox workCode;
-    private javax.swing.JLabel work_code;
     private javax.swing.JTextField yearfield1;
     // End of variables declaration//GEN-END:variables
 }

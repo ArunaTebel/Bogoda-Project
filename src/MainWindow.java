@@ -1,19 +1,7 @@
 
 import java.awt.event.KeyEvent;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.net.InetAddress;
-import java.net.NetworkInterface;
-import java.net.SocketException;
-import java.net.UnknownHostException;
-import java.nio.channels.NetworkChannel;
 import java.sql.SQLException;
-import java.util.Enumeration;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
 
 
 /*
@@ -35,7 +23,7 @@ public class MainWindow extends javax.swing.JFrame {
     UserAccountControl userAC = new UserAccountControl();
 
     public MainWindow() {
-        userAC.validate();
+        //userAC.validate();
         
       //  
         initComponents();
@@ -782,6 +770,7 @@ public class MainWindow extends javax.swing.JFrame {
 //
 //        if(Pass.getText().equalsIgnoreCase(pwd)){  
         jButton1.setEnabled(true);
+        
         jButton2.setEnabled(true);
         jButton3.setEnabled(true);
         jButton4.setEnabled(true);
@@ -800,15 +789,22 @@ public class MainWindow extends javax.swing.JFrame {
         jMenu3.setEnabled(true);
 
         // Main_Content.removeAll();
-        inteface_move.smooth_move(jLabel3, 6, 3, 3);
-        User_id.setVisible(false);
-        Pass.setVisible(false);
-        jButton14.setVisible(false);
+        inteface_move.smooth_move(jLabel3, 6, 3, 3,1);
+        inteface_move.smooth_move(User_id, 6, 3, 3,1);
+        inteface_move.smooth_move(Pass, 6, 6, 5,2);
+        inteface_move.smooth_move(jButton14, 6, 8, 3,4);
+        inteface_move.smooth_move(jLabel4, 6, 3, 3,1);
+        inteface_move.smooth_move(jLabel5, 6, 5, 3,2);
+        inteface_move.smooth_move(jLabel6, 6, 3, 3,1);
+        
+      //  User_id.setVisible(false);
+       // Pass.setVisible(false);
+       // jButton14.setVisible(false);
        // jLabel3.setVisible(false);
         
-        jLabel4.setVisible(false);
-        jLabel5.setVisible(false);
-        jLabel6.setVisible(false);
+       // jLabel4.setVisible(false);
+       // jLabel5.setVisible(false);
+       // jLabel6.setVisible(false);
         //Main_Content.setBackground(new java.awt.Color(240, 240, 240));
         jLabel7.setVisible(true);
         topBar.setBackground(new java.awt.Color(102, 102, 102));
