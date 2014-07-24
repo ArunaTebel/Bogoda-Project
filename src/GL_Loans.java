@@ -61,7 +61,12 @@ public class GL_Loans extends javax.swing.JPanel {
         rateField.setText("" + rate);
     }
     
-    
+     private double instalment_for_the_month(double amount,double int_rate,int instalments,int month){
+        double repay = amount/instalments;
+        
+        GL_Billsummerycls gl = new GL_Billsummerycls();
+        return Double.parseDouble(gl.two_dec_places(""+((amount-repay*(month-1))*int_rate/100+repay)));
+    }
 
 
 
@@ -129,6 +134,9 @@ public class GL_Loans extends javax.swing.JPanel {
         yearfield = new javax.swing.JTextField();
         dayfield = new javax.swing.JTextField();
         datePicker1 = new com.michaelbaranov.microba.calendar.DatePicker();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        schedule = new javax.swing.JTextArea();
+        jButton8 = new javax.swing.JButton();
 
         jLabel2.setText("Name ");
 
@@ -539,6 +547,19 @@ public class GL_Loans extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        schedule.setBackground(new java.awt.Color(204, 204, 255));
+        schedule.setColumns(20);
+        schedule.setFont(new java.awt.Font("Monospaced", 1, 13)); // NOI18N
+        schedule.setRows(5);
+        jScrollPane1.setViewportView(schedule);
+
+        jButton8.setText("Calculate The Pay Schedule");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -550,61 +571,63 @@ public class GL_Loans extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(143, 143, 143)
+                        .addComponent(jButton8)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jSeparator4)
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(15, 15, 15)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGap(15, 15, 15)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(93, 93, 93)
-                                                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(jLabel1)
-                                                    .addComponent(jLabel2))
-                                                .addGap(18, 18, 18)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addGroup(layout.createSequentialGroup()
-                                                        .addComponent(supplier_id, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addGap(51, 51, 51)
-                                                        .addComponent(jLabel5)
-                                                        .addGap(26, 26, 26)
-                                                        .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                    .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(93, 93, 93)
+                                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGap(27, 27, 27)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addGroup(layout.createSequentialGroup()
-                                                        .addComponent(jLabel6)
-                                                        .addGap(18, 18, 18)
-                                                        .addComponent(jLabel16))
-                                                    .addComponent(jLabel17)))
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jLabel20)
-                                                .addComponent(jLabel19)))
+                                            .addComponent(jLabel1)
+                                            .addComponent(jLabel2))
                                         .addGap(18, 18, 18)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(amountField, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(rateField, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(installmentsField, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(payField, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(supplier_id, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(51, 51, 51)
+                                                .addComponent(jLabel5)
+                                                .addGap(26, 26, 26)
+                                                .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(27, 27, 27)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(layout.createSequentialGroup()
-                                                .addGap(10, 10, 10)
-                                                .addComponent(jLabel7)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(cash_cheque_combo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGap(42, 42, 42)
-                                                .addComponent(Cheque_pay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                                .addGap(223, 223, 223)))
+                                                .addComponent(jLabel6)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(jLabel16))
+                                            .addComponent(jLabel17)))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel20)
+                                        .addComponent(jLabel19)))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(amountField, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(rateField, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(installmentsField, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(payField, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(10, 10, 10)
+                                        .addComponent(jLabel7)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(cash_cheque_combo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(42, 42, 42)
+                                        .addComponent(Cheque_pay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -659,10 +682,18 @@ public class GL_Loans extends javax.swing.JPanel {
                                 .addComponent(Cheque_pay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(35, 35, 35)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(jButton8)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -728,7 +759,7 @@ public class GL_Loans extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "One or more inputs not give!");
         } else {
             try {
-                double rate, monthlyPay, amount;
+                double rate,amount;
                 int installments, supId;
                 String month, year, day;
                 if (rateField.getText().equals("")) {
@@ -739,8 +770,7 @@ public class GL_Loans extends javax.swing.JPanel {
                 }
                 amount = Double.parseDouble(amountField.getText());
                 installments = Integer.parseInt(installmentsField.getText());
-                monthlyPay = amount * (1 + rate * 0.01) / installments;
-                payField.setText("" + monthlyPay + "");
+              //  payField.setText("" + monthlyPay + "");
                 Date loanDate = datechooser.Return_date(yearfield, monthfield, dayfield);
                 month = datehandler.get_month_as_num(loanDate);
                 year = yearfield.getText();
@@ -748,6 +778,11 @@ public class GL_Loans extends javax.swing.JPanel {
                 int date1 = Integer.parseInt(day);
                 supId = Integer.parseInt((String) supplier_id.getSelectedItem());
                 String[] allMonths = new String[installments];
+                double[] monthlyPay = new double[installments];
+                
+                for(int i=0;i<installments;i++){
+                    monthlyPay[i]=instalment_for_the_month(amount, rate, installments, i+1);
+                }
                 int i;
                 int monthNum = Integer.parseInt(month);
                 int newMonth;
@@ -775,7 +810,7 @@ public class GL_Loans extends javax.swing.JPanel {
                 else{
                     loanDate1 = new Date(Integer.parseInt(year) - 1900, Integer.parseInt(month) - 1, 8);
                 }
-                dbm.insert("INSERT INTO gl_loans(sup_id,loan_id,type,amount,installments,rate,date,issue_date,monthly_amount) VALUES('" + supId + "','" + 0 + "','Current month','" + amount + "','" + installments + "','" + rate + "','" + loanDate1 + "','" + loanDate + "','" + monthlyPay + "')");
+                dbm.insert("INSERT INTO gl_loans(sup_id,loan_id,type,amount,installments,rate,date,issue_date,monthly_amount) VALUES('" + supId + "','" + 0 + "','Current month','" + amount + "','" + installments + "','" + rate + "','" + loanDate1 + "','" + loanDate + "','" + monthlyPay[0] + "')");
                 int transaction = dbm.readLastRow("gl_loans", "tr_id");
                 dbm.updateDatabase("gl_loans", "tr_id", transaction, "loan_id", transaction);
                 for (i = 1; i < allMonths.length; i++) {
@@ -783,12 +818,12 @@ public class GL_Loans extends javax.swing.JPanel {
                         year = String.valueOf(Integer.parseInt(year) + 1);
                     }
                     Date date = new Date(Integer.parseInt(year) - 1900, Integer.parseInt(allMonths[i]) - 1, 8);
-                    dbm.insert("INSERT INTO gl_loans(sup_id,loan_id,type,amount,installments,rate,date,issue_date,monthly_amount) VALUES('" + supId + "','" + transaction + "','Previous','" + amount + "','" + installments + "','" + rate + "','" + date + "','" + loanDate + "','" + monthlyPay + "')");
+                    dbm.insert("INSERT INTO gl_loans(sup_id,loan_id,type,amount,installments,rate,date,issue_date,monthly_amount) VALUES('" + supId + "','" + transaction + "','Previous','" + amount + "','" + installments + "','" + rate + "','" + date + "','" + loanDate + "','" + monthlyPay[i] + "')");
                 }
                 installmentsField.setText("");
                 amountField.setText("");
                 payField.setText("");
-                JOptionPane.showMessageDialog(datechooser, "Success");
+                JOptionPane.showMessageDialog(datechooser, "Loan Saved To Transaction No. "+transaction);
             } catch (HeadlessException | NumberFormatException | SQLException | ParseException ex) {
                 Logger.getLogger(GL_Loans.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(datechooser, "There are empty fields");
@@ -1257,6 +1292,24 @@ public class GL_Loans extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+
+        schedule.setText(null);
+        int i=0;
+
+        int instalments = Integer.parseInt(installmentsField.getText());
+        double int_rate = Double.parseDouble(rateField.getText());
+        double amount = Double.parseDouble(amountField.getText());
+
+        Date_Handler dt = new Date_Handler();
+
+        for(i=0;i<instalments;i++){
+
+            schedule.setText(schedule.getText()+"\n"+(dt.forwad_months(yearfield.getText(),dt.return_month_as_num(monthfield.getText()), i))+"  -  "+instalment_for_the_month(amount, int_rate, instalments, i+1));
+
+        }
+    }//GEN-LAST:event_jButton8ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BSave;
@@ -1273,6 +1326,7 @@ public class GL_Loans extends javax.swing.JPanel {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1295,6 +1349,7 @@ public class GL_Loans extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JTextField jTextField1;
@@ -1311,6 +1366,7 @@ public class GL_Loans extends javax.swing.JPanel {
     private javax.swing.JLabel name;
     private javax.swing.JTextField payField;
     private javax.swing.JTextField rateField;
+    private javax.swing.JTextArea schedule;
     private javax.swing.JTextField set_val;
     public static javax.swing.JComboBox supplier_id;
     private javax.swing.JTextField yearfield;

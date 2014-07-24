@@ -892,6 +892,55 @@ public final class DatabaseManager {
      
      }
      
+     public double prcr_loan(int emp_code,String year,String month){
+         
+         DatabaseManager dbm = new DatabaseManager();
+         double tot=0;
+         String year_month = year +"-"+month;
+        try {
+            ResultSet query = dbm.query("SELECT * FROM prcr_loans WHERE emp_id LIKE'"+emp_code+"' AND month_year LIKE '"+year_month+"'");
+            while(query.next()){
+                tot=tot+query.getDouble("monthly_amount");
+            }
+            return tot;
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
+            return 0;
+        }
+         
+         
+     }
+     
+     public int[] prcr_loan_emp_code_array(String year,String month){
+         DatabaseManager dbm = new DatabaseManager();
+         
+         String year_month = year +"-"+month;
+         int i=0;
+        try {
+            ResultSet query = dbm.query("SELECT * FROM prcr_loans WHERE month_year LIKE '"+year_month+"'");
+            while(query.next()){
+                i++;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        int[] arr = new int[i];
+          i=0;
+        try {
+            ResultSet query = dbm.query("SELECT * FROM prcr_loans WHERE month_year LIKE '"+year_month+"'");
+            while(query.next()){
+                arr[i]=query.getInt("emp_id");
+                i++;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return arr;
+        
+     }
+     
      
 
 }
