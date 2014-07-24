@@ -220,6 +220,32 @@ public final class DatabaseManager {
         return null;
     }
     
+    
+      public String[] getStringArray2(String table_name, String column_name) {
+
+        int count = 0;
+        DatabaseManager dbm = DatabaseManager.getDbCon();
+        try {
+            ResultSet query = dbm.query("SELECT " + column_name + " FROM " + table_name + "");
+            while (query.next()) {
+                count++;
+            }
+            String[] array = new String[count];
+            count = 0;
+            ResultSet query2 = dbm.query("SELECT " + column_name + " FROM " + table_name + "");
+            while (query2.next()) {
+                array[count] = query2.getString(column_name);
+                count++;
+            }
+            return array;
+        } catch (SQLException ex) {
+
+        }
+        return null;
+    }
+    
+    
+    
     public int[] getArray(String table_name, String column_name) {
 
         int count = 0;
