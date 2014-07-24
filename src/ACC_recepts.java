@@ -510,7 +510,7 @@ public class ACC_recepts extends javax.swing.JPanel {
         branchName.setForeground(new java.awt.Color(51, 51, 51));
 
         //bankCode.putClientProperty("JComboBox.isTableCellEditor",Boolean.TRUE);
-        bankCode.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray1("bank","bank_id")));
+        bankCode.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray2("bank","bank_id")));
         bankCode.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 bankCodeItemStateChanged(evt);
@@ -527,11 +527,16 @@ public class ACC_recepts extends javax.swing.JPanel {
             }
         });
 
-        branchCode.putClientProperty("JComboBox.isTableCellEditor",Boolean.TRUE);
-        branchCode.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("bank_branch","branch_id")));
+        //branchCode.putClientProperty("JComboBox.isTableCellEditor",Boolean.TRUE);
+        branchCode.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray2("bank_branch","branch_id")));
         branchCode.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 branchCodeItemStateChanged(evt);
+            }
+        });
+        branchCode.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                branchCodeKeyPressed(evt);
             }
         });
 
@@ -855,7 +860,7 @@ public class ACC_recepts extends javax.swing.JPanel {
 
         if (selection.equalsIgnoreCase("Cheque")) {
             Cheque_pay.setVisible(true);
-            bankCode.requestFocusInWindow();
+           // bankCode.requestFocusInWindow();
 
         }
     }//GEN-LAST:event_payTypeActionPerformed
@@ -1049,7 +1054,7 @@ public class ACC_recepts extends javax.swing.JPanel {
             branchName.setText("" + Name);
         }
 
-        chequeNo.requestFocusInWindow();
+        
     }//GEN-LAST:event_branchCodeItemStateChanged
 
     private void debit_accountCodeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_debit_accountCodeItemStateChanged
@@ -1226,11 +1231,7 @@ public class ACC_recepts extends javax.swing.JPanel {
     }//GEN-LAST:event_recieptNoKeyPressed
 
     private void payTypeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_payTypeItemStateChanged
-        if ("Cash".equals(payType.getSelectedItem().toString())) {
-            debit_accountCode.requestFocusInWindow();
-        } else {
-            bankCode.requestFocusInWindow();
-        }
+        
     }//GEN-LAST:event_payTypeItemStateChanged
 
     private void debit_accountCodeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_debit_accountCodeKeyPressed
@@ -1291,7 +1292,12 @@ public class ACC_recepts extends javax.swing.JPanel {
     }//GEN-LAST:event_chequeDateKeyPressed
 
     private void payTypeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_payTypeKeyPressed
-        interface_events.Change_focus_Enterkey_c(debit_accountCode, evt);
+       // interface_events.Change_focus_Enterkey_c(debit_accountCode, evt);
+         if (payType.getSelectedItem() == "Cash") {
+            interface_events.Change_focus_Enterkey_c(debit_accountCode, evt);
+        } else {
+            interface_events.Change_focus_Enterkey_c(bankCode, evt);
+        }
     }//GEN-LAST:event_payTypeKeyPressed
 
     private void jButton5FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jButton5FocusGained
@@ -1711,6 +1717,12 @@ public class ACC_recepts extends javax.swing.JPanel {
             branchCode.requestFocusInWindow();
         }
     }//GEN-LAST:event_bankCodeKeyPressed
+
+    private void branchCodeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_branchCodeKeyPressed
+        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+            chequeNo.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_branchCodeKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
