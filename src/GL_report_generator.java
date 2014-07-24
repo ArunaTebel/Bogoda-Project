@@ -70,7 +70,7 @@ public class GL_report_generator {
         String task = "1";
         //   String done = "DONE";
         int size = getColumnsize("suppliers", "sup_id");
-        Task_manager.dailyTprog.setMaximum(size);
+      try{  Task_manager.dailyTprog.setMaximum(size); } catch(Exception dee){}
 
         ResultSet query = dbCon.query("SELECT * FROM suppliers");
 
@@ -109,7 +109,7 @@ public class GL_report_generator {
             }
 
             j++;
-            Task_manager.dailyTprog.setValue(j);
+            try{Task_manager.dailyTprog.setValue(j); } catch(Exception eee){}
         }
         //update_taskmanager(year, month, task);
 
@@ -276,7 +276,9 @@ public class GL_report_generator {
             int j = 0;
             ResultSet query = dbCon.query("SELECT * FROM suppliers");
             int size = getColumnsize("suppliers", "sup_id");
+            try{
             Task_manager.weeklyadprog.setMaximum(size);
+            } catch(Exception eee){}
             while (query.next()) {
                 /// System.out.println("query");
                 int sup = query.getInt("sup_id");
@@ -298,7 +300,7 @@ public class GL_report_generator {
                 } //  dbCon.insert("INSERT INTO daily_transactions_current(year,month,sup_id,day_1,Total) VALUES('" + year + "','" + month + "','"  + sup + "','" + day_totals[0] +  "','"+ total + "')");
                 j++;
 
-                Task_manager.weeklyadprog.setValue(j);
+               try{ Task_manager.weeklyadprog.setValue(j); } catch(Exception wee){}
 
             }
         } catch (SQLException ex) {
@@ -358,7 +360,7 @@ public class GL_report_generator {
 
         ResultSet query = dbCon.query("SELECT * FROM suppliers");
         int size = getColumnsize("suppliers", "sup_id");
-        Task_manager.monthlegprog.setMaximum(size);
+     try{   Task_manager.monthlegprog.setMaximum(size); } catch(Exception eee){}
         while (query.next()) {
             int sup = query.getInt("sup_id");
             String name = query.getString("sup_name");
@@ -430,7 +432,7 @@ public class GL_report_generator {
                 dbCon.insert("UPDATE  gl_monthly_ledger_current SET year='" + year + "',month='" + month + "',sup_id='" + sup + "',name='" + name + "',pay='" + pay + "',total_kg='" + total_kg + "',set_value='" + leaf_rate + "',gross_amount='" + (total_kg * leaf_rate) + "',coins_bf='" + coinsbf + "',total_payable='" + (coinsbf + (total_kg * leaf_rate)) + "',pre_debts='" + pre_debts + "',cash_advances='" + cash_advance + "',other_advances='" + other_advance + "',loans ='" + loans + "',cards='" + cards + "',transport='" + trans + "',welfare = '" + welf + "',total_deduction='" + (pre_debts + cash_advance + other_advance + cards + trans) + "',net_amount='" + net_amount + "',tax='" + plusTax + "',final_payable='" + (net_amount + plusTax) + "',coins_cf='" + coinscf + "',final_amount='" + final_total + "',bal_cf='" + bal_cf + "' Where entry = '" + year + month + sup + "'");
 
             }
-            Task_manager.monthlegprog.setValue(k);
+          try{  Task_manager.monthlegprog.setValue(k); } catch(Exception hee){}
         }
         //   update_taskmanager(year, month, task);
     }
@@ -471,7 +473,7 @@ public class GL_report_generator {
 
         try {
             // System.out.println(k);
-            Task_manager.predebprog.setMaximum(k);
+          try{  Task_manager.predebprog.setMaximum(k); } catch(Exception eee){}
             k = 0;
             String nextmonth = date_handler.forwad_months(year, month, 1);
             String[] temp = new String[2];
@@ -490,7 +492,7 @@ public class GL_report_generator {
                 }
 
                 k++;
-                Task_manager.predebprog.setValue(k);
+               try{ Task_manager.predebprog.setValue(k); } catch(Exception ree){}
             }
         } catch (SQLException ex) {
             Logger.getLogger(GL_report_generator.class.getName()).log(Level.SEVERE, null, ex);

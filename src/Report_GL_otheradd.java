@@ -70,7 +70,7 @@ UIDefaults defaults = UIManager.getLookAndFeelDefaults();
                 // Date Return_date = datechooser.Return_date(yearfield, monthfield, dayfield);
                 String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
                 a.start();
-                generate.create("GL_trans", saveloc, param, location, "GL_loans.jrxml");
+                generate.create("GL_trans", saveloc, param, location, "GL_otheradd.jrxml");
                 a.stop();;
                 jProgressBar1.setValue(100);
             } catch (ParseException ex) {
