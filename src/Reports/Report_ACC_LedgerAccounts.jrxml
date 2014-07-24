@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Report_ACC_LedgerAccounts" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b4a7e90f-236c-48e1-b463-a16c40591ab1">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="112"/>
+	<property name="ireport.y" value="5"/>
 	<parameter name="USER" class="java.lang.String"/>
 	<parameter name="Account_Code" class="java.lang.String"/>
 	<parameter name="Account_Name" class="java.lang.String"/>
@@ -87,6 +87,13 @@ FROM
 				</textElement>
 				<textFieldExpression><![CDATA[$P{USER}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement uuid="3e709542-151f-4b92-8a79-9527db2b951e" x="208" y="37" width="127" height="16"/>
+				<textElement>
+					<font size="12" isBold="true" isItalic="false" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Ledger Account List]]></text>
+			</staticText>
 		</band>
 	</title>
 	<pageHeader>
@@ -218,7 +225,7 @@ FROM
 			<textField pattern="#,##0.00">
 				<reportElement uuid="87ddaa0d-dd34-4898-aa40-b97c0d91abb1" x="454" y="28" width="72" height="20"/>
 				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA[( $P{Op_Bal}>0 ? "" : -$P{Op_Bal} )]]></textFieldExpression>
+				<textFieldExpression><![CDATA[( $P{Op_Bal}>=0 ? "" : -$P{Op_Bal} )]]></textFieldExpression>
 			</textField>
 		</band>
 	</columnHeader>

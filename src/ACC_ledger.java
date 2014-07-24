@@ -14,7 +14,11 @@ public class ACC_ledger {
 
         DatabaseManager dbm = new DatabaseManager();
         String dt;
-
+        try {
+            dbm.insert("Truncate account_ledger_temp");
+        } catch (SQLException ex) {
+            Logger.getLogger(ACC_ledger.class.getName()).log(Level.SEVERE, null, ex);
+        }
         // Search and fill in journals
         try {
             ResultSet query = dbm.query("SELECT * FROM account_journal_creditside WHERE credit_account_id LIKE '" + account_code + "'");
@@ -106,6 +110,12 @@ public class ACC_ledger {
 
         DatabaseManager dbm = new DatabaseManager();
         String dt;
+        
+        try {
+            dbm.insert("Truncate account_ledger_temp");
+        } catch (SQLException ex) {
+            Logger.getLogger(ACC_ledger.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         // Search and fill in journals
         try {
@@ -293,6 +303,12 @@ public class ACC_ledger {
         DatabaseManager dbm = new DatabaseManager();
         String dt;
 
+        try {
+            dbm.insert("Truncate account_ledger_temp");
+        } catch (SQLException ex) {
+            Logger.getLogger(ACC_ledger.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         // Search and fill in journals
         try {
             ResultSet query = dbm.query("SELECT * FROM account_journal_creditside");
@@ -385,6 +401,11 @@ public class ACC_ledger {
         DatabaseManager dbm = new DatabaseManager();
         String dt;
 
+        try {
+            dbm.insert("Truncate account_ledger_temp");
+        } catch (SQLException ex) {
+            Logger.getLogger(ACC_ledger.class.getName()).log(Level.SEVERE, null, ex);
+        }
         // Search and fill in journals
         try {
             ResultSet query = dbm.query("SELECT * FROM account_journal_creditside");
