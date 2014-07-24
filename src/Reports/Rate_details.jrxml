@@ -115,35 +115,35 @@ FROM
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[rate_details_Rate_code]]></text>
+				<text><![CDATA[Code: Num]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="111" y="5" width="111" height="20" uuid="201c1038-9b8f-4e05-b98b-221a7483d564"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[rate_details_Name]]></text>
+				<text><![CDATA[Name]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="222" y="5" width="111" height="20" uuid="5667b8f3-d70e-4c78-87aa-c3b3be1a7249"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[rate_details_Code_name]]></text>
+				<text><![CDATA[Code]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="333" y="5" width="111" height="20" uuid="23bded0e-fcef-4df3-9457-3de575cc9a79"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[rate_details_type]]></text>
+				<text><![CDATA[Type]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="444" y="5" width="111" height="20" uuid="b02a6c2c-8de2-4127-a7b1-3a1fba904be8"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[rate_details_rate]]></text>
+				<text><![CDATA[Rate]]></text>
 			</staticText>
 		</band>
 	</columnHeader>

@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b4a7e90f-236c-48e1-b463-a16c40591ab1">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="85"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="USER" class="java.lang.String"/>
 	<parameter name="from_month" class="java.lang.String"/>
 	<parameter name="to_month" class="java.lang.String"/>
@@ -37,7 +37,21 @@ where sup_id =$P{sup}  and (( year > $P{from_year} or ( year = $P{from_year} and
 	<field name="gl_monthly_ledger_current_final_amount" class="java.lang.Double"/>
 	<variable name="TITLE" class="java.lang.String"/>
 	<variable name="sum" class="java.lang.Double"/>
-	<variable name="variable2" class="java.lang.String"/>
+	<variable name="tot" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{gl_monthly_ledger_current_total_kg}]]></variableExpression>
+	</variable>
+	<variable name="tot_1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{gl_monthly_ledger_current_loans}]]></variableExpression>
+	</variable>
+	<variable name="tot_1_2" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{gl_monthly_ledger_current_cash_advances}]]></variableExpression>
+	</variable>
+	<variable name="tot_1_2_3" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{gl_monthly_ledger_current_other_advances}]]></variableExpression>
+	</variable>
+	<variable name="tot_1_2_3_4" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{gl_monthly_ledger_current_final_amount}]]></variableExpression>
+	</variable>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -205,10 +219,12 @@ where sup_id =$P{sup}  and (( year > $P{from_year} or ( year = $P{from_year} and
 			</textField>
 			<textField>
 				<reportElement x="235" y="0" width="55" height="20" uuid="2d7c6792-a25c-4028-be33-cb26d547ceee"/>
+				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_total_kg}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="294" y="0" width="55" height="20" uuid="f4043d7c-fdfa-4f8c-9374-49ae17666e4d"/>
+				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_loans}]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -220,14 +236,17 @@ where sup_id =$P{sup}  and (( year > $P{from_year} or ( year = $P{from_year} and
 			</textField>
 			<textField>
 				<reportElement x="362" y="0" width="55" height="20" uuid="dbd0552e-d5d8-4c94-90eb-85e2c3249284"/>
+				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_cash_advances}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="427" y="0" width="55" height="20" uuid="130eef2f-9417-41a1-9107-5c217944dab2"/>
+				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_other_advances}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="495" y="0" width="55" height="20" uuid="302ae4a3-5127-4565-b2ac-d0506c4744dd"/>
+				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_final_amount}]]></textFieldExpression>
 			</textField>
 		</band>
@@ -254,20 +273,31 @@ where sup_id =$P{sup}  and (( year > $P{from_year} or ( year = $P{from_year} and
 				<reportElement x="1" y="31" width="555" height="1" uuid="071b8cd8-29bc-49cd-beab-4de7f0fe7be0"/>
 			</line>
 			<textField>
-				<reportElement x="495" y="7" width="61" height="20" uuid="ef8cdfec-4c87-4075-9d65-06cfcb5feeb9"/>
-				<textFieldExpression><![CDATA[$V{sum}]]></textFieldExpression>
+				<reportElement x="235" y="11" width="55" height="20" uuid="2cc706c1-53f6-4619-84f8-f19a2849e538"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{tot}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="294" y="7" width="100" height="20" uuid="a584f56a-88d9-4e65-9f1d-282e2b872df8"/>
-				<textFieldExpression><![CDATA[$V{loan}]]></textFieldExpression>
+			<textField pattern="#,##0.00">
+				<reportElement x="294" y="11" width="55" height="20" uuid="d088cb1e-56c6-4fe4-b6fe-6817e58d1ad4"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{tot_1}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="362" y="8" width="100" height="20" uuid="438bbc75-3b3f-4a58-b4ce-94322f874b87"/>
-				<textFieldExpression><![CDATA[$V{cash}]]></textFieldExpression>
+			<textField pattern="#,##0.00">
+				<reportElement x="362" y="11" width="55" height="20" uuid="ae893e4b-0628-4553-b027-eb24c89061fd"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{tot_1_2}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="427" y="7" width="100" height="20" uuid="7522e83a-35f6-4735-9062-a432dca9e0fa"/>
-				<textFieldExpression><![CDATA[$V{other}]]></textFieldExpression>
+			<textField pattern="#,##0.00">
+				<reportElement x="427" y="11" width="55" height="20" uuid="1e45cdd8-ff40-430b-8947-fffbb79d92b8"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{tot_1_2_3}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="495" y="11" width="55" height="20" uuid="81ffd889-a1b5-41ed-ba20-015f3e93f2fa"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{tot_1_2_3_4}]]></textFieldExpression>
 			</textField>
 		</band>
 	</summary>

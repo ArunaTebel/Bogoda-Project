@@ -20,7 +20,7 @@
      suppliers.`trans_rate` AS suppliers_trans_rate,
      suppliers.`leaf_rate_code` AS suppliers_leaf_rate_code,
      suppliers.`welfare` AS suppliers_welfare,
-     suppliers.`welf_rem` AS suppliers_welf_rem,
+  
      suppliers.`active` AS suppliers_active
 FROM
      `suppliers` suppliers
@@ -42,7 +42,6 @@ WHERE
 	<field name="suppliers_trans_rate" class="java.lang.String"/>
 	<field name="suppliers_leaf_rate_code" class="java.lang.String"/>
 	<field name="suppliers_welfare" class="java.lang.String"/>
-	<field name="suppliers_welf_rem" class="java.lang.Integer"/>
 	<field name="suppliers_active" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
