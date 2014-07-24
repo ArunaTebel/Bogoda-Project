@@ -207,6 +207,11 @@ public class ACC_recepts extends javax.swing.JPanel {
             }
         ));
         credit_amount_table.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        credit_amount_table.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                credit_amount_tableKeyPressed(evt);
+            }
+        });
         jScrollPane3.setViewportView(credit_amount_table);
         credit_account_code_table.setAutoResizeMode(credit_account_code_table.AUTO_RESIZE_OFF);
 
@@ -1723,6 +1728,32 @@ public class ACC_recepts extends javax.swing.JPanel {
             chequeNo.requestFocusInWindow();
         }
     }//GEN-LAST:event_branchCodeKeyPressed
+
+    private void credit_amount_tableKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_credit_amount_tableKeyPressed
+       if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+           
+           jButton6.setEnabled(false);
+            double tot = 0;
+        int i = 0;
+        while (credit_account_code_table.getValueAt(i, 0) != null) {
+            tot = tot + Double.parseDouble((String) credit_amount_table.getValueAt(i, 0));
+            i++;
+        }
+        total.setText("" + tot);
+        difference.setText("" + (Double.parseDouble(debitAmount.getText()) - tot));
+
+        if (Double.parseDouble(difference.getText()) < 0) {
+            msg.showMessage("Credit balance is higher than Debit balance", "Please Check Again", "info");
+            jButton2.requestFocusInWindow();
+        } else if (Double.parseDouble(difference.getText()) != 0) {
+            msg.showMessage("There is a difference", "Please Check Again", "info");
+            credit_account_code.requestFocusInWindow();
+        } else {
+            jButton6.setEnabled(true);
+            jButton6.requestFocusInWindow();
+        }
+        }
+    }//GEN-LAST:event_credit_amount_tableKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

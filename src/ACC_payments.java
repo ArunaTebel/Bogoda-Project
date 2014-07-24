@@ -23,7 +23,7 @@ public class ACC_payments extends javax.swing.JPanel {
 
     public ACC_payments() {
         initComponents();
-        jButton6.setEnabled(true);
+        jButton6.setEnabled(false);
 
         // set cheque part invisible at the begining
         String selection = (String) payType.getSelectedItem();
@@ -200,6 +200,11 @@ public class ACC_payments extends javax.swing.JPanel {
             }
         ));
         debit_amount_table.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        debit_amount_table.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                debit_amount_tableKeyPressed(evt);
+            }
+        });
         jScrollPane3.setViewportView(debit_amount_table);
         debit_account_code_table.setAutoResizeMode(debit_account_code_table.AUTO_RESIZE_OFF);
 
@@ -1206,7 +1211,7 @@ public class ACC_payments extends javax.swing.JPanel {
     private void payTypeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_payTypeKeyPressed
         
           if ("Cash".equals(payType.getSelectedItem().toString())) {
-             interface_events.Change_focus_Enterkey_c(debit_account_code, evt);
+             interface_events.Change_focus_Enterkey_c(credit_accountCode, evt);
         } else {
             interface_events.Change_focus_Enterkey_c(bankCode, evt);
         }
@@ -1679,6 +1684,33 @@ public class ACC_payments extends javax.swing.JPanel {
             chequeNo.requestFocusInWindow();
         }
     }//GEN-LAST:event_branchCodeKeyPressed
+
+    private void debit_amount_tableKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_debit_amount_tableKeyPressed
+        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+            double tot = 0;
+            jButton6.setEnabled(false);
+        int i = 0;
+        while (debit_account_code_table.getValueAt(i, 0) != null) {
+            tot = tot + Double.parseDouble((String) debit_amount_table.getValueAt(i, 0));
+            i++;
+        }
+        total.setText("" + tot);
+        difference.setText("" + (Double.parseDouble(creditAmount.getText()) - tot));
+
+        if (Double.parseDouble(difference.getText()) < 0) {
+            msg.showMessage("Debit balance is higher than Credit balance", "Please Check Again", "info");
+            jButton2.requestFocusInWindow();
+        } else if (Double.parseDouble(difference.getText()) != 0) {
+            msg.showMessage("There is a difference", "Please Check Again", "info");
+            debit_account_code.requestFocusInWindow();
+        } else {
+
+            jButton6.setEnabled(true);
+            jButton6.requestFocusInWindow();
+        }
+
+        }
+    }//GEN-LAST:event_debit_amount_tableKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -537,6 +537,11 @@ public class ACC_journals extends javax.swing.JPanel {
             }
         ));
         credit_amount_table.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        credit_amount_table.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                credit_amount_tableKeyPressed(evt);
+            }
+        });
         jScrollPane3.setViewportView(credit_amount_table);
         credit_account_code_table.setAutoResizeMode(credit_account_code_table.AUTO_RESIZE_OFF);
 
@@ -720,6 +725,11 @@ public class ACC_journals extends javax.swing.JPanel {
             }
         ));
         debit_amount_table.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        debit_amount_table.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                debit_amount_tableKeyPressed(evt);
+            }
+        });
         jScrollPane6.setViewportView(debit_amount_table);
         credit_account_code_table.setAutoResizeMode(credit_account_code_table.AUTO_RESIZE_OFF);
 
@@ -1115,7 +1125,7 @@ public class ACC_journals extends javax.swing.JPanel {
             bank_name.setText("" + Name);
         }
 
-       // branch_code.requestFocusInWindow();
+        // branch_code.requestFocusInWindow();
     }//GEN-LAST:event_bank_codeItemStateChanged
 
     private void bank_codeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bank_codeActionPerformed
@@ -1152,7 +1162,7 @@ public class ACC_journals extends javax.swing.JPanel {
             branch_name.setText("" + Name);
         }
 
-       // chequeNo.requestFocusInWindow();
+        // chequeNo.requestFocusInWindow();
     }//GEN-LAST:event_branch_codeItemStateChanged
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -1825,11 +1835,11 @@ public class ACC_journals extends javax.swing.JPanel {
 
     private void chequeNoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_chequeNoKeyPressed
         interface_events.Change_focus_Enterkey_Cal(chequeDate, evt);
-        
+
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             jPanel6.setBackground(new java.awt.Color(255, 0, 153));
         }
-       
+
     }//GEN-LAST:event_chequeNoKeyPressed
 
     private void saveFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_saveFocusGained
@@ -1882,13 +1892,13 @@ public class ACC_journals extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void bank_codeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_bank_codeKeyPressed
-        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             branch_code.requestFocusInWindow();
         }
     }//GEN-LAST:event_bank_codeKeyPressed
 
     private void branch_codeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_branch_codeKeyPressed
-        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             chequeNo.requestFocusInWindow();
         }
     }//GEN-LAST:event_branch_codeKeyPressed
@@ -1897,6 +1907,63 @@ public class ACC_journals extends javax.swing.JPanel {
         jPanel6.setBackground(new java.awt.Color(240, 240, 240));
         debit_account_code.requestFocusInWindow();
     }//GEN-LAST:event_chequeDateKeyPressed
+
+    private void debit_amount_tableKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_debit_amount_tableKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            
+            save.setEnabled(false);
+            double tot = 0;
+            int i = 0;
+            while (debit_account_code_table.getValueAt(i, 0) != null) {
+                tot = tot + Double.parseDouble((String) debit_amount_table.getValueAt(i, 0));
+                i++;
+            }
+            debit_total.setText("" + tot);
+            difference.setText("" + (stringToDoubleNum(debit_total.getText()) - stringToDoubleNum(credit_total.getText())));
+
+             if (Double.parseDouble(difference.getText()) == 0) {
+
+                if (ref_no.getText().length() != 0 && debit_account_code_table.getValueAt(0, 0) != null && credit_account_code_table.getValueAt(0, 0) != null) {
+                    save.setEnabled(true);
+                    save.requestFocus();
+
+                }
+            } else {
+                msg.showMessage("There is a Difference", "Journal Entry", "info");
+                credit_account_code.requestFocus();
+            }
+        }
+    }//GEN-LAST:event_debit_amount_tableKeyPressed
+
+    private void credit_amount_tableKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_credit_amount_tableKeyPressed
+
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            save.setEnabled(false);
+            double tot = 0;
+            int i = 0;
+            while (credit_account_code_table.getValueAt(i, 0) != null) {
+                tot = tot + Double.parseDouble((String) credit_amount_table.getValueAt(i, 0));
+                i++;
+            }
+            credit_total.setText("" + tot);
+
+            // Difference Calculation
+            difference.setText("" + (stringToDoubleNum(debit_total.getText()) - stringToDoubleNum(credit_total.getText())));
+
+            if (Double.parseDouble(difference.getText()) == 0) {
+
+                if (ref_no.getText().length() != 0 && debit_account_code_table.getValueAt(0, 0) != null && credit_account_code_table.getValueAt(0, 0) != null) {
+                    save.setEnabled(true);
+                    save.requestFocus();
+
+                }
+            } else {
+                msg.showMessage("There is a Difference", "Journal Entry", "info");
+                credit_account_code.requestFocus();
+            }
+        }
+
+    }//GEN-LAST:event_credit_amount_tableKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

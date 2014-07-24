@@ -736,6 +736,9 @@
                   <Connection code="new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR)" type="code"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="credit_amount_tableKeyPressed"/>
+              </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="credit_account_code_table.setAutoResizeMode(credit_account_code_table.AUTO_RESIZE_OFF);"/>
               </AuxValues>
@@ -1011,6 +1014,9 @@
                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="debit_amount_tableKeyPressed"/>
+              </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="credit_account_code_table.setAutoResizeMode(credit_account_code_table.AUTO_RESIZE_OFF);"/>
               </AuxValues>
