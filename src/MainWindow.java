@@ -169,7 +169,7 @@ public class MainWindow extends javax.swing.JFrame {
         });
 
         jButton9.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
-        jButton9.setText("T");
+        jButton9.setText("U");
         jButton9.setToolTipText("Task Manager");
         jButton9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -187,7 +187,6 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
 
-        jButton10.setText("jButton8");
         jButton10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton10ActionPerformed(evt);
@@ -204,7 +203,6 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
 
-        jButton11.setText("jButton8");
         jButton11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton11ActionPerformed(evt);
@@ -221,7 +219,6 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
 
-        jButton12.setText("jButton8");
         jButton12.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton12ActionPerformed(evt);
@@ -637,13 +634,13 @@ public class MainWindow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        Task_manager addbrnch = new Task_manager();
-        New_window NW = new New_window();
-         // NW.setSize(addbrnch.getSize());
-        NW.paint(addbrnch,"Task Manager");
+       Update_pass upd = new Update_pass();
+       upd.setLocation(200, 200);
+       upd.setVisible(true);
        
-
-        NW.setVisible(true);
+        
+        
+        
        
     }//GEN-LAST:event_jButton9ActionPerformed
 

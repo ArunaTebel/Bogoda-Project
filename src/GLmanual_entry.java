@@ -28,6 +28,7 @@ public class GLmanual_entry extends javax.swing.JPanel {
     DatabaseManager dbm = DatabaseManager.getDbCon();
     Date_Handler datehandler = new Date_Handler();
     DateChooser_text datechooser = new DateChooser_text();
+    Update update = new Update();
     /**
      * Creates new form GLmanual_entry
      */
@@ -1388,6 +1389,8 @@ jButton1.setEnabled(true);
             category_code.requestFocus();
 
         }
+        update.update_month_check(jButton1, yearfield, monthfield);
+        update.update_month_check(jButton2, yearfield, monthfield);
     }//GEN-LAST:event_monthfieldKeyPressed
 
     private void yearfieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_yearfieldKeyPressed
@@ -1408,6 +1411,9 @@ jButton1.setEnabled(true);
             category_code.requestFocus();
 
         }
+        update.update_month_check(jButton1, yearfield, monthfield);
+        update.update_month_check(jButton2, yearfield, monthfield);
+       
 
     }//GEN-LAST:event_yearfieldKeyPressed
 
@@ -1575,7 +1581,8 @@ jButton1.setEnabled(true);
         }
 
        
-
+update.update_month_check(jButton1, yearfield, monthfield);
+        update.update_month_check(jButton2, yearfield, monthfield);
     }//GEN-LAST:event_dayfieldKeyPressed
 
     private void datePicker1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datePicker1ActionPerformed
@@ -1585,7 +1592,8 @@ jButton1.setEnabled(true);
         monthfield.setText(datehandler.get_month(datef));
         yearfield.setText(datehandler.get_year(datef));
         category_code.requestFocus();
-
+update.update_month_check(jButton1, yearfield, monthfield);
+        update.update_month_check(jButton2, yearfield, monthfield);
     }//GEN-LAST:event_datePicker1ActionPerformed
 
     private void category_codeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_category_codeActionPerformed
@@ -1687,6 +1695,8 @@ jButton1.setEnabled(true);
         }
                 delete.setEnabled(true);
        }
+          update.update_month_check(jButton1, yearfield, monthfield);
+       // update.update_month_check(jButton2, yearfield, monthfield);
     }//GEN-LAST:event_editKeyPressed
 
     

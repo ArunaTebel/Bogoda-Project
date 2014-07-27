@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="9" uuid="b4a7e90f-236c-48e1-b463-a16c40591ab1">
 	<property name="ireport.zoom" value="1.6934217901613318"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="168"/>
 	<parameter name="USER" class="java.lang.String"/>
 	<parameter name="year" class="java.lang.String"/>
 	<parameter name="month" class="java.lang.String"/>
@@ -74,7 +74,9 @@
      suppliers.`sup_sin_name` AS suppliers_sup_sin_name,
      suppliers.`cat_id` AS suppliers_cat_id,
      suppliers.`sup_pay_type` AS suppliers_sup_pay_type,
-     gl_monthly_ledger_current.`entry` AS gl_monthly_ledger_current_entry
+     gl_monthly_ledger_current.`entry` AS gl_monthly_ledger_current_entry,
+     gl_monthly_ledger_current.`nloans` AS gl_monthly_ledger_current_nloans,
+     gl_monthly_ledger_current.`nother` AS gl_monthly_ledger_current_nother
 FROM
      `daily_transactions_current` daily_transactions_current INNER JOIN `gl_monthly_ledger_current` gl_monthly_ledger_current ON daily_transactions_current.`entry` = gl_monthly_ledger_current.`entry`
      AND gl_monthly_ledger_current.`sup_id` = daily_transactions_current.`sup_id`
@@ -153,6 +155,8 @@ ORDER BY
 	<field name="suppliers_cat_id" class="java.lang.String"/>
 	<field name="suppliers_sup_pay_type" class="java.lang.String"/>
 	<field name="gl_monthly_ledger_current_entry" class="java.lang.String"/>
+	<field name="gl_monthly_ledger_current_nloans" class="java.lang.Double"/>
+	<field name="gl_monthly_ledger_current_nother" class="java.lang.Double"/>
 	<variable name="TITLE" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
@@ -167,7 +171,7 @@ ORDER BY
 		<band splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="378" splitType="Stretch">
+		<band height="381" splitType="Stretch">
 			<rectangle>
 				<reportElement x="0" y="0" width="572" height="349" uuid="3066225e-7da7-451a-8756-c10e62ec2dea"/>
 			</rectangle>
@@ -414,7 +418,7 @@ ORDER BY
 				<text><![CDATA[f.jk uqo,]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="18" y="290" width="69" height="16" uuid="52da3e0e-b604-4648-b721-76153abe6279"/>
+				<reportElement x="4" y="290" width="69" height="16" uuid="52da3e0e-b604-4648-b721-76153abe6279"/>
 				<textElement>
 					<font fontName="AA Amali" size="12" isBold="false"/>
 				</textElement>
@@ -481,7 +485,7 @@ ORDER BY
 				<textElement>
 					<font fontName="AA Amali" size="12" isBold="false"/>
 				</textElement>
-				<text><![CDATA[ldvSm;a wx#]]></text>
+				<text><![CDATA[ldvSm;a wxl]]></text>
 			</staticText>
 			<line>
 				<reportElement x="2" y="337" width="570" height="1" uuid="0d048f90-0a60-4753-b7bf-906c8bd8f6af"/>
@@ -1213,7 +1217,7 @@ ORDER BY
 				<text><![CDATA[1957 wxl 51 orK f;a md,k mk;]]></text>
 			</staticText>
 			<textField pattern="#,##0.00">
-				<reportElement x="396" y="284" width="45" height="15" uuid="12793e5d-dc8c-4278-bb72-e544bd661ad7"/>
+				<reportElement x="395" y="284" width="45" height="15" uuid="12793e5d-dc8c-4278-bb72-e544bd661ad7"/>
 				<textElement textAlignment="Right">
 					<font size="10"/>
 				</textElement>
@@ -1225,20 +1229,6 @@ ORDER BY
 					<font fontName="AA Amali" size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{Month}]]></textFieldExpression>
-			</textField>
-			<textField pattern="#,##0.00">
-				<reportElement x="87" y="306" width="70" height="16" uuid="dfdc7360-5359-4eab-8af9-5cd73dfc84df"/>
-				<textElement textAlignment="Right">
-					<font size="8"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_bal_cf}]]></textFieldExpression>
-			</textField>
-			<textField pattern="#,##0.00">
-				<reportElement x="87" y="321" width="70" height="16" uuid="08b452e1-4dc2-4b8e-8e2d-9d9144e4c5ce"/>
-				<textElement textAlignment="Right">
-					<font size="8"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_bal_cf}]]></textFieldExpression>
 			</textField>
 			<line>
 				<reportElement x="167" y="56" width="1" height="282" uuid="53143397-9a14-4771-ab4e-a394070f1c12"/>
@@ -1288,6 +1278,34 @@ ORDER BY
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_entry}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="4" y="322" width="90" height="16" uuid="ff6f9eb4-f0a6-4c7c-ad07-b3f7e3574188"/>
+				<textElement>
+					<font fontName="AA Amali" size="12"/>
+				</textElement>
+				<text><![CDATA[,nk ui Kh jdrsl]]></text>
+			</staticText>
+			<textField pattern="#,##0.00">
+				<reportElement x="89" y="322" width="68" height="16" uuid="a9f2b401-894e-4b55-9efd-a4f59c1f4f44"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_nloans}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="4" y="306" width="90" height="16" uuid="5b251fac-9023-4d16-8321-ce3056ebff1e"/>
+				<textElement>
+					<font fontName="AA Amali" size="12"/>
+				</textElement>
+				<text><![CDATA[,nk ui w;a;sldrus]]></text>
+			</staticText>
+			<textField pattern="#,##0.00">
+				<reportElement x="89" y="306" width="68" height="16" uuid="0e242487-49f0-40b7-8df5-a6e1b33f8e2e"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_nother}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

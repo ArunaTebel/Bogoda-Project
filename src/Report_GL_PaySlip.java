@@ -72,7 +72,7 @@ public class Report_GL_PaySlip extends javax.swing.JPanel {
             param.put("year", yearfield.getText());
             param.put("month", datehandler.return_month_as_num(monthfield.getText()));
             
-            param.put("Month", datehandler.Return_month_full(datehandler.return_index(monthfield.getText())) + " " + yearfield.getText().toString());
+            param.put("Month", datehandler.Return_month_full_sinhala(datehandler.return_index(monthfield.getText())) + " " + yearfield.getText().toString());
 
             // b.start();
             a.start();

@@ -23,6 +23,7 @@ public class Task_manager extends javax.swing.JPanel {
     DatabaseManager dbm = new DatabaseManager();
     GL_report_generator report_gen = new GL_report_generator();
     Update update = new Update();
+    Thread a;
 
     /**
      * Creates new form Task_manager
@@ -35,6 +36,24 @@ public class Task_manager extends javax.swing.JPanel {
         String year = yearfield.getText();
         String month = datehandler.return_month_as_num(monthfield.getText());
         set_task_man();
+        
+    }
+    
+    
+    public void Final_focus(){
+    
+    
+    final_tik.setSelected(true);
+    final_tik.setEnabled(false);
+    
+    }
+    
+     public void temp_focus(){
+    
+    
+    final_tik.setSelected(false);
+    final_tik.setEnabled(false);
+    
     }
 
     public void set_task_man() {
@@ -44,8 +63,7 @@ public class Task_manager extends javax.swing.JPanel {
          GLLabel2.setText("");
           GLLabel3.setText("");
            GLLabel4.setText("");
-            GLLabel5.setText("");
-             GLLabel6.setText("");
+          
              
       // set_values(check(year, month, "1"), GLdate7, GLdate1, GL1);
 
@@ -144,10 +162,12 @@ public class Task_manager extends javax.swing.JPanel {
     
     
      if(GL4.isSelected()){GLLabel4.setText("Processing..");PDC.run(); GLLabel4.setText("Done");}
-    
+     if(final_tik.isSelected()){// Update month set here                                  
+     }
+     }
     }
     
-    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -177,20 +197,13 @@ public class Task_manager extends javax.swing.JPanel {
         jPanel13 = new javax.swing.JPanel();
         GLLabel4 = new javax.swing.JLabel();
         GL4 = new javax.swing.JCheckBox();
-        jPanel14 = new javax.swing.JPanel();
-        GL5 = new javax.swing.JCheckBox();
-        GLLabel5 = new javax.swing.JLabel();
-        jPanel15 = new javax.swing.JPanel();
-        GLLabel6 = new javax.swing.JLabel();
-        GL6 = new javax.swing.JCheckBox();
         dailyTprog = new javax.swing.JProgressBar();
         weeklyadprog = new javax.swing.JProgressBar();
         monthlegprog = new javax.swing.JProgressBar();
         predebprog = new javax.swing.JProgressBar();
-        newmonthP5 = new javax.swing.JProgressBar();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        newmonthP6 = new javax.swing.JProgressBar();
+        jButton3 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLayeredPane2 = new javax.swing.JLayeredPane();
         salarycaloverallL = new javax.swing.JLabel();
@@ -223,6 +236,7 @@ public class Task_manager extends javax.swing.JPanel {
         yearfield = new javax.swing.JTextField();
         datePicker1 = new com.michaelbaranov.microba.calendar.DatePicker();
         info = new javax.swing.JLabel();
+        final_tik = new javax.swing.JCheckBox();
 
         jPanel1.setBackground(new java.awt.Color(153, 0, 51));
 
@@ -294,7 +308,7 @@ public class Task_manager extends javax.swing.JPanel {
                 .addComponent(GL2, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(GLLabel2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(89, Short.MAX_VALUE))
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -309,6 +323,11 @@ public class Task_manager extends javax.swing.JPanel {
         GLLabel3.setText("jLabel2");
 
         GL3.setText("Monthly Ledger");
+        GL3.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                GL3ItemStateChanged(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
@@ -334,6 +353,11 @@ public class Task_manager extends javax.swing.JPanel {
         GLLabel4.setText("jLabel2");
 
         GL4.setText("Update Bal_CF and Coins");
+        GL4.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                GL4ItemStateChanged(evt);
+            }
+        });
         GL4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 GL4ActionPerformed(evt);
@@ -361,66 +385,6 @@ public class Task_manager extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        GL5.setText("Bank Payment List");
-        GL5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                GL5ActionPerformed(evt);
-            }
-        });
-
-        GLLabel5.setText("jLabel2");
-
-        javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
-        jPanel14.setLayout(jPanel14Layout);
-        jPanel14Layout.setHorizontalGroup(
-            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel14Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(GL5, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(GLLabel5)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel14Layout.setVerticalGroup(
-            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel14Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(GL5)
-                    .addComponent(GLLabel5))
-                .addContainerGap())
-        );
-
-        GLLabel6.setText("jLabel2");
-
-        GL6.setText("Cheque Payment List");
-        GL6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                GL6ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
-        jPanel15.setLayout(jPanel15Layout);
-        jPanel15Layout.setHorizontalGroup(
-            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel15Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(GL6, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(GLLabel6)
-                .addContainerGap(206, Short.MAX_VALUE))
-        );
-        jPanel15Layout.setVerticalGroup(
-            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel15Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(GL6)
-                    .addComponent(GLLabel6))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
         dailyTprog.setForeground(new java.awt.Color(0, 0, 0));
         dailyTprog.setStringPainted(true);
 
@@ -432,9 +396,6 @@ public class Task_manager extends javax.swing.JPanel {
 
         predebprog.setForeground(new java.awt.Color(0, 0, 0));
         predebprog.setStringPainted(true);
-
-        newmonthP5.setForeground(new java.awt.Color(0, 0, 0));
-        newmonthP5.setStringPainted(true);
 
         jButton1.setText("Process");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -450,8 +411,12 @@ public class Task_manager extends javax.swing.JPanel {
             }
         });
 
-        newmonthP6.setForeground(new java.awt.Color(0, 0, 0));
-        newmonthP6.setStringPainted(true);
+        jButton3.setText("Select All");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -463,8 +428,6 @@ public class Task_manager extends javax.swing.JPanel {
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jPanel14, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jPanel13, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jPanel12, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jPanel11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -472,14 +435,13 @@ public class Task_manager extends javax.swing.JPanel {
                             .addComponent(weeklyadprog, javax.swing.GroupLayout.PREFERRED_SIZE, 427, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(monthlegprog, javax.swing.GroupLayout.PREFERRED_SIZE, 427, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(predebprog, javax.swing.GroupLayout.PREFERRED_SIZE, 427, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(newmonthP5, javax.swing.GroupLayout.PREFERRED_SIZE, 427, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(dailyTprog, javax.swing.GroupLayout.PREFERRED_SIZE, 427, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addComponent(newmonthP6, javax.swing.GroupLayout.PREFERRED_SIZE, 427, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton3)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -490,7 +452,7 @@ public class Task_manager extends javax.swing.JPanel {
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addComponent(dailyTprog, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -507,15 +469,9 @@ public class Task_manager extends javax.swing.JPanel {
                 .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(predebprog, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(newmonthP5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(newmonthP6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(118, Short.MAX_VALUE))
+                .addGap(26, 26, 26)
+                .addComponent(jButton3)
+                .addContainerGap(189, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -539,7 +495,7 @@ public class Task_manager extends javax.swing.JPanel {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 584, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(290, Short.MAX_VALUE))
+                .addContainerGap(285, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -572,7 +528,7 @@ public class Task_manager extends javax.swing.JPanel {
 
         salarycalL.setText("Division");
 
-        jButton6.setText("Start");
+        jButton6.setText("Process");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
@@ -711,7 +667,7 @@ public class Task_manager extends javax.swing.JPanel {
                         .addComponent(salaryCalP, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jLayeredPane2Layout.createSequentialGroup()
                         .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(0, 0, 0)
                         .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 449, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
@@ -762,11 +718,11 @@ public class Task_manager extends javax.swing.JPanel {
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 884, Short.MAX_VALUE)
+            .addGap(0, 879, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 486, Short.MAX_VALUE)
+            .addGap(0, 492, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Accounts", jPanel6);
@@ -818,6 +774,13 @@ public class Task_manager extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        final_tik.setText("Final Update");
+        final_tik.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                final_tikActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -827,7 +790,9 @@ public class Task_manager extends javax.swing.JPanel {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(final_tik))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(21, 21, 21)
                         .addComponent(info)))
@@ -836,7 +801,9 @@ public class Task_manager extends javax.swing.JPanel {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(final_tik))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTabbedPane1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -864,6 +831,7 @@ public class Task_manager extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void monthfieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_monthfieldKeyPressed
+
         if (monthfield.getText().equals("Jan")) {
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
                 monthfield.setText("Dec");
@@ -1028,6 +996,8 @@ public class Task_manager extends javax.swing.JPanel {
             //set_task_man(year, month);
 
         }
+        update.update_month_check(jButton1, yearfield, monthfield);
+        update.update_month_check(jButton6, yearfield, monthfield);
     }//GEN-LAST:event_monthfieldKeyPressed
 
     private void yearfieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_yearfieldKeyPressed
@@ -1049,6 +1019,8 @@ public class Task_manager extends javax.swing.JPanel {
             String month = datehandler.return_month_as_num(monthfield.getText());
            // set_task_man(year, month);
         }
+         update.update_month_check(jButton1, yearfield, monthfield);
+         update.update_month_check(jButton6, yearfield, monthfield);
     }//GEN-LAST:event_yearfieldKeyPressed
 
     private void datePicker1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datePicker1ActionPerformed
@@ -1059,6 +1031,9 @@ public class Task_manager extends javax.swing.JPanel {
         yearfield.setText(datehandler.get_year(datef));
         //  dayfield2.requestFocus();
         // dayfield2.selectAll();
+         update.update_month_check(jButton1, yearfield, monthfield);
+         
+          update.update_month_check(jButton6, yearfield, monthfield);
     }//GEN-LAST:event_datePicker1ActionPerformed
 
     private void GL1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GL1ActionPerformed
@@ -1073,14 +1048,6 @@ public class Task_manager extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_GL4ActionPerformed
 
-    private void GL5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GL5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_GL5ActionPerformed
-
-    private void GL6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GL6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_GL6ActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 if(update.check_update(yearfield.getText(), datehandler.return_month_as_num(monthfield.getText()))){
  
@@ -1089,7 +1056,7 @@ if(update.check_update(yearfield.getText(), datehandler.return_month_as_num(mont
 
 }
         
-       Thread a = new Thread(new task_green_leaf());
+       a = new Thread(new task_green_leaf());
         a.start();
         
         
@@ -1097,7 +1064,7 @@ if(update.check_update(yearfield.getText(), datehandler.return_month_as_num(mont
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-       // b.stop();      // TODO add your handling code here:
+        b.stop();      // TODO add your handling code here:
     }//GEN-LAST:event_jButton5ActionPerformed
 Thread b;
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
@@ -1114,12 +1081,41 @@ Thread b;
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+    a.stop();//    System.out.println(report_gen.get_other_advance_total(1, yearfield.getText(), datehandler.return_month_as_num(monthfield.getText())));
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void newmonthCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newmonthCActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_newmonthCActionPerformed
+
+    private void final_tikActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_final_tikActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_final_tikActionPerformed
+
+    private void GL3ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_GL3ItemStateChanged
+       if(GL3.isSelected()){
+       GL1.setSelected(true);
+       GL2.setSelected(true);
+       }
+    }//GEN-LAST:event_GL3ItemStateChanged
+
+    private void GL4ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_GL4ItemStateChanged
+       if(GL4.isSelected()){
+       GL1.setSelected(true);
+       GL2.setSelected(true);
+       GL3.setSelected(true);
+       
+       }
+    }//GEN-LAST:event_GL4ItemStateChanged
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+       GL1.setSelected(true);
+         GL2.setSelected(true);
+           GL3.setSelected(true);
+             GL4.setSelected(true);
+             
+               
+    }//GEN-LAST:event_jButton3ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1127,14 +1123,10 @@ Thread b;
     private javax.swing.JCheckBox GL2;
     private javax.swing.JCheckBox GL3;
     private javax.swing.JCheckBox GL4;
-    private javax.swing.JCheckBox GL5;
-    private javax.swing.JCheckBox GL6;
     private javax.swing.JLabel GLLabel1;
     private javax.swing.JLabel GLLabel2;
     private javax.swing.JLabel GLLabel3;
     private javax.swing.JLabel GLLabel4;
-    private javax.swing.JLabel GLLabel5;
-    private javax.swing.JLabel GLLabel6;
     public static javax.swing.JTextArea MessageTex;
     public static javax.swing.JCheckBox advanceC;
     public static javax.swing.JLabel advanceL;
@@ -1145,9 +1137,11 @@ Thread b;
     public static javax.swing.JCheckBox extrapayC;
     public static javax.swing.JLabel extrapayL;
     public static javax.swing.JProgressBar extrapayP;
+    private javax.swing.JCheckBox final_tik;
     private javax.swing.JLabel info;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
@@ -1157,8 +1151,6 @@ Thread b;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
-    private javax.swing.JPanel jPanel14;
-    private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -1172,8 +1164,6 @@ Thread b;
     public static javax.swing.JCheckBox newmonthC;
     public static javax.swing.JLabel newmonthL;
     public static javax.swing.JProgressBar newmonthP;
-    public static javax.swing.JProgressBar newmonthP5;
-    public static javax.swing.JProgressBar newmonthP6;
     public static javax.swing.JProgressBar predebprog;
     public static javax.swing.JCheckBox prvdebtsC;
     public static javax.swing.JLabel prvdebtsL;

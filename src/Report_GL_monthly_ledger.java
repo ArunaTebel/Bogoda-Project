@@ -164,6 +164,7 @@ public class Report_GL_monthly_ledger extends javax.swing.JPanel {
     UserAccountControl user = new UserAccountControl();
     DatabaseManager dbm = new DatabaseManager();
     String saveloc = dbm.checknReturnStringData("file_locations", "description", "ReportSave", "location");
+    Update update = new Update();
 
     public void focus() {
         monthfield.requestFocus();
@@ -498,6 +499,7 @@ public class Report_GL_monthly_ledger extends javax.swing.JPanel {
             // dayfield2.selectAll();
 
         }
+         update.update_month_check(view, yearfield, monthfield);
     }//GEN-LAST:event_monthfieldKeyPressed
 
     private void yearfieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_yearfieldKeyPressed
@@ -519,6 +521,7 @@ public class Report_GL_monthly_ledger extends javax.swing.JPanel {
             //  dayfield2.selectAll();
 
         }
+         update.update_month_check(view, yearfield, monthfield);
     }//GEN-LAST:event_yearfieldKeyPressed
 
     private void datePicker1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datePicker1ActionPerformed
@@ -529,6 +532,7 @@ public class Report_GL_monthly_ledger extends javax.swing.JPanel {
         yearfield.setText(datehandler.get_year(datef));
       //  dayfield2.requestFocus();
         // dayfield2.selectAll();
+         update.update_month_check(view, yearfield, monthfield);
     }//GEN-LAST:event_datePicker1ActionPerformed
 
     private void viewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewActionPerformed

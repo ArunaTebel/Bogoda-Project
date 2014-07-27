@@ -28,26 +28,30 @@ public class Update {
     
     
     }
-     public void update_month_set(javax.swing.JButton update_button, String year, String month){
-     String a = year+month;
-     String aa = dbm.checknReturnData("update_dates", "month", a, "last_update");
-     String today = datehandler.get_today_date();
-     int index;
+     public void update_month_check(javax.swing.JButton update_button, javax.swing.JTextField year, javax.swing.JTextField month){
+     String a = year.getText()+datehandler.return_month_as_num(month.getText());
+        // System.out.println(a);
+     String aa = "";
      
-     if(aa!=null){
-     String[] last_update = aa.split("-");
-     String[] current = today.split("-");
-    
-       if(Integer.parseInt(last_update[0])<Integer.parseInt(current[0])){index = 1;}
-       if((Integer.parseInt(last_update[0])==Integer.parseInt(current[0]))&&(Integer.parseInt(last_update[1])<Integer.parseInt(current[1]))){
-           index = 1;
-       }
-       if((Integer.parseInt(last_update[0])==Integer.parseInt(current[0]))&&(Integer.parseInt(last_update[1])==Integer.parseInt(current[1]))&&
-               (Integer.parseInt(last_update[2])<Integer.parseInt(current[2]))){
-           
-       }
-     }
+     try{
+     aa = dbm.checknReturnData("update_dates", "month", a, "last_update");
+         if(aa==null){
+         aa= "";
+         }
+     } catch (Exception ee) {
+            // System.out.println("Not found");
+             
+             }
      
+      if(aa.equals("YES")){
+      
+      update_button.setEnabled(false);
+      
+      }
+      else{
+      
+      update_button.setEnabled(true);
+      }
      
      
      }

@@ -27,6 +27,7 @@ public class GLcash_advance extends javax.swing.JPanel {
     Date_Handler datehandler = new Date_Handler();
     DateChooser_text datechooser = new DateChooser_text();
     GL_Billsummerycls bill_sum = new GL_Billsummerycls();
+    Update update = new Update();
 
     public GLcash_advance() {
         initComponents();
@@ -100,6 +101,7 @@ public class GLcash_advance extends javax.swing.JPanel {
         Save = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         Save1 = new javax.swing.JButton();
+        UpdateB = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         Set_val = new javax.swing.JTextField();
@@ -461,6 +463,13 @@ public class GLcash_advance extends javax.swing.JPanel {
             }
         });
 
+        UpdateB.setText("Update");
+        UpdateB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UpdateBActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -470,7 +479,9 @@ public class GLcash_advance extends javax.swing.JPanel {
                 .addComponent(Save, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Save1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(5, 5, 5)
+                .addComponent(UpdateB)
+                .addGap(5, 5, 5)
                 .addComponent(jButton4)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -481,7 +492,8 @@ public class GLcash_advance extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(Save, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
                     .addComponent(Save1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(UpdateB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -656,7 +668,7 @@ public class GLcash_advance extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(cash_cheque_combo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(9, 9, 9)
+                        .addGap(21, 21, 21)
                         .addComponent(Cheque_pay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
@@ -920,6 +932,9 @@ public class GLcash_advance extends javax.swing.JPanel {
             Save1.setEnabled(true);
             Save.setEnabled(false);
         }
+        
+        update.update_month_check(Save, yearfield, monthfield);
+        update.update_month_check(Save1, yearfield, monthfield);
     }//GEN-LAST:event_EmergencyItemStateChanged
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -1134,6 +1149,9 @@ public class GLcash_advance extends javax.swing.JPanel {
             supplier_id.requestFocus();
 
         }
+        update.update_month_check(Save, yearfield, monthfield);
+        update.update_month_check(Save1, yearfield, monthfield);
+        update.update_month_check(UpdateB, yearfield, monthfield);
     }//GEN-LAST:event_monthfieldKeyPressed
 
     private void yearfieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_yearfieldKeyPressed
@@ -1154,6 +1172,9 @@ public class GLcash_advance extends javax.swing.JPanel {
             supplier_id.requestFocus();
 
         }
+        update.update_month_check(Save, yearfield, monthfield);
+        update.update_month_check(Save1, yearfield, monthfield);
+        update.update_month_check(UpdateB, yearfield, monthfield);
     }//GEN-LAST:event_yearfieldKeyPressed
 
     private void dayfieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dayfieldKeyPressed
@@ -1323,6 +1344,9 @@ public class GLcash_advance extends javax.swing.JPanel {
             supplier_id.requestFocus();
 
         }
+         update.update_month_check(Save, yearfield, monthfield);
+        update.update_month_check(Save1, yearfield, monthfield);
+        update.update_month_check(UpdateB, yearfield, monthfield);
     }//GEN-LAST:event_dayfieldKeyPressed
 
     private void datePicker1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datePicker1ActionPerformed
@@ -1332,6 +1356,9 @@ public class GLcash_advance extends javax.swing.JPanel {
         monthfield.setText(datehandler.get_month(datef));
         yearfield.setText(datehandler.get_year(datef));
         supplier_id.requestFocus();
+         update.update_month_check(Save, yearfield, monthfield);
+        update.update_month_check(Save1, yearfield, monthfield);
+        update.update_month_check(UpdateB, yearfield, monthfield);
     }//GEN-LAST:event_datePicker1ActionPerformed
 
     private void supplier_idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supplier_idActionPerformed
@@ -1339,7 +1366,8 @@ public class GLcash_advance extends javax.swing.JPanel {
     }//GEN-LAST:event_supplier_idActionPerformed
 
     private void PermissionItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_PermissionItemStateChanged
-        // TODO add your handling code here:
+        update.update_month_check(Save, yearfield, monthfield);
+        update.update_month_check(Save1, yearfield, monthfield);
     }//GEN-LAST:event_PermissionItemStateChanged
 
     private void PermissionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PermissionActionPerformed
@@ -1388,6 +1416,9 @@ public class GLcash_advance extends javax.swing.JPanel {
             }
             delete.setEnabled(true);
         }
+         update.update_month_check(Save, yearfield, monthfield);
+         update.update_month_check(Save1, yearfield, monthfield);
+         
     }//GEN-LAST:event_edit2KeyPressed
 
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
@@ -1429,6 +1460,81 @@ public class GLcash_advance extends javax.swing.JPanel {
                     supplier_id.requestFocusInWindow();
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    private void UpdateBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateBActionPerformed
+       if (cash_cheque_combo.getSelectedItem().toString() == "Cash") {
+
+            if (supplier_id.getSelectedItem() == null || amount.getText().length() == 0) {
+
+                Red_message.setText("Fill all the Empty fields before Save");
+            } else {
+                try {
+                    // save button action here when cash selected
+
+                    interface_events.Respond_enter(Save1, null);
+                    cadvance.set_permission(Permission.isSelected());
+                    cadvance.set_sup_id(Integer.parseInt(supplier_id.getSelectedItem().toString()));
+                    cadvance.set_max_allowable(Double.parseDouble(max_allowable.getText()));
+                    cadvance.set_amount(Double.parseDouble(amount.getText()));
+                    java.sql.Date date3 = datechooser.Return_date(yearfield, monthfield, dayfield);
+                    cadvance.set_date(date3);
+                    cadvance.set_sup_name(supplier_name.getText());
+                    cadvance.set_pay_type(cash_cheque_combo.getSelectedItem().toString());
+                    cadvance.set_emergency(Emergency.isSelected());
+                    cadvance.set_issue_date(date3);
+                    cadvance.set_cheque_date(date3);
+
+                    cadvance.update_database(Integer.parseInt(edit2.getText()));
+
+                    Red_message.setText("updated");
+                    supplier_id.setSelectedIndex(0);
+                    supplier_name.setText(" ");
+                    amount.setText(null);
+                    supplier_id.requestFocusInWindow();
+                } catch (ParseException ex) {
+                    Logger.getLogger(GLcash_advance.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            }
+        }
+
+        if (cash_cheque_combo.getSelectedItem().toString() == "Cheque") {
+
+            if (supplier_id.getSelectedItem() == null || Cheque_Refno.getText().length() == 0 || jComboBox1.getSelectedItem() == null || Cheque_no.getText().length() == 0 || amount.getText().length() == 0) {
+
+                Red_message.setText("Fill all the Empty fields before Save");
+
+            } else {
+                Red_message.setText("Saved cheque");
+                            // save button action here when cheque selected
+                 supplier_id.setSelectedIndex(0);
+                supplier_name.setText(" ");
+                amount.setText(null);
+                Cheque_Refno.setText(null);
+                Cheque_no.setText(null);
+                jComboBox1.setSelectedItem(null);
+                bank_name.setText(" ");
+                supplier_id.requestFocusInWindow();
+            }
+
+        }
+        
+        if(Permission.isSelected()){
+            try {
+                GL_Over_Advance overadvance = new GL_Over_Advance();
+                
+                overadvance.Set_Sup_ID(Integer.parseInt(supplier_id.getSelectedItem().toString()));
+                overadvance.Set_Sup_Name();
+                overadvance.Set_Category_Code();
+                overadvance.Set_Advance_Taken(Double.parseDouble(amount.getText()));
+                overadvance.Set_Issued_Date(datechooser.Return_date(yearfield,monthfield,dayfield));
+                overadvance.AddToOverAdvanceDatabase();
+            } catch (ParseException ex) {
+                Logger.getLogger(GLcash_advance.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+   
+    }//GEN-LAST:event_UpdateBActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Cheque_Refno;
@@ -1440,6 +1546,7 @@ public class GLcash_advance extends javax.swing.JPanel {
     private javax.swing.JButton Save;
     private javax.swing.JButton Save1;
     private javax.swing.JTextField Set_val;
+    private javax.swing.JButton UpdateB;
     private javax.swing.JTextField amount;
     private javax.swing.JLabel bank_name;
     private javax.swing.JComboBox cash_cheque_combo;

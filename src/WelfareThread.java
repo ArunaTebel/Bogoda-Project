@@ -25,6 +25,7 @@ public class WelfareThread implements Runnable{
         
         int isUpdated = -1;
         String day = formatter.format(currentDate.getTime());
+        
         int month = Integer.parseInt(day.substring(5, 7));
         int year = Integer.parseInt(day.substring(0, 4));
         String thisMonth, lastMonth,thismonth2;

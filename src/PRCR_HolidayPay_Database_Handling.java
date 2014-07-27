@@ -71,28 +71,13 @@ public final class PRCR_HolidayPay_Database_Handling {
         String s;
         String normal_days = "normal_days";
         String sundays = "sundays";
-        Date_Handler dt = new Date_Handler();
-        int month;   // for factory workers this is from march for other this is from september
-        
-        if(dbm.checknReturnData("checkroll_personalinfo","code",emp_code,"division")=="FAC"){
-            month=3;
-        }
-        else{
-            month=9;
-        }
-
         for (i = 1; i <= 12; i++) {
 
-            // beacuse in holiday pay year is calculated starting from September
-
-            /*    if (i < 10) {
-             s = "pr_workdata_" + year + "_0" + i;
-             } else {
-             s = "pr_workdata_" + year + "_" + i;
-             } */
-            s = "pr_workdata_" + dt.forwad_months_modified_for_HP("" + (year - 1),""+month, i);
-
-            
+            if (i < 10) {
+                s = "pr_workdata_" + year + "_0" + i;
+            } else {
+                s = "pr_workdata_" + year + "_" + i;
+            }
             if (dbm.TableExistence(s) == true) {
                 try {
                     ResultSet query = dbm.query("SELECT * FROM " + s + " WHERE code =" + emp_code + "");
@@ -144,88 +129,80 @@ public final class PRCR_HolidayPay_Database_Handling {
         return tot_days;
 
     }
-
-    public int Num_of_days_for_employee_from_to(int emp_code, int from_year, int from_month, int to_year, int to_month) {
-
-        int i, j;
-        int tot_days = 0;
-        for (i = from_year; i <= to_year; i++) {
-            j = 1;
-            for (j = from_month; j <= 12; j++) {
-
-                tot_days = tot_days + Num_of_days_for_employee_for_month(emp_code, i, j);
-
-                if (i == to_year && j == to_month) {
+    public int Num_of_days_for_employee_from_to(int emp_code,int from_year,int from_month,int to_year,int to_month){
+        
+        int i,j;
+        int tot_days=0;
+        for(i=from_year;i<=to_year;i++){
+            j=1;
+            for(j=from_month;j<=12;j++){
+                
+                tot_days=tot_days + Num_of_days_for_employee_for_month(emp_code,i,j);
+                
+                if(i==to_year && j==to_month){
                     return tot_days;
                 }
-
+                
             }
         }
-        return tot_days;
+        return tot_days; 
     }
-
-    public int Num_of_holidays_male(int days) {
-
+    
+    public int Num_of_holidays_male(int days){
+        
         DatabaseManager dbm = DatabaseManager.getDbCon();
-        String ndays = "ndays";
-
-        try {
-            ResultSet query = dbm.query("SELECT * FROM  holiday_pay_rate_details_male WHERE lower <= '" + days + "' AND upper >= '" + days + "' ");
-            while (query.next()) {
-                return Integer.parseInt(query.getString(ndays));
+        String ndays ="days";
+        
+            try {
+                ResultSet query = dbm.query("SELECT * FROM  holiday_pay_rate_details_male WHERE lower <= '" + days + "' AND upper >= '"+days+"' ");
+                while (query.next()) {
+                    System.out.println("Hello");
+                    return Integer.parseInt(query.getString(ndays));
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
             }
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
+        
 
-        return 0;
+      return 0;
 
+        
     }
-
-    public int Num_of_holidays_female(int days) {
-
+    
+     public int Num_of_holidays_female(int days){
+        
         DatabaseManager dbm = DatabaseManager.getDbCon();
-        String ndays = "ndays";
-
-        try {
-            ResultSet query = dbm.query("SELECT * FROM  holiday_pay_rate_details_female WHERE lower <= '" + days + "' AND upper >= '" + days + "' ");
-            while (query.next()) {
-                return Integer.parseInt(query.getString(ndays));
+        String ndays ="days";
+        
+            try {
+                ResultSet query = dbm.query("SELECT * FROM  holiday_pay_rate_details_female WHERE lower <= '" + days + "' AND upper >= '"+days+"' ");
+                while (query.next()) {
+                    System.out.println("Hello");
+                    return Integer.parseInt(query.getString(ndays));
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
             }
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
+        
 
-        return 0;
+      return 0;
 
+        
     }
-
-    public int Sallary_for_employee_for_year(int emp_code, int year) {
+     
+       public int Sallary_for_employee_for_year(int emp_code, int year) {
         DatabaseManager dbm = DatabaseManager.getDbCon();
-
-        Date_Handler dt = new Date_Handler();
         int i = 1;
         int tot_salary = 0;
         String s;
         String full_salary = "full_salary";
         for (i = 1; i <= 12; i++) {
 
-            // beacuse in holiday pay year is calculated starting from September
-       /*     if (i < 10) {
-             s = "pr_workdata_" + year + "_0" + i;
-             } else {
-             s = "pr_workdata_" + year + "_" + i;
-             } */
-            
-             int month;   // for factory workers this is from march for other this is from september
-        
-        if(dbm.checknReturnData("checkroll_personalinfo","code",emp_code,"division")=="FAC"){
-            month=3;
-        }
-        else{
-            month=9;
-        }
-            s = "pr_workdata_" + dt.forwad_months_modified_for_HP("" + (year - 1),""+month, i);
+            if (i < 10) {
+                s = "pr_workdata_" + year + "_0" + i;
+            } else {
+                s = "pr_workdata_" + year + "_" + i;
+            }
             if (dbm.TableExistence(s) == true) {
                 try {
                     ResultSet query = dbm.query("SELECT * FROM " + s + " WHERE code =" + emp_code + "");
@@ -270,65 +247,22 @@ public final class PRCR_HolidayPay_Database_Handling {
         return tot_salary;
 
     }
-
-    public int Salary_for_employee_from_to(int emp_code, int from_year, int from_month, int to_year, int to_month) {
-
-        int i, j;
-        int tot_salary = 0;
-        for (i = from_year; i <= to_year; i++) {
-            j = 1;
-            for (j = from_month; j <= 12; j++) {
-
-                tot_salary = tot_salary + Num_of_days_for_employee_for_month(emp_code, i, j);
-
-                if (i == to_year && j == to_month) {
+    public int Salary_for_employee_from_to(int emp_code,int from_year,int from_month,int to_year,int to_month){
+        
+        int i,j;
+        int tot_salary=0;
+        for(i=from_year;i<=to_year;i++){
+            j=1;
+            for(j=from_month;j<=12;j++){
+                
+                tot_salary=tot_salary + Num_of_days_for_employee_for_month(emp_code,i,j);
+                
+                if(i==to_year && j==to_month){
                     return tot_salary;
                 }
-
+                
             }
         }
-        return tot_salary;
+        return tot_salary; 
     }
-
-    public int num_of_holidays_for(int this_year, int emp_code) {
-
-        DatabaseManager dbm = new DatabaseManager();
-        
-        int year;  
-        if(dbm.checknReturnData("checkroll_personalinfo","code",emp_code,"division")=="FAC"){
-            year=this_year;
-        }
-        else{
-            year=this_year-1;
-        }
-
-        if (Integer.parseInt(dbm.checknReturnData("checkroll_personalinfo", "code", emp_code, "gender")) == 1) {
-
-            return Num_of_holidays_male(Num_of_days_for_employee_for_year(emp_code, year));
-        } else {
-            return Num_of_holidays_female(Num_of_days_for_employee_for_year(emp_code, year));
-
-        }
-
-    }
-    
-     public int num_of_holidays_for_willie(int this_year, int emp_code) {
-
-        DatabaseManager dbm = new DatabaseManager();
-        
-        String year_code;  
-        if(dbm.checknReturnData("checkroll_personalinfo","code",emp_code,"division")=="FAC"){
-            year_code=this_year+""+emp_code;
-            return Integer.parseInt(dbm.checknReturnData("holiday_pay_factory","entry",year_code,"holiday_days"));
-        }
-        else{
-            year_code=(this_year-1)+""+emp_code;
-            return Integer.parseInt(dbm.checknReturnData("holiday_pay_ground","entry",year_code,"holiday_days"));
-        }
-
-        
-
-    }
-    
-    
 }

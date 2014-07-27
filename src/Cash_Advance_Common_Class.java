@@ -2,6 +2,8 @@
 import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.ResultSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Cash_Advance_Common_Class {
 
@@ -198,6 +200,16 @@ public class Cash_Advance_Common_Class {
             return false;
         }
         return true;
+    }
+    
+    public void update_database(int entry){
+    
+    DatabaseManager dbCon = DatabaseManager.getDbCon();
+        try {
+            dbCon.insert("UPDATE gl_cash_advance SET month_tr_no ='" + 0 + "', sup_id= '" + sup_id + "',pay_type = '" + pay + "',ordered_date = '" + date + "',issued_date = '" + date + "' ,emergency = '" + emrg + "',special_permission = '" + special_permission + "',amount = '" + amount + "',ref_no = '" + null + "',bank_code = '" + 0 + "',cheque_no = '" + null + "',cheque_date = '" + date + "',date_time = '" + date_time + "',user = '" + user + "'  WHERE entry_no = '" + entry + "'" );
+        } catch (SQLException ex) {
+            Logger.getLogger(Cash_Advance_Common_Class.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }

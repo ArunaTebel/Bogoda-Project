@@ -494,6 +494,52 @@ public String get_day(Date date) {
         return month;
 
     }
+    public String Return_month_full_sinhala(int index) {
+        String month = null;
+
+        switch (index) {
+            case 1:
+                month = "ckjdrs";
+                break;
+            case 2:
+                month = "fmnrjdrs";
+                break;
+            case 3:
+                month = "ud’r;=";
+                break;
+            case 4:
+                month = "wfm%a,a";
+                break;
+            case 5:
+                month = "uehs";
+                break;
+            case 6:
+                month = "cqks";
+                break;
+            case 7:
+                month = "cQ,s";
+                break;
+            case 8:
+                month = "wf.daia;=";
+                break;
+            case 9:
+                month = "iema;eusn’r";
+                break;
+            case 10:
+                month = "Tlaf;dusn’r";
+                break;
+            case 11:
+                month = "fkdjeusn’r";
+                break;
+            case 12:
+                month = "foieusn’r";
+                break;
+
+        }
+
+        return month;
+
+    }
     
     
     public String forwad_months(String Year, String Month, int index){
