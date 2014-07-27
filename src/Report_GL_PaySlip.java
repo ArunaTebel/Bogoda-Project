@@ -80,7 +80,7 @@ public class Report_GL_PaySlip extends javax.swing.JPanel {
 
             String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
 
-           String dateNow= generate.create("PaySlip", saveloc, param, location, "GL_Play_slip.jrxml");
+           String dateNow= generate.create("PaySlip", saveloc, param, location, "GL_Play_slip_s.jrxml");
             a.stop();
             jProgressBar1.setValue(100);
             try {

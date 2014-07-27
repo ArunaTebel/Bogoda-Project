@@ -992,16 +992,14 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_PassKeyPressed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        GL_BillsummeryPanel bill = new GL_BillsummeryPanel();
-
-        Main_Content.removeAll();
-
-        bill.setSize(Main_Content.getSize());
-
-        Main_Content.add(bill);
-        validate();
-        repaint();
-        bill.focus("SupID");
+        
+       // GL_Billsummery bill = new GL_Billsummery(supplier_id.getSelectedItem().toString());
+       //  bill.setVisible(true);
+        
+         GL_Billsummery bill = new GL_Billsummery("SupID");
+         bill.setLocation(100,50);
+         bill.setVisible(true);
+        
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void User_idKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_User_idKeyReleased
