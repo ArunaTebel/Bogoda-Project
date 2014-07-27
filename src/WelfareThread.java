@@ -53,7 +53,7 @@ public class WelfareThread implements Runnable{
             } catch (SQLException ex) {
                 Logger.getLogger(WelfareThread.class.getName()).log(Level.SEVERE, null, ex);
             }*/
-            
+             System.out.println(lastMonth);
             int[] supIdArray = dbm.getValuesArray("welfare", "month", "sup_id", lastMonth);
             int[] monthsArray = dbm.getValuesArray("welfare", "month", "months_on_welfare", lastMonth);
             int[] newOldArray = dbm.getValuesArray("welfare", "month", "new_old", lastMonth);

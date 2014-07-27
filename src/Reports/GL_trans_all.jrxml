@@ -260,7 +260,7 @@ WHERE
 			<textField>
 				<reportElement x="125" y="0" width="80" height="20" uuid="44edb91e-5a75-4888-897a-512d70fd8c46"/>
 				<textElement>
-					<font fontName="SansSerif" size="8"/>
+					<font fontName="Verdana" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{green_leaf_transactions_category_code}]]></textFieldExpression>
 			</textField>

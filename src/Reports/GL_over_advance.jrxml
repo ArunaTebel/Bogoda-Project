@@ -21,10 +21,16 @@
      gl_over_advance.`set_val` AS gl_over_advance_set_val,
      gl_over_advance.`total_kg` AS gl_over_advance_total_kg,
      gl_over_advance.`recovered` AS gl_over_advance_recovered,
-     gl_over_advance.`remain` AS gl_over_advance_remain
+     gl_over_advance.`remain` AS gl_over_advance_remain,
+     gl_over_advance.`m1` AS gl_over_advance_m1,
+     gl_over_advance.`m2` AS gl_over_advance_m2,
+     gl_over_advance.`m3` AS gl_over_advance_m3,
+     gl_over_advance.`m4` AS gl_over_advance_m4
 FROM
      `gl_over_advance` gl_over_advance
-order by gl_over_advance.`category_code`,gl_over_advance.`remain`]]>
+ORDER BY
+     gl_over_advance.`category_code` ASC,
+     gl_over_advance.`remain` ASC]]>
 	</queryString>
 	<field name="gl_over_advance_sup_id" class="java.lang.Integer"/>
 	<field name="gl_over_advance_sup_name" class="java.lang.String"/>
@@ -37,6 +43,10 @@ order by gl_over_advance.`category_code`,gl_over_advance.`remain`]]>
 	<field name="gl_over_advance_total_kg" class="java.lang.Double"/>
 	<field name="gl_over_advance_recovered" class="java.lang.Double"/>
 	<field name="gl_over_advance_remain" class="java.lang.Double"/>
+	<field name="gl_over_advance_m1" class="java.lang.Double"/>
+	<field name="gl_over_advance_m2" class="java.lang.Double"/>
+	<field name="gl_over_advance_m3" class="java.lang.Double"/>
+	<field name="gl_over_advance_m4" class="java.lang.Double"/>
 	<variable name="TITLE" class="java.lang.String"/>
 	<group name="gl_over_advance_category_code">
 		<groupExpression><![CDATA[$F{gl_over_advance_category_code}]]></groupExpression>
@@ -419,6 +429,34 @@ order by gl_over_advance.`category_code`,gl_over_advance.`remain`]]>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
 			</line>
+			<textField>
+				<reportElement x="181" y="20" width="38" height="11" uuid="ade34217-7b73-4a91-bcf9-55be7a784610"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{gl_over_advance_m1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="234" y="20" width="39" height="11" uuid="bd9d9ab5-d563-4f85-a3f0-f0c362f6f637"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{gl_over_advance_m2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="283" y="20" width="46" height="11" uuid="46bcba05-ea92-44c7-bf74-20ffe0061d97"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{gl_over_advance_m3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="339" y="20" width="45" height="11" uuid="c299989e-aa1c-4366-bd2b-0aeefab4bca0"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{gl_over_advance_m4}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 	<columnFooter>

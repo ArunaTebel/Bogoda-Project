@@ -26,7 +26,7 @@ FROM
      `suppliers` suppliers INNER JOIN `welfare` welfare ON suppliers.`sup_id` = welfare.`sup_id`
      INNER JOIN `category` category ON suppliers.`cat_id` = category.`category_id`
 
-WHERE month =$P{month}
+WHERE month =$P{month} and new_old =0  and suspended_months<0
 ORDER BY
      suppliers.`cat_id` ASC]]>
 	</queryString>
