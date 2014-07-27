@@ -486,7 +486,9 @@ int count = 1;
         
         String day = formatter.format(currentDate.getTime());
         int month = Integer.parseInt(day.substring(5, 7));
-        String thisMonth = day.substring(0, 5) + month;
+        String thisMonth = day.substring(0, 5) + month; 
+        
+       // String thisMonth = yearfield.getText()+"-"+Integer.parseInt(monthfield.getText());
         
         int newMonths = (int)dbm.checknReturnDoubleData("rate_details", "Code_name", "PRCR_WM", "rate");
         
@@ -515,6 +517,7 @@ int count = 1;
             newRegisterd = 1;
             try {
                 dbm.insert("INSERT INTO prcr_welfare(entry,month,code,months_on_welfare,new_old,suspended_months,suspended_remain,before_after) VALUES('" + entry + "','" + thisMonth + "','" + supId + "','" + newMonths + "','" + 1 + "','" + suspended + "','" + remain + "','" + before + "')");
+                dbm.insert("INSERT INTO prcr_welfare_members(emp_code,date)VALUES('"+supId+"','"+thisMonth+'"');
             } catch (SQLException ex) {
                 Logger.getLogger(GL_Welfare.class.getName()).log(Level.SEVERE, null, ex);
             }

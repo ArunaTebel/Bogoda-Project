@@ -1,5 +1,4 @@
 
-
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -21,8 +20,8 @@ public final class DatabaseManager {
 
     DatabaseManager() {
 
-       //String url = "jdbc:mysql://192.168.1.71/";
-      // String userName = "BG";
+        //String url = "jdbc:mysql://192.168.1.71/";
+        // String userName = "BG";
         String url = "jdbc:mysql://localhost:3306/";
         String dbName = "bogoda";
         String driver = "com.mysql.jdbc.Driver";
@@ -85,24 +84,25 @@ public final class DatabaseManager {
         }
         return null;
     }
-    
-    public int readLastRow(String table, String coloumn) throws SQLException{
+
+    public int readLastRow(String table, String coloumn) throws SQLException {
         DatabaseManager dbm = DatabaseManager.getDbCon();
         ResultSet rs1 = dbm.query("SELECT " + coloumn + " FROM " + table + " ORDER BY " + coloumn + " DESC LIMIT 1");
-        while(rs1.next())
+        while (rs1.next()) {
             return (rs1.getInt(coloumn));
+        }
         return 0;
     }
-    
-    public int readFirstRow(String table, String coloumn) throws SQLException{
+
+    public int readFirstRow(String table, String coloumn) throws SQLException {
         DatabaseManager dbm = DatabaseManager.getDbCon();
         ResultSet rs1 = dbm.query("SELECT " + coloumn + " FROM " + table);
-        if(rs1.next())
+        if (rs1.next()) {
             return (rs1.getInt(coloumn));
+        }
         return 0;
     }
-  
-    
+
     public String checknReturnStringData(String table_name, String table_column_giving, String row_element, String table_column_need) {
         DatabaseManager dbm = DatabaseManager.getDbCon();
         try {
@@ -116,11 +116,11 @@ public final class DatabaseManager {
         }
         return null;
     }
-    
-      public String filterReturn2StringData(String table_name, String table_column_giving, String row_element,String table_column_giving2, String row_element2, String table_column_need) {
+
+    public String filterReturn2StringData(String table_name, String table_column_giving, String row_element, String table_column_giving2, String row_element2, String table_column_need) {
         DatabaseManager dbm = DatabaseManager.getDbCon();
         try {
-            ResultSet query = dbm.query("SELECT * FROM " + table_name + " where " + table_column_giving + " LIKE '" + row_element + "' AND "+ table_column_giving2 + " LIKE '" + row_element2 + "'");
+            ResultSet query = dbm.query("SELECT * FROM " + table_name + " where " + table_column_giving + " LIKE '" + row_element + "' AND " + table_column_giving2 + " LIKE '" + row_element2 + "'");
             while (query.next()) {
                 return (query.getString(table_column_need));
             }
@@ -130,9 +130,8 @@ public final class DatabaseManager {
         }
         return null;
     }
-      
-       
-           public double checknReturnDoubleData(String table_name, String table_column_giving, Object row_element, String table_column_need) {
+
+    public double checknReturnDoubleData(String table_name, String table_column_giving, Object row_element, String table_column_need) {
         DatabaseManager dbm = DatabaseManager.getDbCon();
         try {
             ResultSet query = dbm.query("SELECT * FROM " + table_name + " where " + table_column_giving + " = '" + row_element + "'");
@@ -141,12 +140,10 @@ public final class DatabaseManager {
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
-           // return "" + ex.getErrorCode();
+            // return "" + ex.getErrorCode();
         }
         return 0;
     }
- 
-    
 
     public String checknReturnStringDataReceipts(String table_name, String table_column_giving, Object row_element, String table_column_need) {
         DatabaseManager dbm = DatabaseManager.getDbCon();
@@ -175,7 +172,7 @@ public final class DatabaseManager {
         return true;
     }
 
-    public void update(String table, String coloumn1, String coloumn2, Object first, Object second, String coloumnN, Object new1){
+    public void update(String table, String coloumn1, String coloumn2, Object first, Object second, String coloumnN, Object new1) {
         DatabaseManager dbm = DatabaseManager.getDbCon();
         try {
             dbm.insert("UPDATE " + table + " SET " + coloumnN + " ='" + new1 + "' WHERE " + coloumn1 + "='" + first + " 'AND " + coloumn2 + " ='" + second + "'");
@@ -183,8 +180,7 @@ public final class DatabaseManager {
             Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    
+
     public void newDayTable(Date date) {
         DatabaseManager dbm = DatabaseManager.getDbCon();
         try {
@@ -219,9 +215,8 @@ public final class DatabaseManager {
         }
         return null;
     }
-    
-    
-      public String[] getStringArray2(String table_name, String column_name) {
+
+    public String[] getStringArray2(String table_name, String column_name) {
 
         int count = 0;
         DatabaseManager dbm = DatabaseManager.getDbCon();
@@ -243,9 +238,7 @@ public final class DatabaseManager {
         }
         return null;
     }
-    
-    
-    
+
     public int[] getArray(String table_name, String column_name) {
 
         int count = 0;
@@ -268,14 +261,15 @@ public final class DatabaseManager {
         }
         return null;
     }
-    
-    public int[] getValuesArray(String table, String coloumn, String neededColoumn, String match){
+
+    public int[] getValuesArray(String table, String coloumn, String neededColoumn, String match) {
         try {
             int count = 0;
             DatabaseManager dbm = DatabaseManager.getDbCon();
             ResultSet rs1 = dbm.query("SELECT * FROM " + table + " WHERE " + coloumn + " ='" + match + "'");
-            while (rs1.next())
+            while (rs1.next()) {
                 count++;
+            }
             int[] valuesArray = new int[count];
             count = 0;
             ResultSet rs2 = dbm.query("SELECT * FROM " + table + " WHERE " + coloumn + " ='" + match + "'");
@@ -290,14 +284,15 @@ public final class DatabaseManager {
         }
         return null;
     }
-    
-    public int[] getValuesArrayN(String table, String coloumn, String neededColoumn, String match){
+
+    public int[] getValuesArrayN(String table, String coloumn, String neededColoumn, String match) {
         try {
             int count = 0;
             DatabaseManager dbm = DatabaseManager.getDbCon();
             ResultSet rs1 = dbm.query("SELECT * FROM " + table + " WHERE " + coloumn + " NOT LIKE '" + match + "'");
-            while (rs1.next())
+            while (rs1.next()) {
                 count++;
+            }
             int[] valuesArray = new int[count];
             count = 0;
             ResultSet rs2 = dbm.query("SELECT * FROM " + table + " WHERE " + coloumn + " NOT LIKE '" + match + "'");
@@ -312,7 +307,8 @@ public final class DatabaseManager {
         }
         return null;
     }
-     public String[] getStringArray1(String table_name, String column_name) {
+
+    public String[] getStringArray1(String table_name, String column_name) {
 
         int count = 0;
         DatabaseManager dbm = DatabaseManager.getDbCon();
@@ -323,7 +319,7 @@ public final class DatabaseManager {
             }
             String[] array = new String[count + 2];
             array[0] = null;
-            array[1]="All";
+            array[1] = "All";
             count = 2;
             ResultSet query2 = dbm.query("SELECT " + column_name + " FROM " + table_name + "");
             while (query2.next()) {
@@ -332,23 +328,24 @@ public final class DatabaseManager {
             }
             return array;
         } catch (SQLException ex) {
-            
+
         }
         return null;
     }
-     
-    public String[] PRCRWorkerSearch(String table, String coloumn1, String coloumn2, String coloumn3, Object element1, Object element2, Object element3, String target){
+
+    public String[] PRCRWorkerSearch(String table, String coloumn1, String coloumn2, String coloumn3, Object element1, Object element2, Object element3, String target) {
         DatabaseManager dbm = DatabaseManager.getDbCon();
         String workcodes[];
         int i = 0;
         try {
             ResultSet rs1 = dbm.query("SELECT * FROM " + table + " WHERE " + coloumn1 + " ='" + element1 + " 'AND " + coloumn2 + " ='" + element2 + " 'AND " + coloumn3 + " ='" + element3 + "'");
-            while(rs1.next())
+            while (rs1.next()) {
                 i++;
+            }
             workcodes = new String[i];
             i = 0;
             ResultSet rs2 = dbm.query("SELECT * FROM " + table + " WHERE " + coloumn1 + " ='" + element1 + " 'AND " + coloumn2 + " ='" + element2 + " 'AND " + coloumn3 + " ='" + element3 + "'");
-            while(rs2.next()){
+            while (rs2.next()) {
                 workcodes[i] = rs2.getString(target);
                 i++;
             }
@@ -357,8 +354,7 @@ public final class DatabaseManager {
             Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
-    } 
-    
+    }
 
     public String[] search_PRCR(String table_name, String column_1, String column_2, Object element_1, Object element_2, String needed_column) {
         DatabaseManager dbm = DatabaseManager.getDbCon();
@@ -499,8 +495,8 @@ public final class DatabaseManager {
         }
         return true;
     }
-    
-     public boolean Inserting_To_The_Table_ordered(javax.swing.JTable table, String table_name, String column_name, int table_column_num, int bottom, int top, String Order_by) {
+
+    public boolean Inserting_To_The_Table_ordered(javax.swing.JTable table, String table_name, String column_name, int table_column_num, int bottom, int top, String Order_by) {
 
         int num_of_rows_filled_in_table = 0;
         int num_of_rows_in_the_database = 0;
@@ -815,62 +811,56 @@ public final class DatabaseManager {
         }
         return null;
     }
-    
-    
-    
-     public int checkWhetherDataExists(String table_name, String table_column_giving, Object row_element) {
+
+    public int checkWhetherDataExists(String table_name, String table_column_giving, Object row_element) {
         DatabaseManager dbm = DatabaseManager.getDbCon();
         try {
             ResultSet query = dbm.query("SELECT * FROM " + table_name + " where " + table_column_giving + " LIKE '" + row_element + "'");
-            if(!query.next()){
+            if (!query.next()) {
                 return 0;
-            }
-            else{
+            } else {
                 return 1;
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
-            
+
         }
         return 0;
     }
-     
-     
-     // Copy data from one table and append to another
-     
-     public void copy_and_append(String old_table,String new_table){
-         DatabaseManager dbm = DatabaseManager.getDbCon();
+
+    // Copy data from one table and append to another
+    public void copy_and_append(String old_table, String new_table) {
+        DatabaseManager dbm = DatabaseManager.getDbCon();
         try {
-            ResultSet query = dbm.query("INSERT INTO "+new_table+" SELECT * FROM "+old_table+"");
+            ResultSet query = dbm.query("INSERT INTO " + new_table + " SELECT * FROM " + old_table + "");
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-     }
-     
-      public String copy_and_ADD(String old_table,String new_table){
-         DatabaseManager dbm = DatabaseManager.getDbCon();
+    }
+
+    public String copy_and_ADD(String old_table, String new_table) {
+        DatabaseManager dbm = DatabaseManager.getDbCon();
         try {
-            ResultSet query = dbm.query("INSERT INTO "+new_table+" SELECT * FROM "+old_table+"");
+            ResultSet query = dbm.query("INSERT INTO " + new_table + " SELECT * FROM " + old_table + "");
             return old_table;
         } catch (SQLException ex) {
-           String abcd = "The system returned with an unexpected error"+"\n"+"error code: 291343Fa"+"\n"+"please contact Admin";
-           return abcd;
+            String abcd = "The system returned with an unexpected error" + "\n" + "error code: 291343Fa" + "\n" + "please contact Admin";
+            return abcd;
         }
-     }
-     
-     // copy data to a new table
-     
-     public void copy_to_new_table(String old_table,String new_table){
-         DatabaseManager dbm = DatabaseManager.getDbCon();
+    }
+
+    // copy data to a new table
+    public void copy_to_new_table(String old_table, String new_table) {
+        DatabaseManager dbm = DatabaseManager.getDbCon();
         try {
             dbm.query("SELECT * INTO aa FROM account_journal_creditside WHERE 1=0");
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-     }
-     
-     public String apply(){
-     DatabaseManager dbm = DatabaseManager.getDbCon();
+    }
+
+    public String apply() {
+        DatabaseManager dbm = DatabaseManager.getDbCon();
         int count = 0;
         String a;
         //int num = checknReturnNumberOfEntriesForNoteAnalysis(table_name, table_column_giving1, row_element1, table_column_giving2, row_element2, table_column_need);
@@ -884,69 +874,114 @@ public final class DatabaseManager {
                 count++;
             }
         } catch (SQLException ex) {
-           // System.out.println(ex.getMessage());
-             a = "Windows";
+            // System.out.println(ex.getMessage());
+            a = "Windows";
             //return ""+ex.getErrorCode();            
         }
-     return a;
-     
-     }
-     
-     public double prcr_loan(int emp_code,String year,String month){
-         
-         DatabaseManager dbm = new DatabaseManager();
-         double tot=0;
-         String year_month = year +"-"+month;
+        return a;
+
+    }
+
+    public double prcr_loan(int emp_code, String year, String month) {
+
+        DatabaseManager dbm = new DatabaseManager();
+        double tot = 0;
+        String year_month = year + "-" + month;
         try {
-            ResultSet query = dbm.query("SELECT * FROM prcr_loans WHERE emp_id LIKE'"+emp_code+"' AND month_year LIKE '"+year_month+"'");
-            while(query.next()){
-                tot=tot+query.getDouble("monthly_amount");
+            ResultSet query = dbm.query("SELECT * FROM prcr_loans WHERE emp_id LIKE'" + emp_code + "' AND month_year LIKE '" + year_month + "'");
+            while (query.next()) {
+                tot = tot + query.getDouble("monthly_amount");
             }
             return tot;
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
             return 0;
         }
-         
-         
-     }
-     
-     public int[] prcr_loan_emp_code_array(String year,String month){
-         DatabaseManager dbm = new DatabaseManager();
-         
-         String year_month = year +"-"+month;
-         int i=0;
+
+    }
+
+    public int[] prcr_loan_emp_code_array(String year, String month) {
+        DatabaseManager dbm = new DatabaseManager();
+
+        String year_month = year + "-" + month;
+        int i = 0;
         try {
-            ResultSet query = dbm.query("SELECT * FROM prcr_loans WHERE month_year LIKE '"+year_month+"'");
-            while(query.next()){
+            ResultSet query = dbm.query("SELECT * FROM prcr_loans WHERE month_year LIKE '" + year_month + "'");
+            while (query.next()) {
                 i++;
             }
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         int[] arr = new int[i];
-          i=0;
+        i = 0;
         try {
-            ResultSet query = dbm.query("SELECT * FROM prcr_loans WHERE month_year LIKE '"+year_month+"'");
-            while(query.next()){
-                arr[i]=query.getInt("emp_id");
+            ResultSet query = dbm.query("SELECT * FROM prcr_loans WHERE month_year LIKE '" + year_month + "'");
+            while (query.next()) {
+                arr[i] = query.getInt("emp_id");
                 i++;
             }
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return arr;
-        
-     }
-     
-     
+
+    }
+
+    public double prcr_welfare(int emp_code, String year, String month) {
+
+        String mnth = "" + Integer.parseInt(month);
+        String year_month = year + "-" + mnth;
+
+        DatabaseManager dbm = new DatabaseManager();
+
+        try {
+            ResultSet query = dbm.query("SELECT * FROM prcr_welfare WHERE emp_id LIKE'" + emp_code + "' AND month LIKE '" + year_month + "'");
+            while (query.next()) {
+                return query.getDouble("amount");
+            }
+            return 0;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
+            return 0;
+        }
+
+    }
+
+    public int[] prcr_welfare_emp_code_array(String year, String month) {
+        DatabaseManager dbm = new DatabaseManager();
+
+       
+        int i = 0;
+        try {
+            ResultSet query = dbm.query("SELECT * FROM prcr_welfare_members");
+            while (query.next()) {
+                i++;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        int[] arr = new int[i];
+        i = 0;
+        try {
+            ResultSet query = dbm.query("SELECT * FROM prcr_welfare_members");
+            while (query.next()) {
+                arr[i] = query.getInt("emp_id");
+                i++;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return arr;
+
+    }
 
 }
 
-
 // category gategory id int------> String
-
-
 
