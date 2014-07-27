@@ -938,7 +938,7 @@ public final class DatabaseManager {
         DatabaseManager dbm = new DatabaseManager();
 
         try {
-            ResultSet query = dbm.query("SELECT * FROM prcr_welfare WHERE emp_id LIKE'" + emp_code + "' AND month LIKE '" + year_month + "'");
+            ResultSet query = dbm.query("SELECT * FROM prcr_welfare WHERE code LIKE'" + emp_code + "' AND month LIKE '" + year_month + "'");
             while (query.next()) {
                 return query.getDouble("amount");
             }
@@ -970,7 +970,7 @@ public final class DatabaseManager {
         try {
             ResultSet query = dbm.query("SELECT * FROM prcr_welfare_members");
             while (query.next()) {
-                arr[i] = query.getInt("emp_id");
+                arr[i] = query.getInt("emp_code");
                 i++;
             }
         } catch (SQLException ex) {
