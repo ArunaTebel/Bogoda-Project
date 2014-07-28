@@ -49,7 +49,16 @@ public class Bank {
 
     }
     
-    public void from_databse_to_the_table(javax.swing.JTable table){
+    public void updateDataBase() {
+        DatabaseManager dbCon = DatabaseManager.getDbCon();
+        try {
+            dbCon.insert("UPDATE  bank SET bank_name='"+bankName+"' WHERE bank_id ='" + bankCode + "'");
+        } catch (SQLException ex) {
+            MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
+        }
+
+    }
+    public void  from_databse_to_the_table(javax.swing.JTable table){
         
             int i=0;
          DatabaseManager dbm = DatabaseManager.getDbCon();

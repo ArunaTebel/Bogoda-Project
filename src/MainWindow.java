@@ -91,6 +91,8 @@ public class MainWindow extends javax.swing.JFrame {
     private void initComponents() {
 
         jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem9 = new javax.swing.JMenuItem();
+        jMenuItem11 = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jButton8 = new javax.swing.JButton();
@@ -124,10 +126,8 @@ public class MainWindow extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
-        jMenu4 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem7 = new javax.swing.JMenuItem();
@@ -135,10 +135,19 @@ public class MainWindow extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
+        jMenu5 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jSeparator4 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem12 = new javax.swing.JMenuItem();
+        jSeparator3 = new javax.swing.JPopupMenu.Separator();
 
         jMenuItem5.setText("jMenuItem5");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jMenuItem9.setText("jMenuItem9");
+
+        jMenuItem11.setText("jMenuItem11");
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Management System. Bogoda Tea Factory");
 
         jPanel1.setBackground(new java.awt.Color(51, 51, 51));
@@ -287,9 +296,9 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel5.setBounds(120, 240, 90, 40);
 
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Copyrights @ NineLights 2014 ");
+        jLabel6.setText("Copyrights @ NineLights 2014. All rights reserved.");
         Main_Content.add(jLabel6);
-        jLabel6.setBounds(0, 360, 240, 40);
+        jLabel6.setBounds(0, 360, 260, 40);
 
         jButton14.setBackground(new java.awt.Color(0, 0, 102));
         jButton14.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -547,9 +556,7 @@ public class MainWindow extends javax.swing.JFrame {
         jMenu1.setText("File");
         jMenu1.add(jSeparator1);
 
-        jMenu4.setText("jMenu4");
-        jMenu1.add(jMenu4);
-
+        jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_MASK));
         jMenuItem3.setText("Exit");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -561,14 +568,6 @@ public class MainWindow extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Edit");
-
-        jMenuItem2.setText("View-Edit Databases");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
-            }
-        });
-        jMenu2.add(jMenuItem2);
 
         jMenuItem4.setText("Change File Locations");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
@@ -616,6 +615,18 @@ public class MainWindow extends javax.swing.JFrame {
         jMenu3.add(jMenuItem6);
 
         jMenuBar1.add(jMenu3);
+
+        jMenu5.setText("Help");
+
+        jMenuItem2.setText("Show help");
+        jMenu5.add(jMenuItem2);
+        jMenu5.add(jSeparator4);
+
+        jMenuItem12.setText("About Developers");
+        jMenu5.add(jMenuItem12);
+        jMenu5.add(jSeparator3);
+
+        jMenuBar1.add(jMenu5);
 
         setJMenuBar(jMenuBar1);
 
@@ -968,18 +979,6 @@ public class MainWindow extends javax.swing.JFrame {
         //rate.focus();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        View_Edit_databases VEdatabases = new View_Edit_databases();
-
-        Main_Content.removeAll();
-
-        VEdatabases.setSize(Main_Content.getSize());
-
-        Main_Content.add(VEdatabases);
-        validate();
-        repaint();
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
-
     private void User_idKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_User_idKeyPressed
 
     }//GEN-LAST:event_User_idKeyPressed
@@ -1161,9 +1160,11 @@ System.exit(0);
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem11;
+    private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
@@ -1171,11 +1172,14 @@ System.exit(0);
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
+    private javax.swing.JPopupMenu.Separator jSeparator3;
+    private javax.swing.JPopupMenu.Separator jSeparator4;
     public static javax.swing.JButton topBar;
     // End of variables declaration//GEN-END:variables
 }

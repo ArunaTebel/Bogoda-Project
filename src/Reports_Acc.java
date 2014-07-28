@@ -1,20 +1,10 @@
 
 import java.awt.Color;
-import java.sql.Date;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.text.ParseException;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIDefaults;
 import javax.swing.UIManager;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.view.JasperViewer;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -116,7 +106,7 @@ Date_Handler date_handler = new Date_Handler();
         content = new javax.swing.JPanel();
         progress = new javax.swing.JProgressBar();
 
-        setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 153, 0), 3));
+        setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 0, 153), 3));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 

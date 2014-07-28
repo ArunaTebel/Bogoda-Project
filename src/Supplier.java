@@ -94,12 +94,12 @@ public class Supplier {
     public void addToDatabase() throws SQLException {
       
             dbCon.insert("INSERT INTO suppliers (sup_id, sup_name, sup_sin_name, sup_estate_name, sup_address, sup_tel, sup_pay_type, bank_id, branch_id, sup_acc_no, cat_id, sup_doc,trans_rate,leaf_rate_code,active, welfare,welf_num,wel_due,wel_due_new) "
-                    + "VALUES (" + code + "," + "'" + name + "'" + "," + "'" + sinhala_name + "'" + "," + "'" + "0" + "'" + "," + "'" + address + "'" + "," + "'" + tel_no + "'" + "," + "'" + pay_type + "'" + "," + bank + "," + branch + "," + "'" + acc_no + "'" + "," + "'" + cat_code + "'" + "," + "'" + doc + "'" +  "," + "'" + transRate + "'" + "," + "'" + leaf + "'" + "," + "'" + active + "'" + "," + "'" + welfare + "'" + "," + "'" + welf_num + "'" + "," + "'" + wel_d + "'" + "," +"'"+ wel_d_n + "'"+")");
+                    + "VALUES (" + code + "," + "'" + name + "'" + "," + "'" + sinhala_name + "'" + "," + "'" + "0" + "'" + "," + "'" + address + "'" + "," + "'" + tel_no + "'" + "," + "'" + pay_type + "'" + "," + bank + "," + branch + "," + "'" + acc_no + "'" + "," + "'" + cat_code + "'" + "," + "'" + doc + "'" +  "," + "'" + transRate + "'" + "," + "'" + leaf + "'" + "," + "'" + active + "'" + "," + "'" + welfare + "'" + "," + "'" + welf_num + "'" + "," + "'" + wel_d + "'" + "," +"'"+ wel_d_n + "'"+")");  
        
     }
      public void update(){
         try {
-            dbCon.insert("UPDATE  suppliers  SET sup_name ='" + name + "',sup_sin_name ='" + sinhala_name + "',sup_estate_name ='" + "0" + "',sup_address ='" + address + "',sup_tel ='" + tel_no + "',sup_pay_type ='" + pay_type + "',bank_id ='" + bank + "',branch_id ='" + branch + "',sup_acc_no ='" + acc_no + "',cat_id ='" + cat_code + "',sup_doc ='" + doc + "',trans_rate ='" + transRate + "',leaf_rate_code ='" + leaf + "',active ='" + active + "',welfare ='" + welfare + "',welf_num ='" + welf_num + "',wel_due ='" + wel_d + "',wel_due_new ='" + wel_d_n + "' WHERE sup_id='" + code + "'");
+            dbCon.insert("UPDATE  suppliers  SET sup_name ='" + name + "',sup_sin_name ='" + sinhala_name + "',sup_estate_name ='" + "0" + "',sup_address ='" + address + "',sup_tel ='" + tel_no + "',sup_pay_type ='" + pay_type + "',bank_id ='" + bank + "',branch_id ='" + branch + "',sup_acc_no ='" + acc_no + "',cat_id ='" + cat_code + "',sup_doc ='" + doc + "',trans_rate ='" + transRate + "',leaf_rate_code ='" + leaf + "',active ='" + active + "',welfare ='" + welfare + "',welf_num ='" + welf_num + "',wel_due ='" + wel_d +  "',wel_due_new ='" + wel_d_n + "' WHERE sup_id='" + code + "'");
         } catch (SQLException ex) {
             Logger.getLogger(Supplier.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -986,7 +986,7 @@ Date_Handler date_handler = new Date_Handler();
     }//GEN-LAST:event_cancelActionPerformed
 
     private void cancel1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancel1ActionPerformed
-      int reply = JOptionPane.showConfirmDialog(cat_name,
+      int  reply = JOptionPane.showConfirmDialog(cat_name,
                         "Are you Sure?" + "\n" + "Delete Supplier "+ supplier_id.getSelectedItem()+"?", "Confirm", JOptionPane.YES_NO_OPTION);
                 if (reply == JOptionPane.NO_OPTION) {}
                 if (reply == JOptionPane.YES_OPTION) {

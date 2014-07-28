@@ -48,7 +48,7 @@ public class BankBranch {
 
     }
     
-      public void from_databse_to_the_table(javax.swing.JTable table){
+      public  void from_databse_to_the_table(javax.swing.JTable table){
         
             int i=0;
          DatabaseManager dbm = DatabaseManager.getDbCon();
@@ -63,6 +63,15 @@ public class BankBranch {
             System.out.println(ex.getMessage());
         }
         
+    }
+      public void updateDataBase() {
+        DatabaseManager dbCon = DatabaseManager.getDbCon();
+        try {
+            dbCon.insert("UPDATE  bank_branch SET branch_name='"+branchName+"' WHERE branch_id ='" + branchCode + "'");
+        } catch (SQLException ex) {
+            MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
+        }
+
     }
     
     
