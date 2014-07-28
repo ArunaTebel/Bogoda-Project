@@ -200,7 +200,6 @@ Date_Handler date_handler = new Date_Handler();
         cancel1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
         supplier_id = new javax.swing.JComboBox();
         trans_rate = new javax.swing.JComboBox();
         bank_code = new javax.swing.JComboBox();
@@ -391,17 +390,13 @@ Date_Handler date_handler = new Date_Handler();
             }
         });
 
-        jButton7.setText("Supplies");
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jButton6)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -409,9 +404,7 @@ Date_Handler date_handler = new Date_Handler();
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jButton6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton7)
-                .addContainerGap(117, Short.MAX_VALUE))
+                .addContainerGap(146, Short.MAX_VALUE))
         );
 
         DatabaseManager dbm = DatabaseManager.getDbCon();
@@ -779,7 +772,9 @@ Date_Handler date_handler = new Date_Handler();
         }
           try{
         supplier.addToDatabase();
+         clear();
          JOptionPane.showMessageDialog(payment_method, "Saved");
+        
       }
       catch(Exception ee){}
        
@@ -796,7 +791,7 @@ Date_Handler date_handler = new Date_Handler();
                 sup_name.setText(dbm.checknReturnData("suppliers", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "sup_name"));
                 sup_name_sinhala.setText(dbm.checknReturnData("suppliers", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "sup_sin_name"));
                 Cat_code.setSelectedItem(dbm.checknReturnData("suppliers", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "cat_id"));
-                trans_rate.setSelectedItem(dbm.checknReturnStringData("suppliers", "sup_id", supplier_id.getSelectedItem().toString(), "trans_code"));
+                trans_rate.setSelectedItem(dbm.checknReturnStringData("suppliers", "sup_id", supplier_id.getSelectedItem().toString(), "trans_rate"));
               //  trans_rate.setSelectedItem(dbm.checknReturnData("suppliers", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "trans_rate"));
                 payment_method.setSelectedItem(dbm.checknReturnData("suppliers", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "sup_pay_type"));
                 address.setText(dbm.checknReturnData("suppliers", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "sup_address"));
@@ -979,8 +974,9 @@ Date_Handler date_handler = new Date_Handler();
         if(welf.getSelectedItem().toString().equals("New Register")){
      
       add_welf();
-        
+         
         }
+         clear();
         JOptionPane.showMessageDialog(payment_method, "Updated");
          } catch(Exception e){
             System.out.println(e);
@@ -1030,7 +1026,6 @@ Date_Handler date_handler = new Date_Handler();
     private javax.swing.JTextField cat_name2;
     private com.michaelbaranov.microba.calendar.DatePicker date;
     private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

@@ -28,6 +28,35 @@ public class Update {
     
     
     }
+     
+    
+    public void update_month_check_prcr(javax.swing.JButton update_button, javax.swing.JTextField year, javax.swing.JTextField month){
+     String a = year.getText()+datehandler.return_month_as_num(month.getText());
+        // System.out.println(a);
+     String aa = "";
+     
+     try{
+     aa = dbm.checknReturnData("update_dates_prcr", "month", a, "last_update");
+         if(aa==null){
+         aa= "";
+         }
+     } catch (Exception ee) {
+            // System.out.println("Not found");
+             
+             }
+     
+      if(aa.equals("YES")){
+      
+      update_button.setEnabled(false);
+      
+      }
+      else{
+      
+      update_button.setEnabled(true);
+      }
+     
+     
+     }
      public void update_month_check(javax.swing.JButton update_button, javax.swing.JTextField year, javax.swing.JTextField month){
      String a = year.getText()+datehandler.return_month_as_num(month.getText());
         // System.out.println(a);
@@ -55,5 +84,4 @@ public class Update {
      
      
      }
-    
 }

@@ -162,7 +162,11 @@ public class Task_manager extends javax.swing.JPanel {
     
     
      if(GL4.isSelected()){GLLabel4.setText("Processing..");PDC.run(); GLLabel4.setText("Done");}
-     if(final_tik.isSelected()){// Update month set here                                  
+     if(final_tik.isSelected()){try {
+         dbm.insert("INSERT INTO update_dates(month,last_update,user,date_time) values('"+yearfield.getText()+datehandler.return_month_as_num(monthfield.getText())+"','"+"YES"+"','"+new UserAccountControl().get_current_user()+"','"+datehandler.get_today_date_time()+"') ");
+         } catch (SQLException ex) {
+             Logger.getLogger(Task_manager.class.getName()).log(Level.SEVERE, null, ex);
+         }
      }
      }
     }
@@ -997,7 +1001,7 @@ public class Task_manager extends javax.swing.JPanel {
 
         }
         update.update_month_check(jButton1, yearfield, monthfield);
-        update.update_month_check(jButton6, yearfield, monthfield);
+        update.update_month_check_prcr(jButton6, yearfield, monthfield);
     }//GEN-LAST:event_monthfieldKeyPressed
 
     private void yearfieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_yearfieldKeyPressed
@@ -1020,7 +1024,7 @@ public class Task_manager extends javax.swing.JPanel {
            // set_task_man(year, month);
         }
          update.update_month_check(jButton1, yearfield, monthfield);
-         update.update_month_check(jButton6, yearfield, monthfield);
+         update.update_month_check_prcr(jButton6, yearfield, monthfield);
     }//GEN-LAST:event_yearfieldKeyPressed
 
     private void datePicker1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datePicker1ActionPerformed
@@ -1033,7 +1037,7 @@ public class Task_manager extends javax.swing.JPanel {
         // dayfield2.selectAll();
          update.update_month_check(jButton1, yearfield, monthfield);
          
-          update.update_month_check(jButton6, yearfield, monthfield);
+          update.update_month_check_prcr(jButton6, yearfield, monthfield);
     }//GEN-LAST:event_datePicker1ActionPerformed
 
     private void GL1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GL1ActionPerformed

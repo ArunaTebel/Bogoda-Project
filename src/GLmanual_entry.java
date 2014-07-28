@@ -1669,26 +1669,31 @@ update.update_month_check(jButton1, yearfield, monthfield);
        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
        
          try {
-            supplier_id.setSelectedItem(dbm.checknReturnData("green_leaf_transactions", "tr_id", edit.getText(), "sup_id"));
-            table.setValueAt(dbm.checknReturnData("green_leaf_transactions", "tr_id", edit.getText(), "sup_id"),0,0);
-            String date= dbm.checknReturnData("green_leaf_transactions", "tr_id", edit.getText(), "tr_date");
-            category_code.setSelectedItem(dbm.checknReturnData("green_leaf_transactions", "tr_id", edit.getText(), "category_code"));
+             
+                
+                int tr_no = 0;
+                
+                if(!edit.getText().equals("")){ tr_no = Integer.parseInt(edit.getText());            }
+            supplier_id.setSelectedItem(dbm.checknReturnData("green_leaf_transactions", "tr_id", tr_no, "sup_id"));
+            table.setValueAt(dbm.checknReturnData("green_leaf_transactions", "tr_id", tr_no, "sup_id"),0,0);
+            String date= dbm.checknReturnData("green_leaf_transactions", "tr_id", tr_no, "tr_date");
+            category_code.setSelectedItem(dbm.checknReturnData("green_leaf_transactions", "tr_id", tr_no, "category_code"));
             java.sql.Date Datef = null;
             Datef=java.sql.Date.valueOf(date);
             
             
             datePicker1.setDate(Datef);
             //table.setValueAt(1, 0, 0);
-            leaf_cat.setSelectedItem(dbm.checknReturnData("green_leaf_transactions", "tr_id", edit.getText(), "leaf_category"));
-            table.setValueAt(dbm.checknReturnData("green_leaf_transactions", "tr_id", edit.getText(), "leaf_category"), 0, 9);
-            table.setValueAt(dbm.checknReturnData("green_leaf_transactions", "tr_id", edit.getText(), "no_of_sacks"), 0, 1);
-            table.setValueAt(dbm.checknReturnData("green_leaf_transactions", "tr_id", edit.getText(), "total_kg"), 0, 2);
-            table.setValueAt(dbm.checknReturnData("green_leaf_transactions", "tr_id", edit.getText(), "sack_kg"), 0, 3);
-            table.setValueAt(dbm.checknReturnData("green_leaf_transactions", "tr_id", edit.getText(), "water_kg"), 0, 4);
-            table.setValueAt(dbm.checknReturnData("green_leaf_transactions", "tr_id", edit.getText(), "coarse_leaf_kg"), 0, 5);
-            table.setValueAt(dbm.checknReturnData("green_leaf_transactions", "tr_id", edit.getText(), "other"), 0, 6);
-            table.setValueAt(dbm.checknReturnData("green_leaf_transactions", "tr_id", edit.getText(), "net_qty"), 0, 7);
-            table.setValueAt(dbm.checknReturnData("green_leaf_transactions", "tr_id", edit.getText(), "transport"), 0, 8);
+            leaf_cat.setSelectedItem(dbm.checknReturnData("green_leaf_transactions", "tr_id", tr_no, "leaf_category"));
+            table.setValueAt(dbm.checknReturnData("green_leaf_transactions", "tr_id", tr_no, "leaf_category"), 0, 9);
+            table.setValueAt(dbm.checknReturnData("green_leaf_transactions", "tr_id", tr_no, "no_of_sacks"), 0, 1);
+            table.setValueAt(dbm.checknReturnData("green_leaf_transactions", "tr_id", tr_no, "total_kg"), 0, 2);
+            table.setValueAt(dbm.checknReturnData("green_leaf_transactions", "tr_id", tr_no, "sack_kg"), 0, 3);
+            table.setValueAt(dbm.checknReturnData("green_leaf_transactions", "tr_id", tr_no, "water_kg"), 0, 4);
+            table.setValueAt(dbm.checknReturnData("green_leaf_transactions", "tr_id", tr_no, "coarse_leaf_kg"), 0, 5);
+            table.setValueAt(dbm.checknReturnData("green_leaf_transactions", "tr_id", tr_no, "other"), 0, 6);
+            table.setValueAt(dbm.checknReturnData("green_leaf_transactions", "tr_id", tr_no, "net_qty"), 0, 7);
+            table.setValueAt(dbm.checknReturnData("green_leaf_transactions", "tr_id", tr_no, "transport"), 0, 8);
             jButton1.setEnabled(false);
         } catch (PropertyVetoException ex) {
             JOptionPane.showMessageDialog(datechooser, ex.getMessage());
@@ -1696,7 +1701,8 @@ update.update_month_check(jButton1, yearfield, monthfield);
                 delete.setEnabled(true);
        }
           update.update_month_check(jButton1, yearfield, monthfield);
-       // update.update_month_check(jButton2, yearfield, monthfield);
+        update.update_month_check(jButton2, yearfield, monthfield);
+        jButton1.setEnabled(false); 
     }//GEN-LAST:event_editKeyPressed
 
     

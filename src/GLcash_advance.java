@@ -1385,10 +1385,15 @@ public class GLcash_advance extends javax.swing.JPanel {
         if(evt.getKeyCode() == KeyEvent.VK_ENTER){
 
             try {
-                supplier_id.setSelectedItem(dbm.checknReturnData("gl_cash_advance", "entry_no", edit2.getText(), "sup_id"));
+                Save.setEnabled(false); 
                 
-                String date= dbm.checknReturnData("gl_cash_advance", "entry_no", edit2.getText(), "issued_date");
-               String pay = dbm.checknReturnData("gl_cash_advance", "entry_no", edit2.getText(), "pay_type");
+                int tr_no = 0;
+                
+                if(!edit2.getText().equals("")){ tr_no = Integer.parseInt(edit2.getText());            }
+                supplier_id.setSelectedItem(dbm.checknReturnData("gl_cash_advance", "entry_no", tr_no, "sup_id"));
+                
+                String date= dbm.checknReturnData("gl_cash_advance", "entry_no", tr_no, "issued_date");
+               String pay = dbm.checknReturnData("gl_cash_advance", "entry_no", tr_no, "pay_type");
                if(pay.equals("cash")){
                cash_cheque_combo.setSelectedIndex(0);
                }
@@ -1398,10 +1403,10 @@ public class GLcash_advance extends javax.swing.JPanel {
                 Datef=java.sql.Date.valueOf(date);
 
                 datePicker1.setDate(Datef);
-                String amo = dbm.checknReturnData("gl_cash_advance", "entry_no", edit2.getText(), "amount");
+                String amo = dbm.checknReturnData("gl_cash_advance", "entry_no", tr_no, "amount");
                 amount.setText(amo);
-                String sp = dbm.checknReturnData("gl_cash_advance", "entry_no", edit2.getText(), "special_permission");
-                String em = dbm.checknReturnData("gl_cash_advance", "entry_no", edit2.getText(), "emergency");
+                String sp = dbm.checknReturnData("gl_cash_advance", "entry_no", tr_no, "special_permission");
+                String em = dbm.checknReturnData("gl_cash_advance", "entry_no", tr_no, "emergency");
                 
                if(sp.equals("YES")){Permission.setSelected(true);}
                else{Permission.setSelected(false);}
@@ -1418,7 +1423,7 @@ public class GLcash_advance extends javax.swing.JPanel {
         }
          update.update_month_check(Save, yearfield, monthfield);
          update.update_month_check(Save1, yearfield, monthfield);
-         
+           Save.setEnabled(false); 
     }//GEN-LAST:event_edit2KeyPressed
 
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
