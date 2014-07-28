@@ -38,7 +38,7 @@ public class PRCRHolidayPayGround {
             Logger.getLogger(PRCRHolidayPayFactory.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        maleRanges = new int[4][2];
+     /*   maleRanges = new int[4][2];
         femaleRanges = new int[4][2];
         int i = 0;
         table = "holiday_pay_rates";
@@ -75,11 +75,62 @@ public class PRCRHolidayPayGround {
             }
         } catch (SQLException ex) {
             Logger.getLogger(PRCRHolidayPayFactory.class.getName()).log(Level.SEVERE, null, ex);
+        }*/
+        
+         maleRanges = new int[4][2];
+        femaleRanges = new int[4][2];
+        int i = 0;
+        table = "holiday_pay_rate_details_male";
+        coloumn = "lower";
+        try {
+            ResultSet rs1 = dbm.query("SELECT " + coloumn + " FROM " + table);
+            while (rs1.next()) {
+                maleRanges[i][0] = rs1.getInt(coloumn);
+                i++;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PRCRHolidayPayFactory.class.getName()).log(Level.SEVERE, null, ex);
         }
+        i = 0;
+        coloumn = "ndays";
+        try {
+            ResultSet rs2 = dbm.query("SELECT " + coloumn + " FROM " + table);
+            while (rs2.next()) {
+                maleRanges[i][1] = rs2.getInt(coloumn);
+                i++;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PRCRHolidayPayFactory.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        i = 0;
+
+        table = "holiday_pay_rate_details_female";
+        coloumn = "lower";
+        try {
+            ResultSet rs1 = dbm.query("SELECT " + coloumn + " FROM " + table);
+            while (rs1.next()) {
+                femaleRanges[i][0] = rs1.getInt(coloumn);
+                i++;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PRCRHolidayPayFactory.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        i = 0;
+        coloumn = "ndays";
+        try {
+            ResultSet rs2 = dbm.query("SELECT " + coloumn + " FROM " + table);
+            while (rs2.next()) {
+                femaleRanges[i][1] = rs2.getInt(coloumn);
+                i++;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PRCRHolidayPayFactory.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
     
     public void getFactoryWorkerCodes(){
-        String factoryCode = "BG";
+        String factoryCode = "FAC";
         String table = "checkroll_personalinfo";
         String coloumn = "division";
         String neededColoumn = "code";
@@ -175,7 +226,13 @@ public class PRCRHolidayPayGround {
             totalPay = 0;
             for(j=0;j<12;j++)
                 totalPay = totalPay + paymentPerMonth[i][j];
-            averagePay = totalPay/total1;
+            
+            if(total1!=0){
+            averagePay = totalPay / total1;
+            }
+            else{
+                averagePay=0;
+            }
             
             if(genderCodes[i]==1){
                 if(total2<maleRanges[0][0])
