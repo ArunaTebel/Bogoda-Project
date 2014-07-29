@@ -581,10 +581,11 @@ public class PRCR_Checkroll_Monthly_workdata_database_update_class implements Ru
                     dbm.updateDatabase("pr_workdata_" + this.st, "code", code, "ot_before_hours", otbeforehrs);
                     dbm.updateDatabase("pr_workdata_" + this.st, "code", code, "ot_after_hours", otafterhrs);
 
-                    System.out.println("code,normaldays,sundays,otbrf,otaftr-" + code + "," + normaldays + "," + sundays + "," + otbeforehrs + "," + otafterhrs);
-                }
-                Task_manager.workdetailsP.setValue((100 * i) / (count + 1));
+                    //System.out.println("code,normaldays,sundays,otbrf,otaftr-" + code + "," + normaldays + "," + sundays + "," + otbeforehrs + "," + otafterhrs);
+                  Task_manager.workdetailsP.setValue((100 * i) / (count + 1));
                 i++;
+                }
+              
             }
             //return count;
         } catch (SQLException ex) {

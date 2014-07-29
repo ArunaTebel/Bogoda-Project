@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="47fe989e-9827-4fea-b729-1bb1f4faea7f">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="47fe989e-9827-4fea-b729-1bb1f4faea7f">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -21,12 +21,16 @@
      suppliers.`trans_rate` AS suppliers_trans_rate,
      suppliers.`leaf_rate_code` AS suppliers_leaf_rate_code,
      suppliers.`welfare` AS suppliers_welfare,
-  
-     suppliers.`active` AS suppliers_active
+     suppliers.`welf_num` AS suppliers_welf_rem,
+     bank.`bank_id` AS bank_bank_id,
+     bank.`bank_name` AS bank_bank_name,
+     bank_branch.`branch_id` AS bank_branch_branch_id,
+     bank_branch.`branch_name` AS bank_branch_branch_name
 FROM
-     `suppliers` suppliers
-WHERE
-     cat_id = $P{cat_id}]]>
+     `bank` bank RIGHT OUTER JOIN `suppliers` suppliers ON bank.`bank_id` = suppliers.`bank_id`
+     LEFT OUTER JOIN `bank_branch` bank_branch ON suppliers.`branch_id` = bank_branch.`branch_id`
+
+WHERE cat_id = $P{cat_id}]]>
 	</queryString>
 	<field name="suppliers_sup_id" class="java.lang.Integer"/>
 	<field name="suppliers_sup_name" class="java.lang.String"/>
@@ -43,200 +47,248 @@ WHERE
 	<field name="suppliers_trans_rate" class="java.lang.String"/>
 	<field name="suppliers_leaf_rate_code" class="java.lang.String"/>
 	<field name="suppliers_welfare" class="java.lang.String"/>
-	<field name="suppliers_active" class="java.lang.String"/>
+	<field name="suppliers_welf_rem" class="java.lang.Integer"/>
+	<field name="bank_bank_id" class="java.lang.String"/>
+	<field name="bank_bank_name" class="java.lang.String"/>
+	<field name="bank_branch_branch_id" class="java.lang.String"/>
+	<field name="bank_branch_branch_name" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
 		<band height="61" splitType="Stretch">
 			<rectangle>
-				<reportElement x="18" y="10" width="520" height="49" uuid="cffe1cb2-5087-4008-bde9-6cc8615cbd4c"/>
+				<reportElement x="0" y="0" width="572" height="49" uuid="cffe1cb2-5087-4008-bde9-6cc8615cbd4c"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
 			</rectangle>
 			<staticText>
-				<reportElement x="165" y="10" width="196" height="20" uuid="3f81d46c-4422-4a02-9688-8976974f72cc"/>
+				<reportElement x="253" y="10" width="196" height="20" uuid="3f81d46c-4422-4a02-9688-8976974f72cc"/>
 				<textElement>
 					<font fontName="Segoe UI" size="14" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Bogoda Group Tea Factory]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="381" y="29" width="120" height="20" uuid="1ac35c5b-bbee-4e50-9163-34a89f830f51"/>
+				<reportElement x="427" y="15" width="120" height="20" uuid="1ac35c5b-bbee-4e50-9163-34a89f830f51"/>
 				<text><![CDATA[Kolawenigama, Deniyaya.]]></text>
 			</staticText>
-		</band>
-	</title>
-	<pageHeader>
-		<band height="22" splitType="Stretch">
-			<textField>
-				<reportElement x="196" y="0" width="80" height="20" uuid="963920ee-5921-40ca-8f8c-0ac05cf31a0b"/>
-				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
-			</textField>
-			<textField evaluationTime="Report">
-				<reportElement x="276" y="0" width="40" height="20" uuid="0320fe45-3153-4b8b-b872-e9b4a6d0683a"/>
-				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
-			</textField>
 			<staticText>
-				<reportElement x="0" y="0" width="196" height="20" uuid="d023a822-b437-48dc-9560-87bf574dd9ef"/>
+				<reportElement x="0" y="30" width="196" height="20" uuid="d023a822-b437-48dc-9560-87bf574dd9ef"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Green Leaf Suppliers]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="135" y="30" width="100" height="20" uuid="ce3dc241-e240-47c9-b5db-c0297aaa8d48"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{cat_id}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="12" splitType="Stretch">
+			<textField>
+				<reportElement x="196" y="0" width="80" height="12" uuid="963920ee-5921-40ca-8f8c-0ac05cf31a0b"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="276" y="0" width="40" height="12" uuid="0320fe45-3153-4b8b-b872-e9b4a6d0683a"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="45" splitType="Stretch">
+		<band height="31" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="0" width="50" height="20" uuid="07933300-662e-478f-9a0b-9679e10bb5d0"/>
+				<reportElement x="0" y="0" width="50" height="15" uuid="07933300-662e-478f-9a0b-9679e10bb5d0"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[SupID]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="50" y="0" width="50" height="20" uuid="014389cf-4fd8-477c-b87d-9b89b5a1e2e0"/>
+				<reportElement x="50" y="0" width="50" height="15" uuid="014389cf-4fd8-477c-b87d-9b89b5a1e2e0"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Name]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="50" y="20" width="50" height="20" uuid="d024106e-ffb3-41be-8025-c79d75b06813"/>
+				<reportElement x="50" y="15" width="50" height="15" uuid="d024106e-ffb3-41be-8025-c79d75b06813"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Address]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="165" y="0" width="50" height="20" uuid="954ecd21-a121-47b8-b092-e8924afaeb1e"/>
+				<reportElement x="165" y="0" width="50" height="15" uuid="954ecd21-a121-47b8-b092-e8924afaeb1e"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Tel]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="165" y="20" width="50" height="20" uuid="8be3f8ff-c94b-4c5a-b941-3bd129d1b122"/>
+				<reportElement x="165" y="15" width="50" height="15" uuid="8be3f8ff-c94b-4c5a-b941-3bd129d1b122"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Pay type]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="240" y="0" width="50" height="20" uuid="e4bcb569-e026-4ade-b0b8-08f3cfad80ee"/>
+				<reportElement x="222" y="0" width="50" height="15" uuid="e4bcb569-e026-4ade-b0b8-08f3cfad80ee"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Bank]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="240" y="20" width="50" height="20" uuid="71c87e53-2ee3-4435-afd2-e9e03498e859"/>
+				<reportElement x="222" y="15" width="50" height="15" uuid="71c87e53-2ee3-4435-afd2-e9e03498e859"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Acc:No]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="331" y="0" width="50" height="20" uuid="0227a55c-fd8e-4d46-84dc-4e112805e51d"/>
+				<reportElement x="421" y="0" width="50" height="15" uuid="0227a55c-fd8e-4d46-84dc-4e112805e51d"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Category]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="392" y="0" width="61" height="20" uuid="31d3f05b-78c2-4fff-a5db-1e3c8784a72a"/>
+				<reportElement x="421" y="15" width="61" height="15" uuid="31d3f05b-78c2-4fff-a5db-1e3c8784a72a"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Commenced]]></text>
 			</staticText>
-			<staticText>
-				<reportElement x="460" y="0" width="57" height="20" uuid="7758f48a-5ae9-4d07-a760-aea80dd8ea90"/>
-				<textElement>
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Trans:Rate]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="517" y="0" width="50" height="20" uuid="b6408370-e3a8-467c-9e9b-a6f195104ac2"/>
-				<textElement>
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Welfare]]></text>
-			</staticText>
 			<line>
-				<reportElement x="0" y="40" width="550" height="1" uuid="3fd8a4bb-b4a2-48c0-a70d-e29afbc0c0d7"/>
+				<reportElement x="0" y="28" width="572" height="1" uuid="3fd8a4bb-b4a2-48c0-a70d-e29afbc0c0d7"/>
 			</line>
+			<staticText>
+				<reportElement x="489" y="0" width="71" height="15" uuid="618b3ea9-335f-4ed2-8581-793fce5702ce"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Leaf Rate]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="331" y="0" width="61" height="15" uuid="ddf1a379-0686-4875-b9e0-357b40520e31"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Banch]]></text>
+			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="43" splitType="Stretch">
+		<band height="32" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="0" width="50" height="20" uuid="6abb26a8-be01-4e34-988a-9d30028dbef0"/>
+				<reportElement x="0" y="0" width="50" height="15" uuid="6abb26a8-be01-4e34-988a-9d30028dbef0"/>
 				<textFieldExpression><![CDATA[$F{suppliers_sup_id}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="33" y="0" width="132" height="20" uuid="9862dcc4-9585-45ef-8c14-6ff7fa8d8b72"/>
+				<reportElement x="33" y="0" width="132" height="15" uuid="9862dcc4-9585-45ef-8c14-6ff7fa8d8b72"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{suppliers_sup_name}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="18" y="19" width="147" height="20" uuid="328248c2-46da-48a1-9b11-d0ac02b09551"/>
+				<reportElement x="33" y="14" width="119" height="15" uuid="328248c2-46da-48a1-9b11-d0ac02b09551"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{suppliers_sup_address}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="165" y="0" width="75" height="20" uuid="6637862a-b8e4-4647-91b4-c5ab832a9a80"/>
+				<reportElement x="165" y="0" width="75" height="15" uuid="6637862a-b8e4-4647-91b4-c5ab832a9a80"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{suppliers_sup_tel}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="165" y="20" width="50" height="20" uuid="a489c9c7-4b6a-4a6e-b2d9-b994995ab791"/>
+				<reportElement x="165" y="15" width="50" height="15" uuid="a489c9c7-4b6a-4a6e-b2d9-b994995ab791"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{suppliers_sup_pay_type}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="240" y="0" width="91" height="20" uuid="67aa29b5-1ade-451d-a9e9-ce5f6632193e"/>
-				<textFieldExpression><![CDATA[$F{suppliers_bank_id}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="240" y="20" width="160" height="20" uuid="d980919d-76e8-4b3b-a2a8-47dd9081145c"/>
+			<textField isBlankWhenNull="true">
+				<reportElement x="222" y="15" width="160" height="15" uuid="d980919d-76e8-4b3b-a2a8-47dd9081145c"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{suppliers_sup_acc_no}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="331" y="0" width="69" height="20" uuid="0f766c50-5be6-423e-bd96-b6de982c71ed"/>
-				<textFieldExpression><![CDATA[$F{suppliers_cat_id}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="403" y="0" width="50" height="20" uuid="b8a0ae94-17d5-45eb-bfe3-60161143b6d0"/>
+				<reportElement x="421" y="14" width="50" height="15" uuid="b8a0ae94-17d5-45eb-bfe3-60161143b6d0"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{suppliers_sup_doc}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="460" y="0" width="50" height="20" uuid="1be30f40-d75b-4bf9-809d-624e38ae60d0"/>
-				<textFieldExpression><![CDATA[$F{suppliers_trans_rate}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="517" y="0" width="50" height="20" uuid="05e947fd-ae58-4a06-bef7-b3284bdf61b5"/>
-				<textFieldExpression><![CDATA[$F{suppliers_welfare}]]></textFieldExpression>
-			</textField>
 			<line>
-				<reportElement x="0" y="39" width="550" height="1" uuid="7ee89b29-50d8-48bf-8cc3-b14f3d034978"/>
+				<reportElement x="0" y="29" width="572" height="1" uuid="7ee89b29-50d8-48bf-8cc3-b14f3d034978"/>
 				<graphicElement>
-					<pen lineWidth="1.0" lineStyle="Dotted"/>
+					<pen lineWidth="0.5" lineStyle="Dotted"/>
 				</graphicElement>
 			</line>
+			<textField>
+				<reportElement x="489" y="0" width="71" height="15" uuid="d9e7598d-0cd8-4512-99a1-59cbf77bf20a"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{suppliers_leaf_rate_code}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="421" y="0" width="61" height="15" uuid="0f766c50-5be6-423e-bd96-b6de982c71ed"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{suppliers_cat_id}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="222" y="0" width="109" height="15" uuid="0ff96f92-fcc9-41d4-8bbc-7fa526287fd8"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{bank_bank_name}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="331" y="0" width="90" height="15" uuid="dc30d324-26f7-4c8a-8579-4c5c9257e77c"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{bank_branch_branch_name}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 	<columnFooter>
 		<band height="6" splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="18" splitType="Stretch"/>
+		<band height="18" splitType="Stretch">
+			<staticText>
+				<reportElement x="503" y="1" width="69" height="10" uuid="fe112270-8629-41c5-b43e-d57409be5b2e"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[softninelights.com]]></text>
+			</staticText>
+		</band>
 	</pageFooter>
 	<summary>
 		<band height="42" splitType="Stretch"/>

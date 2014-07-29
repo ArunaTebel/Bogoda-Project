@@ -52,6 +52,16 @@ public class Category {
         }
 
     }
+    
+     public void updateDataBase() {
+        DatabaseManager dbCon = DatabaseManager.getDbCon();
+        try {
+            dbCon.insert("UPDATE  category SET category_name ='"+ categoryName +"',extra_rate='" + extraRate + "' WHERE category_id ='" + categoryCode + "'");
+        } catch (SQLException ex) {
+            MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
+        }
+
+    }
 
     public void removeFromDataBase() {
 

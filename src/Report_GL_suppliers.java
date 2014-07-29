@@ -182,6 +182,7 @@ UIDefaults defaults = UIManager.getLookAndFeelDefaults();
         });
 
         active.setText("Active");
+        active.setEnabled(false);
         active.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 activeItemStateChanged(evt);
@@ -194,6 +195,7 @@ UIDefaults defaults = UIManager.getLookAndFeelDefaults();
         });
 
         welfare.setText("Welfare");
+        welfare.setEnabled(false);
         welfare.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 welfareItemStateChanged(evt);

@@ -993,6 +993,8 @@ Date_Handler date_handler = new Date_Handler();
                 
         
         dbm.CheckNDeleteFromDataBase("suppliers", "sup_id", supplier_id.getSelectedItem());
+        dbm.CheckNDeleteFromDataBase("welfare", "sup_id", supplier_id.getSelectedItem());
+        
         clear();}
     }//GEN-LAST:event_cancel1ActionPerformed
 
