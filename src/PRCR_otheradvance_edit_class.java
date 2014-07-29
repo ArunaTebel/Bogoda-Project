@@ -137,6 +137,12 @@ public class PRCR_otheradvance_edit_class {
     }
      
      public void setEmpcode(int entry){
-       empCode=Integer.parseInt(dbm.checknReturnData("prcr_cash_advance_book", "entry", entry, "code"));
+         System.err.println(entry);
+         try{
+       empCode=Integer.parseInt(dbm.checknReturnData("prcr_other_advance_book", "entry", entry, "code"));
+             System.out.println(empCode);
+         }catch(Exception e){
+             System.out.println(e.getMessage());
+         }
     }
 }

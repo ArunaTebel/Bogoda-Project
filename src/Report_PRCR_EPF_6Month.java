@@ -176,6 +176,7 @@ public class Report_PRCR_EPF_6Month extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jProgressBar2 = new javax.swing.JProgressBar();
         jPanel2 = new javax.swing.JPanel();
         yearField = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
@@ -187,6 +188,7 @@ public class Report_PRCR_EPF_6Month extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         view2 = new javax.swing.JButton();
         view1 = new javax.swing.JButton();
+        epfPrgrsbr = new javax.swing.JProgressBar();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 6));
 
@@ -273,7 +275,7 @@ public class Report_PRCR_EPF_6Month extends javax.swing.JPanel {
         });
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel4.setText("Monthly EPF");
+        jLabel4.setText("EPF 6 Month");
 
         view2.setText("Open last");
         view2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -299,6 +301,8 @@ public class Report_PRCR_EPF_6Month extends javax.swing.JPanel {
             }
         });
 
+        epfPrgrsbr.setStringPainted(true);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -313,11 +317,13 @@ public class Report_PRCR_EPF_6Month extends javax.swing.JPanel {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(view2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(view, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(view1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(view1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(epfPrgrsbr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createSequentialGroup()
                             .addContainerGap()
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -327,7 +333,9 @@ public class Report_PRCR_EPF_6Month extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(view, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(epfPrgrsbr, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(view, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(view1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -338,12 +346,20 @@ public class Report_PRCR_EPF_6Month extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void viewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewActionPerformed
-//     int a= JOptionPane.showConfirmDialog(datechooser, "This will update the Daily transactions list. it will take several minutes to complete.. Are you sure?");
-//        System.out.println(a); 
-//         Thread b = new Thread(new report());
-//        if(a==0){  b.start();}
-
-        //b.start();
+int year = Integer.parseInt(yearField.getText());
+        if(first6.isSelected()){
+            PRCRLedgerFirstHalf ex = new PRCRLedgerFirstHalf(year);
+   Thread b=new Thread(ex);
+   b.start();
+        }
+        else if(last6.isSelected()){
+            PRCRLedgerSecondHalf ex = new PRCRLedgerSecondHalf(year);
+            Thread c=new Thread(ex);
+            c.start();
+        }
+        else
+            JOptionPane.showMessageDialog(null, "Select Period of the year!");
+        
 
     }//GEN-LAST:event_viewActionPerformed
 
@@ -374,14 +390,14 @@ public class Report_PRCR_EPF_6Month extends javax.swing.JPanel {
     private void view1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_view1ActionPerformed
         int year = Integer.parseInt(yearField.getText());
         if(first6.isSelected()){
-            PRCRLedgerFirstHalf ex = new PRCRLedgerFirstHalf(year);
-            ex.getWorkCodes();
-            ex.updateTable();
+//            PRCRLedgerFirstHalf ex = new PRCRLedgerFirstHalf(year);
+//            ex.getWorkCodes();
+//            ex.updateTable();
         }
         else if(last6.isSelected()){
-            PRCRLedgerSecondHalf ex = new PRCRLedgerSecondHalf(year);
-            ex.getWorkCodes();
-            ex.updateTable();
+//            PRCRLedgerSecondHalf ex = new PRCRLedgerSecondHalf(year);
+//            ex.getWorkCodes();
+//            ex.updateTable();
         }
         else
             JOptionPane.showMessageDialog(null, "Select Period of the year!");
@@ -425,12 +441,14 @@ public class Report_PRCR_EPF_6Month extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public static javax.swing.JProgressBar epfPrgrsbr;
     private javax.swing.JRadioButton first6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JProgressBar jProgressBar1;
+    private javax.swing.JProgressBar jProgressBar2;
     private javax.swing.JRadioButton last6;
     private javax.swing.JButton view;
     private javax.swing.JButton view1;

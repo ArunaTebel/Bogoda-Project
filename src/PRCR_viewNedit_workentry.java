@@ -59,6 +59,7 @@ public class PRCR_viewNedit_workentry extends javax.swing.JFrame {
         table = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
         search = new javax.swing.JComboBox();
+        deleteB = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Payroll_Checkroll Work Entry View");
@@ -398,14 +399,6 @@ public class PRCR_viewNedit_workentry extends javax.swing.JFrame {
         table.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         table.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jScrollPane1.setViewportView(table);
-        if (table.getColumnModel().getColumnCount() > 0) {
-            table.getColumnModel().getColumn(1).setPreferredWidth(150);
-            table.getColumnModel().getColumn(2).setPreferredWidth(150);
-            table.getColumnModel().getColumn(3).setPreferredWidth(100);
-            table.getColumnModel().getColumn(4).setPreferredWidth(100);
-            table.getColumnModel().getColumn(5).setPreferredWidth(100);
-            table.getColumnModel().getColumn(6).setPreferredWidth(100);
-        }
 
         jButton2.setText("Edit");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -416,14 +409,17 @@ public class PRCR_viewNedit_workentry extends javax.swing.JFrame {
 
         search.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "View all", "View from dates" }));
 
+        deleteB.setText("Delete");
+        deleteB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteBActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(126, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 798, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(153, 153, 153))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -439,8 +435,14 @@ public class PRCR_viewNedit_workentry extends javax.swing.JFrame {
                         .addGap(61, 61, 61)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(deleteB, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(61, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 895, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(56, 56, 56))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -459,7 +461,8 @@ public class PRCR_viewNedit_workentry extends javax.swing.JFrame {
                         .addComponent(jLabel2))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(deleteB, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(34, 34, 34)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(191, 191, 191))
@@ -1309,16 +1312,16 @@ public class PRCR_viewNedit_workentry extends javax.swing.JFrame {
         dbm.updateDatabase("prcr_checkroll_workentry", "entry", index, "ot_day", table.getValueAt(row, 5));
         dbm.updateDatabase("prcr_checkroll_workentry", "entry", index, "ot_night", table.getValueAt(row, 6));
   */      
- PRCR_checkroll_workentry_edit_class cwe=new PRCR_checkroll_workentry_edit_class();
+// PRCR_checkroll_workentry_edit_class cwe=new PRCR_checkroll_workentry_edit_class();
   int row = table.getSelectedRows()[0];
-  String s=table.getValueAt(row, 1).toString();
-  cwe.setDate(s);
-        cwe.setTableName();
+//  String s=table.getValueAt(row, 1).toString();
+//  cwe.setDate(s);
+//        cwe.setTableName();
         int entry=Integer.parseInt(table.getValueAt(row,0).toString());
-        cwe.setEmpcode(entry);
-        cwe.setNormalDays(entry);//-1 normal days if normal day,-1 sundays if sunday
-        cwe.setOtday(entry);//substract the ot hours
-        cwe.setOtNight(entry);
+//        cwe.setEmpcode(entry);
+//        cwe.setNormalDays(entry);//-1 normal days if normal day,-1 sundays if sunday
+//        cwe.setOtday(entry);//substract the ot hours
+//        cwe.setOtNight(entry);
         PRCR_Edit_checkroll_workentry ecw=new PRCR_Edit_checkroll_workentry();//editing is done from this window
         ecw.setVisible(true);
         ecw.setEntry(entry);
@@ -1326,6 +1329,13 @@ public class PRCR_viewNedit_workentry extends javax.swing.JFrame {
         
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void deleteBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBActionPerformed
+        int rowd = table.getSelectedRows()[0];
+        int entryd=Integer.parseInt(table.getValueAt(rowd,0).toString());
+        dbm.CheckNDeleteFromDataBase("prcr_checkroll_workentry","entry", entryd);
+        jButton1.doClick();
+    }//GEN-LAST:event_deleteBActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1369,6 +1379,7 @@ public class PRCR_viewNedit_workentry extends javax.swing.JFrame {
     private javax.swing.JPanel datepanel1;
     private javax.swing.JTextField dayfield1;
     private javax.swing.JTextField dayfield2;
+    private javax.swing.JButton deleteB;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;

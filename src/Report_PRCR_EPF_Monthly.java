@@ -65,7 +65,8 @@ public class Report_PRCR_EPF_Monthly extends javax.swing.JPanel {
         public void run() {
 
             Thread a = new Thread(new Background(55));
-
+            
+           
             Thread t1 = new Thread(new update(yearfield.getText(), monthfield.getText()));
             HashMap param = new HashMap();
             param.put("USER", user.get_current_user());
@@ -87,7 +88,7 @@ public class Report_PRCR_EPF_Monthly extends javax.swing.JPanel {
             } catch (SQLException ex) {
                 Logger.getLogger(Report_GL_daily_transactions.class.getName()).log(Level.SEVERE, null, ex);
             }
-
+      
         }
 
     }
@@ -103,18 +104,21 @@ public class Report_PRCR_EPF_Monthly extends javax.swing.JPanel {
             Thread a = new Thread(new Background(55));
 
             // Thread t1 = new Thread(new update(yearfield.getText(), monthfield.getText()));
+            
+            if(divisionCB.isSelected()){
             HashMap param = new HashMap();
             param.put("USER", user.get_current_user());
             param.put("DIVISION", division_jc.getSelectedItem().toString());
 //         param.put("Month", datehandler.return_month_as_num(monthfield.getText()));
             param.put("Month", datehandler.Return_month_full(datehandler.return_index(monthfield.getText())) + " " + yearfield.getText().toString());
-            if (register_or_casual_combo.getSelectedItem().toString().equals("Register")) {
-                param.put("REGISTER", "1");
-                param.put("RegisterLable","Registered");
-            } else {
-                param.put("REGISTER", "0");
-                param.put("RegisterLable","Casual");
-            }
+//            if (register_or_casual_combo.getSelectedItem().toString().equals("Register")) {
+//                param.put("REGISTER", "1");
+//                param.put("RegisterLable","Registered");
+//            } else {
+//                param.put("REGISTER", "0");
+//                param.put("RegisterLable","Casual");
+//            }
+            param.put("REGISTER", "1");
             a.start();
             // t1.run();
 
@@ -128,6 +132,36 @@ public class Report_PRCR_EPF_Monthly extends javax.swing.JPanel {
             } catch (SQLException ex) {
                 Logger.getLogger(Report_GL_daily_transactions.class.getName()).log(Level.SEVERE, null, ex);
             }
+        }else{
+    
+                HashMap param = new HashMap();
+            param.put("USER", user.get_current_user());
+            //param.put("DIVISION", division_jc.getSelectedItem().toString());
+//         param.put("Month", datehandler.return_month_as_num(monthfield.getText()));
+            param.put("Month", datehandler.Return_month_full(datehandler.return_index(monthfield.getText())) + " " + yearfield.getText().toString());
+//            if (register_or_casual_combo.getSelectedItem().toString().equals("Register")) {
+//                param.put("REGISTER", "1");
+//                param.put("RegisterLable","Registered");
+//            } else {
+//                param.put("REGISTER", "0");
+//                param.put("RegisterLable","Casual");
+//            }
+            param.put("REGISTER", "1");
+            a.start();
+            // t1.run();
+
+            String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
+
+            String dateNow = generate.create("PRCR_Checkroll_Monthly_EPF_ALL", "D:\\", param, location, "PRCR_Checkroll_Monthly_EPF_all.jrxml");
+            a.stop();
+            jProgressBar1.setValue(100);
+            try {
+                generate.savename(dateNow, "PRCR_Checkroll_Monthly_EPF_ALL", yearfield.getText() + datehandler.return_month_as_num(monthfield.getText()));
+            } catch (SQLException ex) {
+                Logger.getLogger(Report_GL_daily_transactions.class.getName()).log(Level.SEVERE, null, ex);
+            }
+                
+    }
 
         }
 
@@ -192,8 +226,7 @@ public class Report_PRCR_EPF_Monthly extends javax.swing.JPanel {
         view1 = new javax.swing.JButton();
         division_jc = new javax.swing.JComboBox();
         jLabel2 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        register_or_casual_combo = new javax.swing.JComboBox();
+        divisionCB = new javax.swing.JCheckBox();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 6));
 
@@ -318,9 +351,7 @@ public class Report_PRCR_EPF_Monthly extends javax.swing.JPanel {
 
         jLabel2.setText("Division");
 
-        jLabel5.setText("Register or Casual");
-
-        register_or_casual_combo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Register", "Casual" }));
+        divisionCB.setText("jCheckBox1");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -338,13 +369,12 @@ public class Report_PRCR_EPF_Monthly extends javax.swing.JPanel {
                                 .addComponent(view, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(view1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel2))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(division_jc, 0, 1, Short.MAX_VALUE)
-                                    .addComponent(register_or_casual_combo, 0, 87, Short.MAX_VALUE)))))
+                                .addGap(1, 1, 1)
+                                .addComponent(divisionCB, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel2)
+                                .addGap(52, 52, 52)
+                                .addComponent(division_jc, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -360,12 +390,9 @@ public class Report_PRCR_EPF_Monthly extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(division_jc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(14, 14, 14)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(register_or_casual_combo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(7, 7, 7)
+                    .addComponent(division_jc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(divisionCB))
+                .addGap(40, 40, 40)
                 .addComponent(view, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(view1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -670,14 +697,13 @@ public class Report_PRCR_EPF_Monthly extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.michaelbaranov.microba.calendar.DatePicker datePicker1;
     private javax.swing.JPanel datepanel;
+    private javax.swing.JCheckBox divisionCB;
     private javax.swing.JComboBox division_jc;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JTextField monthfield;
-    private javax.swing.JComboBox register_or_casual_combo;
     private javax.swing.JButton view;
     private javax.swing.JButton view1;
     private javax.swing.JButton view2;

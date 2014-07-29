@@ -1,6 +1,7 @@
 
 import java.awt.event.ItemEvent;
 import java.awt.event.KeyEvent;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -25,9 +26,9 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
     PersonalInfo piObject = new PersonalInfo();
     DatabaseManager dbm = DatabaseManager.getDbCon();
     Interface_Events interface_events = new Interface_Events();
-    
+
     Date_Handler datehandler = new Date_Handler();
-    DateChooser_text datechooser =new DateChooser_text();
+    DateChooser_text datechooser = new DateChooser_text();
     private int reg = 0;//used to update database table:checkroll_personalinfo,column:registerorcasual,if registered reg=1 
 
     public PRCR_Add_Employee() {
@@ -50,10 +51,11 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
+        jButton9 = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jButton2 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        jComboBox2 = new javax.swing.JComboBox();
+        genderC = new javax.swing.JComboBox();
         jLabel20 = new javax.swing.JLabel();
         NIC = new javax.swing.JTextField();
         name = new javax.swing.JTextField();
@@ -61,17 +63,7 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
         telNo = new javax.swing.JTextField();
         jLabel23 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        datepanel2 = new javax.swing.JPanel();
-        monthfield2 = new javax.swing.JTextField();
-        yearfield2 = new javax.swing.JTextField();
-        dayfield2 = new javax.swing.JTextField();
-        datePicker3 = new com.michaelbaranov.microba.calendar.DatePicker();
         jLabel4 = new javax.swing.JLabel();
-        datepanel1 = new javax.swing.JPanel();
-        monthfield1 = new javax.swing.JTextField();
-        yearfield1 = new javax.swing.JTextField();
-        dayfield1 = new javax.swing.JTextField();
-        datePicker2 = new com.michaelbaranov.microba.calendar.DatePicker();
         bloodGrp = new javax.swing.JComboBox();
         jLabel2 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -82,13 +74,22 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         division_lb = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        code = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
         Staff_pay = new javax.swing.JPanel();
         jLabel25 = new javax.swing.JLabel();
         basicSalary = new javax.swing.JTextField();
         jLabel28 = new javax.swing.JLabel();
         sup_name_sinhala = new javax.swing.JTextField();
+        empCode_JC = new javax.swing.JComboBox();
+        datepanel2 = new javax.swing.JPanel();
+        monthfield1 = new javax.swing.JTextField();
+        yearfield1 = new javax.swing.JTextField();
+        dayfield1 = new javax.swing.JTextField();
+        datePick1 = new com.michaelbaranov.microba.calendar.DatePicker();
+        datepanel1 = new javax.swing.JPanel();
+        monthfield3 = new javax.swing.JTextField();
+        yearfield3 = new javax.swing.JTextField();
+        dayfield3 = new javax.swing.JTextField();
+        datePick3 = new com.michaelbaranov.microba.calendar.DatePicker();
         registerOrNot = new javax.swing.JCheckBox();
         registerPanel = new javax.swing.JPanel();
         jLabel24 = new javax.swing.JLabel();
@@ -115,14 +116,23 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
 
         jButton8.setText("Quit");
 
+        jButton9.setText("Update");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(18, Short.MAX_VALUE)
+                .addContainerGap()
                 .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jButton7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton8)
@@ -133,10 +143,12 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButton7)
-                        .addComponent(jButton8)))
+                        .addComponent(jButton8))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -149,7 +161,7 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
             }
         });
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Mr", "Mrs", "Miss" }));
+        genderC.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Male", "Female" }));
 
         jLabel20.setText("NIC");
 
@@ -165,121 +177,7 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
 
         jLabel13.setText("Date Of Birth");
 
-        datepanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        monthfield2.setText(datehandler.get_today_month());
-        monthfield2.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                monthfield2KeyPressed(evt);
-            }
-        });
-
-        yearfield2.setText(datehandler.get_today_year());
-        yearfield2.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                yearfield2KeyPressed(evt);
-            }
-        });
-
-        dayfield2.setText(datehandler.get_today_day());
-        dayfield2.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                dayfield2KeyPressed(evt);
-            }
-        });
-
-        datePicker3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                datePicker3ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout datepanel2Layout = new javax.swing.GroupLayout(datepanel2);
-        datepanel2.setLayout(datepanel2Layout);
-        datepanel2Layout.setHorizontalGroup(
-            datepanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(datepanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(dayfield2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(monthfield2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(yearfield2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(datePicker3, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        datepanel2Layout.setVerticalGroup(
-            datepanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(datepanel2Layout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addGroup(datepanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(datePicker3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(datepanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(dayfield2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(monthfield2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(yearfield2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
         jLabel4.setText("Name*");
-
-        datepanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        monthfield1.setText(datehandler.get_today_month());
-        monthfield1.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                monthfield1KeyPressed(evt);
-            }
-        });
-
-        yearfield1.setText(datehandler.get_today_year());
-        yearfield1.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                yearfield1KeyPressed(evt);
-            }
-        });
-
-        dayfield1.setText(datehandler.get_today_day());
-        dayfield1.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                dayfield1KeyPressed(evt);
-            }
-        });
-
-        datePicker2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                datePicker2ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout datepanel1Layout = new javax.swing.GroupLayout(datepanel1);
-        datepanel1.setLayout(datepanel1Layout);
-        datepanel1Layout.setHorizontalGroup(
-            datepanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(datepanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(dayfield1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(monthfield1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(yearfield1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(datePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        datepanel1Layout.setVerticalGroup(
-            datepanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(datepanel1Layout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addGroup(datepanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(datePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(datepanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(dayfield1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(monthfield1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(yearfield1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
 
         bloodGrp.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "O-", "O+", "A-", "A+", "B-", "B+", "AB-", "AB+" }));
         bloodGrp.addActionListener(new java.awt.event.ActionListener() {
@@ -341,8 +239,6 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
 
         jLabel1.setText("Employee Code*");
 
-        jButton1.setText("Get next");
-
         Staff_pay.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel25.setText("Basic Salary*");
@@ -380,13 +276,145 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
             }
         });
 
+        empCode_JC.putClientProperty("JComboBox.isTableCellEditor", Boolean.TRUE);
+        empCode_JC.setEditable(true);
+        empCode_JC.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("checkroll_personalinfo","code")));
+        empCode_JC.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                empCode_JCItemStateChanged(evt);
+            }
+        });
+        empCode_JC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                empCode_JCActionPerformed(evt);
+            }
+        });
+        empCode_JC.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                empCode_JCKeyPressed(evt);
+            }
+        });
+
+        datepanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        monthfield1.setText(datehandler.get_today_month());
+        monthfield1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                monthfield1KeyPressed(evt);
+            }
+        });
+
+        yearfield1.setText(datehandler.get_today_year());
+        yearfield1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                yearfield1KeyPressed(evt);
+            }
+        });
+
+        dayfield1.setText(datehandler.get_today_day());
+        dayfield1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                dayfield1KeyPressed(evt);
+            }
+        });
+
+        datePick1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                datePick1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout datepanel2Layout = new javax.swing.GroupLayout(datepanel2);
+        datepanel2.setLayout(datepanel2Layout);
+        datepanel2Layout.setHorizontalGroup(
+            datepanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(datepanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(dayfield1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(monthfield1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(yearfield1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(datePick1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        datepanel2Layout.setVerticalGroup(
+            datepanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(datepanel2Layout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addGroup(datepanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(datePick1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(datepanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(dayfield1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(monthfield1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(yearfield1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        datepanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        monthfield3.setText(datehandler.get_today_month());
+        monthfield3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                monthfield3KeyPressed(evt);
+            }
+        });
+
+        yearfield3.setText(datehandler.get_today_year());
+        yearfield3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                yearfield3KeyPressed(evt);
+            }
+        });
+
+        dayfield3.setText(Integer.parseInt(datehandler.get_today_day())+"");
+        dayfield3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                dayfield3KeyPressed(evt);
+            }
+        });
+
+        datePick3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                datePick3ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout datepanel1Layout = new javax.swing.GroupLayout(datepanel1);
+        datepanel1.setLayout(datepanel1Layout);
+        datepanel1Layout.setHorizontalGroup(
+            datepanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(datepanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(dayfield3, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(monthfield3, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(yearfield3, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(datePick3, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        datepanel1Layout.setVerticalGroup(
+            datepanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(datepanel1Layout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addGroup(datepanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(datePick3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(datepanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(dayfield3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(monthfield3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(yearfield3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(datepanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -395,28 +423,27 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
                         .addComponent(Staff_pay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(10, 10, 10)
                         .addComponent(checkroll_division, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel13)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(18, 18, 18)
-                                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel5))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(sup_name_sinhala, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jLabel1)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(110, 110, 110)
-                        .addComponent(code, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
-                        .addComponent(jButton1))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
+                        .addComponent(jLabel23)
+                        .addGap(57, 57, 57)
+                        .addComponent(datepanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel23)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel13)
+                            .addComponent(jLabel1))
+                        .addGap(34, 34, 34)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(sup_name_sinhala, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                        .addComponent(empCode_JC, 0, 1, Short.MAX_VALUE)
+                                        .addGap(221, 221, 221)))
+                                .addComponent(genderC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(datepanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -428,55 +455,61 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
                             .addComponent(telNo, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(NIC, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(bloodGrp, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(81, Short.MAX_VALUE))
+                .addContainerGap(54, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(code, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(7, 7, 7)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(sup_name_sinhala, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addGap(8, 8, 8)
-                .addComponent(jLabel13)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(datepanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(empCode_JC, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(bloodGrp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel20)
-                    .addComponent(NIC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel21)
-                    .addComponent(telNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(genderC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5)
+                    .addComponent(sup_name_sinhala, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel22, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(staffOrCheckroll, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(checkroll_division, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Staff_pay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(33, 33, 33)
-                .addComponent(jLabel23)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(datepanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(139, 139, 139))
+                    .addComponent(jLabel13)
+                    .addComponent(datepanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(bloodGrp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel20)
+                            .addComponent(NIC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel21)
+                            .addComponent(telNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel22, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(staffOrCheckroll, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(checkroll_division, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(Staff_pay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(33, 33, 33)
+                        .addComponent(jLabel23)
+                        .addGap(185, 185, 185))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGap(268, 268, 268)
+                        .addComponent(datepanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(150, 150, 150))))
         );
+
+        jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {name, sup_name_sinhala});
 
         registerOrNot.setText("Registered");
         registerOrNot.addActionListener(new java.awt.event.ActionListener() {
@@ -490,6 +523,12 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
         jLabel24.setText("Registered date");
 
         jLabel7.setText("EPF No");
+
+        epf_no.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                epf_noActionPerformed(evt);
+            }
+        });
 
         datepanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -605,9 +644,9 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(34, 34, 34)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -622,7 +661,7 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 626, Short.MAX_VALUE)
+                    .addComponent(jSeparator1)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -675,28 +714,36 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
     }//GEN-LAST:event_bloodGrpActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        piObject.setSinhalaName(sup_name_sinhala.getText());
+        piObject.setName(name.getText());
         try {
-            piObject.setSinhalaName(sup_name_sinhala.getText());//Include the code to get name in sinhala
+            piObject.setCode(Integer.parseInt(empCode_JC.getSelectedItem().toString()));//if code is not given run this part without giving error
+        } catch (Exception e) {
             
-            piObject.setName(name.getText());
-            
-            
+        }
+        piObject.setNIC(NIC.getText());
+        try {
             try {
-                piObject.setCode(Integer.parseInt(code.getText()));//if code is not given run this part without giving error
-            } catch (Exception e) {
+                //if joined date is not given make it null without giving error
                 
+                piObject.setDOB(datechooser.Return_date(yearfield3, monthfield3, dayfield3));
+                
+                
+            } catch (ParseException ex) {
+                Logger.getLogger(PRCR_Add_Employee.class.getName()).log(Level.SEVERE, null, ex);
             }
             
-            piObject.setNIC(NIC.getText());
+        } catch (NullPointerException e) {
+            piObject.setDOB(null);
             
-            piObject.setDOB(datechooser.Return_date(yearfield2,monthfield2,dayfield2));
-            
-            piObject.setTelNo(telNo.getText());
-            piObject.setBloodGrp(bloodGrp.getSelectedItem().toString());
-            piObject.setRegisterOrNot(registerOrNot.isSelected());//NC
-            piObject.setCheckrollOrStaff(staffOrCheckroll.getSelectedItem().toString());//NC
-            
-            try {try {
+            //JOptionPane.showMessageDialog(null, "Employee is not registered", "Message", JOptionPane.INFORMATION_MESSAGE);
+        }
+        piObject.setTelNo(telNo.getText());
+        piObject.setBloodGrp(bloodGrp.getSelectedItem().toString());
+        piObject.setRegisterOrNot(registerOrNot.isSelected());
+        piObject.setCheckrollOrStaff(staffOrCheckroll.getSelectedItem().toString());
+        try {
+            try {
                 //if joined date is not given make it null without giving error
                 
                 piObject.setJoinedDate(datechooser.Return_date(yearfield1, monthfield1, dayfield1));
@@ -704,94 +751,89 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
                 Logger.getLogger(PRCR_Add_Employee.class.getName()).log(Level.SEVERE, null, ex);
             }
             
-            } catch (NullPointerException e) {
-                piObject.setJoinedDate(null);
-                
-                //JOptionPane.showMessageDialog(null, "Employee is not registered", "Message", JOptionPane.INFORMATION_MESSAGE);
-            }
-            try {try {
+        } catch (NullPointerException e) {
+            piObject.setJoinedDate(null);
+            
+            //JOptionPane.showMessageDialog(null, "Employee is not registered", "Message", JOptionPane.INFORMATION_MESSAGE);
+        }
+        try {
+            try {
                 //if permanent date is not given make it null without giving error
                 
-                
-                piObject.setPermanentDate(datechooser.Return_date(yearfield,monthfield, dayfield));
+                piObject.setPermanentDate(datechooser.Return_date(yearfield, monthfield, dayfield));
             } catch (ParseException ex) {
                 Logger.getLogger(PRCR_Add_Employee.class.getName()).log(Level.SEVERE, null, ex);
             }
-            } catch (NullPointerException e) {
-                
-                piObject.setPermanentDate(null);
-                //JOptionPane.showMessageDialog(null, "Employee is not registered", "Message", JOptionPane.INFORMATION_MESSAGE);
+        } catch (NullPointerException e) {
+            
+            piObject.setPermanentDate(null);
+            //JOptionPane.showMessageDialog(null, "Employee is not registered", "Message", JOptionPane.INFORMATION_MESSAGE);
+        }
+        try {
+            if (staffOrCheckroll.getSelectedItem() == "Staff") {
+                piObject.setBasicSallary(Double.parseDouble(basicSalary.getText()));
+            } else {
+                piObject.setDivision(division_jc.getSelectedItem().toString());
             }
+        } catch (Exception e) {
             
-            try {
-                if (staffOrCheckroll.getSelectedItem() == "Staff") {
-                    piObject.setBasicSallary(Double.parseDouble(basicSalary.getText()));
-                } else {
-                    piObject.setDivision(division_jc.getSelectedItem().toString());
-                }
-            } catch (Exception e) {
+        }
+        piObject.setETF(ETF.isSelected());
+        try {
+            piObject.setEPF(Integer.parseInt(epf_no.getText()));
+        } catch (Exception e) {
+            piObject.setEPF(0);  //if EPF number is not given make it zero when employee is not registered
+            //if employee is registered this will do no harm coz epf_no must give to register
+        }
+        piObject.setWelfare(welfare.isSelected());
+        if ((registerOrNot.isSelected() && epf_no.getText().length() != 0)
+                || (registerOrNot.isSelected() == false && epf_no.getText().length() == 0)) {  //if employee is registered epf number should be there,if not no need of EPF number
+            
+            if (empCode_JC.getSelectedItem().toString().length() != 0 && name.getText().length() != 0 &&//code,name should be given,for check roll division must be selected,for staff basic salary must be given
+                    ((staffOrCheckroll.getSelectedItem() == "Checkroll" && division_jc.getSelectedItem().toString().length() > 1)
+                    || ((staffOrCheckroll.getSelectedItem() == "Staff" && basicSalary.getText().length() != 0)))) {
                 
-            }
-            piObject.setETF(ETF.isSelected());
-            
-            try {
-                piObject.setEPF(Integer.parseInt(epf_no.getText()));
-            } catch (Exception e) {
-                piObject.setEPF(0);  //if EPF number is not given make it zero when employee is not registered
-                //if employee is registered this will do no harm coz epf_no must give to register
-            }
-            
-            piObject.setWelfare(welfare.isSelected());
-            
-            if ((registerOrNot.isSelected() && epf_no.getText().length() != 0)
-                    || (registerOrNot.isSelected() == false && epf_no.getText().length() == 0)) {  //if employee is registered epf number should be there,if not no need of EPF number
-                
-                if (code.getText().length() != 0 && name.getText().length() != 0 &&//code,name should be given,for check roll division must be selected,for staff basic salary must be given
-                        ((staffOrCheckroll.getSelectedItem() == "Checkroll" && division_jc.getSelectedItem().toString().length() > 1)
-                        || ((staffOrCheckroll.getSelectedItem() == "Staff" && basicSalary.getText().length() != 0)))) {
+                piObject.addToDataBase();//update personal info
+                if (staffOrCheckroll.getSelectedItem() == "Checkroll") {
                     
-                    piObject.addToDataBase();//update personal info
-                    if (staffOrCheckroll.getSelectedItem() == "Checkroll") {
-                        
-                        if (registerOrNot.isSelected()) { //use to update database table:checkroll_personalinfo,column:registerorcasual,if registered reg=1
-                            reg = 1;
-                            
-                        } else {
-                            reg = 0;
-                        }
-                        
-                        DatabaseManager dbCon = DatabaseManager.getDbCon();
-                        try {//update checkroll_personalinfo
-                            dbCon.insert("INSERT INTO checkroll_personalinfo(code,division,register_or_casual) VALUES('" + Integer.parseInt(code.getText()) + "','" + division_jc.getSelectedItem().toString() + "','" + reg + "')");
-                        } catch (SQLException ex) {
-                            Logger.getLogger(PRCR_Add_Employee.class.getName()).log(Level.SEVERE, null, ex);
-                        }
+                    if (registerOrNot.isSelected()) { //use to update database table:checkroll_personalinfo,column:registerorcasual,if registered reg=1
+                        reg = 1;
                         
                     } else {
-                        if (registerOrNot.isSelected()) { //use to update database table:checkroll_personalinfo,column:registerorcasual,if registered reg=1
-                            reg = 1;
-                        } else {
-                            reg = 0;
-                        }
-                        DatabaseManager dbCon = DatabaseManager.getDbCon();
-                        try {
-                            dbCon.insert("INSERT INTO staff_personalinfo(code,basic_salary,register_or_casual) VALUES('" + Integer.parseInt(code.getText()) + "','" + Double.parseDouble(basicSalary.getText()) + "','" + reg + "')");
-                        } catch (SQLException ex) {
-                            //Logger.getLogger(PRCR_Add_Employee.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                        
+                        reg = 0;
                     }
-                } else {
                     
-                    JOptionPane.showMessageDialog(null, "Incorrect input! Please check again and save ", "Message", JOptionPane.INFORMATION_MESSAGE);
+                    DatabaseManager dbCon = DatabaseManager.getDbCon();
+                    try {//update checkroll_personalinfo
+                        dbCon.insert("INSERT INTO checkroll_personalinfo(code,division,register_or_casual) VALUES('" + Integer.parseInt(empCode_JC.getSelectedItem().toString()) + "','" + division_jc.getSelectedItem().toString() + "','" + reg + "')");
+                    } catch (SQLException ex) {
+                        Logger.getLogger(PRCR_Add_Employee.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
+                } else {
+                    if (registerOrNot.isSelected()) { //use to update database table:checkroll_personalinfo,column:registerorcasual,if registered reg=1
+                        reg = 1;
+                    } else {
+                        reg = 0;
+                    }
+                    DatabaseManager dbCon = DatabaseManager.getDbCon();
+                    try {
+                        dbCon.insert("INSERT INTO staff_personalinfo(code,basic_salary,register_or_casual) VALUES('" + Integer.parseInt(empCode_JC.getSelectedItem().toString()) + "','" + Double.parseDouble(basicSalary.getText()) + "','" + reg + "')");
+                    } catch (SQLException ex) {
+                        //Logger.getLogger(PRCR_Add_Employee.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "Enter epf number! check again and save ", "Message", JOptionPane.INFORMATION_MESSAGE);
                 
+                JOptionPane.showMessageDialog(null, "Incorrect input! Please check again and save ", "Message", JOptionPane.INFORMATION_MESSAGE);
             }
-        } catch (ParseException ex) {
-            Logger.getLogger(PRCR_Add_Employee.class.getName()).log(Level.SEVERE, null, ex);
+        } else {
+            JOptionPane.showMessageDialog(null, "Enter epf number! check again and save ", "Message", JOptionPane.INFORMATION_MESSAGE);
+            
         }
+         JOptionPane.showMessageDialog(null,"Successfully added.Employee No \n" + empCode_JC.getSelectedItem(), "Message", JOptionPane.INFORMATION_MESSAGE);
+
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void division_jcItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_division_jcItemStateChanged
@@ -1053,12 +1095,12 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
                 dayfield.selectAll();
             }                                           // /// decrementing normal values
         } else if (dayfield.getText().equals("2") || dayfield.getText().equals("3") || dayfield.getText().equals("4") || dayfield.getText().equals("5")
-            || dayfield.getText().equals("6") || dayfield.getText().equals("7") || dayfield.getText().equals("8") || dayfield.getText().equals("9")
-            || dayfield.getText().equals("10") || dayfield.getText().equals("11") || dayfield.getText().equals("12") || dayfield.getText().equals("13") || dayfield.getText().equals("14")
-            || dayfield.getText().equals("15") || dayfield.getText().equals("16") || dayfield.getText().equals("17") || dayfield.getText().equals("18")
-            || dayfield.getText().equals("19") || dayfield.getText().equals("20") || dayfield.getText().equals("21") || dayfield.getText().equals("22")
-            || dayfield.getText().equals("23") || dayfield.getText().equals("24") || dayfield.getText().equals("25") || dayfield.getText().equals("26")
-            || dayfield.getText().equals("27") || dayfield.getText().equals("28") || dayfield.getText().equals("29") || dayfield.getText().equals("30") || dayfield.getText().equals("31")) {
+                || dayfield.getText().equals("6") || dayfield.getText().equals("7") || dayfield.getText().equals("8") || dayfield.getText().equals("9")
+                || dayfield.getText().equals("10") || dayfield.getText().equals("11") || dayfield.getText().equals("12") || dayfield.getText().equals("13") || dayfield.getText().equals("14")
+                || dayfield.getText().equals("15") || dayfield.getText().equals("16") || dayfield.getText().equals("17") || dayfield.getText().equals("18")
+                || dayfield.getText().equals("19") || dayfield.getText().equals("20") || dayfield.getText().equals("21") || dayfield.getText().equals("22")
+                || dayfield.getText().equals("23") || dayfield.getText().equals("24") || dayfield.getText().equals("25") || dayfield.getText().equals("26")
+                || dayfield.getText().equals("27") || dayfield.getText().equals("28") || dayfield.getText().equals("29") || dayfield.getText().equals("30") || dayfield.getText().equals("31")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
 
                 dayfield.setText("" + (Integer.parseInt(dayfield.getText()) - 1));
@@ -1135,12 +1177,12 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
                     monthfield.setText(datechooser.Return_month(mnth + 1));
                     // incrementing normal values/////////////////////// for february separately
                 } else if (dayfield.getText().equals("1") || dayfield.getText().equals("2") || dayfield.getText().equals("3") || dayfield.getText().equals("4") || dayfield.getText().equals("5")
-                    || dayfield.getText().equals("6") || dayfield.getText().equals("7") || dayfield.getText().equals("8") || dayfield.getText().equals("9")
-                    || dayfield.getText().equals("10") || dayfield.getText().equals("11") || dayfield.getText().equals("12") || dayfield.getText().equals("13") || dayfield.getText().equals("14")
-                    || dayfield.getText().equals("15") || dayfield.getText().equals("16") || dayfield.getText().equals("17") || dayfield.getText().equals("18")
-                    || dayfield.getText().equals("19") || dayfield.getText().equals("20") || dayfield.getText().equals("21") || dayfield.getText().equals("22")
-                    || dayfield.getText().equals("23") || dayfield.getText().equals("24") || dayfield.getText().equals("25") || dayfield.getText().equals("26")
-                    || dayfield.getText().equals("27") || dayfield.getText().equals("28") || dayfield.getText().equals("29") || dayfield.getText().equals("30") || dayfield.getText().equals("31")) {
+                        || dayfield.getText().equals("6") || dayfield.getText().equals("7") || dayfield.getText().equals("8") || dayfield.getText().equals("9")
+                        || dayfield.getText().equals("10") || dayfield.getText().equals("11") || dayfield.getText().equals("12") || dayfield.getText().equals("13") || dayfield.getText().equals("14")
+                        || dayfield.getText().equals("15") || dayfield.getText().equals("16") || dayfield.getText().equals("17") || dayfield.getText().equals("18")
+                        || dayfield.getText().equals("19") || dayfield.getText().equals("20") || dayfield.getText().equals("21") || dayfield.getText().equals("22")
+                        || dayfield.getText().equals("23") || dayfield.getText().equals("24") || dayfield.getText().equals("25") || dayfield.getText().equals("26")
+                        || dayfield.getText().equals("27") || dayfield.getText().equals("28") || dayfield.getText().equals("29") || dayfield.getText().equals("30") || dayfield.getText().equals("31")) {
 
                     dayfield.setText("" + (Integer.parseInt(dayfield.getText()) + 1));
 
@@ -1149,12 +1191,12 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
             }
             // incrementing normal values
         } else if (dayfield.getText().equals("1") || dayfield.getText().equals("2") || dayfield.getText().equals("3") || dayfield.getText().equals("4") || dayfield.getText().equals("5")
-            || dayfield.getText().equals("6") || dayfield.getText().equals("7") || dayfield.getText().equals("8") || dayfield.getText().equals("9")
-            || dayfield.getText().equals("10") || dayfield.getText().equals("11") || dayfield.getText().equals("12") || dayfield.getText().equals("13") || dayfield.getText().equals("14")
-            || dayfield.getText().equals("15") || dayfield.getText().equals("16") || dayfield.getText().equals("17") || dayfield.getText().equals("18")
-            || dayfield.getText().equals("19") || dayfield.getText().equals("20") || dayfield.getText().equals("21") || dayfield.getText().equals("22")
-            || dayfield.getText().equals("23") || dayfield.getText().equals("24") || dayfield.getText().equals("25") || dayfield.getText().equals("26")
-            || dayfield.getText().equals("27") || dayfield.getText().equals("28") || dayfield.getText().equals("29") || dayfield.getText().equals("30") || dayfield.getText().equals("31")) {
+                || dayfield.getText().equals("6") || dayfield.getText().equals("7") || dayfield.getText().equals("8") || dayfield.getText().equals("9")
+                || dayfield.getText().equals("10") || dayfield.getText().equals("11") || dayfield.getText().equals("12") || dayfield.getText().equals("13") || dayfield.getText().equals("14")
+                || dayfield.getText().equals("15") || dayfield.getText().equals("16") || dayfield.getText().equals("17") || dayfield.getText().equals("18")
+                || dayfield.getText().equals("19") || dayfield.getText().equals("20") || dayfield.getText().equals("21") || dayfield.getText().equals("22")
+                || dayfield.getText().equals("23") || dayfield.getText().equals("24") || dayfield.getText().equals("25") || dayfield.getText().equals("26")
+                || dayfield.getText().equals("27") || dayfield.getText().equals("28") || dayfield.getText().equals("29") || dayfield.getText().equals("30") || dayfield.getText().equals("31")) {
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
 
                 dayfield.setText("" + (Integer.parseInt(dayfield.getText()) + 1));
@@ -1182,41 +1224,902 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
         // category_code.requestFocus();
     }//GEN-LAST:event_datePicker1ActionPerformed
 
-    private void monthfield1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_monthfield1KeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_monthfield1KeyPressed
-
-    private void yearfield1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_yearfield1KeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_yearfield1KeyPressed
-
-    private void dayfield1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dayfield1KeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_dayfield1KeyPressed
-
-    private void datePicker2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datePicker2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_datePicker2ActionPerformed
-
-    private void monthfield2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_monthfield2KeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_monthfield2KeyPressed
-
-    private void yearfield2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_yearfield2KeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_yearfield2KeyPressed
-
-    private void dayfield2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dayfield2KeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_dayfield2KeyPressed
-
-    private void datePicker3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datePicker3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_datePicker3ActionPerformed
-
     private void sup_name_sinhalaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_sup_name_sinhalaKeyPressed
         //interface_events.Change_focus_Enterkey_c(Cat_code, evt);
     }//GEN-LAST:event_sup_name_sinhalaKeyPressed
+
+    private void empCode_JCItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_empCode_JCItemStateChanged
+        DatabaseManager dbm = DatabaseManager.getDbCon();
+        String Name = null;
+        String sinhalaName = null;
+        String nic = null;
+        String telNoo = null;
+        String bld = null;
+        String regorcas = null;
+        String checkrollorstaff = null;
+        String basicSalary = null;
+        String dob = null;
+        String joineddate = null;
+        String regdate = null;
+        String division = null;
+        int gender = -1;
+        String epfNoo = null;
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            int item = Integer.parseInt(evt.getItem().toString());
+            try {
+                ResultSet query = dbm.query("SELECT * FROM personal_info WHERE code =" + item + "");
+                while (query.next()) {
+                    Name = query.getString("name");
+                    sinhalaName = query.getString("sinhala_name");
+                    nic = query.getString("nic");
+                    telNoo = query.getString("tel_no");
+                    bld = query.getString("blood_group");
+                    regorcas = query.getString("register_or_not");
+                    checkrollorstaff = query.getString("checkroll_or_staff");
+                    basicSalary = query.getString("basic_salary");
+                    dob = query.getString("dob");
+                    joineddate = query.getString("joined_date");
+                    regdate = query.getString("permanent_date");
+                    epfNoo = query.getString("epf_no");
+
+                }
+            } catch (SQLException ex) {
+            }
+            name.setText("" + Name);
+            sup_name_sinhala.setText("" + sinhalaName);
+            NIC.setText("" + nic);
+            telNo.setText("" + telNoo);
+            bloodGrp.setSelectedItem(bld);
+            if (dob != null) {
+                yearfield3.setText("" + dob.substring(0, 4));
+                monthfield3.setText("" + datehandler.Return_month(Integer.parseInt(dob.substring(5, 7))));
+                dayfield3.setText("" + dob.substring(8, 10));
+            } else {
+                yearfield3.setText("");
+                monthfield3.setText("");
+                dayfield3.setText("");
+
+            }
+            if (checkrollorstaff.equals("Checkroll")) {
+                staffOrCheckroll.setSelectedItem("Checkroll");
+                division = dbm.checknReturnData("checkroll_personalinfo", "code", item, "division");
+                gender = Integer.parseInt(dbm.checknReturnData("checkroll_personalinfo", "code", item, "gender"));
+                if (gender == 1) {
+                    genderC.setSelectedItem("Male");
+                } else if (gender == 0) {
+                    genderC.setSelectedItem("Female");
+                }
+                division_jc.setSelectedItem(division);
+            } else if (checkrollorstaff.equals("Staff")) {
+                staffOrCheckroll.setSelectedItem("Staff");
+            }
+            if (joineddate != null) {
+                yearfield1.setText("" + joineddate.substring(0, 4));
+                monthfield1.setText("" + datehandler.Return_month(Integer.parseInt(joineddate.substring(5, 7))));
+                dayfield1.setText("" + joineddate.substring(8, 10));
+            } else {
+                yearfield1.setText("");
+                monthfield1.setText("");
+                dayfield1.setText("");
+
+            }
+            if (regorcas.equals("CASUAL")) {
+                registerOrNot.setSelected(false);
+                registerPanel.setVisible(false);
+            } else if (regorcas.equals("REGISTER")) {
+                registerOrNot.setSelected(true);
+
+                registerPanel.setVisible(true);
+                if (regdate != null) {
+                    yearfield.setText("" + regdate.substring(0, 4));
+                    monthfield.setText("" + datehandler.Return_month(Integer.parseInt(regdate.substring(5, 7))));
+                    dayfield.setText("" + regdate.substring(8, 10));
+                } else {
+                    yearfield.setText("");
+                    monthfield.setText("");
+                    dayfield.setText("");
+                }
+                epf_no.setText(epfNoo);
+
+            }
+
+        }
+
+        // W_code.requestFocus();
+        // W_code.selectAll();
+    }//GEN-LAST:event_empCode_JCItemStateChanged
+
+    private void empCode_JCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_empCode_JCActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_empCode_JCActionPerformed
+
+    private void empCode_JCKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_empCode_JCKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
+            //   workCode.requestFocus();
+
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_empCode_JCKeyPressed
+
+    private void epf_noActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_epf_noActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_epf_noActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        dbm.updateDatabase("personal_info", "code", empCode_JC.getSelectedItem(), "name", name.getText());
+        dbm.updateDatabase("personal_info", "code", empCode_JC.getSelectedItem(), "sinhala_name", sup_name_sinhala.getText());
+        dbm.updateDatabase("personal_info", "code", empCode_JC.getSelectedItem(), "nic", NIC.getText());
+        try {
+            
+            System.err.println(datechooser.Return_date(yearfield3, monthfield3, dayfield3));
+            dbm.updateDatabase("personal_info", "code", empCode_JC.getSelectedItem(), "dob", datechooser.Return_date(yearfield3, monthfield3, dayfield3));
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            //Logger.getLogger(PRCR_Add_Employee.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        dbm.updateDatabase("personal_info", "code", empCode_JC.getSelectedItem(), "tel_no", telNo.getText());
+        dbm.updateDatabase("personal_info", "code", empCode_JC.getSelectedItem(), "blood_group", bloodGrp.getSelectedItem());
+        try {
+            dbm.updateDatabase("personal_info", "code", empCode_JC.getSelectedItem(), "joined_date", datechooser.Return_date(yearfield1, monthfield1, dayfield1));
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            //Logger.getLogger(PRCR_Add_Employee.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        dbm.updateDatabase("checkroll_personalinfo", "code", empCode_JC.getSelectedItem(), "gender", genderC.getSelectedItem().equals("Male") ? 1 : 0);
+
+        if (staffOrCheckroll.getSelectedItem().toString().equals("Checkroll")) {
+            dbm.updateDatabase("personal_info", "code", empCode_JC.getSelectedItem(), "checkroll_or_staff", "Checkroll");
+            dbm.updateDatabase("checkroll_personalinfo", "code", empCode_JC.getSelectedItem(), "division",division_jc.getSelectedItem()); 
+        
+            
+        } else {
+            dbm.updateDatabase("personal_info", "code", empCode_JC.getSelectedItem(), "checkroll_or_staff", "Staff");
+            dbm.updateDatabase("personal_info", "code", empCode_JC.getSelectedItem(), "basic_salary", basicSalary.getText());
+            
+        }
+        if(registerOrNot.isSelected()){
+            dbm.updateDatabase("personal_info", "code", empCode_JC.getSelectedItem(), "register_or_not", "REGISTER");
+            dbm.updateDatabase("checkroll_personalinfo", "code", empCode_JC.getSelectedItem(), "register_or_casual","1"); 
+             dbm.updateDatabase("personal_info", "code", empCode_JC.getSelectedItem(), "epf_no",epf_no.getText()); 
+
+             try {
+            dbm.updateDatabase("personal_info", "code", empCode_JC.getSelectedItem(), "permanent_date", datechooser.Return_date(yearfield, monthfield, dayfield));
+        } catch (ParseException ex) {
+            Logger.getLogger(PRCR_Add_Employee.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
+        }else{
+         dbm.updateDatabase("personal_info", "code", empCode_JC.getSelectedItem(), "register_or_not", "CASUAL");
+         dbm.updateDatabase("checkroll_personalinfo", "code", empCode_JC.getSelectedItem(), "register_or_casual","0"); 
+        }
+         JOptionPane.showMessageDialog(null, "Details are updated for the employee \n" + empCode_JC.getSelectedItem(), "Message", JOptionPane.INFORMATION_MESSAGE);
+
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void monthfield1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_monthfield1KeyPressed
+        if (monthfield1.getText().equals("Jan")) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                monthfield1.setText("Dec");
+                int yr = Integer.parseInt(yearfield1.getText());
+
+                yearfield1.setText("" + (yr - 1));
+                monthfield1.selectAll();
+
+            }
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                monthfield1.setText("Feb");
+                monthfield1.selectAll();
+            }
+
+        } else if (monthfield1.getText().equals("Feb")) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                monthfield1.setText("Jan");
+                int yr = Integer.parseInt(yearfield1.getText());
+                monthfield1.selectAll();
+
+            }
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                monthfield1.setText("Mar");
+                monthfield1.selectAll();
+            }
+
+        } else if (monthfield1.getText().equals("Mar")) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                monthfield1.setText("Feb");
+                int yr = Integer.parseInt(yearfield1.getText());
+                monthfield1.selectAll();
+            }
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                monthfield1.setText("Apr");
+                monthfield1.selectAll();
+            }
+
+        } else if (monthfield1.getText().equals("Apr")) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                monthfield1.setText("Mar");
+                int yr = Integer.parseInt(yearfield1.getText());
+                monthfield1.selectAll();
+            }
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                monthfield1.setText("May");
+                monthfield1.selectAll();
+            }
+
+        } else if (monthfield1.getText().equals("May")) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                monthfield1.setText("Apr");
+                int yr = Integer.parseInt(yearfield1.getText());
+                monthfield1.selectAll();
+
+            }
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+
+                monthfield1.setText("Jun");
+                monthfield1.selectAll();
+            }
+
+        } else if (monthfield1.getText().equals("Jun")) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                monthfield1.setText("May");
+                int yr = Integer.parseInt(yearfield1.getText());
+                monthfield1.selectAll();
+
+            }
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                monthfield1.setText("Jul");
+                monthfield1.selectAll();
+            }
+
+        } else if (monthfield1.getText().equals("Jul")) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                monthfield1.setText("Jun");
+                int yr = Integer.parseInt(yearfield1.getText());
+                monthfield1.selectAll();
+
+            }
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                monthfield1.setText("Aug");
+                monthfield1.selectAll();
+            }
+
+        } else if (monthfield1.getText().equals("Aug")) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                monthfield1.setText("Jul");
+                int yr = Integer.parseInt(yearfield1.getText());
+                monthfield1.selectAll();
+
+            }
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                monthfield1.setText("Sep");
+                monthfield1.selectAll();
+            }
+
+        } else if (monthfield1.getText().equals("Sep")) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                monthfield1.setText("Aug");
+                int yr = Integer.parseInt(yearfield1.getText());
+                monthfield1.selectAll();
+
+            }
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                monthfield1.setText("Oct");
+                monthfield1.selectAll();
+            }
+
+        } else if (monthfield1.getText().equals("Oct")) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                monthfield1.setText("Sep");
+                int yr = Integer.parseInt(yearfield1.getText());
+                monthfield1.selectAll();
+
+            }
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                monthfield1.setText("Nov");
+                monthfield1.selectAll();
+            }
+
+        } else if (monthfield1.getText().equals("Nov")) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                monthfield1.setText("Oct");
+                int yr = Integer.parseInt(yearfield1.getText());
+                monthfield1.selectAll();
+
+            }
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                monthfield1.setText("Dec");
+                monthfield1.selectAll();
+            }
+
+        } else if (monthfield1.getText().equals("Dec")) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                monthfield1.setText("Nov");
+                int yr = Integer.parseInt(yearfield1.getText());
+                monthfield1.selectAll();
+
+            }
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                monthfield1.setText("Jan");
+                int yr = Integer.parseInt(yearfield1.getText());
+
+                yearfield1.setText("" + (yr + 1));
+                monthfield1.selectAll();
+            }
+
+        }
+        if (evt.getKeyCode() == KeyEvent.VK_LEFT) {
+            dayfield1.requestFocus();
+            dayfield1.selectAll();
+        }
+        if (evt.getKeyCode() == KeyEvent.VK_RIGHT) {
+            yearfield1.requestFocus();
+            yearfield1.selectAll();
+        }
+
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
+            //category_code.requestFocus();
+
+        }
+    }//GEN-LAST:event_monthfield1KeyPressed
+
+    private void yearfield1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_yearfield1KeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+            yearfield1.setText("" + (Integer.parseInt(yearfield1.getText()) + 1));
+            yearfield1.selectAll();
+        }
+        if (evt.getKeyCode() == KeyEvent.VK_UP) {
+            yearfield1.setText("" + (Integer.parseInt(yearfield1.getText()) - 1));
+            yearfield1.selectAll();
+        }
+        if (evt.getKeyCode() == KeyEvent.VK_LEFT) {
+            monthfield1.requestFocus();
+            monthfield1.selectAll();
+        }
+
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
+            //  category_code.requestFocus();
+
+        }
+    }//GEN-LAST:event_yearfield1KeyPressed
+
+    private void dayfield1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dayfield1KeyPressed
+        ///////////////////////////////////////////////////  Days Decrement/////////////////////////////////////////////////////////////////////////////
+
+        if (dayfield1.getText().equals("1")) {           // Jumping to 31 and 30 from 1st
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+
+                if (monthfield1.getText().equals("Feb") || monthfield1.getText().equals("Apr") || monthfield1.getText().equals("Jun") || monthfield1.getText().equals("Aug") || monthfield1.getText().equals("Sep") || monthfield1.getText().equals("Nov") || monthfield1.getText().equals("Feb")) {
+                    dayfield1.setText("31");
+
+                    int mnth = datechooser.return_index(monthfield1.getText());
+                    monthfield1.setText(datechooser.Return_month(mnth - 1));
+
+                } else if (monthfield1.getText().equals("May") || monthfield1.getText().equals("Jul") || monthfield1.getText().equals("Oct") || monthfield1.getText().equals("Dec")) {
+                    dayfield1.setText("30");
+                    int mnth = datechooser.return_index(monthfield1.getText());
+                    monthfield1.setText(datechooser.Return_month(mnth - 1));
+
+                } else if (monthfield1.getText().equals("Mar")) {     // from march 1st jump to 28th or 29th checking leap years
+                    int yr = Integer.parseInt(yearfield1.getText());
+                    if (yr % 4 == 0) {
+                        if (yr % 100 == 0) {
+                            if (yr % 400 == 0) {
+                                dayfield1.setText("29"); // Leap Year
+                            }
+                        }
+                        if (yr % 100 == 0) {
+                            if (yr % 400 != 0) {
+                                dayfield1.setText("28"); // not a leap year
+                            }
+                        }
+                        dayfield1.setText("29");       // leap year
+
+                    }
+                    if (yr % 4 != 0) {
+                        dayfield1.setText("28");       // not a leap year
+                    }
+                    int mnth = datechooser.return_index(monthfield1.getText());
+                    monthfield1.setText(datechooser.Return_month(mnth - 1));
+
+                } else if (monthfield1.getText().equals("Jan")) {            // From jan 1st jump to december 31st decrementing year
+                    dayfield1.setText("31");
+
+                    int yr = Integer.parseInt(yearfield1.getText());
+                    monthfield1.setText("Dec");
+                    yearfield1.setText("" + (yr - 1));    // year
+                }
+                dayfield1.selectAll();
+            }                                           // /// decrementing normal values
+        } else if (dayfield1.getText().equals("2") || dayfield1.getText().equals("3") || dayfield1.getText().equals("4") || dayfield1.getText().equals("5")
+            || dayfield1.getText().equals("6") || dayfield1.getText().equals("7") || dayfield1.getText().equals("8") || dayfield1.getText().equals("9")
+            || dayfield1.getText().equals("10") || dayfield1.getText().equals("11") || dayfield1.getText().equals("12") || dayfield1.getText().equals("13") || dayfield1.getText().equals("14")
+            || dayfield1.getText().equals("15") || dayfield1.getText().equals("16") || dayfield1.getText().equals("17") || dayfield1.getText().equals("18")
+            || dayfield1.getText().equals("19") || dayfield1.getText().equals("20") || dayfield1.getText().equals("21") || dayfield1.getText().equals("22")
+            || dayfield1.getText().equals("23") || dayfield1.getText().equals("24") || dayfield1.getText().equals("25") || dayfield1.getText().equals("26")
+            || dayfield1.getText().equals("27") || dayfield1.getText().equals("28") || dayfield1.getText().equals("29") || dayfield1.getText().equals("30") || dayfield1.getText().equals("31")) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+
+                dayfield1.setText("" + (Integer.parseInt(dayfield1.getText()) - 1));
+                dayfield1.selectAll();
+            }
+        }
+        /////////////////////////////////////////////////  Days Increment///////////////////////////////////////////////////////////////////////////////////////////////////
+        if (dayfield1.getText().equals("30")) {               // from 30th to 1st of next month
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+
+                if (monthfield1.getText().equals("Apr") || monthfield1.getText().equals("Jun") || monthfield1.getText().equals("Sep") || monthfield1.getText().equals("Nov")) {
+                    dayfield1.setText("0");
+
+                    int mnth = datechooser.return_index(monthfield1.getText());
+                    monthfield1.setText(datechooser.Return_month(mnth + 1));
+
+                }
+                dayfield1.setText("" + (Integer.parseInt(dayfield1.getText()) + 1));
+                dayfield1.selectAll();
+            }
+
+        } else if (dayfield1.getText().equals("31")) {            // from 31st to 1st of next month
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+
+                if (monthfield1.getText().equals("Jan") || monthfield1.getText().equals("Mar") || monthfield1.getText().equals("May") || monthfield1.getText().equals("Jul") || monthfield1.getText().equals("Aug") || monthfield1.getText().equals("Oct")) {
+                    dayfield1.setText("1");
+
+                    int mnth = datechooser.return_index(monthfield1.getText());
+                    monthfield1.setText(datechooser.Return_month(mnth + 1));
+
+                } else if (monthfield1.getText().equals("Dec")) {      // December to january incrementing the year
+
+                    dayfield1.setText("1");
+
+                    int yr = Integer.parseInt(yearfield1.getText());
+                    monthfield1.setText("Jan");
+                    yearfield1.setText("" + (yr + 1));
+                }
+                dayfield1.selectAll();
+            }
+
+        } else if (monthfield1.getText().equals("Feb")) {                    // for february
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                if (dayfield1.getText().equals("28")) {                    // at 28 check for leap year
+                    int yr = Integer.parseInt(yearfield1.getText());
+                    if (yr % 4 == 0) {
+                        if (yr % 100 == 0) {
+                            if (yr % 400 == 0) {
+                                dayfield1.setText("29"); // Leap Year       // increment to 29
+                            }
+                        }
+                        if (yr % 100 == 0) {
+                            if (yr % 400 != 0) {
+                                dayfield1.setText("1");
+                                int mnth = datechooser.return_index(monthfield1.getText());
+                                monthfield1.setText(datechooser.Return_month(mnth + 1));
+
+                                // not a leap year                             // jump to next month
+                            }
+                        }
+                        dayfield1.setText("29");       // leap year             // increment to 29th
+
+                    }
+                    if (yr % 4 != 0) {
+                        dayfield1.setText("1");
+                        int mnth = datechooser.return_index(monthfield1.getText());
+                        monthfield1.setText(datechooser.Return_month(mnth + 1));                  // not a leap year
+                    }
+
+                } else if (dayfield1.getText().equals("29")) {              // at 29 jump to next month normally
+                    dayfield1.setText("1");
+
+                    int mnth = datechooser.return_index(monthfield1.getText());
+                    monthfield1.setText(datechooser.Return_month(mnth + 1));
+                    // incrementing normal values/////////////////////// for february separately
+                } else if (dayfield1.getText().equals("1") || dayfield1.getText().equals("2") || dayfield1.getText().equals("3") || dayfield1.getText().equals("4") || dayfield1.getText().equals("5")
+                    || dayfield1.getText().equals("6") || dayfield1.getText().equals("7") || dayfield1.getText().equals("8") || dayfield1.getText().equals("9")
+                    || dayfield1.getText().equals("10") || dayfield1.getText().equals("11") || dayfield1.getText().equals("12") || dayfield1.getText().equals("13") || dayfield1.getText().equals("14")
+                    || dayfield1.getText().equals("15") || dayfield1.getText().equals("16") || dayfield1.getText().equals("17") || dayfield1.getText().equals("18")
+                    || dayfield1.getText().equals("19") || dayfield1.getText().equals("20") || dayfield1.getText().equals("21") || dayfield1.getText().equals("22")
+                    || dayfield1.getText().equals("23") || dayfield1.getText().equals("24") || dayfield1.getText().equals("25") || dayfield1.getText().equals("26")
+                    || dayfield1.getText().equals("27") || dayfield1.getText().equals("28") || dayfield1.getText().equals("29") || dayfield1.getText().equals("30") || dayfield1.getText().equals("31")) {
+
+                    dayfield1.setText("" + (Integer.parseInt(dayfield1.getText()) + 1));
+
+                }
+                dayfield1.selectAll();
+            }
+            // incrementing normal values
+        } else if (dayfield1.getText().equals("1") || dayfield1.getText().equals("2") || dayfield1.getText().equals("3") || dayfield1.getText().equals("4") || dayfield1.getText().equals("5")
+            || dayfield1.getText().equals("6") || dayfield1.getText().equals("7") || dayfield1.getText().equals("8") || dayfield1.getText().equals("9")
+            || dayfield1.getText().equals("10") || dayfield1.getText().equals("11") || dayfield1.getText().equals("12") || dayfield1.getText().equals("13") || dayfield1.getText().equals("14")
+            || dayfield1.getText().equals("15") || dayfield1.getText().equals("16") || dayfield1.getText().equals("17") || dayfield1.getText().equals("18")
+            || dayfield1.getText().equals("19") || dayfield1.getText().equals("20") || dayfield1.getText().equals("21") || dayfield1.getText().equals("22")
+            || dayfield1.getText().equals("23") || dayfield1.getText().equals("24") || dayfield1.getText().equals("25") || dayfield1.getText().equals("26")
+            || dayfield1.getText().equals("27") || dayfield1.getText().equals("28") || dayfield1.getText().equals("29") || dayfield1.getText().equals("30") || dayfield1.getText().equals("31")) {
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+
+                dayfield1.setText("" + (Integer.parseInt(dayfield1.getText()) + 1));
+                dayfield1.selectAll();
+
+            }
+        }
+        if (evt.getKeyCode() == KeyEvent.VK_RIGHT) {
+            monthfield1.requestFocus();
+            monthfield1.selectAll();
+        }
+
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
+            empCode_JC.requestFocus();
+
+        }
+    }//GEN-LAST:event_dayfield1KeyPressed
+
+    private void datePick1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datePick1ActionPerformed
+        java.sql.Date datef = new java.sql.Date(datePick1.getDate().getTime());
+
+        dayfield1.setText(datehandler.get_day(datef));
+        monthfield1.setText(datehandler.get_month(datef));
+        yearfield1.setText(datehandler.get_year(datef));
+        // category_code.requestFocus();
+    }//GEN-LAST:event_datePick1ActionPerformed
+
+    private void monthfield3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_monthfield3KeyPressed
+        if (monthfield3.getText().equals("Jan")) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                monthfield3.setText("Dec");
+                int yr = Integer.parseInt(yearfield3.getText());
+
+                yearfield3.setText("" + (yr - 1));
+                monthfield3.selectAll();
+
+            }
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                monthfield3.setText("Feb");
+                monthfield3.selectAll();
+            }
+
+        } else if (monthfield3.getText().equals("Feb")) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                monthfield3.setText("Jan");
+                int yr = Integer.parseInt(yearfield3.getText());
+                monthfield3.selectAll();
+
+            }
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                monthfield3.setText("Mar");
+                monthfield3.selectAll();
+            }
+
+        } else if (monthfield3.getText().equals("Mar")) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                monthfield3.setText("Feb");
+                int yr = Integer.parseInt(yearfield3.getText());
+                monthfield3.selectAll();
+            }
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                monthfield3.setText("Apr");
+                monthfield3.selectAll();
+            }
+
+        } else if (monthfield3.getText().equals("Apr")) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                monthfield3.setText("Mar");
+                int yr = Integer.parseInt(yearfield3.getText());
+                monthfield3.selectAll();
+            }
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                monthfield3.setText("May");
+                monthfield3.selectAll();
+            }
+
+        } else if (monthfield3.getText().equals("May")) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                monthfield3.setText("Apr");
+                int yr = Integer.parseInt(yearfield3.getText());
+                monthfield3.selectAll();
+
+            }
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+
+                monthfield3.setText("Jun");
+                monthfield3.selectAll();
+            }
+
+        } else if (monthfield3.getText().equals("Jun")) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                monthfield3.setText("May");
+                int yr = Integer.parseInt(yearfield3.getText());
+                monthfield3.selectAll();
+
+            }
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                monthfield3.setText("Jul");
+                monthfield3.selectAll();
+            }
+
+        } else if (monthfield3.getText().equals("Jul")) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                monthfield3.setText("Jun");
+                int yr = Integer.parseInt(yearfield3.getText());
+                monthfield3.selectAll();
+
+            }
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                monthfield3.setText("Aug");
+                monthfield3.selectAll();
+            }
+
+        } else if (monthfield3.getText().equals("Aug")) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                monthfield3.setText("Jul");
+                int yr = Integer.parseInt(yearfield3.getText());
+                monthfield3.selectAll();
+
+            }
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                monthfield3.setText("Sep");
+                monthfield3.selectAll();
+            }
+
+        } else if (monthfield3.getText().equals("Sep")) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                monthfield3.setText("Aug");
+                int yr = Integer.parseInt(yearfield3.getText());
+                monthfield3.selectAll();
+
+            }
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                monthfield3.setText("Oct");
+                monthfield3.selectAll();
+            }
+
+        } else if (monthfield3.getText().equals("Oct")) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                monthfield3.setText("Sep");
+                int yr = Integer.parseInt(yearfield3.getText());
+                monthfield3.selectAll();
+
+            }
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                monthfield3.setText("Nov");
+                monthfield3.selectAll();
+            }
+
+        } else if (monthfield3.getText().equals("Nov")) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                monthfield3.setText("Oct");
+                int yr = Integer.parseInt(yearfield3.getText());
+                monthfield3.selectAll();
+
+            }
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                monthfield3.setText("Dec");
+                monthfield3.selectAll();
+            }
+
+        } else if (monthfield3.getText().equals("Dec")) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                monthfield3.setText("Nov");
+                int yr = Integer.parseInt(yearfield3.getText());
+                monthfield3.selectAll();
+
+            }
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                monthfield3.setText("Jan");
+                int yr = Integer.parseInt(yearfield3.getText());
+
+                yearfield3.setText("" + (yr + 1));
+                monthfield3.selectAll();
+            }
+
+        }
+        if (evt.getKeyCode() == KeyEvent.VK_LEFT) {
+            dayfield1.requestFocus();
+            dayfield1.selectAll();
+        }
+        if (evt.getKeyCode() == KeyEvent.VK_RIGHT) {
+            yearfield3.requestFocus();
+            yearfield3.selectAll();
+        }
+
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
+            //category_code.requestFocus();
+
+        }
+    }//GEN-LAST:event_monthfield3KeyPressed
+
+    private void yearfield3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_yearfield3KeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+            yearfield3.setText("" + (Integer.parseInt(yearfield3.getText()) + 1));
+            yearfield3.selectAll();
+        }
+        if (evt.getKeyCode() == KeyEvent.VK_UP) {
+            yearfield3.setText("" + (Integer.parseInt(yearfield3.getText()) - 1));
+            yearfield3.selectAll();
+        }
+        if (evt.getKeyCode() == KeyEvent.VK_LEFT) {
+            monthfield3.requestFocus();
+            monthfield3.selectAll();
+        }
+
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
+            //  category_code.requestFocus();
+
+        }
+    }//GEN-LAST:event_yearfield3KeyPressed
+
+    private void dayfield3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dayfield3KeyPressed
+        ///////////////////////////////////////////////////  Days Decrement/////////////////////////////////////////////////////////////////////////////
+
+        if (dayfield3.getText().equals("1")) {           // Jumping to 31 and 30 from 1st
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+
+                if (monthfield3.getText().equals("Feb") || monthfield3.getText().equals("Apr") || monthfield3.getText().equals("Jun") || monthfield3.getText().equals("Aug") || monthfield3.getText().equals("Sep") || monthfield3.getText().equals("Nov") || monthfield3.getText().equals("Feb")) {
+                    dayfield3.setText("31");
+
+                    int mnth = datechooser.return_index(monthfield3.getText());
+                    monthfield3.setText(datechooser.Return_month(mnth - 1));
+
+                } else if (monthfield3.getText().equals("May") || monthfield3.getText().equals("Jul") || monthfield3.getText().equals("Oct") || monthfield3.getText().equals("Dec")) {
+                    dayfield3.setText("30");
+                    int mnth = datechooser.return_index(monthfield3.getText());
+                    monthfield3.setText(datechooser.Return_month(mnth - 1));
+
+                } else if (monthfield3.getText().equals("Mar")) {     // from march 1st jump to 28th or 29th checking leap years
+                    int yr = Integer.parseInt(yearfield3.getText());
+                    if (yr % 4 == 0) {
+                        if (yr % 100 == 0) {
+                            if (yr % 400 == 0) {
+                                dayfield3.setText("29"); // Leap Year
+                            }
+                        }
+                        if (yr % 100 == 0) {
+                            if (yr % 400 != 0) {
+                                dayfield3.setText("28"); // not a leap year
+                            }
+                        }
+                        dayfield3.setText("29");       // leap year
+
+                    }
+                    if (yr % 4 != 0) {
+                        dayfield3.setText("28");       // not a leap year
+                    }
+                    int mnth = datechooser.return_index(monthfield3.getText());
+                    monthfield3.setText(datechooser.Return_month(mnth - 1));
+
+                } else if (monthfield3.getText().equals("Jan")) {            // From jan 1st jump to december 31st decrementing year
+                    dayfield3.setText("31");
+
+                    int yr = Integer.parseInt(yearfield3.getText());
+                    monthfield3.setText("Dec");
+                    yearfield3.setText("" + (yr - 1));    // year
+                }
+                dayfield3.selectAll();
+            }                                           // /// decrementing normal values
+        } else if (dayfield3.getText().equals("2") || dayfield3.getText().equals("3") || dayfield3.getText().equals("4") || dayfield3.getText().equals("5")
+            || dayfield3.getText().equals("6") || dayfield3.getText().equals("7") || dayfield3.getText().equals("8") || dayfield3.getText().equals("9")
+            || dayfield3.getText().equals("10") || dayfield3.getText().equals("11") || dayfield3.getText().equals("12") || dayfield3.getText().equals("13") || dayfield3.getText().equals("14")
+            || dayfield3.getText().equals("15") || dayfield3.getText().equals("16") || dayfield3.getText().equals("17") || dayfield3.getText().equals("18")
+            || dayfield3.getText().equals("19") || dayfield3.getText().equals("20") || dayfield3.getText().equals("21") || dayfield3.getText().equals("22")
+            || dayfield3.getText().equals("23") || dayfield3.getText().equals("24") || dayfield3.getText().equals("25") || dayfield3.getText().equals("26")
+            || dayfield3.getText().equals("27") || dayfield3.getText().equals("28") || dayfield3.getText().equals("29") || dayfield3.getText().equals("30") || dayfield3.getText().equals("31")) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+
+                dayfield3.setText("" + (Integer.parseInt(dayfield3.getText()) - 1));
+                dayfield3.selectAll();
+            }
+        }
+        /////////////////////////////////////////////////  Days Increment///////////////////////////////////////////////////////////////////////////////////////////////////
+        if (dayfield3.getText().equals("30")) {               // from 30th to 1st of next month
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+
+                if (monthfield3.getText().equals("Apr") || monthfield3.getText().equals("Jun") || monthfield3.getText().equals("Sep") || monthfield3.getText().equals("Nov")) {
+                    dayfield3.setText("0");
+
+                    int mnth = datechooser.return_index(monthfield3.getText());
+                    monthfield3.setText(datechooser.Return_month(mnth + 1));
+
+                }
+                dayfield3.setText("" + (Integer.parseInt(dayfield3.getText()) + 1));
+                dayfield3.selectAll();
+            }
+
+        } else if (dayfield3.getText().equals("31")) {            // from 31st to 1st of next month
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+
+                if (monthfield3.getText().equals("Jan") || monthfield3.getText().equals("Mar") || monthfield3.getText().equals("May") || monthfield3.getText().equals("Jul") || monthfield3.getText().equals("Aug") || monthfield3.getText().equals("Oct")) {
+                    dayfield3.setText("1");
+
+                    int mnth = datechooser.return_index(monthfield3.getText());
+                    monthfield3.setText(datechooser.Return_month(mnth + 1));
+
+                } else if (monthfield3.getText().equals("Dec")) {      // December to january incrementing the year
+
+                    dayfield3.setText("1");
+
+                    int yr = Integer.parseInt(yearfield3.getText());
+                    monthfield3.setText("Jan");
+                    yearfield3.setText("" + (yr + 1));
+                }
+                dayfield3.selectAll();
+            }
+
+        } else if (monthfield3.getText().equals("Feb")) {                    // for february
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                if (dayfield3.getText().equals("28")) {                    // at 28 check for leap year
+                    int yr = Integer.parseInt(yearfield3.getText());
+                    if (yr % 4 == 0) {
+                        if (yr % 100 == 0) {
+                            if (yr % 400 == 0) {
+                                dayfield3.setText("29"); // Leap Year       // increment to 29
+                            }
+                        }
+                        if (yr % 100 == 0) {
+                            if (yr % 400 != 0) {
+                                dayfield3.setText("1");
+                                int mnth = datechooser.return_index(monthfield3.getText());
+                                monthfield3.setText(datechooser.Return_month(mnth + 1));
+
+                                // not a leap year                             // jump to next month
+                            }
+                        }
+                        dayfield3.setText("29");       // leap year             // increment to 29th
+
+                    }
+                    if (yr % 4 != 0) {
+                        dayfield3.setText("1");
+                        int mnth = datechooser.return_index(monthfield3.getText());
+                        monthfield3.setText(datechooser.Return_month(mnth + 1));                  // not a leap year
+                    }
+
+                } else if (dayfield3.getText().equals("29")) {              // at 29 jump to next month normally
+                    dayfield3.setText("1");
+
+                    int mnth = datechooser.return_index(monthfield3.getText());
+                    monthfield3.setText(datechooser.Return_month(mnth + 1));
+                    // incrementing normal values/////////////////////// for february separately
+                } else if (dayfield3.getText().equals("1") || dayfield3.getText().equals("2") || dayfield3.getText().equals("3") || dayfield3.getText().equals("4") || dayfield3.getText().equals("5")
+                    || dayfield3.getText().equals("6") || dayfield3.getText().equals("7") || dayfield3.getText().equals("8") || dayfield3.getText().equals("9")
+                    || dayfield3.getText().equals("10") || dayfield3.getText().equals("11") || dayfield3.getText().equals("12") || dayfield3.getText().equals("13") || dayfield3.getText().equals("14")
+                    || dayfield3.getText().equals("15") || dayfield3.getText().equals("16") || dayfield3.getText().equals("17") || dayfield3.getText().equals("18")
+                    || dayfield3.getText().equals("19") || dayfield3.getText().equals("20") || dayfield3.getText().equals("21") || dayfield3.getText().equals("22")
+                    || dayfield3.getText().equals("23") || dayfield3.getText().equals("24") || dayfield3.getText().equals("25") || dayfield3.getText().equals("26")
+                    || dayfield3.getText().equals("27") || dayfield3.getText().equals("28") || dayfield3.getText().equals("29") || dayfield3.getText().equals("30") || dayfield3.getText().equals("31")) {
+
+                    dayfield3.setText("" + (Integer.parseInt(dayfield3.getText()) + 1));
+
+                }
+                dayfield3.selectAll();
+            }
+            // incrementing normal values
+        } else if (dayfield3.getText().equals("1") || dayfield3.getText().equals("2") || dayfield3.getText().equals("3") || dayfield3.getText().equals("4") || dayfield3.getText().equals("5")
+            || dayfield3.getText().equals("6") || dayfield3.getText().equals("7") || dayfield3.getText().equals("8") || dayfield3.getText().equals("9")
+            || dayfield3.getText().equals("10") || dayfield3.getText().equals("11") || dayfield3.getText().equals("12") || dayfield3.getText().equals("13") || dayfield3.getText().equals("14")
+            || dayfield3.getText().equals("15") || dayfield3.getText().equals("16") || dayfield3.getText().equals("17") || dayfield3.getText().equals("18")
+            || dayfield3.getText().equals("19") || dayfield3.getText().equals("20") || dayfield3.getText().equals("21") || dayfield3.getText().equals("22")
+            || dayfield3.getText().equals("23") || dayfield3.getText().equals("24") || dayfield3.getText().equals("25") || dayfield3.getText().equals("26")
+            || dayfield3.getText().equals("27") || dayfield3.getText().equals("28") || dayfield3.getText().equals("29") || dayfield3.getText().equals("30") || dayfield3.getText().equals("31")) {
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+
+                dayfield3.setText("" + (Integer.parseInt(dayfield3.getText()) + 1));
+                dayfield3.selectAll();
+
+            }
+        }
+        if (evt.getKeyCode() == KeyEvent.VK_RIGHT) {
+            monthfield3.requestFocus();
+            monthfield3.selectAll();
+        }
+
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
+            empCode_JC.requestFocus();
+
+        }
+    }//GEN-LAST:event_dayfield3KeyPressed
+
+    private void datePick3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datePick3ActionPerformed
+        java.sql.Date datef = new java.sql.Date(datePick3.getDate().getTime());
+              
+        dayfield3.setText(Integer.parseInt(datehandler.get_day(datef))+"");
+        monthfield3.setText(datehandler.get_month(datef));
+        yearfield3.setText(datehandler.get_year(datef));
+        // category_code.requestFocus();
+    }//GEN-LAST:event_datePick3ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1226,25 +2129,25 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
     private javax.swing.JTextField basicSalary;
     private javax.swing.JComboBox bloodGrp;
     private javax.swing.JPanel checkroll_division;
-    private javax.swing.JTextField code;
+    private com.michaelbaranov.microba.calendar.DatePicker datePick1;
+    private com.michaelbaranov.microba.calendar.DatePicker datePick3;
     private com.michaelbaranov.microba.calendar.DatePicker datePicker1;
-    private com.michaelbaranov.microba.calendar.DatePicker datePicker2;
-    private com.michaelbaranov.microba.calendar.DatePicker datePicker3;
     private javax.swing.JPanel datepanel;
     private javax.swing.JPanel datepanel1;
     private javax.swing.JPanel datepanel2;
     private javax.swing.JTextField dayfield;
     private javax.swing.JTextField dayfield1;
-    private javax.swing.JTextField dayfield2;
+    private javax.swing.JTextField dayfield3;
     private javax.swing.JComboBox division_jc;
     private javax.swing.JLabel division_lb;
+    private javax.swing.JComboBox empCode_JC;
     private javax.swing.JTextField epf_no;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JComboBox genderC;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
-    private javax.swing.JComboBox jComboBox2;
+    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
@@ -1264,7 +2167,7 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField monthfield;
     private javax.swing.JTextField monthfield1;
-    private javax.swing.JTextField monthfield2;
+    private javax.swing.JTextField monthfield3;
     private javax.swing.JTextField name;
     private javax.swing.JCheckBox registerOrNot;
     private javax.swing.JPanel registerPanel;
@@ -1274,6 +2177,6 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
     private javax.swing.JCheckBox welfare;
     private javax.swing.JTextField yearfield;
     private javax.swing.JTextField yearfield1;
-    private javax.swing.JTextField yearfield2;
+    private javax.swing.JTextField yearfield3;
     // End of variables declaration//GEN-END:variables
 }

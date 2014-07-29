@@ -87,7 +87,6 @@ public void ClearTable(){
     private void initComponents() {
 
         jButton3 = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         empCode_JC = new javax.swing.JComboBox();
@@ -96,7 +95,6 @@ public void ClearTable(){
         jLabel6 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
-        division_jc = new javax.swing.JComboBox();
         datepanel = new javax.swing.JPanel();
         monthfield1 = new javax.swing.JTextField();
         yearfield1 = new javax.swing.JTextField();
@@ -123,8 +121,6 @@ public void ClearTable(){
                 jButton3ActionPerformed(evt);
             }
         });
-
-        jLabel3.setText("Division");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -246,20 +242,6 @@ public void ClearTable(){
         table.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jScrollPane1.setViewportView(table);
 
-        division_jc.putClientProperty("JComboBox.isTableCellEditor", Boolean.TRUE);
-        division_jc.setEditable(true);
-        division_jc.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("division_details", "code")));
-        division_jc.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                division_jcItemStateChanged(evt);
-            }
-        });
-        division_jc.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                division_jcKeyPressed(evt);
-            }
-        });
-
         datepanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         monthfield1.setText(datehandler.get_today_month());
@@ -277,6 +259,11 @@ public void ClearTable(){
         });
 
         dayfield1.setText(datehandler.get_today_day());
+        dayfield1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dayfield1ActionPerformed(evt);
+            }
+        });
         dayfield1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 dayfield1KeyPressed(evt);
@@ -485,13 +472,7 @@ public void ClearTable(){
                     .addGap(10, 10, 10)
                     .addComponent(jLabel7)
                     .addGap(8, 8, 8)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(27, 27, 27)
-                            .addComponent(jLabel3)
-                            .addGap(34, 34, 34)
-                            .addComponent(division_jc, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 564, Short.MAX_VALUE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -538,12 +519,8 @@ public void ClearTable(){
                             .addGap(30, 30, 30)
                             .addComponent(division_lb, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGap(18, 18, 18)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(work_code, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(division_jc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addContainerGap(410, Short.MAX_VALUE)))
+                    .addComponent(work_code, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(413, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -581,36 +558,6 @@ public void ClearTable(){
 
         }        // TODO add your handling code here:
     }//GEN-LAST:event_empCode_JCKeyPressed
-
-    private void division_jcItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_division_jcItemStateChanged
-        DatabaseManager dbma = DatabaseManager.getDbCon();
-        String Name = null;
-        if (evt.getStateChange() == ItemEvent.SELECTED) {
-            String item = evt.getItem().toString();
-
-            try {
-                ResultSet query = dbma.query("SELECT * FROM division_details WHERE code =" + item + "");
-                while (query.next()) {
-                    Name = query.getString("division");
-                    System.out.println(Name);
-                }
-            } catch (SQLException ex) {
-                System.out.println("error");
-            }
-
-            division_lb.setText("" + Name);
-        }
-
-        Advance_type.requestFocus();
-
-    }//GEN-LAST:event_division_jcItemStateChanged
-
-    private void division_jcKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_division_jcKeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
-            Advance_type.requestFocus();
-
-        }        // TODO add your handling code here:
-    }//GEN-LAST:event_division_jcKeyPressed
 
     private void monthfield1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_monthfield1KeyPressed
         if (monthfield1.getText().equals("Jan")) {
@@ -961,7 +908,7 @@ public void ClearTable(){
         }
 
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
-            division_jc.requestFocus();
+//            division_jc.requestFocus();
 
         }
     }//GEN-LAST:event_dayfield1KeyPressed
@@ -1026,15 +973,11 @@ public void ClearTable(){
         new1_date = ne_date.toString();
         String tablename = new1_date.substring(0, 7);
 
-        if (dbm.TableExistence("pr_workdata_" + tablename) == false) {
-           // CreateNewMonthTable(tablename);
-             JOptionPane.showMessageDialog(null, "This month's Check roll table has not yet been created!Data not saved \n", "Message", JOptionPane.INFORMATION_MESSAGE);
-        }
-        else{
-        saveData(tablename, tdate);
+       
+       // saveData(tablename, tdate);
         saveDataToAdvanceBook(tdate);
         ClearTable();
-        }
+        
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void saveDataToAdvanceBook(Date date){
@@ -1179,6 +1122,10 @@ public void Update_pr_workData(String tablename,Object code,String column,String
         }        // TODO add your handling code here:
     }//GEN-LAST:event_advance_amountKeyPressed
 
+    private void dayfield1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dayfield1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_dayfield1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Advance_type;
@@ -1187,13 +1134,8 @@ public void Update_pr_workData(String tablename,Object code,String column,String
     private com.michaelbaranov.microba.calendar.DatePicker datePick1;
     private javax.swing.JPanel datepanel;
     private javax.swing.JTextField dayfield1;
-    private javax.swing.JComboBox division_jc;
     private javax.swing.JLabel division_lb;
-    private javax.swing.JComboBox empCodeJC;
-    private javax.swing.JComboBox empCodeJC1;
     private javax.swing.JComboBox empCode_JC;
-    private javax.swing.JLabel empName;
-    private javax.swing.JLabel empName1;
     private javax.swing.JLabel empName2;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -1201,20 +1143,13 @@ public void Update_pr_workData(String tablename,Object code,String column,String
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField monthfield1;

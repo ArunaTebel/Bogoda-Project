@@ -1,7 +1,6 @@
 
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -144,7 +143,8 @@ public class Checkroll_Pay_Info {
             dbm.insert("UPDATE checkroll_pay_info SET etf='"+ETFallowance+"' WHERE checkroll='1'");
             dbm.insert("UPDATE checkroll_pay_info SET welfare='"+welfareAllowance+"' WHERE checkroll='1'");
             //dbm.insert("UPDATE checkroll_pay_info SET holiday_rate='"+holidayRate+"' WHERE checkroll='1'");
-            
+            JOptionPane.showMessageDialog(null, "Successfully Updated \n" , "Message", JOptionPane.INFORMATION_MESSAGE);
+
         } catch (SQLException ex) {
             MessageBox.showMessage(ex.getMessage(), "SQL ERROR", "error");
         }

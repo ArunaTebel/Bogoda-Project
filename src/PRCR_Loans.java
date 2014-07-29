@@ -478,6 +478,12 @@ public class PRCR_Loans extends javax.swing.JPanel {
         interface_events.Change_focus_left_b_b(jButton4, evt);
     }//GEN-LAST:event_jButton5KeyReleased
 
+     public void focus() {
+        this.requestFocusInWindow();
+        supplier_id.requestFocusInWindow();
+        //dayfield1.selectAll();
+    }
+    
     private void BSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BSaveActionPerformed
         // TODO add your handling code here:
         if (amountField.getText().equals("") || installmentsField.getText().equals("")) {

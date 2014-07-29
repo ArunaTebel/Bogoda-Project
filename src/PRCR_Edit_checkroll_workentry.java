@@ -104,133 +104,8 @@ public class PRCR_Edit_checkroll_workentry extends javax.swing.JFrame {
         }
     }
 
-    //store data to work entry tables(ex. table name-:pr_workdata_2014_03)
-    //ex-:table name=2014_03
-    //ne_date=2014_03_05
-    //tdate=2014/03/05
-    private void saveData(String tablename, StringBuilder ne_date, Date tdate) {
-        String division = null;
-        String work_code = null;
-        division = (String) division_jc.getSelectedItem();
-        work_code = (String) workCode.getSelectedItem();
-        if (sunday.isSelected() == false) {
-            int rows = 0;
-            for (; rows < table.getRowCount(); rows++) {
-                if (table.getValueAt(rows, 0) != null) {
-                    int normaldays = 0;
-
-                    System.out.println(table.getValueAt(rows, 0));
-                    if (dbm.checknReturnData("pr_workdata_" + tablename, "code", table.getValueAt(rows, 0), "normal_days") != null) {
-                        normaldays = Integer.parseInt(dbm.checknReturnData("pr_workdata_" + tablename, "code", table.getValueAt(rows, 0), "normal_days"));
-                    } else {
-                        normaldays = 0;
-                    }
-
-                    normaldays++;
-                    dbm.updateDatabase("pr_workdata_" + tablename, "code", table.getValueAt(rows, 0), "normal_days", normaldays);
-                    //overtime-day
-                    double dhours = 0;
-
-                    if (dbm.checknReturnData("pr_workdata_" + tablename, "code", table.getValueAt(rows, 0), "ot_before_hours") != null) {
-                        dhours = Double.parseDouble(dbm.checknReturnData("pr_workdata_" + tablename, "code", table.getValueAt(rows, 0), "ot_before_hours"));
-                    } else {
-                        dhours = 0;
-                    }
-                    if (table.getValueAt(rows, 3) != null) {
-                        dhours = dhours + Double.parseDouble((String) table.getValueAt(rows, 3));
-                    } else {
-                        dhours = dhours;
-                    }
-                    dbm.updateDatabase("pr_workdata_" + tablename, "code", table.getValueAt(rows, 0), "ot_before_hours", dhours);
-
-                    //overtime after
-                    double ahours = 0;
-
-                    if (dbm.checknReturnData("pr_workdata_" + tablename, "code", table.getValueAt(rows, 0), "ot_after_hours") != null) {
-                        ahours = Double.parseDouble(dbm.checknReturnData("pr_workdata_" + tablename, "code", table.getValueAt(rows, 0), "ot_after_hours"));
-                    } else {
-                        ahours = 0;
-                    }
-                    if (table.getValueAt(rows, 4) != null) {
-                        ahours = ahours + Double.parseDouble((String) table.getValueAt(rows, 4));
-                    } else {
-                        ahours = ahours;
-                    }
-
-                    dbm.updateDatabase("pr_workdata_" + tablename, "code", table.getValueAt(rows, 0), "ot_after_hours", ahours);
-
-                    //updating newly created tables
-          /*          try {
-                     dbm.insert("INSERT INTO d_" + ne_date + "(name,emp_code,work_code,division) VALUES('" + rows + "','" + table.getValueAt(rows, 0) + "','" + work_code + "','" + division + "')");
-                     } catch (SQLException ex) {
-                     Logger.getLogger(PRCR_Work_normal.class.getName()).log(Level.SEVERE, null, ex);
-                     }
-                     */
-                }
-            }
-            JOptionPane.showMessageDialog(null, "Details are saved for the \n" + tdate, "Message", JOptionPane.INFORMATION_MESSAGE);
-
-        } else {
-            int rows = 0;
-            for (; rows < table.getRowCount(); rows++) {
-                if (table.getValueAt(rows, 0) != null) {
-                    int sundays = 0;
-                    System.out.println(table.getValueAt(rows, 0));
-                    if (dbm.checknReturnData("pr_workdata_" + tablename, "code", table.getValueAt(rows, 0), "sundays") != null) {
-
-                        sundays = Integer.parseInt(dbm.checknReturnData("pr_workdata_" + tablename, "code", table.getValueAt(rows, 0), "sundays"));
-                    } else {
-                        sundays = 0;
-                    }
-
-                    sundays++;
-                    dbm.updateDatabase("pr_workdata_" + tablename, "code", table.getValueAt(rows, 0), "sundays", sundays);
-
-                    //overtime-day
-                    double dhours = 0;
-
-                    if (dbm.checknReturnData("pr_workdata_" + tablename, "code", table.getValueAt(rows, 0), "ot_before_hours") != null) {
-                        dhours = Double.parseDouble(dbm.checknReturnData("pr_workdata_" + tablename, "code", table.getValueAt(rows, 0), "ot_before_hours"));
-                    } else {
-                        dhours = 0;
-                    }
-                    if (table.getValueAt(rows, 3) != null) {
-                        dhours = dhours + Double.parseDouble((String) table.getValueAt(rows, 3));
-                    } else {
-                        dhours = dhours;
-                    }
-                    dbm.updateDatabase("pr_workdata_" + tablename, "code", table.getValueAt(rows, 0), "ot_before_hours", dhours);
-
-                    //overtime after
-                    double ahours = 0;
-
-                    if (dbm.checknReturnData("pr_workdata_" + tablename, "code", table.getValueAt(rows, 0), "ot_after_hours") != null) {
-                        ahours = Double.parseDouble(dbm.checknReturnData("pr_workdata_" + tablename, "code", table.getValueAt(rows, 0), "ot_after_hours"));
-                    } else {
-                        ahours = 0;
-                    }
-                    if (table.getValueAt(rows, 4) != null) {
-                        ahours = ahours + Double.parseDouble((String) table.getValueAt(rows, 4));
-                    } else {
-                        ahours = ahours;
-                    }
-
-                    dbm.updateDatabase("pr_workdata_" + tablename, "code", table.getValueAt(rows, 0), "ot_after_hours", ahours);
-
-                    //update date tables for work code details
-                  /*  try {
-                     dbm.insert("INSERT INTO d_" + ne_date + "(name,emp_code,work_code,division) VALUES('" + rows + "','" + table.getValueAt(rows, 0) + "','" + work_code + "','" + division + "')");
-                     } catch (SQLException ex) {
-                     Logger.getLogger(PRCR_Work_normal.class.getName()).log(Level.SEVERE, null, ex);
-                     }
-                     */
-                }
-            }
-            JOptionPane.showMessageDialog(null, "Details are saved for the \n" + tdate, "Message", JOptionPane.INFORMATION_MESSAGE);
-
-        }
-    }
-
+ 
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -247,7 +122,6 @@ public class PRCR_Edit_checkroll_workentry extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
-        jLabel2 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         empCodeJC = new javax.swing.JComboBox();
@@ -258,9 +132,6 @@ public class PRCR_Edit_checkroll_workentry extends javax.swing.JFrame {
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        division_jc = new javax.swing.JComboBox();
-        division_lb = new javax.swing.JLabel();
-        work_code = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         otnight = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
@@ -351,8 +222,6 @@ public class PRCR_Edit_checkroll_workentry extends javax.swing.JFrame {
         table.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         table.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jScrollPane1.setViewportView(table);
-
-        jLabel2.setText("Division");
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -445,14 +314,6 @@ public class PRCR_Edit_checkroll_workentry extends javax.swing.JFrame {
         );
 
         jLabel4.setText("Work Code");
-
-        division_jc.setEditable(true);
-        division_jc.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("division_details", "code")));
-        division_jc.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                division_jcItemStateChanged(evt);
-            }
-        });
 
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -575,9 +436,6 @@ public class PRCR_Edit_checkroll_workentry extends javax.swing.JFrame {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel3)
                         .addGap(8, 8, 8)
@@ -585,11 +443,6 @@ public class PRCR_Edit_checkroll_workentry extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(26, 26, 26)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(1, 1, 1)
-                                        .addComponent(jLabel2)
-                                        .addGap(34, 34, 34)
-                                        .addComponent(division_jc, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel4)
@@ -602,13 +455,13 @@ public class PRCR_Edit_checkroll_workentry extends javax.swing.JFrame {
                                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
                                 .addComponent(sunday)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(division_lb, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(work_code, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 107, Short.MAX_VALUE)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(53, 53, 53))
         );
@@ -631,35 +484,24 @@ public class PRCR_Edit_checkroll_workentry extends javax.swing.JFrame {
                                 .addComponent(jLabel3))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(50, 50, 50)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(sunday)
-                                    .addComponent(division_lb, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(18, 18, 18)
+                                .addComponent(sunday)))
+                        .addGap(53, 53, 53)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(21, 21, 21)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(workCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel8)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(work_code, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(75, 278, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel2)
-                                    .addComponent(division_jc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(21, 21, 21)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel4)
-                                    .addComponent(workCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel8)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jButton1)
-                                        .addGap(73, 73, 73)))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton1)
+                                .addGap(73, 73, 73)))
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -668,7 +510,7 @@ public class PRCR_Edit_checkroll_workentry extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 923, Short.MAX_VALUE)
+            .addGap(0, 925, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -699,7 +541,7 @@ public class PRCR_Edit_checkroll_workentry extends javax.swing.JFrame {
                 }
             } catch (SQLException ex) {
             }
-            work_code.setText("" + Name);
+            //work_code.setText("" + Name);
         }
     }//GEN-LAST:event_workCodeItemStateChanged
 
@@ -744,36 +586,25 @@ public class PRCR_Edit_checkroll_workentry extends javax.swing.JFrame {
         String new1_date = null;
         new1_date = ne_date.toString();
         String tablename = new1_date.substring(0, 7);
-        /*
-         if (dbm.TableExistence("pr_workdata_" + tablename) == false) {
-         CreateNewMonthTable(tablename);
-         }
-         */
-        saveData(tablename, ne_date, tdate);
+     
         saveDataToWorkEntry(tdate);
+        ClearTable();
 
     }//GEN-LAST:event_jButton6ActionPerformed
 
-    private void division_jcItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_division_jcItemStateChanged
-        DatabaseManager dbma = DatabaseManager.getDbCon();
-        String Name = null;
-        if (evt.getStateChange() == ItemEvent.SELECTED) {
-            String item = evt.getItem().toString();
-
-            try {
-                ResultSet query = dbma.query("SELECT * FROM division_details WHERE code =" + item + "");
-                while (query.next()) {
-                    Name = query.getString("division");
-                    System.out.println(Name);
-                }
-            } catch (SQLException ex) {
-                System.out.println("error");
+        public void ClearTable() {
+        int rows = 0;
+        int column = 0;
+        int k = table.getRowCount();
+        while (table.getValueAt(rows, 0) != null) {
+            for (column = 0; column < 6; column++) {
+                table.setValueAt(null, rows, column);
             }
+            rows++;
 
-            division_lb.setText("" + Name);
         }
-    }//GEN-LAST:event_division_jcItemStateChanged
-
+        this.rows = 0;
+    }
     private void otnightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_otnightActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_otnightActionPerformed
@@ -783,6 +614,8 @@ public class PRCR_Edit_checkroll_workentry extends javax.swing.JFrame {
     }//GEN-LAST:event_otdayActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+table.setValueAt( dbm.checknReturnData("checkroll_personalinfo","code", empCodeJC.getSelectedItem(),"division"), rows, 5);//get the division from checkroll_personalinfo
+                
         table.setValueAt(empCodeJC.getSelectedItem(), rows, 0);
         table.setValueAt(empName.getText(), rows, 1);
         table.setValueAt(workCode.getSelectedItem(), rows, 2);
@@ -1205,8 +1038,6 @@ public class PRCR_Edit_checkroll_workentry extends javax.swing.JFrame {
     private com.michaelbaranov.microba.calendar.DatePicker datePick1;
     private javax.swing.JPanel datepanel;
     private javax.swing.JTextField dayfield1;
-    private javax.swing.JComboBox division_jc;
-    private javax.swing.JLabel division_lb;
     private javax.swing.JComboBox empCodeJC;
     private javax.swing.JLabel empName;
     private javax.swing.JButton jButton1;
@@ -1214,7 +1045,6 @@ public class PRCR_Edit_checkroll_workentry extends javax.swing.JFrame {
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1233,7 +1063,6 @@ public class PRCR_Edit_checkroll_workentry extends javax.swing.JFrame {
     private javax.swing.JCheckBox sunday;
     private javax.swing.JTable table;
     private javax.swing.JComboBox workCode;
-    private javax.swing.JLabel work_code;
     private javax.swing.JTextField yearfield1;
     // End of variables declaration//GEN-END:variables
 }

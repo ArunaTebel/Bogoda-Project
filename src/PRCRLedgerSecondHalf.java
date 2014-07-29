@@ -14,14 +14,22 @@ import javax.swing.JOptionPane;
  *
  * @author Acer
  */
-public class PRCRLedgerSecondHalf {
-    DatabaseManager dbm;
+public class PRCRLedgerSecondHalf implements Runnable{
+    DatabaseManager dbm = new DatabaseManager();;
     int[] workCodes;
     int year;
     
     public PRCRLedgerSecondHalf(int year){
-        dbm = new DatabaseManager();
+        
         this.year = year;
+          try {
+          
+            dbm.insert("Truncate prcr_ledger_second_half");
+          
+        } catch (SQLException e) {
+            //Logger.getLogger(PRCRLedgerFirstHalf.class.getName()).log(Level.SEVERE, null, ex);
+              System.out.println(e.getMessage());
+        }
     }
     
     public void getWorkCodes(){
@@ -31,6 +39,7 @@ public class PRCRLedgerSecondHalf {
     }
     
     public void updateWorker(int i){
+        Report_PRCR_EPF_6Month.epfPrgrsbr.setValue((100*i)/workCodes.length+1);
         int code = workCodes[i];
         int entry = Integer.parseInt(year + "" + code);
         int j;
@@ -38,7 +47,8 @@ public class PRCRLedgerSecondHalf {
         String table, coloumn = "code";
         String target;
         String destTable = "prcr_ledger_second_half";
-        double x, y;
+        double x, y,active=0;
+        double check=1;
         try {
             dbm.insert("INSERT INTO prcr_ledger_second_half(entry,code) VALUES('" + entry + "','" + code + "')");
         } catch (SQLException ex) {
@@ -49,6 +59,21 @@ public class PRCRLedgerSecondHalf {
                 table = "pr_workdata_" + year + "_0" + (j+6);
             else
                 table = "pr_workdata_" + year + "_" + (j+6);
+            
+            
+            check=1;
+           // System.out.println(dbm.checknReturnData(table, coloumn, code, "active"));
+            
+           // System.err.println((Integer.parseInt(dbm.checknReturnData(table, coloumn, code, "active"))==1));
+            if(Integer.parseInt(dbm.checknReturnData(table, coloumn, code, "active"))!=1){
+                
+               check=0;
+            }
+            
+            
+            if(check==1){
+               
+            active=1;
             
             target = "total_pay";
             x = dbm.checknReturnDoubleData(table, coloumn, code, target);
@@ -73,6 +98,12 @@ public class PRCRLedgerSecondHalf {
             x = dbm.checknReturnDoubleData(table, coloumn, code, target);
             target = months[j-1] + "_etf";
             dbm.updateDatabase(destTable, "entry", entry, target, x);
+            
+            }
+        }
+        
+          if(active==1){
+             dbm.updateDatabase("prcr_ledger_first_half",coloumn,code,"active","1");
         }
     }
     
@@ -91,5 +122,18 @@ public class PRCRLedgerSecondHalf {
         for(i=0;i<ex.workCodes.length;i++)
             System.out.println(ex.workCodes[i]);
         ex.updateTable();
+    }
+    
+     @Override
+    public void run() {
+      getWorkCodes();
+      int i;
+      for(i=0;i<workCodes.length;i++)
+            System.out.println(workCodes[i]);
+        System.out.println(workCodes.length);
+        
+        updateTable();
+        Report_PRCR_EPF_6Month.epfPrgrsbr.setValue(100);
+    
     }
 }
