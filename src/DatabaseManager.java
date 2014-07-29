@@ -117,6 +117,30 @@ public final class DatabaseManager {
         return null;
     }
 
+    public Date checknReturnData() {
+
+        String temp;
+        String max_date = "1900-01-01";
+        Date date1 = java.sql.Date.valueOf("1900-01-01");
+        try {
+            ResultSet query = query("SELECT * FROM account_update_details");
+            while (query.next()) {
+                temp = query.getString("date");
+                if (temp.compareTo(max_date) >= 0) {
+                    max_date = temp;
+
+                }
+            }
+            Date date = java.sql.Date.valueOf(max_date);
+
+            return date;
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            return date1;
+        }
+
+    }
+
     public String filterReturn2StringData(String table_name, String table_column_giving, String row_element, String table_column_giving2, String row_element2, String table_column_need) {
         DatabaseManager dbm = DatabaseManager.getDbCon();
         try {
