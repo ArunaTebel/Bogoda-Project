@@ -54,6 +54,12 @@ public class PRCR_Checkroll_Amalgamation_Report {
         double othourspayT = 0;
         double coinsT = 0;
         double grandtotalT = 0;
+             double workdayss =0;
+                double workdayspayy = 0;
+                double othourss = 0;
+                double othourspayy = 0;
+                //double grandtotall=normaldays * normalDaysrate + sundays * sundayrate + otdayhrs * otDayrate + otnighthrs * otNightRate;
+                double grandtotall=0;
 
         /*   int k=checknReturnNoOfData("prcr_checkroll_workentry", "date", "2014-03",
          "division", "BG", "work_code", "ABVF", "normalday_or_sunday", "n");
@@ -76,6 +82,7 @@ public class PRCR_Checkroll_Amalgamation_Report {
 
             if (normaldays != 0 || sundays != 0 || otdayhrs != 0 || otnighthrs != 0) {
 
+                System.out.println(workCode[i]+"---------"+normaldays+"------------"+sundays);
                 workdaysT = workdaysT + (normaldays + sundays);
 
                 workdayspayT = workdayspayT + (normaldays * normalDaysrate + sundays * sundayrate);
@@ -87,12 +94,12 @@ public class PRCR_Checkroll_Amalgamation_Report {
                 grandtotalT = grandtotalT + (normaldays * normalDaysrate + sundays * sundayrate + otdayhrs * otDayrate + otnighthrs * otNightRate);
 
                 //write data in to database table for amalgamation to generate reports
-                double workdayss = normaldays + sundays;
-                double workdayspayy = normaldays * normalDaysrate + sundays * sundayrate;
-                double othourss = otdayhrs + otnighthrs;
-                double othourspayy = otdayhrs * otDayrate + otnighthrs * otNightRate;
+                workdayss = normaldays + sundays;
+                workdayspayy = normaldays * normalDaysrate + sundays * sundayrate;
+                othourss = otdayhrs + otnighthrs;
+                othourspayy = otdayhrs * otDayrate + otnighthrs * otNightRate;
                 //double grandtotall=normaldays * normalDaysrate + sundays * sundayrate + otdayhrs * otDayrate + otnighthrs * otNightRate;
-                double grandtotall = workdayspayy + othourspayy;
+                grandtotall = workdayspayy + othourspayy;
                 try {
                     dbm.insert("INSERT INTO prcr_checkroll_amalgamation_report(work_code,section,work_days,work_days_pay,ot_hours,ot_hours_pay,grand_total) VALUES('" + workCode[i] + "','" + Section[i] + "','" + workdayss + "','" + workdayspayy + "','" + othourss + "','" + othourspayy + "','" + grandtotall + "')");
                 } catch (SQLException ex) {
@@ -146,7 +153,7 @@ public class PRCR_Checkroll_Amalgamation_Report {
         String end = st + "-31";
         int count = 0;
         try {
-            ResultSet query = dbm.query("SELECT * FROM " + table_name + " WHERE " + divCodeColumn + " LIKE'" + divCode + "' AND " + workCodeColumn + " LIKE '" + workCode + "' AND " + date_column + " BETWEEN '" + start + "' AND '" + end + "'");
+            ResultSet query = dbm.query("SELECT * FROM " + table_name + " WHERE " + divCodeColumn + " LIKE'" + divCode + "' AND " + workCodeColumn + " LIKE '" + workCode + "' AND "+column_need_to_check+" LIKE '"+element_to_check+"' AND "+ date_column+" BETWEEN '" + start + "' AND '" + end + "'");
             while (query.next()) {
 //                 System.out.println(query.getString(date_column).substring(0,7)+"  "+st);
 //                 System.out.println(query.getString(divCodeColumn)+" "+divCode);
