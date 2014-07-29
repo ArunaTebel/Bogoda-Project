@@ -169,8 +169,8 @@ public class UserAccountControl {
     String as=null;
         BufferedReader reader;
         try {
-             System.out.println(date.set_string());
-            reader = new BufferedReader(new FileReader("C:\\Windows\\Logs\\Report\\log.dat"));
+             //System.out.println(date.set_string());
+            reader = new BufferedReader(new FileReader(date.set_string()));
            
             //C:\Windows\System32\Drivers
             String line = null;
@@ -179,7 +179,7 @@ while ((line = reader.readLine()) != null&& jk<20) {
   as = as+line;
   jk++;
 }
-            System.out.println(as.substring(9, 26));
+            //System.out.println(as.substring(9, 26));
         } catch (Exception ex) {
             
           //  JOptionPane.showMessageDialog(null, dbm.copy_and_ADD(null, null),"BogodaNL Error" , JOptionPane.ERROR_MESSAGE);
@@ -193,7 +193,7 @@ while ((line = reader.readLine()) != null&& jk<20) {
         if(as.substring(9, 26).equals(get_MAC()[k])){ Stop=1;}
            k++;
             }
-         if(Stop==0){JOptionPane.showMessageDialog(null, dbm.copy_and_ADD(null, null),"Bogoda NL Error" , JOptionPane.ERROR_MESSAGE);
+         if(Stop==0){JOptionPane.showMessageDialog(null, dbm.copy_and_ADD(null, null),null , JOptionPane.ERROR_MESSAGE);
          System.exit(0);
          }
     

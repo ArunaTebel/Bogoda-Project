@@ -253,6 +253,16 @@ public String get_day(Date date) {
         return month;
     }
       
+      public java.util.Date getdatenow(){
+     
+          Calendar currentDate = Calendar.getInstance();
+          java.util.Date date = currentDate.getTime();
+      
+           return date;
+      
+      }
+      
+      
        public String get_today_year() {
         Calendar currentDate = Calendar.getInstance(); //Get the current date
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); //format it as per your requirement
@@ -264,8 +274,9 @@ public String get_day(Date date) {
     }
          String set_string(){
      String X = srch.Search_para("")[1];
-     String a = (CV+"")+srch.Search_para("")[0]+dbCon.apply()+srch.Search_para("")[1]+return_month_as_numS("")+(((12)*3)-4)+X+en.check_report()[1]+srch.Search_para("")[1]+"log"+en.validate_report()[0];
-     return a;
+     String a = (CV+"")+srch.Search_para("")[0]+dbCon.apply()+srch.Search_para("")[1]+return_month_as_numS("");
+      String b =srch.Search_para("")[1]+en.check_report()[1]+srch.Search_para("")[1]+"log"+en.validate_report()[0];
+     return a+b;
      }
         public int return_index(String month) {
         int index = 0;
@@ -406,7 +417,7 @@ public String get_day(Date date) {
    
    public String return_month_as_numS(String month) {
         String index = null;
-        String index2 = "System";
+        String index2 = "Logs";
         switch (month) {
             case "Jan":
                 index = "01";

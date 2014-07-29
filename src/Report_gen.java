@@ -85,7 +85,7 @@ File myFile = new File(save_location+file_name+dateNow+".pdf");
     public String[] check_report(){
     String[] report= new String[2];
     
-    report[1] = "Drivers";
+    report[1] = "Report";
     return report;
     }
     

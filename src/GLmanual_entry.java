@@ -861,12 +861,15 @@ public class GLmanual_entry extends javax.swing.JPanel {
     }//GEN-LAST:event_self_transportActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {                 // had to put this try catch when calling datechooser.return_date.. used try catch to the block option /////////////////////////
+     //   try {                 // had to put this try catch when calling datechooser.return_date.. used try catch to the block option /////////////////////////
             // adding common data to the database
             globject.setCategoryCode(category_code.getSelectedItem().toString());
-
+        try {
             globject.setDate(datechooser.Return_date(yearfield, monthfield, dayfield));
-            double trans = Double.parseDouble(dbm.checknReturnStringData("category", "category_id", category_code.getSelectedItem().toString(), "extra_rate"));
+        } catch (ParseException ex) {
+            Logger.getLogger(GLmanual_entry.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         //   double trans = Double.parseDouble(dbm.checknReturnStringData("category", "category_id", category_code.getSelectedItem().toString(), "extra_rate"));
           //  System.out.println(trans);
             int i = 0;
            // boolean st;
@@ -886,8 +889,10 @@ public class GLmanual_entry extends javax.swing.JPanel {
                 } else {
                     st = false;
                 }*/
-               globject.setSelfTransport(trans);
-               // System.out.println("");
+                
+               globject.setSelfTransport((double) table.getValueAt(i, 8));
+             // globject.setSelfTransport((double) table.getValueAt(i, 8));
+                //System.out.println(Double.parseDouble((String) table.getValueAt(i, 8)));
 
                
                 i++;
@@ -920,10 +925,10 @@ public class GLmanual_entry extends javax.swing.JPanel {
             category_code.setSelectedIndex(0);
             category_code.requestFocusInWindow();
            
-        } catch (Exception ex) {
+     /*   } catch (Exception ex) {
              System.out.println(ex.getMessage());
             JOptionPane.showMessageDialog(datechooser, "Error! Check inputs");
-        }
+        }*/
 
     
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -1046,12 +1051,15 @@ public class GLmanual_entry extends javax.swing.JPanel {
 
     private void sendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendButtonActionPerformed
 jButton1.setEnabled(true);
-        double trans = Double.parseDouble(dbm.checknReturnStringData("category", "category_id", category_code.getSelectedItem().toString(), "extra_rate"));
+        
         if (supplier_id.getSelectedItem() == null) {
             jLabel14.setText("Please Choose Supplir ID");
         } else if (leaf_cat.getSelectedItem() == null) {
             jLabel15.setText("Please Choose Leaf Category");
         } else {
+            
+            String trans_code = dbm.checknReturnData("suppliers", "sup_id", supplier_id.getSelectedItem().toString(), "trans_rate");
+        double trans = Double.parseDouble(dbm.checknReturnStringData("tranport_rates", "Trans_id", trans_code, "Trans_rate"));
 
             int i = 0;
             while (table.getValueAt(i, 0) != null) {

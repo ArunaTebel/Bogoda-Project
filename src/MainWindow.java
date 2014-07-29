@@ -303,7 +303,7 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Copyrights @ NineLights 2014. All rights reserved.");
         Main_Content.add(jLabel6);
-        jLabel6.setBounds(0, 360, 260, 40);
+        jLabel6.setBounds(0, 360, 330, 40);
 
         jButton14.setBackground(new java.awt.Color(0, 0, 102));
         jButton14.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N

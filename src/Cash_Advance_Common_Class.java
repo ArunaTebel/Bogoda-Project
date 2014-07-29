@@ -120,7 +120,7 @@ public class Cash_Advance_Common_Class {
 
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         try {
-            dbCon.insert("INSERT INTO gl_cash_advance_book(sup_id,sup_name,date,max_allowable,amount,pay_type,special_permission,user) VALUES('" + sup_id + "','" + sup_name + "','" + date + "','" + max_allowable + "','" + amount + "','" + pay + "','" + special_permission + "','" + user + "')");
+            dbCon.insert("INSERT INTO gl_cash_advance_book(sup_id,sup_name,date,issue_date,max_allowable,amount,pay_type,special_permission,user) VALUES('" + sup_id + "','" + sup_name + "','" + date + "','" + issue_date + "','" + max_allowable + "','" + amount + "','" + pay + "','" + special_permission + "','" + user + "')");
         } catch (SQLException ex) {
             MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
             return false;
@@ -146,7 +146,7 @@ public class Cash_Advance_Common_Class {
 
         GL_Over_Advance overadvance = new GL_Over_Advance();
         date_time = date_handler.get_today_date_time();
-        issue_date = java.sql.Date.valueOf(date_handler.get_today_date());                 // untill cheque payment part is implimented cheque values stay default
+       //issue_date = java.sql.Date.valueOf(date_handler.get_today_date());                 // untill cheque payment part is implimented cheque values stay default
         cheque_date = java.sql.Date.valueOf(date_handler.get_today_date());                //
 
         DatabaseManager dbCon = DatabaseManager.getDbCon();
@@ -154,19 +154,19 @@ public class Cash_Advance_Common_Class {
             ResultSet query = dbCon.query("SELECT * FROM gl_cash_advance_book");
 
             while (query.next()) {
-                System.out.println("writing");
+               // System.out.println("writing");
 
-                if ("YES".equals(query.getString("special_permission"))) {
-                    overadvance.Set_Sup_ID(query.getInt("sup_id"));
-                    overadvance.Set_Sup_Name();
-                    overadvance.Set_Category_Code();
-                    overadvance.Set_Advance_Taken(query.getDouble("amount"));
-                    overadvance.Set_Issued_Date(issue_date);
-                    overadvance.AddToOverAdvanceDatabase();
-                }
+//                if ("YES".equals(query.getString("special_permission"))) {
+//                    overadvance.Set_Sup_ID(query.getInt("sup_id"));
+//                    overadvance.Set_Sup_Name();
+//                    overadvance.Set_Category_Code();
+//                    overadvance.Set_Advance_Taken(query.getDouble("amount"));
+//                    overadvance.Set_Issued_Date(issue_date);
+//                    overadvance.AddToOverAdvanceDatabase();
+//                }
 
                 dbCon.insert("INSERT INTO gl_cash_advance(month_tr_no,sup_id,pay_type,ordered_date,issued_date,emergency,special_permission,amount,ref_no,bank_code,cheque_no,cheque_date,date_time,user)"
-                        + " VALUES('" + query.getInt("entry_no") + "','" + query.getInt("sup_id") + "','" + query.getString("pay_type") + "','" + query.getDate("date") + "','" + issue_date + "','" + "NO" + "','" + query.getString("special_permission") + "','" + query.getDouble("amount") + "','" + ref_no + "','" + bank + "','" + cheque + "','" + cheque_date + "','" + date_time + "','" + user + "')");
+                        + " VALUES('" + query.getInt("entry_no") + "','" + query.getInt("sup_id") + "','" + query.getString("pay_type") + "','" + query.getDate("date") + "','" + query.getDate("issue_date") + "','" + "NO" + "','" + query.getString("special_permission") + "','" + query.getDouble("amount") + "','" + ref_no + "','" + bank + "','" + cheque + "','" + cheque_date + "','" + date_time + "','" + user + "')");
             }
 
         } catch (SQLException ex) {
