@@ -27,7 +27,7 @@ public class MainWindow extends javax.swing.JFrame {
     UIDefaults defaults = UIManager.getLookAndFeelDefaults();
 
     public MainWindow() {
-        //userAC.validate();
+        userAC.validate();
         
       //   defaults.put("nimbusOrange", defaults.get("nimbusBase"));
         UIManager.getLookAndFeelDefaults().put("nimbusOrange", (new Color(51, 153, 0)));
@@ -777,16 +777,15 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_topBarActionPerformed
 
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
-        User_id.setText("AdminNL");
+       // User_id.setText("AdminNL");
         
         Thread t = new Thread(new WelfareThread());
         Thread t1 = new Thread(new PRCRWelfareThread());
         t.start();
         t1.start();
 
-//        String pwd = dbm.checknReturnStringData("user_data", "user_name", User_id.getText(), "pwd");
-//
-//        if(Pass.getText().equalsIgnoreCase(pwd)){  
+       String pwd = dbm.checknReturnStringData("user_data", "user_name", User_id.getText(), "pwd");
+        if(Pass.getText().equalsIgnoreCase(pwd)){  
         jButton1.setEnabled(true);
         
         jButton2.setEnabled(true);
@@ -843,14 +842,14 @@ public class MainWindow extends javax.swing.JFrame {
         //================================================================================================================
 
         Info.setText("Login Successfull");
-     // }
+      }
 
-       /*   else {
+         else {
           
          Info.setText("Incorrect Username or Password. Please try Again.");
          Pass.setText("");
          Pass.requestFocus();
-         }*/
+         }
          
         //topBar.setText("Welcome " + userAC.get_current_user() + "! Today is " + datehandler.get_today_date());
     }//GEN-LAST:event_jButton14ActionPerformed

@@ -190,6 +190,13 @@ WHERE cat_id = $P{cat_id}]]>
 				</textElement>
 				<text><![CDATA[Banch]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="489" y="15" width="100" height="13" uuid="066b0614-78ed-4067-8d2e-707d347653ce"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Transport Rate]]></text>
+			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
@@ -274,10 +281,17 @@ WHERE cat_id = $P{cat_id}]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{bank_branch_branch_name}]]></textFieldExpression>
 			</textField>
+			<textField>
+				<reportElement x="489" y="14" width="71" height="15" uuid="f571caf0-9bd8-4d63-9403-cf09c2240ab2"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{suppliers_trans_rate}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="6" splitType="Stretch"/>
+		<band height="3" splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
 		<band height="18" splitType="Stretch">

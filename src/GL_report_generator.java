@@ -264,20 +264,20 @@ public class GL_report_generator {
         }
           int start = Integer.parseInt(startdate);
           int end = Integer.parseInt(endDate);
-        int p = 8;
+        int p = start;
         int q = 0;
 
-        while (p < 15) {
+        while (p < start+7) {
             output[0] += cash_total[p];
             output[5] += other_total[p];
             p++;
         }
-        while (p < 22) {
+        while (p < start+14) {
             output[1] += cash_total[p];
             output[6] += other_total[p];
             p++;
         }
-        while (p < 29) {
+        while (p < start+21) {
             output[2] += cash_total[p];
             output[7] += other_total[p];
             p++;
@@ -287,7 +287,7 @@ public class GL_report_generator {
             output[8] += other_total[p];
             p++;
         }
-        while (q < 8) {
+        while (q < start) {
             output[3] += cash_total[q];
             output[8] += other_total[q];
             q++;
@@ -310,7 +310,7 @@ public class GL_report_generator {
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         // int  k =0 ;
         // System.out.println("in:");
-        String task = "2";
+     //   String task = "2";
         //  String done = "DONE";
         try {
             int j = 0;
@@ -361,13 +361,13 @@ public class GL_report_generator {
      //   double[] a = new double[10];
 
         //j = 0;
-        Date date1 = java.sql.Date.valueOf(year + "-" + month + "-" + "08");
+        Date date1 = java.sql.Date.valueOf(year + "-" + month + "-" + startdate);
 
         Date date4;
         if (month.equals("12")) {
-            date4 = java.sql.Date.valueOf(String.valueOf(Integer.parseInt(year) + 1) + "-" + date_handler.get_next_month(month) + "-" + "07");
+            date4 = java.sql.Date.valueOf(String.valueOf(Integer.parseInt(year) + 1) + "-" + date_handler.get_next_month(month) + "-" + endDate);
         } else {
-            date4 = java.sql.Date.valueOf(year + "-" + date_handler.get_next_month(month) + "-" + "07");
+            date4 = java.sql.Date.valueOf(year + "-" + date_handler.get_next_month(month) + "-" + endDate);
         }
 
         // System.out.println(date1+"----"+date2+"----"+date3+"-----"+date4);

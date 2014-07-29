@@ -180,6 +180,13 @@ FROM
 				</textElement>
 				<text><![CDATA[Banch]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="489" y="15" width="83" height="13" uuid="518c99ae-5ad3-45c6-9ffa-93752494ab52"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Transport Rate]]></text>
+			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
@@ -264,10 +271,17 @@ FROM
 				</textElement>
 				<textFieldExpression><![CDATA[$F{bank_branch_branch_name}]]></textFieldExpression>
 			</textField>
+			<textField>
+				<reportElement x="489" y="15" width="71" height="14" uuid="f7995697-8bb8-477f-94e5-d9794309ad39"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{suppliers_trans_rate}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="6" splitType="Stretch"/>
+		<band splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
 		<band height="18" splitType="Stretch">
