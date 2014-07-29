@@ -1,3 +1,6 @@
+
+import javax.swing.ImageIcon;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -15,6 +18,9 @@ public class Update_passward_cheker extends javax.swing.JFrame {
      */
     public Update_passward_cheker() {
         initComponents();
+        try{
+         this.setIconImage(new ImageIcon(getClass().getResource("iconpng.png")).getImage());
+        }catch(Exception e){}
     }
 
     /**

@@ -1,3 +1,6 @@
+
+import javax.swing.ImageIcon;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -15,6 +18,9 @@ public class Update_pass extends javax.swing.JFrame {
      */
     public Update_pass() {
         initComponents();
+        try{
+         this.setIconImage(new ImageIcon(getClass().getResource("iconpng.png")).getImage());
+        }catch(Exception e){}
     }
 
     /**
