@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="1008" pageHeight="792" columnWidth="968" leftMargin="20" rightMargin="20" topMargin="10" bottomMargin="10" uuid="b4a7e90f-236c-48e1-b463-a16c40591ab1">
 	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="244"/>
+	<property name="ireport.x" value="115"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="USER" class="java.lang.String"/>
 	<parameter name="year" class="java.lang.String"/>
@@ -28,7 +28,8 @@ FROM
      `weekly_advance_current` weekly_advance_current
 WHERE
      year = $P{year}
- AND month = $P{month}]]>
+ AND month = $P{month}
+order by weekly_advance_current.`sup_id`]]>
 	</queryString>
 	<field name="weekly_advance_current_year" class="java.lang.String"/>
 	<field name="weekly_advance_current_month" class="java.lang.String"/>
@@ -223,97 +224,97 @@ WHERE
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="19" splitType="Stretch">
+		<band height="16" splitType="Stretch">
 			<textField>
-				<reportElement uuid="afa32248-05b6-4c8d-8dbc-483724ac892d" x="5" y="3" width="37" height="15"/>
+				<reportElement uuid="afa32248-05b6-4c8d-8dbc-483724ac892d" x="5" y="0" width="37" height="15"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{weekly_advance_current_sup_id}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="d81f3414-de1b-4bf2-b787-661f8d799e27" x="48" y="3" width="118" height="16"/>
+				<reportElement uuid="d81f3414-de1b-4bf2-b787-661f8d799e27" x="48" y="0" width="118" height="16"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{weekly_advance_current_sup_name}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement uuid="3721aca5-7016-48b6-880b-955640347158" x="173" y="3" width="49" height="15"/>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="3721aca5-7016-48b6-880b-955640347158" x="173" y="0" width="49" height="15"/>
 				<textElement textAlignment="Right">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{weekly_advance_current_c_w1}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[( $F{weekly_advance_current_c_w1}==0 ? "-" : $F{weekly_advance_current_c_w1} )]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement uuid="713f7f91-67ea-4fac-afb5-7e921942bfe4" x="889" y="3" width="72" height="15"/>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="713f7f91-67ea-4fac-afb5-7e921942bfe4" x="889" y="0" width="72" height="15"/>
 				<textElement textAlignment="Right">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{weekly_advance_current_total}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement uuid="01f6f086-590e-4f05-8bbb-fe3e60789233" x="796" y="3" width="71" height="15"/>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="01f6f086-590e-4f05-8bbb-fe3e60789233" x="796" y="0" width="71" height="15"/>
 				<textElement textAlignment="Right">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[( $F{weekly_advance_current_other_total}==0 ? "-" : $F{weekly_advance_current_other_total} )]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement uuid="61ec77ba-7609-41a0-b872-034ee71a4c56" x="455" y="3" width="52" height="15"/>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="61ec77ba-7609-41a0-b872-034ee71a4c56" x="455" y="0" width="52" height="15"/>
 				<textElement textAlignment="Right">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{weekly_advance_current_cash_total}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[( $F{weekly_advance_current_cash_total}==0 ? "-" : $F{weekly_advance_current_cash_total} )]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement uuid="bdc85946-3e32-462c-897a-6de05888628e" x="516" y="3" width="64" height="15"/>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="bdc85946-3e32-462c-897a-6de05888628e" x="516" y="0" width="64" height="15"/>
 				<textElement textAlignment="Right">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{weekly_advance_current_o_w1}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[( $F{weekly_advance_current_o_w1}==0 ? "-" : $F{weekly_advance_current_o_w1} )]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement uuid="0ab23848-f01b-4cb5-ad54-150ab96bcabf" x="585" y="3" width="61" height="15"/>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="0ab23848-f01b-4cb5-ad54-150ab96bcabf" x="585" y="0" width="61" height="15"/>
 				<textElement textAlignment="Right">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{weekly_advance_current_o_w2}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[( $F{weekly_advance_current_o_w2}==0 ? "-" : $F{weekly_advance_current_o_w2} )]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement uuid="2eeb7e23-780c-4bae-a62b-1520f05091dd" x="654" y="3" width="65" height="15"/>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="2eeb7e23-780c-4bae-a62b-1520f05091dd" x="654" y="0" width="65" height="15"/>
 				<textElement textAlignment="Right">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{weekly_advance_current_o_w3}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[( $F{weekly_advance_current_o_w3}==0 ? "-" : $F{weekly_advance_current_o_w3} )]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement uuid="7f799bfe-9d0c-4d6e-976e-7541c07753f5" x="725" y="3" width="65" height="15"/>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="7f799bfe-9d0c-4d6e-976e-7541c07753f5" x="725" y="0" width="65" height="15"/>
 				<textElement textAlignment="Right">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[( $F{weekly_advance_current_o_w4}==0 ? "-" : $F{weekly_advance_current_o_w4} )]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement uuid="33dfa921-2c11-406e-837d-e23aed392f09" x="386" y="3" width="48" height="15"/>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="33dfa921-2c11-406e-837d-e23aed392f09" x="386" y="0" width="48" height="15"/>
 				<textElement textAlignment="Right">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{weekly_advance_current_c_w4}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[( $F{weekly_advance_current_c_w4}==0 ? "-" : $F{weekly_advance_current_c_w4} )]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement uuid="493605d5-2111-4c31-bbe6-d0346916a83d" x="307" y="3" width="55" height="15"/>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="493605d5-2111-4c31-bbe6-d0346916a83d" x="307" y="0" width="55" height="15"/>
 				<textElement textAlignment="Right">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{weekly_advance_current_c_w3}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[( $F{weekly_advance_current_c_w3}==0 ? "-" : $F{weekly_advance_current_c_w3} )]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement uuid="916736f6-5b6f-488e-b500-43454e34412f" x="241" y="3" width="52" height="15"/>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="916736f6-5b6f-488e-b500-43454e34412f" x="241" y="0" width="52" height="15"/>
 				<textElement textAlignment="Right">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{weekly_advance_current_c_w2}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[( $F{weekly_advance_current_c_w2}==0 ? "-" : $F{weekly_advance_current_c_w2} )]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

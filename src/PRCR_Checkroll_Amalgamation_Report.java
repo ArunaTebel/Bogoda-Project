@@ -11,31 +11,34 @@ import javax.swing.table.JTableHeader;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Dhananjaya
  */
 public class PRCR_Checkroll_Amalgamation_Report {
-    DatabaseManager dbm=DatabaseManager.getDbCon();
-    
-    
-    public void CreateReport(String division,String st){
-    
+
+    DatabaseManager dbm = DatabaseManager.getDbCon();
+
+    public void CreateReport(String division, String st) {
+
         createNewDatabaseTableforAmalgamation();
-        
-       
-        int columnsize = getColumnsize("workcode_details", "code");
+
+        /*  int columnsize = getColumnsize("workcode_details", "code");
 
         
-        String workCode[] = new String[columnsize];
-        String Section[] = new String[columnsize];
+         String workCode[] = new String[columnsize];
+         String Section[] = new String[columnsize]; */
+        String workCode[];
+        String Section[];
+
         int j = 0;
 
         workCode = getStringArray("workcode_details", "code");
         Section = getStringArray("workcode_details", "work");
+
+        int columnsize = workCode.length;
        // ((DefaultTableModel) jTable1.getModel()).setNumRows(columnsize + 2);
-       // ClearTable(columnsize + 2);
+        // ClearTable(columnsize + 2);
         double normaldays = 0;
         double sundays = 0;
         double otnighthrs = 0;
@@ -55,14 +58,12 @@ public class PRCR_Checkroll_Amalgamation_Report {
         /*   int k=checknReturnNoOfData("prcr_checkroll_workentry", "date", "2014-03",
          "division", "BG", "work_code", "ABVF", "normalday_or_sunday", "n");
          System.out.println(k);*/
-        
-        
-        
-       j=0;
-        
-        for (int i = 0; i < columnsize; i++) {
-           
+        j = 0;
+        System.out.println(columnsize);
 
+        for (int i = 0; i < columnsize; i++) {
+
+            System.out.println(workCode[i]+"--------->"+i);
             normaldays = checknReturnNoOfData("prcr_checkroll_workentry", "date", st,
                     "division", division, "work_code", workCode[i], "normalday_or_sunday", "n");
 
@@ -75,47 +76,41 @@ public class PRCR_Checkroll_Amalgamation_Report {
 
             if (normaldays != 0 || sundays != 0 || otdayhrs != 0 || otnighthrs != 0) {
 
-                
                 workdaysT = workdaysT + (normaldays + sundays);
-                
+
                 workdayspayT = workdayspayT + (normaldays * normalDaysrate + sundays * sundayrate);
 
-               
                 othoursT = othoursT + (otdayhrs + otnighthrs);
-                
+
                 othourspayT = othourspayT + (otdayhrs * otDayrate + otnighthrs * otNightRate);
 
-                
                 grandtotalT = grandtotalT + (normaldays * normalDaysrate + sundays * sundayrate + otdayhrs * otDayrate + otnighthrs * otNightRate);
-                
+
                 //write data in to database table for amalgamation to generate reports
-                 try {
-                     double workdayss=normaldays + sundays;
-                     double workdayspayy=normaldays * normalDaysrate + sundays * sundayrate;
-                     double othourss=otdayhrs + otnighthrs;
-                     double othourspayy=otdayhrs * otDayrate + otnighthrs * otNightRate;
-                     double grandtotall=normaldays * normalDaysrate + sundays * sundayrate + otdayhrs * otDayrate + otnighthrs * otNightRate;
-                    dbm.insert("INSERT INTO prcr_checkroll_amalgamation_report(work_code,section,work_days,work_days_pay,ot_hours,ot_hours_pay,grand_total) VALUES('" + workCode[i]+ "','" + Section[i] + "','" + workdayss + "','" + workdayspayy + "','" + othourss + "','" + othourspayy + "','"+grandtotall+"')");
+                double workdayss = normaldays + sundays;
+                double workdayspayy = normaldays * normalDaysrate + sundays * sundayrate;
+                double othourss = otdayhrs + otnighthrs;
+                double othourspayy = otdayhrs * otDayrate + otnighthrs * otNightRate;
+                //double grandtotall=normaldays * normalDaysrate + sundays * sundayrate + otdayhrs * otDayrate + otnighthrs * otNightRate;
+                double grandtotall = workdayspayy + othourspayy;
+                try {
+                    dbm.insert("INSERT INTO prcr_checkroll_amalgamation_report(work_code,section,work_days,work_days_pay,ot_hours,ot_hours_pay,grand_total) VALUES('" + workCode[i] + "','" + Section[i] + "','" + workdayss + "','" + workdayspayy + "','" + othourss + "','" + othourspayy + "','" + grandtotall + "')");
                 } catch (SQLException ex) {
-                     System.out.println("error-couldnt write data in to amalgamation database table");
+                    System.out.println("error-couldnt write data in to amalgamation database table");
                 }
-                
 
             }
         }
 
-    
-    
     }
-    
-    
-    
-    public void createNewDatabaseTableforAmalgamation(){
-       
-     try {
-         if(dbm.TableExistence("prcr_checkroll_amalgamation_report")){
-         dbm.DeleteTable("prcr_checkroll_amalgamation_report");
-         dbm.insert("DROP TABLE prcr_checkroll_amalgamation_report");}
+
+    public void createNewDatabaseTableforAmalgamation() {
+
+        try {
+            if (dbm.TableExistence("prcr_checkroll_amalgamation_report")) {
+                dbm.DeleteTable("prcr_checkroll_amalgamation_report");
+                dbm.insert("DROP TABLE prcr_checkroll_amalgamation_report");
+            }
             //use new_1 and new_2 if any other deduction type is needd to be added
             dbm.insert("CREATE TABLE prcr_checkroll_amalgamation_report(work_code VARCHAR(30),"
                     + "section VARCHAR(50)," + "work_days DOUBLE,"
@@ -125,9 +120,10 @@ public class PRCR_Checkroll_Amalgamation_Report {
             //Logger.getLogger(test.class.getName()).log(Level.SEVERE, null, ex);
             System.err.println(ex.getMessage());
         }
-    
+
     }
-     public void duplicateTable(String original_table_name, String table_copy_name) {
+
+    public void duplicateTable(String original_table_name, String table_copy_name) {
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         try {
             if (dbCon.TableExistence(table_copy_name)) {
@@ -145,10 +141,12 @@ public class PRCR_Checkroll_Amalgamation_Report {
     // Object element is the element you need to check in that column. Ex:- Either "s" or "n"
 
     public int checknReturnNoOfData(String table_name, String date_column, String st, String divCodeColumn, String divCode, String workCodeColumn, String workCode, String column_need_to_check, Object element_to_check) {
-        DatabaseManager dbm = DatabaseManager.getDbCon();
+
+        String start = st + "-01";
+        String end = st + "-31";
         int count = 0;
         try {
-            ResultSet query = dbm.query("SELECT * FROM " + table_name + "");
+            ResultSet query = dbm.query("SELECT * FROM " + table_name + " WHERE " + divCodeColumn + " LIKE'" + divCode + "' AND " + workCodeColumn + " LIKE '" + workCode + "' AND " + date_column + " BETWEEN '" + start + "' AND '" + end + "'");
             while (query.next()) {
 //                 System.out.println(query.getString(date_column).substring(0,7)+"  "+st);
 //                 System.out.println(query.getString(divCodeColumn)+" "+divCode);
@@ -157,10 +155,10 @@ public class PRCR_Checkroll_Amalgamation_Report {
 //                 System.out.println(query.getString(date_column).substring(0, 7).equals(st) && query.getString(divCodeColumn).equals(divCode) && query.getString(workCodeColumn).equals(workCode) && query.getString(column_need_to_check).equals(element_to_check));
 //                 
 //System.out.println("gssgsdg   gsdg "+division_jc.getSelectedItem().toString());
-                if (query.getString(date_column).substring(0, 7).equals(st) && query.getString(divCodeColumn).equals(divCode) && query.getString(workCodeColumn).equals(workCode) && query.getString(column_need_to_check).equals(element_to_check)) {
+           //     if (query.getString(date_column).substring(0, 7).equals(st) && query.getString(divCodeColumn).equals(divCode) && query.getString(workCodeColumn).equals(workCode) && query.getString(column_need_to_check).equals(element_to_check)) {
                     count++;
-                    
-                }
+
+              //  }
             }
             return count;
         } catch (SQLException ex) {
@@ -172,14 +170,17 @@ public class PRCR_Checkroll_Amalgamation_Report {
 
     // column_need_to_get_total is Either Day OT hour column or Night OT hour column.. All other parameters are similar to the above method
     public double checknReturnTotal(String table_name, String date_column, String st, String divCodeColumn, String divCode, String workCodeColumn, String workCode, String column_need_to_get_total) {
-        DatabaseManager dbm = DatabaseManager.getDbCon();
+
+        String start = st + "-01";
+        String end = st + "-31";
+
         double tot = 0;
         try {
-            ResultSet query = dbm.query("SELECT * FROM " + table_name + "");
+            ResultSet query = dbm.query("SELECT * FROM " + table_name + " WHERE " + divCodeColumn + " LIKE'" + divCode + "' AND " + workCodeColumn + " LIKE '" + workCode + "' AND " + date_column + " BETWEEN '" + start + "' AND '" + end + "'");
             while (query.next()) {
-                if (query.getString(date_column).substring(0, 7).equals(st) && query.getString(divCodeColumn).equals(divCode) && query.getString(workCodeColumn).equals(workCode)) {
-                    tot = tot + query.getDouble(column_need_to_get_total);
-                }
+                //if (query.getString(date_column).substring(0, 7).equals(st) && query.getString(divCodeColumn).equals(divCode) && query.getString(workCodeColumn).equals(workCode)) {
+                tot = tot + query.getDouble(column_need_to_get_total);
+                //}
             }
             return tot;
         } catch (SQLException ex) {
@@ -188,13 +189,11 @@ public class PRCR_Checkroll_Amalgamation_Report {
         }
         return tot;
     }
-    
-    
-    
-      public String[] getStringArray(String table_name, String column_name) {
+
+    public String[] getStringArray(String table_name, String column_name) {
 
         int count = 0;
-        DatabaseManager dbm = DatabaseManager.getDbCon();
+
         try {
             ResultSet query = dbm.query("SELECT " + column_name + " FROM " + table_name + "");
             while (query.next()) {
@@ -218,7 +217,7 @@ public class PRCR_Checkroll_Amalgamation_Report {
     public int getColumnsize(String table_name, String column_name) {
 
         int count = 0;
-        DatabaseManager dbm = DatabaseManager.getDbCon();
+
         try {
             ResultSet query = dbm.query("SELECT " + column_name + " FROM " + table_name + "");
             while (query.next()) {
@@ -232,5 +231,5 @@ public class PRCR_Checkroll_Amalgamation_Report {
         //return null;
 
     }
-    
+
 }

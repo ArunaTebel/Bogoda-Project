@@ -28,6 +28,9 @@ public class ACC_recepts extends javax.swing.JPanel {
 
     Date_Handler datehandler = new Date_Handler();
 
+    DatabaseManager dbm = new DatabaseManager();
+    int chkd=1;
+
     public ACC_recepts() {
         initComponents();
         // set cheque part invisible at the begining
@@ -114,6 +117,7 @@ public class ACC_recepts extends javax.swing.JPanel {
         jButton8 = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jButton5 = new javax.swing.JButton();
+        jButton9 = new javax.swing.JButton();
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 102, 0), 2, true), "CREDIT"));
 
@@ -802,6 +806,13 @@ public class ACC_recepts extends javax.swing.JPanel {
             }
         });
 
+        jButton9.setText("jButton9");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -816,6 +827,8 @@ public class ACC_recepts extends javax.swing.JPanel {
                             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(106, 106, 106)
+                                .addComponent(jButton9)
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
@@ -846,7 +859,11 @@ public class ACC_recepts extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jButton9)
+                                .addGap(40, 40, 40))))))
             .addGroup(layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addComponent(jButton5)
@@ -865,7 +882,7 @@ public class ACC_recepts extends javax.swing.JPanel {
 
         if (selection.equalsIgnoreCase("Cheque")) {
             Cheque_pay.setVisible(true);
-           // bankCode.requestFocusInWindow();
+            // bankCode.requestFocusInWindow();
 
         }
     }//GEN-LAST:event_payTypeActionPerformed
@@ -1041,7 +1058,7 @@ public class ACC_recepts extends javax.swing.JPanel {
             bankName.setText("" + Name);
         }
 
-       // branchCode.requestFocusInWindow();
+        // branchCode.requestFocusInWindow();
     }//GEN-LAST:event_bankCodeItemStateChanged
 
     private void branchCodeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_branchCodeItemStateChanged
@@ -1059,7 +1076,7 @@ public class ACC_recepts extends javax.swing.JPanel {
             branchName.setText("" + Name);
         }
 
-        
+
     }//GEN-LAST:event_branchCodeItemStateChanged
 
     private void debit_accountCodeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_debit_accountCodeItemStateChanged
@@ -1077,10 +1094,10 @@ public class ACC_recepts extends javax.swing.JPanel {
          debit_accountName.setText("" + Name);
          }
          debit_description.requestFocusInWindow(); */
-        
+
         Check_Entries chk = new Check_Entries();
 
-        try{
+        try {
             if (dbm.checkWhetherDataExists("account_names", "account_id", Integer.parseInt(debit_accountCode.getSelectedItem().toString())) == 1 || debit_accountCode.getSelectedIndex() == 0 || debit_accountCode.getSelectedItem().toString() == null) {
                 String Name = null;
                 if (evt.getStateChange() == ItemEvent.SELECTED) {
@@ -1099,13 +1116,10 @@ public class ACC_recepts extends javax.swing.JPanel {
                 msg.showMessage("Invalid Account Code", "Receipt", "info");
                 debit_accountCode.setSelectedIndex(0);
             }
+        } catch (Exception e) {
+
         }
-        catch(Exception e){
-            
-        }
-        
-       
-        
+
 
     }//GEN-LAST:event_debit_accountCodeItemStateChanged
 
@@ -1141,8 +1155,10 @@ public class ACC_recepts extends javax.swing.JPanel {
             msg.showMessage("There is a difference", "Please Check Again", "info");
             credit_account_code.requestFocusInWindow();
         } else {
+            if(chkd==1){
             jButton6.setEnabled(true);
             jButton6.requestFocusInWindow();
+            }
         }
 
 
@@ -1170,47 +1186,44 @@ public class ACC_recepts extends javax.swing.JPanel {
 
     private void credit_account_codeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_credit_account_codeItemStateChanged
         DatabaseManager dbm = DatabaseManager.getDbCon();
-      /*  String Name = null;
-        if (evt.getStateChange() == ItemEvent.SELECTED) {
-            int item = Integer.parseInt(evt.getItem().toString());
-            try {
-                ResultSet query = dbm.query("SELECT * FROM account_names WHERE account_id =" + item + "");
-                while (query.next()) {
-                    Name = query.getString("account_name");
-                }
-            } catch (SQLException ex) {
-            }
-            credit_account_name.setText("" + Name);
-        }
-        credit_description.requestFocusInWindow(); */
-        
-        
-         try{
+        /*  String Name = null;
+         if (evt.getStateChange() == ItemEvent.SELECTED) {
+         int item = Integer.parseInt(evt.getItem().toString());
+         try {
+         ResultSet query = dbm.query("SELECT * FROM account_names WHERE account_id =" + item + "");
+         while (query.next()) {
+         Name = query.getString("account_name");
+         }
+         } catch (SQLException ex) {
+         }
+         credit_account_name.setText("" + Name);
+         }
+         credit_description.requestFocusInWindow(); */
+
+        try {
             if (dbm.checkWhetherDataExists("account_names", "account_id", Integer.parseInt(credit_account_code.getSelectedItem().toString())) == 1 || credit_account_code.getSelectedIndex() == 0 || credit_account_code.getSelectedItem().toString() == null) {
-               String Name = null;
-        if (evt.getStateChange() == ItemEvent.SELECTED) {
-            int item = Integer.parseInt(evt.getItem().toString());
-            try {
-                ResultSet query = dbm.query("SELECT * FROM account_names WHERE account_id =" + item + "");
-                while (query.next()) {
-                    Name = query.getString("account_name");
+                String Name = null;
+                if (evt.getStateChange() == ItemEvent.SELECTED) {
+                    int item = Integer.parseInt(evt.getItem().toString());
+                    try {
+                        ResultSet query = dbm.query("SELECT * FROM account_names WHERE account_id =" + item + "");
+                        while (query.next()) {
+                            Name = query.getString("account_name");
+                        }
+                    } catch (SQLException ex) {
+                    }
+                    credit_account_name.setText("" + Name);
                 }
-            } catch (SQLException ex) {
-            }
-            credit_account_name.setText("" + Name);
-        }
-        credit_description.requestFocusInWindow();
+                credit_description.requestFocusInWindow();
             } else {
                 msg.showMessage("Invalid Account Code", "Receipt", "info");
                 credit_account_code.setSelectedIndex(0);
             }
+        } catch (Exception e) {
+
         }
-        catch(Exception e){
-            
-        }
-        
-        
-        
+
+
     }//GEN-LAST:event_credit_account_codeItemStateChanged
 
     private void debit_descriptionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_debit_descriptionFocusLost
@@ -1236,7 +1249,7 @@ public class ACC_recepts extends javax.swing.JPanel {
     }//GEN-LAST:event_recieptNoKeyPressed
 
     private void payTypeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_payTypeItemStateChanged
-        
+
     }//GEN-LAST:event_payTypeItemStateChanged
 
     private void debit_accountCodeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_debit_accountCodeKeyPressed
@@ -1297,8 +1310,8 @@ public class ACC_recepts extends javax.swing.JPanel {
     }//GEN-LAST:event_chequeDateKeyPressed
 
     private void payTypeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_payTypeKeyPressed
-       // interface_events.Change_focus_Enterkey_c(debit_accountCode, evt);
-         if (payType.getSelectedItem() == "Cash") {
+        // interface_events.Change_focus_Enterkey_c(debit_accountCode, evt);
+        if (payType.getSelectedItem() == "Cash") {
             interface_events.Change_focus_Enterkey_c(debit_accountCode, evt);
         } else {
             interface_events.Change_focus_Enterkey_c(bankCode, evt);
@@ -1665,9 +1678,23 @@ public class ACC_recepts extends javax.swing.JPanel {
             monthfield.selectAll();
         }
 
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
-            recieptNo.requestFocus();
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            ////// ChaNGE  focus on enter////////////////
+            try {
 
+            if (datechooser.Return_date(yearfield,monthfield,dayfield).before(dbm.checknReturnData())) {
+                chkd=0;
+                msg.showMessage("Date You Entered is not in this Accounting Period", "Please Check Again", "info");
+            }
+            else{
+                chkd=1;
+            }
+
+            recieptNo.requestFocus();
+        } catch (ParseException ex) {
+            Logger.getLogger(ACC_recepts.class.getName()).log(Level.SEVERE, null, ex);
+        }
+           // recieptNo.requestFocus();
         }
     }//GEN-LAST:event_dayfieldKeyPressed
 
@@ -1718,42 +1745,60 @@ public class ACC_recepts extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void bankCodeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_bankCodeKeyPressed
-        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             branchCode.requestFocusInWindow();
         }
     }//GEN-LAST:event_bankCodeKeyPressed
 
     private void branchCodeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_branchCodeKeyPressed
-        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             chequeNo.requestFocusInWindow();
         }
     }//GEN-LAST:event_branchCodeKeyPressed
 
     private void credit_amount_tableKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_credit_amount_tableKeyPressed
-       if(evt.getKeyCode()==KeyEvent.VK_ENTER){
-           
-           jButton6.setEnabled(false);
-            double tot = 0;
-        int i = 0;
-        while (credit_account_code_table.getValueAt(i, 0) != null) {
-            tot = tot + Double.parseDouble((String) credit_amount_table.getValueAt(i, 0));
-            i++;
-        }
-        total.setText("" + tot);
-        difference.setText("" + (Double.parseDouble(debitAmount.getText()) - tot));
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
 
-        if (Double.parseDouble(difference.getText()) < 0) {
-            msg.showMessage("Credit balance is higher than Debit balance", "Please Check Again", "info");
-            jButton2.requestFocusInWindow();
-        } else if (Double.parseDouble(difference.getText()) != 0) {
-            msg.showMessage("There is a difference", "Please Check Again", "info");
-            credit_account_code.requestFocusInWindow();
-        } else {
-            jButton6.setEnabled(true);
-            jButton6.requestFocusInWindow();
-        }
+            jButton6.setEnabled(false);
+            double tot = 0;
+            int i = 0;
+            while (credit_account_code_table.getValueAt(i, 0) != null) {
+                tot = tot + Double.parseDouble((String) credit_amount_table.getValueAt(i, 0));
+                i++;
+            }
+            total.setText("" + tot);
+            difference.setText("" + (Double.parseDouble(debitAmount.getText()) - tot));
+
+            if (Double.parseDouble(difference.getText()) < 0) {
+                msg.showMessage("Credit balance is higher than Debit balance", "Please Check Again", "info");
+                jButton2.requestFocusInWindow();
+            } else if (Double.parseDouble(difference.getText()) != 0) {
+                msg.showMessage("There is a difference", "Please Check Again", "info");
+                credit_account_code.requestFocusInWindow();
+            } else {
+                if(chkd==1){
+                jButton6.setEnabled(true);
+                jButton6.requestFocusInWindow();
+                }
+            }
         }
     }//GEN-LAST:event_credit_amount_tableKeyPressed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        try {
+
+            System.out.println(dbm.checknReturnData());
+            System.out.println(datechooser.Return_date(yearfield, monthfield, dayfield));
+            if (datechooser.Return_date(yearfield,monthfield,dayfield).before(dbm.checknReturnData())) {
+                msg.showMessage("Date You Entered is not in this Accounting Period", "Please Check Again", "info");
+                System.out.println("okaaaaa");
+            }
+
+            recieptNo.requestFocus();
+        } catch (ParseException ex) {
+            Logger.getLogger(ACC_recepts.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton9ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1787,6 +1832,7 @@ public class ACC_recepts extends javax.swing.JPanel {
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

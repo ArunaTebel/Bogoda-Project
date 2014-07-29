@@ -1,3 +1,6 @@
+
+import javax.swing.ImageIcon;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -15,6 +18,11 @@ public class New_window extends javax.swing.JFrame {
      */
     public New_window() {
         initComponents();
+        try{
+         this.setIconImage(new ImageIcon(getClass().getResource("iconpng.png")).getImage());
+        }catch(Exception e){
+            
+        }
     }
     public void paint(javax.swing.JPanel a ,String name){
      content.removeAll();

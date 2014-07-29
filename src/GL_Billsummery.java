@@ -1,6 +1,7 @@
 
 import java.awt.Color;
 import java.awt.event.KeyEvent;
+import javax.swing.ImageIcon;
 import javax.swing.UIDefaults;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
@@ -30,6 +31,9 @@ public class GL_Billsummery extends javax.swing.JFrame {
         defaults.put("nimbusOrange", defaults.get("nimbusBase"));
         UIManager.getLookAndFeelDefaults().put("nimbusOrange", (new Color(51, 153, 0)));
         initComponents();
+        try{
+         this.setIconImage(new ImageIcon(getClass().getResource("iconpng.png")).getImage());
+        }catch(Exception e){}
         
          GL_BillsummeryPanel bill = new GL_BillsummeryPanel();
       

@@ -150,7 +150,7 @@ public class Report_Acc_Ledger extends javax.swing.JPanel {
                         to_date = dt.get_date_as_a_String(date_chooser.Return_date(yearfield2, monthfield2, dayfield2));
                         from_date = dt.get_date_as_a_String(date_chooser.Return_date(yearfield, monthfield, dayfield));
 
-                        op_bal = ledg.opening_balance_calc(accountCode, to_date);
+                        op_bal = ledg.opening_balance_calc(accountCode, from_date);
 
                         ledg.fill_account_code_filtered_date(accountCode,from_date, to_date);
 

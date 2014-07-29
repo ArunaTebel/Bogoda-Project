@@ -35,10 +35,15 @@ public class MainWindow extends javax.swing.JFrame {
     //    String ss = System.getProperty("user.name");
         
        int a = (int) (Math.random()*10);
+       
+       
+
+       
      //  System.out.println(a);
        try{
-      jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("BogodaAreal"+a+".jpg")));
+      
       this.setIconImage(new ImageIcon(getClass().getResource("iconpng.png")).getImage());
+      jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("BogodaAreal"+a+".jpg")));
        } catch(NullPointerException e){
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("BogodaAreal"+7+".jpg")));
        }
