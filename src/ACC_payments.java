@@ -21,6 +21,8 @@ public class ACC_payments extends javax.swing.JPanel {
 
     Date_Handler datehandler = new Date_Handler();
 
+    int chkd = 1;
+
     public ACC_payments() {
         initComponents();
         jButton6.setEnabled(false);
@@ -107,6 +109,7 @@ public class ACC_payments extends javax.swing.JPanel {
         datePicker1 = new com.michaelbaranov.microba.calendar.DatePicker();
         jButton5 = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
+        jLabel6 = new javax.swing.JLabel();
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 102, 0), 2, true), "DEBIT"));
 
@@ -789,6 +792,9 @@ public class ACC_payments extends javax.swing.JPanel {
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel6.setText("PAYMENTS");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -807,7 +813,9 @@ public class ACC_payments extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)))
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -829,6 +837,8 @@ public class ACC_payments extends javax.swing.JPanel {
                         .addComponent(Cheque_pay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(32, 32, 32)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
@@ -1087,7 +1097,7 @@ public class ACC_payments extends javax.swing.JPanel {
             bankName.setText("" + Name);
         }
 
-        
+
     }//GEN-LAST:event_bankCodeItemStateChanged
 
     private void bankCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bankCodeActionPerformed
@@ -1109,7 +1119,7 @@ public class ACC_payments extends javax.swing.JPanel {
             branchName.setText("" + Name);
         }
 
-        
+
     }//GEN-LAST:event_branchCodeItemStateChanged
 
     private void chequeDateKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_chequeDateKeyPressed
@@ -1191,7 +1201,7 @@ public class ACC_payments extends javax.swing.JPanel {
     }//GEN-LAST:event_creditAmountKeyPressed
 
     private void payTypeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_payTypeItemStateChanged
-      
+
     }//GEN-LAST:event_payTypeItemStateChanged
 
     private void payTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_payTypeActionPerformed
@@ -1209,9 +1219,9 @@ public class ACC_payments extends javax.swing.JPanel {
     }//GEN-LAST:event_payTypeActionPerformed
 
     private void payTypeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_payTypeKeyPressed
-        
-          if ("Cash".equals(payType.getSelectedItem().toString())) {
-             interface_events.Change_focus_Enterkey_c(credit_accountCode, evt);
+
+        if ("Cash".equals(payType.getSelectedItem().toString())) {
+            interface_events.Change_focus_Enterkey_c(credit_accountCode, evt);
         } else {
             interface_events.Change_focus_Enterkey_c(bankCode, evt);
         }
@@ -1263,9 +1273,10 @@ public class ACC_payments extends javax.swing.JPanel {
             msg.showMessage("There is a difference", "Please Check Again", "info");
             debit_account_code.requestFocusInWindow();
         } else {
-
-            jButton6.setEnabled(true);
-            jButton6.requestFocusInWindow();
+            if (chkd == 1) {
+                jButton6.setEnabled(true);
+                jButton6.requestFocusInWindow();
+            }
         }
 
     }//GEN-LAST:event_jButton5ActionPerformed
@@ -1438,8 +1449,22 @@ public class ACC_payments extends javax.swing.JPanel {
         }
 
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
-            recieptNo.requestFocus();
+            // recieptNo.requestFocus();
 
+            try {
+
+                if (datechooser.Return_date(yearfield, monthfield, dayfield).before(dbm.checknReturnData())) {
+                    chkd = 0;
+                    msg.showMessage("Date You Entered is not in this Accounting Period", "Please Check Again", "info");
+                    dayfield.requestFocus();
+                } else {
+                    chkd = 1;
+                    recieptNo.requestFocus();
+                }
+
+            } catch (ParseException ex) {
+                Logger.getLogger(ACC_recepts.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_monthfieldKeyPressed
 
@@ -1458,8 +1483,22 @@ public class ACC_payments extends javax.swing.JPanel {
         }
 
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
-            recieptNo.requestFocus();
+            // recieptNo.requestFocus();
 
+            try {
+
+                if (datechooser.Return_date(yearfield, monthfield, dayfield).before(dbm.checknReturnData())) {
+                    chkd = 0;
+                    msg.showMessage("Date You Entered is not in this Accounting Period", "Please Check Again", "info");
+                    dayfield.requestFocus();
+                } else {
+                    chkd = 1;
+                    recieptNo.requestFocus();
+                }
+
+            } catch (ParseException ex) {
+                Logger.getLogger(ACC_recepts.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_yearfieldKeyPressed
 
@@ -1627,8 +1666,21 @@ public class ACC_payments extends javax.swing.JPanel {
         }
 
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
-            recieptNo.requestFocus();
+            //  recieptNo.requestFocus();
+            try {
 
+                if (datechooser.Return_date(yearfield, monthfield, dayfield).before(dbm.checknReturnData())) {
+                    chkd = 0;
+                    msg.showMessage("Date You Entered is not in this Accounting Period", "Please Check Again", "info");
+                    dayfield.requestFocus();
+                } else {
+                    chkd = 1;
+                    recieptNo.requestFocus();
+                }
+
+            } catch (ParseException ex) {
+                Logger.getLogger(ACC_recepts.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_dayfieldKeyPressed
 
@@ -1674,40 +1726,42 @@ public class ACC_payments extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void bankCodeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_bankCodeKeyPressed
-        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             branchCode.requestFocusInWindow();
         }
     }//GEN-LAST:event_bankCodeKeyPressed
 
     private void branchCodeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_branchCodeKeyPressed
-        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             chequeNo.requestFocusInWindow();
         }
     }//GEN-LAST:event_branchCodeKeyPressed
 
     private void debit_amount_tableKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_debit_amount_tableKeyPressed
-        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             double tot = 0;
             jButton6.setEnabled(false);
-        int i = 0;
-        while (debit_account_code_table.getValueAt(i, 0) != null) {
-            tot = tot + Double.parseDouble((String) debit_amount_table.getValueAt(i, 0));
-            i++;
-        }
-        total.setText("" + tot);
-        difference.setText("" + (Double.parseDouble(creditAmount.getText()) - tot));
+            int i = 0;
+            while (debit_account_code_table.getValueAt(i, 0) != null) {
+                tot = tot + Double.parseDouble((String) debit_amount_table.getValueAt(i, 0));
+                i++;
+            }
+            total.setText("" + tot);
+            difference.setText("" + (Double.parseDouble(creditAmount.getText()) - tot));
 
-        if (Double.parseDouble(difference.getText()) < 0) {
-            msg.showMessage("Debit balance is higher than Credit balance", "Please Check Again", "info");
-            jButton2.requestFocusInWindow();
-        } else if (Double.parseDouble(difference.getText()) != 0) {
-            msg.showMessage("There is a difference", "Please Check Again", "info");
-            debit_account_code.requestFocusInWindow();
-        } else {
+            if (Double.parseDouble(difference.getText()) < 0) {
+                msg.showMessage("Debit balance is higher than Credit balance", "Please Check Again", "info");
+                jButton2.requestFocusInWindow();
+            } else if (Double.parseDouble(difference.getText()) != 0) {
+                msg.showMessage("There is a difference", "Please Check Again", "info");
+                debit_account_code.requestFocusInWindow();
+            } else {
 
-            jButton6.setEnabled(true);
-            jButton6.requestFocusInWindow();
-        }
+                if (chkd == 1) {
+                    jButton6.setEnabled(true);
+                    jButton6.requestFocusInWindow();
+                }
+            }
 
         }
     }//GEN-LAST:event_debit_amount_tableKeyPressed
@@ -1754,6 +1808,7 @@ public class ACC_payments extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
