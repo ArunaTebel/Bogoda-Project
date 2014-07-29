@@ -20,6 +20,8 @@ public class GL_report_generator {
 
     DatabaseManager dbm = new DatabaseManager();
     Date_Handler date_handler = new Date_Handler();
+    String startdate= "08";
+    String endDate = "07";
 
     public GL_report_generator() {
 
@@ -118,13 +120,13 @@ public class GL_report_generator {
     
     public double get_other_advance_total(int sup, String year, String month){
     double Total = 0;
-      Date date1 = java.sql.Date.valueOf(year + "-" + month + "-" + "08");
+      Date date1 = java.sql.Date.valueOf(year + "-" + month + "-" + startdate);
 
         Date date4;
         if (month.equals("12")) {
-            date4 = java.sql.Date.valueOf(String.valueOf(Integer.parseInt(year) + 1) + "-" + date_handler.get_next_month(month) + "-" + "07");
+            date4 = java.sql.Date.valueOf(String.valueOf(Integer.parseInt(year) + 1) + "-" + date_handler.get_next_month(month) + "-" + endDate);
         } else {
-            date4 = java.sql.Date.valueOf(year + "-" + date_handler.get_next_month(month) + "-" + "07");
+            date4 = java.sql.Date.valueOf(year + "-" + date_handler.get_next_month(month) + "-" + endDate);
         }
 
         // System.out.println(date1+"-------------"+date4);
@@ -184,25 +186,25 @@ public class GL_report_generator {
             i++;
         }
 
-        Date date1 = java.sql.Date.valueOf(year + "-" + month + "-" + "08");
-        Date date2 = java.sql.Date.valueOf(year + "-" + month + "-" + "21");
-        Date date3 = java.sql.Date.valueOf(year + "-" + date_handler.get_next_month(month) + "-" + "28");
+        Date date1 = java.sql.Date.valueOf(year + "-" + month + "-" + startdate);
+        //Date date2 = java.sql.Date.valueOf(year + "-" + month + "-" + "21");
+        //Date date3 = java.sql.Date.valueOf(year + "-" + date_handler.get_next_month(month) + "-" + "28");
         Date date4;
         if (month.equals("12")) {
-            date4 = java.sql.Date.valueOf(String.valueOf(Integer.parseInt(year) + 1) + "-" + date_handler.get_next_month(month) + "-" + "07");
+            date4 = java.sql.Date.valueOf(String.valueOf(Integer.parseInt(year) + 1) + "-" + date_handler.get_next_month(month) + "-" + endDate);
         } else {
-            date4 = java.sql.Date.valueOf(year + "-" + date_handler.get_next_month(month) + "-" + "07");
+            date4 = java.sql.Date.valueOf(year + "-" + date_handler.get_next_month(month) + "-" + endDate);
         }
 
         // System.out.println(date1+"----"+date2+"----"+date3+"-----"+date4);
         DatabaseManager dbm = DatabaseManager.getDbCon();
         try {
 
-            ResultSet query = dbm.query("SELECT * FROM " + "gl_cash_advance" + " where " + "sup_id" + " = '" + sup_id + " 'AND " + "ordered_date" + " BETWEEN'" + date1 + "' AND '" + date4 + "'");
+            ResultSet query = dbm.query("SELECT * FROM " + "gl_cash_advance" + " where " + "sup_id" + " = '" + sup_id + " 'AND " + "issued_date" + " BETWEEN'" + date1 + "' AND '" + date4 + "'");
 
             while (query.next()) {
                 //System.out.println("query 1");
-                int dates = Integer.parseInt(date_handler.get_day(query.getDate("ordered_date")));
+                int dates = Integer.parseInt(date_handler.get_day(query.getDate("issued_date")));
                 // System.out.println(query.getDouble("amount"));
                 cash_total[dates] += query.getDouble("amount");
 
@@ -260,7 +262,8 @@ public class GL_report_generator {
             System.out.println(ex.getMessage());
 
         }
-
+          int start = Integer.parseInt(startdate);
+          int end = Integer.parseInt(endDate);
         int p = 8;
         int q = 0;
 
