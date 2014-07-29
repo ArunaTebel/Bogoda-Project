@@ -72,7 +72,7 @@ public final class DatabaseManager {
     }
 
     public String checknReturnData(String table_name, String table_column_giving, Object row_element, String table_column_need) {
-        
+
         try {
             ResultSet query = query("SELECT * FROM " + table_name + " WHERE " + table_column_giving + " LIKE '" + row_element + "'");
             while (query.next()) {
@@ -86,7 +86,7 @@ public final class DatabaseManager {
     }
 
     public int readLastRow(String table, String coloumn) throws SQLException {
-        
+
         ResultSet rs1 = query("SELECT " + coloumn + " FROM " + table + " ORDER BY " + coloumn + " DESC LIMIT 1");
         while (rs1.next()) {
             return (rs1.getInt(coloumn));
@@ -95,7 +95,7 @@ public final class DatabaseManager {
     }
 
     public int readFirstRow(String table, String coloumn) throws SQLException {
-        
+
         ResultSet rs1 = query("SELECT " + coloumn + " FROM " + table);
         if (rs1.next()) {
             return (rs1.getInt(coloumn));
@@ -104,7 +104,7 @@ public final class DatabaseManager {
     }
 
     public String checknReturnStringData(String table_name, String table_column_giving, String row_element, String table_column_need) {
-        
+
         try {
             ResultSet query = query("SELECT * FROM " + table_name + " where " + table_column_giving + " LIKE '" + row_element + "'");
             while (query.next()) {
@@ -142,7 +142,7 @@ public final class DatabaseManager {
     }
 
     public String filterReturn2StringData(String table_name, String table_column_giving, String row_element, String table_column_giving2, String row_element2, String table_column_need) {
-        
+
         try {
             ResultSet query = query("SELECT * FROM " + table_name + " where " + table_column_giving + " LIKE '" + row_element + "' AND " + table_column_giving2 + " LIKE '" + row_element2 + "'");
             while (query.next()) {
@@ -156,7 +156,7 @@ public final class DatabaseManager {
     }
 
     public double checknReturnDoubleData(String table_name, String table_column_giving, Object row_element, String table_column_need) {
-        
+
         try {
             ResultSet query = query("SELECT * FROM " + table_name + " where " + table_column_giving + " = '" + row_element + "'");
             while (query.next()) {
@@ -170,7 +170,7 @@ public final class DatabaseManager {
     }
 
     public String checknReturnStringDataReceipts(String table_name, String table_column_giving, Object row_element, String table_column_need) {
-        
+
         try {
             ResultSet query = query("SELECT * FROM " + table_name + " where " + table_column_giving + " LIKE '" + row_element + "'");
             while (query.next()) {
@@ -184,7 +184,7 @@ public final class DatabaseManager {
     }
 
     public boolean updateDatabase(String table_name, String table_column_giving, Object row_element, String table_column_need, Object update_element) {
-       
+
         try {
 
             insert("UPDATE " + table_name + " SET " + table_column_need + " ='" + update_element + "' WHERE " + table_column_giving + "='" + row_element + "'");
@@ -197,7 +197,7 @@ public final class DatabaseManager {
     }
 
     public void update(String table, String coloumn1, String coloumn2, Object first, Object second, String coloumnN, Object new1) {
-        
+
         try {
             insert("UPDATE " + table + " SET " + coloumnN + " ='" + new1 + "' WHERE " + coloumn1 + "='" + first + " 'AND " + coloumn2 + " ='" + second + "'");
         } catch (SQLException ex) {
@@ -206,7 +206,7 @@ public final class DatabaseManager {
     }
 
     public void newDayTable(Date date) {
-        
+
         try {
             insert("CREATE TABLE " + date.toString() + "(name varchar(25),"
                     + "employee_code varchar(10),"
@@ -219,7 +219,7 @@ public final class DatabaseManager {
     public String[] getStringArray(String table_name, String column_name) {
 
         int count = 0;
-        
+
         try {
             ResultSet query = query("SELECT " + column_name + " FROM " + table_name + "");
             while (query.next()) {
@@ -243,7 +243,7 @@ public final class DatabaseManager {
     public String[] getStringArray2(String table_name, String column_name) {
 
         int count = 0;
-        
+
         try {
             ResultSet query = query("SELECT " + column_name + " FROM " + table_name + "");
             while (query.next()) {
@@ -266,7 +266,7 @@ public final class DatabaseManager {
     public int[] getArray(String table_name, String column_name) {
 
         int count = 0;
-        
+
         try {
             ResultSet query = query("SELECT " + column_name + " FROM " + table_name + "");
             while (query.next()) {
@@ -289,7 +289,7 @@ public final class DatabaseManager {
     public int[] getValuesArray(String table, String coloumn, String neededColoumn, String match) {
         try {
             int count = 0;
-           // DatabaseManager dbm = DatabaseManager.getDbCon();
+            // DatabaseManager dbm = DatabaseManager.getDbCon();
             ResultSet rs1 = query("SELECT * FROM " + table + " WHERE " + coloumn + " ='" + match + "'");
             while (rs1.next()) {
                 count++;
@@ -312,7 +312,7 @@ public final class DatabaseManager {
     public int[] getValuesArrayN(String table, String coloumn, String neededColoumn, String match) {
         try {
             int count = 0;
-           // DatabaseManager dbm = DatabaseManager.getDbCon();
+            // DatabaseManager dbm = DatabaseManager.getDbCon();
             ResultSet rs1 = query("SELECT * FROM " + table + " WHERE " + coloumn + " NOT LIKE '" + match + "'");
             while (rs1.next()) {
                 count++;
@@ -381,7 +381,7 @@ public final class DatabaseManager {
     }
 
     public String[] search_PRCR(String table_name, String column_1, String column_2, Object element_1, Object element_2, String needed_column) {
-      //  DatabaseManager dbm = DatabaseManager.getDbCon();
+        //  DatabaseManager dbm = DatabaseManager.getDbCon();
         //String workcodes[] = null;
         String workcodes[];
         int i = 0;
@@ -456,7 +456,7 @@ public final class DatabaseManager {
     // when table name and a column is given returns the elements in that column in the acsending order
     public String[] ReturnSortedArray(String table_name, String table_column) {
         int count = 0;
-      //  DatabaseManager dbm = DatabaseManager.getDbCon();
+        //  DatabaseManager dbm = DatabaseManager.getDbCon();
         try {
             ResultSet query = query("SELECT * FROM " + table_name + " ORDER BY " + table_column + " ASC");
             while (query.next()) {
@@ -485,7 +485,7 @@ public final class DatabaseManager {
         /*  while (table.getValueAt(num_of_columns_filled_in_table, table_column_num) != null) {
          num_of_columns_filled_in_table++;
          } */
-       // DatabaseManager dbm = DatabaseManager.getDbCon();
+        // DatabaseManager dbm = DatabaseManager.getDbCon();
 
         try {
             ResultSet query = query("SELECT * FROM " + table_name + "");
@@ -528,7 +528,7 @@ public final class DatabaseManager {
         /*  while (table.getValueAt(num_of_columns_filled_in_table, table_column_num) != null) {
          num_of_columns_filled_in_table++;
          } */
-       // DatabaseManager dbm = DatabaseManager.getDbCon();
+        // DatabaseManager dbm = DatabaseManager.getDbCon();
 
         try {
             ResultSet query = query("SELECT * FROM " + table_name + " order by  " + Order_by + "  ");
@@ -571,7 +571,7 @@ public final class DatabaseManager {
         /*  while (table.getValueAt(num_of_columns_filled_in_table, table_column_num) != null) {
          num_of_columns_filled_in_table++;
          } */
-       // DatabaseManager dbm = DatabaseManager.getDbCon();
+        // DatabaseManager dbm = DatabaseManager.getDbCon();
         //  "SELECT * FROM " + table_name + " WHERE " + table_column_giving + " =" + row_element + ""
 
         try {
@@ -662,7 +662,6 @@ public final class DatabaseManager {
          num_of_columns_filled_in_table++;
          } */
        // DatabaseManager dbm = DatabaseManager.getDbCon();
-
         try {
             ResultSet query = query("SELECT " + column_name + " FROM " + table_name + "");
             while (query.next()) {
@@ -676,7 +675,7 @@ public final class DatabaseManager {
     }
 
     public void CheckNDeleteFromDataBase(String table_name, String column_name, Object element) {
-       // DatabaseManager dbCon = DatabaseManager.getDbCon();
+        // DatabaseManager dbCon = DatabaseManager.getDbCon();
         try {
             insert("DELETE FROM " + table_name + " WHERE " + column_name + " = '" + element + "' ");
         } catch (SQLException ex) {
@@ -686,7 +685,7 @@ public final class DatabaseManager {
     }
 
     public void DeleteTable(String table_name) {
-       // DatabaseManager dbCon = DatabaseManager.getDbCon();
+        // DatabaseManager dbCon = DatabaseManager.getDbCon();
         try {
             insert("DELETE FROM " + table_name + " ");
         } catch (SQLException ex) {
@@ -731,7 +730,7 @@ public final class DatabaseManager {
 // Copy one column of a table to another column in another table
     public void CopyTableColumn(String table_name1, String table_column1, String table_name2, String table_column2) {
 
-      //  DatabaseManager dbm = DatabaseManager.getDbCon();
+        //  DatabaseManager dbm = DatabaseManager.getDbCon();
         try {
             ResultSet query = query("SELECT * FROM " + table_name1 + "");//ORDER BY " + table_column1 + " ASC");
             while (query.next()) {
@@ -749,7 +748,7 @@ public final class DatabaseManager {
 
     public void CopyTable2Columns(String table_name1, String table1_column1, String table1_column2, String table_name2, String table2_column1, String table2_column2) {
 
-       // DatabaseManager dbm = DatabaseManager.getDbCon();
+        // DatabaseManager dbm = DatabaseManager.getDbCon();
         try {
             ResultSet query = query("SELECT * FROM " + table_name1 + "");//ORDER BY " + table_column1 + " ASC");
             while (query.next()) {
@@ -767,7 +766,7 @@ public final class DatabaseManager {
     }
 
     public double checknReturnTotalForNoteAnalysis(String table_name, String table_column_giving1, Object row_element1, String table_column_giving2, Object row_element2, String table_column_need) {
-      //  DatabaseManager dbm = DatabaseManager.getDbCon();
+        //  DatabaseManager dbm = DatabaseManager.getDbCon();
         double value = 0;
         try {
             //     ResultSet query = dbm.query("SELECT * FROM " + table_name + " WHERE " + table_column_giving1 + " ='" + row_element1 + " 'AND " + table_column_giving2 +" <'" + row_element2 + "'");
@@ -784,7 +783,7 @@ public final class DatabaseManager {
     }
 
     public int checknReturnNumberOfEntriesForNoteAnalysis(String table_name, String table_column_giving1, Object row_element1, String table_column_giving2, Object row_element2, String table_column_need) {
-       // DatabaseManager dbm = DatabaseManager.getDbCon();
+        // DatabaseManager dbm = DatabaseManager.getDbCon();
         int count = 0;
         try {
             //     ResultSet query = dbm.query("SELECT * FROM " + table_name + " WHERE " + table_column_giving1 + " ='" + row_element1 + " 'AND " + table_column_giving2 +" <'" + row_element2 + "'");
@@ -801,7 +800,7 @@ public final class DatabaseManager {
     }
 
     public int[] checknReturnIntArrayForNoteAnalysis(String table_name, String table_column_giving1, Object row_element1, String table_column_giving2, Object row_element2, String table_column_need) {
-       // DatabaseManager dbm = DatabaseManager.getDbCon();
+        // DatabaseManager dbm = DatabaseManager.getDbCon();
         int count = 0;
         int num = checknReturnNumberOfEntriesForNoteAnalysis(table_name, table_column_giving1, row_element1, table_column_giving2, row_element2, table_column_need);
         int[] arr = new int[num];
@@ -821,7 +820,7 @@ public final class DatabaseManager {
     }
 
     public String checknReturnDataBetweenTwoDays(String table_name, String date_column, Object date1, Object date2, String column_other_data, Object other_data, String column_return_data) {
-       // DatabaseManager dbm = DatabaseManager.getDbCon();
+        // DatabaseManager dbm = DatabaseManager.getDbCon();
         try {
             //     ResultSet query = dbm.query("SELECT * FROM " + table_name + " WHERE " + table_column_giving1 + " ='" + row_element1 + " 'AND " + table_column_giving2 +" <'" + row_element2 + "'");
             ResultSet query = query("SELECT * FROM " + table_name + " where " + column_other_data + " LIKE '" + other_data + " 'AND " + date_column + " BETWEEN'" + date1 + "' AND '" + date2 + "'");
@@ -837,7 +836,7 @@ public final class DatabaseManager {
     }
 
     public int checkWhetherDataExists(String table_name, String table_column_giving, Object row_element) {
-       // DatabaseManager dbm = DatabaseManager.getDbCon();
+        // DatabaseManager dbm = DatabaseManager.getDbCon();
         try {
             ResultSet query = query("SELECT * FROM " + table_name + " where " + table_column_giving + " LIKE '" + row_element + "'");
             if (!query.next()) {
@@ -854,7 +853,7 @@ public final class DatabaseManager {
 
     // Copy data from one table and append to another
     public void copy_and_append(String old_table, String new_table) {
-       // DatabaseManager dbm = DatabaseManager.getDbCon();
+        // DatabaseManager dbm = DatabaseManager.getDbCon();
         try {
             ResultSet query = query("INSERT INTO " + new_table + " SELECT * FROM " + old_table + "");
         } catch (SQLException ex) {
@@ -863,7 +862,7 @@ public final class DatabaseManager {
     }
 
     public String copy_and_ADD(String old_table, String new_table) {
-     //   DatabaseManager dbm = DatabaseManager.getDbCon();
+        //   DatabaseManager dbm = DatabaseManager.getDbCon();
         try {
             ResultSet query = query("INSERT INTO " + new_table + " SELECT * FROM " + old_table + "");
             return old_table;
@@ -875,7 +874,7 @@ public final class DatabaseManager {
 
     // copy data to a new table
     public void copy_to_new_table(String old_table, String new_table) {
-      //  DatabaseManager dbm = DatabaseManager.getDbCon();
+        //  DatabaseManager dbm = DatabaseManager.getDbCon();
         try {
             query("SELECT * INTO aa FROM account_journal_creditside WHERE 1=0");
         } catch (SQLException ex) {
@@ -884,7 +883,7 @@ public final class DatabaseManager {
     }
 
     public String apply() {
-       // DatabaseManager dbm = DatabaseManager.getDbCon();
+        // DatabaseManager dbm = DatabaseManager.getDbCon();
         int count = 0;
         String a;
         //int num = checknReturnNumberOfEntriesForNoteAnalysis(table_name, table_column_giving1, row_element1, table_column_giving2, row_element2, table_column_need);
@@ -908,7 +907,7 @@ public final class DatabaseManager {
 
     public double prcr_loan(int emp_code, String year, String month) {
 
-       // DatabaseManager dbm = new DatabaseManager();
+        // DatabaseManager dbm = new DatabaseManager();
         double tot = 0;
         String year_month = year + "-" + month;
         try {
@@ -925,7 +924,7 @@ public final class DatabaseManager {
     }
 
     public int[] prcr_loan_emp_code_array(String year, String month) {
-       // DatabaseManager dbm = new DatabaseManager();
+        // DatabaseManager dbm = new DatabaseManager();
 
         String year_month = year + "-" + month;
         int i = 0;
@@ -960,7 +959,6 @@ public final class DatabaseManager {
         String year_month = year + "-" + mnth;
 
        // DatabaseManager dbm = new DatabaseManager();
-
         try {
             ResultSet query = query("SELECT * FROM prcr_welfare WHERE code LIKE'" + emp_code + "' AND month LIKE '" + year_month + "'");
             while (query.next()) {
@@ -976,7 +974,7 @@ public final class DatabaseManager {
     }
 
     public int[] prcr_welfare_emp_code_array(String year, String month) {
-     //   DatabaseManager dbm = new DatabaseManager();
+        //   DatabaseManager dbm = new DatabaseManager();
 
         int i = 0;
         try {
@@ -1201,6 +1199,60 @@ public final class DatabaseManager {
         }
 
         return amount;
+
+    }
+
+    public int[] active_staff_codes() {
+        int count = 0;
+        try {
+            ResultSet query = query("SELECT * FROM prcr_staff_salary_info WHERE active LIKE '" + 1 + "'");
+            while (query.next()) {
+                count++;
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        int arr[] = new int[count];
+        int i = 0;
+        try {
+            ResultSet query = query("SELECT * FROM prcr_staff_salary_info WHERE active LIKE '" + 1 + "'");
+            while (query.next()) {
+                arr[i] = query.getInt("code");
+                i++;
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return arr;
+    }
+
+    public void staff_fill(String table_name) {
+
+        int arr[] = active_staff_codes();
+        int length = arr.length;
+        int i = 0;
+        for (i = 0; i < length; i++) {
+            try {
+                ResultSet query = query("SELECT * FROM prcr_staff_salary_info WHERE code LIKE '" + arr[i] + "' ");
+                while (query.next()) {
+
+                    updateDatabase(table_name,"code",arr[i],"active",1);
+                    updateDatabase(table_name,"code",arr[i],"normal_pay",query.getDouble("basic_salary"));
+                    updateDatabase(table_name,"code",arr[i],"ot_before_hours",query.getDouble("ot_hours"));
+                    updateDatabase(table_name,"code",arr[i],"ot_before_amount",query.getDouble("ot_pay"));
+                    updateDatabase(table_name,"code",arr[i],"ot_after_hours",query.getDouble("allowance1"));
+                    updateDatabase(table_name,"code",arr[i],"ot_after_amount",query.getDouble("allowance2"));
+                    updateDatabase(table_name,"code",arr[i],"incentive1",query.getDouble("Incentive1"));
+                    updateDatabase(table_name,"code",arr[i],"incentive2",query.getDouble("Incentive2"));
+                    updateDatabase(table_name,"code",arr[i],"extra_pay_may",query.getDouble("allowance3"));
+                    updateDatabase(table_name,"code",arr[i],"extra_pay_cash",query.getDouble("Extra1"));
+                    updateDatabase(table_name,"code",arr[i],"extra_pay_overkilos",query.getDouble("Extra2"));
+
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
 
     }
 
