@@ -224,13 +224,14 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
             if (table.getValueAt(rowd, 0) != null) {
                 try {
                     dbCon.insert("INSERT INTO prcr_checkroll_workentry(date,normalday_or_sunday,emp_code,work_code,ot_day,ot_night,division) VALUES('" + date + "','" + getNormalOrSun() + "','" + table.getValueAt(rowd, 0) + "','" + table.getValueAt(rowd, 2) + "','" + table.getValueAt(rowd, 3) + "','" + table.getValueAt(rowd, 4) + "','" + table.getValueAt(rowd, 5) + "')");
-                JOptionPane.showMessageDialog(null, "Details are saved for the \n" + date, "Message", JOptionPane.INFORMATION_MESSAGE);
-
+                
                 } catch (SQLException ex) {
                     Logger.getLogger(PRCR_Add_Employee.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
+         JOptionPane.showMessageDialog(null, "Details are saved for the \n" + date, "Message", JOptionPane.INFORMATION_MESSAGE);
+
 
     }
 
@@ -436,6 +437,8 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
         jLabel7 = new javax.swing.JLabel();
         otday = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        totalot = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         datepanel = new javax.swing.JPanel();
@@ -758,6 +761,8 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
 
         jLabel6.setText("Day");
 
+        jLabel2.setText("Total");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -765,12 +770,19 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(otday, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(otnight, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel6))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(otday, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(otnight, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(totalot, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -784,7 +796,11 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(otnight, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE)
+                    .addComponent(totalot, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         jButton1.setText("Send");
@@ -925,7 +941,7 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(70, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -1478,8 +1494,11 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
 
     private void otnightKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_otnightKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
+            
+            Double t=Double.parseDouble(otday.getText())+Double.parseDouble(otnight.getText());
+            totalot.setText(""+t);
             jButton1.requestFocus();
-
+            
         }        // TODO add your handling code here:
     }//GEN-LAST:event_otnightKeyPressed
 
@@ -1517,6 +1536,7 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1533,6 +1553,7 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
     private javax.swing.JTextField otnight;
     private javax.swing.JCheckBox sunday;
     private javax.swing.JTable table;
+    private javax.swing.JLabel totalot;
     private javax.swing.JComboBox workCode;
     private javax.swing.JTextField yearfield1;
     // End of variables declaration//GEN-END:variables

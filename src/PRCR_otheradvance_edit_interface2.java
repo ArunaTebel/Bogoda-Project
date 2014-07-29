@@ -1172,15 +1172,10 @@ public void Update_pr_workData(String tablename,Object code,String column,String
         new1_date = ne_date.toString();
         String tablename = new1_date.substring(0, 7);
 
-        if (dbm.TableExistence("pr_workdata_" + tablename) == false) {
-            // CreateNewMonthTable(tablename);
-            JOptionPane.showMessageDialog(null, "This month's Check roll table has not yet been created!Data not saved \n", "Message", JOptionPane.INFORMATION_MESSAGE);
-        }
-        else{
-            saveData(tablename, tdate);
+            //saveData(tablename, tdate);
             saveDataToAdvanceBook(tdate);
             ClearTable();
-        }
+        
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed

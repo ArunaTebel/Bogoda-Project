@@ -1,0 +1,795 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="1008" pageHeight="792" columnWidth="968" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b4a7e90f-236c-48e1-b463-a16c40591ab1">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="USER" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     personal_info.`name` AS personal_info_name,
+     personal_info.`code` AS personal_info_code,
+     personal_info.`nic` AS personal_info_nic,
+     personal_info.`epf_no` AS personal_info_epf_no,
+     holiday_pay_ground.`entry` AS holiday_pay_ground_entry,
+     holiday_pay_ground.`workcode` AS holiday_pay_ground_workcode,
+     holiday_pay_ground.`9_days` AS holiday_pay_ground_9_days,
+     holiday_pay_ground.`10_days` AS holiday_pay_ground_10_days,
+     holiday_pay_ground.`11_days` AS holiday_pay_ground_11_days,
+     holiday_pay_ground.`12_days` AS holiday_pay_ground_12_days,
+     holiday_pay_ground.`1_days` AS holiday_pay_ground_1_days,
+     holiday_pay_ground.`2_days` AS holiday_pay_ground_2_days,
+     holiday_pay_ground.`3_days` AS holiday_pay_ground_3_days,
+     holiday_pay_ground.`4_days` AS holiday_pay_ground_4_days,
+     holiday_pay_ground.`5_days` AS holiday_pay_ground_5_days,
+     holiday_pay_ground.`6_days` AS holiday_pay_ground_6_days,
+     holiday_pay_ground.`7_days` AS holiday_pay_ground_7_days,
+     holiday_pay_ground.`8_days` AS holiday_pay_ground_8_days,
+     holiday_pay_ground.`year_total` AS holiday_pay_ground_year_total,
+     holiday_pay_ground.`from_last_year` AS holiday_pay_ground_from_last_year,
+     holiday_pay_ground.`total_days` AS holiday_pay_ground_total_days,
+     holiday_pay_ground.`9_salary` AS holiday_pay_ground_9_salary,
+     holiday_pay_ground.`10_salary` AS holiday_pay_ground_10_salary,
+     holiday_pay_ground.`11_salary` AS holiday_pay_ground_11_salary,
+     holiday_pay_ground.`12_salary` AS holiday_pay_ground_12_salary,
+     holiday_pay_ground.`1_salary` AS holiday_pay_ground_1_salary,
+     holiday_pay_ground.`2_salary` AS holiday_pay_ground_2_salary,
+     holiday_pay_ground.`3_salary` AS holiday_pay_ground_3_salary,
+     holiday_pay_ground.`4_salary` AS holiday_pay_ground_4_salary,
+     holiday_pay_ground.`5_salary` AS holiday_pay_ground_5_salary,
+     holiday_pay_ground.`6_salary` AS holiday_pay_ground_6_salary,
+     holiday_pay_ground.`7_salary` AS holiday_pay_ground_7_salary,
+     holiday_pay_ground.`8_salary` AS holiday_pay_ground_8_salary,
+     holiday_pay_ground.`total_salary` AS holiday_pay_ground_total_salary,
+     holiday_pay_ground.`average_salary` AS holiday_pay_ground_average_salary,
+     holiday_pay_ground.`holiday_days` AS holiday_pay_ground_holiday_days,
+     holiday_pay_ground.`holiday_pay` AS holiday_pay_ground_holiday_pay,
+     holiday_pay_ground.`epf` AS holiday_pay_ground_epf,
+     holiday_pay_ground.`amount` AS holiday_pay_ground_amount
+FROM
+     `holiday_pay_ground` holiday_pay_ground INNER JOIN `personal_info` personal_info ON holiday_pay_ground.`workcode` = personal_info.`code`]]>
+	</queryString>
+	<field name="personal_info_name" class="java.lang.String"/>
+	<field name="personal_info_code" class="java.lang.Integer"/>
+	<field name="personal_info_nic" class="java.lang.String"/>
+	<field name="personal_info_epf_no" class="java.lang.Integer"/>
+	<field name="holiday_pay_ground_entry" class="java.lang.Integer"/>
+	<field name="holiday_pay_ground_workcode" class="java.lang.Integer"/>
+	<field name="holiday_pay_ground_9_days" class="java.lang.Integer"/>
+	<field name="holiday_pay_ground_10_days" class="java.lang.Integer"/>
+	<field name="holiday_pay_ground_11_days" class="java.lang.Integer"/>
+	<field name="holiday_pay_ground_12_days" class="java.lang.Integer"/>
+	<field name="holiday_pay_ground_1_days" class="java.lang.Integer"/>
+	<field name="holiday_pay_ground_2_days" class="java.lang.Integer"/>
+	<field name="holiday_pay_ground_3_days" class="java.lang.Integer"/>
+	<field name="holiday_pay_ground_4_days" class="java.lang.Integer"/>
+	<field name="holiday_pay_ground_5_days" class="java.lang.Integer"/>
+	<field name="holiday_pay_ground_6_days" class="java.lang.Integer"/>
+	<field name="holiday_pay_ground_7_days" class="java.lang.Integer"/>
+	<field name="holiday_pay_ground_8_days" class="java.lang.Integer"/>
+	<field name="holiday_pay_ground_year_total" class="java.lang.Integer"/>
+	<field name="holiday_pay_ground_from_last_year" class="java.lang.Integer"/>
+	<field name="holiday_pay_ground_total_days" class="java.lang.Integer"/>
+	<field name="holiday_pay_ground_9_salary" class="java.lang.Integer"/>
+	<field name="holiday_pay_ground_10_salary" class="java.lang.Integer"/>
+	<field name="holiday_pay_ground_11_salary" class="java.lang.Integer"/>
+	<field name="holiday_pay_ground_12_salary" class="java.lang.Integer"/>
+	<field name="holiday_pay_ground_1_salary" class="java.lang.Integer"/>
+	<field name="holiday_pay_ground_2_salary" class="java.lang.Integer"/>
+	<field name="holiday_pay_ground_3_salary" class="java.lang.Integer"/>
+	<field name="holiday_pay_ground_4_salary" class="java.lang.Integer"/>
+	<field name="holiday_pay_ground_5_salary" class="java.lang.Integer"/>
+	<field name="holiday_pay_ground_6_salary" class="java.lang.Integer"/>
+	<field name="holiday_pay_ground_7_salary" class="java.lang.Integer"/>
+	<field name="holiday_pay_ground_8_salary" class="java.lang.Integer"/>
+	<field name="holiday_pay_ground_total_salary" class="java.lang.Integer"/>
+	<field name="holiday_pay_ground_average_salary" class="java.lang.Integer"/>
+	<field name="holiday_pay_ground_holiday_days" class="java.lang.Integer"/>
+	<field name="holiday_pay_ground_holiday_pay" class="java.lang.Integer"/>
+	<field name="holiday_pay_ground_epf" class="java.lang.Integer"/>
+	<field name="holiday_pay_ground_amount" class="java.lang.Integer"/>
+	<variable name="TITLE" class="java.lang.String"/>
+	<variable name="hpay" class="java.lang.Double" resetType="Page" calculation="Sum">
+		<variableExpression><![CDATA[$F{holiday_pay_ground_holiday_pay}]]></variableExpression>
+	</variable>
+	<variable name="epf" class="java.lang.Double" resetType="Page" calculation="Sum">
+		<variableExpression><![CDATA[$F{holiday_pay_ground_epf}]]></variableExpression>
+	</variable>
+	<variable name="paid" class="java.lang.Double" resetType="Page" calculation="Sum">
+		<variableExpression><![CDATA[$F{holiday_pay_ground_amount}]]></variableExpression>
+	</variable>
+	<variable name="paid_1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{holiday_pay_ground_amount}]]></variableExpression>
+	</variable>
+	<variable name="hpay_1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{holiday_pay_ground_holiday_pay}]]></variableExpression>
+	</variable>
+	<variable name="epf_1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{holiday_pay_ground_epf}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="67" splitType="Stretch">
+			<staticText>
+				<reportElement x="1" y="3" width="81" height="11" uuid="3e709542-151f-4b92-8a79-9527db2b951e"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Report generated:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="16" width="15" height="20" uuid="b253ceae-65b5-4d6e-bd4d-cd9f29f5de4c"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[by:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="1" y="57" width="966" height="1" uuid="e13c4d67-1e7f-4c1c-96d2-2316ab27579e"/>
+			</line>
+			<staticText>
+				<reportElement x="749" y="9" width="216" height="27" uuid="75b687d7-fe40-4adf-9851-27816341e992"/>
+				<textElement>
+					<font fontName="Segoe UI Light" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bogoda Group Tea Factory]]></text>
+			</staticText>
+			<line>
+				<reportElement x="1" y="0" width="966" height="1" uuid="aeb39eae-cf99-495a-9b95-9031f30f70b7"/>
+			</line>
+			<staticText>
+				<reportElement x="826" y="30" width="114" height="20" uuid="fe112270-8629-41c5-b43e-d57409be5b2e"/>
+				<text><![CDATA[Kolawenigama, Deniyaya]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement x="82" y="3" width="100" height="11" uuid="54a20eec-890c-4e8c-9249-a8bf0da283f9"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="15" y="17" width="100" height="20" uuid="a7284fb9-5755-493b-9033-b8778b4d88dd"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{USER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="40" splitType="Stretch">
+			<line>
+				<reportElement x="1" y="-26" width="966" height="1" uuid="292404ee-21c4-44ec-86e1-654ddf5dc03b"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#666666"/>
+				</graphicElement>
+			</line>
+			<textField evaluationTime="Report">
+				<reportElement x="925" y="0" width="40" height="20" uuid="a28f6025-2bc0-4bc1-a2d3-6de88975440a"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="845" y="0" width="80" height="20" uuid="c7b2c106-44fc-4aed-b3a9-e5ad706e21ea"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="464" height="20" uuid="7d5ee0f9-8d1a-423f-829a-5c1ffd3f8b46"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Holiday Pay  - STATES]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="66" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="32" width="96" height="20" uuid="21d1e40e-7a29-41f9-bc51-767834f942c5"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NAME OF MEMBER]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="102" y="32" width="42" height="15" uuid="427c279a-b4e5-4913-9da7-c63048cb51d2"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[EPF No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="265" y="32" width="42" height="33" uuid="0d87e98d-bd21-485d-84d1-e05e5d926b16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[November]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="309" y="32" width="42" height="33" uuid="df0674d8-b536-4b59-a12b-fae3eac28777"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[December]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="353" y="32" width="42" height="33" uuid="9b926bc6-e7a4-40d2-9a23-e6a10a34aed4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[January]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="397" y="32" width="42" height="33" uuid="3607f690-0169-4b4a-b384-7401a1c08300"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[February]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="442" y="32" width="42" height="33" uuid="fb88beaa-9524-4d10-bf12-eb34e1f505a1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[March]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="488" y="32" width="42" height="33" uuid="b5e82a48-f314-4d5b-9947-5da06b4d04cc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[April]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="533" y="32" width="42" height="33" uuid="5b625095-c608-4ee5-bc6b-8f636617e177"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[May]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="581" y="32" width="42" height="33" uuid="688cc4c5-71bf-4030-abe8-9cd3d0eee757"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[June]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="625" y="32" width="42" height="33" uuid="f8c6542d-f16a-489c-8e61-c80aed1ef8f9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[July]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="668" y="32" width="42" height="33" uuid="ef00bd08-1902-499f-a909-e67de2c392c0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[August]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="65" width="966" height="1" uuid="8b820536-4e3c-4646-9176-72c78990b115"/>
+			</line>
+			<line>
+				<reportElement x="817" y="17" width="1" height="49" uuid="64ae236d-1f4d-4c9f-850f-e4c3c6edd70d"/>
+			</line>
+			<line>
+				<reportElement x="711" y="16" width="1" height="49" uuid="22325c52-1978-47ea-a52a-69b47a29c1b7"/>
+			</line>
+			<line>
+				<reportElement x="1" y="16" width="966" height="1" uuid="d1f4140d-ce4f-49d4-b402-d0df30e09646"/>
+			</line>
+			<line>
+				<reportElement x="623" y="17" width="1" height="49" uuid="52cea2fb-113a-444c-8820-c57d93a098fe"/>
+			</line>
+			<line>
+				<reportElement x="531" y="16" width="1" height="49" uuid="2105f625-265e-4496-94f1-703a7e41edfa"/>
+			</line>
+			<line>
+				<reportElement x="440" y="17" width="1" height="49" uuid="bb25c583-be6b-42d3-9086-39c9a7d491be"/>
+			</line>
+			<line>
+				<reportElement x="352" y="16" width="1" height="49" uuid="113e6e4d-8303-491c-bc02-5c30186b153a"/>
+			</line>
+			<line>
+				<reportElement x="264" y="17" width="1" height="49" uuid="13d28e83-8700-47dc-85ae-27f90baabd0a"/>
+			</line>
+			<line>
+				<reportElement x="99" y="17" width="1" height="49" uuid="86600727-96b7-40fc-85a8-bc7f215545d9"/>
+			</line>
+			<line>
+				<reportElement x="0" y="16" width="1" height="50" uuid="5a8f1ad3-5a51-46ea-bedd-fe53b94f7ab3"/>
+			</line>
+			<line>
+				<reportElement x="485" y="17" width="1" height="47" uuid="b38583e7-c1b0-4bda-8c0f-0f8ace144937"/>
+				<graphicElement>
+					<pen lineWidth="0.75" lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="577" y="17" width="1" height="47" uuid="1251ed3f-4ae6-43cb-ac8c-aa80a8e5dd3f"/>
+				<graphicElement>
+					<pen lineWidth="0.75" lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="667" y="16" width="1" height="47" uuid="bf801556-abff-4819-825d-d2024411ca07"/>
+				<graphicElement>
+					<pen lineWidth="0.75" lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="396" y="16" width="1" height="47" uuid="693566fe-3adc-4e99-9a7c-660169c582b3"/>
+				<graphicElement>
+					<pen lineWidth="0.75" lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="308" y="17" width="1" height="47" uuid="7dba3b18-754c-4889-b081-a3edae803393"/>
+				<graphicElement>
+					<pen lineWidth="0.75" lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="846" y="17" width="1" height="49" uuid="16b53160-cd18-490a-8b54-15d073f5c901"/>
+			</line>
+			<line>
+				<reportElement x="967" y="17" width="1" height="49" uuid="7c756da8-4dd1-4dae-ae76-f91efa6b8952"/>
+			</line>
+			<line>
+				<reportElement x="920" y="17" width="1" height="48" uuid="c8a8e745-cb90-4a4a-a2a0-3b01b46f7bde"/>
+			</line>
+			<staticText>
+				<reportElement x="888" y="17" width="32" height="48" uuid="b935cba6-85b4-46b0-85e6-49e3d4018084"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[EPF]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="923" y="17" width="45" height="48" uuid="de70f1d2-34e3-45ed-bdde-31135a8278e2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Paid Amount]]></text>
+			</staticText>
+			<line>
+				<reportElement x="146" y="17" width="1" height="48" uuid="36ef63f9-da54-4839-aaa5-211721d52465"/>
+			</line>
+			<line>
+				<reportElement x="220" y="17" width="1" height="47" uuid="b4b986b4-48ed-4c50-a956-df276665ae7b"/>
+				<graphicElement>
+					<pen lineWidth="0.75" lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="222" y="32" width="42" height="33" uuid="9a89df28-88c3-4f00-9ece-5f5364c21bd0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[October]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="178" y="32" width="42" height="33" uuid="33e5cad4-f393-48b4-8bac-cb963c0e1576"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[September]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="712" y="17" width="26" height="46" uuid="bb0cd092-88e1-4784-8491-820d0dfce52f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[This Year Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="768" y="32" width="21" height="32" uuid="24c6b797-afff-4908-af47-0da64547e976"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<line>
+				<reportElement x="766" y="16" width="1" height="49" uuid="01a2018d-281b-423b-98fa-28fa1b2eb181"/>
+			</line>
+			<line>
+				<reportElement x="790" y="17" width="1" height="49" uuid="af925750-ae5f-41a2-817f-5f4210e135df"/>
+			</line>
+			<staticText>
+				<reportElement x="792" y="31" width="24" height="32" uuid="5aa4f87d-6c9f-45aa-8ead-fcc8c382107f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Average]]></text>
+			</staticText>
+			<line>
+				<reportElement x="887" y="17" width="1" height="49" uuid="17e100ff-2ec3-41a0-9f74-eba220567779"/>
+			</line>
+			<staticText>
+				<reportElement x="819" y="17" width="26" height="46" uuid="92f6a292-63a6-42d5-ae05-8ca892cc51a9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Holidays]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="849" y="17" width="39" height="45" uuid="c6c07b0d-82fe-48ac-a769-bb1f8aefd54d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Holiday Pay]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="740" y="17" width="26" height="46" uuid="003ded63-0f8a-4e28-a917-604131ae7be1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Last Year Holidays]]></text>
+			</staticText>
+			<line>
+				<reportElement x="738" y="17" width="1" height="49" uuid="6b62eaa9-d00f-4063-bc16-58c57f5dd474"/>
+			</line>
+			<staticText>
+				<reportElement x="102" y="49" width="42" height="15" uuid="ac9db0db-def6-451e-94ce-0d9439ae7ba4"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Code]]></text>
+			</staticText>
+			<line>
+				<reportElement x="176" y="17" width="1" height="48" uuid="44d7c1ef-73dd-4e86-bb46-a6709390eab5"/>
+				<graphicElement>
+					<pen lineWidth="0.75" lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="42" splitType="Stretch">
+			<textField>
+				<reportElement x="1" y="0" width="95" height="20" uuid="1cb2e766-93b5-43af-bc15-e5ba1fc8bf2c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{personal_info_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="102" y="0" width="42" height="20" uuid="16a3e69e-c1c5-426c-a96f-27038a5bd19d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{personal_info_epf_no}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="264" y="0" width="1" height="41" uuid="a9bc367f-4781-494d-a400-9964afae9263"/>
+			</line>
+			<line>
+				<reportElement x="0" y="41" width="968" height="1" uuid="c57d414e-a999-45d1-883a-29e25cb023ad"/>
+			</line>
+			<line>
+				<reportElement x="352" y="0" width="1" height="41" uuid="9224cffc-4a3b-4a73-83a8-cc92f20f51ac"/>
+			</line>
+			<line>
+				<reportElement x="440" y="0" width="1" height="41" uuid="53f8a7e6-9efb-47dc-9051-6d9fae0be5e6"/>
+			</line>
+			<line>
+				<reportElement x="531" y="0" width="1" height="41" uuid="f3fc7c29-132c-4cf7-ae75-926e7b867cfb"/>
+			</line>
+			<line>
+				<reportElement x="623" y="0" width="1" height="41" uuid="0e0e0582-1dfa-44f4-9ff2-27bc490d3df9"/>
+			</line>
+			<line>
+				<reportElement x="738" y="0" width="1" height="41" uuid="befea95d-df36-45f6-9307-2d8f34782a48"/>
+			</line>
+			<line>
+				<reportElement x="99" y="0" width="1" height="41" uuid="f4df83c8-523d-4580-9ab4-5a779febabd6"/>
+			</line>
+			<line>
+				<reportElement x="0" y="-1" width="1" height="41" uuid="32d6b5e7-4627-49cd-ab29-4b71663c8ae0"/>
+			</line>
+			<line>
+				<reportElement x="308" y="0" width="1" height="41" uuid="0c6374cd-4526-4026-9406-20f3d4a92930"/>
+				<graphicElement>
+					<pen lineWidth="0.75" lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="396" y="0" width="1" height="41" uuid="c2e5ffac-666f-49cb-86ae-d29d2576c95f"/>
+				<graphicElement>
+					<pen lineWidth="0.75" lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="485" y="0" width="1" height="41" uuid="f535f538-f0e9-4700-b074-28a5cf1216af"/>
+				<graphicElement>
+					<pen lineWidth="0.75" lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="577" y="0" width="1" height="41" uuid="0348fa65-08c3-4030-8214-3e9811177737"/>
+				<graphicElement>
+					<pen lineWidth="0.75" lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="667" y="0" width="1" height="41" uuid="d98e8edf-2829-4114-a99c-a2e6fe8bbc74"/>
+				<graphicElement>
+					<pen lineWidth="0.75" lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="887" y="-1" width="1" height="42" uuid="02967664-4a70-47f1-83b1-f83ec3c0db67"/>
+			</line>
+			<line>
+				<reportElement x="967" y="0" width="1" height="42" uuid="53422913-685d-4c98-b41f-1f76127e8783"/>
+			</line>
+			<line>
+				<reportElement x="920" y="0" width="1" height="42" uuid="6a81d9c3-5460-4b0b-b1c8-f69925fd8a80"/>
+			</line>
+			<line>
+				<reportElement x="146" y="-1" width="1" height="41" uuid="c0b51102-b15b-47e6-9880-8b89c4f50e4c"/>
+			</line>
+			<line>
+				<reportElement x="220" y="0" width="1" height="41" uuid="00be85ce-1647-4111-a64a-1ec3662d066e"/>
+				<graphicElement>
+					<pen lineWidth="0.75" lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="179" y="0" width="38" height="17" uuid="859a5a70-ca6d-46e4-84b8-fd0ef6b90398"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[($F{holiday_pay_ground_9_days}==null ? 0 : $F{holiday_pay_ground_9_days} )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="222" y="0" width="38" height="17" uuid="4a9a8b3a-1f2c-4f46-aa03-999861f42b66"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[( $F{holiday_pay_ground_10_days}==null ? 0 : $F{holiday_pay_ground_10_days} )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="265" y="0" width="38" height="17" uuid="a82d5253-1ba7-482c-88d8-bbbed9bc3105"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[( $F{holiday_pay_ground_11_days}==null ? 0 : $F{holiday_pay_ground_11_days} )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="311" y="0" width="38" height="17" uuid="8721573c-9724-4f06-b672-fc5b608b4b04"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[( $F{holiday_pay_ground_12_days}==null ? 0 : $F{holiday_pay_ground_12_days} )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="355" y="0" width="38" height="17" uuid="929f4139-25de-482b-b258-7637fe5cb224"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[( $F{holiday_pay_ground_1_days}==null ? 0 : $F{holiday_pay_ground_1_days} )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="398" y="0" width="38" height="17" uuid="d765940a-1203-4e0c-aaf1-a8f46ed9c328"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[( $F{holiday_pay_ground_2_days}==null ? 0 : $F{holiday_pay_ground_2_days} )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="442" y="0" width="38" height="17" uuid="df3b87ce-20cf-47bb-9a25-3d18bc1ce359"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[( $F{holiday_pay_ground_3_days}==null ? 0 : $F{holiday_pay_ground_3_days} )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="489" y="0" width="38" height="17" uuid="2a7e3c86-3d18-48a0-b144-e53f5e19102b"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[( $F{holiday_pay_ground_4_days}==null ? 0 : $F{holiday_pay_ground_4_days} )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="533" y="0" width="38" height="17" uuid="adf6e538-a4c7-4fa4-b332-eb7a6679dff6"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[( $F{holiday_pay_ground_5_days}==null ? 0 : $F{holiday_pay_ground_5_days} )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="581" y="0" width="38" height="17" uuid="8c875979-8770-468a-8801-c12039c73831"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[( $F{holiday_pay_ground_6_days}==null ? 0 : $F{holiday_pay_ground_6_days} )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="625" y="0" width="38" height="17" uuid="1ebf862c-9047-4ccd-a6bd-066c958eeca7"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[( $F{holiday_pay_ground_7_days}==null ? 0 : $F{holiday_pay_ground_7_days} )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="668" y="0" width="38" height="17" uuid="c819e1dd-8cec-477d-a26e-0c9112b274ed"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[( $F{holiday_pay_ground_8_days}==null ? 0 : $F{holiday_pay_ground_8_days} )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="713" y="1" width="27" height="16" uuid="4fc6213b-7de7-460f-bbd6-b80815261036"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[( $F{holiday_pay_ground_year_total}==null ? 0 : $F{holiday_pay_ground_year_total} )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="739" y="1" width="27" height="16" uuid="2c694028-8987-4b9e-8c49-6685aa2a7489"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[( $F{holiday_pay_ground_from_last_year}==null ? 0 : $F{holiday_pay_ground_from_last_year} )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="766" y="1" width="23" height="16" uuid="b9012ce1-381f-46c2-80c3-44e8ca1ee159"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[( $F{holiday_pay_ground_total_days}==null ? 0 :$F{holiday_pay_ground_total_days})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="178" y="22" width="38" height="17" uuid="d014f495-87fc-4005-9b35-c658671b9e73"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[( $F{holiday_pay_ground_9_salary}==null ? 0 : $F{holiday_pay_ground_9_salary} )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="222" y="22" width="38" height="17" uuid="5989fa8c-31bc-4605-b420-dd172d8d294b"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[( $F{holiday_pay_ground_10_salary}==null ? 0 : $F{holiday_pay_ground_10_salary} )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="265" y="22" width="38" height="17" uuid="3f755fd0-c968-4c3c-bfd0-8788a598cedd"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[( $F{holiday_pay_ground_11_salary}==null ? 0 : $F{holiday_pay_ground_11_salary} )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="312" y="22" width="38" height="17" uuid="609dc885-02fe-40df-8447-3c549bc705dc"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[( $F{holiday_pay_ground_12_salary}==null ? 0 : $F{holiday_pay_ground_12_salary} )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="355" y="22" width="38" height="17" uuid="38bf8250-788f-4114-8f77-ed5758896211"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[( $F{holiday_pay_ground_1_salary}==null ? 0 : $F{holiday_pay_ground_1_salary} )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="398" y="22" width="38" height="17" uuid="9149ba0b-257c-486d-ab36-5fd45ca34ec8"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[( $F{holiday_pay_ground_2_salary}==null ? 0 : $F{holiday_pay_ground_2_salary} )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="442" y="22" width="38" height="17" uuid="a1732396-9c67-4a84-a5ce-ab0014ce56cd"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[( $F{holiday_pay_ground_3_salary}==null ? 0 : $F{holiday_pay_ground_3_salary} )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="489" y="22" width="38" height="17" uuid="31347c7a-92b8-4510-a700-57aa2194db2a"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[( $F{holiday_pay_ground_4_salary}==null ? 0 : $F{holiday_pay_ground_4_salary} )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="533" y="22" width="38" height="17" uuid="7d448db1-e329-4d67-bb39-b72116e1a7d1"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[( $F{holiday_pay_ground_5_salary}==null ? 0 : $F{holiday_pay_ground_5_salary} )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="581" y="22" width="38" height="17" uuid="9150714a-7064-4438-a378-0ad5228d648b"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[( $F{holiday_pay_ground_6_salary}==null ? 0 : $F{holiday_pay_ground_6_salary} )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="625" y="22" width="38" height="17" uuid="55c80417-8627-42d9-be26-3a6865df5b53"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[( $F{holiday_pay_ground_7_salary}==null ? 0 : $F{holiday_pay_ground_7_salary} )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="668" y="22" width="38" height="17" uuid="89341ecd-3298-442f-abe3-64429f621572"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[( $F{holiday_pay_ground_8_salary}==null ? 0 : $F{holiday_pay_ground_8_salary} )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="712" y="22" width="26" height="17" uuid="c4ac3978-c77c-4813-8082-281b65834b2c"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[( $F{holiday_pay_ground_total_salary}==null ? 0 :$F{holiday_pay_ground_total_salary} )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="792" y="1" width="24" height="16" uuid="1f9e6226-f6ca-47ba-a169-009fc764cefe"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[( $F{holiday_pay_ground_average_salary}==null ? 0 : $F{holiday_pay_ground_average_salary})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="819" y="1" width="27" height="16" uuid="61a956dc-8f6e-4917-b0d5-2d2d0721a3b6"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[( $F{holiday_pay_ground_holiday_days}==null? 0 :$F{holiday_pay_ground_holiday_days} )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="848" y="1" width="38" height="20" uuid="9a184fe4-2ee3-4b4e-9f56-28b5571319ba"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[( $F{holiday_pay_ground_holiday_pay}==null ? 0 :$F{holiday_pay_ground_holiday_pay} )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="889" y="1" width="31" height="20" uuid="e21286ee-623f-4aaf-8981-e63f03079212"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[( $F{holiday_pay_ground_epf}==null? 0 :$F{holiday_pay_ground_epf} )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="925" y="1" width="41" height="20" uuid="7f3d1f98-ef1f-40ba-ab08-815b8035bbe5"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[( $F{holiday_pay_ground_amount}==null ? 0 :$F{holiday_pay_ground_amount})]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="846" y="-1" width="1" height="42" uuid="d3a318a7-a5df-4bc3-b4b7-854f8eb999f0"/>
+			</line>
+			<line>
+				<reportElement x="817" y="0" width="1" height="42" uuid="03893ce8-d1b7-48c5-b1ca-285ca949a8cc"/>
+			</line>
+			<line>
+				<reportElement x="790" y="0" width="1" height="42" uuid="34e8371b-3655-41dc-a834-d134282c8785"/>
+			</line>
+			<line>
+				<reportElement x="766" y="0" width="1" height="42" uuid="407a7cf4-6d07-4b59-93c5-e3c247a9378e"/>
+			</line>
+			<line>
+				<reportElement x="711" y="0" width="1" height="42" uuid="5adfad39-924d-462b-99ec-a6178b645429"/>
+			</line>
+			<textField>
+				<reportElement x="102" y="22" width="42" height="18" uuid="460eced4-892c-4112-b14d-e48c54e26e65"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{personal_info_code}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="176" y="1" width="1" height="41" uuid="35b538f9-2515-4840-8015-479572581495"/>
+				<graphicElement>
+					<pen lineWidth="0.75" lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="149" y="1" width="26" height="16" uuid="dedef47c-8e01-497b-8f48-f09465765829"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Days]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="148" y="23" width="26" height="16" uuid="3201742b-2997-4268-9814-7608faa7cda7"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Salary]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="11" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<staticText>
+				<reportElement x="786" y="0" width="60" height="20" uuid="4f816ee7-b30a-44eb-a0f6-5aadec625e9b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Page Total]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="847" y="0" width="41" height="20" uuid="35ebfe96-e9fe-419c-acb5-708a556839e4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[( $V{hpay}==null ? 0 : $V{hpay} )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="889" y="0" width="32" height="20" uuid="cac58c03-f9d5-4ac7-a6e8-252638261752"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[( $V{epf}==null ? 0 : $V{epf} )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="921" y="0" width="47" height="20" uuid="0af5d484-a7c7-4c12-8502-774f0e6a8b8d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[( $V{paid}==null ? 0 : $V{paid})]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="21" splitType="Stretch">
+			<staticText>
+				<reportElement x="785" y="0" width="60" height="20" uuid="5524dc6d-b8f2-4517-9380-b8e0ba51d069"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Grand Total]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="921" y="0" width="47" height="20" uuid="1208f1c0-f9f4-4244-a68e-374e511de64a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[( $V{paid_1}==null ? 0 : $V{paid_1} )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="889" y="0" width="31" height="20" uuid="172bd728-7d2b-4729-8bfa-5c044068601f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[($V{epf_1}==null ? 0 : $V{epf_1} )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="849" y="0" width="37" height="20" uuid="41ae20d5-9015-41fa-9b18-fc8708717d35"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[( $V{hpay_1}==null ? 0 : $V{hpay_1} )]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

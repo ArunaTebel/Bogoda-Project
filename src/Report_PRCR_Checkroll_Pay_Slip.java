@@ -119,8 +119,12 @@ public class Report_PRCR_Checkroll_Pay_Slip extends javax.swing.JPanel {
             // t1.run();
 
             String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
-
-            String dateNow = generate.create("PRCR_Checkroll_Pay_Slip_", "D:\\", param, location, "PRCR_Checkroll_Pay_Slip_eng.jrxml");
+            String dateNow;
+            if(languageC.getSelectedItem().toString().equals("English")){
+            dateNow = generate.create("PRCR_Checkroll_Pay_Slip_", "D:\\", param, location, "PRCR_Checkroll_Pay_Slip_eng.jrxml");
+            }else{
+            dateNow = generate.create("PRCR_Checkroll_Pay_Slip_", "D:\\", param, location, "PRCR_Checkroll_Pay_Slip_sinhala.jrxml");
+            }
             a.stop();
             jProgressBar1.setValue(100);
             try {
@@ -194,6 +198,8 @@ public class Report_PRCR_Checkroll_Pay_Slip extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         register_or_casual_combo = new javax.swing.JComboBox();
+        languageC = new javax.swing.JComboBox();
+        jLabel3 = new javax.swing.JLabel();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 6));
 
@@ -322,6 +328,10 @@ public class Report_PRCR_Checkroll_Pay_Slip extends javax.swing.JPanel {
 
         register_or_casual_combo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Register", "Casual" }));
 
+        languageC.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Sinhala", "English" }));
+
+        jLabel3.setText("Language");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -340,11 +350,13 @@ public class Report_PRCR_Checkroll_Pay_Slip extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel2))
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(division_jc, 0, 1, Short.MAX_VALUE)
-                                    .addComponent(register_or_casual_combo, 0, 87, Short.MAX_VALUE)))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(languageC, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(division_jc, javax.swing.GroupLayout.Alignment.TRAILING, 0, 1, Short.MAX_VALUE)
+                                    .addComponent(register_or_casual_combo, javax.swing.GroupLayout.Alignment.TRAILING, 0, 87, Short.MAX_VALUE)))))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -357,11 +369,15 @@ public class Report_PRCR_Checkroll_Pay_Slip extends javax.swing.JPanel {
                 .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(languageC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(division_jc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(14, 14, 14)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(register_or_casual_combo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -371,7 +387,7 @@ public class Report_PRCR_Checkroll_Pay_Slip extends javax.swing.JPanel {
                 .addComponent(view1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(view2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -672,10 +688,12 @@ public class Report_PRCR_Checkroll_Pay_Slip extends javax.swing.JPanel {
     private javax.swing.JPanel datepanel;
     private javax.swing.JComboBox division_jc;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JProgressBar jProgressBar1;
+    private javax.swing.JComboBox languageC;
     private javax.swing.JTextField monthfield;
     private javax.swing.JComboBox register_or_casual_combo;
     private javax.swing.JButton view;

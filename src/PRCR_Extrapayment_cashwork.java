@@ -605,9 +605,9 @@ public void ClearTable(){
             System.out.println("table deleted");
     }
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        PRCR_viewNedit_cash_advances_book1 jf = new PRCR_viewNedit_cash_advances_book1();
+        PRCR_viewNedit_extra_payment_book jf = new PRCR_viewNedit_extra_payment_book();
         jf.setVisible(true);
-        jf.setExtendedState(PRCR_viewNedit_workentry.MAXIMIZED_BOTH);
+        //jf.setExtendedState(PRCR_viewNedit_workentry.MAXIMIZED_BOTH);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

@@ -59,6 +59,7 @@ public class PRCR_viewNedit_other_advances_book extends javax.swing.JFrame {
         table = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
         search = new javax.swing.JComboBox();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Payroll_Checkroll OtherAdvances Book");
@@ -414,6 +415,13 @@ public class PRCR_viewNedit_other_advances_book extends javax.swing.JFrame {
 
         search.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "View all", "View from dates" }));
 
+        jButton3.setText("Delete");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -433,8 +441,10 @@ public class PRCR_viewNedit_other_advances_book extends javax.swing.JFrame {
                         .addGap(85, 85, 85)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(195, Short.MAX_VALUE))
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(73, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 680, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -457,7 +467,8 @@ public class PRCR_viewNedit_other_advances_book extends javax.swing.JFrame {
                         .addComponent(jLabel2))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(34, 34, 34)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(191, 191, 191))
@@ -1304,14 +1315,14 @@ public class PRCR_viewNedit_other_advances_book extends javax.swing.JFrame {
         dbm.updateDatabase("prcr_checkroll_workentry", "entry", index, "ot_night", table.getValueAt(row, 6));
   */      
         
-        PRCR_otheradvance_edit_class cashedit=new PRCR_otheradvance_edit_class();
+//        PRCR_otheradvance_edit_class cashedit=new PRCR_otheradvance_edit_class();
         int row = table.getSelectedRows()[0];
-         String s=table.getValueAt(row, 1).toString();
-         cashedit.setDate(s);
-         cashedit.setTableName();
-         int entry=Integer.parseInt(table.getValueAt(row,0).toString());
-        cashedit.setEmpcode(entry);
-        cashedit.setCashInMonthlyTable(entry);
+//         String s=table.getValueAt(row, 1).toString();
+//         cashedit.setDate(s);
+//         cashedit.setTableName();
+        int entry=Integer.parseInt(table.getValueAt(row,0).toString());
+//        cashedit.setEmpcode(entry);
+//        cashedit.setCashInMonthlyTable(entry);
         PRCR_otheradvance_edit_interface2 cadintf=new PRCR_otheradvance_edit_interface2();
         cadintf.setVisible(true);
         cadintf.setEntry(entry);
@@ -1333,6 +1344,13 @@ public class PRCR_viewNedit_other_advances_book extends javax.swing.JFrame {
         */
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+int rowd = table.getSelectedRows()[0];
+        int entryd=Integer.parseInt(table.getValueAt(rowd,0).toString());
+        dbm.CheckNDeleteFromDataBase("prcr_other_advance_book","entry", entryd);
+        jButton1.doClick();           // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1378,6 +1396,7 @@ public class PRCR_viewNedit_other_advances_book extends javax.swing.JFrame {
     private javax.swing.JTextField dayfield2;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

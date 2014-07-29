@@ -341,7 +341,7 @@ FROM
 				<text><![CDATA[,shdmosxps Ndjh]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="3" y="139" width="167" height="15" uuid="44e6d3b3-1c10-45b6-b97d-0619603dd9ca"/>
+				<reportElement x="3" y="138" width="167" height="15" uuid="44e6d3b3-1c10-45b6-b97d-0619603dd9ca"/>
 				<textElement>
 					<font fontName="Ds-Chamika" size="8" isBold="true"/>
 				</textElement>
