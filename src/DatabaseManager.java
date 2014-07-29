@@ -954,7 +954,6 @@ public final class DatabaseManager {
     public int[] prcr_welfare_emp_code_array(String year, String month) {
         DatabaseManager dbm = new DatabaseManager();
 
-       
         int i = 0;
         try {
             ResultSet query = dbm.query("SELECT * FROM prcr_welfare_members");
@@ -978,6 +977,92 @@ public final class DatabaseManager {
         }
 
         return arr;
+
+    }
+
+    public double[] prcr_emp_code_month_totals(String table_name, String year_month, String table_date_column, String table_emp_code_column, int emp_code, String[] required_columns) {
+
+        DatabaseManager dbm = new DatabaseManager();
+        int num_required = required_columns.length;
+
+        double[] arr = new double[num_required];
+
+        String start = year_month + "-01";
+        String end = year_month + "-31";
+        int i = 0;
+
+        for (i = 0; i < num_required; i++) {
+            arr[i] = 0;
+        }
+        i = 0;
+
+        try {
+            ResultSet query = dbm.query("SELECT * FROM " + table_name + " WHERE " + table_emp_code_column + " LIKE '" + emp_code + "' AND " + table_date_column + " BETWEEN '" + start + "' AND '" + end + "'");
+            while (query.next()) {
+                for (i = 0; i < num_required; i++) {
+                    arr[i] = arr[i] + query.getDouble(required_columns[i]);
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        return arr;
+
+    }
+
+    public int[] prcr_active_emp_codes_for_month(String table_name, String year_month, String table_date_column, String table_emp_code_column) {
+
+        DatabaseManager dbm = new DatabaseManager();
+        int i = 0;
+        int k = 0;
+        int chk=1;
+
+        int[] arr=new int[8000];
+        
+        for(i=0;i<5000;i++){
+            arr[i]=0;
+        }
+
+        String start = year_month + "-01";
+        String end = year_month + "-31";
+        
+
+        try {
+            ResultSet query = dbm.query("SELECT * FROM " + table_name + " WHERE  " + table_date_column + " BETWEEN '" + start + "' AND '" + end + "'");
+            while (query.next()) {
+                chk=1;
+                for (i = 0; i <= k; i++) {
+                    if(query.getInt(table_emp_code_column)==arr[i]){
+                        chk=0;
+                        break;
+                    }
+                }
+                if(chk==1){
+                    arr[k]=query.getInt(table_emp_code_column);
+                    k++;
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        
+        i=0;
+        int num=0;
+        
+        for(i=0;i<8000;i++){
+            if(arr[i]==0){
+                break;
+            }
+            num++;
+        }
+        int[] return_arr = new int[num];
+        
+        for(i=0;i<num;i++){
+            return_arr[i]=arr[i];
+        }
+
+        return return_arr;
 
     }
 

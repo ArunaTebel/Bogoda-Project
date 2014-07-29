@@ -244,7 +244,7 @@ FROM
 			<textField pattern="#,##0.00">
 				<reportElement uuid="1f7ba11e-6ea3-4301-a2d0-de85c2a80a80" x="363" y="0" width="72" height="20"/>
 				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA[$F{account_ledger_temp_debit}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[( $F{account_ledger_temp_debit}==0 ? "" : $F{account_ledger_temp_debit} )]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
 				<reportElement uuid="1f7ba11e-6ea3-4301-a2d0-de85c2a80a80" x="454" y="0" width="72" height="20"/>
