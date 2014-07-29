@@ -37,7 +37,7 @@ public class PRCR_Checkroll_Amalgamation_Report {
         Section = getStringArray("workcode_details", "work");
 
         int columnsize = workCode.length;
-       // ((DefaultTableModel) jTable1.getModel()).setNumRows(columnsize + 2);
+        // ((DefaultTableModel) jTable1.getModel()).setNumRows(columnsize + 2);
         // ClearTable(columnsize + 2);
         double normaldays = 0;
         double sundays = 0;
@@ -54,22 +54,32 @@ public class PRCR_Checkroll_Amalgamation_Report {
         double othourspayT = 0;
         double coinsT = 0;
         double grandtotalT = 0;
-             double workdayss =0;
-                double workdayspayy = 0;
-                double othourss = 0;
-                double othourspayy = 0;
-                //double grandtotall=normaldays * normalDaysrate + sundays * sundayrate + otdayhrs * otDayrate + otnighthrs * otNightRate;
-                double grandtotall=0;
+        double workdayss = 0;
+        double workdayspayy = 0;
+        double othourss = 0;
+        double othourspayy = 0;
+        //double grandtotall=normaldays * normalDaysrate + sundays * sundayrate + otdayhrs * otDayrate + otnighthrs * otNightRate;
+        double grandtotall = 0;
 
-        /*   int k=checknReturnNoOfData("prcr_checkroll_workentry", "date", "2014-03",
-         "division", "BG", "work_code", "ABVF", "normalday_or_sunday", "n");
-         System.out.println(k);*/
+        String workdatast = st.replace("-", "_");
+
+        double normaldaysstotal = checknReturnIntTotal("pr_workdata_" + workdatast, "division", division, "normal_days");
+   
+        double sundaysstotal = checknReturnIntTotal("pr_workdata_" + workdatast, "division", division, "sundays");
+     
+        double grosspay = checknReturnDoubleTotal("pr_workdata_" + workdatast, "division", division, "gross_pay");
+       
+        double otbframnt = checknReturnDoubleTotal("pr_workdata_" + workdatast, "division", division, "ot_before_amount");
+        double otaftramnt = checknReturnDoubleTotal("pr_workdata_" + workdatast, "division", division, "ot_after_amount");
+
+        double dayRate = (grosspay-otbframnt-otaftramnt) / (normaldaysstotal + sundaysstotal);
+
         j = 0;
         System.out.println(columnsize);
 
         for (int i = 0; i < columnsize; i++) {
-
-            System.out.println(workCode[i]+"--------->"+i);
+   
+            System.out.println(workCode[i] + "--------->" + i);
             normaldays = checknReturnNoOfData("prcr_checkroll_workentry", "date", st,
                     "division", division, "work_code", workCode[i], "normalday_or_sunday", "n");
 
@@ -82,20 +92,11 @@ public class PRCR_Checkroll_Amalgamation_Report {
 
             if (normaldays != 0 || sundays != 0 || otdayhrs != 0 || otnighthrs != 0) {
 
-                System.out.println(workCode[i]+"---------"+normaldays+"------------"+sundays);
-                workdaysT = workdaysT + (normaldays + sundays);
-
-                workdayspayT = workdayspayT + (normaldays * normalDaysrate + sundays * sundayrate);
-
-                othoursT = othoursT + (otdayhrs + otnighthrs);
-
-                othourspayT = othourspayT + (otdayhrs * otDayrate + otnighthrs * otNightRate);
-
-                grandtotalT = grandtotalT + (normaldays * normalDaysrate + sundays * sundayrate + otdayhrs * otDayrate + otnighthrs * otNightRate);
-
+                System.out.println(workCode[i] + "---------" + normaldays + "------------" + sundays);
+             
                 //write data in to database table for amalgamation to generate reports
                 workdayss = normaldays + sundays;
-                workdayspayy = normaldays * normalDaysrate + sundays * sundayrate;
+                workdayspayy = workdayss * dayRate;
                 othourss = otdayhrs + otnighthrs;
                 othourspayy = otdayhrs * otDayrate + otnighthrs * otNightRate;
                 //double grandtotall=normaldays * normalDaysrate + sundays * sundayrate + otdayhrs * otDayrate + otnighthrs * otNightRate;
@@ -109,6 +110,52 @@ public class PRCR_Checkroll_Amalgamation_Report {
             }
         }
 
+    }
+
+    public double checknReturnIntTotal(String table_name, String division_column, String division, String column_need_to_get_total) {
+        DatabaseManager dbm = DatabaseManager.getDbCon();
+        int tot = 0;
+
+        try {
+            ResultSet query = dbm.query("SELECT * FROM " + table_name + "");
+
+            while (query.next()) {
+
+                if (query.getString(division_column).equals(division)) {
+                    System.out.println(tot);
+                    tot = tot + query.getInt(column_need_to_get_total);
+                    System.out.println(tot);
+                }
+            }
+            return tot;
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            System.out.println("SQL error-Some Normal days may be null ");
+        }
+
+        return tot;
+    }
+
+    public double checknReturnDoubleTotal(String table_name, String division_column, String division, String column_need_to_get_total) {
+        DatabaseManager dbm = DatabaseManager.getDbCon();
+        double tot = 0;
+        try {
+            ResultSet query = dbm.query("SELECT * FROM " + table_name + "");
+            while (query.next()) {
+
+                if (query.getString(division_column).equals(division)) {
+
+                    tot = tot + query.getDouble(column_need_to_get_total);
+
+                }
+            }
+            return tot;
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            System.out.println("SQL error-Some Amounts may be null ");
+
+        }
+        return tot;
     }
 
     public void createNewDatabaseTableforAmalgamation() {
@@ -153,7 +200,7 @@ public class PRCR_Checkroll_Amalgamation_Report {
         String end = st + "-31";
         int count = 0;
         try {
-            ResultSet query = dbm.query("SELECT * FROM " + table_name + " WHERE " + divCodeColumn + " LIKE'" + divCode + "' AND " + workCodeColumn + " LIKE '" + workCode + "' AND "+column_need_to_check+" LIKE '"+element_to_check+"' AND "+ date_column+" BETWEEN '" + start + "' AND '" + end + "'");
+            ResultSet query = dbm.query("SELECT * FROM " + table_name + " WHERE " + divCodeColumn + " LIKE'" + divCode + "' AND " + workCodeColumn + " LIKE '" + workCode + "' AND " + column_need_to_check + " LIKE '" + element_to_check + "' AND " + date_column + " BETWEEN '" + start + "' AND '" + end + "'");
             while (query.next()) {
 //                 System.out.println(query.getString(date_column).substring(0,7)+"  "+st);
 //                 System.out.println(query.getString(divCodeColumn)+" "+divCode);
@@ -162,10 +209,10 @@ public class PRCR_Checkroll_Amalgamation_Report {
 //                 System.out.println(query.getString(date_column).substring(0, 7).equals(st) && query.getString(divCodeColumn).equals(divCode) && query.getString(workCodeColumn).equals(workCode) && query.getString(column_need_to_check).equals(element_to_check));
 //                 
 //System.out.println("gssgsdg   gsdg "+division_jc.getSelectedItem().toString());
-           //     if (query.getString(date_column).substring(0, 7).equals(st) && query.getString(divCodeColumn).equals(divCode) && query.getString(workCodeColumn).equals(workCode) && query.getString(column_need_to_check).equals(element_to_check)) {
-                    count++;
+                //     if (query.getString(date_column).substring(0, 7).equals(st) && query.getString(divCodeColumn).equals(divCode) && query.getString(workCodeColumn).equals(workCode) && query.getString(column_need_to_check).equals(element_to_check)) {
+                count++;
 
-              //  }
+                //  }
             }
             return count;
         } catch (SQLException ex) {

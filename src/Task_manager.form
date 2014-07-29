@@ -504,8 +504,8 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jLayeredPane2" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="jLayeredPane2" min="-2" pref="847" max="-2" attributes="0"/>
+                          <EmptySpace pref="22" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -533,58 +533,64 @@
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Group type="103" groupAlignment="1" attributes="0">
-                                          <Group type="102" alignment="1" attributes="0">
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                                      <Component id="salarycaloverallP" alignment="0" max="32767" attributes="0"/>
-                                                      <Component id="extrapayP" alignment="0" max="32767" attributes="0"/>
-                                                      <Component id="advanceP" alignment="0" max="32767" attributes="0"/>
-                                                      <Component id="workdetailsP" min="-2" pref="427" max="-2" attributes="0"/>
-                                                  </Group>
-                                                  <Component id="newmonthP" alignment="0" min="-2" pref="427" max="-2" attributes="0"/>
-                                                  <Component id="prvdebtsP" alignment="0" min="-2" pref="427" max="-2" attributes="0"/>
-                                                  <Component id="salaryCalP" alignment="0" min="-2" pref="290" max="-2" attributes="0"/>
-                                              </Group>
-                                          </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace pref="4" max="-2" attributes="0"/>
+                                      <Component id="salaryCalP" min="-2" pref="290" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                                      <Component id="salarycaloverallC" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="salarycaloverallL" min="-2" pref="292" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
+                                      <Component id="extrapayC" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="extrapayL" min="-2" pref="286" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="advanceC" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="advanceL" min="-2" pref="286" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace pref="4" max="-2" attributes="0"/>
+                                      <Component id="salarycalL" min="-2" pref="313" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                          <Component id="salarycaloverallP" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="extrapayP" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="advanceP" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="workdetailsP" alignment="0" pref="431" max="32767" attributes="0"/>
+                                          <Component id="newmonthP" alignment="0" pref="431" max="32767" attributes="0"/>
+                                          <Component id="prvdebtsP" alignment="0" pref="431" max="32767" attributes="0"/>
                                           <Group type="102" alignment="0" attributes="0">
-                                              <EmptySpace max="-2" attributes="0"/>
                                               <Component id="prvdebtsC" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                               <Component id="prvdebtsL" min="-2" pref="288" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="102" alignment="0" attributes="0">
-                                              <EmptySpace max="-2" attributes="0"/>
                                               <Component id="workdetailsC" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                               <Component id="workdetailsL" min="-2" pref="286" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="102" alignment="0" attributes="0">
-                                              <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                                              <Component id="salarycaloverallC" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                              <Component id="salarycaloverallL" min="-2" pref="292" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
-                                              <Component id="extrapayC" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                              <Component id="extrapayL" min="-2" pref="286" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="advanceC" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                              <Component id="advanceL" min="-2" pref="286" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <EmptySpace max="-2" attributes="0"/>
                                               <Component id="newmonthC" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                               <Component id="newmonthL" min="-2" pref="284" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <EmptySpace pref="4" max="-2" attributes="0"/>
+                                              <Component id="staffdetailsP" pref="427" max="32767" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="staffdetailsC" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                              <Component id="staffdetailsL" min="-2" pref="286" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                       <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
@@ -592,10 +598,6 @@
                                           <Component id="jButton6" min="-2" pref="80" max="-2" attributes="0"/>
                                           <Component id="jButton5" min="-2" pref="80" max="-2" attributes="0"/>
                                       </Group>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="salarycalL" min="-2" pref="313" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -629,7 +631,14 @@
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="workdetailsP" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="staffdetailsL" alignment="0" min="-2" pref="21" max="-2" attributes="0"/>
+                                          <Component id="staffdetailsC" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="staffdetailsP" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="advanceL" alignment="0" min="-2" pref="21" max="-2" attributes="0"/>
                                           <Component id="advanceC" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -842,6 +851,27 @@
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="newmonthCActionPerformed"/>
                       </Events>
+                      <AuxValues>
+                        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+                      </AuxValues>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="staffdetailsL">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Staff  Details"/>
+                      </Properties>
+                      <AuxValues>
+                        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+                      </AuxValues>
+                    </Component>
+                    <Component class="javax.swing.JCheckBox" name="staffdetailsC">
+                      <AuxValues>
+                        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+                      </AuxValues>
+                    </Component>
+                    <Component class="javax.swing.JProgressBar" name="staffdetailsP">
+                      <Properties>
+                        <Property name="stringPainted" type="boolean" value="true"/>
+                      </Properties>
                       <AuxValues>
                         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
                       </AuxValues>

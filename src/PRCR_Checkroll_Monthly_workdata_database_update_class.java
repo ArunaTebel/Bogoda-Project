@@ -390,6 +390,12 @@ public class PRCR_Checkroll_Monthly_workdata_database_update_class implements Ru
         columnsize = getActiveWorkersColumnsize("pr_workdata_" + st);
 
         Task_manager.workdetailsC.setSelected(true);
+        //staff details
+        Task_manager.staffdetailsL.setText("Staff Details are being updated");
+        staff_fill("pr_workdata_" + st);
+        Task_manager.staffdetailsC.setSelected(true);
+        Task_manager.staffdetailsL.setText("Staff Details has been updated");
+        
         //Loans,Cash and Other aAdvances
         updateLoansCashNOtherAdvances("date", workentryst);
 
@@ -1017,5 +1023,63 @@ public class PRCR_Checkroll_Monthly_workdata_database_update_class implements Ru
             return false;
         }
         return true;
+    }
+    
+    
+    
+      public int[] active_staff_codes() {
+        int count = 0;
+        try {
+            ResultSet query = dbm.query("SELECT * FROM prcr_staff_salary_info WHERE active LIKE '" + 1 + "'");
+            while (query.next()) {
+                count++;
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        int arr[] = new int[count];
+        int i = 0;
+        try {
+            ResultSet query = dbm.query("SELECT * FROM prcr_staff_salary_info WHERE active LIKE '" + 1 + "'");
+            while (query.next()) {
+                arr[i] = query.getInt("code");
+                i++;
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return arr;
+    }
+
+    public void staff_fill(String table_name) {
+
+        int arr[] = active_staff_codes();
+        int length = arr.length;
+        int i = 0;
+        for (i = 0; i < length; i++) {
+            
+            Task_manager.staffdetailsP.setValue((100*i)/length+1);
+            try {
+                ResultSet query = dbm.query("SELECT * FROM prcr_staff_salary_info WHERE code LIKE '" + arr[i] + "' ");
+                while (query.next()) {
+
+                    dbm.updateDatabase(table_name,"code",arr[i],"active",1);
+                    dbm.updateDatabase(table_name,"code",arr[i],"normal_pay",query.getDouble("basic_salary"));
+                    dbm.updateDatabase(table_name,"code",arr[i],"ot_before_hours",query.getDouble("ot_hours"));
+                    dbm.updateDatabase(table_name,"code",arr[i],"ot_before_amount",query.getDouble("ot_pay"));
+                    dbm.updateDatabase(table_name,"code",arr[i],"ot_after_hours",query.getDouble("allowance1"));
+                    dbm.updateDatabase(table_name,"code",arr[i],"ot_after_amount",query.getDouble("allowance2"));
+                    dbm.updateDatabase(table_name,"code",arr[i],"incentive1",query.getDouble("Incentive1"));
+                    dbm.updateDatabase(table_name,"code",arr[i],"incentive2",query.getDouble("Incentive2"));
+                    dbm.updateDatabase(table_name,"code",arr[i],"extra_pay_may",query.getDouble("allowance3"));
+                    dbm.updateDatabase(table_name,"code",arr[i],"extra_pay_cash",query.getDouble("Extra1"));
+                    dbm.updateDatabase(table_name,"code",arr[i],"extra_pay_overkilos",query.getDouble("Extra2"));
+
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+         Task_manager.staffdetailsP.setValue(100);
     }
 }

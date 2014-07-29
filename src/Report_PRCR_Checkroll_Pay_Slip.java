@@ -120,10 +120,20 @@ public class Report_PRCR_Checkroll_Pay_Slip extends javax.swing.JPanel {
 
             String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
             String dateNow;
-            if(languageC.getSelectedItem().toString().equals("English")){
-            dateNow = generate.create("PRCR_Checkroll_Pay_Slip_", "D:\\", param, location, "PRCR_Checkroll_Pay_Slip_eng.jrxml");
-            }else{
-            dateNow = generate.create("PRCR_Checkroll_Pay_Slip_", "D:\\", param, location, "PRCR_Checkroll_Pay_Slip_sinhala.jrxml");
+            if (languageC.getSelectedItem().toString().equals("English")) {
+                if (division_jc.getSelectedItem().toString().equals("STAFF")) {
+                    dateNow = generate.create("PRCR_Staff_Pay_Slip_", "D:\\", param, location, "PRCR_Staff_Pay_Slip_eng.jrxml");
+                } else {
+                    dateNow = generate.create("PRCR_Checkroll_Pay_Slip_", "D:\\", param, location, "PRCR_Checkroll_Pay_Slip_eng.jrxml");
+
+                }
+            } else {
+                if (division_jc.getSelectedItem().toString().equals("STAFF")) {
+                    dateNow = generate.create("PRCR_Staff_Pay_Slip_", "D:\\", param, location, "PRCR_Staff_Pay_Slip_sinhala.jrxml");
+                } else {
+                    dateNow = generate.create("PRCR_Checkroll_Pay_Slip_", "D:\\", param, location, "PRCR_Checkroll_Pay_Slip_sinhala.jrxml");
+
+                }
             }
             a.stop();
             jProgressBar1.setValue(100);

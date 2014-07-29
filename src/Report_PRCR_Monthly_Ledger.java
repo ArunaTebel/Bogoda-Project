@@ -119,8 +119,16 @@ public class Report_PRCR_Monthly_Ledger extends javax.swing.JPanel {
             // t1.run();
 
             String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
-
-            String dateNow = generate.create("PRCR_Checkroll_Monthly_Ledger_", "D:\\", param, location, "PRCR_Checkroll_Monthly_Ledger_1.jrxml");
+            String dateNow;
+            if( division_jc.getSelectedItem().toString().equals("STAFF")){
+            dateNow = generate.create("PRCR_Checkroll_Monthly_Ledger_", "D:\\", param, location, "PRCR_Staff_Monthly_Ledger.jrxml");
+            }else{
+            
+            dateNow = generate.create("PRCR_Checkroll_Monthly_Ledger_", "D:\\", param, location, "PRCR_Checkroll_Monthly_Ledger_1.jrxml");
+            
+            }
+            
+            
             a.stop();
             jProgressBar1.setValue(100);
             try {
