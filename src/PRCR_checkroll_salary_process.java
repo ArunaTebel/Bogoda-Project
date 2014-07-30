@@ -23,6 +23,8 @@ public class PRCR_checkroll_salary_process {
     DatabaseManager dbm = DatabaseManager.getDbCon();
     Date_Handler month_num = new Date_Handler();
      int array[];
+     PRCR_Staff_Salary_Cal scal = new PRCR_Staff_Salary_Cal();
+     PRCR_Checkroll_Salary_Cal ccal = new PRCR_Checkroll_Salary_Cal();
 
     public PRCR_checkroll_salary_process() {
 
@@ -89,7 +91,7 @@ public class PRCR_checkroll_salary_process {
 
             }*/
             
-            PRCR_Staff_Salary_Cal scal = new PRCR_Staff_Salary_Cal();
+            
            
            // columnSize = //checknReturnNumberOfEntriesForNoteAnalysis("pr_workdata_" + st, "register_or_casual", reg, "division", division, "active", "1", "code");
             
@@ -137,7 +139,7 @@ public class PRCR_checkroll_salary_process {
            
              }*/
 
-            PRCR_Checkroll_Salary_Cal ccal = new PRCR_Checkroll_Salary_Cal();
+            
            // int columnSize = 0;
             //columnSize = checknReturnNumberOfEntriesForNoteAnalysis("pr_workdata_" + st, "register_or_casual", reg, "division", division, "active", "1", "code");
            
@@ -164,7 +166,7 @@ public class PRCR_checkroll_salary_process {
     public int[] getIntArray(String table_name, String column_name) {
 
         int count = 0;
-        DatabaseManager dbm = DatabaseManager.getDbCon();
+        
         try {
             ResultSet query = dbm.query("SELECT " + column_name + " FROM " + table_name + "");
             while (query.next()) {
@@ -186,7 +188,7 @@ public class PRCR_checkroll_salary_process {
     }
 
     public int[] checknReturnIntArrayForNoteAnalysis(String table_name, String table_column_giving1, Object row_element1, String table_column_giving2, Object row_element2, String table_column_giving3, Object row_element3, String table_column_need) {
-        DatabaseManager dbm = DatabaseManager.getDbCon();
+        
         int count = 0;
         int num = checknReturnNumberOfEntriesForNoteAnalysis(table_name, table_column_giving1, row_element1, table_column_giving2, row_element2, table_column_giving3, row_element3, table_column_need);
         int[] arr = new int[num];
@@ -208,7 +210,7 @@ public class PRCR_checkroll_salary_process {
     public double[] getDoubleArray(String table_name, String column_name) {
 
         int count = 0;
-        DatabaseManager dbm = DatabaseManager.getDbCon();
+       
         try {
             ResultSet query = dbm.query("SELECT " + column_name + " FROM " + table_name + "");
             while (query.next()) {
@@ -252,7 +254,7 @@ public class PRCR_checkroll_salary_process {
     public int getColumnsize(String table_name, String column_name) {
 
         int count = 0;
-        DatabaseManager dbm = DatabaseManager.getDbCon();
+       
         try {
             ResultSet query = dbm.query("SELECT " + column_name + " FROM " + table_name + "");
             while (query.next()) {
@@ -269,7 +271,7 @@ public class PRCR_checkroll_salary_process {
 
     //used to get the number of codes in the "code" column where column "register_or_casual"=1 and "division"=BG  
     public int checknReturnNumberOfEntriesForNoteAnalysis(String table_name, String table_column_giving1, Object row_element1, String table_column_giving2, Object row_element2, String table_column_giving3, Object row_element3, String table_column_need) {
-        DatabaseManager dbm = DatabaseManager.getDbCon();
+        
         int count = 0;
         try {
             //     ResultSet query = dbm.query("SELECT * FROM " + table_name + " WHERE " + table_column_giving1 + " ='" + row_element1 + " 'AND " + table_column_giving2 +" <'" + row_element2 + "'");

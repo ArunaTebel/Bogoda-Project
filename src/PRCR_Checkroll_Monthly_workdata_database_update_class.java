@@ -385,28 +385,35 @@ public class PRCR_Checkroll_Monthly_workdata_database_update_class implements Ru
                 Logger.getLogger(PRCR_Checkroll_Monthly_workdata_database_update_class.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        String workentryst = st.replace("_", "-");
+       String workentryst = st.replace("_", "-"); 
+        if (Task_manager.workdetailsC.isSelected() == false) {
+        
         Task_manager.workdetailsL.setText("Work Details are being updated");
         UpdateWorkDetails("prcr_checkroll_workentry", "date", workentryst);
 
         Task_manager.workdetailsL.setText("Work Details has been updated");
         Task_manager.workdetailsP.setValue(100);
-        
+         }
         columnsize = getActiveWorkersColumnsize("pr_workdata_" + st);
 
         Task_manager.workdetailsC.setSelected(true);
         //staff details
+         if (Task_manager.staffdetailsC.isSelected() == false) {
         Task_manager.staffdetailsL.setText("Staff Details are being updated");
         staff_fill("pr_workdata_" + st);
         Task_manager.staffdetailsC.setSelected(true);
         Task_manager.staffdetailsL.setText("Staff Details has been updated");
-
+         }
         //Loans,Cash and Other aAdvances
+              if (Task_manager.advanceC.isSelected() == false) {
         updateLoansCashNOtherAdvances("date", workentryst);
-
+              }
         //Extra pay
+                   if (Task_manager.extrapayC.isSelected() == false) {
         updateExtraPay("date", workentryst);
+                   }
         //Salary Calculaion
+                        if (Task_manager.salarycaloverallC.isSelected() == false) {
         PRCR_checkroll_salary_process csp = new PRCR_checkroll_salary_process();
         int nofdivisions = getColumnsize("division_details", "code");
         Task_manager.salarycaloverallL.setText("Salary is being Calculated");
@@ -435,7 +442,7 @@ public class PRCR_Checkroll_Monthly_workdata_database_update_class implements Ru
 
         Task_manager.salarycaloverallL.setText("Salary has been Calculated");
         Task_manager.salarycaloverallC.setSelected(true);
-
+                        }
     }
 
     public void updateMarginDates(String workentryst, String[] division, int nofdiv) {
