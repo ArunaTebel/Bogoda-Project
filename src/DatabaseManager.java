@@ -26,7 +26,7 @@ public final class DatabaseManager {
         String dbName = "bogoda";
         String driver = "com.mysql.jdbc.Driver";
         String userName = "root";
-        String password = "ninelights@mora";
+        String password = "";
         try {
             Class.forName(driver).newInstance();
             this.conn = (Connection) DriverManager.getConnection(url + dbName, userName, password);

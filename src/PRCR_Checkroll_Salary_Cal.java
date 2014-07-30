@@ -1,3 +1,8 @@
+
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -66,6 +71,7 @@ public class PRCR_Checkroll_Salary_Cal {
     int normaldaysbfr17 = 0;
     int sundaysbfr17 = 0;
     private double prv_month_coins;
+    String year_month;
 
 
 
@@ -211,7 +217,7 @@ public class PRCR_Checkroll_Salary_Cal {
         this.total_ded = EPFContribution + tea_ded + salary_adv + fest_adv + food_ded + loan + other_ded1 + other_ded2 + other_ded3 + pre_debt;
         this.FinalSalary = grosspay - total_ded;//+ getPreMonthCoins();
 
-        dbm.updateDatabase("pr_workdata_" + st, "code", employCode, "normal_pay", normalDaysAmount);
+       /* dbm.updateDatabase("pr_workdata_" + st, "code", employCode, "normal_pay", normalDaysAmount);
         dbm.updateDatabase("pr_workdata_" + st, "code", employCode, "sunday_pay", sundaysAmount);
         dbm.updateDatabase("pr_workdata_" + st, "code", employCode, "incentive1", incentive1Amount);
         dbm.updateDatabase("pr_workdata_" + st, "code", employCode, "incentive2", incentive2Amount);
@@ -224,9 +230,18 @@ public class PRCR_Checkroll_Salary_Cal {
         dbm.updateDatabase("pr_workdata_" + st, "code", employCode, "epf10", EPFContribution);
         dbm.updateDatabase("pr_workdata_" + st, "code", employCode, "epf12", EPFContribution2);
         dbm.updateDatabase("pr_workdata_" + st, "code", employCode, "etf", ETFContribution);
-        dbm.updateDatabase("pr_workdata_" + st, "code", employCode, "other_ded1", other_ded1);
-        dbm.updateDatabase("pr_workdata_" + st, "code", employCode, "coins", pettyCash);
-        dbm.updateDatabase("pr_workdata_" + st, "code", employCode, "paid_amount", paid_amount);
+        dbm.updateDatabase("pr_workdata_" + st, "code", employCode, "other_ded1", other_ded1);*/
+      //  dbm.updateDatabase("pr_workdata_" + st, "code", employCode, "coins", pettyCash);
+      //  dbm.updateDatabase("pr_workdata_" + st, "code", employCode, "paid_amount", paid_amount);
+        
+        year_month="pr_workdata_" + st;
+        try {
+            dbm.insert("UPDATE "+year_month+" SET normal_pay = '"+normalDaysAmount+"',sunday_pay='"+sundaysAmount+"',incentive1='"+incentive1Amount+"',incentive2='"+incentive2Amount+"',"
+                    + "ot_before_amount='"+OTBeforeAmount+"',ot_after_amount='"+OTAfterAmount+"',extra_pay='"+totalextrapay+"',total_pay='"+totalBasicSalary+"',gross_pay='"+grosspay+"',"
+                    + "total_epf='"+totalEPF+"',epf10='"+EPFContribution+"',epf12='"+EPFContribution2+"',etf='"+ETFContribution+"',other_ded1='"+other_ded1+"'  WHERE code = '"+employCode+"'");
+        } catch (SQLException ex) {
+            Logger.getLogger(PRCR_Checkroll_Salary_Cal.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         if (FinalSalary > 0) {
             pettyCash = FinalSalary % 10;//"coins" and "paid_amount" will be calculated and updated to database when the getFinalSalary() is called from out side

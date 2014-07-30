@@ -1099,6 +1099,7 @@ Thread b;
         }
         System.out.println(st);
         b = new Thread(new PRCR_Checkroll_Monthly_workdata_database_update_class(st,yearfield.getText(),monthfield.getText()));
+        b.setPriority(10);
         b.start();
     }//GEN-LAST:event_jButton6ActionPerformed
 
