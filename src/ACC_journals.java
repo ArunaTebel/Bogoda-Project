@@ -25,6 +25,10 @@ public class ACC_journals extends javax.swing.JPanel {
     DateChooser_text datechooser = new DateChooser_text();
     Date_Handler datehandler = new Date_Handler();
 
+    DatabaseManager dbm = new DatabaseManager();
+
+    int chkd = 1;
+
     Interface_Events interface_events = new Interface_Events();
 
     public int stringToIntNum(String s) {
@@ -135,6 +139,7 @@ public class ACC_journals extends javax.swing.JPanel {
         jSeparator2 = new javax.swing.JSeparator();
         difference = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -871,6 +876,9 @@ public class ACC_journals extends javax.swing.JPanel {
 
         jLabel13.setText("Difference");
 
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel11.setText("JOURNALS");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -898,7 +906,9 @@ public class ACC_journals extends javax.swing.JPanel {
                                     .addComponent(Cheque_pay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel11)
+                                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(82, 82, 82))
         );
@@ -925,8 +935,13 @@ public class ACC_journals extends javax.swing.JPanel {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(32, 32, 32)
+                                .addComponent(jLabel11)))
                         .addContainerGap(33, Short.MAX_VALUE))))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -1259,8 +1274,10 @@ public class ACC_journals extends javax.swing.JPanel {
         if (Double.parseDouble(difference.getText()) == 0) {
 
             if (ref_no.getText().length() != 0 && debit_account_code_table.getValueAt(0, 0) != null && credit_account_code_table.getValueAt(0, 0) != null) {
-                save.setEnabled(true);
-                save.requestFocus();
+                if (chkd == 1) {
+                    save.setEnabled(true);
+                    save.requestFocus();
+                }
 
             }
         } else {
@@ -1560,8 +1577,22 @@ public class ACC_journals extends javax.swing.JPanel {
         }
 
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
-            journal_no.requestFocus();
+            // journal_no.requestFocus();
 
+            try {
+
+                if (datechooser.Return_date(yearfield, monthfield, dayfield).before(dbm.checknReturnData())) {
+                    chkd = 0;
+                    msg.showMessage("Date You Entered is not in this Accounting Period", "Please Check Again", "info");
+                    dayfield.requestFocus();
+                } else {
+                    chkd = 1;
+                    journal_no.requestFocus();
+                }
+
+            } catch (ParseException ex) {
+                Logger.getLogger(ACC_recepts.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_monthfieldKeyPressed
 
@@ -1580,8 +1611,22 @@ public class ACC_journals extends javax.swing.JPanel {
         }
 
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
-            journal_no.requestFocus();
+            //journal_no.requestFocus();
 
+            try {
+
+                if (datechooser.Return_date(yearfield, monthfield, dayfield).before(dbm.checknReturnData())) {
+                    chkd = 0;
+                    msg.showMessage("Date You Entered is not in this Accounting Period", "Please Check Again", "info");
+                    dayfield.requestFocus();
+                } else {
+                    chkd = 1;
+                    journal_no.requestFocus();
+                }
+
+            } catch (ParseException ex) {
+                Logger.getLogger(ACC_recepts.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_yearfieldKeyPressed
 
@@ -1749,8 +1794,22 @@ public class ACC_journals extends javax.swing.JPanel {
         }
 
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
-            journal_no.requestFocus();
+            // journal_no.requestFocus();
 
+            try {
+
+                if (datechooser.Return_date(yearfield, monthfield, dayfield).before(dbm.checknReturnData())) {
+                    chkd = 0;
+                    msg.showMessage("Date You Entered is not in this Accounting Period", "Please Check Again", "info");
+                    dayfield.requestFocus();
+                } else {
+                    chkd = 1;
+                    journal_no.requestFocus();
+                }
+
+            } catch (ParseException ex) {
+                Logger.getLogger(ACC_recepts.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_dayfieldKeyPressed
 
@@ -1910,7 +1969,7 @@ public class ACC_journals extends javax.swing.JPanel {
 
     private void debit_amount_tableKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_debit_amount_tableKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            
+
             save.setEnabled(false);
             double tot = 0;
             int i = 0;
@@ -1921,11 +1980,13 @@ public class ACC_journals extends javax.swing.JPanel {
             debit_total.setText("" + tot);
             difference.setText("" + (stringToDoubleNum(debit_total.getText()) - stringToDoubleNum(credit_total.getText())));
 
-             if (Double.parseDouble(difference.getText()) == 0) {
+            if (Double.parseDouble(difference.getText()) == 0) {
 
                 if (ref_no.getText().length() != 0 && debit_account_code_table.getValueAt(0, 0) != null && credit_account_code_table.getValueAt(0, 0) != null) {
-                    save.setEnabled(true);
-                    save.requestFocus();
+                    if (chkd == 1) {
+                        save.setEnabled(true);
+                        save.requestFocus();
+                    }
 
                 }
             } else {
@@ -1953,8 +2014,10 @@ public class ACC_journals extends javax.swing.JPanel {
             if (Double.parseDouble(difference.getText()) == 0) {
 
                 if (ref_no.getText().length() != 0 && debit_account_code_table.getValueAt(0, 0) != null && credit_account_code_table.getValueAt(0, 0) != null) {
-                    save.setEnabled(true);
-                    save.requestFocus();
+                    if (chkd == 1) {
+                        save.setEnabled(true);
+                        save.requestFocus();
+                    }
 
                 }
             } else {
@@ -2003,6 +2066,7 @@ public class ACC_journals extends javax.swing.JPanel {
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel16;

@@ -57,17 +57,45 @@ public class PRCR_checkroll_salary_process {
     }
 
     public void processCheckrollSalary(){
-    
-        CheckrollSallaryCal abcd = new CheckrollSallaryCal();
-        int columnSize = 0;
-       // columnSize = getColumnsize("pr_workdata_"+st, "code");
+    if(division.equals("STAFF")){
+        PRCR_Staff_lSallaryCal scal=new PRCR_Staff_lSallaryCal();
+     int columnSize = 0;
         columnSize=checknReturnNumberOfEntriesForNoteAnalysis("pr_workdata_"+st, "register_or_casual", reg, "division",division,"active","1","code");
         
         System.out.println("colmnsiz"+columnSize);
 
         int array[] = new int[columnSize];
-       // double arraySal[] = new double[columnSize];
-        //array = getIntArray("pr_workdata_"+st, "code");
+       
+        array=checknReturnIntArrayForNoteAnalysis("pr_workdata_"+st, "register_or_casual", reg, "division",division,"active","1","code");
+        
+        scal.setString(st);
+        scal.setDivision(division);
+        
+                Task_manager.salarycalL.setText("Salary is being calculated for division    "+division+"("+((reg==1)?"Register":"Casual")+")");
+        for (int i = 0; i < columnSize; i++) {
+            Task_manager.salarycaloverallP.setValue(((PRCR_Checkroll_Monthly_workdata_database_update_class.salarycalprogressbar+1)*100)/(PRCR_Checkroll_Monthly_workdata_database_update_class.columnsize+1));
+           PRCR_Checkroll_Monthly_workdata_database_update_class.salarycalprogressbar++;
+            Task_manager.salaryCalP.setValue((100*(i+1))/columnSize);
+            
+            scal.setEmployCode(array[i]);
+           
+            scal.getFinalSalary();//Calculate final salary and update all the fields in workdata table
+           
+        }
+    
+    
+    
+    
+    
+    }else{
+        CheckrollSallaryCal abcd = new CheckrollSallaryCal();
+        int columnSize = 0;
+        columnSize=checknReturnNumberOfEntriesForNoteAnalysis("pr_workdata_"+st, "register_or_casual", reg, "division",division,"active","1","code");
+        
+        System.out.println("colmnsiz"+columnSize);
+
+        int array[] = new int[columnSize];
+       
         array=checknReturnIntArrayForNoteAnalysis("pr_workdata_"+st, "register_or_casual", reg, "division",division,"active","1","code");
         
         abcd.setString(st);
@@ -81,28 +109,11 @@ public class PRCR_checkroll_salary_process {
             Task_manager.salaryCalP.setValue((100*(i+1))/columnSize);
             
             abcd.setEmployCode(array[i]);
-            //arraySal[i] = abc.getFinalSalary(st);
+           
             abcd.getFinalSalary();//Calculate final salary and update all the fields in workdata table
-            
-            /*
-            dbm.updateDatabase("pr_workdata_" + st, "code", array[i], "full_salary", abcd.getFinalSalary());
-            dbm.updateDatabase("pr_workdata_" + st, "code", array[i], "normal_pay", abcd.getNormalDaysAmount());
-            dbm.updateDatabase("pr_workdata_" + st, "code", array[i], "sunday_pay", abcd.getSundayAmount());
-            dbm.updateDatabase("pr_workdata_" + st, "code", array[i], "total_pay", abcd.getTotalBasicSallary());
-            dbm.updateDatabase("pr_workdata_" + st, "code", array[i], "ot_before_amount", abcd.getOTBeforeAmount());
-            dbm.updateDatabase("pr_workdata_" + st, "code", array[i], "ot_after_amount", abcd.getOTAfterAmount());
-            dbm.updateDatabase("pr_workdata_" + st, "code", array[i], "incentive1", abcd.getIncentive1Amount());
-            dbm.updateDatabase("pr_workdata_" + st, "code", array[i], "incentive2", abcd.getIncentive2Amount());
-            dbm.updateDatabase("pr_workdata_" + st, "code", array[i], "gross_pay", abcd.getGrosspay());
-            dbm.updateDatabase("pr_workdata_" + st, "code", array[i], "epf10", abcd.getEPFContribution());
-            dbm.updateDatabase("pr_workdata_" + st, "code", array[i], "epf12", abcd.getEPFContribution2());
-            //dbm.updateDatabase("pr_workdata_" + st, "code", array[i], "total_epf", abc.getEPFContribution()+abc.getEPFContribution2());
-            double tepf=abcd.getEPFContribution()+abcd.getEPFContribution2();
-            dbm.updateDatabase("pr_workdata_" + st, "code", array[i], "total_epf", tepf);
-            dbm.updateDatabase("pr_workdata_" + st, "code", array[i], "etf", abcd.getETFContribution());
-            //dbm.updateDatabase("pr_workdata_" + st, "code", array[i], "total_pay", abc.getFinalSalary());
-                    */
+           
         }
+    }
     
     }
     

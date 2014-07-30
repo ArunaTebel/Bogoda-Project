@@ -127,6 +127,8 @@ public class Report_PRCR_Amalgation_home extends javax.swing.JPanel {
 
     }
 
+     
+     
     public class update implements Runnable {
 
         public GL_report_generator report_gen;
@@ -268,6 +270,8 @@ public class Report_PRCR_Amalgation_home extends javax.swing.JPanel {
                 viewActionPerformed(evt);
             }
         });
+
+        jProgressBar1.setStringPainted(true);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel4.setText("Amalgamation");
@@ -556,13 +560,7 @@ public class Report_PRCR_Amalgation_home extends javax.swing.JPanel {
     }//GEN-LAST:event_datePicker1ActionPerformed
 
     private void viewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewActionPerformed
-//     int a= JOptionPane.showConfirmDialog(datechooser, "This will update the Daily transactions list. it will take several minutes to complete.. Are you sure?");
-//        System.out.println(a); 
-//         Thread b = new Thread(new report());
-//        if(a==0){  b.start();}
-      
-        
-        //b.start();
+
         
     }//GEN-LAST:event_viewActionPerformed
 
@@ -643,7 +641,7 @@ public class Report_PRCR_Amalgation_home extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JProgressBar jProgressBar1;
+    public static javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JTextField monthfield;
     private javax.swing.JButton view;
     private javax.swing.JButton view1;
