@@ -29,6 +29,7 @@ public class GLmanual_entry extends javax.swing.JPanel {
     Date_Handler datehandler = new Date_Handler();
     DateChooser_text datechooser = new DateChooser_text();
     Update update = new Update();
+    double total = 0;
     /**
      * Creates new form GLmanual_entry
      */
@@ -112,6 +113,8 @@ public class GLmanual_entry extends javax.swing.JPanel {
         yearfield = new javax.swing.JTextField();
         dayfield = new javax.swing.JTextField();
         datePicker1 = new com.michaelbaranov.microba.calendar.DatePicker();
+        edit1 = new javax.swing.JTextField();
+        jLabel17 = new javax.swing.JLabel();
 
         jLabel1.setText("User ID");
 
@@ -681,6 +684,14 @@ public class GLmanual_entry extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        edit1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                edit1KeyPressed(evt);
+            }
+        });
+
+        jLabel17.setText("Net Weight total");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -720,13 +731,24 @@ public class GLmanual_entry extends javax.swing.JPanel {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGap(63, 63, 63)))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 628, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addGap(18, 18, 18)
+                        .addComponent(leaf_cat, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(99, 99, 99)
+                        .addComponent(self_transport))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(layout.createSequentialGroup()
                             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGap(28, 28, 28)
                             .addComponent(jButton6)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jButton7)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel17)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jButton7))
+                            .addComponent(edit1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createSequentialGroup()
                             .addGap(14, 14, 14)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -764,14 +786,7 @@ public class GLmanual_entry extends javax.swing.JPanel {
                                                     .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                     .addComponent(sendButton)))))
-                                    .addGap(22, 22, 22)))))
-                    .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 628, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(18, 18, 18)
-                        .addComponent(leaf_cat, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(99, 99, 99)
-                        .addComponent(self_transport)))
+                                    .addGap(22, 22, 22))))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -849,7 +864,9 @@ public class GLmanual_entry extends javax.swing.JPanel {
                             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jButton7)
-                                .addComponent(jButton6)))))
+                                .addComponent(jButton6)
+                                .addComponent(edit1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel17)))))
                 .addContainerGap(31, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -863,6 +880,7 @@ public class GLmanual_entry extends javax.swing.JPanel {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
      //   try {                 // had to put this try catch when calling datechooser.return_date.. used try catch to the block option /////////////////////////
             // adding common data to the database
+        
             globject.setCategoryCode(category_code.getSelectedItem().toString());
         try {
             globject.setDate(datechooser.Return_date(yearfield, monthfield, dayfield));
@@ -898,6 +916,8 @@ public class GLmanual_entry extends javax.swing.JPanel {
                 i++;
                  globject.addToDataBase();
             }
+            total = 0;
+            edit1.setText("");
             JOptionPane.showMessageDialog(self_transport, "Success!");
            }
            else{JOptionPane.showMessageDialog(self_transport, "Empty fields detected");}
@@ -955,6 +975,7 @@ public class GLmanual_entry extends javax.swing.JPanel {
                         ResultSet query = dbm.query("SELECT * FROM suppliers WHERE sup_id =" + item + "");
                         while (query.next()) {
                             Name = query.getString("sup_name");
+                            //category = query.getString("cat_id");
                         }
                     } catch (SQLException ex) {
                        // System.out.println(ex.getMessage());
@@ -968,9 +989,9 @@ public class GLmanual_entry extends javax.swing.JPanel {
                     } catch (SQLException ex) {
                        // System.out.println(ex.getMessage());
                     }
-
+                      
                     if (!category_code.getSelectedItem().toString().equals(category)) {
-                        JOptionPane.showMessageDialog(other, "Supplier Category Exception!");
+                        JOptionPane.showMessageDialog(other, "Supplier Category Exception!"+"\n"+"Original root: "+category);
 
                     }
 
@@ -1096,7 +1117,7 @@ jButton1.setEnabled(true);
                     table.setValueAt(coarse_leaf.getText(), i, 5);
                     table.setValueAt(other.getText(), i, 6);
                     table.setValueAt(net_weight.getText(), i, 7);
-                    
+                    total = total+Double.parseDouble(net_weight.getText());
                         table.setValueAt(trans, i, 8);
                     
 
@@ -1115,6 +1136,7 @@ jButton1.setEnabled(true);
                 table.setValueAt(coarse_leaf.getText(), i, 5);
                 table.setValueAt(other.getText(), i, 6);
                 table.setValueAt(net_weight.getText(), i, 7);
+                total = total+Double.parseDouble(net_weight.getText());
                 
                     table.setValueAt(trans, i, 8);
                 
@@ -1139,6 +1161,8 @@ jButton1.setEnabled(true);
             name.setText(" ");
 
         }
+        edit1.setText(total+"");
+        
         //debit_amount.setText(null);
     }//GEN-LAST:event_sendButtonActionPerformed
 
@@ -1763,6 +1787,10 @@ update.update_month_check(jButton1, yearfield, monthfield);
          bill.setVisible(true);
         }
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void edit1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_edit1KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_edit1KeyPressed
     public double convertString(String s) {
         if (s.length() == 0) {
             return 0;
@@ -1780,6 +1808,7 @@ update.update_month_check(jButton1, yearfield, monthfield);
     private javax.swing.JTextField dayfield;
     private javax.swing.JButton delete;
     private javax.swing.JTextField edit;
+    private javax.swing.JTextField edit1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
@@ -1793,6 +1822,7 @@ update.update_month_check(jButton1, yearfield, monthfield);
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
