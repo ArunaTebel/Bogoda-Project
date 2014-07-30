@@ -25,6 +25,7 @@ public class Report_Acc_Ledger extends javax.swing.JPanel {
     UIDefaults defaults = UIManager.getLookAndFeelDefaults();
     DatabaseManager dbm = new DatabaseManager();
     Report_gen generate = new Report_gen();
+    Date_Handler dt = new Date_Handler();
 
     /**
      * Creates new form Report_Acc_Reciepts
@@ -99,7 +100,15 @@ public class Report_Acc_Ledger extends javax.swing.JPanel {
 
                     to_date = dt.get_today_date();
 
-                    op_bal = Double.parseDouble(dbm.checknReturnData("account_names", "account_id", accountCode, "opening_balance"));
+                  //  op_bal = Double.parseDouble(dbm.checknReturnData("account_names", "account_id", accountCode, "opening_balance"));
+                    
+                    
+                    
+                    String d = dt.get_today_date().substring(0,4);
+                    
+                    String dated=d+"-04-01";
+                    
+                    op_bal=ledg.opening_balance_calc(accountCode,dated);
 
                     param.put("USER", new UserAccountControl().get_current_user());
                     param.put("Account_Code", accountCode);

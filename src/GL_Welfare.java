@@ -96,10 +96,16 @@ public class GL_Welfare extends javax.swing.JPanel {
         try {
             ResultSet rs1 = dbm.query("SELECT * FROM " + table + " where " + coloumnG + " = '" + thisMonth + "'");
             while (rs1.next()) {
-                regNum++;
+                
                 if (rs1.getInt("new_old") == 1) {
+                    
                     newRegNum++;
                 }
+               if( rs1.getInt("new_old")==0){
+            
+              regNum++;
+            }
+                
                 if (rs1.getInt("suspended_months") > 0) {
                     susNum++;
                }
@@ -405,6 +411,51 @@ public class GL_Welfare extends javax.swing.JPanel {
     int i = 0;
     while(i<arr.length){
         Update(arr[i]);
+        System.out.println(arr[i]);
+    i++;
+    }
+    
+    }
+    
+    }
+    
+    
+     public void execute_resume(javax.swing.JTextArea area){
+          int oldRate = (int) dbm.checknReturnDoubleData("rate_details", "Code_name", "WELF_RATE", "rate");
+        int newRate = (int) dbm.checknReturnDoubleData("rate_details", "Code_name", "WELF_NEW", "rate");
+       
+         String year = yearfield.getText();
+         String month =datehandler.return_month_as_num( monthfield.getText());
+        // regsterbt.setSelected(true);
+         
+        if(area.getText()==""){}
+        else{
+    String arr[] = area.getText().split("\n");
+    int i = 0;
+    int j;
+    int k;
+    String a;
+    
+    while(i<arr.length){
+        Update(arr[i]);
+      j =0;
+      k= 0;
+      
+        while(j<2){
+        String[] temp =datehandler.Reverse_months(year, month, j+1).split("-");
+         a=dbm.checknReturnData("welfare","entry",temp[0]+temp[1]+arr[i],"suspended_months");
+         if(Integer.parseInt(a)>0){
+         
+         k++;
+         
+         
+         
+         }
+         
+         
+        }
+        dbm.updateDatabase("welfare", "entry", year+month+arr[i], "amount", oldRate*(1+k));
+        
         System.out.println(arr[i]);
     i++;
     }
@@ -1530,7 +1581,9 @@ public class GL_Welfare extends javax.swing.JPanel {
     }//GEN-LAST:event_supplier_id1ItemStateChanged
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+       Acc_Update_And_Additional_Data tst = new Acc_Update_And_Additional_Data();
        
+       tst.complete_op_bal_temp();
     }//GEN-LAST:event_jButton4ActionPerformed
 
    
