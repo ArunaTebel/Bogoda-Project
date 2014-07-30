@@ -563,6 +563,31 @@ public class GL_report_generator {
         //return null;
 
     }
+    
+    
+    public void test(){
+     DatabaseManager dbm = DatabaseManager.getDbCon();
+        try {
+
+            ResultSet query = dbm.query("SELECT * FROM " + "gl_cash_advance" + " where " + "amount" + " = '" + 200 + " '");
+
+            while (query.next()) {
+                //System.out.println("query 1");
+                int a = query.getInt("entry_no");
+                dbm.CheckNDeleteFromDataBase("gl_cash_advance", "entry_no", a);
+             //   System.out.println( dbm.checknReturnData("gl_cash_advance", "entry_no", a, "amount"));
+
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+
+        }
+    
+    
+    
+    
+    }
 
     /*
      public void update_welfare(String year, String month) {

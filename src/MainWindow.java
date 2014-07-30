@@ -351,7 +351,7 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel7.setText("jLabel3");
         jLabel7.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         Main_Content.add(jLabel7);
-        jLabel7.setBounds(-70, -80, 1350, 760);
+        jLabel7.setBounds(0, 0, 1350, 760);
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
@@ -424,6 +424,11 @@ public class MainWindow extends javax.swing.JFrame {
         });
 
         jButton3.setText("Stock");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         jButton3.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jButton3FocusGained(evt);
@@ -1087,6 +1092,10 @@ System.exit(0);
         repaint();
         //pgreenleaf.focus();
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
