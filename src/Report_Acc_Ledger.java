@@ -61,21 +61,21 @@ public class Report_Acc_Ledger extends javax.swing.JPanel {
 
     public class report implements Runnable {
 
+        Thread a = new Thread(new Background());
+
+        ACC_ledger ledg = new ACC_ledger();
+
+        ACC_Update updt = new ACC_Update();
+
+        Date_Handler dt = new Date_Handler();
+
+        DateChooser_text date_chooser = new DateChooser_text();
+
+        DatabaseManager dbm = new DatabaseManager();
+
         @Override
         public void run() {
             //  jProgressBar1.setIndeterminate(true);
-
-            Thread a = new Thread(new Background());
-
-            ACC_ledger ledg = new ACC_ledger();
-
-            ACC_Update updt = new ACC_Update();
-
-            Date_Handler dt = new Date_Handler();
-
-            DateChooser_text date_chooser = new DateChooser_text();
-
-            DatabaseManager dbm = new DatabaseManager();
 
             String from_date;
             String to_date;
@@ -88,80 +88,29 @@ public class Report_Acc_Ledger extends javax.swing.JPanel {
 
                 if (!all.isSelected()) {
 
-                    accountCode = Integer.parseInt(account_code.getSelectedItem().toString());
-
-                    account_name = dbm.checknReturnData("account_names", "account_id", accountCode, "account_name");
-
-                    ledg.fill_account_code(accountCode);
-
-                    HashMap param = new HashMap();
-
-                    from_date = updt.checknReturnData();
-
-                    to_date = dt.get_today_date();
-
-                  //  op_bal = Double.parseDouble(dbm.checknReturnData("account_names", "account_id", accountCode, "opening_balance"));
-                    
-                    
-                    
-                    String d = dt.get_today_date().substring(0,4);
-                    
-                    String dated=d+"-04-01";
-                    
-                    op_bal=ledg.opening_balance_calc(accountCode,dated);
-
-                    param.put("USER", new UserAccountControl().get_current_user());
-                    param.put("Account_Code", accountCode);
-                    param.put("Account_Name", account_name);
-                    param.put("From_Date", from_date);
-                    param.put("To_Date", to_date);
-                    param.put("Op_Bal", op_bal);
-
-                    jProgressBar1.setValue(45);
-                    jProgressBar1.repaint();
-                    String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
-                    a.start();
-                    generate.create("Account Ledgers", "D:\\", param, location, "Report_ACC_LedgerAccounts.jrxml");
-                    a.stop();
-                    ;
-                    jProgressBar1.setValue(100);
-                } else {
-                    System.out.println("fff");
-                    
-                    HashMap param = new HashMap();
-                    from_date = updt.checknReturnData();
-                    to_date = dt.get_today_date();
-                    a.start();
-                    ledg.fill_all();
-                    param.put("USER", new UserAccountControl().get_current_user());
-                    param.put("From_Date", from_date);
-                    param.put("To_Date", to_date);
-                    jProgressBar1.setValue(45);
-                    jProgressBar1.repaint();
-                    String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
-                    
-                    generate.create("Account Ledgers", "D:\\", param, location, "Report_ACC_LedgerAccounts_All.jrxml");
-                    a.stop();
-                    ;
-                    jProgressBar1.setValue(100);
-                }
-
-            } else {
-
-                if (!all.isSelected()) {
-                    try {
+                    if (date_check.isSelected()) {
                         accountCode = Integer.parseInt(account_code.getSelectedItem().toString());
 
                         account_name = dbm.checknReturnData("account_names", "account_id", accountCode, "account_name");
 
+                        ledg.fill_account_code(accountCode);
+
                         HashMap param = new HashMap();
 
-                        to_date = dt.get_date_as_a_String(date_chooser.Return_date(yearfield2, monthfield2, dayfield2));
-                        from_date = dt.get_date_as_a_String(date_chooser.Return_date(yearfield, monthfield, dayfield));
+                        from_date = updt.checknReturnData();
 
-                        op_bal = ledg.opening_balance_calc(accountCode, from_date);
+                        to_date = dt.get_today_date();
 
-                        ledg.fill_account_code_filtered_date(accountCode,from_date, to_date);
+                        //  op_bal = Double.parseDouble(dbm.checknReturnData("account_names", "account_id", accountCode, "opening_balance"));
+                        String d = dt.get_today_date().substring(0, 4);
+
+                        String dated = d + "-04-01";
+
+                        if (op_bal_tick.isSelected()) {
+                            op_bal = 0;
+                        } else {
+                            op_bal = ledg.opening_balance_calc(accountCode, dated);
+                        }
 
                         param.put("USER", new UserAccountControl().get_current_user());
                         param.put("Account_Code", accountCode);
@@ -178,31 +127,213 @@ public class Report_Acc_Ledger extends javax.swing.JPanel {
                         a.stop();
                         ;
                         jProgressBar1.setValue(100);
-                    } catch (ParseException ex) {
-                        Logger.getLogger(Report_Acc_Ledger.class.getName()).log(Level.SEVERE, null, ex);
+                    } else if (trans_check.isSelected()) {
+                        accountCode = Integer.parseInt(account_code.getSelectedItem().toString());
+
+                        account_name = dbm.checknReturnData("account_names", "account_id", accountCode, "account_name");
+
+                        ledg.fill_account_code(accountCode);
+
+                        HashMap param = new HashMap();
+
+                        from_date = updt.checknReturnData();
+
+                        to_date = dt.get_today_date();
+
+                        //  op_bal = Double.parseDouble(dbm.checknReturnData("account_names", "account_id", accountCode, "opening_balance"));
+                        String d = dt.get_today_date().substring(0, 4);
+
+                        String dated = d + "-04-01";
+
+                        if (op_bal_tick.isSelected()) {
+                            op_bal = 0;
+                        } else {
+                            op_bal = ledg.opening_balance_calc(accountCode, dated);
+                        }
+
+                        param.put("USER", new UserAccountControl().get_current_user());
+                        param.put("Account_Code", accountCode);
+                        param.put("Account_Name", account_name);
+                        param.put("From_Date", from_date);
+                        param.put("To_Date", to_date);
+                        param.put("Op_Bal", op_bal);
+
+                        jProgressBar1.setValue(45);
+                        jProgressBar1.repaint();
+                        String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
+                        a.start();
+                        generate.create("Account Ledgers", "D:\\", param, location, "Report_ACC_LedgerAccounts_Sort_TR.jrxml");
+                        a.stop();
+                        ;
+                        jProgressBar1.setValue(100);
                     }
                 } else {
-                    try {
-                        
+
+                    if (date_check.isSelected()) {
                         HashMap param = new HashMap();
-                        to_date = dt.get_date_as_a_String(date_chooser.Return_date(yearfield2, monthfield2, dayfield2));
-                        from_date = dt.get_date_as_a_String(date_chooser.Return_date(yearfield, monthfield, dayfield));
-                        
-                        ledg.fill_all_filtered_date(from_date,to_date);
-                        
+                        from_date = updt.checknReturnData();
+                        to_date = dt.get_today_date();
+                        a.start();
+                        ledg.fill_all();
                         param.put("USER", new UserAccountControl().get_current_user());
                         param.put("From_Date", from_date);
                         param.put("To_Date", to_date);
                         jProgressBar1.setValue(45);
                         jProgressBar1.repaint();
                         String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
-                        a.start();
+
                         generate.create("Account Ledgers", "D:\\", param, location, "Report_ACC_LedgerAccounts_All.jrxml");
                         a.stop();
                         ;
                         jProgressBar1.setValue(100);
-                    } catch (ParseException ex) {
-                        Logger.getLogger(Report_Acc_Ledger.class.getName()).log(Level.SEVERE, null, ex);
+                    } else if (trans_check.isSelected()) {
+                        HashMap param = new HashMap();
+                        from_date = updt.checknReturnData();
+                        to_date = dt.get_today_date();
+                        a.start();
+                        ledg.fill_all();
+                        param.put("USER", new UserAccountControl().get_current_user());
+                        param.put("From_Date", from_date);
+                        param.put("To_Date", to_date);
+                        jProgressBar1.setValue(45);
+                        jProgressBar1.repaint();
+                        String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
+
+                        generate.create("Account Ledgers", "D:\\", param, location, "Report_ACC_LedgerAccounts_All_Sort_Tr.jrxml");
+                        a.stop();
+                        ;
+                        jProgressBar1.setValue(100);
+                    }
+                }
+
+            } else {
+
+                if (!all.isSelected()) {
+
+                    if (date_check.isSelected()) {
+                        try {
+                            accountCode = Integer.parseInt(account_code.getSelectedItem().toString());
+
+                            account_name = dbm.checknReturnData("account_names", "account_id", accountCode, "account_name");
+
+                            HashMap param = new HashMap();
+
+                            to_date = dt.get_date_as_a_String(date_chooser.Return_date(yearfield2, monthfield2, dayfield2));
+                            from_date = dt.get_date_as_a_String(date_chooser.Return_date(yearfield, monthfield, dayfield));
+
+                            if(op_bal_tick.isSelected()){
+                                op_bal=0;
+                            }
+                            else{
+                            op_bal = ledg.opening_balance_calc(accountCode, from_date);
+                            }
+
+                            ledg.fill_account_code_filtered_date(accountCode, from_date, to_date);
+
+                            param.put("USER", new UserAccountControl().get_current_user());
+                            param.put("Account_Code", accountCode);
+                            param.put("Account_Name", account_name);
+                            param.put("From_Date", from_date);
+                            param.put("To_Date", to_date);
+                            param.put("Op_Bal", op_bal);
+
+                            jProgressBar1.setValue(45);
+                            jProgressBar1.repaint();
+                            String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
+                            a.start();
+                            generate.create("Account Ledgers", "D:\\", param, location, "Report_ACC_LedgerAccounts.jrxml");
+                            a.stop();
+                            ;
+                            jProgressBar1.setValue(100);
+                        } catch (ParseException ex) {
+                            Logger.getLogger(Report_Acc_Ledger.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    } else if (trans_check.isSelected()) {
+                        try {
+                            accountCode = Integer.parseInt(account_code.getSelectedItem().toString());
+
+                            account_name = dbm.checknReturnData("account_names", "account_id", accountCode, "account_name");
+
+                            HashMap param = new HashMap();
+
+                            to_date = dt.get_date_as_a_String(date_chooser.Return_date(yearfield2, monthfield2, dayfield2));
+                            from_date = dt.get_date_as_a_String(date_chooser.Return_date(yearfield, monthfield, dayfield));
+
+                            if(op_bal_tick.isSelected()){
+                                op_bal=0;
+                            }
+                            else{
+                            op_bal = ledg.opening_balance_calc(accountCode, from_date);
+                            }
+
+                            ledg.fill_account_code_filtered_date(accountCode, from_date, to_date);
+
+                            param.put("USER", new UserAccountControl().get_current_user());
+                            param.put("Account_Code", accountCode);
+                            param.put("Account_Name", account_name);
+                            param.put("From_Date", from_date);
+                            param.put("To_Date", to_date);
+                            param.put("Op_Bal", op_bal);
+
+                            jProgressBar1.setValue(45);
+                            jProgressBar1.repaint();
+                            String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
+                            a.start();
+                            generate.create("Account Ledgers", "D:\\", param, location, "Report_ACC_LedgerAccounts_Sort_TR.jrxml");
+                            a.stop();
+                            ;
+                            jProgressBar1.setValue(100);
+                        } catch (ParseException ex) {
+                            Logger.getLogger(Report_Acc_Ledger.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                } else {
+
+                    if (date_check.isSelected()) {
+                        try {
+                            HashMap param = new HashMap();
+                            to_date = dt.get_date_as_a_String(date_chooser.Return_date(yearfield2, monthfield2, dayfield2));
+                            from_date = dt.get_date_as_a_String(date_chooser.Return_date(yearfield, monthfield, dayfield));
+
+                            ledg.fill_all_filtered_date(from_date, to_date);
+
+                            param.put("USER", new UserAccountControl().get_current_user());
+                            param.put("From_Date", from_date);
+                            param.put("To_Date", to_date);
+                            jProgressBar1.setValue(45);
+                            jProgressBar1.repaint();
+                            String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
+                            a.start();
+                            generate.create("Account Ledgers", "D:\\", param, location, "Report_ACC_LedgerAccounts_All.jrxml");
+                            a.stop();
+                            ;
+                            jProgressBar1.setValue(100);
+                        } catch (ParseException ex) {
+                            Logger.getLogger(Report_Acc_Ledger.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                    else if(trans_check.isSelected()){
+                        try {
+                            HashMap param = new HashMap();
+                            to_date = dt.get_date_as_a_String(date_chooser.Return_date(yearfield2, monthfield2, dayfield2));
+                            from_date = dt.get_date_as_a_String(date_chooser.Return_date(yearfield, monthfield, dayfield));
+
+                            ledg.fill_all_filtered_date(from_date, to_date);
+
+                            param.put("USER", new UserAccountControl().get_current_user());
+                            param.put("From_Date", from_date);
+                            param.put("To_Date", to_date);
+                            jProgressBar1.setValue(45);
+                            jProgressBar1.repaint();
+                            String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
+                            a.start();
+                            generate.create("Account Ledgers", "D:\\", param, location, "Report_ACC_LedgerAccounts_All_Sort_Tr.jrxml");
+                            a.stop();
+                            ;
+                            jProgressBar1.setValue(100);
+                        } catch (ParseException ex) {
+                            Logger.getLogger(Report_Acc_Ledger.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     }
                 }
 
@@ -1418,11 +1549,11 @@ public class Report_Acc_Ledger extends javax.swing.JPanel {
     }//GEN-LAST:event_debit_accountCodeKeyPressed
 
     private void account_codeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_account_codeItemStateChanged
-         
+
         DatabaseManager dbm = new DatabaseManager();
         MessageBox msg = new MessageBox();
 
-        try{
+        try {
             if (dbm.checkWhetherDataExists("account_names", "account_id", Integer.parseInt(account_code.getSelectedItem().toString())) == 1 || debit_accountCode.getSelectedIndex() == 0 || debit_accountCode.getSelectedItem().toString() == null) {
                 String Name = null;
                 if (evt.getStateChange() == ItemEvent.SELECTED) {
@@ -1436,16 +1567,15 @@ public class Report_Acc_Ledger extends javax.swing.JPanel {
                     }
                     account_name.setText("" + Name);
                 }
-                
+
             } else {
                 msg.showMessage("Invalid Account Code", "Receipt", "info");
                 debit_accountCode.setSelectedIndex(0);
             }
+        } catch (Exception e) {
+
         }
-        catch(Exception e){
-            
-        }
-        
+
     }//GEN-LAST:event_account_codeItemStateChanged
 
     private void account_codeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_account_codeActionPerformed
@@ -1461,31 +1591,29 @@ public class Report_Acc_Ledger extends javax.swing.JPanel {
     }//GEN-LAST:event_allActionPerformed
 
     private void date_rangeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_date_rangeItemStateChanged
-       if(date_range.isSelected()){
-        jPanel2.setVisible(true);
-       }
-       else{
-           jPanel2.setVisible(false);
-       }
+        if (date_range.isSelected()) {
+            jPanel2.setVisible(true);
+        } else {
+            jPanel2.setVisible(false);
+        }
     }//GEN-LAST:event_date_rangeItemStateChanged
 
     private void allItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_allItemStateChanged
-        if(all.isSelected()){
+        if (all.isSelected()) {
             account_code.setEnabled(false);
-        }
-        else{
+        } else {
             account_code.setEnabled(true);
         }
     }//GEN-LAST:event_allItemStateChanged
 
     private void date_checkItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_date_checkItemStateChanged
-        if(date_check.isSelected()){
+        if (date_check.isSelected()) {
             trans_check.setSelected(false);
         }
     }//GEN-LAST:event_date_checkItemStateChanged
 
     private void trans_checkItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_trans_checkItemStateChanged
-        if(trans_check.isSelected()){
+        if (trans_check.isSelected()) {
             date_check.setSelected(false);
         }
     }//GEN-LAST:event_trans_checkItemStateChanged
