@@ -89,7 +89,7 @@ public class GL_issue_cashadvances extends javax.swing.JPanel {
 
             String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
 String adloc = dbm.checknReturnStringData("file_locations", "description", "CashAdvance", "location");
-           String dateNow= generate.create("Cash_Advance_Book", adloc, param, location, "Cash_advance_book.jrxml");
+           String dateNow= generate.create_custom("Cash_Advance_Book", adloc, param, location, "Cash_advance_book.jrxml");
     
     
     }

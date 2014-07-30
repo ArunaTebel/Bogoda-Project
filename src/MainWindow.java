@@ -27,7 +27,7 @@ public class MainWindow extends javax.swing.JFrame {
     UIDefaults defaults = UIManager.getLookAndFeelDefaults();
 
     public MainWindow() {
-        userAC.validate();
+       // userAC.validate();
         
       //   defaults.put("nimbusOrange", defaults.get("nimbusBase"));
         UIManager.getLookAndFeelDefaults().put("nimbusOrange", (new Color(51, 153, 0)));
