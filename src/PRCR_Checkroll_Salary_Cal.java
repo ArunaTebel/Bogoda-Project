@@ -131,7 +131,7 @@ public class PRCR_Checkroll_Salary_Cal {
         this.workdays = sundays + normalDays;
         this.totalBasicSalary = sundaysAmount + normalDaysAmount;
         
-        this.coinsbf= Double.parseDouble(dbm.checknReturnData("checkroll_pay_info", "checkroll", "1", "coinsbf"));
+        this.coinsbf= Double.parseDouble(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "coinsbf"));
        
 
         this.incentive1Rate = Double.parseDouble(dbm.checknReturnData("checkroll_pay_info", "checkroll", "1", "incentive_1"));

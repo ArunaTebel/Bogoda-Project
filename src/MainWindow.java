@@ -27,7 +27,7 @@ public class MainWindow extends javax.swing.JFrame {
     UIDefaults defaults = UIManager.getLookAndFeelDefaults();
 
     public MainWindow() {
-        userAC.validate();
+      //  userAC.validate();
         
       //   defaults.put("nimbusOrange", defaults.get("nimbusBase"));
         UIManager.getLookAndFeelDefaults().put("nimbusOrange", (new Color(51, 153, 0)));
@@ -813,10 +813,10 @@ public class MainWindow extends javax.swing.JFrame {
         // Main_Content.removeAll();
         inteface_move.smooth_move(jLabel3, 6, 3, 3,1);
         inteface_move.smooth_move(User_id, 6, 3, 3,1);
-        inteface_move.smooth_move(Pass, 6, 6, 5,2);
-        inteface_move.smooth_move(jButton14, 6, 8, 3,4);
+        inteface_move.smooth_move(Pass, 6, 3, 3,1);
+        inteface_move.smooth_move(jButton14, 6, 3, 3,1);
         inteface_move.smooth_move(jLabel4, 6, 3, 3,1);
-        inteface_move.smooth_move(jLabel5, 6, 5, 3,2);
+        inteface_move.smooth_move(jLabel5, 6, 5, 3,1);
         inteface_move.smooth_move(jLabel6, 6, 3, 3,1);
         
       //  User_id.setVisible(false);

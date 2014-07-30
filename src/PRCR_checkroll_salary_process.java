@@ -18,9 +18,11 @@ public class PRCR_checkroll_salary_process {
     String st;
     String division;
     int reg;
+    int columnsize;
     // private int employCode;
     DatabaseManager dbm = DatabaseManager.getDbCon();
     Date_Handler month_num = new Date_Handler();
+     int array[];
 
     public PRCR_checkroll_salary_process() {
 
@@ -69,7 +71,8 @@ public class PRCR_checkroll_salary_process {
 
             int array[] = new int[columnSize];
 
-            array = checknReturnIntArrayForNoteAnalysis("pr_workdata_" + st, "register_or_casual", reg, "division", division, "active", "1", "code");
+           Task_manager.salarycalL.setText("Salary is being calculated for division    " + division + "(" + ((reg == 1) ? "Register" : "Casual") + ")");
+              array = checknReturnIntArrayForNoteAnalysis("pr_workdata_" + st, "register_or_casual", reg, "division", division, "active", "1", "code");
 
             scal.setString(st);
             scal.setDivision(division);
@@ -87,16 +90,19 @@ public class PRCR_checkroll_salary_process {
             }*/
             
             PRCR_Staff_Salary_Cal scal = new PRCR_Staff_Salary_Cal();
-            int columnSize = 0;
-            columnSize = checknReturnNumberOfEntriesForNoteAnalysis("pr_workdata_" + st, "register_or_casual", reg, "division", division, "active", "1", "code");
-            int array[] = new int[columnSize];
-            array = checknReturnIntArrayForNoteAnalysis("pr_workdata_" + st, "register_or_casual", reg, "division", division, "active", "1", "code");
-            scal.inputParameters(st, division);
+           
+           // columnSize = //checknReturnNumberOfEntriesForNoteAnalysis("pr_workdata_" + st, "register_or_casual", reg, "division", division, "active", "1", "code");
             
-            for (int i = 0; i < columnSize; i++) {
+            array = checknReturnIntArrayForNoteAnalysis("pr_workdata_" + st, "register_or_casual", reg, "division", division, "active", "1", "code");
+            columnsize=array.length;
+            scal.inputParameters(st, division);
+            Task_manager.salarycalL.setText("Salary is being calculated for division    " + division + "(" + ((reg == 1) ? "Register" : "Casual") + ")");
+            
+            
+            for (int i = 0; i < columnsize; i++) {
                 Task_manager.salarycaloverallP.setValue(((PRCR_Checkroll_Monthly_workdata_database_update_class.salarycalprogressbar + 1) * 100) / (PRCR_Checkroll_Monthly_workdata_database_update_class.columnsize + 1));
                 PRCR_Checkroll_Monthly_workdata_database_update_class.salarycalprogressbar++;
-                Task_manager.salaryCalP.setValue((100 * (i + 1)) / columnSize);
+                Task_manager.salaryCalP.setValue((100 * (i + 1)) / columnsize);
 
                 scal.setEmpCode(array[i]);
                 scal.CalculateSalary();
@@ -132,16 +138,19 @@ public class PRCR_checkroll_salary_process {
              }*/
 
             PRCR_Checkroll_Salary_Cal ccal = new PRCR_Checkroll_Salary_Cal();
-            int columnSize = 0;
-            columnSize = checknReturnNumberOfEntriesForNoteAnalysis("pr_workdata_" + st, "register_or_casual", reg, "division", division, "active", "1", "code");
-            int array[] = new int[columnSize];
+           // int columnSize = 0;
+            //columnSize = checknReturnNumberOfEntriesForNoteAnalysis("pr_workdata_" + st, "register_or_casual", reg, "division", division, "active", "1", "code");
+           
             array = checknReturnIntArrayForNoteAnalysis("pr_workdata_" + st, "register_or_casual", reg, "division", division, "active", "1", "code");
+            columnsize=array.length;
             ccal.inputParameters(st, division);
+            Task_manager.salarycalL.setText("Salary is being calculated for division    " + division + "(" + ((reg == 1) ? "Register" : "Casual") + ")");
             
-            for (int i = 0; i < columnSize; i++) {
+            
+            for (int i = 0; i < columnsize; i++) {
                 Task_manager.salarycaloverallP.setValue(((PRCR_Checkroll_Monthly_workdata_database_update_class.salarycalprogressbar + 1) * 100) / (PRCR_Checkroll_Monthly_workdata_database_update_class.columnsize + 1));
                 PRCR_Checkroll_Monthly_workdata_database_update_class.salarycalprogressbar++;
-                Task_manager.salaryCalP.setValue((100 * (i + 1)) / columnSize);
+                Task_manager.salaryCalP.setValue((100 * (i + 1)) / columnsize);
 
                 ccal.setEmpCode(array[i]);
                 ccal.CalculateSalary();
