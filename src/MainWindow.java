@@ -27,7 +27,7 @@ public class MainWindow extends javax.swing.JFrame {
     UIDefaults defaults = UIManager.getLookAndFeelDefaults();
 
     public MainWindow() {
-       // userAC.validate();
+        userAC.validate();
         
       //   defaults.put("nimbusOrange", defaults.get("nimbusBase"));
         UIManager.getLookAndFeelDefaults().put("nimbusOrange", (new Color(51, 153, 0)));
@@ -1042,14 +1042,6 @@ public class MainWindow extends javax.swing.JFrame {
         repaint();
     }//GEN-LAST:event_jButton7ActionPerformed
 
-    private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
-        New_window NW = new New_window();
-        NW.setVisible(true);
-        Reports_home home = new Reports_home();
-        NW.paint(home,"Reports Home");
-        NW.setVisible(true);
-    }//GEN-LAST:event_jButton15ActionPerformed
-
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
 System.exit(0);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
@@ -1096,6 +1088,14 @@ System.exit(0);
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
 
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
+        New_window NW = new New_window();
+        NW.setVisible(true);
+        Reports_home home = new Reports_home();
+        NW.paint(home,"Reports Home");
+        NW.setVisible(true);
+    }//GEN-LAST:event_jButton15ActionPerformed
 
     /**
      * @param args the command line arguments
