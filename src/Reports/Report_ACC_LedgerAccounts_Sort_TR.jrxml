@@ -20,7 +20,7 @@
 FROM
      `account_ledger_temp` account_ledger_temp
 ORDER BY
-	account_ledger_temp.`date`]]>
+	account_ledger_temp.`tr_no`]]>
 	</queryString>
 	<field name="account_ledger_temp_account_code" class="java.lang.Integer"/>
 	<field name="account_ledger_temp_tr_no" class="java.lang.String"/>
