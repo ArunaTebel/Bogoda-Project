@@ -44,7 +44,7 @@ public class MainWindow extends javax.swing.JFrame {
      //  System.out.println(a);
        try{
       
-      this.setIconImage(new ImageIcon(getClass().getResource("iconpng.png")).getImage());
+      this.setIconImage(new ImageIcon(getClass().getResource("Iconpng.png")).getImage());
       jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("BogodaAreal"+a+".jpg")));
        } catch(NullPointerException e){
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("BogodaAreal"+7+".jpg")));
@@ -802,8 +802,8 @@ public class MainWindow extends javax.swing.JFrame {
         t.start();
         t1.start();
 
-       String pwd = dbm.checknReturnStringData("user_data", "user_name", User_id.getText(), "pwd");
-        if(Pass.getText().equalsIgnoreCase(pwd)){  
+     //  String pwd = dbm.checknReturnStringData("user_data", "user_name", User_id.getText(), "pwd");
+      //  if(Pass.getText().equalsIgnoreCase(pwd)){  
         jButton1.setEnabled(true);
         
         jButton2.setEnabled(true);
@@ -856,19 +856,19 @@ public class MainWindow extends javax.swing.JFrame {
 
         } catch (SQLException ex) {
             MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
-        }
+      //  }
         //================================================================================================================
 
         Info.setText("Login Successfull");
-      }
+  //    }
 
-         else {
+    //     else {
           
-         Info.setText("Incorrect Username or Password. Please try Again.");
-         Pass.setText("");
-         Pass.requestFocus();
-         }
-         
+    //     Info.setText("Incorrect Username or Password. Please try Again.");
+    //     Pass.setText("");
+    //     Pass.requestFocus();
+    //     }
+        }   
         //topBar.setText("Welcome " + userAC.get_current_user() + "! Today is " + datehandler.get_today_date());
     }//GEN-LAST:event_jButton14ActionPerformed
 

@@ -22,6 +22,7 @@ public class GL_other_advances_class {
     double item_rate;
     double quantity;
     int inst;
+     String order_num;
 
     public GL_other_advances_class() {
         sup_id = 0;
@@ -34,6 +35,7 @@ public class GL_other_advances_class {
         item_type = null;
         item_rate = 0;
         quantity = 0;
+        order_num= null;
     }
 
     // Setters
@@ -76,6 +78,10 @@ public class GL_other_advances_class {
     public void set_item_type(String sup_name) {
         this.item_type = sup_name;
     }
+    
+    public void set_ordernum(String order) {
+        this.order_num = order;
+    }
 
     // Getters
     public int get_sup_id() {
@@ -103,7 +109,7 @@ public class GL_other_advances_class {
 
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         try {
-            dbCon.insert("INSERT INTO gl_other_advance_book(Date,id,name,max_allow,item_name,item_type,item_rate,item_quantity,total_amount,installments) VALUES('" + date + "','" + sup_id + "','" + sup_name + "','" + max_allowable + "','" + item_name + "','" + item_type + "','" + item_rate + "','" + quantity + "','" + amount + "','" + inst + "')");
+            dbCon.insert("INSERT INTO gl_other_advance_book(Date,id,name,order_num,item_name,item_type,item_rate,item_quantity,total_amount,installments) VALUES('" + date + "','" + sup_id + "','" + sup_name + "','" + order_num + "','" + item_name + "','" + item_type + "','" + item_rate + "','" + quantity + "','" + amount + "','" + inst + "')");
         } catch (SQLException ex) {
             MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
             return false;
@@ -123,13 +129,13 @@ public class GL_other_advances_class {
                     month_total = query.getDouble(10) / query.getInt(11);
                 }
 
-                if (query.getInt(11) > 1) {
-                    // System.out.println(index);
-                    //System.out.println("writing" + dbm.Checking_Length_Of_The_Table("suppliers", "sup_id"));
-                    dbCon.insert("INSERT INTO gl_other_advance_installments(entry,date,id,item_name,inst_amount,inst_left,pay_status)"
-                            + " VALUES('" + index + "','" + query.getDate(2) + "','" + query.getInt(3) + "','" + query.getString(6) + "','" + month_total + "','" + (query.getInt(11) - 1) + "','" + "NOT_PAYED" + "')");
-
-                }
+//                if (query.getInt(11) > 1) {
+//                    // System.out.println(index);
+//                    //System.out.println("writing" + dbm.Checking_Length_Of_The_Table("suppliers", "sup_id"));
+//                    dbCon.insert("INSERT INTO gl_other_advance_installments(entry,date,id,item_name,inst_amount,inst_left,pay_status)"
+//                            + " VALUES('" + index + "','" + query.getDate(2) + "','" + query.getInt(3) + "','" + query.getString(6) + "','" + month_total + "','" + (query.getInt(11) - 1) + "','" + "NOT_PAYED" + "')");
+//
+//                }
 
                 // System.out.println("writing");
                 dbCon.insert("INSERT INTO gl_other_advances(Date,id,item_name,item_type,item_rate,item_quantity,installments,amount,total_amount,date_time,user)"
@@ -138,6 +144,8 @@ public class GL_other_advances_class {
                 // dbCon.insert("INSERT INTO gl_cash_advance(month_tr_no,sup_id,pay_type,ordered_date,issued_date,emergency,special_permission,amount,ref_no,bank_code,cheque_no,cheque_date,date_time,user)"
                 //   + " VALUES('" + query.getInt("entry_no") + "','" +query.getInt("sup_id")+"','" + query.getString("pay_type") + "','" + query.getDate("date") + "','" + issue_date + "','"+ "NO" + "','"+ query.getString("special_permission") + "','"+query.getDouble("amount") + "','"+ ref_no + "','"+ bank + "','"+ cheque+ "','"+ cheque_date+"','"+ date_time + "','"+user+ "')");}
             }
+            
+            query.close();
         } catch (SQLException ex) {
             MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
             return false;
@@ -150,7 +158,7 @@ public class GL_other_advances_class {
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         double rate, monthlyPay, amount;
         int installments, supId;
-        String Nmonth, year, day, month;
+        String Nmonth, year, day, month,order;
         Date date;
         ResultSet query = dbCon.query("SELECT * FROM gl_other_advance_book");
 
@@ -168,6 +176,7 @@ public class GL_other_advances_class {
                 item_type = query.getString("item_type");
                 item_rate = query.getInt("item_rate");
                 quantity = query.getDouble("item_quantity");
+                order = query.getString("order_num");
                 amount = query.getDouble("total_amount");
                 double total_amount = amount / installments;
 
@@ -175,15 +184,8 @@ public class GL_other_advances_class {
                 int i;
                 int monthNum = Integer.parseInt(month);
                 int newMonth;
-                if (Integer.parseInt(day) < 8) {
-                    for (i = 0; i < allMonths.length; i++) {
-                        newMonth = monthNum + i - 1;
-                        if (newMonth > 12) {
-                            newMonth = newMonth - 12;
-                        }
-                        allMonths[i] = String.valueOf(newMonth);
-                    }
-                } else {
+               
+                
                     for (i = 0; i < allMonths.length; i++) {
                         newMonth = monthNum + i;
                         if (newMonth > 12) {
@@ -191,24 +193,24 @@ public class GL_other_advances_class {
                         }
                         allMonths[i] = String.valueOf(newMonth);
                     }
-                }
-                Date loanDate1;
-                if (Integer.parseInt(day) < 8) {
-                    loanDate1 = new Date(Integer.parseInt(year) - 1900, Integer.parseInt(month) - 2, 8);
-                } else {
-                    loanDate1 = new Date(Integer.parseInt(year) - 1900, Integer.parseInt(month) - 1, 8);
-                }
-                dbCon.insert("INSERT INTO gl_other_advances(advance_id,type,Date,issue_date,id,item_name,item_type,item_rate,item_quantity,installments,amount,total_amount,date_time,user)"
-                        + " VALUES('" + 0 + "','Current month','" + loanDate1 + "','" + date + "','" + sup_id + "','" + item_name + "','" + item_type + "','" + item_rate + "','" + quantity + "','" + installments + "','" + amount + "','" + total_amount + "','" + date_time + "','" + user + "')");
+                
+                Date loanDate1 = date;
+//                if (Integer.parseInt(day) < 8) {
+//                    loanDate1 = new Date(Integer.parseInt(year) - 1900, Integer.parseInt(month) - 2, 8);
+//                } else {
+//                    loanDate1 = new Date(Integer.parseInt(year) - 1900, Integer.parseInt(month) - 1, 8);
+//                }
+                dbCon.insert("INSERT INTO gl_other_advances(advance_id,type,Date,order_num,id,item_name,item_type,item_rate,item_quantity,installments,amount,total_amount,date_time,user)"
+                        + " VALUES('" + 0 + "','Current month','" + loanDate1 + "','" + order + "','" + sup_id + "','" + item_name + "','" + item_type + "','" + item_rate + "','" + quantity + "','" + installments + "','" + amount + "','" + total_amount + "','" + date_time + "','" + user + "')");
                 int transaction = dbm.readLastRow("gl_other_advances", "tr_no");
                 dbCon.updateDatabase("gl_other_advances", "tr_no", transaction, "advance_id", transaction);
                 for (i = 1; i < allMonths.length; i++) {
                     if (allMonths[i - 1].equals("12")) {
                         year = String.valueOf(Integer.parseInt(year) + 1);
                     }
-                    Date date1 = new Date(Integer.parseInt(year) - 1900, Integer.parseInt(allMonths[i]) - 1, 8);
-                    dbCon.insert("INSERT INTO gl_other_advances(advance_id,type,Date,issue_date,id,item_name,item_type,item_rate,item_quantity,installments,amount,total_amount,date_time,user)"
-                            + " VALUES('" + transaction + "','Previous','" + date1 + "','" + date + "','" + sup_id + "','" + item_name + "','" + item_type + "','" + item_rate + "','" + quantity + "','" + installments + "','" + amount + "','" + total_amount + "','" + date_time + "','" + user + "')");
+                    Date date1 = new Date(Integer.parseInt(year) - 1900, Integer.parseInt(allMonths[i])-1, 1);
+                    dbCon.insert("INSERT INTO gl_other_advances(advance_id,type,Date,order_num,id,item_name,item_type,item_rate,item_quantity,installments,amount,total_amount,date_time,user)"
+                            + " VALUES('" + transaction + "','Previous','" + date1 + "','" + order + "','" + sup_id + "','" + item_name + "','" + item_type + "','" + item_rate + "','" + quantity + "','" + installments + "','" + amount + "','" + total_amount + "','" + date_time + "','" + user + "')");
                 }
             } catch (Exception ex) {
                 Logger.getLogger(GL_Loans.class.getName()).log(Level.SEVERE, null, ex);
