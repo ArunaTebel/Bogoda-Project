@@ -20,9 +20,10 @@
      green_leaf_transactions.`coarse_leaf_kg` AS green_leaf_transactions_coarse_leaf_kg,
      green_leaf_transactions.`other` AS green_leaf_transactions_other,
      green_leaf_transactions.`net_qty` AS green_leaf_transactions_net_qty,
-     green_leaf_transactions.`transport` AS green_leaf_transactions_self_transport
+     green_leaf_transactions.`transport` AS green_leaf_transactions_self_transport,
+     suppliers.`sup_name` AS suppliers_sup_name
 FROM
-     `green_leaf_transactions` green_leaf_transactions
+     `suppliers` suppliers INNER JOIN `green_leaf_transactions` green_leaf_transactions ON suppliers.`sup_id` = green_leaf_transactions.`sup_id`
 WHERE
      tr_date >= $P{from_date}
  AND tr_date <= $P{to_date}]]>
@@ -40,6 +41,7 @@ WHERE
 	<field name="green_leaf_transactions_other" class="java.lang.Double"/>
 	<field name="green_leaf_transactions_net_qty" class="java.lang.Double"/>
 	<field name="green_leaf_transactions_self_transport" class="java.lang.Double"/>
+	<field name="suppliers_sup_name" class="java.lang.String"/>
 	<variable name="TITLE" class="java.lang.String"/>
 	<variable name="count" class="java.lang.Integer" calculation="Count">
 		<variableExpression><![CDATA[$F{green_leaf_transactions_tr_id}]]></variableExpression>
@@ -153,9 +155,9 @@ WHERE
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="27" splitType="Stretch">
+		<band height="41" splitType="Stretch">
 			<line>
-				<reportElement uuid="8b820536-4e3c-4646-9176-72c78990b115" x="1" y="23" width="571" height="1"/>
+				<reportElement uuid="8b820536-4e3c-4646-9176-72c78990b115" x="1" y="39" width="571" height="1"/>
 			</line>
 			<staticText>
 				<reportElement uuid="1a994705-0373-4871-b0bb-e77f4bb70ca2" x="0" y="5" width="35" height="20"/>
@@ -179,49 +181,49 @@ WHERE
 				<text><![CDATA[SupID]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="e61bc414-77ae-4935-9e7d-85d82359e34c" x="125" y="5" width="46" height="20"/>
+				<reportElement uuid="e61bc414-77ae-4935-9e7d-85d82359e34c" x="212" y="5" width="46" height="20"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Route]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="c528035c-d789-4f9a-b95b-39771157df27" x="205" y="5" width="35" height="20"/>
+				<reportElement uuid="c528035c-d789-4f9a-b95b-39771157df27" x="288" y="5" width="35" height="20"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Sacks]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="c55e30a4-fb07-42e2-adc2-052d0d9c086e" x="251" y="5" width="46" height="20"/>
+				<reportElement uuid="c55e30a4-fb07-42e2-adc2-052d0d9c086e" x="326" y="5" width="36" height="34"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Total:KG]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="a9b9e0f8-5068-47e5-a879-402fe749ebcd" x="297" y="5" width="59" height="20"/>
+				<reportElement uuid="a9b9e0f8-5068-47e5-a879-402fe749ebcd" x="363" y="5" width="43" height="34"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Sacks:KG]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="d84074ae-b9f9-4c37-8be1-ffd68046ead8" x="356" y="5" width="61" height="20"/>
+				<reportElement uuid="d84074ae-b9f9-4c37-8be1-ffd68046ead8" x="404" y="5" width="41" height="34"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Water:KG]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="da42feea-796b-4405-8fa0-227ade240f66" x="409" y="5" width="51" height="20"/>
+				<reportElement uuid="da42feea-796b-4405-8fa0-227ade240f66" x="443" y="5" width="32" height="34"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[C:leaf:KG]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="0eb3e7cb-1cd2-47c8-ad63-1a210e70b91f" x="460" y="5" width="46" height="20"/>
+				<reportElement uuid="0eb3e7cb-1cd2-47c8-ad63-1a210e70b91f" x="478" y="5" width="28" height="20"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
@@ -233,6 +235,13 @@ WHERE
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Net:Qty]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="137d61c3-8ccf-4278-8743-4e726be51656" x="131" y="5" width="79" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Name]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -260,60 +269,65 @@ WHERE
 				<textFieldExpression><![CDATA[$F{green_leaf_transactions_sup_id}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="44edb91e-5a75-4888-897a-512d70fd8c46" x="125" y="0" width="80" height="15"/>
+				<reportElement uuid="44edb91e-5a75-4888-897a-512d70fd8c46" x="212" y="0" width="80" height="15"/>
 				<textElement>
 					<font fontName="Verdana" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{green_leaf_transactions_category_code}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="6183be45-5eb8-40b2-befb-ae554f5b7574" x="205" y="0" width="35" height="15"/>
-				<textElement>
+				<reportElement uuid="6183be45-5eb8-40b2-befb-ae554f5b7574" x="281" y="0" width="35" height="15"/>
+				<textElement textAlignment="Right">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{green_leaf_transactions_no_of_sacks}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="e794ebb0-5c3c-4f31-93a4-0b1b45edd175" x="251" y="0" width="46" height="15"/>
-				<textElement>
+				<reportElement uuid="e794ebb0-5c3c-4f31-93a4-0b1b45edd175" x="309" y="0" width="46" height="15"/>
+				<textElement textAlignment="Right">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{green_leaf_transactions_total_kg}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="920a00e9-2f51-4625-9d62-e5a171cc64dc" x="297" y="0" width="46" height="15"/>
-				<textElement>
+				<reportElement uuid="920a00e9-2f51-4625-9d62-e5a171cc64dc" x="351" y="0" width="46" height="15"/>
+				<textElement textAlignment="Right">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{green_leaf_transactions_sack_kg}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="4959f7dd-9b66-47d9-aec3-28d90feb68ee" x="356" y="0" width="46" height="15"/>
-				<textElement>
+				<reportElement uuid="4959f7dd-9b66-47d9-aec3-28d90feb68ee" x="391" y="0" width="46" height="15"/>
+				<textElement textAlignment="Right">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{green_leaf_transactions_water_kg}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="2ce80598-62a9-4392-8901-282faa11750f" x="414" y="0" width="46" height="15"/>
-				<textElement>
+				<reportElement uuid="2ce80598-62a9-4392-8901-282faa11750f" x="429" y="0" width="46" height="15"/>
+				<textElement textAlignment="Right">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{green_leaf_transactions_coarse_leaf_kg}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="cddd2dde-c2b2-46b1-b017-017965963aea" x="460" y="0" width="46" height="15"/>
-				<textElement>
+				<reportElement uuid="cddd2dde-c2b2-46b1-b017-017965963aea" x="478" y="0" width="28" height="15"/>
+				<textElement textAlignment="Right">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{green_leaf_transactions_other}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="163ca9a2-5772-4147-ba9c-0f6986b7b3c6" x="514" y="0" width="46" height="15"/>
-				<textElement>
+				<textElement textAlignment="Right">
 					<font size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{green_leaf_transactions_net_qty}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="a2a12480-e1c0-4d73-830d-892681e76c88" x="127" y="0" width="83" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{suppliers_sup_name}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

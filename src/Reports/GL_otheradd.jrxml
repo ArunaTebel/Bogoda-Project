@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b4a7e90f-236c-48e1-b463-a16c40591ab1">
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="295"/>
+	<property name="ireport.y" value="317"/>
 	<parameter name="USER" class="java.lang.String"/>
 	<parameter name="from_date" class="java.util.Date"/>
 	<parameter name="to_date" class="java.util.Date"/>
@@ -26,7 +26,7 @@ FROM
 WHERE
      Date >= $P{from_date}
  AND Date <= $P{to_date}
-order by gl_other_advances.`type`]]>
+order by gl_other_advances.`type`,gl_other_advances.`item_type`,gl_other_advances.`item_name`]]>
 	</queryString>
 	<field name="gl_other_advances_tr_no" class="java.lang.Integer"/>
 	<field name="gl_other_advances_advance_id" class="java.lang.Integer"/>
@@ -52,6 +52,31 @@ order by gl_other_advances.`type`]]>
 		<variableExpression><![CDATA[$F{gl_other_advances_total_amount}]]></variableExpression>
 	</variable>
 	<variable name="count" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{gl_other_advances_tr_no}]]></variableExpression>
+	</variable>
+	<variable name="type qunatity" class="java.lang.Double" resetType="Group" resetGroup="Type" calculation="Sum">
+		<variableExpression><![CDATA[$F{gl_other_advances_item_quantity}]]></variableExpression>
+	</variable>
+	<variable name="variable5" class="java.lang.String"/>
+	<variable name="code qunatity" class="java.lang.Double" resetType="Group" resetGroup="CODE" calculation="Sum">
+		<variableExpression><![CDATA[$F{gl_other_advances_item_quantity}]]></variableExpression>
+	</variable>
+	<variable name="Full qunatity" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{gl_other_advances_item_quantity}]]></variableExpression>
+	</variable>
+	<variable name="typeamount" class="java.lang.Double" resetType="Group" resetGroup="Type" calculation="Sum">
+		<variableExpression><![CDATA[$F{gl_other_advances_total_amount}]]></variableExpression>
+	</variable>
+	<variable name="codeamount" class="java.lang.Double" resetType="Group" resetGroup="CODE" calculation="Sum">
+		<variableExpression><![CDATA[$F{gl_other_advances_total_amount}]]></variableExpression>
+	</variable>
+	<variable name="type qunatity_1" class="java.lang.Double" resetType="Group" resetGroup="gl_other_advances_type" calculation="Sum">
+		<variableExpression><![CDATA[$F{gl_other_advances_item_quantity}]]></variableExpression>
+	</variable>
+	<variable name="CodeCount" class="java.lang.Integer" resetType="Group" resetGroup="CODE" calculation="Count">
+		<variableExpression><![CDATA[$F{gl_other_advances_tr_no}]]></variableExpression>
+	</variable>
+	<variable name="typecount" class="java.lang.Integer" resetType="Group" resetGroup="Type" calculation="Count">
 		<variableExpression><![CDATA[$F{gl_other_advances_tr_no}]]></variableExpression>
 	</variable>
 	<group name="gl_other_advances_type">
@@ -83,7 +108,7 @@ order by gl_other_advances.`type`]]>
 					<textFieldExpression><![CDATA[$V{Gtotal}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement uuid="64a8f4d2-8832-4f76-b626-736abfc0b269" x="1" y="6" width="100" height="20"/>
+					<reportElement uuid="64a8f4d2-8832-4f76-b626-736abfc0b269" x="18" y="6" width="100" height="20"/>
 					<textElement>
 						<font size="8"/>
 					</textElement>
@@ -97,6 +122,115 @@ order by gl_other_advances.`type`]]>
 				</line>
 				<line>
 					<reportElement uuid="2daaec85-bc4a-4cfc-83fa-21e5c8958910" x="0" y="2" width="554" height="1"/>
+					<graphicElement>
+						<pen lineWidth="0.5"/>
+					</graphicElement>
+				</line>
+				<textField>
+					<reportElement uuid="76178ca9-3891-43a9-80ca-950c6dc9da98" x="431" y="8" width="29" height="20"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{type qunatity_1}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement uuid="0d048f90-0a60-4753-b7bf-906c8bd8f6af" x="2" y="22" width="554" height="1"/>
+					<graphicElement>
+						<pen lineWidth="0.5"/>
+					</graphicElement>
+				</line>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="Type">
+		<groupExpression><![CDATA[$F{gl_other_advances_type}]]></groupExpression>
+		<groupHeader>
+			<band height="17">
+				<textField>
+					<reportElement uuid="8f15b7f2-d588-4926-869f-94f3fa76fe3a" x="17" y="0" width="125" height="15"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{gl_other_advances_item_type}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="22">
+				<textField>
+					<reportElement uuid="f3c20ba9-527c-4c77-a724-1af1e79db3f3" x="421" y="3" width="29" height="14"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{type qunatity}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="1ba7f747-00a1-4297-92b7-cc1b863d31bf" x="511" y="2" width="43" height="20"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{typeamount}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="96ae4e8f-30d9-4a13-8f65-03aa1f915e47" x="10" y="5" width="100" height="11"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{typecount}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement uuid="0d048f90-0a60-4753-b7bf-906c8bd8f6af" x="2" y="16" width="554" height="1"/>
+					<graphicElement>
+						<pen lineWidth="0.5"/>
+					</graphicElement>
+				</line>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="CODE">
+		<groupExpression><![CDATA[$F{gl_other_advances_item_name}]]></groupExpression>
+		<groupHeader>
+			<band height="17">
+				<textField>
+					<reportElement uuid="0c71c7bf-5ea3-4696-900b-73739585dfa6" x="33" y="0" width="133" height="15"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{gl_other_advances_item_name}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="24">
+				<textField>
+					<reportElement uuid="f7fbc2cd-2ad8-4126-b952-a47725c22c77" x="411" y="0" width="30" height="20"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{code qunatity}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="44f1fff0-c7ac-426f-9505-6f2c51d19c0b" x="511" y="0" width="43" height="20"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{codeamount}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="40198753-12ce-47c7-8b90-6c5779b2e52f" x="1" y="0" width="100" height="20"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{CodeCount}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement uuid="0d048f90-0a60-4753-b7bf-906c8bd8f6af" x="0" y="0" width="554" height="1"/>
+					<graphicElement>
+						<pen lineWidth="0.5"/>
+					</graphicElement>
+				</line>
+				<line>
+					<reportElement uuid="0d048f90-0a60-4753-b7bf-906c8bd8f6af" x="2" y="16" width="554" height="1"/>
 					<graphicElement>
 						<pen lineWidth="0.5"/>
 					</graphicElement>
@@ -322,13 +456,6 @@ order by gl_other_advances.`type`]]>
 				<textFieldExpression><![CDATA[$F{gl_other_advances_item_name}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="8f15b7f2-d588-4926-869f-94f3fa76fe3a" x="304" y="0" width="56" height="15"/>
-				<textElement>
-					<font size="8"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{gl_other_advances_item_type}]]></textFieldExpression>
-			</textField>
-			<textField>
 				<reportElement uuid="4e9e8b0b-322a-4e7a-9301-5dac20ba1bc0" x="362" y="0" width="46" height="15"/>
 				<textElement>
 					<font size="8"/>
@@ -362,6 +489,13 @@ order by gl_other_advances.`type`]]>
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{gl_other_advances_item_quantity}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="8f15b7f2-d588-4926-869f-94f3fa76fe3a" x="294" y="0" width="56" height="15"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{gl_other_advances_item_type}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -414,6 +548,13 @@ order by gl_other_advances.`type`]]>
 					<pen lineWidth="1.0"/>
 				</graphicElement>
 			</line>
+			<textField>
+				<reportElement uuid="ab428a37-e629-46db-825d-bb3282e4ac35" x="411" y="5" width="35" height="20"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{Full qunatity}]]></textFieldExpression>
+			</textField>
 		</band>
 	</summary>
 </jasperReport>
