@@ -3,6 +3,8 @@ import java.awt.event.ItemEvent;
 import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -235,6 +237,7 @@ public class ACC_recepts extends javax.swing.JPanel {
             }
         });
 
+        credit_amount.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         credit_amount.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 credit_amountKeyPressed(evt);
@@ -676,6 +679,7 @@ public class ACC_recepts extends javax.swing.JPanel {
             }
         });
 
+        debitAmount.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         debitAmount.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 debitAmountActionPerformed(evt);
@@ -714,10 +718,7 @@ public class ACC_recepts extends javax.swing.JPanel {
                         .addGap(19, 19, 19)
                         .addComponent(jLabel11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 0, 0)
-                        .addComponent(debit_description, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)))
+                    .addComponent(debit_description, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel12)
                     .addComponent(debitAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -1259,14 +1260,18 @@ public class ACC_recepts extends javax.swing.JPanel {
         interface_events.Change_focus_Enterkey_t(debitAmount, evt);
     }//GEN-LAST:event_debit_descriptionKeyPressed
     Check_Entries chk = new Check_Entries();
+  
     private void debitAmountKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_debitAmountKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             if (chk.isDouble(debitAmount.getText())) {
+                 NumberFormat formatter = new DecimalFormat("0.00");
+                 debitAmount.setText(formatter.format(Double.parseDouble(debitAmount.getText())));
                 interface_events.Change_focus_Enterkey_c(credit_account_code, evt);
+     
             } else {
 
                 msg.showMessage("Enter A Valid Amount Here", "Please Check Again", "info");
-
+                debitAmount.requestFocus();
             }
         }
     }//GEN-LAST:event_debitAmountKeyPressed
@@ -1279,11 +1284,13 @@ public class ACC_recepts extends javax.swing.JPanel {
 
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             if (chk.isDouble(credit_amount.getText())) {
+                NumberFormat formatter = new DecimalFormat("0.00");
+                 credit_amount.setText(formatter.format(Double.parseDouble(credit_amount.getText())));
                 interface_events.Change_focus_Enterkey_t_b(refNo, jButton5, evt);
             } else {
 
                 msg.showMessage("Enter A Valid Amount Here", "Please Check Again", "info");
-
+                credit_amount.requestFocus();
             }
         }
     }//GEN-LAST:event_credit_amountKeyPressed

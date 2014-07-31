@@ -8,6 +8,8 @@ import java.awt.event.ItemEvent;
 import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -565,6 +567,7 @@ public class ACC_journals extends javax.swing.JPanel {
             }
         });
 
+        credit_amount.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         credit_amount.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 credit_amountKeyPressed(evt);
@@ -771,6 +774,7 @@ public class ACC_journals extends javax.swing.JPanel {
             }
         });
 
+        debit_amount.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         debit_amount.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 debit_amountKeyPressed(evt);
@@ -935,7 +939,7 @@ public class ACC_journals extends javax.swing.JPanel {
                             .addComponent(jLabel11))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(24, Short.MAX_VALUE))))
+                        .addContainerGap(23, Short.MAX_VALUE))))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -1846,11 +1850,13 @@ public class ACC_journals extends javax.swing.JPanel {
         interface_events.Change_focus_Enterkey_t_b(ref_no, send, evt);
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             if (chk.isDouble(debit_amount.getText())) {
+                NumberFormat formatter = new DecimalFormat("0.00");
+                debit_amount.setText(formatter.format(Double.parseDouble(debit_amount.getText())));
                 interface_events.Change_focus_Enterkey_t_b(ref_no, send, evt);
             } else {
 
                 msg.showMessage("Enter A Valid Amount Here", "Please Check Again", "info");
-
+                   debit_amount.requestFocus();
             }
         }
     }//GEN-LAST:event_debit_amountKeyPressed
@@ -1871,11 +1877,13 @@ public class ACC_journals extends javax.swing.JPanel {
 
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             if (chk.isDouble(credit_amount.getText())) {
+                NumberFormat formatter = new DecimalFormat("0.00");
+                 credit_amount.setText(formatter.format(Double.parseDouble(credit_amount.getText())));
                 interface_events.Change_focus_Enterkey_t_b(ref_no, send2, evt);
             } else {
 
                 msg.showMessage("Enter A Valid Amount Here", "Please Check Again", "info");
-
+                credit_amount.requestFocus();
             }
         }
 
