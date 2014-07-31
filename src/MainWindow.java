@@ -2,6 +2,8 @@
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.UIDefaults;
 import javax.swing.UIManager;
@@ -666,6 +668,11 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+
+  GL_report_generator  gen = new GL_report_generator();
+        try {
+            gen.monthly_ledger_calc("2014", "07");
+            
 //        DateChooser_text addbrnch = new DateChooser_text();
 //
 //        Main_Content.removeAll();
@@ -676,6 +683,9 @@ public class MainWindow extends javax.swing.JFrame {
 //        validate();
 //        repaint();
 //        addbrnch.focus();
+        } catch (SQLException ex) {
+            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
        
        
     }//GEN-LAST:event_jButton10ActionPerformed
@@ -719,6 +729,7 @@ public class MainWindow extends javax.swing.JFrame {
         validate();
         repaint();
         pgreenleaf.focus();
+        pgreenleaf =null;
 
 
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -759,6 +770,7 @@ public class MainWindow extends javax.swing.JFrame {
         validate();
         repaint();
         paccunts.focus();
+        paccunts=null;
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -774,6 +786,7 @@ public class MainWindow extends javax.swing.JFrame {
         validate();
         repaint();
         prcr.focus();
+        prcr=null;
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void topBarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_topBarActionPerformed

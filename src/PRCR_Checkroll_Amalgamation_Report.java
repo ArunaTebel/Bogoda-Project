@@ -137,7 +137,7 @@ public class PRCR_Checkroll_Amalgamation_Report {
     }
 
     public double checknReturnDoubleTotal(String table_name, String division_column, String division, String column_need_to_get_total) {
-        DatabaseManager dbm = DatabaseManager.getDbCon();
+       // DatabaseManager dbm = DatabaseManager.getDbCon();
         double tot = 0;
         try {
             ResultSet query = dbm.query("SELECT * FROM " + table_name + "");
@@ -149,6 +149,7 @@ public class PRCR_Checkroll_Amalgamation_Report {
 
                 }
             }
+            query.close();
             return tot;
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -214,6 +215,7 @@ public class PRCR_Checkroll_Amalgamation_Report {
 
                 //  }
             }
+            query.close();
             return count;
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -236,6 +238,7 @@ public class PRCR_Checkroll_Amalgamation_Report {
                 tot = tot + query.getDouble(column_need_to_get_total);
                 //}
             }
+            query.close();
             return tot;
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -260,6 +263,7 @@ public class PRCR_Checkroll_Amalgamation_Report {
                 array[count] = query2.getString(column_name);
                 count++;
             }
+            query.close();
             return array;
         } catch (SQLException ex) {
 
@@ -277,7 +281,7 @@ public class PRCR_Checkroll_Amalgamation_Report {
             while (query.next()) {
                 count++;
             }
-
+            query.close();
         } catch (SQLException ex) {
 
         }
