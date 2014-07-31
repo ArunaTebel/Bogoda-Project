@@ -272,7 +272,7 @@ public class PRCR_salary_payroll extends javax.swing.JPanel {
                 incentive = 0;
             }
 
-            ot_raten = Math.round( (basic_salary/240*1.5) * 100.0 ) / 100.0;
+            ot_raten = Math.ceil( (basic_salary/240*1.5) * 100.0 ) / 100.0;
             name.setText(Name);
             basic_sallary.setText("" + basic_salary);
             incentive1.setText("" + incentive);
