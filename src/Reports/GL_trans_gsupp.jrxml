@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b4a7e90f-236c-48e1-b463-a16c40591ab1">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="121"/>
+	<property name="ireport.y" value="22"/>
 	<parameter name="USER" class="java.lang.String"/>
 	<parameter name="from_date" class="java.util.Date"/>
 	<parameter name="to_date" class="java.util.Date"/>
@@ -20,14 +20,16 @@
      green_leaf_transactions.`coarse_leaf_kg` AS green_leaf_transactions_coarse_leaf_kg,
      green_leaf_transactions.`other` AS green_leaf_transactions_other,
      green_leaf_transactions.`net_qty` AS green_leaf_transactions_net_qty,
-     green_leaf_transactions.`transport` AS green_leaf_transactions_self_transport
+     green_leaf_transactions.`transport` AS green_leaf_transactions_self_transport,
+     suppliers.`sup_name` AS suppliers_sup_name
 FROM
-     `green_leaf_transactions` green_leaf_transactions
+     `suppliers` suppliers INNER JOIN `green_leaf_transactions` green_leaf_transactions ON suppliers.`sup_id` = green_leaf_transactions.`sup_id`
 WHERE
      tr_date >= $P{from_date}
  AND tr_date <= $P{to_date}
-
-order by  green_leaf_transactions.`sup_id`, green_leaf_transactions.`tr_id`]]>
+ORDER BY
+     green_leaf_transactions.`sup_id` ASC,
+     green_leaf_transactions.`tr_id` ASC]]>
 	</queryString>
 	<field name="green_leaf_transactions_tr_id" class="java.lang.Integer"/>
 	<field name="green_leaf_transactions_tr_date" class="java.sql.Date"/>
@@ -42,6 +44,7 @@ order by  green_leaf_transactions.`sup_id`, green_leaf_transactions.`tr_id`]]>
 	<field name="green_leaf_transactions_other" class="java.lang.Double"/>
 	<field name="green_leaf_transactions_net_qty" class="java.lang.Double"/>
 	<field name="green_leaf_transactions_self_transport" class="java.lang.Double"/>
+	<field name="suppliers_sup_name" class="java.lang.String"/>
 	<variable name="TITLE" class="java.lang.String"/>
 	<variable name="saks" class="java.lang.Integer" calculation="Sum">
 		<variableExpression><![CDATA[$F{green_leaf_transactions_no_of_sacks}]]></variableExpression>
@@ -87,6 +90,11 @@ order by  green_leaf_transactions.`sup_id`, green_leaf_transactions.`tr_id`]]>
 						<pen lineWidth="0.5"/>
 					</graphicElement>
 				</line>
+				<textField>
+					<reportElement uuid="1659071b-ea25-44a7-850c-f1414667d96c" x="115" y="4" width="100" height="20"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{suppliers_sup_name}]]></textFieldExpression>
+				</textField>
 			</band>
 		</groupHeader>
 		<groupFooter>
@@ -311,49 +319,49 @@ order by  green_leaf_transactions.`sup_id`, green_leaf_transactions.`tr_id`]]>
 			</textField>
 			<textField>
 				<reportElement uuid="8d422903-2e30-4724-a45a-b77ac61bf130" x="200" y="0" width="50" height="15"/>
-				<textElement>
+				<textElement textAlignment="Right">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{green_leaf_transactions_no_of_sacks}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="3df6bb1f-7b79-4820-8f75-f813dac9f020" x="250" y="0" width="50" height="15"/>
-				<textElement>
+				<textElement textAlignment="Right">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{green_leaf_transactions_total_kg}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="c876c56a-694a-4afd-b11e-1fa035130d88" x="300" y="0" width="50" height="15"/>
-				<textElement>
+				<textElement textAlignment="Right">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{green_leaf_transactions_sack_kg}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="526dbd06-069b-4f6e-bbba-30cc9f50c499" x="350" y="0" width="50" height="15"/>
-				<textElement>
+				<textElement textAlignment="Right">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{green_leaf_transactions_water_kg}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="947f831e-f8c8-44ce-994c-4b627cd6c20d" x="400" y="0" width="50" height="15"/>
-				<textElement>
+				<textElement textAlignment="Right">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{green_leaf_transactions_coarse_leaf_kg}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="7aa8f0ef-1f80-41fd-b52e-bcca515a6cb8" x="450" y="0" width="50" height="15"/>
-				<textElement>
+				<textElement textAlignment="Right">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{green_leaf_transactions_other}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="3491c460-7770-4267-aef1-90f724fd8703" x="500" y="0" width="50" height="15"/>
-				<textElement>
+				<textElement textAlignment="Right">
 					<font size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{green_leaf_transactions_net_qty}]]></textFieldExpression>
