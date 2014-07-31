@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b4a7e90f-236c-48e1-b463-a16c40591ab1">
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="317"/>
+	<property name="ireport.y" value="309"/>
 	<parameter name="USER" class="java.lang.String"/>
 	<parameter name="from_date" class="java.util.Date"/>
 	<parameter name="to_date" class="java.util.Date"/>
@@ -54,7 +54,7 @@ order by gl_other_advances.`type`,gl_other_advances.`item_type`,gl_other_advance
 	<variable name="count" class="java.lang.Integer" calculation="Count">
 		<variableExpression><![CDATA[$F{gl_other_advances_tr_no}]]></variableExpression>
 	</variable>
-	<variable name="type qunatity" class="java.lang.Double" resetType="Group" resetGroup="Type" calculation="Sum">
+	<variable name="type qunatity" class="java.lang.Double" resetType="Group" resetGroup="TYPE" calculation="Sum">
 		<variableExpression><![CDATA[$F{gl_other_advances_item_quantity}]]></variableExpression>
 	</variable>
 	<variable name="variable5" class="java.lang.String"/>
@@ -64,7 +64,7 @@ order by gl_other_advances.`type`,gl_other_advances.`item_type`,gl_other_advance
 	<variable name="Full qunatity" class="java.lang.Double" calculation="Sum">
 		<variableExpression><![CDATA[$F{gl_other_advances_item_quantity}]]></variableExpression>
 	</variable>
-	<variable name="typeamount" class="java.lang.Double" resetType="Group" resetGroup="Type" calculation="Sum">
+	<variable name="typeamount" class="java.lang.Double" resetType="Group" resetGroup="TYPE" calculation="Sum">
 		<variableExpression><![CDATA[$F{gl_other_advances_total_amount}]]></variableExpression>
 	</variable>
 	<variable name="codeamount" class="java.lang.Double" resetType="Group" resetGroup="CODE" calculation="Sum">
@@ -76,7 +76,7 @@ order by gl_other_advances.`type`,gl_other_advances.`item_type`,gl_other_advance
 	<variable name="CodeCount" class="java.lang.Integer" resetType="Group" resetGroup="CODE" calculation="Count">
 		<variableExpression><![CDATA[$F{gl_other_advances_tr_no}]]></variableExpression>
 	</variable>
-	<variable name="typecount" class="java.lang.Integer" resetType="Group" resetGroup="Type" calculation="Count">
+	<variable name="typecount" class="java.lang.Integer" resetType="Group" resetGroup="TYPE" calculation="Count">
 		<variableExpression><![CDATA[$F{gl_other_advances_tr_no}]]></variableExpression>
 	</variable>
 	<group name="gl_other_advances_type">
@@ -86,7 +86,7 @@ order by gl_other_advances.`type`,gl_other_advances.`item_type`,gl_other_advance
 				<textField>
 					<reportElement uuid="c66d27bd-b20a-492b-b769-7a405c4ecc31" x="1" y="0" width="100" height="20"/>
 					<textElement verticalAlignment="Middle">
-						<font size="10" isBold="true" isItalic="false" isStrikeThrough="false"/>
+						<font size="12" isBold="true" isItalic="false" isStrikeThrough="false"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{gl_other_advances_type}]]></textFieldExpression>
 				</textField>
@@ -99,7 +99,7 @@ order by gl_other_advances.`type`,gl_other_advances.`item_type`,gl_other_advance
 			</band>
 		</groupHeader>
 		<groupFooter>
-			<band height="50">
+			<band height="43">
 				<textField>
 					<reportElement uuid="5e8eea84-e5e3-40f5-847c-259e1dc4558d" x="511" y="6" width="44" height="20"/>
 					<textElement>
@@ -108,7 +108,7 @@ order by gl_other_advances.`type`,gl_other_advances.`item_type`,gl_other_advance
 					<textFieldExpression><![CDATA[$V{Gtotal}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement uuid="64a8f4d2-8832-4f76-b626-736abfc0b269" x="18" y="6" width="100" height="20"/>
+					<reportElement uuid="64a8f4d2-8832-4f76-b626-736abfc0b269" x="1" y="6" width="100" height="20"/>
 					<textElement>
 						<font size="8"/>
 					</textElement>
@@ -136,54 +136,54 @@ order by gl_other_advances.`type`,gl_other_advances.`item_type`,gl_other_advance
 				<line>
 					<reportElement uuid="0d048f90-0a60-4753-b7bf-906c8bd8f6af" x="2" y="22" width="554" height="1"/>
 					<graphicElement>
-						<pen lineWidth="0.5"/>
+						<pen lineWidth="0.75"/>
 					</graphicElement>
 				</line>
 			</band>
 		</groupFooter>
 	</group>
-	<group name="Type">
-		<groupExpression><![CDATA[$F{gl_other_advances_type}]]></groupExpression>
+	<group name="TYPE">
+		<groupExpression><![CDATA[$F{gl_other_advances_item_type}]]></groupExpression>
 		<groupHeader>
-			<band height="17">
+			<band height="16">
 				<textField>
-					<reportElement uuid="8f15b7f2-d588-4926-869f-94f3fa76fe3a" x="17" y="0" width="125" height="15"/>
+					<reportElement uuid="8f15b7f2-d588-4926-869f-94f3fa76fe3a" x="15" y="0" width="125" height="15"/>
 					<textElement>
-						<font size="8"/>
+						<font size="10" isBold="true" isUnderline="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{gl_other_advances_item_type}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupHeader>
 		<groupFooter>
-			<band height="22">
+			<band height="26">
 				<textField>
-					<reportElement uuid="f3c20ba9-527c-4c77-a724-1af1e79db3f3" x="421" y="3" width="29" height="14"/>
+					<reportElement uuid="f3c20ba9-527c-4c77-a724-1af1e79db3f3" x="420" y="0" width="29" height="14"/>
 					<textElement>
-						<font size="8"/>
+						<font size="8" isBold="true" isUnderline="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{type qunatity}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement uuid="1ba7f747-00a1-4297-92b7-cc1b863d31bf" x="511" y="2" width="43" height="20"/>
+					<reportElement uuid="96ae4e8f-30d9-4a13-8f65-03aa1f915e47" x="18" y="2" width="100" height="11"/>
 					<textElement>
-						<font size="8"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$V{typeamount}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement uuid="96ae4e8f-30d9-4a13-8f65-03aa1f915e47" x="10" y="5" width="100" height="11"/>
-					<textElement>
-						<font size="8"/>
+						<font size="8" isBold="true" isUnderline="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{typecount}]]></textFieldExpression>
 				</textField>
 				<line>
-					<reportElement uuid="0d048f90-0a60-4753-b7bf-906c8bd8f6af" x="2" y="16" width="554" height="1"/>
+					<reportElement uuid="0d048f90-0a60-4753-b7bf-906c8bd8f6af" x="0" y="13" width="554" height="1"/>
 					<graphicElement>
-						<pen lineWidth="0.5"/>
+						<pen lineWidth="0.5" lineStyle="Dotted"/>
 					</graphicElement>
 				</line>
+				<textField>
+					<reportElement uuid="1ba7f747-00a1-4297-92b7-cc1b863d31bf" x="513" y="0" width="43" height="15"/>
+					<textElement>
+						<font size="8" isBold="true" isUnderline="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{typeamount}]]></textFieldExpression>
+				</textField>
 			</band>
 		</groupFooter>
 	</group>
@@ -192,9 +192,9 @@ order by gl_other_advances.`type`,gl_other_advances.`item_type`,gl_other_advance
 		<groupHeader>
 			<band height="17">
 				<textField>
-					<reportElement uuid="0c71c7bf-5ea3-4696-900b-73739585dfa6" x="33" y="0" width="133" height="15"/>
+					<reportElement uuid="0c71c7bf-5ea3-4696-900b-73739585dfa6" x="14" y="0" width="133" height="15"/>
 					<textElement>
-						<font size="8"/>
+						<font size="8" isItalic="true" isUnderline="false"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{gl_other_advances_item_name}]]></textFieldExpression>
 				</textField>
@@ -205,21 +205,21 @@ order by gl_other_advances.`type`,gl_other_advances.`item_type`,gl_other_advance
 				<textField>
 					<reportElement uuid="f7fbc2cd-2ad8-4126-b952-a47725c22c77" x="411" y="0" width="30" height="20"/>
 					<textElement>
-						<font size="8"/>
+						<font size="8" isItalic="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{code qunatity}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement uuid="44f1fff0-c7ac-426f-9505-6f2c51d19c0b" x="511" y="0" width="43" height="20"/>
 					<textElement>
-						<font size="8"/>
+						<font size="8" isItalic="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{codeamount}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement uuid="40198753-12ce-47c7-8b90-6c5779b2e52f" x="1" y="0" width="100" height="20"/>
+					<reportElement uuid="40198753-12ce-47c7-8b90-6c5779b2e52f" x="15" y="1" width="100" height="20"/>
 					<textElement>
-						<font size="8"/>
+						<font size="8" isItalic="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{CodeCount}]]></textFieldExpression>
 				</textField>
@@ -230,9 +230,9 @@ order by gl_other_advances.`type`,gl_other_advances.`item_type`,gl_other_advance
 					</graphicElement>
 				</line>
 				<line>
-					<reportElement uuid="0d048f90-0a60-4753-b7bf-906c8bd8f6af" x="2" y="16" width="554" height="1"/>
+					<reportElement uuid="0d048f90-0a60-4753-b7bf-906c8bd8f6af" x="0" y="16" width="554" height="1"/>
 					<graphicElement>
-						<pen lineWidth="0.5"/>
+						<pen lineWidth="0.25" lineStyle="Dotted"/>
 					</graphicElement>
 				</line>
 			</band>
@@ -412,7 +412,7 @@ order by gl_other_advances.`type`,gl_other_advances.`item_type`,gl_other_advance
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="18" splitType="Stretch">
+		<band height="17" splitType="Stretch">
 			<textField>
 				<reportElement uuid="a7ea1c98-a1c6-4651-a486-196053346415" x="0" y="0" width="27" height="15"/>
 				<textElement>
