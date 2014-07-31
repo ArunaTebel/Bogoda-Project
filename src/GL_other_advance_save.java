@@ -49,7 +49,7 @@ public class GL_other_advance_save extends javax.swing.JPanel {
         dbm.Inserting_To_The_Table(table, "gl_other_advance_book", "Date", 1, bottom, top);
         dbm.Inserting_To_The_Table(table, "gl_other_advance_book", "id", 2, bottom, top);
         dbm.Inserting_To_The_Table(table, "gl_other_advance_book", "name", 3, bottom, top);
-        dbm.Inserting_To_The_Table(table, "gl_other_advance_book", "max_allow", 4, bottom, top);
+        dbm.Inserting_To_The_Table(table, "gl_other_advance_book", "order_num", 4, bottom, top);
         dbm.Inserting_To_The_Table(table, "gl_other_advance_book", "item_name", 5, bottom, top);
         dbm.Inserting_To_The_Table(table, "gl_other_advance_book", "item_type", 6, bottom, top);
         dbm.Inserting_To_The_Table(table, "gl_other_advance_book", "item_rate", 7, bottom, top);
@@ -154,9 +154,17 @@ public class GL_other_advance_save extends javax.swing.JPanel {
                 {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "No:", "Date", "Supp:ID", "Name", "Max:allow", "Item", "Type", "Rate", "Qty", "Total"
+                "No:", "Date", "Supp:ID", "Name", "OrderNO", "Item", "Type", "Rate", "Qty", "Total"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         table.setRowHeight(25);
         table.setSelectionBackground(new java.awt.Color(51, 153, 0));
         jScrollPane1.setViewportView(table);

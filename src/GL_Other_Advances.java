@@ -115,7 +115,7 @@ public class GL_Other_Advances extends javax.swing.JPanel {
         installments = new javax.swing.JComboBox();
         jLabel9 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        order_no = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(1024, 466));
@@ -513,10 +513,10 @@ public class GL_Other_Advances extends javax.swing.JPanel {
 
         jLabel19.setText("Rs");
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        order_no.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        order_no.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                order_noActionPerformed(evt);
             }
         });
 
@@ -548,7 +548,7 @@ public class GL_Other_Advances extends javax.swing.JPanel {
                                                 .addGap(53, 53, 53)
                                                 .addComponent(jLabel11)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addComponent(order_no, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addGroup(layout.createSequentialGroup()
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                     .addComponent(supplier_name, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -609,7 +609,7 @@ public class GL_Other_Advances extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(20, 20, 20)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(order_no, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1108,13 +1108,14 @@ public class GL_Other_Advances extends javax.swing.JPanel {
             interface_events.Respond_enter(save1, null);
             
             cadvance.set_sup_id(Integer.parseInt(supplier_id.getSelectedItem().toString()));
-            cadvance.set_max_allowable(Double.parseDouble(allowable.getText()));
+           // cadvance.set_max_allowable(Double.parseDouble(allowable.getText()));
             cadvance.set_amount(Double.parseDouble(amount.getText()));
             cadvance.set_item_rate(Double.parseDouble(Rate.getText()));
             cadvance.set_quantity(Double.parseDouble(qty.getText()));
             cadvance.set_item_name(CodeName.getText());
             cadvance.set_item_type(CodeName2.getText());
             cadvance.set_installments(Integer.parseInt(installments.getSelectedItem().toString()));
+            cadvance.set_ordernum(order_no.getText());
             
             cadvance.set_date(datechooser.Return_date(yearfield, monthfield, dayfield));
             cadvance.set_sup_name(supplier_name.getText());
@@ -1254,9 +1255,9 @@ public class GL_Other_Advances extends javax.swing.JPanel {
         NW.setVisible(true);
     }//GEN-LAST:event_jButton8ActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void order_noActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_order_noActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_order_noActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1303,9 +1304,9 @@ public class GL_Other_Advances extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField month_inst;
     private javax.swing.JTextField monthfield;
+    private javax.swing.JTextField order_no;
     private javax.swing.JTextField qty;
     private javax.swing.JButton save1;
     private javax.swing.JTextField set_val;
