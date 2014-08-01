@@ -30,7 +30,9 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
     private int rows = 0;
 
     public PRCR_Work_normal() {
+        
         initComponents();
+    
     }
 
     //create a table to store work code details(workers work in each work code) for each day
@@ -417,7 +419,6 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
 
         jSeparator1 = new javax.swing.JSeparator();
         sunday = new javax.swing.JCheckBox();
-        workCode = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
@@ -426,12 +427,26 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
         empCode_JC = new javax.swing.JComboBox();
         empName = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        division = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        datepanel = new javax.swing.JPanel();
+        monthfield1 = new javax.swing.JTextField();
+        yearfield1 = new javax.swing.JTextField();
+        dayfield1 = new javax.swing.JTextField();
+        datePick1 = new com.michaelbaranov.microba.calendar.DatePicker();
+        jButton3 = new javax.swing.JButton();
+        jPanel6 = new javax.swing.JPanel();
+        workCode = new javax.swing.JComboBox();
+        W_code = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
+        fac_panel = new javax.swing.JPanel();
+        ot_panel = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         otnight = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
@@ -439,37 +454,18 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         totalot = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jLabel8 = new javax.swing.JLabel();
-        datepanel = new javax.swing.JPanel();
-        monthfield1 = new javax.swing.JTextField();
-        yearfield1 = new javax.swing.JTextField();
-        dayfield1 = new javax.swing.JTextField();
-        datePick1 = new com.michaelbaranov.microba.calendar.DatePicker();
-        jButton3 = new javax.swing.JButton();
-        W_code = new javax.swing.JTextField();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        worked_time_panel = new javax.swing.JPanel();
+        in = new javax.swing.JTextField();
+        out = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        calc_ot = new javax.swing.JButton();
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
         sunday.setText("Sunday");
-
-        workCode.putClientProperty("JComboBox.isTableCellEditor", Boolean.TRUE);
-        workCode.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("workcode_details","code")));
-        workCode.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                workCodeItemStateChanged(evt);
-            }
-        });
-        workCode.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                workCodeActionPerformed(evt);
-            }
-        });
-        workCode.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                workCodeKeyPressed(evt);
-            }
-        });
 
         jLabel3.setText("Date");
 
@@ -655,24 +651,32 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
                     .addComponent(jLabel5))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(empName, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(empCode_JC, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(division, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(21, 21, 21))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(empName, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(74, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(empCode_JC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(empCode_JC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(division, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(empName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addComponent(empName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE))
+                .addGap(31, 31, 31))
         );
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 102));
@@ -731,7 +735,143 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
+        jButton1.setText("Send");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jButton1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jButton1FocusGained(evt);
+            }
+        });
+
+        datepanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        monthfield1.setText(datehandler.get_today_month());
+        monthfield1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                monthfield1KeyPressed(evt);
+            }
+        });
+
+        yearfield1.setText(datehandler.get_today_year());
+        yearfield1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                yearfield1KeyPressed(evt);
+            }
+        });
+
+        dayfield1.setText(datehandler.get_today_day());
+        dayfield1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                dayfield1KeyPressed(evt);
+            }
+        });
+
+        datePick1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                datePick1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout datepanelLayout = new javax.swing.GroupLayout(datepanel);
+        datepanel.setLayout(datepanelLayout);
+        datepanelLayout.setHorizontalGroup(
+            datepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(datepanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(dayfield1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(monthfield1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(yearfield1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(datePick1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        datepanelLayout.setVerticalGroup(
+            datepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(datepanelLayout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addGroup(datepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(datePick1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(datepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(dayfield1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(monthfield1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(yearfield1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jButton3.setText("Clear selected ");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jPanel6.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        workCode.putClientProperty("JComboBox.isTableCellEditor", Boolean.TRUE);
+        workCode.setEditable(true);
+        workCode.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("workcode_details","code")));
+        workCode.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                workCodeItemStateChanged(evt);
+            }
+        });
+        workCode.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                workCodeActionPerformed(evt);
+            }
+        });
+        workCode.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                workCodeKeyPressed(evt);
+            }
+        });
+
+        W_code.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                W_codeActionPerformed(evt);
+            }
+        });
+        W_code.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                W_codeKeyPressed(evt);
+            }
+        });
+
         jLabel4.setText("Work Code");
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel4)
+                .addGap(18, 18, 18)
+                .addComponent(workCode, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
+                .addComponent(W_code, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(60, Short.MAX_VALUE))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(workCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(W_code, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
+        fac_panel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 153)));
+
+        jLabel8.setText("Over Time");
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -803,94 +943,141 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jButton1.setText("Send");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        jButton1.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jButton1FocusGained(evt);
-            }
-        });
-
-        jLabel8.setText("Over Time");
-
-        datepanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        monthfield1.setText(datehandler.get_today_month());
-        monthfield1.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                monthfield1KeyPressed(evt);
-            }
-        });
-
-        yearfield1.setText(datehandler.get_today_year());
-        yearfield1.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                yearfield1KeyPressed(evt);
-            }
-        });
-
-        dayfield1.setText(datehandler.get_today_day());
-        dayfield1.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                dayfield1KeyPressed(evt);
-            }
-        });
-
-        datePick1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                datePick1ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout datepanelLayout = new javax.swing.GroupLayout(datepanel);
-        datepanel.setLayout(datepanelLayout);
-        datepanelLayout.setHorizontalGroup(
-            datepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(datepanelLayout.createSequentialGroup()
+        javax.swing.GroupLayout ot_panelLayout = new javax.swing.GroupLayout(ot_panel);
+        ot_panel.setLayout(ot_panelLayout);
+        ot_panelLayout.setHorizontalGroup(
+            ot_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ot_panelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(dayfield1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(monthfield1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(yearfield1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(datePick1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(50, Short.MAX_VALUE))
         );
-        datepanelLayout.setVerticalGroup(
-            datepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(datepanelLayout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addGroup(datepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(datePick1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(datepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(dayfield1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(monthfield1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(yearfield1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        ot_panelLayout.setVerticalGroup(
+            ot_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ot_panelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(ot_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(ot_panelLayout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addComponent(jLabel8)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jButton3.setText("Clear selected ");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+        jRadioButton1.setText("Over Time Directly");
+        jRadioButton1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jRadioButton1ItemStateChanged(evt);
             }
         });
 
-        W_code.addActionListener(new java.awt.event.ActionListener() {
+        worked_time_panel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 153)));
+
+        in.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                W_codeActionPerformed(evt);
+                inActionPerformed(evt);
             }
         });
-        W_code.addKeyListener(new java.awt.event.KeyAdapter() {
+        in.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                W_codeKeyPressed(evt);
+                inKeyPressed(evt);
             }
         });
+
+        out.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                outActionPerformed(evt);
+            }
+        });
+        out.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                outKeyPressed(evt);
+            }
+        });
+
+        jLabel10.setText("Out");
+
+        jLabel9.setText("In");
+
+        jLabel11.setText("Worked Time");
+
+        javax.swing.GroupLayout worked_time_panelLayout = new javax.swing.GroupLayout(worked_time_panel);
+        worked_time_panel.setLayout(worked_time_panelLayout);
+        worked_time_panelLayout.setHorizontalGroup(
+            worked_time_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(worked_time_panelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(worked_time_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(worked_time_panelLayout.createSequentialGroup()
+                        .addComponent(jLabel11)
+                        .addGap(38, 38, 38)
+                        .addComponent(jLabel9))
+                    .addComponent(jLabel10))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(worked_time_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(in, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(out, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(19, Short.MAX_VALUE))
+        );
+        worked_time_panelLayout.setVerticalGroup(
+            worked_time_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(worked_time_panelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(worked_time_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(in, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel11))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(worked_time_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(out, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10))
+                .addContainerGap())
+        );
+
+        calc_ot.setText("Calculate OT");
+        calc_ot.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                calc_otActionPerformed(evt);
+            }
+        });
+        calc_ot.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                calc_otFocusGained(evt);
+            }
+        });
+
+        javax.swing.GroupLayout fac_panelLayout = new javax.swing.GroupLayout(fac_panel);
+        fac_panel.setLayout(fac_panelLayout);
+        fac_panelLayout.setHorizontalGroup(
+            fac_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(fac_panelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(fac_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ot_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(fac_panelLayout.createSequentialGroup()
+                        .addComponent(worked_time_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(fac_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jRadioButton1)
+                            .addComponent(calc_ot))))
+                .addContainerGap())
+        );
+        fac_panelLayout.setVerticalGroup(
+            fac_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(fac_panelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(fac_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(fac_panelLayout.createSequentialGroup()
+                        .addComponent(jRadioButton1)
+                        .addGap(22, 22, 22)
+                        .addComponent(calc_ot))
+                    .addComponent(worked_time_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10)
+                .addComponent(ot_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -898,52 +1085,47 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel3)
-                        .addGap(8, 8, 8)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(10, 10, 10)
-                                .addComponent(sunday))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel4)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(W_code, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(workCode, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, 0))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(14, 14, 14)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(258, 258, 258)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(145, 145, 145))
+                        .addGap(273, 273, 273)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(fac_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jLabel3)
+                                                .addGap(8, 8, 8)
+                                                .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(10, 10, 10)
+                                                .addComponent(sunday))
+                                            .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addGap(6, 6, 6))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(275, 275, 275))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jSeparator1)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3)
-                        .addContainerGap(46, Short.MAX_VALUE))
+                        .addGap(52, 52, 52)
+                        .addComponent(jScrollPane1))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -951,20 +1133,24 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
                                 .addGap(14, 14, 14)
                                 .addComponent(jLabel3))
                             .addComponent(sunday, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(11, 11, 11)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(workCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(W_code, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8)
-                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(fac_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton3)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -1027,13 +1213,25 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
                 otday.setText(null);
                 otnight.setText(null);
                 empCode_JC.requestFocus();
+                sunday.setEnabled(false);
+                dayfield1.setEnabled(false);
+                monthfield1.setEnabled(false);
+                yearfield1.setEnabled(false);
             } else {
                 JOptionPane.showMessageDialog(null, "Enter the employee code\n", "Message", JOptionPane.INFORMATION_MESSAGE);
                 empCode_JC.requestFocus();
+                 sunday.setEnabled(false);
+                dayfield1.setEnabled(false);
+                monthfield1.setEnabled(false);
+                yearfield1.setEnabled(false);
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Enter the employee code\n", "Message", JOptionPane.INFORMATION_MESSAGE);
             empCode_JC.requestFocus();
+             sunday.setEnabled(false);
+                dayfield1.setEnabled(false);
+                monthfield1.setEnabled(false);
+                yearfield1.setEnabled(false);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -1051,7 +1249,9 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
            // work_code.setText("" + Name);
         }
         W_code.setText(workCode.getSelectedItem().toString());
-        otday.requestFocus();
+        W_code.requestFocus();
+        W_code.selectAll();
+        
     }//GEN-LAST:event_workCodeItemStateChanged
 
     private void empCode_JCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_empCode_JCActionPerformed
@@ -1061,6 +1261,7 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
     private void empCode_JCItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_empCode_JCItemStateChanged
         DatabaseManager dbm = DatabaseManager.getDbCon();
         String Name = null;
+        String division_name=null;
         if (evt.getStateChange() == ItemEvent.SELECTED) {
             int item = Integer.parseInt(evt.getItem().toString());
             try {
@@ -1068,13 +1269,30 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
                 while (query.next()) {
                     Name = query.getString("name");
                 }
+                query.close();
             } catch (SQLException ex) {
             }
-            empName.setText("" + Name);
+            try {
+                ResultSet query = dbm.query("SELECT * FROM checkroll_personalinfo WHERE code =" + item + "");
+                while (query.next()) {
+                    division_name = query.getString("division");
+                }
+                query.close();
+            } catch (SQLException ex) {
+            }
+            empName.setText(Name);
+            division.setText(division_name);
+            
+            if("FAC".equals(division_name)){
+                fac_panel.setVisible(false);
+            }
+            else{
+                fac_panel.setVisible(true);
+            }
         }
 
-        W_code.requestFocus();
-        W_code.selectAll();
+        workCode.requestFocus();
+        
     }//GEN-LAST:event_empCode_JCItemStateChanged
 
     private void otdayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_otdayActionPerformed
@@ -1465,7 +1683,7 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
 
     private void empCode_JCKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_empCode_JCKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
-            workCode.requestFocus();
+             workCode.requestFocus();
 
         }        // TODO add your handling code here:
     }//GEN-LAST:event_empCode_JCKeyPressed
@@ -1505,7 +1723,14 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
     private void W_codeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_W_codeKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             workCode.setSelectedItem(W_code.getText());
-            otday.requestFocus();
+            if(jRadioButton1.isSelected()){
+                otday.requestFocus();
+            }
+            else{
+                in.requestFocus();
+            }
+            
+            
         }
     }//GEN-LAST:event_W_codeKeyPressed
 
@@ -1513,14 +1738,55 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_workCodeActionPerformed
 
+    private void inActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_inActionPerformed
+
+    private void inKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inKeyPressed
+         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+             out.requestFocus();
+         }
+    }//GEN-LAST:event_inKeyPressed
+
+    private void outActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_outActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_outActionPerformed
+
+    private void outKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_outKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+             calc_ot.requestFocus();
+         }
+    }//GEN-LAST:event_outKeyPressed
+
+    private void jRadioButton1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jRadioButton1ItemStateChanged
+        if(jRadioButton1.isSelected()){
+            worked_time_panel.setVisible(false);
+        }
+        else{
+            worked_time_panel.setVisible(true);
+        }
+    }//GEN-LAST:event_jRadioButton1ItemStateChanged
+
+    private void calc_otFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_calc_otFocusGained
+         interface_events.Respond_enter(calc_ot, evt);
+    }//GEN-LAST:event_calc_otFocusGained
+
+    private void calc_otActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calc_otActionPerformed
+           jButton1.requestFocus();
+    }//GEN-LAST:event_calc_otActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField W_code;
+    private javax.swing.JButton calc_ot;
     private com.michaelbaranov.microba.calendar.DatePicker datePick1;
     private javax.swing.JPanel datepanel;
     private javax.swing.JTextField dayfield1;
+    private javax.swing.JLabel division;
     private javax.swing.JComboBox empCode_JC;
     private javax.swing.JLabel empName;
+    private javax.swing.JPanel fac_panel;
+    private javax.swing.JTextField in;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -1528,6 +1794,8 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1535,18 +1803,24 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField monthfield1;
+    private javax.swing.JPanel ot_panel;
     private javax.swing.JTextField otday;
     private javax.swing.JTextField otnight;
+    private javax.swing.JTextField out;
     private javax.swing.JCheckBox sunday;
     private javax.swing.JTable table;
     private javax.swing.JLabel totalot;
     private javax.swing.JComboBox workCode;
+    private javax.swing.JPanel worked_time_panel;
     private javax.swing.JTextField yearfield1;
     // End of variables declaration//GEN-END:variables
 }

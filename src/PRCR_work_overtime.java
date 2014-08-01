@@ -28,15 +28,21 @@ public class PRCR_work_overtime extends javax.swing.JPanel {
 
         int i = 0;
         int j = 0;
+        int codet;
+        double incentive = 0;
+        double basicSalary = 0;
         try {
             ResultSet query = dbm.query("SELECT * FROM prcr_staff_salary_info");
             while (query.next()) {
                 for (j = 0; j < 13; j++) {
+                   
                     table.setValueAt(query.getString(j + 1), i, j);
                 }
                 table.setValueAt(query.getBoolean("active"), i, 13);
+
                 i++;
             }
+            query.close();
 
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
@@ -61,9 +67,9 @@ public class PRCR_work_overtime extends javax.swing.JPanel {
             dbm.updateDatabase("prcr_staff_salary_info", "code", table.getValueAt(i, 0), "Extra1", table.getValueAt(i, 11));
             dbm.updateDatabase("prcr_staff_salary_info", "code", table.getValueAt(i, 0), "Extra2", table.getValueAt(i, 12));
             if (Boolean.parseBoolean("" + table.getValueAt(i, 13)) == true) {
-                dbm.updateDatabase("prcr_staff_salary_info", "code", table.getValueAt(i, 0), "active",1);
+                dbm.updateDatabase("prcr_staff_salary_info", "code", table.getValueAt(i, 0), "active", 1);
             } else {
-                dbm.updateDatabase("prcr_staff_salary_info", "code", table.getValueAt(i, 0), "active",0);
+                dbm.updateDatabase("prcr_staff_salary_info", "code", table.getValueAt(i, 0), "active", 0);
 
             }
             i++;
@@ -74,6 +80,11 @@ public class PRCR_work_overtime extends javax.swing.JPanel {
 
     public void initial_fill_database() {
 
+        int codet;
+        double incentive = 0;
+        double basicSalary = 0;
+        double ot_rate=0;
+        double allowance1=0;
         int reply = JOptionPane.showConfirmDialog(jButton1,
                 "Do You Want to DELETE the current entries?", "Delete Entries", JOptionPane.YES_NO_OPTION);
         if (reply == JOptionPane.YES_OPTION) {
@@ -85,8 +96,37 @@ public class PRCR_work_overtime extends javax.swing.JPanel {
             try {
                 ResultSet query = dbm.query("SELECT * FROM personal_info WHERE checkroll_or_staff LIKE'" + "Staff" + "'");
                 while (query.next()) {
-                    dbm.insert("INSERT INTO prcr_staff_salary_info(code,name,basic_salary) VALUES('" + query.getInt("code") + "','" + query.getString("name") + "','" + query.getDouble("basic_salary") + "')");
+                    incentive = 0;
+                    codet = query.getInt("code");
+                    try {
+                        ResultSet query1 = dbm.query("SELECT * FROM prcr_payroll_incentive WHERE emp_code LIKE '" + codet + "'");
+                        while (query1.next()) {
+                            incentive = query1.getDouble("incentive");
+                        }
+                        query1.close();
+                    } catch (Exception e) {
+                        incentive = 0;
+                    }
+
+                    basicSalary = query.getDouble("basic_salary");
+                    
+                    ot_rate = Math.ceil((basicSalary / 240 * 1.5) * 100.0) / 100.0;
+                    
+                    
+                    if(basicSalary>0){
+                        allowance1=1000.00;
+                        basicSalary=basicSalary-1000;
+                    }
+                    else{
+                        basicSalary=0;
+                        allowance1=0;
+                    }
+                    basicSalary=Math.round(basicSalary);
+                    
+                    //  table.setValueAt(Math.round((basicSalary / 240 * 1.5) * 100.0) / 100.0, i, 3);
+                    dbm.insert("INSERT INTO prcr_staff_salary_info(code,name,basic_salary,ot_rate,allowance1,Incentive1) VALUES('" + codet + "','" + query.getString("name") + "','" + basicSalary + "','" + ot_rate + "','"+allowance1+"','" + incentive + "')");
                 }
+                query.close();
 
             } catch (SQLException ex) {
                 Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
@@ -102,9 +142,11 @@ public class PRCR_work_overtime extends javax.swing.JPanel {
 
         int i = 0;
         double multi = 0;
+        double rnd =0;
         while (table.getValueAt(i, 0) != null) {
 
             multi = Double.parseDouble("" + table.getValueAt(i, 3)) * Double.parseDouble("" + table.getValueAt(i, 4));
+            rnd=Math.ceil(multi*100)/100;
             table.setValueAt(multi, i, 5);
             i++;
         }

@@ -1,4 +1,6 @@
 
+
+import java.awt.Color;
 import java.awt.event.ItemEvent;
 import java.awt.event.KeyEvent;
 import java.sql.Date;
@@ -18,333 +20,163 @@ import javax.swing.UIManager;
  */
 /**
  *
- * @author IDDAMALGODA
+ * @author Pramo
  */
-public class Report_Acc_Ledger extends javax.swing.JPanel {
-
-    UIDefaults defaults = UIManager.getLookAndFeelDefaults();
-    DatabaseManager dbm = new DatabaseManager();
-    Report_gen generate = new Report_gen();
-    Date_Handler dt = new Date_Handler();
-
-    /**
-     * Creates new form Report_Acc_Reciepts
-     */
-    public Report_Acc_Ledger() {
-        initComponents();
-        jPanel2.setVisible(false);
-
-    }
-
-    public class Background implements Runnable {
-
+public class Report_PRCR_loans extends javax.swing.JPanel {
+UIDefaults defaults = UIManager.getLookAndFeelDefaults();
+    
+    
+     public  class Background implements Runnable{
         @Override
-        public void run() {
-            //  jProgressBar1.setIndeterminate(true);
-            // view.setEnabled(false);
+        public void run(){
+           //  jProgressBar1.setIndeterminate(true);
+            view.setEnabled(false);
             jProgressBar1.setVisible(true);
-            int a = (int) (Math.random() * 500);
+            int a = (int) (Math.random()*500);
             //System.out.println(a);
-            for (int i = 0; i <= 3000 + a; i++) {
-                jProgressBar1.setValue(100 * i / 4000);
+            for(int i=0;i<=3000+a;i++){
+                jProgressBar1.setValue(100*i/4000);
                 jProgressBar1.repaint();
-
+                
                 try {
                     Thread.sleep(1);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Reports_GL.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-
-        }
+            
+        }     
     }
-
-    public class report implements Runnable {
-
-        Thread a = new Thread(new Background());
-
-        ACC_ledger ledg = new ACC_ledger();
-
-        ACC_Update updt = new ACC_Update();
-
-        Date_Handler dt = new Date_Handler();
-
-        DateChooser_text date_chooser = new DateChooser_text();
-
-        DatabaseManager dbm = new DatabaseManager();
-
+     
+     public  class report implements Runnable{
         @Override
-        public void run() {
-            //  jProgressBar1.setIndeterminate(true);
-
-            String from_date;
-            String to_date;
-            String account_name;
-            int accountCode;
-
-            double op_bal;
-
-            if (!date_range.isSelected()) {
-
-                if (!all.isSelected()) {
-
-                    if (date_check.isSelected()) {
-                        accountCode = Integer.parseInt(account_code.getSelectedItem().toString());
-
-                        account_name = dbm.checknReturnData("account_names", "account_id", accountCode, "account_name");
-
-                        ledg.fill_account_code(accountCode);
-
-                        HashMap param = new HashMap();
-
-                        from_date = updt.checknReturnData();
-
-                        to_date = dt.get_today_date();
-
-                        //  op_bal = Double.parseDouble(dbm.checknReturnData("account_names", "account_id", accountCode, "opening_balance"));
-                        String d = dt.get_today_date().substring(0, 4);
-
-                        String dated = d + "-04-01";
-
-                        if (op_bal_tick.isSelected()) {
-                            op_bal = 0;
-                        } else {
-                            op_bal = ledg.opening_balance_calc(accountCode, dated);
-                        }
-
-                        param.put("USER", new UserAccountControl().get_current_user());
-                        param.put("Account_Code", accountCode);
-                        param.put("Account_Name", account_name);
-                        param.put("From_Date", from_date);
-                        param.put("To_Date", to_date);
-                        param.put("Op_Bal", op_bal);
-
-                        jProgressBar1.setValue(45);
-                        jProgressBar1.repaint();
-                        String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
-                        a.start();
-                        generate.create("Account Ledgers", "D:\\", param, location, "Report_ACC_LedgerAccounts.jrxml");
-                        a.stop();
-                        ;
-                        jProgressBar1.setValue(100);
-                    } else if (trans_check.isSelected()) {
-                        accountCode = Integer.parseInt(account_code.getSelectedItem().toString());
-
-                        account_name = dbm.checknReturnData("account_names", "account_id", accountCode, "account_name");
-
-                        ledg.fill_account_code(accountCode);
-
-                        HashMap param = new HashMap();
-
-                        from_date = updt.checknReturnData();
-
-                        to_date = dt.get_today_date();
-
-                        //  op_bal = Double.parseDouble(dbm.checknReturnData("account_names", "account_id", accountCode, "opening_balance"));
-                        String d = dt.get_today_date().substring(0, 4);
-
-                        String dated = d + "-04-01";
-
-                        if (op_bal_tick.isSelected()) {
-                            op_bal = 0;
-                        } else {
-                            op_bal = ledg.opening_balance_calc(accountCode, dated);
-                        }
-
-                        param.put("USER", new UserAccountControl().get_current_user());
-                        param.put("Account_Code", accountCode);
-                        param.put("Account_Name", account_name);
-                        param.put("From_Date", from_date);
-                        param.put("To_Date", to_date);
-                        param.put("Op_Bal", op_bal);
-
-                        jProgressBar1.setValue(45);
-                        jProgressBar1.repaint();
-                        String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
-                        a.start();
-                        generate.create("Account Ledgers", "D:\\", param, location, "Report_ACC_LedgerAccounts_Sort_TR.jrxml");
-                        a.stop();
-                        ;
-                        jProgressBar1.setValue(100);
-                    }
-                } else {
-
-                    if (date_check.isSelected()) {
-                        HashMap param = new HashMap();
-                        from_date = updt.checknReturnData();
-                        to_date = dt.get_today_date();
-                        a.start();
-                        ledg.fill_all();
-                        param.put("USER", new UserAccountControl().get_current_user());
-                        param.put("From_Date", from_date);
-                        param.put("To_Date", to_date);
-                        jProgressBar1.setValue(45);
-                        jProgressBar1.repaint();
-                        String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
-
-                        generate.create("Account Ledgers", "D:\\", param, location, "Report_ACC_LedgerAccounts_All.jrxml");
-                        a.stop();
-                        ;
-                        jProgressBar1.setValue(100);
-                    } else if (trans_check.isSelected()) {
-                        HashMap param = new HashMap();
-                        from_date = updt.checknReturnData();
-                        to_date = dt.get_today_date();
-                        a.start();
-                        ledg.fill_all();
-                        param.put("USER", new UserAccountControl().get_current_user());
-                        param.put("From_Date", from_date);
-                        param.put("To_Date", to_date);
-                        jProgressBar1.setValue(45);
-                        jProgressBar1.repaint();
-                        String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
-
-                        generate.create("Account Ledgers", "D:\\", param, location, "Report_ACC_LedgerAccounts_All_Sort_Tr.jrxml");
-                        a.stop();
-                        ;
-                        jProgressBar1.setValue(100);
-                    }
-                }
-
-            } else {
-
-                if (!all.isSelected()) {
-
-                    if (date_check.isSelected()) {
-                        try {
-                            accountCode = Integer.parseInt(account_code.getSelectedItem().toString());
-
-                            account_name = dbm.checknReturnData("account_names", "account_id", accountCode, "account_name");
-
-                            HashMap param = new HashMap();
-
-                            to_date = dt.get_date_as_a_String(date_chooser.Return_date(yearfield2, monthfield2, dayfield2));
-                            from_date = dt.get_date_as_a_String(date_chooser.Return_date(yearfield, monthfield, dayfield));
-
-                            if(op_bal_tick.isSelected()){
-                                op_bal=0;
-                            }
-                            else{
-                            op_bal = ledg.opening_balance_calc(accountCode, from_date);
-                            }
-
-                            ledg.fill_account_code_filtered_date(accountCode, from_date, to_date);
-
-                            param.put("USER", new UserAccountControl().get_current_user());
-                            param.put("Account_Code", accountCode);
-                            param.put("Account_Name", account_name);
-                            param.put("From_Date", from_date);
-                            param.put("To_Date", to_date);
-                            param.put("Op_Bal", op_bal);
-
-                            jProgressBar1.setValue(45);
-                            jProgressBar1.repaint();
-                            String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
-                            a.start();
-                            generate.create("Account Ledgers", "D:\\", param, location, "Report_ACC_LedgerAccounts.jrxml");
-                            a.stop();
-                            ;
-                            jProgressBar1.setValue(100);
-                        } catch (ParseException ex) {
-                            Logger.getLogger(Report_Acc_Ledger.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                    } else if (trans_check.isSelected()) {
-                        try {
-                            accountCode = Integer.parseInt(account_code.getSelectedItem().toString());
-
-                            account_name = dbm.checknReturnData("account_names", "account_id", accountCode, "account_name");
-
-                            HashMap param = new HashMap();
-
-                            to_date = dt.get_date_as_a_String(date_chooser.Return_date(yearfield2, monthfield2, dayfield2));
-                            from_date = dt.get_date_as_a_String(date_chooser.Return_date(yearfield, monthfield, dayfield));
-
-                            if(op_bal_tick.isSelected()){
-                                op_bal=0;
-                            }
-                            else{
-                            op_bal = ledg.opening_balance_calc(accountCode, from_date);
-                            }
-
-                            ledg.fill_account_code_filtered_date(accountCode, from_date, to_date);
-
-                            param.put("USER", new UserAccountControl().get_current_user());
-                            param.put("Account_Code", accountCode);
-                            param.put("Account_Name", account_name);
-                            param.put("From_Date", from_date);
-                            param.put("To_Date", to_date);
-                            param.put("Op_Bal", op_bal);
-
-                            jProgressBar1.setValue(45);
-                            jProgressBar1.repaint();
-                            String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
-                            a.start();
-                            generate.create("Account Ledgers", "D:\\", param, location, "Report_ACC_LedgerAccounts_Sort_TR.jrxml");
-                            a.stop();
-                            ;
-                            jProgressBar1.setValue(100);
-                        } catch (ParseException ex) {
-                            Logger.getLogger(Report_Acc_Ledger.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                    }
-                } else {
-
-                    if (date_check.isSelected()) {
-                        try {
-                            HashMap param = new HashMap();
-                            to_date = dt.get_date_as_a_String(date_chooser.Return_date(yearfield2, monthfield2, dayfield2));
-                            from_date = dt.get_date_as_a_String(date_chooser.Return_date(yearfield, monthfield, dayfield));
-
-                            ledg.fill_all_filtered_date(from_date, to_date);
-
-                            param.put("USER", new UserAccountControl().get_current_user());
-                            param.put("From_Date", from_date);
-                            param.put("To_Date", to_date);
-                            jProgressBar1.setValue(45);
-                            jProgressBar1.repaint();
-                            String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
-                            a.start();
-                            generate.create("Account Ledgers", "D:\\", param, location, "Report_ACC_LedgerAccounts_All.jrxml");
-                            a.stop();
-                            ;
-                            jProgressBar1.setValue(100);
-                        } catch (ParseException ex) {
-                            Logger.getLogger(Report_Acc_Ledger.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                    }
-                    else if(trans_check.isSelected()){
-                        try {
-                            HashMap param = new HashMap();
-                            to_date = dt.get_date_as_a_String(date_chooser.Return_date(yearfield2, monthfield2, dayfield2));
-                            from_date = dt.get_date_as_a_String(date_chooser.Return_date(yearfield, monthfield, dayfield));
-
-                            ledg.fill_all_filtered_date(from_date, to_date);
-
-                            param.put("USER", new UserAccountControl().get_current_user());
-                            param.put("From_Date", from_date);
-                            param.put("To_Date", to_date);
-                            jProgressBar1.setValue(45);
-                            jProgressBar1.repaint();
-                            String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
-                            a.start();
-                            generate.create("Account Ledgers", "D:\\", param, location, "Report_ACC_LedgerAccounts_All_Sort_Tr.jrxml");
-                            a.stop();
-                            ;
-                            jProgressBar1.setValue(100);
-                        } catch (ParseException ex) {
-                            Logger.getLogger(Report_Acc_Ledger.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                    }
-                }
-
+        public void run(){
+           //  jProgressBar1.setIndeterminate(true);
+           
+                Thread a = new Thread(new Background());
+               
+                       if (!supplier.isSelected() && !route.isSelected()) {
+            try {
+                HashMap param = new HashMap();
+                //jProgressBar1.setValue(10);
+                Date Return_date1 = datechooser.Return_date(yearfield, monthfield, dayfield);
+               // jProgressBar1.setValue(20);
+                Date Return_date2 = datechooser.Return_date(yearfield2, monthfield2, dayfield2);
+                param.put("from_date", Return_date1);
+                param.put("to_date", Return_date2);
+                param.put("USER",new UserAccountControl().get_current_user());
+                jProgressBar1.setValue(45);
+                jProgressBar1.repaint();
+                // Date Return_date = datechooser.Return_date(yearfield, monthfield, dayfield);
+                String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
+                a.start();
+                generate.create("PRCR_Loans", saveloc, param, location, "PRCR_loans.jrxml");
+                a.stop();;
+                jProgressBar1.setValue(100);
+            } catch (ParseException ex) {
+                Logger.getLogger(Report_GL_trans.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+                 /*       if(route.isSelected()&& Cat_code.getSelectedItem()==null){
+         try {
+                HashMap param = new HashMap();
+                Date Return_date1 = datechooser.Return_date(yearfield, monthfield, dayfield);
+                Date Return_date2 = datechooser.Return_date(yearfield2, monthfield2, dayfield2);
+                param.put("from_date", Return_date1);
+                param.put("to_date", Return_date2);
+                param.put("USER",new UserAccountControl().get_current_user());
+                // Date Return_date = datechooser.Return_date(yearfield, monthfield, dayfield);
+                String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
+                a.start();
+                generate.create("GL_trans", saveloc, param, location, "GL_trans_Gcategory.jrxml");
+                 a.stop();;
+                jProgressBar1.setValue(100);
+            } catch (ParseException ex) {
+                Logger.getLogger(Report_GL_trans.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }  if(route.isSelected()&& Cat_code.getSelectedItem()!=null){
+         try {
+                HashMap param = new HashMap();
+                Date Return_date1 = datechooser.Return_date(yearfield, monthfield, dayfield);
+                Date Return_date2 = datechooser.Return_date(yearfield2, monthfield2, dayfield2);
+                param.put("from_date", Return_date1);
+                param.put("to_date", Return_date2);
+                param.put("route", Cat_code.getSelectedItem().toString());
+                param.put("USER",new UserAccountControl().get_current_user());
+                // Date Return_date = datechooser.Return_date(yearfield, monthfield, dayfield);
+                String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
+                a.start();
+                generate.create("GL_trans", saveloc, param, location, "GL_trans_all_rout.jrxml");
+                 a.stop();;
+                jProgressBar1.setValue(100);
+            } catch (ParseException ex) {
+                Logger.getLogger(Report_GL_trans.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+          if(supplier.isSelected()&& supplier_id.getSelectedItem()==null){
+         try {
+                HashMap param = new HashMap();
+                Date Return_date1 = datechooser.Return_date(yearfield, monthfield, dayfield);
+                Date Return_date2 = datechooser.Return_date(yearfield2, monthfield2, dayfield2);
+                param.put("from_date", Return_date1);
+                param.put("to_date", Return_date2);
+                param.put("USER",new UserAccountControl().get_current_user());
+                // Date Return_date = datechooser.Return_date(yearfield, monthfield, dayfield);
+                String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
+                a.start();
+                generate.create("GL_trans", saveloc, param, location, "GL_trans_gsupp.jrxml");
+                 a.stop();;
+                jProgressBar1.setValue(100);
+            } catch (ParseException ex) {
+                Logger.getLogger(Report_GL_trans.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+            if(supplier.isSelected()&& supplier_id.getSelectedItem()!=null){
+         try {
+                HashMap param = new HashMap();
+                Date Return_date1 = datechooser.Return_date(yearfield, monthfield, dayfield);
+                Date Return_date2 = datechooser.Return_date(yearfield2, monthfield2, dayfield2);
+                param.put("from_date", Return_date1);
+                param.put("to_date", Return_date2);
+                param.put("sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()));
+                param.put("USER",new UserAccountControl().get_current_user());
+                // Date Return_date = datechooser.Return_date(yearfield, monthfield, dayfield);
+                String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
+                a.start();
+                generate.create("GL_trans", saveloc, param, location, "GL_trans_all_user.jrxml");
+                 a.stop();;
+                jProgressBar1.setValue(100);
+            } catch (ParseException ex) {
+                Logger.getLogger(Report_GL_trans.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }*/
+               
+            view.setEnabled(true);
+            
+        }     
+    }
+    /**
+     *
+     */
+    public Report_PRCR_loans() {
+          defaults.put("nimbusOrange", defaults.get("nimbusBase"));
+        UIManager.getLookAndFeelDefaults().put("nimbusOrange", (new Color(51, 153, 0)));
+      
+        initComponents();
+        Cat_code.setEnabled(false);
+        supplier_id.setEnabled(false);
+           jProgressBar1.setStringPainted(true);
     }
     DateChooser_text datechooser = new DateChooser_text();
-
     Date_Handler datehandler = new Date_Handler();
+    Report_gen generate = new Report_gen();
+    DatabaseManager dbm = new DatabaseManager();
+    String saveloc = dbm.checknReturnStringData("file_locations", "description", "ReportSave", "location");
 
-    String[] combo = new String[10];
+    public void focus() {
+        dayfield.requestFocus();
+        dayfield.selectAll();
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -355,15 +187,8 @@ public class Report_Acc_Ledger extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel4 = new javax.swing.JPanel();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        debit_accountCode = new javax.swing.JComboBox();
-        jSeparator3 = new javax.swing.JSeparator();
-        jButton1 = new javax.swing.JButton();
-        jProgressBar1 = new javax.swing.JProgressBar();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         datepanel = new javax.swing.JPanel();
         monthfield = new javax.swing.JTextField();
         yearfield = new javax.swing.JTextField();
@@ -374,80 +199,22 @@ public class Report_Acc_Ledger extends javax.swing.JPanel {
         yearfield2 = new javax.swing.JTextField();
         dayfield2 = new javax.swing.JTextField();
         datePicker3 = new com.michaelbaranov.microba.calendar.DatePicker();
-        jSeparator1 = new javax.swing.JSeparator();
-        account_code = new javax.swing.JComboBox();
-        all = new javax.swing.JCheckBox();
-        jLabel3 = new javax.swing.JLabel();
-        account_name = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        route = new javax.swing.JCheckBox();
+        supplier = new javax.swing.JCheckBox();
+        supplier_id = new javax.swing.JComboBox();
+        Cat_code = new javax.swing.JComboBox();
+        view = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        date_check = new javax.swing.JRadioButton();
-        trans_check = new javax.swing.JRadioButton();
-        jPanel3 = new javax.swing.JPanel();
-        op_bal_tick = new javax.swing.JCheckBox();
-        date_range = new javax.swing.JCheckBox();
+        jProgressBar1 = new javax.swing.JProgressBar();
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        jCheckBox1.setText("ALL");
-
-        debit_accountCode.putClientProperty("JComboBox.isTableCellEditor",Boolean.TRUE);
-        debit_accountCode.setEditable(true);
-        debit_accountCode.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("account_names", "account_id")));
-        debit_accountCode.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                debit_accountCodeItemStateChanged(evt);
-            }
-        });
-        debit_accountCode.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                debit_accountCodeActionPerformed(evt);
-            }
-        });
-        debit_accountCode.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                debit_accountCodeKeyPressed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(jCheckBox1))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(121, 121, 121)
-                        .addComponent(debit_accountCode, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(273, Short.MAX_VALUE))
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(debit_accountCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jCheckBox1)
-                .addContainerGap(112, Short.MAX_VALUE))
-        );
-
-        setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 5));
-
-        jButton1.setText("Veiw");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 6));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel1.setText("From");
-
-        jLabel2.setText("To");
 
         datepanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -465,7 +232,7 @@ public class Report_Acc_Ledger extends javax.swing.JPanel {
             }
         });
 
-        dayfield.setText(""+Integer.parseInt(datehandler.get_today_day()));
+        dayfield.setText(Integer.parseInt(datehandler.get_today_day())+"");
         dayfield.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 dayfieldKeyPressed(evt);
@@ -522,7 +289,7 @@ public class Report_Acc_Ledger extends javax.swing.JPanel {
             }
         });
 
-        dayfield2.setText(""+Integer.parseInt(datehandler.get_today_day()));
+        dayfield2.setText(Integer.parseInt(datehandler.get_today_day())+"");
         dayfield2.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 dayfield2KeyPressed(evt);
@@ -548,7 +315,7 @@ public class Report_Acc_Ledger extends javax.swing.JPanel {
                 .addComponent(yearfield2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(datePicker3, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         datepanel2Layout.setVerticalGroup(
             datepanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -563,7 +330,7 @@ public class Report_Acc_Ledger extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        jLabel2.setText("To");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -572,80 +339,79 @@ public class Report_Acc_Ledger extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(datepanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(22, Short.MAX_VALUE))
+                    .addComponent(datepanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(datepanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(5, 5, 5)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(datepanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        debit_accountCode.putClientProperty("JComboBox.isTableCellEditor",Boolean.TRUE);
-        account_code.setEditable(true);
-        account_code.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("account_names", "account_id")));
-        account_code.addItemListener(new java.awt.event.ItemListener() {
+        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jLabel3.setText("Group by");
+        jLabel3.setEnabled(false);
+
+        route.setText("Route");
+        route.setEnabled(false);
+        route.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                account_codeItemStateChanged(evt);
+                routeItemStateChanged(evt);
             }
         });
-        account_code.addActionListener(new java.awt.event.ActionListener() {
+
+        supplier.setText("Supplier");
+        supplier.setEnabled(false);
+        supplier.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                supplierItemStateChanged(evt);
+            }
+        });
+        supplier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                account_codeActionPerformed(evt);
-            }
-        });
-        account_code.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                account_codeKeyPressed(evt);
+                supplierActionPerformed(evt);
             }
         });
 
-        all.setText("ALL");
-        all.addItemListener(new java.awt.event.ItemListener() {
+        DatabaseManager dbm = DatabaseManager.getDbCon();
+        supplier_id.putClientProperty("JComboBox.isTableCellEditor", Boolean.TRUE);
+        supplier_id.setEditable(true);
+        supplier_id.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("suppliers", "sup_id")));
+        supplier_id.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                allItemStateChanged(evt);
+                supplier_idItemStateChanged(evt);
             }
         });
-        all.addActionListener(new java.awt.event.ActionListener() {
+        supplier_id.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                allActionPerformed(evt);
+                supplier_idActionPerformed(evt);
+            }
+        });
+        supplier_id.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                supplier_idKeyReleased(evt);
             }
         });
 
-        jLabel3.setText("Account Code");
-
-        account_name.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-
-        jLabel4.setText("Ordered By ");
-
-        date_check.setText("Date");
-        date_check.addItemListener(new java.awt.event.ItemListener() {
+        Cat_code.setEditable(true);
+        Cat_code.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("category", "category_id")));
+        Cat_code.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                date_checkItemStateChanged(evt);
-            }
-        });
-
-        trans_check.setText("Transaction No.");
-        trans_check.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                trans_checkItemStateChanged(evt);
+                Cat_codeItemStateChanged(evt);
             }
         });
 
@@ -655,53 +421,44 @@ public class Report_Acc_Ledger extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(date_check)
-                .addGap(18, 18, 18)
-                .addComponent(trans_check)
-                .addContainerGap())
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(route)
+                            .addComponent(supplier))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(Cat_code, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(supplier_id, 0, 1, Short.MAX_VALUE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(date_check)
-                    .addComponent(trans_check)
-                    .addComponent(jLabel4))
-                .addContainerGap())
+                    .addComponent(route)
+                    .addComponent(Cat_code, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(supplier)
+                    .addComponent(supplier_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        op_bal_tick.setText("Opening Balance");
-
-        date_range.setText("Date Range");
-        date_range.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                date_rangeItemStateChanged(evt);
+        view.setText("Veiw");
+        view.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(date_range)
-                .addGap(10, 10, 10)
-                .addComponent(op_bal_tick)
-                .addContainerGap())
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(date_range)
-                    .addComponent(op_bal_tick))
-                .addContainerGap())
-        );
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel4.setText("Loans");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -709,69 +466,34 @@ public class Report_Acc_Ledger extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(21, 21, 21))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(41, 41, 41)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(account_code, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(63, 63, 63)
-                                .addComponent(all, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(61, 61, 61)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(83, 83, 83)
-                                    .addComponent(account_name, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addContainerGap(304, Short.MAX_VALUE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(63, Short.MAX_VALUE))))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(192, Short.MAX_VALUE)))
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(view, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 26, Short.MAX_VALUE))
+            .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(account_code, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
-                                .addComponent(all))
-                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(view, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(account_name, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(199, 199, 199)
-                    .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(78, Short.MAX_VALUE)))
+                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -1303,7 +1025,7 @@ public class Report_Acc_Ledger extends javax.swing.JPanel {
         }
 
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
-            jButton1.requestFocus();
+            // jButton1.requestFocus();
 
         }
     }//GEN-LAST:event_monthfield2KeyPressed
@@ -1323,7 +1045,7 @@ public class Report_Acc_Ledger extends javax.swing.JPanel {
         }
 
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
-            jButton1.requestFocus();
+            //jButton1.requestFocus();
 
         }
     }//GEN-LAST:event_yearfield2KeyPressed
@@ -1492,180 +1214,209 @@ public class Report_Acc_Ledger extends javax.swing.JPanel {
         }
 
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
-            jButton1.requestFocus();
+            // jButton1.requestFocus();
 
         }
     }//GEN-LAST:event_dayfield2KeyPressed
 
     private void datePicker3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datePicker3ActionPerformed
-        java.sql.Date datef = new java.sql.Date(datePicker1.getDate().getTime());
+        java.sql.Date datef = new java.sql.Date(datePicker3.getDate().getTime());
 
-        dayfield.setText(datehandler.get_day(datef));
-        monthfield.setText(datehandler.get_month(datef));
-        yearfield.setText(datehandler.get_year(datef));
-        jButton1.requestFocus();
+        dayfield2.setText(datehandler.get_day(datef));
+        monthfield2.setText(datehandler.get_month(datef));
+        yearfield2.setText(datehandler.get_year(datef));
+        //jButton1.requestFocus();
     }//GEN-LAST:event_datePicker3ActionPerformed
 
-    ACC_Reciept_View_Table tbl = new ACC_Reciept_View_Table();
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Thread s = new Thread(new report());
-        s.start();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void supplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supplierActionPerformed
 
-    private void debit_accountCodeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_debit_accountCodeItemStateChanged
-        DatabaseManager dbm = DatabaseManager.getDbCon();
-        /* String Name = null;
-         if (evt.getStateChange() == ItemEvent.SELECTED) {
-         int item = Integer.parseInt(evt.getItem().toString());
+    }//GEN-LAST:event_supplierActionPerformed
+
+    private void viewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewActionPerformed
+        //Thread a  = new Thread(new Background());
+        Thread b = new Thread(new report());
+        
+       // a.start();
+        b.start();
+       // a.stop();
+        
+      /*  if (!supplier.isSelected() && !route.isSelected()) {
+            try {
+                HashMap param = new HashMap();
+                jProgressBar1.setValue(10);
+                Date Return_date1 = datechooser.Return_date(yearfield, monthfield, dayfield);
+                jProgressBar1.setValue(20);
+                Date Return_date2 = datechooser.Return_date(yearfield2, monthfield2, dayfield2);
+                param.put("from_date", Return_date1);
+                param.put("to_date", Return_date2);
+                param.put("USER",new UserAccountControl().get_current_user());
+                jProgressBar1.setValue(45);
+                jProgressBar1.repaint();
+                // Date Return_date = datechooser.Return_date(yearfield, monthfield, dayfield);
+                String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
+                jProgressBar1.setValue(60);
+                generate.create("GL_trans", saveloc, param, location, "GL_trans_all.jrxml");
+                jProgressBar1.setValue(95);
+            } catch (ParseException ex) {
+                Logger.getLogger(Report_GL_trans.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        if(route.isSelected()&& Cat_code.getSelectedItem()==null){
          try {
-         ResultSet query = dbm.query("SELECT * FROM account_names WHERE account_id =" + item + "");
-         while (query.next()) {
-         Name = query.getString("account_name");
-         }
-         } catch (SQLException ex) {
-         }
-         debit_accountName.setText("" + Name);
-         }
-         debit_description.requestFocusInWindow(); */
+                HashMap param = new HashMap();
+                Date Return_date1 = datechooser.Return_date(yearfield, monthfield, dayfield);
+                Date Return_date2 = datechooser.Return_date(yearfield2, monthfield2, dayfield2);
+                param.put("from_date", Return_date1);
+                param.put("to_date", Return_date2);
+                param.put("USER",new UserAccountControl().get_current_user());
+                // Date Return_date = datechooser.Return_date(yearfield, monthfield, dayfield);
+                String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
 
-        Check_Entries chk = new Check_Entries();
+                generate.create("GL_trans", saveloc, param, location, "GL_trans_Gcategory.jrxml");
+            } catch (ParseException ex) {
+                Logger.getLogger(Report_GL_trans.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }  if(route.isSelected()&& Cat_code.getSelectedItem()!=null){
+         try {
+                HashMap param = new HashMap();
+                Date Return_date1 = datechooser.Return_date(yearfield, monthfield, dayfield);
+                Date Return_date2 = datechooser.Return_date(yearfield2, monthfield2, dayfield2);
+                param.put("from_date", Return_date1);
+                param.put("to_date", Return_date2);
+                param.put("route", Cat_code.getSelectedItem().toString());
+                param.put("USER",new UserAccountControl().get_current_user());
+                // Date Return_date = datechooser.Return_date(yearfield, monthfield, dayfield);
+                String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
 
-        MessageBox msg = new MessageBox();
+                generate.create("GL_trans", saveloc, param, location, "GL_trans_all_rout.jrxml");
+            } catch (ParseException ex) {
+                Logger.getLogger(Report_GL_trans.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+          if(supplier.isSelected()&& supplier_id.getSelectedItem()==null){
+         try {
+                HashMap param = new HashMap();
+                Date Return_date1 = datechooser.Return_date(yearfield, monthfield, dayfield);
+                Date Return_date2 = datechooser.Return_date(yearfield2, monthfield2, dayfield2);
+                param.put("from_date", Return_date1);
+                param.put("to_date", Return_date2);
+                param.put("USER",new UserAccountControl().get_current_user());
+                // Date Return_date = datechooser.Return_date(yearfield, monthfield, dayfield);
+                String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
 
-        try {
-            if (dbm.checkWhetherDataExists("account_names", "account_id", Integer.parseInt(debit_accountCode.getSelectedItem().toString())) == 1 || debit_accountCode.getSelectedIndex() == 0 || debit_accountCode.getSelectedItem().toString() == null) {
+                generate.create("GL_trans", saveloc, param, location, "GL_trans_gsupp.jrxml");
+            } catch (ParseException ex) {
+                Logger.getLogger(Report_GL_trans.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+            if(supplier.isSelected()&& supplier_id.getSelectedItem()!=null){
+         try {
+                HashMap param = new HashMap();
+                Date Return_date1 = datechooser.Return_date(yearfield, monthfield, dayfield);
+                Date Return_date2 = datechooser.Return_date(yearfield2, monthfield2, dayfield2);
+                param.put("from_date", Return_date1);
+                param.put("to_date", Return_date2);
+                param.put("sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()));
+                param.put("USER",new UserAccountControl().get_current_user());
+                // Date Return_date = datechooser.Return_date(yearfield, monthfield, dayfield);
+                String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
+
+                generate.create("GL_trans", saveloc, param, location, "GL_trans_all_user.jrxml");
+            } catch (ParseException ex) {
+                Logger.getLogger(Report_GL_trans.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+           
+            jProgressBar1.setValue(95);*/
+    }//GEN-LAST:event_viewActionPerformed
+
+    private void supplier_idItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_supplier_idItemStateChanged
+        if (supplier_id.getSelectedIndex() != 0) {
+            try {
+
+                DatabaseManager dbm = DatabaseManager.getDbCon();
                 String Name = null;
+
                 if (evt.getStateChange() == ItemEvent.SELECTED) {
-                    int item = Integer.parseInt(evt.getItem().toString());
+                    int item = Integer.parseInt(supplier_id.getSelectedItem().toString());
                     try {
-                        ResultSet query = dbm.query("SELECT * FROM account_names WHERE account_id =" + item + "");
+                        ResultSet query = dbm.query("SELECT * FROM suppliers WHERE sup_id =" + item + "");
                         while (query.next()) {
-                            Name = query.getString("account_name");
+                            Name = query.getString("sup_name");
                         }
                     } catch (SQLException ex) {
                     }
 
+                   // name.setText("" + Name);
+                   // no_of_sacks.requestFocusInWindow();
+                    //jLabel14.setText(" ");
                 }
 
-            } else {
-                msg.showMessage("Invalid Account Code", "Receipt", "info");
-                debit_accountCode.setSelectedIndex(0);
+            } catch (Exception e) {
+
+                supplier_id.setSelectedIndex(0);
+
             }
-        } catch (Exception e) {
+        }
+        // do something with object}
+    }//GEN-LAST:event_supplier_idItemStateChanged
 
+    private void supplier_idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supplier_idActionPerformed
+        //  System.out.println("OK");
+
+    }//GEN-LAST:event_supplier_idActionPerformed
+
+    private void supplier_idKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_supplier_idKeyReleased
+
+    }//GEN-LAST:event_supplier_idKeyReleased
+
+    private void Cat_codeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_Cat_codeItemStateChanged
+       // if(Cat_code.getSelectedItem()!=null){
+        //   cat_name.setText(dbm.checknReturnData("category", "category_id", Cat_code.getSelectedItem(), "category_name"));
+
+           // trans_rate.requestFocusInWindow();
+        //  }
+    }//GEN-LAST:event_Cat_codeItemStateChanged
+
+    private void routeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_routeItemStateChanged
+        if (route.isEnabled()) {
+            supplier_id.setEnabled(false);
+            supplier.setSelected(false);
+            Cat_code.setEnabled(true);
         }
 
-    }//GEN-LAST:event_debit_accountCodeItemStateChanged
+    }//GEN-LAST:event_routeItemStateChanged
 
-    private void debit_accountCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_debit_accountCodeActionPerformed
-
-    }//GEN-LAST:event_debit_accountCodeActionPerformed
-
-    private void debit_accountCodeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_debit_accountCodeKeyPressed
-
-    }//GEN-LAST:event_debit_accountCodeKeyPressed
-
-    private void account_codeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_account_codeItemStateChanged
-
-        DatabaseManager dbm = new DatabaseManager();
-        MessageBox msg = new MessageBox();
-
-        try {
-            if (dbm.checkWhetherDataExists("account_names", "account_id", Integer.parseInt(account_code.getSelectedItem().toString())) == 1 || debit_accountCode.getSelectedIndex() == 0 || debit_accountCode.getSelectedItem().toString() == null) {
-                String Name = null;
-                if (evt.getStateChange() == ItemEvent.SELECTED) {
-                    int item = Integer.parseInt(evt.getItem().toString());
-                    try {
-                        ResultSet query = dbm.query("SELECT * FROM account_names WHERE account_id =" + item + "");
-                        while (query.next()) {
-                            Name = query.getString("account_name");
-                        }
-                    } catch (SQLException ex) {
-                    }
-                    account_name.setText("" + Name);
-                }
-
-            } else {
-                msg.showMessage("Invalid Account Code", "Receipt", "info");
-                debit_accountCode.setSelectedIndex(0);
-            }
-        } catch (Exception e) {
-
+    private void supplierItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_supplierItemStateChanged
+        if (supplier.isEnabled()) {
+            Cat_code.setEnabled(false);
+            route.setSelected(false);
+            supplier_id.setEnabled(true);
         }
-
-    }//GEN-LAST:event_account_codeItemStateChanged
-
-    private void account_codeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_account_codeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_account_codeActionPerformed
-
-    private void account_codeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_account_codeKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_account_codeKeyPressed
-
-    private void allActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_allActionPerformed
-
-    private void date_rangeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_date_rangeItemStateChanged
-        if (date_range.isSelected()) {
-            jPanel2.setVisible(true);
-        } else {
-            jPanel2.setVisible(false);
-        }
-    }//GEN-LAST:event_date_rangeItemStateChanged
-
-    private void allItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_allItemStateChanged
-        if (all.isSelected()) {
-            account_code.setEnabled(false);
-        } else {
-            account_code.setEnabled(true);
-        }
-    }//GEN-LAST:event_allItemStateChanged
-
-    private void date_checkItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_date_checkItemStateChanged
-        if (date_check.isSelected()) {
-            trans_check.setSelected(false);
-        }
-    }//GEN-LAST:event_date_checkItemStateChanged
-
-    private void trans_checkItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_trans_checkItemStateChanged
-        if (trans_check.isSelected()) {
-            date_check.setSelected(false);
-        }
-    }//GEN-LAST:event_trans_checkItemStateChanged
+    }//GEN-LAST:event_supplierItemStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox account_code;
-    private javax.swing.JLabel account_name;
-    private javax.swing.JCheckBox all;
+    private javax.swing.JComboBox Cat_code;
     private com.michaelbaranov.microba.calendar.DatePicker datePicker1;
     private com.michaelbaranov.microba.calendar.DatePicker datePicker3;
-    private javax.swing.JRadioButton date_check;
-    private javax.swing.JCheckBox date_range;
     private javax.swing.JPanel datepanel;
     private javax.swing.JPanel datepanel2;
     private javax.swing.JTextField dayfield;
     private javax.swing.JTextField dayfield2;
-    private javax.swing.JComboBox debit_accountCode;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JProgressBar jProgressBar1;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JTextField monthfield;
     private javax.swing.JTextField monthfield2;
-    private javax.swing.JCheckBox op_bal_tick;
-    private javax.swing.JRadioButton trans_check;
+    private javax.swing.JCheckBox route;
+    private javax.swing.JCheckBox supplier;
+    private javax.swing.JComboBox supplier_id;
+    private javax.swing.JButton view;
     private javax.swing.JTextField yearfield;
     private javax.swing.JTextField yearfield2;
     // End of variables declaration//GEN-END:variables

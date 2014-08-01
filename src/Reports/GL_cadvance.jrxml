@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b4a7e90f-236c-48e1-b463-a16c40591ab1">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="50"/>
 	<parameter name="USER" class="java.lang.String"/>
 	<parameter name="from_date" class="java.util.Date">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
@@ -99,7 +99,7 @@ WHERE
 			<textField>
 				<reportElement uuid="9b4308a9-ed35-425b-8f5f-5ef25592fa06" x="1" y="60" width="209" height="20"/>
 				<textElement>
-					<font isBold="true"/>
+					<font size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{TITLE}]]></textFieldExpression>
 			</textField>
@@ -128,19 +128,21 @@ WHERE
 				</graphicElement>
 			</line>
 			<textField evaluationTime="Report">
-				<reportElement uuid="a28f6025-2bc0-4bc1-a2d3-6de88975440a" x="276" y="6" width="40" height="20"/>
+				<reportElement uuid="a28f6025-2bc0-4bc1-a2d3-6de88975440a" x="527" y="21" width="40" height="12"/>
 				<textElement>
-					<font isBold="false"/>
+					<font size="8" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="c7b2c106-44fc-4aed-b3a9-e5ad706e21ea" x="196" y="6" width="80" height="20"/>
-				<textElement textAlignment="Right"/>
+				<reportElement uuid="c7b2c106-44fc-4aed-b3a9-e5ad706e21ea" x="446" y="21" width="80" height="12"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="e98f9243-d437-44e0-9e87-4d2a37742252" x="415" y="6" width="100" height="20" forecolor="#666666"/>
+				<reportElement uuid="e98f9243-d437-44e0-9e87-4d2a37742252" x="481" y="5" width="79" height="16" forecolor="#666666"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$V{TITLE}]]></textFieldExpression>
 			</textField>
@@ -152,134 +154,134 @@ WHERE
 				<reportElement uuid="8b820536-4e3c-4646-9176-72c78990b115" x="1" y="23" width="571" height="1"/>
 			</line>
 			<staticText>
-				<reportElement uuid="039454c6-28ae-4f29-aa02-d3bb712887e4" x="0" y="5" width="50" height="20"/>
-				<textElement>
+				<reportElement uuid="039454c6-28ae-4f29-aa02-d3bb712887e4" x="7" y="5" width="50" height="20"/>
+				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Entry:no]]></text>
+				<text><![CDATA[Entry No.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="d12822c9-a485-4478-b6f5-549ffce234e3" x="50" y="5" width="50" height="20"/>
-				<textElement>
+				<reportElement uuid="d12822c9-a485-4478-b6f5-549ffce234e3" x="58" y="5" width="50" height="20"/>
+				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Month:tr:no]]></text>
+				<text><![CDATA[Book No.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="03da878a-09f9-45c6-baef-bd935ebcb21b" x="100" y="5" width="50" height="20"/>
-				<textElement>
+				<reportElement uuid="03da878a-09f9-45c6-baef-bd935ebcb21b" x="109" y="5" width="50" height="20"/>
+				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[SupID]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="529e039f-af1c-403b-b007-2af55c8bcfe3" x="150" y="5" width="50" height="20"/>
+				<reportElement uuid="529e039f-af1c-403b-b007-2af55c8bcfe3" x="161" y="5" width="50" height="20"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Paytype]]></text>
+				<text><![CDATA[Pay Type]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="766a8a14-20e8-4eb0-adc7-1aac707b0375" x="200" y="5" width="62" height="20"/>
-				<textElement>
+				<reportElement uuid="766a8a14-20e8-4eb0-adc7-1aac707b0375" x="210" y="5" width="69" height="20"/>
+				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Ordered]]></text>
+				<text><![CDATA[Ordered Date]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="25f45886-2a97-43ac-96a3-c7ae506167e0" x="278" y="5" width="62" height="20"/>
-				<textElement>
+				<reportElement uuid="25f45886-2a97-43ac-96a3-c7ae506167e0" x="285" y="5" width="62" height="20"/>
+				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Issued]]></text>
+				<text><![CDATA[Issued Date]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="b4a11184-62ca-4a56-8b1b-d4662c738953" x="503" y="5" width="50" height="20"/>
+				<reportElement uuid="b4a11184-62ca-4a56-8b1b-d4662c738953" x="496" y="5" width="50" height="20"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Amount]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="97f5dfc0-e2be-4113-919c-60f44d210334" x="360" y="5" width="50" height="20"/>
-				<textElement>
+				<reportElement uuid="97f5dfc0-e2be-4113-919c-60f44d210334" x="350" y="5" width="50" height="20"/>
+				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Bank]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="847b460b-94cf-436b-bb90-88cc7a5c3bf0" x="410" y="5" width="65" height="20"/>
-				<textElement>
+				<reportElement uuid="847b460b-94cf-436b-bb90-88cc7a5c3bf0" x="407" y="5" width="65" height="20"/>
+				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Cheque_no]]></text>
+				<text><![CDATA[Cheque No.]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="18" splitType="Stretch">
 			<textField>
-				<reportElement uuid="dcf00996-208c-4baf-86fe-9121b3cba6cf" x="0" y="0" width="50" height="15"/>
-				<textElement>
+				<reportElement uuid="dcf00996-208c-4baf-86fe-9121b3cba6cf" x="7" y="0" width="50" height="15"/>
+				<textElement textAlignment="Center">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{gl_cash_advance_entry_no}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="ae26d96e-06d0-4d8d-9280-54234e6fe2e7" x="50" y="0" width="50" height="15"/>
-				<textElement>
+				<reportElement uuid="ae26d96e-06d0-4d8d-9280-54234e6fe2e7" x="58" y="0" width="50" height="15"/>
+				<textElement textAlignment="Center">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{gl_cash_advance_month_tr_no}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="2e2ca9c5-9535-4d4c-9589-3ff284af7117" x="100" y="0" width="50" height="15"/>
-				<textElement>
+				<reportElement uuid="2e2ca9c5-9535-4d4c-9589-3ff284af7117" x="109" y="0" width="50" height="15"/>
+				<textElement textAlignment="Center">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{gl_cash_advance_sup_id}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="4b7323e1-8aed-488c-9652-6b53922e14ac" x="150" y="0" width="50" height="15"/>
-				<textElement>
+				<reportElement uuid="4b7323e1-8aed-488c-9652-6b53922e14ac" x="159" y="0" width="50" height="15"/>
+				<textElement textAlignment="Center">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{gl_cash_advance_pay_type}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd-MM-yyyy">
-				<reportElement uuid="743523bf-e016-4843-b540-28ada0780a33" x="200" y="0" width="62" height="15"/>
-				<textElement>
+				<reportElement uuid="743523bf-e016-4843-b540-28ada0780a33" x="210" y="0" width="62" height="15"/>
+				<textElement textAlignment="Center">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{gl_cash_advance_ordered_date}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd-MM-yyyy">
-				<reportElement uuid="dc1907cf-0b65-4be9-9353-4e9f9e431ebf" x="278" y="0" width="62" height="15"/>
-				<textElement>
+				<reportElement uuid="dc1907cf-0b65-4be9-9353-4e9f9e431ebf" x="285" y="0" width="62" height="15"/>
+				<textElement textAlignment="Center">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{gl_cash_advance_issued_date}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement uuid="2ff59e17-1393-461d-b0cb-4913f3c8ed85" x="503" y="0" width="50" height="15"/>
-				<textElement>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="2ff59e17-1393-461d-b0cb-4913f3c8ed85" x="481" y="0" width="50" height="15"/>
+				<textElement textAlignment="Right">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{gl_cash_advance_amount}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="f566419b-50b8-40a1-9ac4-b68fd705fa25" x="360" y="0" width="50" height="15"/>
-				<textElement>
+				<reportElement uuid="f566419b-50b8-40a1-9ac4-b68fd705fa25" x="350" y="0" width="50" height="15"/>
+				<textElement textAlignment="Center">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{gl_cash_advance_bank_code}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="f0406888-8881-4730-b88f-8eb6cce23f86" x="410" y="0" width="50" height="15"/>
-				<textElement>
+				<reportElement uuid="f0406888-8881-4730-b88f-8eb6cce23f86" x="414" y="0" width="50" height="15"/>
+				<textElement textAlignment="Center">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{gl_cash_advance_cheque_no}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[( $F{gl_cash_advance_cheque_no}=="null" ? "" : $F{gl_cash_advance_cheque_no} )]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -315,7 +317,7 @@ WHERE
 				</graphicElement>
 			</line>
 			<textField pattern="#,##0.00">
-				<reportElement uuid="a3a3158d-7d2c-4812-b137-10af620ba744" x="475" y="8" width="97" height="20"/>
+				<reportElement uuid="a3a3158d-7d2c-4812-b137-10af620ba744" x="463" y="8" width="97" height="20"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
@@ -342,9 +344,11 @@ WHERE
 				<text><![CDATA[Avarage=]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="e864977f-ae79-4e2b-8e78-df2ea9008543" x="442" y="9" width="49" height="20"/>
-				<textElement/>
-				<text><![CDATA[Total=]]></text>
+				<reportElement uuid="e864977f-ae79-4e2b-8e78-df2ea9008543" x="419" y="9" width="49" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total =]]></text>
 			</staticText>
 		</band>
 	</summary>

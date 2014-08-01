@@ -638,7 +638,7 @@ public class Report_Acc_Reciepts extends javax.swing.JPanel {
             }
         });
 
-        jButton1.setText("Search");
+        jButton1.setText("View");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);

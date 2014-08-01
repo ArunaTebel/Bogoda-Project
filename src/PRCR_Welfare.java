@@ -1,4 +1,5 @@
 
+import java.awt.event.ItemEvent;
 import java.awt.event.KeyEvent;
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -9,7 +10,7 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
+//import javax.swing.table.DefaultTableModel;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -26,25 +27,26 @@ public class PRCR_Welfare extends javax.swing.JPanel {
     GL_report_generator reportgen = new GL_report_generator();
     Date_Handler datehandler = new Date_Handler();
     Report_gen generate = new Report_gen();
-int count = 1;
+    int count = 1;
+
     /**
      * Creates new form GL_InstAdvances
      */
     public PRCR_Welfare() {
         initComponents();
         calcfigures(reg, Nreg, sus, attention, "2013", "06");
-         ((DefaultTableModel) jTable1.getModel()).setNumRows(2);
-        
+      // ((DefaultTableModel) jTable1.getModel()).setNumRows(2);
+
     }
 
-    public void calcfigures(javax.swing.JLabel Reg, javax.swing.JLabel Nreg, javax.swing.JLabel Sus, javax.swing.JLabel att,String year, String month) {
+    public void calcfigures(javax.swing.JLabel Reg, javax.swing.JLabel Nreg, javax.swing.JLabel Sus, javax.swing.JLabel att, String year, String month) {
 
         int reg = 0;
         int nreg = 0;
         int sus = 0;
         int Att = 0;
         String stat;
-        
+
         int regNum = 0;
         int newRegNum = 0;
         int susNum = 0;
@@ -58,42 +60,45 @@ int count = 1;
         int supId = 0;
         String table1 = "suppliers";
         String coloumnG1 = "sup_id";
-        
+
         try {
             ResultSet rs1 = dbm.query("SELECT * FROM " + table + " where " + coloumnG + " = '" + thisMonth + "'");
-            while(rs1.next()){
+            while (rs1.next()) {
                 regNum++;
-                if(rs1.getInt("new_old")==1)
+                if (rs1.getInt("new_old") == 1) {
                     newRegNum++;
-                if(rs1.getInt("suspended_months")>0)
+                }
+                if (rs1.getInt("suspended_months") > 0) {
                     susNum++;
+                }
                 /*supId = rs1.getInt("sup_id");
-                ResultSet rs2 = dbm.query("SELECT * FROM " + table1 + " where " + coloumnG1 + " = '" + thisMonth + "'");
-                while(rs2.next()){
-                    double[] total = new double[33];
-                    String year1 = day.substring(0, 5);
-                    String month1 = day.substring(5, 7);
-                    total = reportgen.get_day_totals(supId, year1, month1);
-                    int i=0;
-                    double Total = 0;
-                    while (i < 32) {
-                        Total += total[i];
-                        i++;
-                    }
-                    if (Total == 0) {
-                        Att++;
-                    }
-                }*/
+                 ResultSet rs2 = dbm.query("SELECT * FROM " + table1 + " where " + coloumnG1 + " = '" + thisMonth + "'");
+                 while(rs2.next()){
+                 double[] total = new double[33];
+                 String year1 = day.substring(0, 5);
+                 String month1 = day.substring(5, 7);
+                 total = reportgen.get_day_totals(supId, year1, month1);
+                 int i=0;
+                 double Total = 0;
+                 while (i < 32) {
+                 Total += total[i];
+                 i++;
+                 }
+                 if (Total == 0) {
+                 Att++;
+                 }
+                 }*/
             }
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(GL_Welfare.class.getName()).log(Level.SEVERE, null, ex);
         }
-       
+
         att.setText(null);
-        Reg.setText(regNum+" Registered");
-        Nreg.setText(newRegNum+" New Registered");
-        Sus.setText(susNum+" Suspended");
+        Reg.setText(regNum + " Registered");
+        Nreg.setText(newRegNum + " New Registered");
+        Sus.setText(susNum + " Suspended");
+        
 
     }
 
@@ -110,31 +115,36 @@ int count = 1;
         jPanel1 = new javax.swing.JPanel();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
-        Nreg = new javax.swing.JLabel();
-        reg = new javax.swing.JLabel();
-        sus = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         welf_num = new javax.swing.JComboBox();
         jLabel6 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        supp = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         suspendButton = new javax.swing.JRadioButton();
         newOldButton = new javax.swing.JRadioButton();
         beforeAfterButton = new javax.swing.JRadioButton();
-        attention = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
+        name = new javax.swing.JLabel();
+        division = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        status = new javax.swing.JLabel();
+        reg_date = new javax.swing.JLabel();
+        emp_code = new javax.swing.JComboBox();
         jButton10 = new javax.swing.JButton();
         jButton12 = new javax.swing.JButton();
         datepanel = new javax.swing.JPanel();
         monthfield = new javax.swing.JTextField();
         yearfield = new javax.swing.JTextField();
         datePicker1 = new com.michaelbaranov.microba.calendar.DatePicker();
+        jPanel2 = new javax.swing.JPanel();
+        Nreg = new javax.swing.JLabel();
+        sus = new javax.swing.JLabel();
+        attention = new javax.swing.JLabel();
+        reg = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        jButton2 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
@@ -166,18 +176,9 @@ int count = 1;
                 .addContainerGap(33, Short.MAX_VALUE))
         );
 
-        Nreg.setFont(new java.awt.Font("Rockwell", 0, 24)); // NOI18N
-        Nreg.setText("XX New registered");
-
-        reg.setFont(new java.awt.Font("Rockwell", 0, 24)); // NOI18N
-        reg.setText("XX Registered");
-
-        sus.setFont(new java.awt.Font("Rockwell", 0, 24)); // NOI18N
-        sus.setText("XX Suspended");
-
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Change"));
 
-        welf_num.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "" }));
+        welf_num.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", " " }));
 
         jLabel6.setText("For This Month");
 
@@ -185,30 +186,6 @@ int count = 1;
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
-            }
-        });
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null},
-                {null},
-                {null},
-                {null}
-            },
-            new String [] {
-                "Code"
-            }
-        ));
-        jScrollPane1.setViewportView(jTable1);
-
-        supp.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                suppActionPerformed(evt);
-            }
-        });
-        supp.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                suppKeyPressed(evt);
             }
         });
 
@@ -231,21 +208,46 @@ int count = 1;
 
         beforeAfterButton.setText("Pay before suspend period");
 
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel5.setText("Division");
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel7.setText("Current Status");
+
+        emp_code.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("checkroll_personalinfo","code")));
+        emp_code.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                emp_codeItemStateChanged(evt);
+            }
+        });
+        emp_code.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                emp_codeActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel4)
-                            .addComponent(supp, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(153, 153, 153)
+                        .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(48, 48, 48)
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(36, 36, 36)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(status, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(reg_date, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
+                                    .addComponent(emp_code, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel3Layout.createSequentialGroup()
@@ -253,77 +255,56 @@ int count = 1;
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(newOldButton)
                                     .addComponent(beforeAfterButton)
-                                    .addComponent(suspendButton))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                                    .addComponent(suspendButton))))))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(welf_num, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(53, 53, 53))))
+                        .addGap(53, 53, 53))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(division, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(88, 88, 88)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel5)
+                .addGap(158, 158, 158))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(supp, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(5, 5, 5)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(newOldButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(suspendButton)
-                            .addComponent(welf_num, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(beforeAfterButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 6, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-
-        attention.setFont(new java.awt.Font("Rockwell", 0, 24)); // NOI18N
-        attention.setForeground(new java.awt.Color(153, 0, 0));
-        attention.setText("XX Need Attention");
-
-        jButton2.setText("View");
-
-        jButton1.setText("View");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        jButton8.setText("View");
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(17, 17, 17)
-                .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(69, 69, 69))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(division, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(emp_code, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(newOldButton)
+                    .addComponent(jLabel7))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel6)
+                        .addComponent(suspendButton)
+                        .addComponent(welf_num, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(status, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(reg_date, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(beforeAfterButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 211, Short.MAX_VALUE)
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jButton10.setText("View All");
@@ -387,6 +368,87 @@ int count = 1;
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        Nreg.setFont(new java.awt.Font("Rockwell", 0, 24)); // NOI18N
+        Nreg.setText("XX New registered");
+
+        sus.setFont(new java.awt.Font("Rockwell", 0, 24)); // NOI18N
+        sus.setText("XX Suspended");
+
+        attention.setFont(new java.awt.Font("Rockwell", 0, 24)); // NOI18N
+        attention.setForeground(new java.awt.Color(153, 0, 0));
+        attention.setText("XX Need Attention");
+
+        reg.setFont(new java.awt.Font("Rockwell", 0, 24)); // NOI18N
+        reg.setText("XX Registered");
+
+        jButton2.setText("View");
+
+        jButton1.setText("View");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton8.setText("View");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(17, 17, 17)
+                .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(69, 69, 69))
+        );
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(attention)
+                    .addComponent(reg)
+                    .addComponent(sus)
+                    .addComponent(Nreg))
+                .addGap(23, 23, 23)
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(Nreg)
+                        .addGap(27, 27, 27)
+                        .addComponent(reg)
+                        .addGap(27, 27, 27)
+                        .addComponent(sus)
+                        .addGap(27, 27, 27)
+                        .addComponent(attention))
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -396,27 +458,19 @@ int count = 1;
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(attention)
-                                    .addComponent(reg)
-                                    .addComponent(sus)
-                                    .addComponent(Nreg))
-                                .addGap(23, 23, 23)
-                                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(125, 125, 125)
+                        .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(26, 26, 26)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addGap(38, 38, 38)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -425,104 +479,96 @@ int count = 1;
             .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(14, 14, 14)
-                                .addComponent(Nreg)
-                                .addGap(27, 27, 27)
-                                .addComponent(reg)
-                                .addGap(27, 27, 27)
-                                .addComponent(sus)
-                                .addGap(27, 27, 27)
-                                .addComponent(attention)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(43, 43, 43)))
-                .addGap(7, 7, 7)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                        .addGap(41, 41, 41)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(33, 33, 33)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       // TODO add your handling code here:
+        // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-         HashMap param = new HashMap();
+        HashMap param = new HashMap();
                 //jProgressBar1.setValue(10);
-               
-                param.put("month", yearfield.getText()+datehandler.return_month_as_num(monthfield.getText()));
-               // param.put("to_date", Return_date2);
-                param.put("USER",new UserAccountControl().get_current_user());
-               
-                // Date Return_date = datechooser.Return_date(yearfield, monthfield, dayfield);
-                String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
-                
-                generate.create("GL_welfare", "D:\\", param, location, "GL_welfare.jrxml");
+
+        param.put("month", yearfield.getText() + datehandler.return_month_as_num(monthfield.getText()));
+        // param.put("to_date", Return_date2);
+        param.put("USER", new UserAccountControl().get_current_user());
+
+        // Date Return_date = datechooser.Return_date(yearfield, monthfield, dayfield);
+        String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
+
+        generate.create("GL_welfare", "D:\\", param, location, "GL_welfare.jrxml");
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         DatabaseManager dbm = new DatabaseManager();
         Calendar currentDate = Calendar.getInstance();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        
+
         int entry = 0;
         /*try {
-            entry = dbm.readLastRow("prcr_welfare", "entry") + 1;
-        } catch (SQLException ex) {
-            Logger.getLogger(GL_Welfare.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
-        
+         entry = dbm.readLastRow("prcr_welfare", "entry") + 1;
+         } catch (SQLException ex) {
+         Logger.getLogger(GL_Welfare.class.getName()).log(Level.SEVERE, null, ex);
+         }*/
+
         String day = formatter.format(currentDate.getTime());
         int month = Integer.parseInt(day.substring(5, 7));
-        String thisMonth = day.substring(0, 5) + month; 
-        
+        String thisMonth = day.substring(0, 5) + month;
+
        // String thisMonth = yearfield.getText()+"-"+Integer.parseInt(monthfield.getText());
-        
-        int newMonths = (int)dbm.checknReturnDoubleData("rate_details", "Code_name", "PRCR_WM", "rate");
-        
+        int newMonths = (int) dbm.checknReturnDoubleData("rate_details", "Code_name", "PRCR_WM", "rate");
+
         String supId = null;
-        if(supp.getText().equals(""))
+        if (emp_code.getSelectedItem().equals("")) {
             JOptionPane.showMessageDialog(null, "Worker code not Given!");
-        else
-            supId = supp.getText();
-        
+        } else {
+            supId = emp_code.getSelectedItem().toString();
+        }
+
         entry = Integer.parseInt(day.substring(0, 4) + day.substring(5, 7) + supId);
-        
+
         int suspended = -1;
         int remain = -1;
         int before = 0;
-        if(suspendButton.isSelected()){
-            suspended = Integer.parseInt(welf_num.getSelectedItem().toString());
+        if (suspendButton.isSelected()) {
+            if (welf_num.getSelectedItem().toString() == "-") {
+                suspended = 5000;
+                dbm.CheckNDeleteFromDataBase("prcr_welfare_members", "emp_code", Integer.parseInt(emp_code.getSelectedItem().toString()));
+            } else {
+                suspended = Integer.parseInt(welf_num.getSelectedItem().toString());
+            }
             remain = suspended;
-            if(beforeAfterButton.isSelected())
+            if (beforeAfterButton.isSelected()) {
                 before = 1;
-        }
-        else
+            }
+        } else {
             before = -1;
-        
+        }
+
         int newRegisterd = 0;
-        if(newOldButton.isSelected()){
+        if (newOldButton.isSelected()) {
             newRegisterd = 1;
             try {
                 dbm.insert("INSERT INTO prcr_welfare(entry,month,code,months_on_welfare,new_old,suspended_months,suspended_remain,before_after) VALUES('" + entry + "','" + thisMonth + "','" + supId + "','" + newMonths + "','" + 1 + "','" + suspended + "','" + remain + "','" + before + "')");
-                dbm.insert("INSERT INTO prcr_welfare_members(emp_code,date)VALUES('"+supId+"','"+thisMonth+'"');
+                dbm.insert("INSERT INTO prcr_welfare_members(emp_code,date)VALUES('" + supId + "','" + thisMonth + '"');
             } catch (SQLException ex) {
                 Logger.getLogger(GL_Welfare.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
-        else{
+        } else {
             dbm.update("prcr_welfare", "month", "code", thisMonth, supId, "suspended_months", suspended);
             dbm.update("prcr_welfare", "month", "code", thisMonth, supId, "suspended_remain", remain);
             dbm.update("prcr_welfare", "month", "code", thisMonth, supId, "before_after", before);
@@ -530,31 +576,10 @@ int count = 1;
         calcfigures(reg, Nreg, sus, attention, "2013", "06");
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void suppActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_suppActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_suppActionPerformed
-
-    private void suppKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_suppKeyPressed
-       if(evt.getKeyCode()==KeyEvent.VK_ENTER){
-           
-           count = 1;
-           while(jTable1.getValueAt(count-1, 0)!=null){
-               
-               
-               count++;}
-          
-            ((DefaultTableModel) jTable1.getModel()).setNumRows(count+2);
-            jTable1.setValueAt( supp.getText(), count-1, 0);
-          supp.setText("");
-          supp.requestFocusInWindow();
-       
-       }
-    }//GEN-LAST:event_suppKeyPressed
-
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-        
+
         String thisMonth = yearfield.getText() + "-" + Integer.parseInt(datehandler.return_month_as_num(monthfield.getText()));
-        
+
         DatabaseManager dbm = new DatabaseManager();
         String table = "prcr_welfare";
         String coloumnG = "month";
@@ -565,13 +590,13 @@ int count = 1;
         int remain = 0;
         int before = 0;
         int amount = 0;
-        
-        int oldRate = (int)dbm.checknReturnDoubleData("rate_details", "Code_name", "PRCR_WO", "rate");
-        int newRate = (int)dbm.checknReturnDoubleData("rate_details", "Code_name", "PRCR_WN", "rate");
-        
+
+        int oldRate = (int) dbm.checknReturnDoubleData("rate_details", "Code_name", "PRCR_WO", "rate");
+        int newRate = (int) dbm.checknReturnDoubleData("rate_details", "Code_name", "PRCR_WN", "rate");
+
         try {
             ResultSet query = dbm.query("SELECT * FROM " + table + " where " + coloumnG + " = '" + thisMonth + "'");
-            while(query.next()){
+            while (query.next()) {
                 coloumnN = "new_old";
                 newOld = query.getInt(coloumnN);
                 coloumnN = "suspended_months";
@@ -582,32 +607,33 @@ int count = 1;
                 before = query.getInt(coloumnN);
                 coloumnN = "code";
                 supId = query.getInt(coloumnN);
-                if(remain>=0){
-                    if((remain==0 && before==0) || (remain==suspended && before==1)){
-                        if(newOld==0)
-                            amount = suspended*oldRate;
-                        else
-                            amount = suspended*newRate;
-                    }
-                    else
+                if (remain >= 0) {
+                    if ((remain == 0 && before == 0) || (remain == suspended && before == 1)) {
+                        if (newOld == 0) {
+                            amount = suspended * oldRate;
+                        } else {
+                            amount = suspended * newRate;
+                        }
+                    } else {
                         amount = 0;
-                }
-                else{
-                    if(newOld==0)
+                    }
+                } else {
+                    if (newOld == 0) {
                         amount = oldRate;
-                    else
-                        amount = newRate;        
+                    } else {
+                        amount = newRate;
+                    }
                 }
-                dbm.update("prcr_welfare", "month", "code", thisMonth, supId, "amount", amount);  
+                dbm.update("prcr_welfare", "month", "code", thisMonth, supId, "amount", amount);
                 String tableName = "pr_workdata_" + yearfield.getText() + "_" + datehandler.return_month_as_num(monthfield.getText());
                 dbm.updateDatabase(tableName, "code", supId, "welfare", amount);
             }
         } catch (SQLException ex) {
             Logger.getLogger(GL_Welfare.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         //reportgen.update_welfare(yearfield.getText(), datehandler.return_month_as_num(monthfield.getText()));
-         //reportgen.update_taskmanager(yearfield.getText(), datehandler.return_month_as_num(monthfield.getText()), "4");
+        //reportgen.update_taskmanager(yearfield.getText(), datehandler.return_month_as_num(monthfield.getText()), "4");
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void monthfieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_monthfieldKeyPressed
@@ -815,6 +841,64 @@ int count = 1;
         // TODO add your handling code here:
     }//GEN-LAST:event_newOldButtonActionPerformed
 
+    private void emp_codeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_emp_codeItemStateChanged
+         DatabaseManager dbm = DatabaseManager.getDbCon();
+        String Name = null;
+        String division_name = null;
+        int i = 0;
+        String date = null;
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            int item = Integer.parseInt(evt.getItem().toString());
+            try {
+                ResultSet query = dbm.query("SELECT * FROM personal_info WHERE code =" + item + "");
+                while (query.next()) {
+                    Name = query.getString("name");
+                }
+                query.close();
+            } catch (SQLException ex) {
+            }
+            try {
+                ResultSet query = dbm.query("SELECT * FROM checkroll_personalinfo WHERE code =" + item + "");
+                while (query.next()) {
+                    division_name = query.getString("division");
+                }
+                query.close();
+            } catch (SQLException ex) {
+            }
+            try {
+                ResultSet query = dbm.query("SELECT * FROM prcr_welfare_members WHERE emp_code =" + item + "");
+                while (query.next()) {
+                    i = 1;
+                    date=query.getString("date");
+                }
+                query.close();
+            } catch (SQLException ex) {
+                i = 0;
+                date=null;
+            }
+            if(i==0){
+                status.setText("Not Registered");
+                newOldButton.setEnabled(true);
+            }
+            else if(i==1){
+                status.setText("Registered");
+                newOldButton.setEnabled(false);
+            }
+            
+            reg_date.setText(date);
+            name.setText(Name);
+            division.setText(division_name);
+            
+            
+
+        }
+    }//GEN-LAST:event_emp_codeItemStateChanged
+
+    private void emp_codeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emp_codeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_emp_codeActionPerformed
+
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Nreg;
@@ -822,6 +906,8 @@ int count = 1;
     private javax.swing.JRadioButton beforeAfterButton;
     private com.michaelbaranov.microba.calendar.DatePicker datePicker1;
     private javax.swing.JPanel datepanel;
+    private javax.swing.JLabel division;
+    private javax.swing.JComboBox emp_code;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton12;
@@ -831,17 +917,20 @@ int count = 1;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField monthfield;
+    private javax.swing.JLabel name;
     private javax.swing.JRadioButton newOldButton;
     private javax.swing.JLabel reg;
-    private javax.swing.JTextField supp;
+    private javax.swing.JLabel reg_date;
+    private javax.swing.JLabel status;
     private javax.swing.JLabel sus;
     private javax.swing.JRadioButton suspendButton;
     private javax.swing.JComboBox welf_num;

@@ -21,26 +21,27 @@ import net.sf.jasperreports.view.JasperViewer;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Pramo
  */
 public class Reports_PRCR extends javax.swing.JPanel {
-GL_report_generator report_gen = new GL_report_generator();
-Date_Handler date_handler = new Date_Handler();
- UIDefaults defaults = UIManager.getLookAndFeelDefaults();
-  Report_gen generate = new Report_gen();
+
+    GL_report_generator report_gen = new GL_report_generator();
+    Date_Handler date_handler = new Date_Handler();
+    UIDefaults defaults = UIManager.getLookAndFeelDefaults();
+    Report_gen generate = new Report_gen();
     UserAccountControl user = new UserAccountControl();
+
     /**
      * Creates new form Reports_GL
      */
     public Reports_PRCR() {
-         defaults.put("nimbusOrange", defaults.get("nimbusBase"));
+        defaults.put("nimbusOrange", defaults.get("nimbusBase"));
         UIManager.getLookAndFeelDefaults().put("nimbusOrange", (new Color(51, 153, 0)));
         initComponents();
         progress.setStringPainted(true);
-       
+
     }
     DatabaseManager dbm = new DatabaseManager();
 
@@ -398,7 +399,7 @@ Date_Handler date_handler = new Date_Handler();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-     Report_PRCR_Employees emp=new Report_PRCR_Employees();
+        Report_PRCR_Employees emp = new Report_PRCR_Employees();
 
         content.removeAll();
 
@@ -407,54 +408,53 @@ Date_Handler date_handler = new Date_Handler();
         content.add(emp);
         validate();
         repaint();
-        emp.focus();   
+        emp.focus();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         HashMap param = new HashMap();
-       param.put("USER", user.get_current_user());
-        
-        Thread b = new Thread(new call_thread("PRCR_Rate", "D:\\\\", param, "PRCR_Rate_details",1));
+        param.put("USER", user.get_current_user());
+
+        Thread b = new Thread(new call_thread("PRCR_Rate", "D:\\\\", param, "PRCR_Rate_details", 1));
         b.start();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-       HashMap param = new HashMap();
-       param.put("USER", user.get_current_user());
-        
-        Thread b = new Thread(new call_thread("PRCR_Date_Margins", "D:\\\\", param, "PRCR_Date_Margins",1));
+        HashMap param = new HashMap();
+        param.put("USER", user.get_current_user());
+
+        Thread b = new Thread(new call_thread("PRCR_Date_Margins", "D:\\\\", param, "PRCR_Date_Margins", 1));
         b.start();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         HashMap param = new HashMap();
-       param.put("USER", user.get_current_user());
-        
-        Thread b = new Thread(new call_thread("GL_CAT", "D:\\\\", param, "Bank_details",1));
+        param.put("USER", user.get_current_user());
+
+        Thread b = new Thread(new call_thread("GL_CAT", "D:\\\\", param, "Bank_details", 1));
         b.start();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-         HashMap param = new HashMap();
-       param.put("USER", user.get_current_user());
-        
-        Thread b = new Thread(new call_thread("GL_CAT", "D:\\\\", param, "Branch",1));
+        HashMap param = new HashMap();
+        param.put("USER", user.get_current_user());
+
+        Thread b = new Thread(new call_thread("GL_CAT", "D:\\\\", param, "Branch", 1));
         b.start();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-    /*  Thread a = new Thread(new Background(35));
-      Thread t1 = new Thread(new ReportThread());
-      HashMap param = new HashMap();
-      param.put("USER", user.get_current_user());
-      param.put("Month", date_handler.Return_month_full(3)+" 2014");
-      Thread b  = new Thread(new call_thread("Daily_tansactions_", "D:\\\\", param,"Daily_transactions", 10));
-     // b.start();
-      t1.start();
-      a.start();
-      */
-        
-        
+        /*  Thread a = new Thread(new Background(35));
+         Thread t1 = new Thread(new ReportThread());
+         HashMap param = new HashMap();
+         param.put("USER", user.get_current_user());
+         param.put("Month", date_handler.Return_month_full(3)+" 2014");
+         Thread b  = new Thread(new call_thread("Daily_tansactions_", "D:\\\\", param,"Daily_transactions", 10));
+         // b.start();
+         t1.start();
+         a.start();
+         */
+
         Report_PRCR_EPF_Monthly epf = new Report_PRCR_EPF_Monthly();
 
         content.removeAll();
@@ -464,11 +464,11 @@ Date_Handler date_handler = new Date_Handler();
         content.add(epf);
         validate();
         repaint();
-        epf.focus();   
+        epf.focus();
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-       Report_PRCR_Amalgation_home amal = new Report_PRCR_Amalgation_home();
+        Report_PRCR_Amalgation_home amal = new Report_PRCR_Amalgation_home();
 
         content.removeAll();
 
@@ -477,11 +477,11 @@ Date_Handler date_handler = new Date_Handler();
         content.add(amal);
         validate();
         repaint();
-        amal.focus();   
+        amal.focus();
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-       Report_PRCR_Checkroll_Summary_home summ=new Report_PRCR_Checkroll_Summary_home();
+        Report_PRCR_Checkroll_Summary_home summ = new Report_PRCR_Checkroll_Summary_home();
 
         content.removeAll();
 
@@ -490,11 +490,11 @@ Date_Handler date_handler = new Date_Handler();
         content.add(summ);
         validate();
         repaint();
-        summ.focus();   
+        summ.focus();
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-Report_PRCR_Checkroll_work_details summ=new Report_PRCR_Checkroll_work_details();
+        Report_PRCR_Checkroll_work_details summ = new Report_PRCR_Checkroll_work_details();
 
         content.removeAll();
 
@@ -503,7 +503,7 @@ Report_PRCR_Checkroll_work_details summ=new Report_PRCR_Checkroll_work_details()
         content.add(summ);
         validate();
         repaint();
-        summ.focus();  
+        summ.focus();
 //        Report_GL_trans pgreenleaf = new Report_GL_trans();
 //
 //        content.removeAll();
@@ -530,7 +530,7 @@ Report_PRCR_Checkroll_work_details summ=new Report_PRCR_Checkroll_work_details()
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-Report_PRCR_other_advance pcad = new Report_PRCR_other_advance();
+        Report_PRCR_other_advance pcad = new Report_PRCR_other_advance();
 
         content.removeAll();
 
@@ -543,20 +543,19 @@ Report_PRCR_other_advance pcad = new Report_PRCR_other_advance();
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-//         Report_GL_loans pgreenleaf = new Report_GL_loans();
-//
-//        content.removeAll();
-//
-//        pgreenleaf.setSize(content.getSize());
-//
-//        content.add(pgreenleaf);
-//        validate();
-//        repaint();
-//        pgreenleaf.focus();
+        Report_PRCR_loans pgreenleaf = new Report_PRCR_loans();
+
+        content.removeAll();
+        pgreenleaf.setSize(content.getSize());
+
+        content.add(pgreenleaf);
+        validate();
+        repaint();
+        pgreenleaf.focus();
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
-          Report_PRCR_Monthly_Ledger ledg=new Report_PRCR_Monthly_Ledger();
+        Report_PRCR_Monthly_Ledger ledg = new Report_PRCR_Monthly_Ledger();
 
         content.removeAll();
 
@@ -569,7 +568,7 @@ Report_PRCR_other_advance pcad = new Report_PRCR_other_advance();
     }//GEN-LAST:event_jButton13ActionPerformed
 
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
-       Report_PRCR_Checkroll_Pay_Slip slip=new Report_PRCR_Checkroll_Pay_Slip();
+        Report_PRCR_Checkroll_Pay_Slip slip = new Report_PRCR_Checkroll_Pay_Slip();
 
         content.removeAll();
 
@@ -582,10 +581,9 @@ Report_PRCR_other_advance pcad = new Report_PRCR_other_advance();
     }//GEN-LAST:event_jButton14ActionPerformed
 
     private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
- Report_PRCR_EPF_6Month epf = new Report_PRCR_EPF_6Month();
+        Report_PRCR_EPF_6Month epf = new Report_PRCR_EPF_6Month();
 
         content.removeAll();
-        
 
         epf.setSize(content.getSize());
 
@@ -593,7 +591,7 @@ Report_PRCR_other_advance pcad = new Report_PRCR_other_advance();
         validate();
         repaint();
                    // TODO add your handling code here:
-      
+
     }//GEN-LAST:event_jButton15ActionPerformed
 
     private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
@@ -610,7 +608,7 @@ Report_PRCR_other_advance pcad = new Report_PRCR_other_advance();
     }//GEN-LAST:event_jButton16ActionPerformed
 
     private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
-           Report_PRCR_ETF_Monthly etf = new Report_PRCR_ETF_Monthly();
+        Report_PRCR_ETF_Monthly etf = new Report_PRCR_ETF_Monthly();
 
         content.removeAll();
 
@@ -619,14 +617,13 @@ Report_PRCR_other_advance pcad = new Report_PRCR_other_advance();
         content.add(etf);
         validate();
         repaint();
-        etf.focus(); 
+        etf.focus();
     }//GEN-LAST:event_jButton17ActionPerformed
 
     private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton18ActionPerformed
-Report_PRCR_ETF_6Month epf = new Report_PRCR_ETF_6Month();
+        Report_PRCR_ETF_6Month epf = new Report_PRCR_ETF_6Month();
 
         content.removeAll();
-        
 
         epf.setSize(content.getSize());
 
@@ -636,10 +633,9 @@ Report_PRCR_ETF_6Month epf = new Report_PRCR_ETF_6Month();
     }//GEN-LAST:event_jButton18ActionPerformed
 
     private void jButton19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton19ActionPerformed
-     Report_PRCR_HolidayPay ef = new Report_PRCR_HolidayPay();
+        Report_PRCR_HolidayPay ef = new Report_PRCR_HolidayPay();
 
         content.removeAll();
-        
 
         ef.setSize(content.getSize());
 
@@ -647,71 +643,67 @@ Report_PRCR_ETF_6Month epf = new Report_PRCR_ETF_6Month();
         validate();
         repaint();     // TODO add your handling code here:
     }//GEN-LAST:event_jButton19ActionPerformed
-    
-    public  class Background implements Runnable{
+
+    public class Background implements Runnable {
+
         int delay;
-        
-        
-        public Background(int Delay){
-        
-        delay = Delay;
-        
+
+        public Background(int Delay) {
+
+            delay = Delay;
+
         }
-        
-        
+
         @Override
-        public void run(){
+        public void run() {
             progress.setVisible(true);
-             int a = (int) (Math.random() * 500);
-            for(int i=0;i<=3000+a ;i++){
-                progress.setValue(100*i/4000);
+            int a = (int) (Math.random() * 500);
+            for (int i = 0; i <= 3000 + a; i++) {
+                progress.setValue(100 * i / 4000);
                 progress.repaint();
-                
+
                 try {
                     Thread.sleep(delay);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Reports_GL.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            
-        }     
+
+        }
     }
-    
- public class call_thread implements Runnable{
+
+    public class call_thread implements Runnable {
+
         private String Filename;
         private String Save;
         private HashMap Param;
         private String Reportname;
         private int Delay;
-        
- public call_thread(String filename,String save, HashMap param, String reportname,int delay){
- Filename= filename;
- Reportname = reportname;
- Save = save;
- Param = param;
- Delay= delay;
- 
- 
- 
- }
- 
- @Override
- public void run(){
-      Thread a = new Thread(new Background(Delay));
-      
-     a.start();
+
+        public call_thread(String filename, String save, HashMap param, String reportname, int delay) {
+            Filename = filename;
+            Reportname = reportname;
+            Save = save;
+            Param = param;
+            Delay = delay;
+
+        }
+
+        @Override
+        public void run() {
+            Thread a = new Thread(new Background(Delay));
+
+            a.start();
      //param.put("USER", user.get_current_user());
-     
-     String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
-     generate.create(Filename, Save, Param, location, Reportname+".jrxml");
-     a.stop();
-     progress.setValue(100);
- 
- 
- 
- }
- 
- }
+
+            String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
+            generate.create(Filename, Save, Param, location, Reportname + ".jrxml");
+            a.stop();
+            progress.setValue(100);
+
+        }
+
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel content;
     private javax.swing.JButton jButton1;
