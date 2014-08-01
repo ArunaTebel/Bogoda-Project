@@ -89,7 +89,7 @@ public class PRCR_Checkroll_Monthly_workdata_database_update_class implements Ru
                     + "pay_slip DOUBLE DEFAULT '0'," + "fine DOUBLE DEFAULT '0'," + "welfare DOUBLE DEFAULT '0'," + "kovil DOUBLE DEFAULT '0'," + "new_1 DOUBLE DEFAULT '0'," + "new_2 DOUBLE DEFAULT '0'," + "other_ded1 DOUBLE DEFAULT '0',"
                     + "meals DOUBLE DEFAULT '0'," + "other_ded2 DOUBLE DEFAULT '0'," + "pension DOUBLE DEFAULT '0',"
                     + "other_ded3 DOUBLE DEFAULT '0'," + "stamp DOUBLE DEFAULT '0'," + "pre_debt DOUBLE DEFAULT '0'," + "total_ded DOUBLE DEFAULT '0',"
-                    + "full_salary DOUBLE DEFAULT '0'," + "coins DOUBLE DEFAULT '0'," + "paid_amount DOUBLE DEFAULT '0'," + "active INT DEFAULT '0'," + "next_month DOUBLE DEFAULT '0'," + "n_5000 INT DEFAULT '0',"
+                    + "full_salary DOUBLE DEFAULT '0'," + "coins DOUBLE DEFAULT '0'," + "paid_amount DOUBLE DEFAULT '0'," + "active INT DEFAULT '0'," + "next_month DOUBLE DEFAULT '0'," + "prvs_debts_paid DOUBLE DEFAULT '0'," + "n_5000 INT DEFAULT '0',"
                     + "n_2000 INT DEFAULT '0'," + "n_1000 INT DEFAULT '0'," + "n_500 INT DEFAULT '0'," + "n_100 INT DEFAULT '0'," + "n_50 INT DEFAULT '0'," + "n_20 INT DEFAULT '0'," + "n_10 INT DEFAULT '0');");
 
             //  System.out.println("new table created");
@@ -130,13 +130,13 @@ public class PRCR_Checkroll_Monthly_workdata_database_update_class implements Ru
         for (int i = 0; i < no_of_codes; i++) {
             Task_manager.prvdebtsP.setValue((100 * (i + 1)) / no_of_codes);
             try {
-                if (dbm.checknReturnData("pr_workdata_" + prv_yrmnth, "code", codes[i], "next_month") != null) {
+//                if (dbm.checknReturnData("pr_workdata_" + prv_yrmnth, "code", codes[i], "next_month") != null) {
 
-                    pre_debt_amount = Double.parseDouble(dbm.checknReturnData("pr_workdata_" + prv_yrmnth, "code", codes[i], "next_month"));
+                    pre_debt_amount = Double.parseDouble(dbm.checknReturnData("pr_workdata_" + prv_yrmnth, "code", codes[i], "next_month"));//+Double.parseDouble(dbm.checknReturnData("pr_workdata_" + yrmnth, "code", codes[i], "prvs_debts_paid"));
                     pre_debt_amount = -pre_debt_amount;
-                } else {
-                    pre_debt_amount = 0;
-                }
+//                } else {
+//                    pre_debt_amount = 0;
+//                }
 
                 prvmnth_normaldays = Integer.parseInt(dbm.checknReturnData("pr_workdata_" + prv_yrmnth, "code", codes[i], "normal_days"));
                 prvmnth_sundays = Integer.parseInt(dbm.checknReturnData("pr_workdata_" + prv_yrmnth, "code", codes[i], "sundays"));

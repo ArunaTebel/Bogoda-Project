@@ -20,6 +20,7 @@ public class PRCR_salary_checkrollpay extends javax.swing.JPanel {
      */
     CheckrollSallaryCal spiObject = new CheckrollSallaryCal();
     Date_Handler datehandler = new Date_Handler();
+    DateChooser_text datechooser = new DateChooser_text();
 
     public PRCR_salary_checkrollpay() {
         initComponents();
@@ -37,56 +38,16 @@ public class PRCR_salary_checkrollpay extends javax.swing.JPanel {
         name = new javax.swing.JTextField();
         code = new javax.swing.JComboBox();
         jLabel4 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        normalDays = new javax.swing.JTextField();
-        etfRate = new javax.swing.JTextField();
-        epfRate = new javax.swing.JTextField();
-        normalAmount = new javax.swing.JTextField();
-        etfAmount = new javax.swing.JTextField();
-        jLabel11 = new javax.swing.JLabel();
-        welfareRate = new javax.swing.JTextField();
-        epfAmount = new javax.swing.JTextField();
-        jLabel12 = new javax.swing.JLabel();
-        sundays = new javax.swing.JTextField();
-        welfareAmount = new javax.swing.JTextField();
-        jSeparator3 = new javax.swing.JSeparator();
-        sundayAmount = new javax.swing.JTextField();
-        jLabel23 = new javax.swing.JLabel();
-        incentivesT = new javax.swing.JTextField();
-        jLabel24 = new javax.swing.JLabel();
-        incentivesT2 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
-        jPanel1 = new javax.swing.JPanel();
-        month = new javax.swing.JTextField();
-        year = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
-        fullPay = new javax.swing.JTextField();
-        jLabel14 = new javax.swing.JLabel();
-        jSeparator2 = new javax.swing.JSeparator();
-        otbHours = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        otaHours = new javax.swing.JTextField();
-        jLabel13 = new javax.swing.JLabel();
-        otaRate = new javax.swing.JTextField();
-        otbAmount = new javax.swing.JTextField();
-        otaAmount = new javax.swing.JTextField();
-        otbRate = new javax.swing.JTextField();
-        date_margin_text = new javax.swing.JTextField();
-        jLabel15 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
-        jPanel4 = new javax.swing.JPanel();
+        jTextField1 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        datepanel = new javax.swing.JPanel();
+        monthfield1 = new javax.swing.JTextField();
+        yearfield1 = new javax.swing.JTextField();
+        dayfield1 = new javax.swing.JTextField();
+        datePick1 = new com.michaelbaranov.microba.calendar.DatePicker();
 
         name.setBackground(new java.awt.Color(204, 204, 204));
         name.addActionListener(new java.awt.event.ActionListener() {
@@ -116,331 +77,81 @@ public class PRCR_salary_checkrollpay extends javax.swing.JPanel {
 
         jLabel4.setText("Name");
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        jLabel5.setText("Normal Days");
-
-        jLabel6.setText("ETF %");
-
-        jLabel7.setText("EPF %");
-
-        etfRate.setBackground(new java.awt.Color(153, 153, 255));
-
-        epfRate.setBackground(new java.awt.Color(153, 153, 255));
-
-        jLabel11.setText("Welfare");
-
-        welfareRate.setBackground(new java.awt.Color(153, 153, 255));
-
-        jLabel12.setText("Sundays");
-
-        welfareAmount.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                welfareAmountActionPerformed(evt);
-            }
-        });
-
-        jLabel23.setText("Incentive 1");
-
-        jLabel24.setText("Incentive 2");
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel12)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(sundays, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addGap(43, 43, 43)
-                                .addComponent(normalDays, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(normalAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(sundayAmount, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(84, 84, 84)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel7)
-                                    .addComponent(jLabel11))
-                                .addGap(29, 29, 29)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(epfRate, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(welfareRate, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addGap(35, 35, 35)
-                                .addComponent(etfRate, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(welfareAmount, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(epfAmount, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(etfAmount, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel23)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 224, Short.MAX_VALUE)
-                        .addComponent(incentivesT, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel24)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 224, Short.MAX_VALUE)
-                        .addComponent(incentivesT2, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jSeparator3))
-                .addContainerGap())
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel5)
-                        .addComponent(normalDays, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(normalAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel12)
-                        .addComponent(sundays, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(sundayAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(23, 23, 23)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel23)
-                    .addComponent(incentivesT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel24)
-                    .addComponent(incentivesT2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(etfRate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel7)
-                            .addComponent(epfRate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(welfareRate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel11)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(etfAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(epfAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(welfareAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(1, 1, 1)))
-                .addGap(132, 132, 132))
-        );
-
         jLabel1.setText("Employee Code");
-
-        jButton2.setText("OK");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        month.setText(datehandler.get_today_month());
-        month.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                monthKeyPressed(evt);
-            }
-        });
-
-        year.setText(datehandler.get_today_year());
-        year.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                yearKeyPressed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(month, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(year, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(month, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(year, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
-        );
-
-        jLabel2.setText("Month -Year");
-
-        jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        fullPay.setBackground(new java.awt.Color(204, 204, 255));
-
-        jLabel14.setText("Total");
-
-        jLabel9.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel9.setText("Hours");
-
-        jLabel10.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel10.setText("Rate");
-
-        jLabel8.setText("Over Time(Before)");
-
-        jLabel13.setText("Over Time(After)");
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel14)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(fullPay, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel13)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel9)
-                                    .addComponent(otbHours, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(23, 23, 23)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel10)
-                                    .addComponent(otbRate, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(otaHours, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(23, 23, 23)
-                                .addComponent(otaRate, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(48, 48, 48)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(otaAmount, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(otbAmount, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(14, 14, 14)))
-                .addContainerGap())
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addGap(17, 17, 17)
-                                .addComponent(jLabel13))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                .addComponent(otbAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(otaAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel10))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(otbRate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(otbHours, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(11, 11, 11)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(otaRate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(otaHours, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(fullPay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel14))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        date_margin_text.setBackground(new java.awt.Color(204, 204, 204));
-        date_margin_text.addActionListener(new java.awt.event.ActionListener() {
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                date_margin_textActionPerformed(evt);
+                jTextField1ActionPerformed(evt);
             }
         });
 
-        jLabel15.setText("Date margin of this month");
-
-        jButton3.setText("change ");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-
-        jButton1.setText("Monthly Salary Process");
+        jButton1.setText("Save");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
 
-        jButton6.setText("Checkroll Amalgamation");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+        jLabel3.setText("Date");
+
+        datepanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        monthfield1.setText(datehandler.get_today_month());
+        monthfield1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                monthfield1KeyPressed(evt);
             }
         });
 
-        jButton5.setText("Checkroll Summary");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+        yearfield1.setText(datehandler.get_today_year());
+        yearfield1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                yearfield1KeyPressed(evt);
             }
         });
 
-        jButton4.setText("EPF reports");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+        dayfield1.setText(datehandler.get_today_day());
+        dayfield1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                dayfield1KeyPressed(evt);
             }
         });
+
+        datePick1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                datePick1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout datepanelLayout = new javax.swing.GroupLayout(datepanel);
+        datepanel.setLayout(datepanelLayout);
+        datepanelLayout.setHorizontalGroup(
+            datepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(datepanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(dayfield1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(monthfield1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(yearfield1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(datePick1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        datepanelLayout.setVerticalGroup(
+            datepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(datepanelLayout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addGroup(datepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(datePick1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(datepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(dayfield1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(monthfield1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(yearfield1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -451,53 +162,27 @@ public class PRCR_salary_checkrollpay extends javax.swing.JPanel {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(41, 41, 41)
-                                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(jLabel4)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                            .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(28, 28, 28)
-                                            .addComponent(date_margin_text, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(62, 62, 62)
-                                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(28, 28, 28)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel2))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(code, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(47, 47, 47)
-                                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(6, 6, Short.MAX_VALUE)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(391, 391, 391)
+                        .addComponent(jLabel4)
+                        .addGap(82, 82, 82)
+                        .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(74, 74, 74)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)
-                            .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(28, 28, 28)
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(code, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addComponent(jLabel3)
+                        .addGap(8, 8, 8)
+                        .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(159, 159, 159)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(116, Short.MAX_VALUE))
         );
-
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButton1, jButton4, jButton5, jButton6});
-
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -510,42 +195,19 @@ public class PRCR_salary_checkrollpay extends javax.swing.JPanel {
                                 .addComponent(jLabel1)
                                 .addComponent(code, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(32, 32, 32)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(8, 8, 8)
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(date_margin_text, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton3)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(29, 29, 29)
-                                .addComponent(jLabel2)))
-                        .addGap(85, 85, 85)
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 137, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(30, 30, 30))
-                    .addComponent(jSeparator1)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(5, 5, 5)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addGap(14, 14, 14)
+                                .addComponent(jLabel3)))
+                        .addGap(32, 32, 32)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(80, 80, 80)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(156, Short.MAX_VALUE))
+                    .addComponent(jSeparator1)))
         );
-
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jButton1, jButton4, jButton5, jButton6});
-
     }// </editor-fold>//GEN-END:initComponents
 
     private void nameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameActionPerformed
@@ -561,42 +223,6 @@ public class PRCR_salary_checkrollpay extends javax.swing.JPanel {
         // TODO add your handling code here:
 
     }//GEN-LAST:event_codeFocusLost
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-//       
-//        spiObject.Set_year(year.getText());
-//        spiObject.Set_month(month.getText());
-//        
-//        spiObject.setMargin();
-//        spiObject.setEmployCode(Integer.parseInt(code.getSelectedItem().toString()));
-//        //name.setText(spiObject.setName());
-//        normalDays.setText(String.valueOf(spiObject.getNormalDays()));
-//        normalAmount.setText(String.valueOf(spiObject.getNormalDaysAmount()));
-//        sundays.setText(String.valueOf(spiObject.getSundays()));
-//        sundayAmount.setText(String.valueOf(spiObject.getSundayAmount()));
-//        incentivesT.setText(String.valueOf(spiObject.getIncentive1Amount()));
-//        incentivesT2.setText(String.valueOf(spiObject.getIncentive2Amount()));
-//        date_margin_text.setText(String.valueOf(spiObject.getMargin()));
-//        
-//        etfRate.setText(String.valueOf(spiObject.getETFRate()));
-//        etfAmount.setText(String.valueOf(spiObject.getETFContribution()));
-//        epfRate.setText(String.valueOf(spiObject.getEPFRate()));
-//        epfAmount.setText(String.valueOf(spiObject.getEPFContribution()));
-//        welfareRate.setText(String.valueOf(spiObject.getWelfareRate()));
-//        welfareAmount.setText(String.valueOf(spiObject.getWelfareContribution()));
-//        otbHours.setText(String.valueOf(spiObject.getOTBeforeHours()));
-//        otbRate.setText(String.valueOf(spiObject.getOTBeforeRate()));
-//        otbAmount.setText(String.valueOf(spiObject.getOTBeforeAmount()));
-//        otaHours.setText(String.valueOf(spiObject.getOTAfterHours()));
-//        otaRate.setText(String.valueOf(spiObject.getOTAfterRate()));
-//        otaAmount.setText(String.valueOf(spiObject.getOTAfterAmount()));
-//        fullPay.setText(String.valueOf(spiObject.getFinalSalary()));
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void welfareAmountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_welfareAmountActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_welfareAmountActionPerformed
 
     private void codeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_codeItemStateChanged
         DatabaseManager dbm = DatabaseManager.getDbCon();
@@ -614,268 +240,396 @@ public class PRCR_salary_checkrollpay extends javax.swing.JPanel {
         }        // TODO add your handling code here:
     }//GEN-LAST:event_codeItemStateChanged
 
-    private void monthKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_monthKeyPressed
-        if (month.getText().equals("Jan")) {
-            if (evt.getKeyCode() == KeyEvent.VK_UP) {
-                month.setText("Dec");
-                int yr = Integer.parseInt(year.getText());
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
-                year.setText("" + (yr - 1));
-                month.selectAll();
+    private void monthfield1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_monthfield1KeyPressed
+        if (monthfield1.getText().equals("Jan")) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                monthfield1.setText("Dec");
+                int yr = Integer.parseInt(yearfield1.getText());
+
+                yearfield1.setText("" + (yr - 1));
+                monthfield1.selectAll();
 
             }
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
-                month.setText("Feb");
-                month.selectAll();
+                monthfield1.setText("Feb");
+                monthfield1.selectAll();
             }
 
-        } else if (month.getText().equals("Feb")) {
+        } else if (monthfield1.getText().equals("Feb")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
-                month.setText("Jan");
-                int yr = Integer.parseInt(year.getText());
-                month.selectAll();
+                monthfield1.setText("Jan");
+                int yr = Integer.parseInt(yearfield1.getText());
+                monthfield1.selectAll();
 
             }
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
-                month.setText("Mar");
-                month.selectAll();
+                monthfield1.setText("Mar");
+                monthfield1.selectAll();
             }
 
-        } else if (month.getText().equals("Mar")) {
+        } else if (monthfield1.getText().equals("Mar")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
-                month.setText("Feb");
-                int yr = Integer.parseInt(year.getText());
-                month.selectAll();
+                monthfield1.setText("Feb");
+                int yr = Integer.parseInt(yearfield1.getText());
+                monthfield1.selectAll();
             }
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
-                month.setText("Apr");
-                month.selectAll();
+                monthfield1.setText("Apr");
+                monthfield1.selectAll();
             }
 
-        } else if (month.getText().equals("Apr")) {
+        } else if (monthfield1.getText().equals("Apr")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
-                month.setText("Mar");
-                int yr = Integer.parseInt(year.getText());
-                month.selectAll();
+                monthfield1.setText("Mar");
+                int yr = Integer.parseInt(yearfield1.getText());
+                monthfield1.selectAll();
             }
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
-                month.setText("May");
-                month.selectAll();
+                monthfield1.setText("May");
+                monthfield1.selectAll();
             }
 
-        } else if (month.getText().equals("May")) {
+        } else if (monthfield1.getText().equals("May")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
-                month.setText("Apr");
-                int yr = Integer.parseInt(year.getText());
-                month.selectAll();
-
-            }
-            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
-
-                month.setText("Jun");
-                month.selectAll();
-            }
-
-        } else if (month.getText().equals("Jun")) {
-            if (evt.getKeyCode() == KeyEvent.VK_UP) {
-                month.setText("May");
-                int yr = Integer.parseInt(year.getText());
-                month.selectAll();
+                monthfield1.setText("Apr");
+                int yr = Integer.parseInt(yearfield1.getText());
+                monthfield1.selectAll();
 
             }
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
-                month.setText("Jul");
-                month.selectAll();
+
+                monthfield1.setText("Jun");
+                monthfield1.selectAll();
             }
 
-        } else if (month.getText().equals("Jul")) {
+        } else if (monthfield1.getText().equals("Jun")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
-                month.setText("Jun");
-                int yr = Integer.parseInt(year.getText());
-                month.selectAll();
+                monthfield1.setText("May");
+                int yr = Integer.parseInt(yearfield1.getText());
+                monthfield1.selectAll();
 
             }
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
-                month.setText("Aug");
-                month.selectAll();
+                monthfield1.setText("Jul");
+                monthfield1.selectAll();
             }
 
-        } else if (month.getText().equals("Aug")) {
+        } else if (monthfield1.getText().equals("Jul")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
-                month.setText("Jul");
-                int yr = Integer.parseInt(year.getText());
-                month.selectAll();
+                monthfield1.setText("Jun");
+                int yr = Integer.parseInt(yearfield1.getText());
+                monthfield1.selectAll();
 
             }
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
-                month.setText("Sep");
-                month.selectAll();
+                monthfield1.setText("Aug");
+                monthfield1.selectAll();
             }
 
-        } else if (month.getText().equals("Sep")) {
+        } else if (monthfield1.getText().equals("Aug")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
-                month.setText("Aug");
-                int yr = Integer.parseInt(year.getText());
-                month.selectAll();
+                monthfield1.setText("Jul");
+                int yr = Integer.parseInt(yearfield1.getText());
+                monthfield1.selectAll();
 
             }
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
-                month.setText("Oct");
-                month.selectAll();
+                monthfield1.setText("Sep");
+                monthfield1.selectAll();
             }
 
-        } else if (month.getText().equals("Oct")) {
+        } else if (monthfield1.getText().equals("Sep")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
-                month.setText("Sep");
-                int yr = Integer.parseInt(year.getText());
-                month.selectAll();
+                monthfield1.setText("Aug");
+                int yr = Integer.parseInt(yearfield1.getText());
+                monthfield1.selectAll();
 
             }
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
-                month.setText("Nov");
-                month.selectAll();
+                monthfield1.setText("Oct");
+                monthfield1.selectAll();
             }
 
-        } else if (month.getText().equals("Nov")) {
+        } else if (monthfield1.getText().equals("Oct")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
-                month.setText("Oct");
-                int yr = Integer.parseInt(year.getText());
-                month.selectAll();
+                monthfield1.setText("Sep");
+                int yr = Integer.parseInt(yearfield1.getText());
+                monthfield1.selectAll();
 
             }
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
-                month.setText("Dec");
-                month.selectAll();
+                monthfield1.setText("Nov");
+                monthfield1.selectAll();
             }
 
-        } else if (month.getText().equals("Dec")) {
+        } else if (monthfield1.getText().equals("Nov")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
-                month.setText("Nov");
-                int yr = Integer.parseInt(year.getText());
-                month.selectAll();
+                monthfield1.setText("Oct");
+                int yr = Integer.parseInt(yearfield1.getText());
+                monthfield1.selectAll();
 
             }
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
-                month.setText("Jan");
-                int yr = Integer.parseInt(year.getText());
+                monthfield1.setText("Dec");
+                monthfield1.selectAll();
+            }
 
-                year.setText("" + (yr + 1));
-                month.selectAll();
+        } else if (monthfield1.getText().equals("Dec")) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                monthfield1.setText("Nov");
+                int yr = Integer.parseInt(yearfield1.getText());
+                monthfield1.selectAll();
+
+            }
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                monthfield1.setText("Jan");
+                int yr = Integer.parseInt(yearfield1.getText());
+
+                yearfield1.setText("" + (yr + 1));
+                monthfield1.selectAll();
             }
 
         }
         if (evt.getKeyCode() == KeyEvent.VK_LEFT) {
-            //change.requestFocus();
-            //change.selectAll();
+            dayfield1.requestFocus();
+            dayfield1.selectAll();
         }
         if (evt.getKeyCode() == KeyEvent.VK_RIGHT) {
-            year.requestFocus();
-            year.selectAll();
+            yearfield1.requestFocus();
+            yearfield1.selectAll();
         }
-    }//GEN-LAST:event_monthKeyPressed
 
-    private void yearKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_yearKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
+            //category_code.requestFocus();
+
+        }
+    }//GEN-LAST:event_monthfield1KeyPressed
+
+    private void yearfield1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_yearfield1KeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
-            year.setText("" + (Integer.parseInt(year.getText()) + 1));
-            year.selectAll();
+            yearfield1.setText("" + (Integer.parseInt(yearfield1.getText()) + 1));
+            yearfield1.selectAll();
         }
         if (evt.getKeyCode() == KeyEvent.VK_UP) {
-            year.setText("" + (Integer.parseInt(year.getText()) - 1));
-            year.selectAll();
+            yearfield1.setText("" + (Integer.parseInt(yearfield1.getText()) - 1));
+            yearfield1.selectAll();
         }
         if (evt.getKeyCode() == KeyEvent.VK_LEFT) {
-            month.requestFocus();
-            month.selectAll();
+            monthfield1.requestFocus();
+            monthfield1.selectAll();
         }
-    }//GEN-LAST:event_yearKeyPressed
 
-    private void date_margin_textActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_date_margin_textActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_date_margin_textActionPerformed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
+            //  category_code.requestFocus();
 
+        }
+    }//GEN-LAST:event_yearfield1KeyPressed
+
+    private void dayfield1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dayfield1KeyPressed
+        ///////////////////////////////////////////////////  Days Decrement/////////////////////////////////////////////////////////////////////////////
+
+        if (dayfield1.getText().equals("1")) {           // Jumping to 31 and 30 from 1st
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+
+                if (monthfield1.getText().equals("Feb") || monthfield1.getText().equals("Apr") || monthfield1.getText().equals("Jun") || monthfield1.getText().equals("Aug") || monthfield1.getText().equals("Sep") || monthfield1.getText().equals("Nov") || monthfield1.getText().equals("Feb")) {
+                    dayfield1.setText("31");
+
+                    int mnth = datechooser.return_index(monthfield1.getText());
+                    monthfield1.setText(datechooser.Return_month(mnth - 1));
+
+                } else if (monthfield1.getText().equals("May") || monthfield1.getText().equals("Jul") || monthfield1.getText().equals("Oct") || monthfield1.getText().equals("Dec")) {
+                    dayfield1.setText("30");
+                    int mnth = datechooser.return_index(monthfield1.getText());
+                    monthfield1.setText(datechooser.Return_month(mnth - 1));
+
+                } else if (monthfield1.getText().equals("Mar")) {     // from march 1st jump to 28th or 29th checking leap years
+                    int yr = Integer.parseInt(yearfield1.getText());
+                    if (yr % 4 == 0) {
+                        if (yr % 100 == 0) {
+                            if (yr % 400 == 0) {
+                                dayfield1.setText("29"); // Leap Year
+                            }
+                        }
+                        if (yr % 100 == 0) {
+                            if (yr % 400 != 0) {
+                                dayfield1.setText("28"); // not a leap year
+                            }
+                        }
+                        dayfield1.setText("29");       // leap year
+
+                    }
+                    if (yr % 4 != 0) {
+                        dayfield1.setText("28");       // not a leap year
+                    }
+                    int mnth = datechooser.return_index(monthfield1.getText());
+                    monthfield1.setText(datechooser.Return_month(mnth - 1));
+
+                } else if (monthfield1.getText().equals("Jan")) {            // From jan 1st jump to december 31st decrementing year
+                    dayfield1.setText("31");
+
+                    int yr = Integer.parseInt(yearfield1.getText());
+                    monthfield1.setText("Dec");
+                    yearfield1.setText("" + (yr - 1));    // year
+                }
+                dayfield1.selectAll();
+            }                                           // /// decrementing normal values
+        } else if (dayfield1.getText().equals("2") || dayfield1.getText().equals("3") || dayfield1.getText().equals("4") || dayfield1.getText().equals("5")
+            || dayfield1.getText().equals("6") || dayfield1.getText().equals("7") || dayfield1.getText().equals("8") || dayfield1.getText().equals("9")
+            || dayfield1.getText().equals("10") || dayfield1.getText().equals("11") || dayfield1.getText().equals("12") || dayfield1.getText().equals("13") || dayfield1.getText().equals("14")
+            || dayfield1.getText().equals("15") || dayfield1.getText().equals("16") || dayfield1.getText().equals("17") || dayfield1.getText().equals("18")
+            || dayfield1.getText().equals("19") || dayfield1.getText().equals("20") || dayfield1.getText().equals("21") || dayfield1.getText().equals("22")
+            || dayfield1.getText().equals("23") || dayfield1.getText().equals("24") || dayfield1.getText().equals("25") || dayfield1.getText().equals("26")
+            || dayfield1.getText().equals("27") || dayfield1.getText().equals("28") || dayfield1.getText().equals("29") || dayfield1.getText().equals("30") || dayfield1.getText().equals("31")) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+
+                dayfield1.setText("" + (Integer.parseInt(dayfield1.getText()) - 1));
+                dayfield1.selectAll();
+            }
+        }
+        /////////////////////////////////////////////////  Days Increment///////////////////////////////////////////////////////////////////////////////////////////////////
+        if (dayfield1.getText().equals("30")) {               // from 30th to 1st of next month
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+
+                if (monthfield1.getText().equals("Apr") || monthfield1.getText().equals("Jun") || monthfield1.getText().equals("Sep") || monthfield1.getText().equals("Nov")) {
+                    dayfield1.setText("0");
+
+                    int mnth = datechooser.return_index(monthfield1.getText());
+                    monthfield1.setText(datechooser.Return_month(mnth + 1));
+
+                }
+                dayfield1.setText("" + (Integer.parseInt(dayfield1.getText()) + 1));
+                dayfield1.selectAll();
+            }
+
+        } else if (dayfield1.getText().equals("31")) {            // from 31st to 1st of next month
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+
+                if (monthfield1.getText().equals("Jan") || monthfield1.getText().equals("Mar") || monthfield1.getText().equals("May") || monthfield1.getText().equals("Jul") || monthfield1.getText().equals("Aug") || monthfield1.getText().equals("Oct")) {
+                    dayfield1.setText("1");
+
+                    int mnth = datechooser.return_index(monthfield1.getText());
+                    monthfield1.setText(datechooser.Return_month(mnth + 1));
+
+                } else if (monthfield1.getText().equals("Dec")) {      // December to january incrementing the year
+
+                    dayfield1.setText("1");
+
+                    int yr = Integer.parseInt(yearfield1.getText());
+                    monthfield1.setText("Jan");
+                    yearfield1.setText("" + (yr + 1));
+                }
+                dayfield1.selectAll();
+            }
+
+        } else if (monthfield1.getText().equals("Feb")) {                    // for february
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                if (dayfield1.getText().equals("28")) {                    // at 28 check for leap year
+                    int yr = Integer.parseInt(yearfield1.getText());
+                    if (yr % 4 == 0) {
+                        if (yr % 100 == 0) {
+                            if (yr % 400 == 0) {
+                                dayfield1.setText("29"); // Leap Year       // increment to 29
+                            }
+                        }
+                        if (yr % 100 == 0) {
+                            if (yr % 400 != 0) {
+                                dayfield1.setText("1");
+                                int mnth = datechooser.return_index(monthfield1.getText());
+                                monthfield1.setText(datechooser.Return_month(mnth + 1));
+
+                                // not a leap year                             // jump to next month
+                            }
+                        }
+                        dayfield1.setText("29");       // leap year             // increment to 29th
+
+                    }
+                    if (yr % 4 != 0) {
+                        dayfield1.setText("1");
+                        int mnth = datechooser.return_index(monthfield1.getText());
+                        monthfield1.setText(datechooser.Return_month(mnth + 1));                  // not a leap year
+                    }
+
+                } else if (dayfield1.getText().equals("29")) {              // at 29 jump to next month normally
+                    dayfield1.setText("1");
+
+                    int mnth = datechooser.return_index(monthfield1.getText());
+                    monthfield1.setText(datechooser.Return_month(mnth + 1));
+                    // incrementing normal values/////////////////////// for february separately
+                } else if (dayfield1.getText().equals("1") || dayfield1.getText().equals("2") || dayfield1.getText().equals("3") || dayfield1.getText().equals("4") || dayfield1.getText().equals("5")
+                    || dayfield1.getText().equals("6") || dayfield1.getText().equals("7") || dayfield1.getText().equals("8") || dayfield1.getText().equals("9")
+                    || dayfield1.getText().equals("10") || dayfield1.getText().equals("11") || dayfield1.getText().equals("12") || dayfield1.getText().equals("13") || dayfield1.getText().equals("14")
+                    || dayfield1.getText().equals("15") || dayfield1.getText().equals("16") || dayfield1.getText().equals("17") || dayfield1.getText().equals("18")
+                    || dayfield1.getText().equals("19") || dayfield1.getText().equals("20") || dayfield1.getText().equals("21") || dayfield1.getText().equals("22")
+                    || dayfield1.getText().equals("23") || dayfield1.getText().equals("24") || dayfield1.getText().equals("25") || dayfield1.getText().equals("26")
+                    || dayfield1.getText().equals("27") || dayfield1.getText().equals("28") || dayfield1.getText().equals("29") || dayfield1.getText().equals("30") || dayfield1.getText().equals("31")) {
+
+                    dayfield1.setText("" + (Integer.parseInt(dayfield1.getText()) + 1));
+
+                }
+                dayfield1.selectAll();
+            }
+            // incrementing normal values
+        } else if (dayfield1.getText().equals("1") || dayfield1.getText().equals("2") || dayfield1.getText().equals("3") || dayfield1.getText().equals("4") || dayfield1.getText().equals("5")
+            || dayfield1.getText().equals("6") || dayfield1.getText().equals("7") || dayfield1.getText().equals("8") || dayfield1.getText().equals("9")
+            || dayfield1.getText().equals("10") || dayfield1.getText().equals("11") || dayfield1.getText().equals("12") || dayfield1.getText().equals("13") || dayfield1.getText().equals("14")
+            || dayfield1.getText().equals("15") || dayfield1.getText().equals("16") || dayfield1.getText().equals("17") || dayfield1.getText().equals("18")
+            || dayfield1.getText().equals("19") || dayfield1.getText().equals("20") || dayfield1.getText().equals("21") || dayfield1.getText().equals("22")
+            || dayfield1.getText().equals("23") || dayfield1.getText().equals("24") || dayfield1.getText().equals("25") || dayfield1.getText().equals("26")
+            || dayfield1.getText().equals("27") || dayfield1.getText().equals("28") || dayfield1.getText().equals("29") || dayfield1.getText().equals("30") || dayfield1.getText().equals("31")) {
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+
+                dayfield1.setText("" + (Integer.parseInt(dayfield1.getText()) + 1));
+                dayfield1.selectAll();
+
+            }
+        }
+        if (evt.getKeyCode() == KeyEvent.VK_RIGHT) {
+            monthfield1.requestFocus();
+            monthfield1.selectAll();
+        }
+
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
+          //  empCode_JC.requestFocus();
+
+        }
+    }//GEN-LAST:event_dayfield1KeyPressed
+
+    private void datePick1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datePick1ActionPerformed
+        java.sql.Date datef = new java.sql.Date(datePick1.getDate().getTime());
+
+        dayfield1.setText(datehandler.get_day(datef));
+        monthfield1.setText(datehandler.get_month(datef));
+        yearfield1.setText(datehandler.get_year(datef));
+        // category_code.requestFocus();
+    }//GEN-LAST:event_datePick1ActionPerformed
+
+    DatabaseManager dbm = new DatabaseManager();
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-     PRCR_test_jframe pcs=new PRCR_test_jframe();
-     pcs.setVisible(true);// pdm.updateDatabaseForStrings("prcr_margin_dates", "month", "2014_03", "margin", 20); // TODO add your handling code here:
+        
+        int emp_code =Integer.parseInt(code.getSelectedItem().toString());
+        
+      //  double amount =
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-//        spiObject.Set_year(year.getText());
-//        spiObject.Set_month(month.getText());
-//        PRCR_change_margin_dates pcm=new PRCR_change_margin_dates(spiObject.getString());
-//        pcm.setVisible(true);
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        PRCR_epf_reports per=new PRCR_epf_reports();
-        per.setVisible(true);
-// TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        PRCR_Checkroll_Summar sum=new PRCR_Checkroll_Summar();
-        sum.setVisible(true);// TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
-
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        PRCR_Checkroll_Amalgamation ama=new PRCR_Checkroll_Amalgamation();
-        ama.setVisible(true);
-    }//GEN-LAST:event_jButton6ActionPerformed
  
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox code;
-    private javax.swing.JTextField date_margin_text;
-    private javax.swing.JTextField epfAmount;
-    private javax.swing.JTextField epfRate;
-    private javax.swing.JTextField etfAmount;
-    private javax.swing.JTextField etfRate;
-    private javax.swing.JTextField fullPay;
-    private javax.swing.JTextField incentivesT;
-    private javax.swing.JTextField incentivesT2;
+    private com.michaelbaranov.microba.calendar.DatePicker datePick1;
+    private javax.swing.JPanel datepanel;
+    private javax.swing.JTextField dayfield1;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JTextField month;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField monthfield1;
     private javax.swing.JTextField name;
-    private javax.swing.JTextField normalAmount;
-    private javax.swing.JTextField normalDays;
-    private javax.swing.JTextField otaAmount;
-    private javax.swing.JTextField otaHours;
-    private javax.swing.JTextField otaRate;
-    private javax.swing.JTextField otbAmount;
-    private javax.swing.JTextField otbHours;
-    private javax.swing.JTextField otbRate;
-    private javax.swing.JTextField sundayAmount;
-    private javax.swing.JTextField sundays;
-    private javax.swing.JTextField welfareAmount;
-    private javax.swing.JTextField welfareRate;
-    private javax.swing.JTextField year;
+    private javax.swing.JTextField yearfield1;
     // End of variables declaration//GEN-END:variables
 }

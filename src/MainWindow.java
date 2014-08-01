@@ -203,6 +203,8 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
 
+        jButton10.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        jButton10.setText("A");
         jButton10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton10ActionPerformed(evt);
@@ -669,23 +671,17 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
 
-  GL_report_generator  gen = new GL_report_generator();
-        try {
-            gen.monthly_ledger_calc("2014", "07");
             
-//        DateChooser_text addbrnch = new DateChooser_text();
-//
-//        Main_Content.removeAll();
-//
-//        addbrnch.setSize(Main_Content.getSize());
-//
-//        Main_Content.add(addbrnch);
-//        validate();
-//        repaint();
-//        addbrnch.focus();
-        } catch (SQLException ex) {
-            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        GL_CashAdvance_plus_book addbrnch = new GL_CashAdvance_plus_book();
+        Main_Content.removeAll();
+
+        addbrnch.setSize(Main_Content.getSize());
+
+        Main_Content.add(addbrnch);
+        validate();
+        repaint();
+       addbrnch.focus();
+        
        
        
     }//GEN-LAST:event_jButton10ActionPerformed
@@ -803,7 +799,85 @@ public class MainWindow extends javax.swing.JFrame {
         t1.start();
 
        String pwd = dbm.checknReturnStringData("user_data", "user_name", User_id.getText(), "pwd");
-        if(Pass.getText().equalsIgnoreCase(pwd)){  
+        if(Pass.getText().equals(pwd)){
+            String a = dbm.checknReturnData("user_data", "user_name", User_id.getText(), "access");
+            System.out.println(a);
+            if(a.equals("1")){
+            jButton2.setEnabled(true);
+            jButton7.setEnabled(true);
+        jButton8.setEnabled(true);
+        jButton9.setEnabled(true);
+        jButton10.setEnabled(true);
+         jButton15.setEnabled(true);
+        topBar.setEnabled(true);
+         jMenu1.setEnabled(true);
+        //jMenu2.setEnabled(true);
+        jMenu3.setEnabled(true);
+            
+            
+            
+            } if(a.equals("2")){
+            
+        jButton1.setEnabled(true);
+        
+        
+        jButton7.setEnabled(true);
+       
+        jButton9.setEnabled(true);
+        
+        jButton15.setEnabled(true);
+        topBar.setEnabled(true);
+        jMenu1.setEnabled(true);
+       // jMenu2.setEnabled(true);
+        jMenu3.setEnabled(true);
+        }
+            
+          if(a.equals("3")){
+            
+        jButton1.setEnabled(true);
+        
+        
+        jButton7.setEnabled(true);
+        jButton8.setEnabled(true);
+        jButton10.setEnabled(true);
+        
+        
+        jButton15.setEnabled(true);
+        topBar.setEnabled(true);
+        jMenu1.setEnabled(true);
+       // jMenu2.setEnabled(true);
+        jMenu3.setEnabled(true);
+        }
+          
+           if(a.equals("4")){
+            
+        
+        jButton4.setEnabled(true);
+        
+        jButton7.setEnabled(true);
+       
+        jButton15.setEnabled(true);
+        topBar.setEnabled(true);
+        jMenu1.setEnabled(true);
+       // jMenu2.setEnabled(true);
+        jMenu3.setEnabled(true);
+        }
+            if(a.equals("5")){
+            
+        
+        //jButton4.setEnabled(true);
+        
+        jButton7.setEnabled(true);
+       
+        jButton15.setEnabled(true);
+        topBar.setEnabled(true);
+        jMenu1.setEnabled(true);
+       // jMenu2.setEnabled(true);
+       // jMenu3.setEnabled(true);
+        }
+           
+            if(a.equals("22")){
+            
         jButton1.setEnabled(true);
         
         jButton2.setEnabled(true);
@@ -822,7 +896,7 @@ public class MainWindow extends javax.swing.JFrame {
         jMenu1.setEnabled(true);
         jMenu2.setEnabled(true);
         jMenu3.setEnabled(true);
-
+        }
         // Main_Content.removeAll();
         inteface_move.smooth_move(jLabel3, 6, 3, 3,1);
         inteface_move.smooth_move(User_id, 6, 3, 3,1);
