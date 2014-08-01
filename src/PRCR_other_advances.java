@@ -720,6 +720,7 @@ public void ClearTable(){
 
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
             //category_code.requestFocus();
+            advance_type.requestFocus();
 
         }
     }//GEN-LAST:event_monthfield1KeyPressed
@@ -740,7 +741,7 @@ public void ClearTable(){
 
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
             //  category_code.requestFocus();
-
+                advance_type.requestFocus();
         }
     }//GEN-LAST:event_yearfield1KeyPressed
 
@@ -909,6 +910,7 @@ public void ClearTable(){
 
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
 //            division_jc.requestFocus();
+            advance_type.requestFocus();
 
         }
     }//GEN-LAST:event_dayfield1KeyPressed
@@ -946,7 +948,7 @@ public void ClearTable(){
     private void advance_typeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_advance_typeKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
          //   empCodeJC.requestFocus();
-
+            empCode_JC.requestFocus();
         }        // TODO add your handling code here:
     }//GEN-LAST:event_advance_typeKeyPressed
 

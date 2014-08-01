@@ -849,7 +849,7 @@ public void ClearTable(){
 
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
 //            category_code.requestFocus();
-
+            empCode_JC.requestFocus();
         }
     }//GEN-LAST:event_monthfieldKeyPressed
 
@@ -869,7 +869,7 @@ public void ClearTable(){
 
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
 //            category_code.requestFocus();
-
+            empCode_JC.requestFocus();
         }
     }//GEN-LAST:event_yearfieldKeyPressed
 
@@ -1038,7 +1038,7 @@ public void ClearTable(){
 
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
 //            category_code.requestFocus();
-
+            empCode_JC.requestFocus();
         }
     }//GEN-LAST:event_dayfieldKeyPressed
 
