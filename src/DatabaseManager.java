@@ -114,6 +114,7 @@ public final class DatabaseManager {
         while (rs1.next()) {
             return (rs1.getInt(coloumn));
         }
+        rs1.close();
         return 0;
     }
 
@@ -985,13 +986,15 @@ public final class DatabaseManager {
 
         String mnth = "" + Integer.parseInt(month);
         String year_month = year + "-" + mnth;
+        double d=0;
 
        // DatabaseManager dbm = new DatabaseManager();
         try {
             ResultSet query = query("SELECT * FROM prcr_welfare WHERE code LIKE'" + emp_code + "' AND month LIKE '" + year_month + "'");
             while (query.next()) {
-                return query.getDouble("amount");
+                d= query.getDouble("amount");
             }
+            query.close();
             return 0;
 
         } catch (SQLException ex) {
