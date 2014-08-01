@@ -13,7 +13,7 @@ public class PRCR_Add_Chekrlpay extends javax.swing.JPanel {
     /**
      * Creates new form PRCR_Add_Chekrlpay
      */
-    Checkroll_Pay_Info cpiObject=new Checkroll_Pay_Info();
+    //Checkroll_Pay_Info cpiObject=new Checkroll_Pay_Info();
     public PRCR_Add_Chekrlpay() {
         initComponents();
     }
@@ -114,7 +114,7 @@ public class PRCR_Add_Chekrlpay extends javax.swing.JPanel {
 
         jLabel10.setText("EPF 1");
 
-        jLabel8.setText("Welfare Allowance");
+        jLabel8.setText("Pay Slip");
 
         jLabel12.setText("%");
 
@@ -141,7 +141,7 @@ public class PRCR_Add_Chekrlpay extends javax.swing.JPanel {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(46, Short.MAX_VALUE)
+                .addContainerGap(44, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -150,7 +150,7 @@ public class PRCR_Add_Chekrlpay extends javax.swing.JPanel {
                             .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(44, 44, 44))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel8)
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)))
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(EPFallowance2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -290,7 +290,6 @@ public class PRCR_Add_Chekrlpay extends javax.swing.JPanel {
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(7, 7, 7)
@@ -331,7 +330,7 @@ public class PRCR_Add_Chekrlpay extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(74, Short.MAX_VALUE))
+                .addContainerGap(98, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -343,26 +342,40 @@ public class PRCR_Add_Chekrlpay extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        cpiObject.setNormalDayRate(Double.parseDouble(normalDayRate.getText()));
-        cpiObject.setsundayRate(Double.parseDouble(sundayRate.getText()));
-        cpiObject.setIncentive1(Double.parseDouble(incentive_1.getText()));
-        cpiObject.setIncentive2(Double.parseDouble(incentive_2.getText()));
-        //cpiObject.setMargin(Integer.parseInt(margin.getText()));
-        cpiObject.setOTRateBefore(Double.parseDouble(OTRateBefore.getText()));
-        cpiObject.setOTRateAfter(Double.parseDouble(OTRateAfter.getText()));
-        cpiObject.setEPFallowance(Double.parseDouble(EPFallowance.getText()));
-        cpiObject.setEPFallowance2(Double.parseDouble(EPFallowance2.getText()));
-        cpiObject.setETFallowance(Double.parseDouble(ETFallowance.getText()));
-        cpiObject.setWelfareAllowance(Double.parseDouble(welfareAllowance.getText()));
-        cpiObject.setHolidayRate(Double.parseDouble(EPFallowance2.getText()));
-        cpiObject.addTodatabase();
+//        cpiObject.setNormalDayRate(Double.parseDouble(normalDayRate.getText()));
+//        cpiObject.setsundayRate(Double.parseDouble(sundayRate.getText()));
+//        cpiObject.setIncentive1(Double.parseDouble(incentive_1.getText()));
+//        cpiObject.setIncentive2(Double.parseDouble(incentive_2.getText()));
+//        //cpiObject.setMargin(Integer.parseInt(margin.getText()));
+//        cpiObject.setOTRateBefore(Double.parseDouble(OTRateBefore.getText()));
+//        cpiObject.setOTRateAfter(Double.parseDouble(OTRateAfter.getText()));
+//        cpiObject.setEPFallowance(Double.parseDouble(EPFallowance.getText()));
+//        cpiObject.setEPFallowance2(Double.parseDouble(EPFallowance2.getText()));
+//        cpiObject.setETFallowance(Double.parseDouble(ETFallowance.getText()));
+//        cpiObject.setWelfareAllowance(Double.parseDouble(welfareAllowance.getText()));
+//        cpiObject.setHolidayRate(Double.parseDouble(EPFallowance2.getText()));
+//        cpiObject.addTodatabase();
+        
+        dbm.updateDatabase("checkroll_pay_info","checkroll","1","normalday_rate",Double.parseDouble(normalDayRate.getText()));
+        dbm.updateDatabase("checkroll_pay_info","checkroll","1","sunday_rate",Double.parseDouble(sundayRate.getText()));
+        dbm.updateDatabase("checkroll_pay_info","checkroll","1","incentive_1",Double.parseDouble(incentive_1.getText()));
+        dbm.updateDatabase("checkroll_pay_info","checkroll","1","incentive_2",Double.parseDouble(incentive_2.getText()));
+         dbm.updateDatabase("checkroll_pay_info","checkroll","1","otrate_before",Double.parseDouble(OTRateBefore.getText()));
+        dbm.updateDatabase("checkroll_pay_info","checkroll","1","otrate_after",Double.parseDouble(OTRateAfter.getText()));
+        dbm.updateDatabase("checkroll_pay_info","checkroll","1","epf",Double.parseDouble(EPFallowance.getText()));
+        dbm.updateDatabase("checkroll_pay_info","checkroll","1","epf2",Double.parseDouble(EPFallowance2.getText()));
+         dbm.updateDatabase("checkroll_pay_info","checkroll","1","etf",Double.parseDouble(ETFallowance.getText()));
+        dbm.updateDatabase("checkroll_pay_info","checkroll","1","payslip",Double.parseDouble(welfareAllowance.getText()));
+        
+        
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void normalDayRateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_normalDayRateActionPerformed
@@ -394,7 +407,7 @@ public class PRCR_Add_Chekrlpay extends javax.swing.JPanel {
      EPFallowance.setText(dbm.checknReturnData("checkroll_pay_info", "checkroll","1","epf"));
      EPFallowance2.setText(dbm.checknReturnData("checkroll_pay_info", "checkroll","1","epf2"));
      
-          welfareAllowance.setText(dbm.checknReturnData("checkroll_pay_info", "checkroll","1","welfare"));
+          welfareAllowance.setText(dbm.checknReturnData("checkroll_pay_info", "checkroll","1","payslip"));
         
      
      

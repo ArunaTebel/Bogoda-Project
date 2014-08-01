@@ -39,9 +39,9 @@ public class GLmanual_entry extends javax.swing.JPanel {
         initComponents();
         delete.setEnabled(false);
         leaf_cat.setSelectedItem("A");
-           Component[] comps = category_code.getComponents();
+         //  Component[] comps = category_code.getComponents();
        
-        comps[2].addFocusListener(new Combofill(category_code,"category", "category_id"));// default///////////////////////////////////////////////////////////////////////////////////////////////
+        //comps[2].addFocusListener(new Combofill(category_code,"category", "category_id"));// default///////////////////////////////////////////////////////////////////////////////////////////////
     }
 
     public void focus() // Focus event to bring focus to the jpanel
@@ -178,6 +178,11 @@ public class GLmanual_entry extends javax.swing.JPanel {
                 jButton1ActionPerformed(evt);
             }
         });
+        jButton1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jButton1FocusGained(evt);
+            }
+        });
 
         jButton2.setText("Update");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -285,9 +290,8 @@ public class GLmanual_entry extends javax.swing.JPanel {
         name.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         name.setForeground(new java.awt.Color(51, 51, 51));
 
-        category_code.putClientProperty("JComboBox.isTableCellEditor", Boolean.TRUE);
-        category_code.setEditable(true);
-        category_code.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("category", "category_id")));
+        //category_code.putClientProperty("JComboBox.isTableCellEditor", Boolean.TRUE);
+        category_code.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray2("category", "category_id")));
         category_code.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 category_codeItemStateChanged(evt);
@@ -303,6 +307,11 @@ public class GLmanual_entry extends javax.swing.JPanel {
                 category_codeCaretPositionChanged(evt);
             }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+            }
+        });
+        category_code.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                category_codeKeyPressed(evt);
             }
         });
 
@@ -1014,7 +1023,7 @@ public class GLmanual_entry extends javax.swing.JPanel {
         if (category_code.getSelectedIndex() != 0) {
             try {
                 category_name.setText(dbm.checknReturnStringData("category", "category_id", category_code.getSelectedItem().toString(), "category_name"));
-                supplier_id.requestFocusInWindow();
+                
                 
 
             } catch (Exception e) {
@@ -1142,7 +1151,7 @@ jButton1.setEnabled(true);
                 
             }
             }
-            supplier_id.requestFocusInWindow(); // request focus
+            category_code.requestFocusInWindow(); // request focus
             supplier_id.setSelectedItem(null);   // setting null
             leaf_cat.setSelectedItem("A"); // default///////////////////////////////////////////////////////////////////////////////////////////////
             no_of_sacks.setText(null);
@@ -1153,7 +1162,7 @@ jButton1.setEnabled(true);
             other.setText(null);
             net_weight.setText(null);
 
-            category_code.setEnabled(false);
+           // category_code.setEnabled(false);
             dayfield.setEnabled(false);
             monthfield.setEnabled(false);
             yearfield.setEnabled(false);
@@ -1791,6 +1800,26 @@ update.update_month_check(jButton1, yearfield, monthfield);
     private void edit1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_edit1KeyPressed
         // TODO add your handling code here:
     }//GEN-LAST:event_edit1KeyPressed
+
+    private void category_codeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_category_codeKeyPressed
+      if(evt.getKeyCode()== KeyEvent.VK_ENTER){           supplier_id.requestFocus();
+  
+    }
+      
+        if(evt.getKeyCode()== KeyEvent.VK_SPACE){           category_code.showPopup();
+  
+    }
+        
+          if(evt.getKeyCode()== 46){           jButton1.requestFocus();
+  
+    }
+        
+        
+    }//GEN-LAST:event_category_codeKeyPressed
+
+    private void jButton1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jButton1FocusGained
+interface_events.Respond_enter(jButton1, evt);        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1FocusGained
     public double convertString(String s) {
         if (s.length() == 0) {
             return 0;

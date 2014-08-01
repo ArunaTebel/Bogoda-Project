@@ -93,104 +93,105 @@ public class PRCR_NoteAnalysis {
     public void setEmpCode() {
     }
 
-    public void setStaffNotes() {
-        Payroll_Salary abc1 = new Payroll_Salary();
-        int columnSize = 0;
-       columnSize = getColumnsize("prcr_staffworkdata_"+st, "code");
-        System.out.println(columnSize);
+//    public void setStaffNotes() {
+//        Payroll_Salary abc1 = new Payroll_Salary();
+//        int columnSize = 0;
+//       columnSize = getColumnsize("prcr_staffworkdata_"+st, "code");
+//        System.out.println(columnSize);
+//
+//        int array[] = new int[columnSize];
+//        double arraySal[] = new double[columnSize];
+//        array = getIntArray("prcr_staffworkdata_"+st, "code");
+//        for (int i = 0; i < columnSize; i++) {
+//            System.out.println(array[i]);
+//            abc1.setEmployCode(array[i]);
+//            arraySal[i] = abc1.getFullPay(st);
+//            System.out.println(arraySal[i]);
+//
+//        }
+//
+//        int arrayN5000[] = new int[columnSize];
+//        arrayN5000 = getIntArray("prcr_staffworkdata_"+st, "n_5000");
+//        //int N5000 = 0;
+//        for (int i = 0; i < columnSize; i++) {
+//            N5000 = N5000 + arrayN5000[i];
+//        }
+//        //N5000T.setText(Integer.toString(N5000));
+//
+//        int arrayN2000[] = new int[columnSize];
+//        arrayN2000 = getIntArray("prcr_staffworkdata_"+st, "n_2000");
+//        //int N2000 = 0;
+//        for (int i = 0; i < columnSize; i++) {
+//            N2000 = N2000 + arrayN2000[i];
+//        }
+//        // N2000T.setText(Integer.toString(N2000));
+//
+//        int arrayN1000[] = new int[columnSize];
+//        arrayN1000 = getIntArray("prcr_staffworkdata_"+st, "n_1000");
+//        //int N1000 = 0;
+//        for (int i = 0; i < columnSize; i++) {
+//            N1000 = N1000 + arrayN1000[i];
+//        }
+//        // N1000T.setText(Integer.toString(N1000));
+//
+//        int arrayN500[] = new int[columnSize];
+//        arrayN500 = getIntArray("prcr_staffworkdata_"+st, "n_500");
+//        //int N500 = 0;
+//        for (int i = 0; i < columnSize; i++) {
+//            N500 = N500 + arrayN500[i];
+//        }
+//        //N500T.setText(Integer.toString(N500));
+//
+//        int arrayN100[] = new int[columnSize];
+//        arrayN100 = getIntArray("prcr_staffworkdata_"+st, "n_100");
+//        //int N100 = 0;
+//        for (int i = 0; i < columnSize; i++) {
+//            N100 = N100 + arrayN100[i];
+//        }
+//        //N100T.setText(Integer.toString(N100));
+//
+//        int arrayN50[] = new int[columnSize];
+//        arrayN50 = getIntArray("prcr_staffworkdata_"+st, "n_50");
+//        //int N50 = 0;
+//        for (int i = 0; i < columnSize; i++) {
+//            N50 = N50 + arrayN50[i];
+//        }
+//        //N50T.setText(Integer.toString(N50));
+//
+//        int arrayN20[] = new int[columnSize];
+//        arrayN20 = getIntArray("prcr_staffworkdata_"+st, "n_20");
+//        //int N20 = 0;
+//        for (int i = 0; i < columnSize; i++) {
+//            N20 = N20 + arrayN20[i];
+//        }
+//        //N20T.setText(Integer.toString(N20));
+//
+//        int arrayN10[] = new int[columnSize];
+//        arrayN10 = getIntArray("prcr_staffworkdata_"+st, "n_10");
+//        //int N10 = 0;
+//        for (int i = 0; i < columnSize; i++) {
+//            N10 = N10 + arrayN10[i];
+//        }
+//        //N10T.setText(Integer.toString(N10));
+//
+//    }
 
-        int array[] = new int[columnSize];
-        double arraySal[] = new double[columnSize];
-        array = getIntArray("prcr_staffworkdata_"+st, "code");
-        for (int i = 0; i < columnSize; i++) {
-            System.out.println(array[i]);
-            abc1.setEmployCode(array[i]);
-            arraySal[i] = abc1.getFullPay(st);
-            System.out.println(arraySal[i]);
-
-        }
-
-        int arrayN5000[] = new int[columnSize];
-        arrayN5000 = getIntArray("prcr_staffworkdata_"+st, "n_5000");
-        //int N5000 = 0;
-        for (int i = 0; i < columnSize; i++) {
-            N5000 = N5000 + arrayN5000[i];
-        }
-        //N5000T.setText(Integer.toString(N5000));
-
-        int arrayN2000[] = new int[columnSize];
-        arrayN2000 = getIntArray("prcr_staffworkdata_"+st, "n_2000");
-        //int N2000 = 0;
-        for (int i = 0; i < columnSize; i++) {
-            N2000 = N2000 + arrayN2000[i];
-        }
-        // N2000T.setText(Integer.toString(N2000));
-
-        int arrayN1000[] = new int[columnSize];
-        arrayN1000 = getIntArray("prcr_staffworkdata_"+st, "n_1000");
-        //int N1000 = 0;
-        for (int i = 0; i < columnSize; i++) {
-            N1000 = N1000 + arrayN1000[i];
-        }
-        // N1000T.setText(Integer.toString(N1000));
-
-        int arrayN500[] = new int[columnSize];
-        arrayN500 = getIntArray("prcr_staffworkdata_"+st, "n_500");
-        //int N500 = 0;
-        for (int i = 0; i < columnSize; i++) {
-            N500 = N500 + arrayN500[i];
-        }
-        //N500T.setText(Integer.toString(N500));
-
-        int arrayN100[] = new int[columnSize];
-        arrayN100 = getIntArray("prcr_staffworkdata_"+st, "n_100");
-        //int N100 = 0;
-        for (int i = 0; i < columnSize; i++) {
-            N100 = N100 + arrayN100[i];
-        }
-        //N100T.setText(Integer.toString(N100));
-
-        int arrayN50[] = new int[columnSize];
-        arrayN50 = getIntArray("prcr_staffworkdata_"+st, "n_50");
-        //int N50 = 0;
-        for (int i = 0; i < columnSize; i++) {
-            N50 = N50 + arrayN50[i];
-        }
-        //N50T.setText(Integer.toString(N50));
-
-        int arrayN20[] = new int[columnSize];
-        arrayN20 = getIntArray("prcr_staffworkdata_"+st, "n_20");
-        //int N20 = 0;
-        for (int i = 0; i < columnSize; i++) {
-            N20 = N20 + arrayN20[i];
-        }
-        //N20T.setText(Integer.toString(N20));
-
-        int arrayN10[] = new int[columnSize];
-        arrayN10 = getIntArray("prcr_staffworkdata_"+st, "n_10");
-        //int N10 = 0;
-        for (int i = 0; i < columnSize; i++) {
-            N10 = N10 + arrayN10[i];
-        }
-        //N10T.setText(Integer.toString(N10));
-
-    }
-
-    public void setCheckrollNotes() {//1.make a array including salary of each worker(code)
+    //a=1-->checkroll   a=2----->staff
+    public void setNotes(int a) {//1.make a array including salary of each worker(code)
                                       //2.set the database values for notes according to the each salary -this is done by 
                                       //using ChNoteAnalysis() called in the CheckrollSallaryCal object(abc)
                                       //3.Calculate total number of notes and set N5000,N2000(total number of notes)
-        //CheckrollSallaryCal abc = new CheckrollSallaryCal();
+        if(a==1){
         int columnSize = 0;
-       // columnSize = getColumnsize("pr_workdata_"+st, "code");
-        columnSize=checknReturnNumberOfEntriesForNoteAnalysis("pr_workdata_"+st, "register_or_casual", reg, "active","1","code");
+       
+        columnSize=checknReturnNumberOfEntriesForNoteAnalysis("pr_workdata_"+st, "register_or_casual", reg, "active","1","code",1);
         
         System.out.println("colmnsiz"+columnSize);
 
         int array[] = new int[columnSize];
         double arraySal[] = new double[columnSize];
         //array = getIntArray("pr_workdata_"+st, "code");
-        array=checknReturnIntArrayForNoteAnalysis("pr_workdata_"+st, "register_or_casual", reg,"active","1","code");
+        array=checknReturnIntArrayForNoteAnalysis("pr_workdata_"+st, "register_or_casual", reg,"active","1","code",1);
         
 
         for (int i = 0; i < columnSize; i++) {
@@ -205,7 +206,7 @@ public class PRCR_NoteAnalysis {
 
         int arrayN5000[] = new int[columnSize];
         //arrayN5000 = getIntArray("pr_workdata_"+st, "n_5000");
-        arrayN5000=checknReturnIntArrayForNoteAnalysis("pr_workdata_"+st, "register_or_casual", reg, "active","1","n_5000");
+        arrayN5000=checknReturnIntArrayForNoteAnalysis("pr_workdata_"+st, "register_or_casual", reg, "active","1","n_5000",1);
         //int N5000 = 0;
         for (int i = 0; i < columnSize; i++) {
             N5000 = N5000 + arrayN5000[i];
@@ -214,7 +215,7 @@ public class PRCR_NoteAnalysis {
 
         int arrayN2000[] = new int[columnSize];
         //arrayN2000 = getIntArray("pr_workdata_"+st, "n_2000");
-        arrayN2000=checknReturnIntArrayForNoteAnalysis("pr_workdata_"+st, "register_or_casual", reg, "active","1","n_2000");
+        arrayN2000=checknReturnIntArrayForNoteAnalysis("pr_workdata_"+st, "register_or_casual", reg, "active","1","n_2000",1);
         //int N2000 = 0;
         for (int i = 0; i < columnSize; i++) {
             N2000 = N2000 + arrayN2000[i];
@@ -223,7 +224,7 @@ public class PRCR_NoteAnalysis {
 
         int arrayN1000[] = new int[columnSize];
         //arrayN1000 = getIntArray("pr_workdata_"+st, "n_1000");
-        arrayN1000=checknReturnIntArrayForNoteAnalysis("pr_workdata_"+st, "register_or_casual", reg,"active","1","n_1000");
+        arrayN1000=checknReturnIntArrayForNoteAnalysis("pr_workdata_"+st, "register_or_casual", reg,"active","1","n_1000",1);
         //int N1000 = 0;
         for (int i = 0; i < columnSize; i++) {
             N1000 = N1000 + arrayN1000[i];
@@ -232,7 +233,7 @@ public class PRCR_NoteAnalysis {
 
         int arrayN500[] = new int[columnSize];
         //arrayN500 = getIntArray("pr_workdata_"+st, "n_500");
-        arrayN500=checknReturnIntArrayForNoteAnalysis("pr_workdata_"+st, "register_or_casual", reg, "active","1","n_500");
+        arrayN500=checknReturnIntArrayForNoteAnalysis("pr_workdata_"+st, "register_or_casual", reg, "active","1","n_500",1);
         //int N500 = 0;
         for (int i = 0; i < columnSize; i++) {
             N500 = N500 + arrayN500[i];
@@ -241,7 +242,7 @@ public class PRCR_NoteAnalysis {
 
         int arrayN100[] = new int[columnSize];
         //arrayN100 = getIntArray("pr_workdata_"+st, "n_100");
-        arrayN100=checknReturnIntArrayForNoteAnalysis("pr_workdata_"+st, "register_or_casual", reg, "active","1","n_100");
+        arrayN100=checknReturnIntArrayForNoteAnalysis("pr_workdata_"+st, "register_or_casual", reg, "active","1","n_100",1);
         //int N100 = 0;
         for (int i = 0; i < columnSize; i++) {
             N100 = N100 + arrayN100[i];
@@ -250,7 +251,7 @@ public class PRCR_NoteAnalysis {
 
         int arrayN50[] = new int[columnSize];
         //arrayN50 = getIntArray("pr_workdata_"+st, "n_50");
-        arrayN50=checknReturnIntArrayForNoteAnalysis("pr_workdata_"+st, "register_or_casual", reg, "active","1","n_50");
+        arrayN50=checknReturnIntArrayForNoteAnalysis("pr_workdata_"+st, "register_or_casual", reg, "active","1","n_50",1);
         //int N50 = 0;
         for (int i = 0; i < columnSize; i++) {
             N50 = N50 + arrayN50[i];
@@ -259,7 +260,7 @@ public class PRCR_NoteAnalysis {
 
         int arrayN20[] = new int[columnSize];
         //arrayN20 = getIntArray("pr_workdata_"+st, "n_20");
-        arrayN20=checknReturnIntArrayForNoteAnalysis("pr_workdata_"+st, "register_or_casual", reg,"active","1","n_20");
+        arrayN20=checknReturnIntArrayForNoteAnalysis("pr_workdata_"+st, "register_or_casual", reg,"active","1","n_20",1);
         //int N20 = 0;
         for (int i = 0; i < columnSize; i++) {
             N20 = N20 + arrayN20[i];
@@ -268,12 +269,111 @@ public class PRCR_NoteAnalysis {
 
         int arrayN10[] = new int[columnSize];
         //arrayN10 = getIntArray("pr_workdata_"+st, "n_10");
-        arrayN10=checknReturnIntArrayForNoteAnalysis("pr_workdata_"+st, "register_or_casual", reg,"active","1","n_10");
+        arrayN10=checknReturnIntArrayForNoteAnalysis("pr_workdata_"+st, "register_or_casual", reg,"active","1","n_10",1);
         //int N10 = 0;
         for (int i = 0; i < columnSize; i++) {
             N10 = N10 + arrayN10[i];
         }
         //N10T.setText(Integer.toString(N10));
+        
+        }else if(a==2){
+        
+            
+            int columnSize = 0;
+       
+        columnSize=checknReturnNumberOfEntriesForNoteAnalysis("pr_workdata_"+st, "register_or_casual", reg, "active","1","code",2);
+        
+        System.out.println("colmnsiz"+columnSize);
+
+        int array[] = new int[columnSize];
+        double arraySal[] = new double[columnSize];
+        //array = getIntArray("pr_workdata_"+st, "code");
+        array=checknReturnIntArrayForNoteAnalysis("pr_workdata_"+st, "register_or_casual", reg,"active","1","code",2);
+        
+
+        for (int i = 0; i < columnSize; i++) {
+            System.out.println("arrayindex-"+array[i]);
+            //abc.setEmployCode(array[i]);
+            //arraySal[i] = abc.getFinalSalary(st);
+            arraySal[i]=Double.parseDouble(dbm.checknReturnData("pr_workdata_"+st, "code",array[i], "paid_amount"));
+            ChNoteAnalysis(arraySal[i], array[i],st);
+            System.out.println("salary i-"+arraySal[i]);
+
+        }
+
+        int arrayN5000[] = new int[columnSize];
+        //arrayN5000 = getIntArray("pr_workdata_"+st, "n_5000");
+        arrayN5000=checknReturnIntArrayForNoteAnalysis("pr_workdata_"+st, "register_or_casual", reg, "active","1","n_5000",2);
+        //int N5000 = 0;
+        for (int i = 0; i < columnSize; i++) {
+            N5000 = N5000 + arrayN5000[i];
+        }
+        //N5000T.setText(Integer.toString(N5000));
+
+        int arrayN2000[] = new int[columnSize];
+        //arrayN2000 = getIntArray("pr_workdata_"+st, "n_2000");
+        arrayN2000=checknReturnIntArrayForNoteAnalysis("pr_workdata_"+st, "register_or_casual", reg, "active","1","n_2000",2);
+        //int N2000 = 0;
+        for (int i = 0; i < columnSize; i++) {
+            N2000 = N2000 + arrayN2000[i];
+        }
+        //N2000T.setText(Integer.toString(N2000));
+
+        int arrayN1000[] = new int[columnSize];
+        //arrayN1000 = getIntArray("pr_workdata_"+st, "n_1000");
+        arrayN1000=checknReturnIntArrayForNoteAnalysis("pr_workdata_"+st, "register_or_casual", reg,"active","1","n_1000",2);
+        //int N1000 = 0;
+        for (int i = 0; i < columnSize; i++) {
+            N1000 = N1000 + arrayN1000[i];
+        }
+        //N1000T.setText(Integer.toString(N1000));
+
+        int arrayN500[] = new int[columnSize];
+        //arrayN500 = getIntArray("pr_workdata_"+st, "n_500");
+        arrayN500=checknReturnIntArrayForNoteAnalysis("pr_workdata_"+st, "register_or_casual", reg, "active","1","n_500",2);
+        //int N500 = 0;
+        for (int i = 0; i < columnSize; i++) {
+            N500 = N500 + arrayN500[i];
+        }
+        //N500T.setText(Integer.toString(N500));
+
+        int arrayN100[] = new int[columnSize];
+        //arrayN100 = getIntArray("pr_workdata_"+st, "n_100");
+        arrayN100=checknReturnIntArrayForNoteAnalysis("pr_workdata_"+st, "register_or_casual", reg, "active","1","n_100",2);
+        //int N100 = 0;
+        for (int i = 0; i < columnSize; i++) {
+            N100 = N100 + arrayN100[i];
+        }
+        //N100T.setText(Integer.toString(N100));
+
+        int arrayN50[] = new int[columnSize];
+        //arrayN50 = getIntArray("pr_workdata_"+st, "n_50");
+        arrayN50=checknReturnIntArrayForNoteAnalysis("pr_workdata_"+st, "register_or_casual", reg, "active","1","n_50",2);
+        //int N50 = 0;
+        for (int i = 0; i < columnSize; i++) {
+            N50 = N50 + arrayN50[i];
+        }
+        //N50T.setText(Integer.toString(N50));
+
+        int arrayN20[] = new int[columnSize];
+        //arrayN20 = getIntArray("pr_workdata_"+st, "n_20");
+        arrayN20=checknReturnIntArrayForNoteAnalysis("pr_workdata_"+st, "register_or_casual", reg,"active","1","n_20",2);
+        //int N20 = 0;
+        for (int i = 0; i < columnSize; i++) {
+            N20 = N20 + arrayN20[i];
+        }
+        //N20T.setText(Integer.toString(N20));
+
+        int arrayN10[] = new int[columnSize];
+        //arrayN10 = getIntArray("pr_workdata_"+st, "n_10");
+        arrayN10=checknReturnIntArrayForNoteAnalysis("pr_workdata_"+st, "register_or_casual", reg,"active","1","n_10",2);
+        //int N10 = 0;
+        for (int i = 0; i < columnSize; i++) {
+            N10 = N10 + arrayN10[i];
+        }
+        //N10T.setText(Integer.toString(N10));
+        
+        }
 
     }
 
@@ -311,47 +411,47 @@ public class PRCR_NoteAnalysis {
         dbm.updateDatabase("pr_workdata_"+s, "code", employCode, "n_10", n_10);
 
         pettyCash = rem % 10;
-        System.out.println("5000-" + n_5000 + "-2000-" + n_2000 + "-1000-" + n_1000 + "," + n_500 + "," + n_100);
+      //  System.out.println("5000-" + n_5000 + "-2000-" + n_2000 + "-1000-" + n_1000 + "," + n_500 + "," + n_100);
 
     }
 
-    public void StNoteAnalysis(double salary, int employCode,String s) {//when we input salary of any employer number of notes that needed to give him will be updated in database
-
-        n_5000 = (int) (salary / 5000);
-        double rem = salary % 5000;
-        dbm.updateDatabase("prcr_staffworkdata_"+s, "code", employCode, "n_5000", n_5000);
-
-        n_2000 = (int) (rem / 2000);
-        rem = rem % 2000;
-        dbm.updateDatabase("prcr_staffworkdata_"+s, "code", employCode, "n_2000", n_2000);
-
-        n_1000 = (int) (rem / 1000);
-        rem = rem % 1000;
-        dbm.updateDatabase("prcr_staffworkdata_"+s, "code", employCode, "n_1000", n_1000);
-
-        n_500 = (int) (rem / 500);
-        rem = rem % 500;
-        dbm.updateDatabase("prcr_staffworkdata_"+s, "code", employCode, "N_500", n_500);
-
-        n_100 = (int) (rem / 100);
-        rem = salary % 100;
-        dbm.updateDatabase("prcr_staffworkdata_"+s, "code", employCode, "n_100", n_100);
-
-        n_50 = (int) (rem / 50);
-        rem = rem % 50;
-        dbm.updateDatabase("prcr_staffworkdata_"+s, "code", employCode, "n_50", n_50);
-
-        n_20 = (int) (rem / 20);
-        rem = rem % 20;
-        dbm.updateDatabase("prcr_staffworkdata_"+s, "code", employCode, "n_20", n_20);
-
-        n_10 = (int) (rem / 10);
-        dbm.updateDatabase("prcr_staffworkdata_"+s, "code", employCode, "n_10", n_10);
-
-        pettyCash = rem % 10;
-        // System.out.println("5000-" + n_5000 + "-2000-" + n_2000 + "-1000-" + n_1000 + "," + n_500 + "," + n_100);
-
-    }
+//    public void StNoteAnalysis(double salary, int employCode,String s) {//when we input salary of any employer number of notes that needed to give him will be updated in database
+//
+//        n_5000 = (int) (salary / 5000);
+//        double rem = salary % 5000;
+//        dbm.updateDatabase("prcr_staffworkdata_"+s, "code", employCode, "n_5000", n_5000);
+//
+//        n_2000 = (int) (rem / 2000);
+//        rem = rem % 2000;
+//        dbm.updateDatabase("prcr_staffworkdata_"+s, "code", employCode, "n_2000", n_2000);
+//
+//        n_1000 = (int) (rem / 1000);
+//        rem = rem % 1000;
+//        dbm.updateDatabase("prcr_staffworkdata_"+s, "code", employCode, "n_1000", n_1000);
+//
+//        n_500 = (int) (rem / 500);
+//        rem = rem % 500;
+//        dbm.updateDatabase("prcr_staffworkdata_"+s, "code", employCode, "N_500", n_500);
+//
+//        n_100 = (int) (rem / 100);
+//        rem = salary % 100;
+//        dbm.updateDatabase("prcr_staffworkdata_"+s, "code", employCode, "n_100", n_100);
+//
+//        n_50 = (int) (rem / 50);
+//        rem = rem % 50;
+//        dbm.updateDatabase("prcr_staffworkdata_"+s, "code", employCode, "n_50", n_50);
+//
+//        n_20 = (int) (rem / 20);
+//        rem = rem % 20;
+//        dbm.updateDatabase("prcr_staffworkdata_"+s, "code", employCode, "n_20", n_20);
+//
+//        n_10 = (int) (rem / 10);
+//        dbm.updateDatabase("prcr_staffworkdata_"+s, "code", employCode, "n_10", n_10);
+//
+//        pettyCash = rem % 10;
+//        // System.out.println("5000-" + n_5000 + "-2000-" + n_2000 + "-1000-" + n_1000 + "," + n_500 + "," + n_100);
+//
+//    }
 
     public int getN5000() {
         return this.N5000;
@@ -394,42 +494,26 @@ public class PRCR_NoteAnalysis {
         return reg;
     }
 
-    public int[] getIntArray(String table_name, String column_name) {
 
-        int count = 0;
-        DatabaseManager dbm = DatabaseManager.getDbCon();
-        try {
-            ResultSet query = dbm.query("SELECT " + column_name + " FROM " + table_name + "");
-            while (query.next()) {
-                count++;
-            }
-            int[] array = new int[count];
-            count = 0;
-            ResultSet query2 = dbm.query("SELECT " + column_name + " FROM " + table_name + "");
-            while (query2.next()) {
-                array[count] = query2.getInt(column_name);
-                count++;
-            }
-            return array;
-        } catch (SQLException ex) {
-
-        }
-        return null;
-
-    }
-    public int[] checknReturnIntArrayForNoteAnalysis(String table_name, String table_column_giving1, Object row_element1, String table_column_giving2, Object row_element2, String table_column_need) {
+    public int[] checknReturnIntArrayForNoteAnalysis(String table_name, String table_column_giving1, Object row_element1, String table_column_giving2, Object row_element2, String table_column_need,int a) {
         DatabaseManager dbm = DatabaseManager.getDbCon();
         int count=0;
-        int num = checknReturnNumberOfEntriesForNoteAnalysis(table_name, table_column_giving1, row_element1, table_column_giving2, row_element2,table_column_need);
+        int num = checknReturnNumberOfEntriesForNoteAnalysis(table_name, table_column_giving1, row_element1, table_column_giving2, row_element2,table_column_need,a);
         int[] arr = new int[num];
         try {
             //     ResultSet query = dbm.query("SELECT * FROM " + table_name + " WHERE " + table_column_giving1 + " ='" + row_element1 + " 'AND " + table_column_giving2 +" <'" + row_element2 + "'");
-            ResultSet query = dbm.query("SELECT * FROM " + table_name + " WHERE " + table_column_giving1 + " ='" + row_element1 + " 'AND " + table_column_giving2 + " LIKE'" + row_element2 + "'");
-
+            ResultSet query;
+            if(a==1){
+            query = dbm.query("SELECT * FROM " + table_name + " WHERE " + table_column_giving1 + " ='" + row_element1 + " 'AND " + table_column_giving2 + " LIKE'" + row_element2 + "' AND division NOT LIKE '"+"STAFF"+"'");
+            }else{
+            query = dbm.query("SELECT * FROM " + table_name + " WHERE " + table_column_giving1 + " ='" + row_element1 + " 'AND " + table_column_giving2 + " LIKE'" + row_element2 + "' AND division LIKE '"+"STAFF"+"'");
+            
+            }
             while (query.next()) {
                 arr[count]=query.getInt(table_column_need);
                 count++;
             }
+            query.close();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
             //return ""+ex.getErrorCode();            
@@ -438,42 +522,26 @@ public class PRCR_NoteAnalysis {
     }
     
     
-      public double[] getDoubleArray(String table_name, String column_name) {
 
-        int count = 0;
-        DatabaseManager dbm = DatabaseManager.getDbCon();
-        try {
-            ResultSet query = dbm.query("SELECT " + column_name + " FROM " + table_name + "");
-            while (query.next()) {
-                count++;
-            }
-            double[] array = new double[count];
-            count = 0;
-            ResultSet query2 = dbm.query("SELECT " + column_name + " FROM " + table_name + "");
-            while (query2.next()) {
-                array[count] = query2.getDouble(column_name);
-                count++;
-            }
-            return array;
-        } catch (SQLException ex) {
-
-        }
-        return null;
-
-    }
-      public double[] checknReturnDoubleArrayForNoteAnalysis(String table_name, String table_column_giving1, Object row_element1, String table_column_giving2, Object row_element2, String table_column_need) {
+      public double[] checknReturnDoubleArrayForNoteAnalysis(String table_name, String table_column_giving1, Object row_element1, String table_column_giving2, Object row_element2, String table_column_need,int a) {
         DatabaseManager dbm = DatabaseManager.getDbCon();
         int count=0;
-        int num = checknReturnNumberOfEntriesForNoteAnalysis(table_name, table_column_giving1, row_element1, table_column_giving2, row_element2,table_column_need);
+        int num = checknReturnNumberOfEntriesForNoteAnalysis(table_name, table_column_giving1, row_element1, table_column_giving2, row_element2,table_column_need,a);
         double[] arr = new double[num];
         try {
             //     ResultSet query = dbm.query("SELECT * FROM " + table_name + " WHERE " + table_column_giving1 + " ='" + row_element1 + " 'AND " + table_column_giving2 +" <'" + row_element2 + "'");
-            ResultSet query = dbm.query("SELECT * FROM " + table_name + " WHERE " + table_column_giving1 + " ='" + row_element1 + " 'AND " + table_column_giving2 + " LIKE'" + row_element2 + "'");
-
+           ResultSet query;
+            if(a==1){
+            query = dbm.query("SELECT * FROM " + table_name + " WHERE " + table_column_giving1 + " ='" + row_element1 + " 'AND " + table_column_giving2 + " LIKE'" + row_element2 + "' AND division NOT LIKE '"+"STAFF"+"'");
+            }else{
+            query = dbm.query("SELECT * FROM " + table_name + " WHERE " + table_column_giving1 + " ='" + row_element1 + " 'AND " + table_column_giving2 + " LIKE'" + row_element2 + "' AND division LIKE '"+"STAFF"+"'");
+            
+            }
             while (query.next()) {
                 arr[count]=query.getDouble(table_column_need);
                 count++;
             }
+            query.close();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
             //return ""+ex.getErrorCode();            
@@ -482,36 +550,26 @@ public class PRCR_NoteAnalysis {
     }
     
       
-//used in earlier version
-    public int getColumnsize(String table_name, String column_name) {
 
-        int count = 0;
-        DatabaseManager dbm = DatabaseManager.getDbCon();
-        try {
-            ResultSet query = dbm.query("SELECT " + column_name + " FROM " + table_name + "");
-            while (query.next()) {
-                count++;
-            }
-
-        } catch (SQLException ex) {
-
-        }
-        return count;
-        //return null;
-
-    }
 
    //used to get the number of codes in the "code" column where column "register_or_casual"=1 and "division"=BG  
-    public int checknReturnNumberOfEntriesForNoteAnalysis(String table_name, String table_column_giving1, Object row_element1, String table_column_giving2, Object row_element2, String table_column_need) {
+    public int checknReturnNumberOfEntriesForNoteAnalysis(String table_name, String table_column_giving1, Object row_element1, String table_column_giving2, Object row_element2, String table_column_need,int a) {
         DatabaseManager dbm = DatabaseManager.getDbCon();
         int count = 0;
         try {
             //     ResultSet query = dbm.query("SELECT * FROM " + table_name + " WHERE " + table_column_giving1 + " ='" + row_element1 + " 'AND " + table_column_giving2 +" <'" + row_element2 + "'");
-            ResultSet query = dbm.query("SELECT * FROM " + table_name + " WHERE " + table_column_giving1 + " ='" + row_element1 + " 'AND " + table_column_giving2 + " LIKE'" + row_element2 + "'");
-
+             ResultSet query;
+            if(a==1){
+            query = dbm.query("SELECT * FROM " + table_name + " WHERE " + table_column_giving1 + " ='" + row_element1 + " 'AND " + table_column_giving2 + " LIKE'" + row_element2 + "' AND division NOT LIKE '"+"STAFF"+"'");
+            }else{
+            query = dbm.query("SELECT * FROM " + table_name + " WHERE " + table_column_giving1 + " ='" + row_element1 + " 'AND " + table_column_giving2 + " LIKE'" + row_element2 + "' AND division LIKE '"+"STAFF"+"'");
+            
+            
+            }
             while (query.next()) {
                 count++;
             }
+            query.close();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
             //return ""+ex.getErrorCode();            

@@ -43,7 +43,7 @@ Interface_Events interface_events=new Interface_Events();
     
     public void fill_data(int entry) {//get the data from workentry for given entry number,will be called where the object is created
         date1 = dbm.checknReturnData("prcr_other_advance_book", "entry", entry, "date");
-        dayfield1.setText(date1.substring(8,10));
+        dayfield1.setText(Integer.parseInt(date1.substring(8,10))+"");
         monthfield1.setText(datehandler.Return_month(Integer.parseInt(date1.substring(5,7))));
         yearfield1.setText(date1.substring(0,4));
         
@@ -307,7 +307,7 @@ Interface_Events interface_events=new Interface_Events();
             }
         });
 
-        dayfield1.setText(datehandler.get_today_day());
+        dayfield1.setText(Integer.parseInt(datehandler.get_today_day())+"");
         dayfield1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 dayfield1KeyPressed(evt);
@@ -1154,6 +1154,7 @@ public void Update_pr_workData(String tablename,Object code,String column,String
 
         //addDateTable(tdate);//store data of workers worked in each division in each day   REMOVED INTENTIONALLY
 
+        try{
         String month = null;
         String year = null;
         Date tdate=null;
@@ -1175,7 +1176,10 @@ public void Update_pr_workData(String tablename,Object code,String column,String
             //saveData(tablename, tdate);
             saveDataToAdvanceBook(tdate);
             ClearTable();
-        
+            JOptionPane.showMessageDialog(null, "Saved!\n", "Message", JOptionPane.INFORMATION_MESSAGE);
+        }catch(Exception e){
+        JOptionPane.showMessageDialog(null, "Not saved!Error\n", "Message", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed

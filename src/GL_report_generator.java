@@ -21,8 +21,8 @@ public class GL_report_generator {
     //DatabaseManager dbm = new DatabaseManager();
     DatabaseManager dbm = DatabaseManager.getDbCon();
     Date_Handler date_handler = new Date_Handler();
-    String startdate = "08";
-    String endDate = "07";
+    String startdate = "01";
+    String endDate = "31";
 
     public GL_report_generator() {
 
@@ -135,11 +135,11 @@ public class GL_report_generator {
         Date date1 = java.sql.Date.valueOf(year + "-" + month + "-" + startdate);
 
         Date date4;
-        if (month.equals("12")) {
-            date4 = java.sql.Date.valueOf(String.valueOf(Integer.parseInt(year) + 1) + "-" + date_handler.get_next_month(month) + "-" + endDate);
-        } else {
-            date4 = java.sql.Date.valueOf(year + "-" + date_handler.get_next_month(month) + "-" + endDate);
-        }
+//        if (month.equals("12")) {
+//            date4 = java.sql.Date.valueOf(String.valueOf(Integer.parseInt(year) + 1) + "-" + date_handler.get_next_month(month) + "-" + endDate);
+//        } else {
+            date4 = java.sql.Date.valueOf(year + "-" + month + "-" + endDate);
+    //    }
 
         // System.out.println(date1+"-------------"+date4);
         //  DatabaseManager dbm = DatabaseManager.getDbCon();
@@ -201,11 +201,11 @@ public class GL_report_generator {
         //Date date2 = java.sql.Date.valueOf(year + "-" + month + "-" + "21");
         //Date date3 = java.sql.Date.valueOf(year + "-" + date_handler.get_next_month(month) + "-" + "28");
         Date date4;
-        if (month.equals("12")) {
-            date4 = java.sql.Date.valueOf(String.valueOf(Integer.parseInt(year) + 1) + "-" + date_handler.get_next_month(month) + "-" + endDate);
-        } else {
-            date4 = java.sql.Date.valueOf(year + "-" + date_handler.get_next_month(month) + "-" + endDate);
-        }
+//        if (month.equals("12")) {
+//            date4 = java.sql.Date.valueOf(String.valueOf(Integer.parseInt(year) + 1) + "-" + date_handler.get_next_month(month) + "-" + endDate);
+//        } else {
+            date4 = java.sql.Date.valueOf(year + "-" + month + "-" + endDate);
+    //    }
 
         // System.out.println(date1+"----"+date2+"----"+date3+"-----"+date4);
         try {
@@ -391,11 +391,11 @@ public class GL_report_generator {
         Date date1 = java.sql.Date.valueOf(year + "-" + month + "-" + startdate);
 
         Date date4;
-        if (month.equals("12")) {
-            date4 = java.sql.Date.valueOf(String.valueOf(Integer.parseInt(year) + 1) + "-" + date_handler.get_next_month(month) + "-" + endDate);
-        } else {
-            date4 = java.sql.Date.valueOf(year + "-" + date_handler.get_next_month(month) + "-" + endDate);
-        }
+//        if (month.equals("12")) {
+//            date4 = java.sql.Date.valueOf(String.valueOf(Integer.parseInt(year) + 1) + "-" + date_handler.get_next_month(month) + "-" + endDate);
+//        } else {
+            date4 = java.sql.Date.valueOf(year + "-" + month + "-" + endDate);
+     //   }
 
         // System.out.println(date1+"----"+date2+"----"+date3+"-----"+date4);
         // DatabaseManager dbm = DatabaseManager.getDbCon();

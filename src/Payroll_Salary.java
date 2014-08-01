@@ -155,7 +155,7 @@ public class Payroll_Salary {
         this.st=ss;
         double fullpay=setBasic() - getEtfAmount() - getEpfAmount() - getWelfareAmount() + getOtAmount();
         System.out.println(fullpay);
-       naObject.StNoteAnalysis(fullpay,employCode,ss);
+    //   naObject.StNoteAnalysis(fullpay,employCode,ss);
         dbm.updateDatabase("prcr_staffworkdata_"+ ss, "code", employCode, "full_pay", fullpay);
        
         return (fullpay);
