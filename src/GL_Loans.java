@@ -821,15 +821,8 @@ public class GL_Loans extends javax.swing.JPanel {
                 int i;
                 int monthNum = Integer.parseInt(month);
                 int newMonth;
-                if (date1 < 8) {
-                    for (i = 0; i < allMonths.length; i++) {
-                        newMonth = monthNum + i - 1;
-                        if (newMonth > 12) {
-                            newMonth = newMonth - 12;
-                        }
-                        allMonths[i] = String.valueOf(newMonth);
-                    }
-                } else {
+                
+               
                     for (i = 0; i < allMonths.length; i++) {
                         newMonth = monthNum + i;
                         if (newMonth > 12) {
@@ -837,22 +830,17 @@ public class GL_Loans extends javax.swing.JPanel {
                         }
                         allMonths[i] = String.valueOf(newMonth);
                     }
-                }
-                Date loanDate1;
-                if(date1<8){
-                    loanDate1 = new Date(Integer.parseInt(year) - 1900, Integer.parseInt(month) - 2, 8);
-                }
-                else{
-                    loanDate1 = new Date(Integer.parseInt(year) - 1900, Integer.parseInt(month) - 1, 8);
-                }
-                dbm.insert("INSERT INTO gl_loans(sup_id,loan_id,type,amount,installments,rate,date,issue_date,monthly_amount) VALUES('" + supId + "','" + 0 + "','Current month','" + amount + "','" + installments + "','" + rate + "','" + loanDate1 + "','" + loanDate + "','" + monthlyPay[0] + "')");
+                
+               // Date loanDate1 = loanDate;
+              
+                dbm.insert("INSERT INTO gl_loans(sup_id,loan_id,type,amount,installments,rate,date,issue_date,monthly_amount) VALUES('" + supId + "','" + 0 + "','Current month','" + amount + "','" + installments + "','" + rate + "','" + loanDate + "','" + loanDate + "','" + monthlyPay[0] + "')");
                 int transaction = dbm.readLastRow("gl_loans", "tr_id");
                 dbm.updateDatabase("gl_loans", "tr_id", transaction, "loan_id", transaction);
                 for (i = 1; i < allMonths.length; i++) {
                     if (allMonths[i - 1].equals("12")) {
                         year = String.valueOf(Integer.parseInt(year) + 1);
                     }
-                    Date date = new Date(Integer.parseInt(year) - 1900, Integer.parseInt(allMonths[i]) - 1, 8);
+                    Date date = new Date(Integer.parseInt(year) - 1900, Integer.parseInt(allMonths[i]) - 1, 1);
                     dbm.insert("INSERT INTO gl_loans(sup_id,loan_id,type,amount,installments,rate,date,issue_date,monthly_amount) VALUES('" + supId + "','" + transaction + "','Previous','" + amount + "','" + installments + "','" + rate + "','" + date + "','" + loanDate + "','" + monthlyPay[i] + "')");
                 }
                 installmentsField.setText("");

@@ -44,7 +44,7 @@ public class PRCR_cashadvance_edit_interface2 extends javax.swing.JFrame {
     
     public void fill_data(int entry) {//get the data from workentry for given entry number,will be called where the object is created
         date1 = dbm.checknReturnData("prcr_cash_advance_book", "entry", entry, "date");
-        dayfield1.setText(date1.substring(8,10));
+        dayfield1.setText(Integer.parseInt(date1.substring(8,10))+"");
         monthfield1.setText(datehandler.Return_month(Integer.parseInt(date1.substring(5,7))));
         yearfield1.setText(date1.substring(0,4));
         
@@ -257,7 +257,7 @@ public class PRCR_cashadvance_edit_interface2 extends javax.swing.JFrame {
             }
         });
 
-        dayfield1.setText(datehandler.get_today_day());
+        dayfield1.setText(Integer.parseInt(datehandler.get_today_day())+"");
         dayfield1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 dayfield1KeyPressed(evt);
@@ -929,7 +929,11 @@ public class PRCR_cashadvance_edit_interface2 extends javax.swing.JFrame {
         //java.sql.Date tdate = new java.sql.Date(date.getDate().getTime());
 
         //addDateTable(tdate);//store data of workers worked in each division in each day   REMOVED INTENTIONALLY
-
+        if(table.getValueAt(0, 0)==null){
+           JOptionPane.showMessageDialog(null, "Data not saved!Send data to the Table and save again!\n", "Message", JOptionPane.INFORMATION_MESSAGE);
+ 
+        }else{
+        try{
         String month = null;
         String year = null;
         Date tdate=null;
@@ -948,15 +952,16 @@ public class PRCR_cashadvance_edit_interface2 extends javax.swing.JFrame {
         new1_date = ne_date.toString();
         String tablename = new1_date.substring(0, 7);
 
-        if (dbm.TableExistence("pr_workdata_" + tablename) == false) {
-            // CreateNewMonthTable(tablename);
-            JOptionPane.showMessageDialog(null, "This month's Check roll table has not yet been created!Data not saved \n", "Message", JOptionPane.INFORMATION_MESSAGE);
-        }
-        else{
-            saveData(tablename, tdate);
+       
+            //saveData(tablename, tdate);
             saveDataToAdvanceBook(tdate);
             ClearTable();
-        }
+            JOptionPane.showMessageDialog(null, "Saved!\n", "Message", JOptionPane.INFORMATION_MESSAGE);
+}catch(Exception e){
+JOptionPane.showMessageDialog(null, "Not Saved!Error\n", "Message", JOptionPane.INFORMATION_MESSAGE);
+
+}
+}
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed

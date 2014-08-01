@@ -258,7 +258,7 @@ public void ClearTable(){
             }
         });
 
-        dayfield1.setText(datehandler.get_today_day());
+        dayfield1.setText(Integer.parseInt(datehandler.get_today_day())+"");
         dayfield1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 dayfield1ActionPerformed(evt);

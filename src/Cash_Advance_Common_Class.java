@@ -180,7 +180,11 @@ public class Cash_Advance_Common_Class {
 
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         try {
-            dbCon.insert("Truncate table gl_cash_advance_book");
+            
+             //dbm.insert("CREATE TABLE gl_cash_advance_book_backup LIKE gl_cash_advance_book");
+                 dbm.insert("INSERT INTO gl_cash_advance_book_backup SELECT* FROM gl_cash_advance_book");
+                 
+                 dbCon.insert("Truncate table gl_cash_advance_book");
         } catch (SQLException ex) {
             MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
             return false;

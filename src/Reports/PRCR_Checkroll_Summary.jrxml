@@ -67,16 +67,16 @@ FROM
 				<textFieldExpression><![CDATA[$P{USER}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="1" y="47" width="130" height="22" uuid="cd28b40e-feec-453f-9ee9-308c0d28c7e6"/>
+				<reportElement x="1" y="47" width="158" height="22" uuid="cd28b40e-feec-453f-9ee9-308c0d28c7e6"/>
 				<textElement>
-					<font size="12" isItalic="false" isUnderline="true"/>
+					<font size="14" isItalic="false" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[Checkroll Summary]]></text>
 			</staticText>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="34" splitType="Stretch">
+		<band height="36" splitType="Stretch">
 			<line>
 				<reportElement x="1" y="-26" width="573" height="1" uuid="292404ee-21c4-44ec-86e1-654ddf5dc03b"/>
 				<graphicElement>
@@ -84,14 +84,14 @@ FROM
 				</graphicElement>
 			</line>
 			<textField evaluationTime="Report">
-				<reportElement x="276" y="6" width="40" height="20" uuid="a28f6025-2bc0-4bc1-a2d3-6de88975440a"/>
+				<reportElement x="364" y="8" width="40" height="20" uuid="a28f6025-2bc0-4bc1-a2d3-6de88975440a"/>
 				<textElement>
 					<font isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="196" y="6" width="80" height="20" uuid="c7b2c106-44fc-4aed-b3a9-e5ad706e21ea"/>
+				<reportElement x="284" y="8" width="80" height="20" uuid="c7b2c106-44fc-4aed-b3a9-e5ad706e21ea"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
 			</textField>
@@ -128,36 +128,41 @@ FROM
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="15" splitType="Stretch">
+		<band height="13" splitType="Stretch">
 			<textField>
-				<reportElement x="82" y="1" width="77" height="14" uuid="44a62b2b-507f-4265-a2d5-be0cd3922cb2"/>
+				<reportElement x="82" y="1" width="77" height="12" uuid="44a62b2b-507f-4265-a2d5-be0cd3922cb2"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_summary_report_column_1}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0.00">
-				<reportElement x="360" y="1" width="57" height="14" uuid="fd9afc69-6ca7-4bde-8082-fd7c5bb10920"/>
-				<textElement textAlignment="Right"/>
+				<reportElement x="360" y="1" width="57" height="12" uuid="fd9afc69-6ca7-4bde-8082-fd7c5bb10920"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_summary_report_amount}]]></textFieldExpression>
 			</textField>
 			<line>
 				<reportElement x="159" y="7" width="201" height="1" uuid="57927ec0-6841-4f60-b241-3a23e823e7a8"/>
 				<graphicElement>
-					<pen lineStyle="Dotted"/>
+					<pen lineStyle="Dashed"/>
 				</graphicElement>
 			</line>
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="18" splitType="Stretch"/>
-	</columnFooter>
-	<pageFooter>
-		<band height="10" splitType="Stretch">
+		<band height="15" splitType="Stretch">
 			<line>
-				<reportElement x="1" y="-13" width="573" height="1" uuid="0d048f90-0a60-4753-b7bf-906c8bd8f6af"/>
+				<reportElement x="1" y="3" width="573" height="1" uuid="0d048f90-0a60-4753-b7bf-906c8bd8f6af"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
 			</line>
 		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="2" splitType="Stretch"/>
 	</pageFooter>
 	<summary>
 		<band height="6" splitType="Stretch"/>

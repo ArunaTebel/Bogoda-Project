@@ -239,7 +239,7 @@ int k=0;
         year_month = "pr_workdata_" + st;
         try {
             dbm.insert("UPDATE " + year_month + " SET total_pay = '" + totalBasicSalary + "',gross_pay='" + grosspay + "',total_epf='" + totalEPF + "',epf10='" + EPFContribution + "',"
-                    + "epf12='" + EPFContribution2 + "',etf='" + ETFContribution + "',other_ded1='" + other_ded1 + "',coins='" + pettyCash + "',paid_amount='" + paid_amount + "' WHERE code = '" + employCode + "'");
+                    + "epf12='" + EPFContribution2 + "',etf='" + ETFContribution + "',other_ded1='" + other_ded1 + "',coins='" + pettyCash + "',total_ded='" + total_ded + "',full_salary='" + FinalSalary + "' WHERE code = '" + employCode + "'");
         } catch (SQLException ex) {
             Logger.getLogger(PRCR_Checkroll_Salary_Cal.class.getName()).log(Level.SEVERE, null, ex);
         }

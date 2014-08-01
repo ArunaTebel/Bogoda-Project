@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="7" bottomMargin="7" uuid="b4a7e90f-236c-48e1-b463-a16c40591ab1">
-	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.zoom" value="3.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="384"/>
 	<parameter name="USER" class="java.lang.String"/>
 	<parameter name="Month" class="java.lang.String"/>
 	<parameter name="DIVISION" class="java.lang.String"/>
@@ -59,7 +59,8 @@
      prcr_checkroll_ledger_report.`extra_pay_overkilos` AS prcr_checkroll_ledger_report_extra_pay_overkilos,
      prcr_checkroll_ledger_report.`extra_pay_cash` AS prcr_checkroll_ledger_report_extra_pay_cash,
      prcr_checkroll_ledger_report.`extra_pay_may` AS prcr_checkroll_ledger_report_extra_pay_may,
-     prcr_checkroll_ledger_report.`active` AS prcr_checkroll_ledger_report_active
+     prcr_checkroll_ledger_report.`active` AS prcr_checkroll_ledger_report_active,
+     prcr_checkroll_ledger_report.`coinsbf` AS prcr_checkroll_ledger_report_coinsbf
 FROM
      `personal_info` personal_info INNER JOIN `prcr_checkroll_ledger_report` prcr_checkroll_ledger_report ON personal_info.`code` = prcr_checkroll_ledger_report.`code`
 WHERE
@@ -118,6 +119,7 @@ WHERE
 	<field name="prcr_checkroll_ledger_report_extra_pay_cash" class="java.lang.Double"/>
 	<field name="prcr_checkroll_ledger_report_extra_pay_may" class="java.lang.Double"/>
 	<field name="prcr_checkroll_ledger_report_active" class="java.lang.Integer"/>
+	<field name="prcr_checkroll_ledger_report_coinsbf" class="java.lang.Double"/>
 	<variable name="TITLE" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
@@ -722,58 +724,58 @@ WHERE
 				<reportElement x="289" y="297" width="284" height="1" uuid="e8f09a9d-37b2-48e9-9081-8a94304f0752"/>
 			</line>
 			<staticText>
-				<reportElement x="45" y="218" width="100" height="15" uuid="dd171bc2-64aa-43cb-bd4b-4292242398c6"/>
+				<reportElement x="46" y="232" width="100" height="12" uuid="dd171bc2-64aa-43cb-bd4b-4292242398c6"/>
 				<textElement>
-					<font fontName="AA Amali" size="8" isBold="false"/>
+					<font fontName="AA Amali" size="10" isBold="false"/>
 				</textElement>
 				<text><![CDATA[ksjdvq f.jSus]]></text>
 			</staticText>
 			<textField pattern="###0.00">
-				<reportElement x="153" y="218" width="59" height="15" uuid="8881bfb2-8d1a-46ce-818d-bf404b0e8c3a"/>
-				<textElement textAlignment="Right" verticalAlignment="Top">
-					<font size="8" isBold="false"/>
+				<reportElement x="153" y="232" width="59" height="12" uuid="8881bfb2-8d1a-46ce-818d-bf404b0e8c3a"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="5" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_extra_pay_holiday}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="46" y="233" width="100" height="15" uuid="a75ddd41-55d5-4e76-826e-f5fc515a25d8"/>
+				<reportElement x="46" y="244" width="100" height="12" uuid="a75ddd41-55d5-4e76-826e-f5fc515a25d8"/>
 				<textElement>
-					<font fontName="AA Amali" size="8" isBold="false"/>
+					<font fontName="AA Amali" size="10" isBold="false"/>
 				</textElement>
 				<text><![CDATA[jevs oM]]></text>
 			</staticText>
 			<textField pattern="###0.00">
-				<reportElement x="153" y="233" width="59" height="15" uuid="d88e8c76-d6a1-4caf-8909-aa5a409cba0f"/>
-				<textElement textAlignment="Right" verticalAlignment="Top">
-					<font size="8" isBold="false"/>
+				<reportElement x="153" y="244" width="59" height="12" uuid="d88e8c76-d6a1-4caf-8909-aa5a409cba0f"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="5" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_extra_pay_overkilos}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="46" y="249" width="100" height="15" uuid="bea125a0-9fca-419f-acea-6fb359b13b9e"/>
+				<reportElement x="46" y="256" width="100" height="12" uuid="bea125a0-9fca-419f-acea-6fb359b13b9e"/>
 				<textElement>
-					<font fontName="AA Amali" size="8" isBold="false"/>
+					<font fontName="AA Amali" size="10" isBold="false"/>
 				</textElement>
 				<text><![CDATA[fjk;a f.jSus]]></text>
 			</staticText>
 			<textField pattern="###0.00">
-				<reportElement x="153" y="249" width="59" height="15" uuid="50479763-3b13-4cc1-9729-64ecdab8e205"/>
-				<textElement textAlignment="Right" verticalAlignment="Top">
-					<font size="8" isBold="false"/>
+				<reportElement x="153" y="256" width="59" height="12" uuid="50479763-3b13-4cc1-9729-64ecdab8e205"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="5" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_extra_pay_cash}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="46" y="265" width="100" height="15" uuid="0ecaff12-2b53-4154-a74c-37f0ffcabf60"/>
+				<reportElement x="46" y="268" width="100" height="12" uuid="0ecaff12-2b53-4154-a74c-37f0ffcabf60"/>
 				<textElement>
-					<font fontName="AA Amali" size="8" isBold="false"/>
+					<font fontName="AA Amali" size="10" isBold="false"/>
 				</textElement>
 				<text><![CDATA[m%ido oSukd]]></text>
 			</staticText>
 			<textField pattern="###0.00">
-				<reportElement x="153" y="265" width="59" height="15" uuid="e9946737-a16a-4a7d-8e9f-09a0aec4526b"/>
-				<textElement textAlignment="Right" verticalAlignment="Top">
-					<font size="8" isBold="false"/>
+				<reportElement x="153" y="268" width="59" height="12" uuid="e9946737-a16a-4a7d-8e9f-09a0aec4526b"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="5" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_extra_pay_may}]]></textFieldExpression>
 			</textField>
@@ -797,6 +799,20 @@ WHERE
 					<font fontName="AA Amali" size="12"/>
 				</textElement>
 				<text><![CDATA[idudcsl wxlh]]></text>
+			</staticText>
+			<textField pattern="###0.00">
+				<reportElement x="204" y="217" width="58" height="15" uuid="da6ab9c2-79aa-423e-8ecd-7e3ad30368b2"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_coinsbf}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="3" y="217" width="116" height="15" uuid="b3fa9069-9348-4593-a02e-5800267c25cf"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="AA Amali" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[.sh ui ldis]]></text>
 			</staticText>
 		</band>
 	</detail>

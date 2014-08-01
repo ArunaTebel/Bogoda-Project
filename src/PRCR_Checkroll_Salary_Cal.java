@@ -283,7 +283,7 @@ public class PRCR_Checkroll_Salary_Cal {
         try {
             dbm.insert("UPDATE " + year_month + " SET normal_pay = '" + normalDaysAmount + "',sunday_pay='" + sundaysAmount + "',incentive1='" + incentive1Amount + "',incentive2='" + incentive2Amount + "',"
                     + "ot_before_amount='" + OTBeforeAmount + "',ot_after_amount='" + OTAfterAmount + "',extra_pay='" + totalextrapay + "',total_pay='" + totalBasicSalary + "',gross_pay='" + grosspay + "',"
-                    + "total_epf='" + totalEPF + "',epf10='" + EPFContribution + "',epf12='" + EPFContribution2 + "',etf='" + ETFContribution + "',other_ded1='" + other_ded1 + "'  WHERE code = '" + employCode + "'");
+                    + "total_epf='" + totalEPF + "',epf10='" + EPFContribution + "',epf12='" + EPFContribution2 + "',etf='" + ETFContribution + "',other_ded1='" + other_ded1 + "',total_ded='" + total_ded + "',full_salary='" + FinalSalary + "'  WHERE code = '" + employCode + "'");
         } catch (SQLException ex) {
             Logger.getLogger(PRCR_Checkroll_Salary_Cal.class.getName()).log(Level.SEVERE, null, ex);
         }

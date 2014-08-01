@@ -104,7 +104,8 @@ public class Report_PRCR_Checkroll_Summary_home extends javax.swing.JPanel {
            // Thread t1 = new Thread(new update(yearfield.getText(), monthfield.getText()));
             HashMap param = new HashMap();
             param.put("USER", user.get_current_user());
-            param.put("DIVISION",division_jc.getSelectedItem().toString());
+            String division=division_jc.getSelectedItem().toString()+" "+reg_jc.getSelectedItem().toString();
+            param.put("DIVISION",division);
 //         param.put("Month", datehandler.return_month_as_num(monthfield.getText()));
            param.put("Month", datehandler.Return_month_full(datehandler.return_index(monthfield.getText())) + " " + yearfield.getText().toString());
 
@@ -188,6 +189,8 @@ public class Report_PRCR_Checkroll_Summary_home extends javax.swing.JPanel {
         view1 = new javax.swing.JButton();
         division_jc = new javax.swing.JComboBox();
         jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        reg_jc = new javax.swing.JComboBox();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 6));
 
@@ -312,6 +315,22 @@ public class Report_PRCR_Checkroll_Summary_home extends javax.swing.JPanel {
 
         jLabel2.setText("Division");
 
+        jLabel3.setText("Register or Casual");
+
+        division_jc.putClientProperty("JComboBox.isTableCellEditor", Boolean.TRUE);
+        reg_jc.setEditable(true);
+        reg_jc.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "REGISTER", "CASUAL" }));
+        reg_jc.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                reg_jcItemStateChanged(evt);
+            }
+        });
+        reg_jc.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                reg_jcKeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -321,19 +340,25 @@ public class Report_PRCR_Checkroll_Summary_home extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(34, 34, 34)
-                                .addComponent(division_jc, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(view2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(view, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(view1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(45, 45, 45)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(18, 18, 18)
+                                .addComponent(reg_jc, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(view2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(view, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(view1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(31, 31, 31))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(division_jc, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(39, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -347,13 +372,17 @@ public class Report_PRCR_Checkroll_Summary_home extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(division_jc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33)
+                .addGap(7, 7, 7)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(reg_jc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(view, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(view1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(view2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -591,8 +620,8 @@ public class Report_PRCR_Checkroll_Summary_home extends javax.swing.JPanel {
     }//GEN-LAST:event_view1MouseClicked
 
     private void view1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_view1ActionPerformed
-
-        rep.createReport(getST(monthfield.getText(), yearfield.getText()),division_jc.getSelectedItem().toString());
+        String regorcas=reg_jc.getSelectedItem().toString().equals("REGISTER")?"1":"0";
+        rep.createReport(getST(monthfield.getText(), yearfield.getText()),division_jc.getSelectedItem().toString(),regorcas);
         Thread b = new Thread(new report_old());
         b.start();
     }//GEN-LAST:event_view1ActionPerformed
@@ -635,16 +664,26 @@ public class Report_PRCR_Checkroll_Summary_home extends javax.swing.JPanel {
         }        // TODO add your handling code here:
     }//GEN-LAST:event_division_jcKeyPressed
 
+    private void reg_jcItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_reg_jcItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_reg_jcItemStateChanged
+
+    private void reg_jcKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_reg_jcKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_reg_jcKeyPressed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.michaelbaranov.microba.calendar.DatePicker datePicker1;
     private javax.swing.JPanel datepanel;
     private javax.swing.JComboBox division_jc;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JTextField monthfield;
+    private javax.swing.JComboBox reg_jc;
     private javax.swing.JButton view;
     private javax.swing.JButton view1;
     private javax.swing.JButton view2;

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="1008" pageHeight="792" orientation="Landscape" columnWidth="968" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b4a7e90f-236c-48e1-b463-a16c40591ab1">
-	<property name="ireport.zoom" value="1.5"/>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="1008" pageHeight="792" columnWidth="968" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b4a7e90f-236c-48e1-b463-a16c40591ab1">
+	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="196"/>
 	<parameter name="USER" class="java.lang.String"/>
 	<parameter name="DIVISION" class="java.lang.String"/>
 	<parameter name="REGISTER" class="java.lang.String"/>
@@ -71,13 +71,14 @@
      prcr_checkroll_ledger_report.`extra_pay_overkilos` AS prcr_checkroll_ledger_report_extra_pay_overkilos,
      prcr_checkroll_ledger_report.`extra_pay_holiday` AS prcr_checkroll_ledger_report_extra_pay_holiday,
      prcr_checkroll_ledger_report.`extra_pay_may` AS prcr_checkroll_ledger_report_extra_pay_may,
-     prcr_checkroll_ledger_report.`active` AS prcr_checkroll_ledger_report_active
+     prcr_checkroll_ledger_report.`active` AS prcr_checkroll_ledger_report_active,
+     prcr_checkroll_ledger_report.`coinsbf` AS prcr_checkroll_ledger_report_coinsbf
 FROM
      `personal_info` personal_info INNER JOIN `prcr_checkroll_ledger_report` prcr_checkroll_ledger_report ON personal_info.`code` = prcr_checkroll_ledger_report.`code`
 WHERE
      division = $P{DIVISION}
      and register_or_casual = $P{REGISTER}
-     and active=1]]>
+     and active = 1]]>
 	</queryString>
 	<field name="prcr_checkroll_ledger_report_code" class="java.lang.Integer"/>
 	<field name="prcr_checkroll_ledger_report_division" class="java.lang.String"/>
@@ -141,6 +142,7 @@ WHERE
 	<field name="prcr_checkroll_ledger_report_extra_pay_holiday" class="java.lang.Double"/>
 	<field name="prcr_checkroll_ledger_report_extra_pay_may" class="java.lang.Double"/>
 	<field name="prcr_checkroll_ledger_report_active" class="java.lang.Integer"/>
+	<field name="prcr_checkroll_ledger_report_coinsbf" class="java.lang.Double"/>
 	<variable name="TITLE" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
@@ -647,6 +649,13 @@ WHERE
 				</textElement>
 				<text><![CDATA[Cash (EP)]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="77" y="41" width="50" height="20" uuid="ec76da54-ed49-408f-a729-e3efcfe01e70"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Coins BF]]></text>
+			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
@@ -656,214 +665,214 @@ WHERE
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_code}]]></textFieldExpression>
 			</textField>
-			<textField pattern="###0">
+			<textField pattern="###0.00">
 				<reportElement x="77" y="1" width="50" height="20" uuid="3eb695bc-628b-4d40-af95-abd441ba4d7c"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_normal_days}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="###0.00">
 				<reportElement x="133" y="1" width="50" height="20" uuid="713b7476-a670-41f3-a4bc-01c04b2dc9cf"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_normal_pay}]]></textFieldExpression>
 			</textField>
-			<textField pattern="###0">
+			<textField pattern="###0.00">
 				<reportElement x="77" y="21" width="50" height="20" uuid="8780fe99-79c8-45ec-80f1-cc19696110b3"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_sundays}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="###0.00">
 				<reportElement x="133" y="21" width="50" height="20" uuid="63b92478-7fd3-4a06-a470-3a1640494bf2"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_sunday_pay}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="###0.00">
 				<reportElement x="187" y="1" width="50" height="20" uuid="4dd6655b-fc7a-4c23-89e3-a79273a00afd"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_ot_before_hours}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="###0.00">
 				<reportElement x="187" y="21" width="50" height="20" uuid="b00f0c74-2416-405f-be60-e5ebe88ed950"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_ot_before_amount}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="###0.00">
 				<reportElement x="241" y="1" width="55" height="20" uuid="7897c497-a67d-4023-b5d2-0368fdc5b585"/>
 				<textElement textAlignment="Center">
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_ot_after_hours}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="###0.00">
 				<reportElement x="241" y="21" width="55" height="20" uuid="8fcb0881-d7cb-43e1-99c6-b47f41b5a1aa"/>
 				<textElement textAlignment="Center">
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_ot_after_amount}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="188" y="40" width="50" height="20" uuid="e7d1a653-c06e-48d6-a333-55b18faf0fa9"/>
+			<textField pattern="###0.00">
+				<reportElement x="188" y="41" width="50" height="20" uuid="e7d1a653-c06e-48d6-a333-55b18faf0fa9"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_incentive1}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="241" y="40" width="55" height="20" uuid="761b5cbb-cc14-4094-a78c-e1c7a9660cd5"/>
+			<textField pattern="###0.00">
+				<reportElement x="241" y="41" width="55" height="20" uuid="761b5cbb-cc14-4094-a78c-e1c7a9660cd5"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_incentive2}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="344" y="21" width="50" height="20" uuid="f4bbda11-29f6-4cb2-9428-ccaebd4d7597"/>
+			<textField pattern="###0.00">
+				<reportElement x="343" y="21" width="50" height="20" uuid="f4bbda11-29f6-4cb2-9428-ccaebd4d7597"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_extra_pay}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="344" y="40" width="50" height="20" uuid="1845ca81-2796-401b-afe7-dbf7e69a333e"/>
+			<textField pattern="###0.00">
+				<reportElement x="343" y="41" width="50" height="20" uuid="1845ca81-2796-401b-afe7-dbf7e69a333e"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_gross_pay}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="395" y="40" width="50" height="20" uuid="d4cd341e-da4f-4de8-95db-1fd0595abc68"/>
+			<textField pattern="###0.00">
+				<reportElement x="395" y="41" width="65" height="20" uuid="d4cd341e-da4f-4de8-95db-1fd0595abc68"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_tea}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="395" y="1" width="50" height="20" uuid="e2874aef-a3bf-48d4-b420-61c7c53e16ea"/>
+			<textField pattern="###0.00">
+				<reportElement x="395" y="1" width="65" height="20" uuid="e2874aef-a3bf-48d4-b420-61c7c53e16ea"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_salary_adv}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="395" y="21" width="50" height="20" uuid="2e0e0751-324b-4a31-87c2-bece4d04209d"/>
+			<textField pattern="###0.00">
+				<reportElement x="395" y="21" width="65" height="20" uuid="2e0e0751-324b-4a31-87c2-bece4d04209d"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_fest_adv}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="###0.00">
 				<reportElement x="446" y="1" width="40" height="20" uuid="e72216ec-8a11-4d8f-9827-dfc6eda1d73d"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_food}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="###0.00">
 				<reportElement x="446" y="21" width="40" height="20" uuid="985bcd75-7b04-4bbf-8aab-953d46d835bb"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_loan}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="446" y="40" width="40" height="20" uuid="bf55913a-608c-4faf-a762-46d15348fd7f"/>
+			<textField pattern="###0.00">
+				<reportElement x="446" y="41" width="40" height="20" uuid="bf55913a-608c-4faf-a762-46d15348fd7f"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_bank}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="###0.00">
 				<reportElement x="749" y="1" width="40" height="20" uuid="74981d73-489d-47f3-b228-ad2ae677ed3f"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_epf10}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="###0.00">
 				<reportElement x="749" y="21" width="40" height="20" uuid="de92affa-5fe4-484c-af34-b60e95c0e178"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_epf12}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="749" y="40" width="40" height="20" uuid="cf36a2f4-d0da-410c-a857-448e961a616a"/>
+			<textField pattern="###0.00">
+				<reportElement x="749" y="41" width="40" height="20" uuid="cf36a2f4-d0da-410c-a857-448e961a616a"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_total_epf}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="###0.00">
 				<reportElement x="791" y="1" width="40" height="20" uuid="afe77b8a-90dc-4809-86c7-ec10f15fbf39"/>
 				<textElement textAlignment="Center">
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_etf}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="###0.00">
 				<reportElement x="487" y="1" width="35" height="20" uuid="d740f37e-8d40-42b0-90e4-331fd4e0150c"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_ceb}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="###0.00">
 				<reportElement x="487" y="21" width="35" height="20" uuid="01a5e96c-7644-4fa6-8126-24358ce8f765"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_teacher}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="487" y="40" width="35" height="20" uuid="a79a6cd7-05ca-4a1d-b2a6-b67342885d26"/>
+			<textField pattern="###0.00">
+				<reportElement x="487" y="41" width="35" height="20" uuid="a79a6cd7-05ca-4a1d-b2a6-b67342885d26"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_chemical}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="###0.00">
 				<reportElement x="526" y="21" width="40" height="20" uuid="dbd8d25e-f11a-4077-9dd2-e1501407632b"/>
 				<textElement textAlignment="Center">
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_pay_slip}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="526" y="40" width="40" height="20" uuid="21f421fe-ba78-4be2-8f10-d9a2824d1e14"/>
+			<textField pattern="###0.00">
+				<reportElement x="526" y="41" width="40" height="20" uuid="21f421fe-ba78-4be2-8f10-d9a2824d1e14"/>
 				<textElement textAlignment="Center">
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_fine}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="###0.00">
 				<reportElement x="526" y="1" width="40" height="20" uuid="ad4907b4-d81d-4d59-9753-5555881bdf7f"/>
 				<textElement textAlignment="Center">
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_welfare}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="###0.00">
 				<reportElement x="568" y="21" width="40" height="20" uuid="9fda4649-7341-401e-a3d7-222c399063d4"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_new_1}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="568" y="40" width="40" height="20" uuid="7698927a-0b12-41c1-8b6e-e8a6b3139398"/>
+			<textField pattern="###0.00">
+				<reportElement x="568" y="41" width="40" height="20" uuid="7698927a-0b12-41c1-8b6e-e8a6b3139398"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_new_2}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="###0.00">
 				<reportElement x="608" y="1" width="40" height="20" uuid="fdcc41c4-f678-4ea7-bbb5-2a5bd606aacc"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_other_ded1}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="###0.00">
 				<reportElement x="650" y="1" width="46" height="20" uuid="0a5fcbb9-87a6-4995-8b81-9f22e6289e35"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_meals}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="###0.00">
 				<reportElement x="650" y="21" width="46" height="20" uuid="9ab6a79a-dc90-4781-b4fe-f5722cfac63f"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_other_ded2}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="650" y="40" width="46" height="20" uuid="95950637-d4d3-4745-ac7d-920e00050888"/>
+			<textField pattern="###0.00">
+				<reportElement x="650" y="41" width="46" height="20" uuid="95950637-d4d3-4745-ac7d-920e00050888"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_pension}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="###0.00">
 				<reportElement x="699" y="1" width="46" height="20" uuid="fdb628f2-dd5e-4c03-bd44-8232868338e7"/>
 				<textElement textAlignment="Center">
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_other_ded3}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="###0.00">
 				<reportElement x="699" y="21" width="46" height="20" uuid="c1df6aac-41cc-4056-9ff0-6c16d525c02b"/>
 				<textElement textAlignment="Center">
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_stamp}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="699" y="40" width="46" height="20" uuid="28470816-9b7f-4c51-8cf2-9858c4d061aa"/>
+			<textField pattern="###0.00">
+				<reportElement x="699" y="41" width="46" height="20" uuid="28470816-9b7f-4c51-8cf2-9858c4d061aa"/>
 				<textElement textAlignment="Center">
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_pre_debt}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="###0.00">
 				<reportElement x="837" y="1" width="59" height="20" uuid="769d4f11-b7d0-47f1-a28e-6be620a72288"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
@@ -876,19 +885,19 @@ WHERE
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_full_salary}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0.00">
-				<reportElement x="837" y="40" width="59" height="20" uuid="e6fadc13-e885-4156-a0c2-96424b2030e5"/>
+				<reportElement x="837" y="41" width="59" height="20" uuid="e6fadc13-e885-4156-a0c2-96424b2030e5"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_coins}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0.00">
-				<reportElement x="903" y="1" width="71" height="20" uuid="c612dba4-aba0-40cd-b8d7-097608ade4be"/>
+				<reportElement x="903" y="1" width="65" height="20" uuid="c612dba4-aba0-40cd-b8d7-097608ade4be"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_paid_amount}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0.00">
-				<reportElement x="903" y="40" width="71" height="20" uuid="6deb5805-ed29-4f1f-8d31-6fd5ce7beed9"/>
+				<reportElement x="903" y="41" width="65" height="20" uuid="6deb5805-ed29-4f1f-8d31-6fd5ce7beed9"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_next_month}]]></textFieldExpression>
 			</textField>
@@ -897,20 +906,20 @@ WHERE
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{personal_info_name}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="###0.00">
 				<reportElement x="568" y="1" width="40" height="20" uuid="d41db3e7-fe36-4fa0-aed6-16ce67668905"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_kovil}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="133" y="40" width="50" height="20" uuid="be437859-50d4-4905-aef0-3db887392781"/>
+			<textField pattern="###0.00">
+				<reportElement x="133" y="41" width="50" height="20" uuid="be437859-50d4-4905-aef0-3db887392781"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_total_pay}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="903" y="21" width="72" height="20" uuid="4010f8da-8a4a-4ac9-aa13-2a0ccab93a52"/>
+				<reportElement x="903" y="21" width="65" height="20" uuid="4010f8da-8a4a-4ac9-aa13-2a0ccab93a52"/>
 				<textElement verticalAlignment="Bottom"/>
 				<text><![CDATA[..........................]]></text>
 			</staticText>
@@ -971,25 +980,30 @@ WHERE
 			<line>
 				<reportElement x="973" y="0" width="1" height="62" uuid="69b03671-ac4f-4cd7-816d-21ffafd87764"/>
 			</line>
-			<textField>
+			<textField pattern="###0.00">
 				<reportElement x="298" y="1" width="43" height="20" uuid="a952882d-34b3-46d7-a384-607eee1b278e"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_extra_pay_cash}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="297" y="21" width="43" height="20" uuid="a79a0a99-de72-43fd-9034-0461d5bf1c88"/>
+			<textField pattern="###0.00">
+				<reportElement x="298" y="21" width="43" height="20" uuid="a79a0a99-de72-43fd-9034-0461d5bf1c88"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_extra_pay_overkilos}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="298" y="40" width="43" height="20" uuid="7e58fd39-acad-4123-ad0f-8c6de7ba64bd"/>
+			<textField pattern="###0.00">
+				<reportElement x="298" y="41" width="43" height="20" uuid="7e58fd39-acad-4123-ad0f-8c6de7ba64bd"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_extra_pay_holiday}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="###0.00">
 				<reportElement x="343" y="1" width="50" height="20" uuid="9098ee32-cdf1-4387-855c-a88ee2381f4b"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_extra_pay_may}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00">
+				<reportElement x="77" y="41" width="50" height="20" uuid="fe1061b3-d881-43d0-8a28-711403772018"/>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<textFieldExpression><![CDATA[$F{prcr_checkroll_ledger_report_coinsbf}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

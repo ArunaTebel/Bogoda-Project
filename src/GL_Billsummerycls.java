@@ -18,6 +18,8 @@ public class GL_Billsummerycls {
     Date_Handler datehandler = new Date_Handler();
     int id;
     double Total_kg;
+    String startdate = "01";
+    String enddate = "31";
 
     GL_Billsummerycls() {
         double Total_kg = 0;
@@ -68,6 +70,8 @@ public class GL_Billsummerycls {
                 // System.out.println(total[i][4]);
                 i++;
             }
+            
+            query.close();
 
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -90,7 +94,7 @@ public class GL_Billsummerycls {
 
         Date Ldate = java.sql.Date.valueOf(year + "-" + month + "-" + "31");
 //System.out.println(Sdate+"   "+ Ldate);
-        DatabaseManager dbm = DatabaseManager.getDbCon();
+     //   DatabaseManager dbm = DatabaseManager.getDbCon();
         try {
 
             ResultSet query = dbm.query("SELECT * FROM " + "green_leaf_transactions" + " where " + "sup_id" + " = '" + sup_id + " 'AND " + "tr_date" + " BETWEEN'" + Sdate + "' AND '" + Ldate + "'");
@@ -101,7 +105,7 @@ public class GL_Billsummerycls {
 
                 // i++;
             }
-
+           query.close();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
 
@@ -126,15 +130,15 @@ public class GL_Billsummerycls {
         int i = 0;
         Date date4;                      //INPUT MONTH AS NUMBER EX: 03
 
-        Date date1 = java.sql.Date.valueOf(year + "-" + month + "-" + "08");
+        Date date1 = java.sql.Date.valueOf(year + "-" + month + "-" + startdate);
 
-        if (month.equals("12")) {
-            date4 = java.sql.Date.valueOf(String.valueOf(Integer.parseInt(year) + 1) + "-" + datehandler.get_next_month(month) + "-" + "07");
-        } else {
-            date4 = java.sql.Date.valueOf(year + "-" + datehandler.get_next_month(month) + "-" + "07");
-        }
+//        if (month.equals("12")) {
+//            date4 = java.sql.Date.valueOf(String.valueOf(Integer.parseInt(year) + 1) + "-" + datehandler.get_next_month(month) + "-" + "07");
+//        } else {
+            date4 = java.sql.Date.valueOf(year + "-" + month + "-" + enddate);
+       // }
 
-        DatabaseManager dbm = DatabaseManager.getDbCon();
+       // DatabaseManager dbm = DatabaseManager.getDbCon();
         try {
 
             ResultSet query = dbm.query("SELECT * FROM " + "gl_cash_advance" + " where " + "sup_id" + " = '" + sup_id + " 'AND " + "ordered_date" + " BETWEEN'" + date1 + "' AND '" + date4 + "'");
@@ -148,6 +152,7 @@ public class GL_Billsummerycls {
                 // System.out.println(total[i][4]);
                 i++;
             }
+            query.close();
 
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -171,16 +176,16 @@ public class GL_Billsummerycls {
         j = 0;
         int i = 0;
         Date date4;
-        Date date1 = java.sql.Date.valueOf(year + "-" + month + "-" + "08");
+        Date date1 = java.sql.Date.valueOf(year + "-" + month + "-" + startdate);
 
-        if (month.equals("12")) {
-            date4 = java.sql.Date.valueOf(String.valueOf(Integer.parseInt(year) + 1) + "-" + datehandler.get_next_month(month) + "-" + "07");
-        } else {
-            date4 = java.sql.Date.valueOf(year + "-" + datehandler.get_next_month(month) + "-" + "07");
-        }
+//        if (month.equals("12")) {
+//            date4 = java.sql.Date.valueOf(String.valueOf(Integer.parseInt(year) + 1) + "-" + datehandler.get_next_month(month) + "-" + "07");
+//        } else {
+            date4 = java.sql.Date.valueOf(year + "-" +month + "-" + enddate);
+   //     }
         //System.out.println(date1);
         // System.out.println(date4);
-        DatabaseManager dbm = DatabaseManager.getDbCon();
+       // DatabaseManager dbm = DatabaseManager.getDbCon();
         try {
 
             ResultSet query = dbm.query("SELECT * FROM " + "gl_other_advances" + " where " + "id" + " = '" + sup_id + " 'AND " + "Date" + " BETWEEN'" + date1 + "' AND '" + date4 + "'");
@@ -195,6 +200,8 @@ public class GL_Billsummerycls {
                 // System.out.println("hit");
                 i++;
             }
+            
+            query.close();
 
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -223,14 +230,14 @@ public class GL_Billsummerycls {
         //j = 0;
       
 
-        Date date1 = java.sql.Date.valueOf(year + "-" + month + "-" + "08");
+        Date date1 = java.sql.Date.valueOf(year + "-" + month + "-" + startdate);
         
         Date date4;
-        if (month.equals("12")) {
-            date4 = java.sql.Date.valueOf(String.valueOf(Integer.parseInt(year) + 1) + "-" + datehandler.get_next_month(month) + "-" + "07");
-        } else {
-            date4 = java.sql.Date.valueOf(year + "-" + datehandler.get_next_month(month) + "-" + "07");
-        }
+//        if (month.equals("12")) {
+//            date4 = java.sql.Date.valueOf(String.valueOf(Integer.parseInt(year) + 1) + "-" + datehandler.get_next_month(month) + "-" + "07");
+//        } else {
+            date4 = java.sql.Date.valueOf(year + "-" + month + "-" + enddate);
+     //   }
 
         // System.out.println(date1+"----"+date2+"----"+date3+"-----"+date4);
        // DatabaseManager dbm = DatabaseManager.getDbCon();
@@ -245,6 +252,8 @@ public class GL_Billsummerycls {
                 output += query.getDouble("monthly_amount");
 
             }
+            
+            query.close();
 
         } catch (SQLException ex) {
            // System.out.println("Loans error");
@@ -256,11 +265,11 @@ public class GL_Billsummerycls {
     public double total_advance(int sup_id, String year, String month) {
         double total = 0;
 
-        Date date1 = java.sql.Date.valueOf(year + "-" + month + "-" + "08");
+        Date date1 = java.sql.Date.valueOf(year + "-" + month + "-" + startdate);
 
-        Date date4 = java.sql.Date.valueOf(year + "-" + datehandler.get_next_month(month) + "-" + "07");
+        Date date4 = java.sql.Date.valueOf(year + "-" + month + "-" + enddate);
 
-        DatabaseManager dbm = DatabaseManager.getDbCon();
+    //    DatabaseManager dbm = DatabaseManager.getDbCon();
         try {
 
             ResultSet query = dbm.query("SELECT * FROM " + "gl_cash_advance" + " where " + "sup_id" + " = '" + sup_id + " 'AND " + "ordered_date" + " BETWEEN'" + date1 + "' AND '" + date4 + "'");
@@ -282,11 +291,11 @@ public class GL_Billsummerycls {
     public double total_other_advance(int sup_id, String year, String month) {
         double total = 0;
 
-        Date date1 = java.sql.Date.valueOf(year + "-" + month + "-" + "08");
+        Date date1 = java.sql.Date.valueOf(year + "-" + month + "-" + startdate);
 
-        Date date4 = java.sql.Date.valueOf(year + "-" + datehandler.get_next_month(month) + "-" + "07");
+        Date date4 = java.sql.Date.valueOf(year + "-" + month + "-" + enddate);
 
-        DatabaseManager dbm = DatabaseManager.getDbCon();
+       // DatabaseManager dbm = DatabaseManager.getDbCon();
         try {
 
             ResultSet query = dbm.query("SELECT * FROM " + "gl_other_advances" + " where " + "id" + " = '" + sup_id + " 'AND " + "Date" + " BETWEEN'" + date1 + "' AND '" + date4 + "'");
@@ -334,13 +343,13 @@ public class GL_Billsummerycls {
         int i = 0;
         Date date4;                      //INPUT MONTH AS NUMBER EX: 03
 
-        Date date1 = java.sql.Date.valueOf(year + "-" + month + "-" + "08");
+        Date date1 = java.sql.Date.valueOf(year + "-" + month + "-" + startdate);
 
-        if (month.equals("12")) {
-            date4 = java.sql.Date.valueOf(String.valueOf(Integer.parseInt(year) + 1) + "-" + datehandler.get_next_month(month) + "-" + "07");
-        } else {
-            date4 = java.sql.Date.valueOf(year + "-" + datehandler.get_next_month(month) + "-" + "07");
-        }
+//        if (month.equals("12")) {
+//            date4 = java.sql.Date.valueOf(String.valueOf(Integer.parseInt(year) + 1) + "-" + datehandler.get_next_month(month) + "-" + "07");
+//        } else {
+            date4 = java.sql.Date.valueOf(year + "-" + month + "-" + enddate);
+      //  }
 
         DatabaseManager dbm = DatabaseManager.getDbCon();
         try {

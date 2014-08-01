@@ -47,6 +47,8 @@ public class PRCR_Checkroll_Monthly_workdata_database_update_class implements Ru
     int nofdivisions;
     String year_month;
     String regorcas[] = {"Register", "Casual"};
+    double payslip;
+    double normalDayRate;
     //PRCR_Checkroll_Salary_Cal ccal = new PRCR_Checkroll_Salary_Cal();
 
     public PRCR_Checkroll_Monthly_workdata_database_update_class(String st, String year, String month) {
@@ -54,6 +56,8 @@ public class PRCR_Checkroll_Monthly_workdata_database_update_class implements Ru
         this.st = st;
         this.year = year;
         this.month = month;
+        payslip= Double.parseDouble(dbm.checknReturnData("checkroll_pay_info", "checkroll", "1", "payslip"));
+         normalDayRate=Double.parseDouble(dbm.checknReturnData("checkroll_pay_info", "checkroll", "1", "normalday_rate"));
 
     }
 
@@ -114,9 +118,10 @@ public class PRCR_Checkroll_Monthly_workdata_database_update_class implements Ru
     public void GetPreDebts(String yrmnth) {
         System.out.println("in getpre debts");
         String prv_yrmnth = ReturnPrvMnthTableName(yrmnth);
-        no_of_codes = getActiveColumnsize("pr_workdata_" + prv_yrmnth, "code", "active", "1");
+       // no_of_codes = getActiveColumnsize("pr_workdata_" + prv_yrmnth, "code", "active", "1");
         //codes = new int[no_of_codes];
-        codes = getIntArray("pr_workdata_" + prv_yrmnth, "code", "active", "1");
+        codes = getIntArray("pr_workdata_" + prv_yrmnth, "code", "active", "0");
+        no_of_codes=codes.length;
         pre_debt_amount = 0;
         prvmnth_normaldays = 0;
         prvmnth_sundays = 0;
@@ -141,7 +146,7 @@ public class PRCR_Checkroll_Monthly_workdata_database_update_class implements Ru
                 dbm.updateDatabase("pr_workdata_" + yrmnth, "code", codes[i], "working_days_prvmnth", (prvmnth_normaldays + prvmnth_sundays));
                 dbm.updateDatabase("pr_workdata_" + yrmnth, "code", codes[i], "pre_debt", pre_debt_amount);
                 if (pre_debt_amount != 0 || coinsbf > 0) {
-                    dbm.updateDatabase("pr_workdata_" + this.st, "code", codes[i], "active", 1);
+                    dbm.updateDatabase("pr_workdata_" + this.st, "code", codes[i], "active", 2);
                 }//If thr is debit balance in previous month set active=1
             } catch (Exception e) {
                 System.out.println(e.getMessage() + " i=" + i);
@@ -176,13 +181,13 @@ public class PRCR_Checkroll_Monthly_workdata_database_update_class implements Ru
         int count = 0;
         //DatabaseManager dbm = DatabaseManager.getDbCon();
         try {
-            query = dbm.query("SELECT " + column_name + " FROM " + table_name + " WHERE " + table_column_giving1 + " ='" + row_element1 + "'");
+            query = dbm.query("SELECT " + column_name + " FROM " + table_name + " WHERE " + table_column_giving1 + " >'" + row_element1 + "'");
             while (query.next()) {
                 count++;
             }
             int[] array = new int[count];
             count = 0;
-            query = dbm.query("SELECT " + column_name + " FROM " + table_name + " WHERE " + table_column_giving1 + " ='" + row_element1 + "'");
+            query = dbm.query("SELECT " + column_name + " FROM " + table_name + " WHERE " + table_column_giving1 + " >'" + row_element1 + "'");
             while (query.next()) {
                 array[count] = query.getInt(column_name);
                 count++;
@@ -339,23 +344,7 @@ public class PRCR_Checkroll_Monthly_workdata_database_update_class implements Ru
 
     }
 
-    public int getActiveColumnsize(String table_name, String column_name, String table_column_giving1, String row_element1) {
-
-        int count = 0;
-        //DatabaseManager dbm = DatabaseManager.getDbCon();
-        try {
-            query = dbm.query("SELECT " + column_name + " FROM " + table_name + " WHERE " + table_column_giving1 + " ='" + row_element1 + "'");
-            while (query.next()) {
-                count++;
-            }
-
-        } catch (SQLException ex) {
-
-        }
-        return count;
-        //return null;
-
-    }
+ 
 
     public int getActiveWorkersColumnsize(String table_name) {
         System.out.println("in getactive " + table_name);
@@ -385,9 +374,13 @@ public class PRCR_Checkroll_Monthly_workdata_database_update_class implements Ru
 
     String workentryst;
 
+
     @Override
     public void run() {
 
+//        payslip= Double.parseDouble(dbm.checknReturnData("checkroll_pay_info", "checkroll", "1", "payslip"));
+//         normalDayRate=Double.parseDouble(dbm.checknReturnData("checkroll_pay_info", "checkroll", "1", "normalday_rate"));
+        
         columnsize = getColumnsize("checkroll_personalinfo", "code");//uncomment below lines !
         if (Task_manager.newmonthC.isSelected() == false) {
             try {
@@ -434,21 +427,7 @@ public class PRCR_Checkroll_Monthly_workdata_database_update_class implements Ru
             division = dbm.getStringArray("division_details", "code");
             nofdivisions = division.length;
             updateMarginDates(workentryst, division, nofdivisions);//(2014-03,division[])-a method to update margin dates for this month for each division,
-            //A day which atleast one worker presents will be considered as working date
-          /*  for (int i = 1; i < nofdivisions + 1; i++) {
-
-                for (int k = 0; k < 2; k++) {
-                    csp.setDivision(division[i]);
-                    csp.setReg(regorcas[k]);
-
-                    csp.Set_year(this.year);
-                    csp.Set_month(this.month);//set the month(ex:2014_03) in the object
-
-                    csp.processCheckrollSalary();        // TODO add your handling code here:
-                    Task_manager.MessageTex.append("Salary Calculated for division   " + division[i] + "(" + regorcas[k] + ")" + "\n");
-
-                }
-            }*/
+    
             
             year_month="pr_workdata_" + st;
             int i=0;
@@ -456,7 +435,7 @@ public class PRCR_Checkroll_Monthly_workdata_database_update_class implements Ru
              PRCR_Checkroll_Salary_Cal ccal = new PRCR_Checkroll_Salary_Cal();
                
             try {
-                 query=dbm.query("SELECT * FROM "+year_month+" WHERE active LIKE '"+1+"' AND division NOT LIKE '"+"STAFF"+"'");
+                 query=dbm.query("SELECT * FROM "+year_month+" WHERE active > '"+0+"' AND division NOT LIKE '"+"STAFF"+"'");
                 while(query.next()){
                     i++;
                     Task_manager.salarycaloverallP.setValue((100*i)/300);
@@ -471,7 +450,7 @@ public class PRCR_Checkroll_Monthly_workdata_database_update_class implements Ru
             PRCR_Staff_Salary_Cal scal = new PRCR_Staff_Salary_Cal();
             try {
                  
-                 query=dbm.query("SELECT * FROM "+year_month+" WHERE active LIKE '"+1+"' AND division LIKE '"+"STAFF"+"'");
+                 query=dbm.query("SELECT * FROM "+year_month+" WHERE active > '"+0+"' AND division LIKE '"+"STAFF"+"'");
                 while(query.next()){
                     i++;
                     Task_manager.salarycaloverallP.setValue((100*i)/300);
@@ -544,33 +523,7 @@ days=null;
         String end = st + "-31";
         int count = 0;
         try {
-            //ResultSet query = dbm.query("SELECT * FROM " + table_name + " WHERE " + date_column + " BETWEEN '" + start + "' AND '" + end + "' ");
-            //  System.out.println(start + "  " + end);
-           /* while (query.next()) {
-             count++;
-                
-             //count++;//get the number of entrys in that month(to display prograssbar)
-             //
-             code = query.getInt("emp_code");
-
-             if (st.substring(6, 7).equals("5")) {
-             Random randomGenerator = new Random();//DELETE THIS
-             int holidays = 0;
-             try {
-             //holidays = hdh.num_of_holidays_for_willie(Integer.parseInt(st.substring(0, 4)), code);
-             holidays=randomGenerator.nextInt(17);
-             } catch (Exception e) {
-             System.out.println(e.getMessage());
-             holidays = 0;
-             }
-             dbm.updateDatabase("pr_workdata_" + this.st, "code", code, "holidays_thsyr", holidays);//DELETE THIS.Only for Checking 
-             }
-                
-
-             }*/
-            // System.out.println("Number of ntries-" + count);
-            // query = dbm.query("SELECT * FROM " + table_name + "");
-            //query = dbm.query("SELECT * FROM " + table_name + " WHERE " + date_column + " BETWEEN '" + start + "' AND '" + end + "' ");
+    
             int i = 0;
 
             int normaldays = 0;
@@ -589,7 +542,7 @@ days=null;
             System.out.println(length);
             if (!(st.substring(6, 7).equals("5"))) {
                 for (i = 0; i < length; i++) {
-                    dbm.updateDatabase("pr_workdata_" + this.st, "code", activecodes[i], "active", 1);
+                    
 
                     total = dbm.prcr_emp_code_month_totals("prcr_checkroll_workentry", st, "date", "emp_code", activecodes[i], columns);
                     normalsun = dbm.prcr_emp_code_month_totals_normalOrsunday("prcr_checkroll_workentry", st, "date", "emp_code", activecodes[i], "normalday_or_sunday");
@@ -607,12 +560,14 @@ days=null;
                     if (tempst.substring(5, 7).equals("02") || tempst.substring(5, 7).equals("04")) {
 
                         if (prvmnthdays > 0) {
-                            dbm.updateDatabase("pr_workdata_" + this.st, "code", activecodes[i], "extra_pay_holiday", dbm.checknReturnData("checkroll_pay_info", "checkroll", "1", "normalday_rate"));
+                            dbm.updateDatabase("pr_workdata_" + this.st, "code", activecodes[i], "extra_pay_holiday",normalDayRate);
                             System.out.println("551");
                         }
                     }
 
                     dbm.updateDatabase("pr_workdata_" + this.st, "code", activecodes[i], "active", 1);
+                    dbm.updateDatabase("pr_workdata_" + this.st, "code", activecodes[i],"pay_slip",payslip);
+                    System.out.println(activecodes[i]+"------payslip-----"+payslip);
 
                 }
             } else {
@@ -620,7 +575,7 @@ days=null;
                 Random randomGenerator = new Random();//DELETE THIS
                 for (i = 0; i < length; i++) {
 
-                    dbm.updateDatabase("pr_workdata_" + this.st, "code", activecodes[i], "active", 1);
+                   
 
                     total = dbm.prcr_emp_code_month_totals("prcr_checkroll_workentry", st, "date", "emp_code", activecodes[i], columns);
 
@@ -648,131 +603,15 @@ days=null;
                     prvmnthdays = Integer.parseInt(dbm.checknReturnData("pr_workdata_" + this.st, "code", activecodes[i], "working_days_prvmnth"));
 
                     if ((prvmnthdays) > 0) {
-                        dbm.updateDatabase("pr_workdata_" + this.st, "code", activecodes[i], "extra_pay_holiday", dbm.checknReturnData("checkroll_pay_info", "checkroll", "1", "normalday_rate"));
+                        dbm.updateDatabase("pr_workdata_" + this.st, "code", activecodes[i], "extra_pay_holiday", normalDayRate);
                     }
                     dbm.updateDatabase("pr_workdata_" + this.st, "code", activecodes[i], "active", 1);
+                    dbm.updateDatabase("pr_workdata_" + this.st, "code", activecodes[i],"pay_slip",payslip);
 
                 }
 
             }
-            /*
-             while (query.next()) {
-
-             //                 System.out.println(query.getString(date_column).substring(0,7)+"  "+st);
-             //                 System.out.println(query.getString(divCodeColumn)+" "+divCode);
-             //                 System.out.println(query.getString(workCodeColumn)+"  "+workCode);
-             //                 System.out.println(query.getString(column_need_to_check)+"  "+element_to_check);
-             //                 System.out.println(query.getString(date_column).substring(0, 7).equals(st) && query.getString(divCodeColumn).equals(divCode) && query.getString(workCodeColumn).equals(workCode) && query.getString(column_need_to_check).equals(element_to_check));
-
-             code = query.getInt("emp_code");
-             if (query.getString(date_column).substring(0, 7).equals(st) && st.substring(6, 7).equals("5")){  
-             holidays=(dbm.checknReturnData("pr_workdata_" + this.st, "code", code, "holidays_thsyr")!=null)?Integer.parseInt(dbm.checknReturnData("pr_workdata_" + this.st, "code", code, "holidays_thsyr")):0;
-             }else{
-             holidays=0;
-             }  
-               
-             //  if (query.getString(date_column).substring(0, 7).equals(st) && st.substring(6, 7).equals("5") &&( Integer.parseInt(query.getString(date_column).substring(8,10)) <= holidays)) {
-             if ( st.substring(6, 7).equals("5") &&( Integer.parseInt(query.getString(date_column).substring(8,10)) <= holidays)) {
-                    
-
-             dbm.updateDatabase("pr_workdata_" + this.st, "code", code, "active", 1);
-
-             if (query.getString("normalday_or_sunday").equals("n")) {
-
-             if (dbm.checknReturnData("pr_workdata_" + this.st, "code", code, "normal_days_bfr17") != null) {
-             normaldays = Integer.parseInt(dbm.checknReturnData("pr_workdata_" + this.st, "code", code, "normal_days_bfr17"));
-             } else {
-             normaldays = 0;
-             }
-             normaldays = normaldays + 1;
-             dbm.updateDatabase("pr_workdata_" + this.st, "code", code, "normal_days_bfr17", normaldays);
-
-             } else if (query.getString("normalday_or_sunday").equals("s")) {
-
-             if (dbm.checknReturnData("pr_workdata_" + this.st, "code", code, "sundays_bfr17") != null) {
-             sundays = Integer.parseInt(dbm.checknReturnData("pr_workdata_" + this.st, "code", code, "sundays_bfr17"));
-             } else {
-             sundays = 0;
-             }
-
-             sundays = sundays + 1;
-             dbm.updateDatabase("pr_workdata_" + this.st, "code", code, "sundays_bfr17", sundays);
-             }
-
-             if (dbm.checknReturnData("pr_workdata_" + this.st, "code", code, "ot_before_hours") != null) {
-             otbeforehrs = Double.parseDouble(dbm.checknReturnData("pr_workdata_" + this.st, "code", code, "ot_before_hours"));
-             } else {
-             otbeforehrs = 0;
-             }
-
-             if (dbm.checknReturnData("pr_workdata_" + this.st, "code", code, "ot_after_hours") != null) {
-             otafterhrs = Double.parseDouble(dbm.checknReturnData("pr_workdata_" + this.st, "code", code, "ot_after_hours"));
-             } else {
-             otafterhrs = 0;
-             }
-
-             otbeforehrs = query.getDouble("ot_day") + otbeforehrs;
-             otafterhrs = query.getDouble("ot_night") + otafterhrs;
-             dbm.updateDatabase("pr_workdata_" + this.st, "code", code, "ot_before_hours", otbeforehrs);
-             dbm.updateDatabase("pr_workdata_" + this.st, "code", code, "ot_after_hours", otafterhrs);
-
-             System.err.println("code,normaldays,sundays,otbrf,otaftr-" + code + "," + normaldays + "," + sundays + "," + otbeforehrs + "," + otafterhrs+",holidays:"+holidays);
-
-                    
-             //  } else if (query.getString(date_column).substring(0, 7).equals(st)) {
-             } else {
-                
-             normaldays=sundays=0;
-             code = query.getInt("emp_code");
-             dbm.updateDatabase("pr_workdata_" + this.st, "code", code, "active", 1);
-
-             if (query.getString("normalday_or_sunday").equals("n")) {
-
-             if (dbm.checknReturnData("pr_workdata_" + this.st, "code", code, "normal_days") != null) {
-             normaldays = Integer.parseInt(dbm.checknReturnData("pr_workdata_" + this.st, "code", code, "normal_days"));
-             } else {
-             normaldays = 0;
-             }
-             normaldays = normaldays + 1;
-             dbm.updateDatabase("pr_workdata_" + this.st, "code", code, "normal_days", normaldays);
-
-             } else if (query.getString("normalday_or_sunday").equals("s")) {
-
-             if (dbm.checknReturnData("pr_workdata_" + this.st, "code", code, "sundays") != null) {
-             sundays = Integer.parseInt(dbm.checknReturnData("pr_workdata_" + this.st, "code", code, "sundays"));
-             } else {
-             sundays = 0;
-             }
-
-             sundays = sundays + 1;
-             dbm.updateDatabase("pr_workdata_" + this.st, "code", code, "sundays", sundays);
-             }
-
-             if (dbm.checknReturnData("pr_workdata_" + this.st, "code", code, "ot_before_hours") != null) {
-             otbeforehrs = Double.parseDouble(dbm.checknReturnData("pr_workdata_" + this.st, "code", code, "ot_before_hours"));
-             } else {
-             otbeforehrs = 0;
-             }
-
-             if (dbm.checknReturnData("pr_workdata_" + this.st, "code", code, "ot_after_hours") != null) {
-             otafterhrs = Double.parseDouble(dbm.checknReturnData("pr_workdata_" + this.st, "code", code, "ot_after_hours"));
-             } else {
-             otafterhrs = 0;
-             }
-
-             otbeforehrs = query.getDouble("ot_day") + otbeforehrs;
-             otafterhrs = query.getDouble("ot_night") + otafterhrs;
-             dbm.updateDatabase("pr_workdata_" + this.st, "code", code, "ot_before_hours", otbeforehrs);
-             dbm.updateDatabase("pr_workdata_" + this.st, "code", code, "ot_after_hours", otafterhrs);
-
-             // System.out.println("code,normaldays,sundays,otbrf,otaftr-" + code + "," + normaldays + "," + sundays + "," + otbeforehrs + "," + otafterhrs);
-             }
-             Task_manager.workdetailsP.setValue((100 * i) / (count + 1));
-             //System.out.println((100 * i) / (count + 1));
-             if(i%10==0){System.out.println(i);}
-             i++;
-             }*/
-            //return count;
+            
         } catch (Exception ex) {
             System.out.println("Error in workdetails--" + ex.getMessage());
 
@@ -849,6 +688,7 @@ days=null;
             dbm.updateDatabase("pr_workdata_" + this.st, "code", activecodes[i], "new_2", other2);
 
             dbm.updateDatabase("pr_workdata_" + this.st, "code", activecodes[i], "active", 1);
+            dbm.updateDatabase("pr_workdata_" + this.st, "code", activecodes[i],"pay_slip",payslip);
             Task_manager.advanceP.setValue(((i) * 100) / (nofentries1 + nofentries2 + codes.length + welfarecodes.length + 1));
 
         }
@@ -859,136 +699,29 @@ days=null;
 
             dbm.updateDatabase("pr_workdata_" + this.st, "code", activecodes[i], "salary_adv", cash_advance);
             dbm.updateDatabase("pr_workdata_" + this.st, "code", activecodes[i], "active", 1);
+            dbm.updateDatabase("pr_workdata_" + this.st, "code", activecodes[i],"pay_slip",payslip);
             Task_manager.advanceP.setValue(((nofentries1 + i) * 100) / (nofentries1 + nofentries2 + codes.length + welfarecodes.length + 1));
 
         }
 
         try {
 
-            /*
-             ResultSet query = dbm.query("SELECT * FROM prcr_other_advance_book");
-             ResultSet query2 = dbm.query("SELECT * FROM prcr_cash_advance_book");
-             Task_manager.advanceL.setText("Advances are being updated");
-             int codes[] = dbm.prcr_loan_emp_code_array(this.st.substring(0, 4), this.st.substring(5, 7));
-             int welfarecodes[] = dbm.prcr_welfare_emp_code_array(this.st.substring(0, 4), this.st.substring(5, 7));
-             while (query.next()) {
-             if (query.getString(date_column).substring(0, 7).equals(st)) {
-             nofentries1++;
-             }
-             }
-             while (query2.next()) {
-             if (query2.getString(date_column).substring(0, 7).equals(st)) {
-             nofentries2++;
-             }
-             }
-
-             query = dbm.query("SELECT * FROM prcr_other_advance_book");
-             query2 = dbm.query("SELECT * FROM prcr_cash_advance_book");
-             while (query.next()) {
-
-             //                count++;
-             //                code = query.getInt("code");
-             //                dbm.updateDatabase("pr_workdata_" + this.st, "code", code, "active", 3);
-             if (query.getString(date_column).substring(0, 7).equals(st)) {
-             Task_manager.advanceP.setValue((count * 100) / (nofentries1 + nofentries2 + codes.length + welfarecodes.length + 1));
-             count++;
-             code = query.getInt("code");
-             dbm.updateDatabase("pr_workdata_" + this.st, "code", code, "active", 1);
-
-             tea = ((dbm.checknReturnData("pr_workdata_" + this.st, "code", code, "tea") != null) ? Double.parseDouble(dbm.checknReturnData("pr_workdata_" + this.st, "code", code, "tea")) : 0);
-             tea = tea + ((query.getString("type").equals("TEA")) ? query.getDouble("amount") : 0);
-
-             fes_adv = ((dbm.checknReturnData("pr_workdata_" + this.st, "code", code, "fest_adv") != null) ? Double.parseDouble(dbm.checknReturnData("pr_workdata_" + this.st, "code", code, "fest_adv")) : 0);
-             fes_adv = fes_adv + ((query.getString("type").equals("FESTIVAL")) ? query.getDouble("amount") : 0);
-
-             food = ((dbm.checknReturnData("pr_workdata_" + this.st, "code", code, "food") != null) ? Double.parseDouble(dbm.checknReturnData("pr_workdata_" + this.st, "code", code, "food")) : 0);
-             food = food + ((query.getString("type").equals("FOODSTUFFS")) ? query.getDouble("amount") : 0);
-
-             loan = ((dbm.checknReturnData("pr_workdata_" + this.st, "code", code, "loan") != null) ? Double.parseDouble(dbm.checknReturnData("pr_workdata_" + this.st, "code", code, "loan")) : 0);
-             loan = loan + ((query.getString("type").equals("LOAN")) ? query.getDouble("amount") : 0);
-
-             ceb = ((dbm.checknReturnData("pr_workdata_" + this.st, "code", code, "ceb") != null) ? Double.parseDouble(dbm.checknReturnData("pr_workdata_" + this.st, "code", code, "ceb")) : 0);
-             ceb = ceb + ((query.getString("type").equals("CEB")) ? query.getDouble("amount") : 0);
-
-             teacher = ((dbm.checknReturnData("pr_workdata_" + this.st, "code", code, "teacher") != null) ? Double.parseDouble(dbm.checknReturnData("pr_workdata_" + this.st, "code", code, "teacher")) : 0);
-             teacher = teacher + ((query.getString("type").equals("TEACHER")) ? query.getDouble("amount") : 0);
-
-             chemical = ((dbm.checknReturnData("pr_workdata_" + this.st, "code", code, "chemical") != null) ? Double.parseDouble(dbm.checknReturnData("pr_workdata_" + this.st, "code", code, "chemical")) : 0);
-             chemical = chemical + ((query.getString("type").equals("CHEMICAL")) ? query.getDouble("amount") : 0);
-
-             payslip = ((dbm.checknReturnData("pr_workdata_" + this.st, "code", code, "pay_slip") != null) ? Double.parseDouble(dbm.checknReturnData("pr_workdata_" + this.st, "code", code, "pay_slip")) : 0);
-             payslip = payslip + ((query.getString("type").equals("PAYSLIP")) ? query.getDouble("amount") : 0);
-
-             fine = ((dbm.checknReturnData("pr_workdata_" + this.st, "code", code, "fine") != null) ? Double.parseDouble(dbm.checknReturnData("pr_workdata_" + this.st, "code", code, "fine")) : 0);
-             fine = fine + ((query.getString("type").equals("FINE")) ? query.getDouble("amount") : 0);
-
-             meals = ((dbm.checknReturnData("pr_workdata_" + this.st, "code", code, "meals") != null) ? Double.parseDouble(dbm.checknReturnData("pr_workdata_" + this.st, "code", code, "meals")) : 0);
-             meals = meals + ((query.getString("type").equals("MEALS")) ? query.getDouble("amount") : 0);
-
-             pension = ((dbm.checknReturnData("pr_workdata_" + this.st, "code", code, "pension") != null) ? Double.parseDouble(dbm.checknReturnData("pr_workdata_" + this.st, "code", code, "pension")) : 0);
-             pension = pension + ((query.getString("type").equals("PENSION")) ? query.getDouble("amount") : 0);
-
-             welfare = ((dbm.checknReturnData("pr_workdata_" + this.st, "code", code, "welfare") != null) ? Double.parseDouble(dbm.checknReturnData("pr_workdata_" + this.st, "code", code, "welfare")) : 0);
-             welfare = welfare + ((query.getString("type").equals("WELFARE")) ? query.getDouble("amount") : 0);
-
-             kovil = ((dbm.checknReturnData("pr_workdata_" + this.st, "code", code, "kovil") != null) ? Double.parseDouble(dbm.checknReturnData("pr_workdata_" + this.st, "code", code, "kovil")) : 0);
-             kovil = kovil + ((query.getString("type").equals("KOVIL")) ? query.getDouble("amount") : 0);
-
-             other1 = ((dbm.checknReturnData("pr_workdata_" + this.st, "code", code, "new_1") != null) ? Double.parseDouble(dbm.checknReturnData("pr_workdata_" + this.st, "code", code, "new_1")) : 0);
-             other1 = other1 + ((query.getString("type").equals("OTHER_1")) ? query.getDouble("amount") : 0);
-
-             other2 = ((dbm.checknReturnData("pr_workdata_" + this.st, "code", code, "new_2") != null) ? Double.parseDouble(dbm.checknReturnData("pr_workdata_" + this.st, "code", code, "new_2")) : 0);
-             other2 = other2 + ((query.getString("type").equals("OTHER_2")) ? query.getDouble("amount") : 0);
-
-             dbm.updateDatabase("pr_workdata_" + this.st, "code", code, "tea", tea);
-             dbm.updateDatabase("pr_workdata_" + this.st, "code", code, "fest_adv", fes_adv);
-             dbm.updateDatabase("pr_workdata_" + this.st, "code", code, "food", food);
-             dbm.updateDatabase("pr_workdata_" + this.st, "code", code, "loan", loan);
-             dbm.updateDatabase("pr_workdata_" + this.st, "code", code, "ceb", ceb);
-             dbm.updateDatabase("pr_workdata_" + this.st, "code", code, "teacher", teacher);
-             dbm.updateDatabase("pr_workdata_" + this.st, "code", code, "chemical", chemical);
-             dbm.updateDatabase("pr_workdata_" + this.st, "code", code, "pay_slip", payslip);
-             dbm.updateDatabase("pr_workdata_" + this.st, "code", code, "fine", fine);
-             dbm.updateDatabase("pr_workdata_" + this.st, "code", code, "meals", meals);
-             dbm.updateDatabase("pr_workdata_" + this.st, "code", code, "pension", pension);
-             dbm.updateDatabase("pr_workdata_" + this.st, "code", code, "welfare", welfare);
-             dbm.updateDatabase("pr_workdata_" + this.st, "code", code, "kovil", kovil);
-             dbm.updateDatabase("pr_workdata_" + this.st, "code", code, "new_1", other1);
-             dbm.updateDatabase("pr_workdata_" + this.st, "code", code, "new_2", other2);
-             }
-
-             }
-             //cash advance
-             while (query2.next()) {
-
-             if (query2.getString(date_column).substring(0, 7).equals(st)) {
-
-             Task_manager.advanceP.setValue((count * 100) / (nofentries1 + nofentries2 + codes.length + welfarecodes.length + 1));
-             count++;
-             code = query2.getInt("code");
-             dbm.updateDatabase("pr_workdata_" + this.st, "code", code, "active", 1);
-
-             cash_advance = ((dbm.checknReturnData("pr_workdata_" + this.st, "code", code, "salary_adv") != null) ? Double.parseDouble(dbm.checknReturnData("pr_workdata_" + this.st, "code", code, "salary_adv")) : 0);
-             cash_advance = cash_advance + query2.getDouble("amount");
-
-             dbm.updateDatabase("pr_workdata_" + this.st, "code", code, "salary_adv", cash_advance);
-
-             }
-
-             } */
 //loans
             // int codes[]=dbm.prcr_loan_emp_code_array(this.st.substring(0,4), this.st.substring(5,7));
             for (int j = 0; j < codes.length; j++) {
                 Task_manager.advanceP.setValue(((nofentries1 + nofentries2 + j) * 100) / (nofentries1 + nofentries2 + codes.length + welfarecodes.length + 1));
                 dbm.updateDatabase("pr_workdata_" + this.st, "code", codes[j], "active", 1);
+                dbm.updateDatabase("pr_workdata_" + this.st, "code", codes[j],"pay_slip",payslip);
                 dbm.updateDatabase("pr_workdata_" + this.st, "code", codes[j], "loan", dbm.prcr_loan(codes[j], this.st.substring(0, 4), this.st.substring(5, 7)));
                 System.err.println(codes[j] + " - " + dbm.prcr_loan(codes[j], this.st.substring(0, 4), this.st.substring(5, 7)));
+            
             }
 
 //welfare
             for (int j = 0; j < welfarecodes.length; j++) {
                 Task_manager.advanceP.setValue(((nofentries1 + nofentries2 + codes.length + j) * 100) / (nofentries1 + nofentries2 + codes.length + welfarecodes.length + 1));
                 dbm.updateDatabase("pr_workdata_" + this.st, "code", welfarecodes[j], "active", 1);
+                dbm.updateDatabase("pr_workdata_" + this.st, "code", welfarecodes[j],"pay_slip",payslip);
                 dbm.updateDatabase("pr_workdata_" + this.st, "code", welfarecodes[j], "welfare", dbm.prcr_welfare(welfarecodes[j], this.st.substring(0, 4), this.st.substring(5, 7)));
                 System.err.println(welfarecodes[j] + " - " + dbm.prcr_welfare(welfarecodes[j], this.st.substring(0, 4), this.st.substring(5, 7)));
             }
@@ -1028,50 +761,12 @@ days=null;
                 dbm.updateDatabase("pr_workdata_" + this.st, "code", activecodes[i], "extra_pay_overkilos", overkilos);
                 dbm.updateDatabase("pr_workdata_" + this.st, "code", activecodes[i], "extra_pay_cash", cash);
                 dbm.updateDatabase("pr_workdata_" + this.st, "code", activecodes[i], "active", 1);
+                dbm.updateDatabase("pr_workdata_" + this.st, "code", activecodes[i],"pay_slip",payslip);
 
                 Task_manager.extrapayP.setValue((i * 100) / (nofentries1 + 1));
             }
 
-            /*  
-             ResultSet query = dbm.query("SELECT * FROM prcr_extrapayment_book");
-
-             Task_manager.extrapayL.setText("Extra Pay Details are being updated");
-
-             while (query.next()) {
-             if (query.getString(date_column).substring(0, 7).equals(st)) {
-             nofentries1++;
-             }
-             }
-
-             query = dbm.query("SELECT * FROM prcr_extrapayment_book");
-
-             while (query.next()) {
-             Task_manager.extrapayP.setValue((count * 100) / (nofentries1 + 1));
-             count++;
-             code = query.getInt("code");
-             dbm.updateDatabase("pr_workdata_" + this.st, "code", code, "active", 1);
-
-             if (query.getString(date_column).substring(0, 7).equals(st)) {
-
-             overkilos = ((dbm.checknReturnData("pr_workdata_" + this.st, "code", code, "extra_pay_overkilos") != null) ? Double.parseDouble(dbm.checknReturnData("pr_workdata_" + this.st, "code", code, "extra_pay_overkilos")) : 0);
-             overkilos = overkilos + ((query.getString("type").equals("OVERKILOS")) ? query.getDouble("amount") : 0);
-
-             cash = ((dbm.checknReturnData("pr_workdata_" + this.st, "code", code, "extra_pay_cash") != null) ? Double.parseDouble(dbm.checknReturnData("pr_workdata_" + this.st, "code", code, "extra_pay_cash")) : 0);
-             cash = cash + ((query.getString("type").equals("CASHWORK")) ? query.getDouble("amount") : 0);
-
-             //                    holiday = ((dbm.checknReturnData("pr_workdata_" + this.st, "code", code, "extra_pay_holiday") != null) ? Double.parseDouble(dbm.checknReturnData("pr_workdata_" + this.st, "code", code, "extra_pay_holiday")) : 0);
-             //                    holiday = holiday + ((query.getString("type").equals("HOLIDAY")) ? query.getDouble("amount") : 0);
-             //                    may = ((dbm.checknReturnData("pr_workdata_" + this.st, "code", code, "extra_pay_may") != null) ? Double.parseDouble(dbm.checknReturnData("pr_workdata_" + this.st, "code", code, "extra_pay_may")) : 0);
-             //                    may= may + ((query.getString("type").equals("MAY")) ? query.getDouble("amount") : 0);
-             System.err.println("pr_workdata_" + this.st);
-             dbm.updateDatabase("pr_workdata_" + this.st, "code", code, "extra_pay_overkilos", overkilos);
-             dbm.updateDatabase("pr_workdata_" + this.st, "code", code, "extra_pay_cash", cash);
-             // dbm.updateDatabase("pr_workdata_" + this.st, "code", code, "extra_pay_holiday", holiday);
-             // dbm.updateDatabase("pr_workdata_" + this.st, "code", code, "extra_pay_may", may);
-             }
-
-             }
-             */
+          
             Task_manager.extrapayP.setValue(100);
             Task_manager.extrapayL.setText("Extra Pay Details has been updated");
             Task_manager.extrapayC.setSelected(true);
@@ -1087,11 +782,12 @@ days=null;
         //DatabaseManager dbm = DatabaseManager.getDbCon();
         
         try {
-             query = dbm.query("SELECT * FROM " + table_name + " where " + table_column_giving1 + " LIKE '" + row_element1 + "' AND " + table_column_giving2 + " LIKE '" + row_element2 + "'");
+             ResultSet query = dbm.query("SELECT * FROM " + table_name + " where " + table_column_giving1 + " LIKE '" + row_element1 + "' AND " + table_column_giving2 + " LIKE '" + row_element2 + "'");
             while (query.next()) {
                // s = query.getString(table_column_need);
                 return true;
             }
+            query.close();
         } catch (SQLException ex) {
             return false;
         }
@@ -1114,21 +810,23 @@ days=null;
     public int[] active_staff_codes() {
         int count = 0;
         try {
-            query = dbm.query("SELECT * FROM prcr_staff_salary_info WHERE active LIKE '" + 1 + "'");
+            ResultSet query = dbm.query("SELECT * FROM prcr_staff_salary_info WHERE active LIKE '" + 1 + "'");
             while (query.next()) {
                 count++;
             }
+             query.close();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
         int arr[] = new int[count];
         int i = 0;
         try {
-            query = dbm.query("SELECT * FROM prcr_staff_salary_info WHERE active LIKE '" + 1 + "'");
+            ResultSet query = dbm.query("SELECT * FROM prcr_staff_salary_info WHERE active LIKE '" + 1 + "'");
             while (query.next()) {
                 arr[i] = query.getInt("code");
                 i++;
             }
+            query.close();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -1144,10 +842,11 @@ days=null;
 
             Task_manager.staffdetailsP.setValue((100 * i) / length + 1);
             try {
-                query = dbm.query("SELECT * FROM prcr_staff_salary_info WHERE code LIKE '" + arr[i] + "' ");
+                ResultSet query = dbm.query("SELECT * FROM prcr_staff_salary_info WHERE code LIKE '" + arr[i] + "' ");
                 while (query.next()) {
 
                     dbm.updateDatabase(table_name, "code", arr[i], "active", 1);
+                    dbm.updateDatabase(table_name, "code", arr[i],"pay_slip",payslip);
                     dbm.updateDatabase(table_name, "code", arr[i], "normal_pay", query.getDouble("basic_salary"));
                     dbm.updateDatabase(table_name, "code", arr[i], "ot_before_hours", query.getDouble("ot_hours"));
                     dbm.updateDatabase(table_name, "code", arr[i], "ot_before_amount", query.getDouble("ot_pay"));
@@ -1160,6 +859,7 @@ days=null;
                     dbm.updateDatabase(table_name, "code", arr[i], "extra_pay_overkilos", query.getDouble("Extra2"));
 
                 }
+                query.close();
             } catch (SQLException ex) {
                 System.out.println(ex.getMessage());
             }
