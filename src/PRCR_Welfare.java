@@ -518,7 +518,7 @@ public class PRCR_Welfare extends javax.swing.JPanel {
         Calendar currentDate = Calendar.getInstance();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
-        int entry = 0;
+        double entry = 0;
         /*try {
          entry = dbm.readLastRow("prcr_welfare", "entry") + 1;
          } catch (SQLException ex) {
@@ -539,7 +539,7 @@ public class PRCR_Welfare extends javax.swing.JPanel {
             supId = emp_code.getSelectedItem().toString();
         }
 
-        entry = Integer.parseInt(day.substring(0, 4) + day.substring(5, 7) + supId);
+        entry = Double.parseDouble(day.substring(0, 4) + day.substring(5, 7) + supId);
 
         int suspended = -1;
         int remain = -1;
@@ -564,7 +564,7 @@ public class PRCR_Welfare extends javax.swing.JPanel {
             newRegisterd = 1;
             try {
                 dbm.insert("INSERT INTO prcr_welfare(entry,month,code,months_on_welfare,new_old,suspended_months,suspended_remain,before_after) VALUES('" + entry + "','" + thisMonth + "','" + supId + "','" + newMonths + "','" + 1 + "','" + suspended + "','" + remain + "','" + before + "')");
-                dbm.insert("INSERT INTO prcr_welfare_members(emp_code,date)VALUES('" + supId + "','" + thisMonth + '"');
+                dbm.insert("INSERT INTO prcr_welfare_members(emp_code,date)VALUES('" + supId + "','" + day +"')");
             } catch (SQLException ex) {
                 Logger.getLogger(GL_Welfare.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -574,6 +574,7 @@ public class PRCR_Welfare extends javax.swing.JPanel {
             dbm.update("prcr_welfare", "month", "code", thisMonth, supId, "before_after", before);
         }
         calcfigures(reg, Nreg, sus, attention, "2013", "06");
+        emp_code.setSelectedIndex(0);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
@@ -866,19 +867,22 @@ public class PRCR_Welfare extends javax.swing.JPanel {
             } catch (SQLException ex) {
             }
             try {
-                ResultSet query = dbm.query("SELECT * FROM prcr_welfare_members WHERE emp_code =" + item + "");
-                while (query.next()) {
+                ResultSet query1 = dbm.query("SELECT * FROM prcr_welfare_members WHERE emp_code =" + item + "");
+                while (query1.next()) {
                     i = 1;
-                    date=query.getString("date");
+                    date=query1.getString("date");
                 }
-                query.close();
+                query1.close();
             } catch (SQLException ex) {
+                System.out.println(ex);
                 i = 0;
                 date=null;
             }
             if(i==0){
                 status.setText("Not Registered");
                 newOldButton.setEnabled(true);
+                newOldButton.setSelected(false);
+                
             }
             else if(i==1){
                 status.setText("Registered");

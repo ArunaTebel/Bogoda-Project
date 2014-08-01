@@ -763,7 +763,7 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
             }
         });
 
-        dayfield1.setText(datehandler.get_today_day());
+        dayfield1.setText(""+Integer.parseInt(datehandler.get_today_day()));
         dayfield1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 dayfield1KeyPressed(evt);
@@ -1761,9 +1761,11 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
     private void jRadioButton1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jRadioButton1ItemStateChanged
         if(jRadioButton1.isSelected()){
             worked_time_panel.setVisible(false);
+            calc_ot.setVisible(false);
         }
         else{
             worked_time_panel.setVisible(true);
+            calc_ot.setVisible(true);
         }
     }//GEN-LAST:event_jRadioButton1ItemStateChanged
 

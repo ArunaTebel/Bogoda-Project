@@ -39,8 +39,8 @@ public class PRCR_salary_payroll extends javax.swing.JPanel {
         } catch (SQLException ex) {
             Logger.getLogger(PRCR_salary_payroll.class.getName()).log(Level.SEVERE, null, ex);
         }
-        String arr[] = new String[count+1];
-        arr[0]="";
+        String arr[] = new String[count + 1];
+        arr[0] = "";
         count = 1;
         try {
             ResultSet query = dbm.query("SELECT * FROM personal_info WHERE checkroll_or_staff LIKE '" + "Staff" + "'");
@@ -134,7 +134,6 @@ public class PRCR_salary_payroll extends javax.swing.JPanel {
             }
         });
 
-        basic_sallary.setEditable(false);
         basic_sallary.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 basic_sallaryActionPerformed(evt);
@@ -207,11 +206,9 @@ public class PRCR_salary_payroll extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(incentive1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(28, Short.MAX_VALUE))))
+                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -228,19 +225,28 @@ public class PRCR_salary_payroll extends javax.swing.JPanel {
         // TODO add your handling code here:
 
     }//GEN-LAST:event_codeFocusLost
-
+    MessageBox msg = new MessageBox();
+    Check_Entries chk = new Check_Entries();
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        try {
-            dbm.CheckNDeleteFromDataBase("prcr_payroll_incentive", "emp_code", Integer.parseInt(code.getSelectedItem().toString()));
-        } catch (Exception ex) {
 
-        }
-        int empCode=Integer.parseInt(code.getSelectedItem().toString());
-        double incentive = Integer.parseInt(incentive1.getText());
-        try {
-            dbm.insert("INSERT INTO prcr_payroll_incentive (emp_code,incentive) VALUES('"+empCode+"','"+incentive+"')");
-        } catch (SQLException ex) {
-            Logger.getLogger(PRCR_salary_payroll.class.getName()).log(Level.SEVERE, null, ex);
+        if (chk.isDouble(incentive1.getText()) && chk.isDouble(basic_sallary.getText())) {
+            try {
+                dbm.CheckNDeleteFromDataBase("prcr_payroll_incentive", "emp_code", Integer.parseInt(code.getSelectedItem().toString()));
+            } catch (Exception ex) {
+
+            }
+            int empCode = Integer.parseInt(code.getSelectedItem().toString());
+            double incentive = Double.parseDouble(incentive1.getText());
+            double baasic = Double.parseDouble(basic_sallary.getText());
+            try {
+                dbm.insert("INSERT INTO prcr_payroll_incentive (emp_code,incentive) VALUES('" + empCode + "','" + incentive + "')");
+            } catch (SQLException ex) {
+                Logger.getLogger(PRCR_salary_payroll.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            dbm.updateDatabase("personal_info", "code", empCode, "basic_salary", baasic);
+        } else {
+            msg.showMessage("Entered Amounts are not Valid. Please check again", "Salary Details", "info");
+
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -249,7 +255,7 @@ public class PRCR_salary_payroll extends javax.swing.JPanel {
         String Name = null;
         double basic_salary = 0;
         double incentive = 0;
-        double ot_raten=0;
+        double ot_raten = 0;
         if (evt.getStateChange() == ItemEvent.SELECTED) {
             int item = Integer.parseInt(evt.getItem().toString());
             try {
@@ -272,11 +278,11 @@ public class PRCR_salary_payroll extends javax.swing.JPanel {
                 incentive = 0;
             }
 
-            ot_raten = Math.ceil( (basic_salary/240*1.5) * 100.0 ) / 100.0;
+            ot_raten = Math.ceil((basic_salary / 240 * 1.5) * 100.0) / 100.0;
             name.setText(Name);
             basic_sallary.setText("" + basic_salary);
             incentive1.setText("" + incentive);
-            ot_rate.setText(""+ot_raten);
+            ot_rate.setText("" + ot_raten);
         }        // TODO add your handling code here:
     }//GEN-LAST:event_codeItemStateChanged
 

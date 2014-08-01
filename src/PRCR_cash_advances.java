@@ -257,7 +257,7 @@ public void ClearTable(){
             }
         });
 
-        dayfield1.setText(Integer.parseInt(datehandler.get_today_day())+"");
+        dayfield1.setText(""+Integer.parseInt(datehandler.get_today_day()));
         dayfield1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 dayfield1KeyPressed(evt);
@@ -673,6 +673,7 @@ public void ClearTable(){
 
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
             //category_code.requestFocus();
+            empCode_JC.requestFocus();
 
         }
     }//GEN-LAST:event_monthfield1KeyPressed
@@ -693,6 +694,7 @@ public void ClearTable(){
 
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
             //  category_code.requestFocus();
+            empCode_JC.requestFocus();
 
         }
     }//GEN-LAST:event_yearfield1KeyPressed
@@ -862,7 +864,7 @@ public void ClearTable(){
 
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
 //            division_jc.requestFocus();
-
+            empCode_JC.requestFocus();
         }
     }//GEN-LAST:event_dayfield1KeyPressed
 
