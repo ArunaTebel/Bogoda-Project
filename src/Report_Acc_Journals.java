@@ -580,7 +580,7 @@ public class Report_Acc_Journals extends javax.swing.JPanel {
             }
         });
 
-        jButton1.setText("Search");
+        jButton1.setText("Veiw");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
