@@ -152,7 +152,7 @@ public class Task_manager extends javax.swing.JPanel {
         Thread ML = new Thread(new monthly_ledger());
         Thread PDC = new Thread(new predebts_coins());
         
-        if(GL1.isSelected()){GLLabel1.setText("Processing.."); DT.run();  GLLabel1.setText("Done");  }
+        if(GL1.isSelected()){GLLabel1.setText("Processing.."); DT.run();GLLabel1.setText("Done");  }
         
           
          if(GL2.isSelected()){GLLabel2.setText("Processing..");WA.run();GLLabel2.setText("Done");}

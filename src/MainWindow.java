@@ -78,7 +78,7 @@ public class MainWindow extends javax.swing.JFrame {
         jButton15.setEnabled(false);
         topBar.setEnabled(false);
         //jButton14.setEnabled(false);
-        jMenu1.setEnabled(false);
+       // jMenu1.setEnabled(false);
         jMenu2.setEnabled(false);
         jMenu3.setEnabled(false);
         // jButton14.requestFocusInWindow();
@@ -871,8 +871,8 @@ public class MainWindow extends javax.swing.JFrame {
        
         jButton15.setEnabled(true);
         topBar.setEnabled(true);
-        jMenu1.setEnabled(true);
-       // jMenu2.setEnabled(true);
+        //jMenu1.setEnabled(true);
+       jMenu2.setEnabled(true);
        // jMenu3.setEnabled(true);
         }
            

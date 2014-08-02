@@ -1284,10 +1284,10 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
             division.setText(division_name);
             
             if("FAC".equals(division_name)){
-                fac_panel.setVisible(false);
+                fac_panel.setVisible(true);
             }
             else{
-                fac_panel.setVisible(true);
+                fac_panel.setVisible(false);
             }
         }
 

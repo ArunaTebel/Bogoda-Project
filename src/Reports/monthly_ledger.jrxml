@@ -35,7 +35,7 @@ FROM
      `gl_monthly_ledger_current` gl_monthly_ledger_current
 WHERE
      year = $P{year}
- AND month = $P{month} AND ((bal_cf!=0)OR (final_amount!=0))
+ AND month = $P{month} AND ((total_kg!=0)OR (pre_debts!=0))
 order by gl_monthly_ledger_current.`sup_id`]]>
 	</queryString>
 	<field name="gl_monthly_ledger_current_year" class="java.lang.String"/>

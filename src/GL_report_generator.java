@@ -447,6 +447,8 @@ public class GL_report_generator {
         double coinscf;
         double bal_cf;
         double final_total;
+        tax = dbm.checknReturnDoubleData("rate_details", "Code_name", "INTAX", "rate");
+            cards = dbm.checknReturnDoubleData("rate_details", "Code_name", "CARDS", "rate");
         // String task = "3";
 
         ResultSet query = dbm.query("SELECT * FROM suppliers");
@@ -474,10 +476,13 @@ public class GL_report_generator {
             trans=0;
             ResultSet query1 = dbm.query("SELECT * FROM daily_transactions_current WHERE entry LIKE '" + year + month + sup + "' ");
             while (query1.next()) {
-                trans = query1.getDouble("trans");
+                //trans = query1.getDouble("trans");
                 total_kg = query1.getDouble("Total");
             }
             query1.close();
+            
+             String tr =dbm.checknReturnData("suppliers", "sup_id", sup, "trans_rate");
+              trans = dbm.checknReturnDoubleData("tranport_rates", "Trans_id",tr, "Trans_rate");
 
           ////   trans = dbm.checknReturnDoubleData("daily_transactions_current", "entry", year + month + sup, "trans");
             //System.out.println(trans_rate);
@@ -485,7 +490,7 @@ public class GL_report_generator {
             //System.out.println(total_kg);
             leaf_code = dbm.checknReturnData("suppliers", "sup_id", sup, "leaf_rate_code");
             leaf_rate = dbm.checknReturnDoubleData("leaf_category", "category_name", leaf_code, "category_id");
-            
+            if(leaf_code.length()==7 && !leaf_code.equals("DEFAULT")){System.out.println("WRONG PAY val");}
             coinsbf=0;
             pre_debts=0;
 
@@ -520,21 +525,26 @@ public class GL_report_generator {
                 other_advance = query3.getDouble("other_total");
             }
             query3.close();
-
-            tax = dbm.checknReturnDoubleData("rate_details", "Code_name", "INTAX", "rate");
-            cards = dbm.checknReturnDoubleData("rate_details", "Code_name", "CARDS", "rate");
-
+            
+            
+            
+           // System.out.println(tax);
             // if()
             if (total_kg == 0) {
                 cards = 0;
             }
+            trans = trans*total_kg;
+          //  System.out.println(trans);
             net_amount = ((coinsbf + (total_kg * leaf_rate)) - (pre_debts + cash_advance + other_advance + cards + loans + trans + welf));
 
-            if (net_amount > 25000) {
+            if ((coinsbf + (total_kg * leaf_rate)) > 25000) {
                 plusTax = tax;
+               
             } else {
                 plusTax = 0.0;
             }
+            
+            // System.out.println(sup+"--------------------------------"+plusTax);
             coinscf = ((net_amount + plusTax) % 10);
             if (net_amount < 0) {
                 coinscf = 0;

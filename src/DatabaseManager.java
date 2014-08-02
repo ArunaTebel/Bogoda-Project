@@ -24,13 +24,14 @@ public final class DatabaseManager {
 
     DatabaseManager() {
 
-        //String url = "jdbc:mysql://192.168.1.71/";
-        // String userName = "BG";
+        //String url = "jdbc:mysql://192.168.1.60/";
+       // String userName = "BogodaUser";
         String url = "jdbc:mysql://localhost:3306/";
         String dbName = "bogoda";
         String driver = "com.mysql.jdbc.Driver";
         String userName = "root";
-        String password = "";
+       // String password = "ninelights@mora";
+         String password = "";
         try {
             Class.forName(driver).newInstance();
             this.conn = (Connection) DriverManager.getConnection(url + dbName, userName, password);
@@ -91,7 +92,7 @@ public final class DatabaseManager {
     }
 
     public String checknReturnData(String table_name, String table_column_giving, Object row_element, String table_column_need) {
-      
+       a = null;
         try {
              ResultSet query = query("SELECT * FROM " + table_name + " WHERE " + table_column_giving + " LIKE '" + row_element + "'");
             while (query.next()) {
@@ -180,7 +181,7 @@ public final class DatabaseManager {
     }
 
     public double checknReturnDoubleData(String table_name, String table_column_giving, Object row_element, String table_column_need) {
-
+           d = 0;
         try{
                ResultSet query = query("SELECT * FROM " + table_name + " where " + table_column_giving + " = '" + row_element + "'"); 
             while (query.next()) {
