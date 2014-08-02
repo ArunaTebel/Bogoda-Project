@@ -30,9 +30,123 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
     private int rows = 0;
 
     public PRCR_Work_normal() {
-        
+
         initComponents();
-    
+
+    }
+
+    public void ot_calc() {
+        int inn = Integer.parseInt(in.getText());
+        int outn = Integer.parseInt(out.getText());
+
+        int a1, b1, a2, b2;
+        int min1, min2;
+                
+        double dif;
+
+        double dyot, nyot;
+        double rnd=0;
+
+        double dif_hrs = 0;
+        
+        double temp=0;
+
+        if (inn < outn) {
+            a1 = inn / 100;
+            b1 = inn - a1 * 100;
+
+            min1 = a1 * 60 + b1;
+
+            a2 = outn / 100;
+            b2 = outn - a2 * 100;
+
+            min2 = a2 * 60 + b2;
+
+            dif = min2 - min1;
+
+            dif_hrs = dif / 60;
+
+            if (dif_hrs <= 9) {
+                otday.setText("0");
+                otnight.setText("0");
+            } else {
+                if (min2 <= 18 * 60) {
+                   // System.out.println(dif_hrs-9);
+                    rnd=Math.round((dif_hrs-9)*100.0)/ 100.0;
+                  //  System.out.println(rnd);
+                    otday.setText("" +rnd);
+                    otnight.setText("0");
+                } else {
+                    if ((min1 + 9 * 60) > (18 * 60)) {
+                        rnd=Math.round((dif_hrs-9) * 100.0) / 100.0;
+                        otnight.setText("" + rnd);
+                        otday.setText("0");
+                    } else {
+                        dyot=(18*60-min1 - 9*60)/60;
+                        temp=(min2-18*60);
+                        nyot= temp/60;
+                        //System.out.println(min2);
+                        //System.out.println(dyot);
+                        //System.out.println(nyot);
+                        rnd=Math.round(dyot*100.0)/100.0;
+                        otday.setText(""+rnd);
+                        rnd=Math.round(nyot*100.0)/100.0;
+                        otnight.setText(""+rnd);
+                    }
+
+                }
+            }
+
+        }
+        else{
+            a1 = inn / 100;
+            b1 = inn - a1 * 100;
+
+            min1 = a1 * 60 + b1-12*60;
+
+            a2 = outn / 100;
+            b2 = outn - a2 * 100;
+
+            min2 = a2 * 60 + b2+12*60;
+
+            dif = min2 - min1;
+
+            dif_hrs = dif / 60;
+
+            if (dif_hrs <= 9) {
+                otday.setText("0");
+                otnight.setText("0");
+            } else {
+                if (min2 <= 18 * 60) {
+                   // System.out.println(dif_hrs-9);
+                    rnd=Math.round((dif_hrs-9)*100.0)/ 100.0;
+                  //  System.out.println(rnd);
+                    otnight.setText("" +rnd);
+                    otday.setText("0");
+                } else {
+                    if ((min1 + 9 * 60) > (18 * 60)) {
+                        rnd=Math.round((dif_hrs-9) * 100.0) / 100.0;
+                        otday.setText("" + rnd);
+                        otnight.setText("0");
+                    } else {
+                        dyot=(18*60-min1 - 9*60)/60;
+                        temp=(min2-18*60);
+                        nyot= temp/60;
+                        //System.out.println(min2);
+                        //System.out.println(dyot);
+                        //System.out.println(nyot);
+                        rnd=Math.round(dyot*100.0)/100.0;
+                        otnight.setText(""+rnd);
+                        rnd=Math.round(nyot*100.0)/100.0;
+                        otday
+                                .setText(""+rnd);
+                    }
+
+                }
+            }
+
+        }
+
     }
 
     //create a table to store work code details(workers work in each work code) for each day
@@ -98,13 +212,13 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
         String prv_yrmnth = ReturnPrvMnthTableName(yrmnth);
         int no_of_codes = getColumnsize("pr_workdata_" + yrmnth, "code");
         int codes[] = new int[no_of_codes];
-        codes=getIntArray("pr_workdata_" + prv_yrmnth, "code");
+        codes = getIntArray("pr_workdata_" + prv_yrmnth, "code");
         double pre_debt_amount = 0;
         for (int i = 0; i < no_of_codes; i++) {
             if (dbm.checknReturnData("pr_workdata_" + prv_yrmnth, "code", codes[i], "next_month") != null) {
 
                 pre_debt_amount = Double.parseDouble(dbm.checknReturnData("pr_workdata_" + prv_yrmnth, "code", codes[i], "next_month"));
-                pre_debt_amount=-pre_debt_amount;
+                pre_debt_amount = -pre_debt_amount;
             }
 
             dbm.updateDatabase("pr_workdata_" + yrmnth, "code", codes[i], "pre_debt", pre_debt_amount);
@@ -226,14 +340,13 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
             if (table.getValueAt(rowd, 0) != null) {
                 try {
                     dbCon.insert("INSERT INTO prcr_checkroll_workentry(date,normalday_or_sunday,emp_code,work_code,ot_day,ot_night,division) VALUES('" + date + "','" + getNormalOrSun() + "','" + table.getValueAt(rowd, 0) + "','" + table.getValueAt(rowd, 2) + "','" + table.getValueAt(rowd, 3) + "','" + table.getValueAt(rowd, 4) + "','" + table.getValueAt(rowd, 5) + "')");
-                
+
                 } catch (SQLException ex) {
                     Logger.getLogger(PRCR_Add_Employee.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
-         JOptionPane.showMessageDialog(null, "Details are saved for the \n" + date, "Message", JOptionPane.INFORMATION_MESSAGE);
-
+        JOptionPane.showMessageDialog(null, "Details are saved for the \n" + date, "Message", JOptionPane.INFORMATION_MESSAGE);
 
     }
 
@@ -371,7 +484,6 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
 //            ClearTable();
 //        }
 //    }
-
     public void ClearTable() {
         int rows = 0;
         int column = 0;
@@ -1157,7 +1269,7 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         //java.sql.Date tdate = new java.sql.Date(date.getDate().getTime());
 
-      //addDateTable(tdate);//store data of workers worked in each division in each day   REMOVED INTENTIONALLY
+        //addDateTable(tdate);//store data of workers worked in each division in each day   REMOVED INTENTIONALLY
         String month = null;
         String year = null;
         Date tdate = null;
@@ -1187,13 +1299,13 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {
+    //    try {
             if (empCode_JC.getSelectedItem().toString().length() != 0) {
                 table.setValueAt(empCode_JC.getSelectedItem(), rows, 0);
                 table.setValueAt(empName.getText(), rows, 1);
                 table.setValueAt(workCode.getSelectedItem(), rows, 2);
-              
-                table.setValueAt( dbm.checknReturnData("checkroll_personalinfo","code", empCode_JC.getSelectedItem(),"division"), rows, 5);//get the division from checkroll_personalinfo
+
+                table.setValueAt(dbm.checknReturnData("checkroll_personalinfo", "code", empCode_JC.getSelectedItem(), "division"), rows, 5);//get the division from checkroll_personalinfo
                 if (otday.getText().length() == 0) {
                     table.setValueAt("0", rows, 3);
 
@@ -1209,9 +1321,16 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
                 }
                 rows++;
                 // TODO add your handling code here:
+                workCode.setSelectedIndex(0);
+                in.setText(null);
+                out.setText(null);
+                
                 empCode_JC.setSelectedItem(null);
                 otday.setText(null);
                 otnight.setText(null);
+               // workCode.setSelectedItem(null);
+               // in.setText(null);
+               // out.setText(null);
                 empCode_JC.requestFocus();
                 sunday.setEnabled(false);
                 dayfield1.setEnabled(false);
@@ -1220,19 +1339,20 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
             } else {
                 JOptionPane.showMessageDialog(null, "Enter the employee code\n", "Message", JOptionPane.INFORMATION_MESSAGE);
                 empCode_JC.requestFocus();
-                 sunday.setEnabled(false);
+                sunday.setEnabled(false);
                 dayfield1.setEnabled(false);
                 monthfield1.setEnabled(false);
                 yearfield1.setEnabled(false);
             }
-        } catch (Exception e) {
+    /*    } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Enter the employee code\n", "Message", JOptionPane.INFORMATION_MESSAGE);
+            System.out.println(e);
             empCode_JC.requestFocus();
-             sunday.setEnabled(false);
-                dayfield1.setEnabled(false);
-                monthfield1.setEnabled(false);
-                yearfield1.setEnabled(false);
-        }
+            sunday.setEnabled(false);
+            dayfield1.setEnabled(false);
+            monthfield1.setEnabled(false);
+            yearfield1.setEnabled(false);
+        }*/
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void workCodeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_workCodeItemStateChanged
@@ -1246,12 +1366,18 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
                 }
             } catch (SQLException ex) {
             }
-           // work_code.setText("" + Name);
+            // work_code.setText("" + Name);
         }
-        W_code.setText(workCode.getSelectedItem().toString());
+        if(workCode.getSelectedItem()!=null){
+             W_code.setText(workCode.getSelectedItem().toString());
+        }
+        else{
+            W_code.setText("");
+        }
+        
         W_code.requestFocus();
         W_code.selectAll();
-        
+
     }//GEN-LAST:event_workCodeItemStateChanged
 
     private void empCode_JCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_empCode_JCActionPerformed
@@ -1261,7 +1387,7 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
     private void empCode_JCItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_empCode_JCItemStateChanged
         DatabaseManager dbm = DatabaseManager.getDbCon();
         String Name = null;
-        String division_name=null;
+        String division_name = null;
         if (evt.getStateChange() == ItemEvent.SELECTED) {
             int item = Integer.parseInt(evt.getItem().toString());
             try {
@@ -1282,17 +1408,16 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
             }
             empName.setText(Name);
             division.setText(division_name);
-            
-            if("FAC".equals(division_name)){
+
+            if ("FAC".equals(division_name)) {
                 fac_panel.setVisible(true);
-            }
-            else{
+            } else {
                 fac_panel.setVisible(false);
             }
         }
 
         workCode.requestFocus();
-        
+
     }//GEN-LAST:event_empCode_JCItemStateChanged
 
     private void otdayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_otdayActionPerformed
@@ -1683,7 +1808,7 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
 
     private void empCode_JCKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_empCode_JCKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
-             workCode.requestFocus();
+            workCode.requestFocus();
 
         }        // TODO add your handling code here:
     }//GEN-LAST:event_empCode_JCKeyPressed
@@ -1704,11 +1829,11 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
 
     private void otnightKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_otnightKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
-            
-            Double t=Double.parseDouble(otday.getText())+Double.parseDouble(otnight.getText());
-            totalot.setText(""+t);
+
+            Double t = Double.parseDouble(otday.getText()) + Double.parseDouble(otnight.getText());
+            totalot.setText("" + t);
             jButton1.requestFocus();
-            
+
         }        // TODO add your handling code here:
     }//GEN-LAST:event_otnightKeyPressed
 
@@ -1723,14 +1848,12 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
     private void W_codeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_W_codeKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             workCode.setSelectedItem(W_code.getText());
-            if(jRadioButton1.isSelected()){
+            if (jRadioButton1.isSelected()) {
                 otday.requestFocus();
-            }
-            else{
+            } else {
                 in.requestFocus();
             }
-            
-            
+
         }
     }//GEN-LAST:event_W_codeKeyPressed
 
@@ -1743,9 +1866,9 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
     }//GEN-LAST:event_inActionPerformed
 
     private void inKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inKeyPressed
-         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-             out.requestFocus();
-         }
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            out.requestFocus();
+        }
     }//GEN-LAST:event_inKeyPressed
 
     private void outActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_outActionPerformed
@@ -1754,27 +1877,27 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
 
     private void outKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_outKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-             calc_ot.requestFocus();
-         }
+            calc_ot.requestFocus();
+        }
     }//GEN-LAST:event_outKeyPressed
 
     private void jRadioButton1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jRadioButton1ItemStateChanged
-        if(jRadioButton1.isSelected()){
+        if (jRadioButton1.isSelected()) {
             worked_time_panel.setVisible(false);
             calc_ot.setVisible(false);
-        }
-        else{
+        } else {
             worked_time_panel.setVisible(true);
             calc_ot.setVisible(true);
         }
     }//GEN-LAST:event_jRadioButton1ItemStateChanged
 
     private void calc_otFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_calc_otFocusGained
-         interface_events.Respond_enter(calc_ot, evt);
+        interface_events.Respond_enter(calc_ot, evt);
     }//GEN-LAST:event_calc_otFocusGained
 
     private void calc_otActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calc_otActionPerformed
-           jButton1.requestFocus();
+        ot_calc();
+        jButton1.requestFocus();
     }//GEN-LAST:event_calc_otActionPerformed
 
 
