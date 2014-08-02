@@ -43,6 +43,39 @@ public class Search {
             return word;
         }                                                         // more than one hit. return input
     }
+    
+    public String Suggestions_array(String arr[], String word) {
+        String Sg = null;
+        String keyword;
+        int i = 0;
+        int hits = 0;
+        int lenght = word.length();
+
+        int a = arr.length;
+
+        while (i < a - 1) {
+
+            if (lenght < arr[i + 1].length()) {
+                keyword = arr[i + 1].substring(0, lenght);
+                 
+                if (keyword.equals(word)) {
+                hits++;                                                      //get number of hits
+                Sg = arr[i + 1];
+               
+            }
+            } else {
+                keyword = word;
+            }
+            
+            i++;
+        }
+        if (hits == 1) {
+            return Sg;                                                        // return only hit
+        } else {
+            return word;
+        }                                                         // more than one hit. return input
+    }
+    
     public String[] Search_para(String para){
    String[] ASK = new String[2];
    

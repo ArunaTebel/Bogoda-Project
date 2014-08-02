@@ -96,6 +96,7 @@ public class PRCR_work_entry extends javax.swing.JPanel {
         work_main.add(worknorm);
         validate();
         repaint();
+        worknorm.focus();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
