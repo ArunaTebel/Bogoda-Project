@@ -1731,7 +1731,7 @@ set_zero();
       
          gross_amount.setText(""+(Double.parseDouble(set_val.getText())*Double.parseDouble(TotalKG.getText())));
          double rem = Double.parseDouble(gross_amount.getText())-Double.parseDouble(total_ad.getText())-Double.parseDouble(pedet.getText())-Double.parseDouble(loans.getText());
-        final_total.setText(""+rem);
+        final_total.setText(billsum.two_dec_places(""+rem));
         if(rem>0){
         
         final_total.setForeground(new java.awt.Color(0, 153, 0));}

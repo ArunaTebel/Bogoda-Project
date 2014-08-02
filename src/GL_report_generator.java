@@ -74,7 +74,7 @@ public class GL_report_generator {
         // DatabaseManager dbCon = DatabaseManager.getDbCon();
         //int  k =0 ;
         int j = 0;
-        String task = "1";
+       // String task = "1";
         //   String done = "DONE";
         int size = getColumnsize("suppliers", "sup_id");
         try {
@@ -100,6 +100,10 @@ public class GL_report_generator {
 
                 i++;
             }
+            
+            if(total==0){ dbm.CheckNDeleteFromDataBase("daily_transactions_current", "entry", year+month+sup);                    }
+            
+            else{
             try {
 
                 dbm.insert("INSERT INTO daily_transactions_current(entry,year,month,sup_id,sup_name,day_1,day_2,day_3,day_4,day_5,day_6,day_7,day_8,day_9,day_10,day_11,day_12,day_13,day_14,day_15,day_16,day_17,day_18,day_19,day_20,day_21,day_22,day_23,day_24,day_25,day_26,day_27,day_28,day_29,day_30,day_31,Total,trans) VALUES('" + year + month + sup + "','" + year + "','" + month + "','" + sup + "','" + name + "','" + day_totals[1] + "','" + day_totals[2] + "','" + day_totals[3] + "','" + day_totals[4] + "','" + day_totals[5] + "','" + day_totals[6] + "','" + day_totals[7] + "','" + day_totals[8] + "','" + day_totals[9] + "','" + day_totals[10] + "','" + day_totals[11] + "','" + day_totals[12] + "','" + day_totals[13] + "','" + day_totals[14] + "','" + day_totals[15] + "','" + day_totals[16] + "','" + day_totals[17] + "','" + day_totals[18] + "','" + day_totals[19] + "','" + day_totals[20] + "','" + day_totals[21] + "','" + day_totals[22] + "','" + day_totals[23] + "','" + day_totals[24] + "','" + day_totals[25] + "','" + day_totals[26] + "','" + day_totals[27] + "','" + day_totals[28] + "','" + day_totals[29] + "','" + day_totals[30] + "','" + day_totals[31] + "','" + total + "','" + day_totals[32] + "')");
@@ -117,7 +121,7 @@ public class GL_report_generator {
                 }
 
             }
-
+            }
             j++;
             try {
                 Task_manager.dailyTprog.setValue(j);

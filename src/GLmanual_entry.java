@@ -39,6 +39,7 @@ public class GLmanual_entry extends javax.swing.JPanel {
         initComponents();
         delete.setEnabled(false);
         leaf_cat.setSelectedItem("A");
+        leaf_cat.setEnabled(false);
          //  Component[] comps = category_code.getComponents();
        
         //comps[2].addFocusListener(new Combofill(category_code,"category", "category_id"));// default///////////////////////////////////////////////////////////////////////////////////////////////
@@ -721,7 +722,7 @@ public class GLmanual_entry extends javax.swing.JPanel {
                                     .addComponent(name, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGroup(layout.createSequentialGroup()
                                     .addGap(10, 10, 10)
-                                    .addComponent(category_code, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(category_code, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(0, 0, Short.MAX_VALUE))))
                         .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1087,10 +1088,17 @@ jButton1.setEnabled(true);
         } else if (leaf_cat.getSelectedItem() == null) {
             jLabel15.setText("Please Choose Leaf Category");
         } else {
-            
+            double trans;
             String trans_code = dbm.checknReturnData("suppliers", "sup_id", supplier_id.getSelectedItem().toString(), "trans_rate");
-        double trans = Double.parseDouble(dbm.checknReturnStringData("tranport_rates", "Trans_id", trans_code, "Trans_rate"));
-
+        try{  trans= Double.parseDouble(dbm.checknReturnStringData("tranport_rates", "Trans_id", trans_code, "Trans_rate"));
+        } catch(Exception er){
+          trans = 0;
+          JOptionPane.showMessageDialog(datechooser, "Transport code error");
+        }
+        
+       if(self_transport.isSelected()){
+       trans = 0;
+       }
             int i = 0;
             while (table.getValueAt(i, 0) != null) {
                 i++;
@@ -1707,7 +1715,9 @@ update.update_month_check(jButton1, yearfield, monthfield);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void editKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_editKeyPressed
-       if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+       
+        
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
        
          try {
              
@@ -1810,7 +1820,7 @@ update.update_month_check(jButton1, yearfield, monthfield);
   
     }
         
-          if(evt.getKeyCode()== 46){           jButton1.requestFocus();
+          if(evt.getKeyCode()== 127){           jButton1.requestFocus();
   
     }
         
