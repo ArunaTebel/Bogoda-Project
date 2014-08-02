@@ -245,47 +245,55 @@ public class GL_other_advances_class {
                // quantity = query.getDouble("item_quantity");
                // amount = query.getDouble("total_amount");
                 double total_amount = amount / inst;
-
-                String[] allMonths = new String[inst];
-                int i;
-                int monthNum = Integer.parseInt(month);
-                int newMonth;
-                if (Integer.parseInt(day) < 8) {
-                    for (i = 0; i < allMonths.length; i++) {
-                        newMonth = monthNum + i - 1;
-                        if (newMonth > 12) {
-                            newMonth = newMonth - 12;
-                        }
-                        allMonths[i] = String.valueOf(newMonth);
-                    }
-                } else {
-                    for (i = 0; i < allMonths.length; i++) {
-                        newMonth = monthNum + i;
-                        if (newMonth > 12) {
-                            newMonth = newMonth - 12;
-                        }
-                        allMonths[i] = String.valueOf(newMonth);
-                    }
-                }
-                Date loanDate1;
-                if (Integer.parseInt(day) < 8) {
-                    loanDate1 = new Date(Integer.parseInt(year) - 1900, Integer.parseInt(month) - 2, 8);
-                } else {
-                    loanDate1 = new Date(Integer.parseInt(year) - 1900, Integer.parseInt(month) - 1, 8);
-                }
-               
-                dbCon.insert("INSERT INTO gl_other_advances(advance_id,type,Date,issue_date,id,item_name,item_type,item_rate,item_quantity,installments,amount,total_amount,date_time,user)"
-                        + " VALUES('" + 0 + "','Current month','" + date + "','" + date + "','" + sup_id + "','" + item_name + "','" + item_type + "','" + item_rate + "','" + quantity + "','" + inst + "','" + amount + "','" + total_amount + "','" + date_time + "','" + user + "')");
-                int transaction = dbm.readLastRow("gl_other_advances", "tr_no");
-                dbCon.updateDatabase("gl_other_advances", "tr_no", transaction, "advance_id", transaction);
-                for (i = 1; i < allMonths.length; i++) {
-                    if (allMonths[i - 1].equals("12")) {
-                        year = String.valueOf(Integer.parseInt(year) + 1);
-                    }
-                    Date date1 = new Date(Integer.parseInt(year) - 1900, Integer.parseInt(allMonths[i]) - 1, 8);
-                    dbCon.insert("INSERT INTO gl_other_advances(advance_id,type,Date,issue_date,id,item_name,item_type,item_rate,item_quantity,installments,amount,total_amount,date_time,user)"
-                            + " VALUES('" + transaction + "','Previous','" + date1 + "','" + date + "','" + sup_id + "','" + item_name + "','" + item_type + "','" + item_rate + "','" + quantity + "','" + inst + "','" + amount + "','" + total_amount + "','" + date_time + "','" + user + "')");
-                }
+//
+//                String[] allMonths = new String[inst];
+//                int i;
+//                int monthNum = Integer.parseInt(month);
+//                int newMonth;
+//                if (Integer.parseInt(day) < 8) {
+//                    for (i = 0; i < allMonths.length; i++) {
+//                        newMonth = monthNum + i - 1;
+//                        if (newMonth > 12) {
+//                            newMonth = newMonth - 12;
+//                        }
+//                        allMonths[i] = String.valueOf(newMonth);
+//                    }
+//                } else {
+//                    for (i = 0; i < allMonths.length; i++) {
+//                        newMonth = monthNum + i;
+//                        if (newMonth > 12) {
+//                            newMonth = newMonth - 12;
+//                        }
+//                        allMonths[i] = String.valueOf(newMonth);
+//                    }
+//                }
+//                Date loanDate1;
+//                if (Integer.parseInt(day) < 8) {
+//                    loanDate1 = new Date(Integer.parseInt(year) - 1900, Integer.parseInt(month) - 2, 8);
+//                } else {
+//                    loanDate1 = new Date(Integer.parseInt(year) - 1900, Integer.parseInt(month) - 1, 8);
+//                }
+              int tr_no=0; 
+             dbCon.insert("INSERT INTO gl_other_advances(advance_id,type,Date,order_num,id,item_name,item_type,item_rate,item_quantity,installments,amount,total_amount,date_time,user)"
+                        + " VALUES('" + 1 + "','Current month','" + date + "','" + "BGS" + "','" + sup_id + "','" + item_name + "','" + item_type + "','" + item_rate + "','" + quantity + "','" + "1" + "','" + amount + "','" + total_amount + "','" + date_time + "','" + user + "')");
+             
+             ResultSet rs = dbCon.query("SELECT LAST_INSERT_ID()");
+            while (rs.next()) {
+                tr_no = rs.getInt(1);
+            }
+            
+            dbm.updateDatabase("gl_other_advances","tr_no",tr_no,"order_num",tr_no);
+            rs.close();
+              // int transaction = dbm.readLastRow("gl_other_advances", "tr_no");
+               // dbCon.updateDatabase("gl_other_advances", "tr_no", transaction, "advance_id", transaction);
+//                for (i = 1; i < allMonths.length; i++) {
+//                    if (allMonths[i - 1].equals("12")) {
+//                        year = String.valueOf(Integer.parseInt(year) + 1);
+//                    }
+//                    Date date1 = new Date(Integer.parseInt(year) - 1900, Integer.parseInt(allMonths[i]) - 1, 8);
+//                    dbCon.insert("INSERT INTO gl_other_advances(advance_id,type,Date,issue_date,id,item_name,item_type,item_rate,item_quantity,installments,amount,total_amount,date_time,user)"
+//                            + " VALUES('" + transaction + "','Previous','" + date1 + "','" + date + "','" + sup_id + "','" + item_name + "','" + item_type + "','" + item_rate + "','" + quantity + "','" + inst + "','" + amount + "','" + total_amount + "','" + date_time + "','" + user + "')");
+//                }
             } catch (Exception ex) {
                 Logger.getLogger(GL_Loans.class.getName()).log(Level.SEVERE, null, ex);
             }

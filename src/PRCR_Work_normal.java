@@ -32,6 +32,7 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
     public PRCR_Work_normal() {
 
         initComponents();
+        dayfield1.requestFocus();
 
     }
 
@@ -1848,10 +1849,15 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
     private void W_codeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_W_codeKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             workCode.setSelectedItem(W_code.getText());
+            if(division.getText()=="FAC"||division.getText()=="TA"||division.getText()=="FAC1"){
             if (jRadioButton1.isSelected()) {
                 otday.requestFocus();
             } else {
                 in.requestFocus();
+            }
+            }
+            else{
+                jButton1.requestFocus();
             }
 
         }

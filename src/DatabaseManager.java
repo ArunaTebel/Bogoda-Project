@@ -24,7 +24,7 @@ public final class DatabaseManager {
 
     DatabaseManager() {
 
-        //String url = "jdbc:mysql://192.168.1.60/";
+       // String url = "jdbc:mysql://192.168.1.60/";
        // String userName = "BogodaUser";
         String url = "jdbc:mysql://localhost:3306/";
         String dbName = "bogoda";

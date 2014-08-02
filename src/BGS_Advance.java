@@ -31,8 +31,8 @@ public class BGS_Advance extends javax.swing.JPanel {
      */
     public BGS_Advance() {
         initComponents();
-         Component[] comps = Discription_code.getComponents();
-        comps[2].addFocusListener(new Combofill(Discription_code,"rate_details","Code_name"));
+         //Component[] comps = Discription_code.getComponents();
+       // comps[2].addFocusListener(new Combofill(Discription_code,"rate_details","Code_name"));
         set_val.setText(dbm.checknReturnStringData("rate_details", "Code_name", "GLSET", "rate")+"");
         
     }
@@ -44,12 +44,13 @@ public class BGS_Advance extends javax.swing.JPanel {
     }
     
     public void clear(){
-     supplier_id.setSelectedIndex(0);
+            supplier_id.setSelectedIndex(0);
             Discription_code.setSelectedIndex(0);
-            Rate.setText("");
+            //Rate.setText("");
             qty.setText("");
             amount.setText("");
             month_inst.setText("");
+            
     
     
     
@@ -89,7 +90,6 @@ public class BGS_Advance extends javax.swing.JPanel {
         jLabel15 = new javax.swing.JLabel();
         allowable = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
-        Red_message = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         supplier_name = new javax.swing.JLabel();
@@ -116,6 +116,7 @@ public class BGS_Advance extends javax.swing.JPanel {
         jButton3 = new javax.swing.JButton();
         edit = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(1024, 466));
 
@@ -124,7 +125,7 @@ public class BGS_Advance extends javax.swing.JPanel {
         CodeName.setBackground(new java.awt.Color(0, 102, 0));
         CodeName.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         CodeName.setForeground(new java.awt.Color(102, 102, 102));
-        CodeName.setText(" ");
+        CodeName.setText("BOGODA STORES");
         CodeName.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel17.setText("Description Code");
@@ -222,7 +223,9 @@ public class BGS_Advance extends javax.swing.JPanel {
         jButton8.setText("View");
         jButton8.setToolTipText("View Codes");
 
+        Rate.setEditable(false);
         Rate.setBackground(new java.awt.Color(204, 204, 0));
+        Rate.setText("1");
 
         qty.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -238,9 +241,8 @@ public class BGS_Advance extends javax.swing.JPanel {
             }
         });
 
-        Discription_code.setEditable(true);
         Discription_code.putClientProperty("JComboBox.isTableCellEditor", Boolean.TRUE);
-        Discription_code.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("rate_details", "Code_name")));
+        Discription_code.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SHOP" }));
         Discription_code.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 Discription_codeItemStateChanged(evt);
@@ -291,8 +293,6 @@ public class BGS_Advance extends javax.swing.JPanel {
                     .addComponent(jButton2))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        Red_message.setForeground(new java.awt.Color(204, 0, 0));
 
         jLabel1.setText("User ID");
 
@@ -414,7 +414,7 @@ public class BGS_Advance extends javax.swing.JPanel {
         CodeName2.setBackground(new java.awt.Color(0, 102, 0));
         CodeName2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         CodeName2.setForeground(new java.awt.Color(102, 102, 102));
-        CodeName2.setText(" ");
+        CodeName2.setText("SHOP");
         CodeName2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -508,6 +508,10 @@ public class BGS_Advance extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(102, 102, 0));
+        jLabel11.setText("Green Leaf");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -529,10 +533,10 @@ public class BGS_Advance extends javax.swing.JPanel {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(supplier_id, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addGroup(layout.createSequentialGroup()
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                             .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(Red_message, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                             .addComponent(supplier_name, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -594,7 +598,7 @@ public class BGS_Advance extends javax.swing.JPanel {
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(datepanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Red_message, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(6, 6, 6)
@@ -673,7 +677,7 @@ public class BGS_Advance extends javax.swing.JPanel {
                     allowable.setText("" + bill.bill_sum_cal(Integer.parseInt(supplier_id.getSelectedItem().toString()), yearfield.getText(), datehandler.return_month_as_num(monthfield.getText()), Double.parseDouble(set_val.getText())));
         // allowable.setText("" + (dbm.checknReturnDataForCashAdvances("green_leaf_transactions", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "tr_date","2014-01-19","2014-01-21", "net_qty")));
                     
-                    Discription_code.requestFocus();
+                    qty.requestFocus();
                 }
             } catch (ParseException ex) {
                 Logger.getLogger(GL_Other_Advances.class.getName()).log(Level.SEVERE, null, ex);
@@ -1093,6 +1097,7 @@ public class BGS_Advance extends javax.swing.JPanel {
             cadvance.enter_directly();
            clear();
             JOptionPane.showMessageDialog(datechooser, "Saved");
+            supplier_id.requestFocus();
         } catch (Exception ex) {
             Logger.getLogger(GL_Other_Advances.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(datechooser, "There are empty fields");
@@ -1134,7 +1139,7 @@ public class BGS_Advance extends javax.swing.JPanel {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
        clear();
-       
+       supplier_id.requestFocus();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void save1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_save1FocusGained
@@ -1181,7 +1186,7 @@ public class BGS_Advance extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         dbm.updateDatabase("rate_details", "Code_name", "GLSET","rate", Double.parseDouble(set_val.getText()));
-        Red_message.setText("Set value saved");
+     //   Red_message.setText("Set value saved");
        double a =  bill.bill_sum_cal(Integer.parseInt(supplier_id.getSelectedItem().toString()), yearfield.getText(), datehandler.return_month_as_num(monthfield.getText()), Double.parseDouble(set_val.getText()));
        allowable.setText(""+a);
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -1202,7 +1207,6 @@ public class BGS_Advance extends javax.swing.JPanel {
     private javax.swing.JLabel CodeName2;
     private javax.swing.JComboBox Discription_code;
     private javax.swing.JTextField Rate;
-    private javax.swing.JLabel Red_message;
     private javax.swing.JLabel allowable;
     private javax.swing.JTextField amount;
     private com.michaelbaranov.microba.calendar.DatePicker datePicker1;
@@ -1220,6 +1224,7 @@ public class BGS_Advance extends javax.swing.JPanel {
     private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
