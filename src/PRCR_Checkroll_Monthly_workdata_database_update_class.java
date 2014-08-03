@@ -33,8 +33,7 @@ public class PRCR_Checkroll_Monthly_workdata_database_update_class implements Ru
     String st;
     public static int columnsize;
     public static int salarycalprogressbar = 0;
-    String month;
-    String year;
+
     double pre_debt_amount = 0;
     double prvmnth_normaldays = 0;
     double prvmnth_sundays = 0;
@@ -51,11 +50,10 @@ public class PRCR_Checkroll_Monthly_workdata_database_update_class implements Ru
     double normalDayRate;
     //PRCR_Checkroll_Salary_Cal ccal = new PRCR_Checkroll_Salary_Cal();
 
-    public PRCR_Checkroll_Monthly_workdata_database_update_class(String st, String year, String month) {
+    public PRCR_Checkroll_Monthly_workdata_database_update_class(String st) {
 
         this.st = st;
-        this.year = year;
-        this.month = month;
+       
         payslip= Double.parseDouble(dbm.checknReturnData("checkroll_pay_info", "checkroll", "1", "payslip"));
          normalDayRate=Double.parseDouble(dbm.checknReturnData("checkroll_pay_info", "checkroll", "1", "normalday_rate"));
 
@@ -79,8 +77,8 @@ public class PRCR_Checkroll_Monthly_workdata_database_update_class implements Ru
             dbm.insert("CREATE TABLE pr_workdata_" + yr_mnth + "(code INT,"
                     + "division VARCHAR(15)," + "register_or_casual INT,"
                     + "normal_days INT DEFAULT '0'," + "normal_pay DOUBLE DEFAULT '0'," + "sundays INT DEFAULT '0',"
-                    + "sunday_pay DOUBLE DEFAULT '0'," + "total_pay DOUBLE DEFAULT '0'," + "ot_before_hours DOUBLE DEFAULT '0',"
-                    + "ot_before_amount DOUBLE DEFAULT '0'," + "ot_after_hours DOUBLE DEFAULT '0'," + "ot_after_amount DOUBLE DEFAULT '0'," + "coinsbf DOUBLE DEFAULT '0',"
+                    + "sunday_pay DOUBLE DEFAULT '0'," + "total_pay DOUBLE DEFAULT '0'," + "ot_before_hours INT DEFAULT '0',"
+                    + "ot_before_amount DOUBLE DEFAULT '0'," + "ot_after_hours INT DEFAULT '0'," + "ot_after_amount DOUBLE DEFAULT '0'," + "coinsbf DOUBLE DEFAULT '0',"
                     + "incentive1 DOUBLE DEFAULT '0'," + "incentive2 DOUBLE DEFAULT '0'," + "extra_pay_cash DOUBLE DEFAULT '0'," + "extra_pay_overkilos DOUBLE DEFAULT '0',"
                     + "working_days_prvmnth DOUBLE DEFAULT '0'," + "extra_pay_holiday DOUBLE DEFAULT '0'," + "holidays_thsyr INT DEFAULT '0'," + "normal_days_bfr17 INT DEFAULT '0'," + "sundays_bfr17 INT DEFAULT '0'," + "extra_pay_may DOUBLE DEFAULT '0'," + "extra_pay DOUBLE DEFAULT '0',"
                     + "gross_pay DOUBLE DEFAULT '0'," + "tea DOUBLE DEFAULT '0'," + "salary_adv DOUBLE DEFAULT '0'," + "fest_adv DOUBLE DEFAULT '0',"
@@ -426,9 +424,11 @@ public class PRCR_Checkroll_Monthly_workdata_database_update_class implements Ru
        // String division[] = new String[nofdivisions];
             division = dbm.getStringArray("division_details", "code");
             nofdivisions = division.length;
-            updateMarginDates(workentryst, division, nofdivisions);//(2014-03,division[])-a method to update margin dates for this month for each division,
-    
+            //auto margin dates
+            // updateMarginDates(workentryst, division, nofdivisions);//(2014-03,division[])-a method to update margin dates for this month for each division,
+            //manual margin dates
             
+         
             year_month="pr_workdata_" + st;
             int i=0;
             

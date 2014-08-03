@@ -32,6 +32,7 @@ public class PRCR_salary_note_anlysis extends javax.swing.JPanel {
         PRCR_NoteAnalysis a=new PRCR_NoteAnalysis();
         a.Set_year(year.getText());
         a.Set_month(month.getText());
+        a.setDivision(division_combo.getSelectedItem().toString());;
         int columnSize = 0;
         //columnSize = a.getColumnsize("pr_workdata_"+a.getString(), "code");
         columnSize=a.checknReturnNumberOfEntriesForNoteAnalysis("pr_workdata_"+a.getString(), "register_or_casual", getReg(register_or_casual_combo.getSelectedItem().toString()), "active","1","code",chk);
@@ -138,12 +139,11 @@ public class PRCR_salary_note_anlysis extends javax.swing.JPanel {
         year = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         division = new javax.swing.JPanel();
-        division_lb = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         register_or_casual_combo = new javax.swing.JComboBox();
-        jButton2 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         division_combo = new javax.swing.JComboBox();
+        jButton2 = new javax.swing.JButton();
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
@@ -440,41 +440,6 @@ public class PRCR_salary_note_anlysis extends javax.swing.JPanel {
 
         register_or_casual_combo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Register", "Casual" }));
 
-        javax.swing.GroupLayout divisionLayout = new javax.swing.GroupLayout(division);
-        division.setLayout(divisionLayout);
-        divisionLayout.setHorizontalGroup(
-            divisionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(divisionLayout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(register_or_casual_combo, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(division_lb, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(29, Short.MAX_VALUE))
-        );
-        divisionLayout.setVerticalGroup(
-            divisionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(divisionLayout.createSequentialGroup()
-                .addGroup(divisionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(divisionLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(division_lb, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(divisionLayout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addGroup(divisionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(register_or_casual_combo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(31, Short.MAX_VALUE))
-        );
-
-        jButton2.setText("Generate");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
         jLabel2.setText("Division");
 
         division_combo.setEditable(true);
@@ -482,6 +447,45 @@ public class PRCR_salary_note_anlysis extends javax.swing.JPanel {
         division_combo.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 division_comboItemStateChanged(evt);
+            }
+        });
+
+        javax.swing.GroupLayout divisionLayout = new javax.swing.GroupLayout(division);
+        division.setLayout(divisionLayout);
+        divisionLayout.setHorizontalGroup(
+            divisionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(divisionLayout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addGroup(divisionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addGap(23, 23, 23)
+                .addGroup(divisionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(register_or_casual_combo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(division_combo, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(101, Short.MAX_VALUE))
+        );
+        divisionLayout.setVerticalGroup(
+            divisionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(divisionLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(divisionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(divisionLayout.createSequentialGroup()
+                        .addComponent(division_combo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(register_or_casual_combo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(divisionLayout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+
+        jButton2.setText("Generate");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
             }
         });
 
@@ -496,31 +500,23 @@ public class PRCR_salary_note_anlysis extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(division, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(25, 25, 25)
                                 .addComponent(jLabel1)
                                 .addGap(94, 94, 94)
-                                .addComponent(checkrollOrStaff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(division, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(29, 29, 29)
-                                .addComponent(jLabel8)))
+                                .addComponent(checkrollOrStaff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(29, 29, 29)
+                        .addComponent(jLabel8)
                         .addGap(18, 18, 18)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(86, 86, 86))
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(100, 100, 100))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(54, 54, 54)
-                        .addComponent(jLabel2)
-                        .addGap(98, 98, 98)
-                        .addComponent(division_combo, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(100, 100, 100))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -532,10 +528,6 @@ public class PRCR_salary_note_anlysis extends javax.swing.JPanel {
                             .addComponent(jSeparator1)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(53, 53, 53)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE, false)
-                                    .addComponent(division_combo)
-                                    .addComponent(jLabel2))
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -583,7 +575,7 @@ public class PRCR_salary_note_anlysis extends javax.swing.JPanel {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         if (checkrollOrStaff.getSelectedItem() == "Checkroll") {
             PRCR_NoteAnalysis naObject = new PRCR_NoteAnalysis();
-          //  naObject.setDivision(division_combo.getSelectedItem().toString());
+          naObject.setDivision(division_combo.getSelectedItem().toString());
             naObject.setReg(register_or_casual_combo.getSelectedItem().toString());
             
             naObject.Set_year(year.getText());
@@ -602,7 +594,7 @@ public class PRCR_salary_note_anlysis extends javax.swing.JPanel {
         } else {
 
               PRCR_NoteAnalysis naObject = new PRCR_NoteAnalysis();
-          //  naObject.setDivision(division_combo.getSelectedItem().toString());
+          //naObject.setDivision(division_combo.getSelectedItem().toString());
             naObject.setReg(register_or_casual_combo.getSelectedItem().toString());
             
             naObject.Set_year(year.getText());
@@ -822,7 +814,7 @@ public class PRCR_salary_note_anlysis extends javax.swing.JPanel {
                 System.out.println("error");
             }
 
-            division_lb.setText("" + Name);
+            //division_lb.setText("" + Name);
         }
     }//GEN-LAST:event_division_comboItemStateChanged
 
@@ -842,7 +834,6 @@ public class PRCR_salary_note_anlysis extends javax.swing.JPanel {
     private javax.swing.JComboBox checkrollOrStaff;
     private javax.swing.JPanel division;
     private javax.swing.JComboBox division_combo;
-    private javax.swing.JLabel division_lb;
     private javax.swing.JTextField fullPay;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;

@@ -22,7 +22,7 @@ FROM
 	<field name="prcr_checkroll_amalgamation_report_section" class="java.lang.String"/>
 	<field name="prcr_checkroll_amalgamation_report_work_days" class="java.lang.Integer"/>
 	<field name="prcr_checkroll_amalgamation_report_work_days_pay" class="java.lang.Double"/>
-	<field name="prcr_checkroll_amalgamation_report_ot_hours" class="java.lang.Integer"/>
+	<field name="prcr_checkroll_amalgamation_report_ot_hours" class="java.lang.Double"/>
 	<field name="prcr_checkroll_amalgamation_report_ot_hours_pay" class="java.lang.Double"/>
 	<field name="prcr_checkroll_amalgamation_report_coins" class="java.lang.Double"/>
 	<field name="prcr_checkroll_amalgamation_report_grand_total" class="java.lang.Double"/>

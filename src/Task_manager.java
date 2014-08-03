@@ -4,6 +4,7 @@ import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.UIDefaults;
 import javax.swing.UIManager;
 
@@ -1088,7 +1089,7 @@ if(update.check_update(yearfield.getText(), datehandler.return_month_as_num(mont
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         b.stop();      // TODO add your handling code here:
     }//GEN-LAST:event_jButton5ActionPerformed
-Thread b;
+public static Thread b;
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
 
         String st;
@@ -1098,9 +1099,11 @@ Thread b;
             st = yearfield.getText() + "_" + datehandler.return_index(monthfield.getText());
         }
         System.out.println(st);
-        b = new Thread(new PRCR_Checkroll_Monthly_workdata_database_update_class(st,yearfield.getText(),monthfield.getText()));
-        b.setPriority(10);
-        b.start();
+           PRCR_change_margin_dates marg=new PRCR_change_margin_dates();
+            marg.setVisible(true);
+            marg.setInputParameters(st);
+           
+     
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
