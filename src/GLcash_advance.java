@@ -758,7 +758,7 @@ public class GLcash_advance extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cash_cheque_comboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cash_cheque_comboActionPerformed
-
+   
         String selection = (String) cash_cheque_combo.getSelectedItem();
 
         if (selection.equalsIgnoreCase("Cash")) {
@@ -776,6 +776,8 @@ public class GLcash_advance extends javax.swing.JPanel {
     }//GEN-LAST:event_cash_cheque_comboActionPerformed
 
     private void supplier_idItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_supplier_idItemStateChanged
+     
+        
         if (supplier_id.getSelectedIndex() != 0) {
              if(supplier_id.getSelectedItem()!=null){
             try {
@@ -819,6 +821,8 @@ public class GLcash_advance extends javax.swing.JPanel {
     }//GEN-LAST:event_cash_cheque_comboKeyPressed
 
     private void SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveActionPerformed
+     if(Emergency.isSelected()){
+        
         if (cash_cheque_combo.getSelectedItem().toString() == "Cash") {
 
             if (supplier_id.getSelectedItem() == null || amount.getText().length() == 0) {
@@ -891,7 +895,9 @@ public class GLcash_advance extends javax.swing.JPanel {
                 Logger.getLogger(GLcash_advance.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-
+     }
+     else{  JOptionPane.showMessageDialog(datechooser, "This entry should be saved to the book");
+             }
     }//GEN-LAST:event_SaveActionPerformed
 
     private void SaveFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_SaveFocusGained

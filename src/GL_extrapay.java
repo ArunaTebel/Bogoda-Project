@@ -604,7 +604,12 @@ public class GL_extrapay extends javax.swing.JPanel {
 
                 if(!edit2.getText().equals("")){ tr_no = Integer.parseInt(edit2.getText());            }
                 supplier_id.setSelectedItem(dbm.checknReturnData("gl_extra_pay", "entry", tr_no, "sup_id"));
-
+                String temp = dbm.checknReturnData("gl_extra_pay", "entry", tr_no, "month");
+                String year = temp.substring(0, 4);
+                String month = temp.substring(4, 6);
+                
+                monthfield.setText(datehandler.Return_month(Integer.parseInt(month)));
+                yearfield.setText(year);
                // String date= dbm.checknReturnData("gl_cash_advance", "entry_no", tr_no, "issued_date");
                // String pay = dbm.checknReturnData("gl_cash_advance", "entry_no", tr_no, "pay_type");
                
@@ -667,10 +672,11 @@ public class GL_extrapay extends javax.swing.JPanel {
        Amount = Double.parseDouble(amount.getText());
        } catch(Exception  e){  JOptionPane.showMessageDialog(amount, "Invalid Id");} 
         try {
-            dbm.insert("INSERT INTO gl_extra_pay (entry,month,sup_id, amount,user,date_time,user,date_time) values('"+year+month+sup_id+"','"+year+month+"','"+sup_id+"','"+Amount+"','"+user+"','"+date_time+"')");
+            dbm.insert("INSERT INTO gl_extra_pay (entry,month,sup_id, amount,user,date_time) values('"+year+month+sup_id+"','"+year+month+"','"+sup_id+"','"+Amount+"','"+user+"','"+date_time+"')");
              clear();
             JOptionPane.showMessageDialog(amount, "Saved");
         } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(amount, "Error");
             Logger.getLogger(GL_extrapay.class.getName()).log(Level.SEVERE, null, ex);
         }
        
@@ -711,10 +717,15 @@ supplier_id.setSelectedIndex(0);
        Amount = Double.parseDouble(amount.getText());
        } catch(Exception  e){  JOptionPane.showMessageDialog(amount, "Invalid Id");} 
         try {
-            dbm.insert("UPDATE gl_extra_pay SET sup_id= '"+sup_id+"', month='"+year+month+"', amount='"+Amount+"', user='"+user+"', date time='"+date_time+"'  WHERE entry = '"+year+month+sup_id+"'");
+            dbm.insert("UPDATE gl_extra_pay SET sup_id= '"+sup_id+"', month='"+year+month+"', amount='"+Amount+"', user='"+user+"', date_time='"+date_time+"'  WHERE entry = '"+year+month+sup_id+"'");
+              clear();
+               supplier_id.requestFocus();
+            JOptionPane.showMessageDialog(amount, "Updated"); 
         } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(amount, "Error");
             Logger.getLogger(GL_extrapay.class.getName()).log(Level.SEVERE, null, ex);
         }
+       
     }//GEN-LAST:event_UpdateBActionPerformed
 
 

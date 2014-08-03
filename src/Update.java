@@ -57,7 +57,7 @@ public class Update {
      
      
      }
-     public void update_month_check(javax.swing.JButton update_button, javax.swing.JTextField year, javax.swing.JTextField month){
+     public boolean update_month_check(javax.swing.JButton update_button, javax.swing.JTextField year, javax.swing.JTextField month){
      String a = year.getText()+datehandler.return_month_as_num(month.getText());
         // System.out.println(a);
      String aa = "";
@@ -75,11 +75,13 @@ public class Update {
       if(aa.equals("YES")){
       
       update_button.setEnabled(false);
+      return true;
       
       }
       else{
       
       update_button.setEnabled(true);
+      return false;
       }
      
      

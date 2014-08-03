@@ -256,7 +256,6 @@ public class Report_GL_weekly_advances extends javax.swing.JPanel {
         );
 
         view.setText("Update");
-        view.setEnabled(false);
         view.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 viewMouseClicked(evt);

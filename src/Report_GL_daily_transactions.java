@@ -125,7 +125,41 @@ public class Report_GL_daily_transactions extends javax.swing.JPanel {
         }
 
     }
+ public class report_extra implements Runnable {
 
+        public report_extra() {
+        }
+
+        @Override
+        public void run() {
+
+            Thread a = new Thread(new Background(55));
+
+           // Thread t1 = new Thread(new update(yearfield.getText(), monthfield.getText()));
+            HashMap param = new HashMap();
+            param.put("USER", user.get_current_user());
+           // param.put("year", yearfield.getText());
+            param.put("month", yearfield.getText()+datehandler.return_month_as_num(monthfield.getText()));
+            param.put("Month", datehandler.Return_month_full(datehandler.return_index(monthfield.getText())) + " " + yearfield.getText().toString());
+
+            // b.start();
+            a.start();
+           // t1.run();
+
+            String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
+
+           String dateNow= generate.create("Extrapay", saveloc, param, location, "GL_extra_pay.jrxml");
+            a.stop();
+            jProgressBar1.setValue(100);
+            try {
+                generate.savename(dateNow, "Daily_tansactions_", yearfield.getText()+datehandler.return_month_as_num(monthfield.getText()));
+            } catch (SQLException ex) {
+                Logger.getLogger(Report_GL_daily_transactions.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+
+    }
     public class update implements Runnable {
 
         public GL_report_generator report_gen;
@@ -191,6 +225,7 @@ public class Report_GL_daily_transactions extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         view2 = new javax.swing.JButton();
         view1 = new javax.swing.JButton();
+        view3 = new javax.swing.JButton();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 6));
 
@@ -300,6 +335,18 @@ public class Report_GL_daily_transactions extends javax.swing.JPanel {
             }
         });
 
+        view3.setText("Extra Pay");
+        view3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                view3MouseClicked(evt);
+            }
+        });
+        view3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                view3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -313,11 +360,13 @@ public class Report_GL_daily_transactions extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(view2, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
                             .addComponent(view, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(view1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(view1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(42, 42, 42)
+                        .addComponent(view3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(81, Short.MAX_VALUE))
+                .addGap(41, 41, 41))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -329,7 +378,9 @@ public class Report_GL_daily_transactions extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(view, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(view1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(view1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(view3, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(view2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(71, 71, 71)
@@ -577,6 +628,15 @@ public class Report_GL_daily_transactions extends javax.swing.JPanel {
         b.start();
     }//GEN-LAST:event_view1ActionPerformed
 
+    private void view3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_view3MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_view3MouseClicked
+
+    private void view3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_view3ActionPerformed
+           Thread b = new Thread(new report_extra());
+        b.start();
+    }//GEN-LAST:event_view3ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.michaelbaranov.microba.calendar.DatePicker datePicker1;
@@ -588,6 +648,7 @@ public class Report_GL_daily_transactions extends javax.swing.JPanel {
     private javax.swing.JButton view;
     private javax.swing.JButton view1;
     private javax.swing.JButton view2;
+    private javax.swing.JButton view3;
     private javax.swing.JTextField yearfield;
     // End of variables declaration//GEN-END:variables
 }
