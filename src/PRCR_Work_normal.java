@@ -35,21 +35,27 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
 
     }
 
+    public void focus() {
+        this.requestFocusInWindow();
+        dayfield1.requestFocusInWindow();
+        dayfield1.selectAll();
+    }
+
     public void ot_calc() {
         int inn = Integer.parseInt(in.getText());
         int outn = Integer.parseInt(out.getText());
 
         int a1, b1, a2, b2;
         int min1, min2;
-                
+
         double dif;
 
         double dyot, nyot;
-        double rnd=0;
+        double rnd = 0;
 
         double dif_hrs = 0;
-        
-        double temp=0;
+
+        double temp = 0;
 
         if (inn < outn) {
             a1 = inn / 100;
@@ -71,43 +77,42 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
                 otnight.setText("0");
             } else {
                 if (min2 <= 18 * 60) {
-                   // System.out.println(dif_hrs-9);
-                    rnd=Math.round((dif_hrs-9)*100.0)/ 100.0;
-                  //  System.out.println(rnd);
-                    otday.setText("" +rnd);
+                    // System.out.println(dif_hrs-9);
+                    rnd = Math.round((dif_hrs - 9) * 100.0) / 100.0;
+                    //  System.out.println(rnd);
+                    otday.setText("" + rnd);
                     otnight.setText("0");
                 } else {
                     if ((min1 + 9 * 60) > (18 * 60)) {
-                        rnd=Math.round((dif_hrs-9) * 100.0) / 100.0;
+                        rnd = Math.round((dif_hrs - 9) * 100.0) / 100.0;
                         otnight.setText("" + rnd);
                         otday.setText("0");
                     } else {
-                        dyot=(18*60-min1 - 9*60)/60;
-                        temp=(min2-18*60);
-                        nyot= temp/60;
+                        dyot = (18 * 60 - min1 - 9 * 60) / 60;
+                        temp = (min2 - 18 * 60);
+                        nyot = temp / 60;
                         //System.out.println(min2);
                         //System.out.println(dyot);
                         //System.out.println(nyot);
-                        rnd=Math.round(dyot*100.0)/100.0;
-                        otday.setText(""+rnd);
-                        rnd=Math.round(nyot*100.0)/100.0;
-                        otnight.setText(""+rnd);
+                        rnd = Math.round(dyot * 100.0) / 100.0;
+                        otday.setText("" + rnd);
+                        rnd = Math.round(nyot * 100.0) / 100.0;
+                        otnight.setText("" + rnd);
                     }
 
                 }
             }
 
-        }
-        else{
+        } else {
             a1 = inn / 100;
             b1 = inn - a1 * 100;
 
-            min1 = a1 * 60 + b1-12*60;
+            min1 = a1 * 60 + b1 - 12 * 60;
 
             a2 = outn / 100;
             b2 = outn - a2 * 100;
 
-            min2 = a2 * 60 + b2+12*60;
+            min2 = a2 * 60 + b2 + 12 * 60;
 
             dif = min2 - min1;
 
@@ -118,28 +123,28 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
                 otnight.setText("0");
             } else {
                 if (min2 <= 18 * 60) {
-                   // System.out.println(dif_hrs-9);
-                    rnd=Math.round((dif_hrs-9)*100.0)/ 100.0;
-                  //  System.out.println(rnd);
-                    otnight.setText("" +rnd);
+                    // System.out.println(dif_hrs-9);
+                    rnd = Math.round((dif_hrs - 9) * 100.0) / 100.0;
+                    //  System.out.println(rnd);
+                    otnight.setText("" + rnd);
                     otday.setText("0");
                 } else {
                     if ((min1 + 9 * 60) > (18 * 60)) {
-                        rnd=Math.round((dif_hrs-9) * 100.0) / 100.0;
+                        rnd = Math.round((dif_hrs - 9) * 100.0) / 100.0;
                         otday.setText("" + rnd);
                         otnight.setText("0");
                     } else {
-                        dyot=(18*60-min1 - 9*60)/60;
-                        temp=(min2-18*60);
-                        nyot= temp/60;
+                        dyot = (18 * 60 - min1 - 9 * 60) / 60;
+                        temp = (min2 - 18 * 60);
+                        nyot = temp / 60;
                         //System.out.println(min2);
                         //System.out.println(dyot);
                         //System.out.println(nyot);
-                        rnd=Math.round(dyot*100.0)/100.0;
-                        otnight.setText(""+rnd);
-                        rnd=Math.round(nyot*100.0)/100.0;
+                        rnd = Math.round(dyot * 100.0) / 100.0;
+                        otnight.setText("" + rnd);
+                        rnd = Math.round(nyot * 100.0) / 100.0;
                         otday
-                                .setText(""+rnd);
+                                .setText("" + rnd);
                     }
 
                 }
@@ -530,7 +535,6 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
     private void initComponents() {
 
         jSeparator1 = new javax.swing.JSeparator();
-        sunday = new javax.swing.JCheckBox();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
@@ -574,10 +578,10 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
         jLabel9 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         calc_ot = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        sunday = new javax.swing.JCheckBox();
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
-
-        sunday.setText("Sunday");
 
         jLabel3.setText("Date");
 
@@ -726,7 +730,7 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
             table.getColumnModel().getColumn(4).setPreferredWidth(40);
         }
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 153)));
 
         jLabel1.setText("Employee Code");
 
@@ -859,7 +863,7 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
             }
         });
 
-        datepanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        datepanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 153)));
 
         monthfield1.setText(datehandler.get_today_month());
         monthfield1.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -923,7 +927,7 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
             }
         });
 
-        jPanel6.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 153)));
 
         workCode.putClientProperty("JComboBox.isTableCellEditor", Boolean.TRUE);
         workCode.setEditable(true);
@@ -953,6 +957,9 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 W_codeKeyPressed(evt);
             }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                W_codeKeyReleased(evt);
+            }
         });
 
         jLabel4.setText("Work Code");
@@ -964,11 +971,11 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel4)
-                .addGap(18, 18, 18)
-                .addComponent(workCode, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addComponent(W_code, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addGap(33, 33, 33)
+                .addComponent(workCode, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1191,6 +1198,25 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
+        jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 153)));
+
+        sunday.setText("Sunday");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(sunday))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(sunday))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -1199,63 +1225,63 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(273, 273, 273)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
+                                .addComponent(fac_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(fac_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jLabel3)
-                                                .addGap(8, 8, 8)
-                                                .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(10, 10, 10)
-                                                .addComponent(sunday))
-                                            .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(0, 0, Short.MAX_VALUE)))
-                                .addGap(6, 6, 6))
+                                        .addComponent(jLabel3)
+                                        .addGap(8, 8, 8)
+                                        .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(46, 46, 46)
+                                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(275, 275, 275))
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(263, 263, 263))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(273, 273, 273)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(275, 275, 275))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jSeparator1)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(52, 52, 52)
-                        .addComponent(jScrollPane1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(14, 14, 14)
-                                .addComponent(jLabel3))
-                            .addComponent(sunday, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addGap(11, 11, 11)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(14, 14, 14)
+                                    .addComponent(jLabel3))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(fac_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addGap(18, 18, 18)
+                            .addComponent(fac_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 445, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -1299,84 +1325,72 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-    //    try {
-            if (empCode_JC.getSelectedItem().toString().length() != 0) {
-                table.setValueAt(empCode_JC.getSelectedItem(), rows, 0);
-                table.setValueAt(empName.getText(), rows, 1);
-                table.setValueAt(workCode.getSelectedItem(), rows, 2);
+        //    try {
+        if (empCode_JC.getSelectedItem().toString().length() != 0) {
+            table.setValueAt(empCode_JC.getSelectedItem(), rows, 0);
+            table.setValueAt(empName.getText(), rows, 1);
+            table.setValueAt(workCode.getSelectedItem(), rows, 2);
 
-                table.setValueAt(dbm.checknReturnData("checkroll_personalinfo", "code", empCode_JC.getSelectedItem(), "division"), rows, 5);//get the division from checkroll_personalinfo
-                if (otday.getText().length() == 0) {
-                    table.setValueAt("0", rows, 3);
+            table.setValueAt(dbm.checknReturnData("checkroll_personalinfo", "code", empCode_JC.getSelectedItem(), "division"), rows, 5);//get the division from checkroll_personalinfo
+            if (otday.getText().length() == 0) {
+                table.setValueAt("0", rows, 3);
 
-                } else {
-                    table.setValueAt(otday.getText(), rows, 3);
-                }
-
-                if (otnight.getText().length() == 0) {
-                    table.setValueAt("0", rows, 4);
-
-                } else {
-                    table.setValueAt(otnight.getText(), rows, 4);
-                }
-                rows++;
-                // TODO add your handling code here:
-                workCode.setSelectedIndex(0);
-                in.setText(null);
-                out.setText(null);
-                
-                empCode_JC.setSelectedItem(null);
-                otday.setText(null);
-                otnight.setText(null);
-               // workCode.setSelectedItem(null);
-               // in.setText(null);
-               // out.setText(null);
-                empCode_JC.requestFocus();
-                sunday.setEnabled(false);
-                dayfield1.setEnabled(false);
-                monthfield1.setEnabled(false);
-                yearfield1.setEnabled(false);
             } else {
-                JOptionPane.showMessageDialog(null, "Enter the employee code\n", "Message", JOptionPane.INFORMATION_MESSAGE);
-                empCode_JC.requestFocus();
-                sunday.setEnabled(false);
-                dayfield1.setEnabled(false);
-                monthfield1.setEnabled(false);
-                yearfield1.setEnabled(false);
+                table.setValueAt(otday.getText(), rows, 3);
             }
-    /*    } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Enter the employee code\n", "Message", JOptionPane.INFORMATION_MESSAGE);
-            System.out.println(e);
+
+            if (otnight.getText().length() == 0) {
+                table.setValueAt("0", rows, 4);
+
+            } else {
+                table.setValueAt(otnight.getText(), rows, 4);
+            }
+            rows++;
+            // TODO add your handling code here:
+            workCode.setSelectedIndex(0);
+            in.setText(null);
+            out.setText(null);
+
+            empCode_JC.setSelectedItem(null);
+            otday.setText(null);
+            otnight.setText(null);
+            empName.setText(null);
+            division.setText(null);
+            // workCode.setSelectedItem(null);
+            // in.setText(null);
+            // out.setText(null);
             empCode_JC.requestFocus();
             sunday.setEnabled(false);
             dayfield1.setEnabled(false);
             monthfield1.setEnabled(false);
             yearfield1.setEnabled(false);
-        }*/
+        } else {
+            JOptionPane.showMessageDialog(null, "Enter the employee code\n", "Message", JOptionPane.INFORMATION_MESSAGE);
+            empCode_JC.requestFocus();
+            sunday.setEnabled(false);
+            dayfield1.setEnabled(false);
+            monthfield1.setEnabled(false);
+            yearfield1.setEnabled(false);
+        }
+        /*    } catch (Exception e) {
+         JOptionPane.showMessageDialog(null, "Enter the employee code\n", "Message", JOptionPane.INFORMATION_MESSAGE);
+         System.out.println(e);
+         empCode_JC.requestFocus();
+         sunday.setEnabled(false);
+         dayfield1.setEnabled(false);
+         monthfield1.setEnabled(false);
+         yearfield1.setEnabled(false);
+         }*/
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void workCodeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_workCodeItemStateChanged
-        String Name = null;
-        if (evt.getStateChange() == ItemEvent.SELECTED) {
-            String item = evt.getItem().toString();
-            try {
-                ResultSet query = dbm.query("SELECT * FROM workcode_details WHERE code =" + item + "");
-                while (query.next()) {
-                    Name = query.getString("work");
-                }
-            } catch (SQLException ex) {
-            }
-            // work_code.setText("" + Name);
-        }
+
         if(workCode.getSelectedItem()!=null){
-             W_code.setText(workCode.getSelectedItem().toString());
+        W_code.setText(""+workCode.getSelectedItem());
         }
         else{
             W_code.setText("");
         }
-        
-        W_code.requestFocus();
-        W_code.selectAll();
 
     }//GEN-LAST:event_workCodeItemStateChanged
 
@@ -1416,7 +1430,7 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
             }
         }
 
-        workCode.requestFocus();
+        W_code.requestFocus();
 
     }//GEN-LAST:event_empCode_JCItemStateChanged
 
@@ -1847,12 +1861,21 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
 
     private void W_codeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_W_codeKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            workCode.setSelectedItem(W_code.getText());
-            if (jRadioButton1.isSelected()) {
-                otday.requestFocus();
+          
+               workCode.setSelectedItem(W_code.getText());
+           
+            
+            if ("FAC".equals(division.getText()) || "TA".equals(division.getText()) || "FAC1".equals(division.getText())) {
+                if (jRadioButton1.isSelected()) {
+                    otday.requestFocus();
+                } else {
+                    in.requestFocus();
+                }
             } else {
-                in.requestFocus();
+     
+                jButton1.requestFocus();
             }
+              workCode.setSelectedItem(W_code.getText());
 
         }
     }//GEN-LAST:event_W_codeKeyPressed
@@ -1898,7 +1921,36 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
     private void calc_otActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calc_otActionPerformed
         ot_calc();
         jButton1.requestFocus();
+
     }//GEN-LAST:event_calc_otActionPerformed
+
+    Search srch = new Search();
+    private void W_codeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_W_codeKeyReleased
+       if (evt.getKeyCode() != KeyEvent.VK_BACK_SPACE && evt.getKeyCode() != KeyEvent.VK_SHIFT && evt.getKeyCode() != KeyEvent.VK_ENTER) {
+            String a;
+            int b = W_code.getText().length();
+
+            a = srch.Suggestions("workcode_details", "code", W_code.getText());
+            int c = a.length();
+        
+            W_code.setText(a);
+            if (c != b) {
+                W_code.select(b, c);
+            }
+
+            if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+                if (division.getText() == "FAC" || division.getText() == "TA" || division.getText() == "FAC1") {
+                    if (jRadioButton1.isSelected()) {
+                        otday.requestFocus();
+                    } else {
+                        in.requestFocus();
+                    }
+                } else {
+                    jButton1.requestFocus();
+                }
+            }
+        }
+    }//GEN-LAST:event_W_codeKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1932,6 +1984,7 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JScrollPane jScrollPane1;

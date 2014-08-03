@@ -326,19 +326,19 @@ public class PRCR_test_jframe extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 
-        String st;
-        if (datehandler.return_index(month.getText()) < 10) {
-            st = year.getText() + "_0" + datehandler.return_index(month.getText());
-        } else {
-            st = year.getText() + "_" + datehandler.return_index(month.getText());
-        }
-        System.out.println(st);
-        b = new Thread(new PRCR_Checkroll_Monthly_workdata_database_update_class(st, year.getText(),month.getText()));
-        b.start();
+//        String st;
+//        if (datehandler.return_index(month.getText()) < 10) {
+//            st = year.getText() + "_0" + datehandler.return_index(month.getText());
+//        } else {
+//            st = year.getText() + "_" + datehandler.return_index(month.getText());
+//        }
+//        System.out.println(st);
+//        b = new Thread(new PRCR_Checkroll_Monthly_workdata_database_update_class(st, year.getText(),month.getText()));
+//        b.start();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        b.stop();      // TODO add your handling code here:
+       // b.stop();      // TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void yearKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_yearKeyPressed

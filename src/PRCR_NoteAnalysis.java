@@ -504,7 +504,7 @@ public class PRCR_NoteAnalysis {
             //     ResultSet query = dbm.query("SELECT * FROM " + table_name + " WHERE " + table_column_giving1 + " ='" + row_element1 + " 'AND " + table_column_giving2 +" <'" + row_element2 + "'");
             ResultSet query;
             if(a==1){
-            query = dbm.query("SELECT * FROM " + table_name + " WHERE " + table_column_giving1 + " ='" + row_element1 + " 'AND " + table_column_giving2 + " LIKE'" + row_element2 + "' AND division NOT LIKE '"+"STAFF"+"'");
+            query = dbm.query("SELECT * FROM " + table_name + " WHERE " + table_column_giving1 + " ='" + row_element1 + " 'AND " + table_column_giving2 + " LIKE'" + row_element2 + "' AND division ='"+division+"'");
             }else{
             query = dbm.query("SELECT * FROM " + table_name + " WHERE " + table_column_giving1 + " ='" + row_element1 + " 'AND " + table_column_giving2 + " LIKE'" + row_element2 + "' AND division LIKE '"+"STAFF"+"'");
             
@@ -532,7 +532,7 @@ public class PRCR_NoteAnalysis {
             //     ResultSet query = dbm.query("SELECT * FROM " + table_name + " WHERE " + table_column_giving1 + " ='" + row_element1 + " 'AND " + table_column_giving2 +" <'" + row_element2 + "'");
            ResultSet query;
             if(a==1){
-            query = dbm.query("SELECT * FROM " + table_name + " WHERE " + table_column_giving1 + " ='" + row_element1 + " 'AND " + table_column_giving2 + " LIKE'" + row_element2 + "' AND division NOT LIKE '"+"STAFF"+"'");
+            query = dbm.query("SELECT * FROM " + table_name + " WHERE " + table_column_giving1 + " ='" + row_element1 + " 'AND " + table_column_giving2 + " LIKE'" + row_element2 + "' AND division ='"+division+"'");
             }else{
             query = dbm.query("SELECT * FROM " + table_name + " WHERE " + table_column_giving1 + " ='" + row_element1 + " 'AND " + table_column_giving2 + " LIKE'" + row_element2 + "' AND division LIKE '"+"STAFF"+"'");
             
@@ -560,15 +560,17 @@ public class PRCR_NoteAnalysis {
             //     ResultSet query = dbm.query("SELECT * FROM " + table_name + " WHERE " + table_column_giving1 + " ='" + row_element1 + " 'AND " + table_column_giving2 +" <'" + row_element2 + "'");
              ResultSet query;
             if(a==1){
-            query = dbm.query("SELECT * FROM " + table_name + " WHERE " + table_column_giving1 + " ='" + row_element1 + " 'AND " + table_column_giving2 + " LIKE'" + row_element2 + "' AND division NOT LIKE '"+"STAFF"+"'");
+            query = dbm.query("SELECT * FROM " + table_name + " WHERE " + table_column_giving1 + " ='" + row_element1 + " 'AND " + table_column_giving2 + " LIKE'" + row_element2 + "' AND division ='"+division+"'");
             }else{
             query = dbm.query("SELECT * FROM " + table_name + " WHERE " + table_column_giving1 + " ='" + row_element1 + " 'AND " + table_column_giving2 + " LIKE'" + row_element2 + "' AND division LIKE '"+"STAFF"+"'");
             
             
             }
+            System.out.println("division="+division);
             while (query.next()) {
                 count++;
             }
+            System.out.println("Count-"+count);
             query.close();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());

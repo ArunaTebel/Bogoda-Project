@@ -15,18 +15,18 @@ import javax.swing.JOptionPane;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Pramo
  */
 public class PRCR_other_advances extends javax.swing.JPanel {
-Interface_Events interface_events=new Interface_Events();
+
+    Interface_Events interface_events = new Interface_Events();
     Date_Handler datehandler = new Date_Handler();
     DateChooser_text datechooser = new DateChooser_text();
     DatabaseManager dbm = DatabaseManager.getDbCon();
     private int rows = 0;
-   
+
     //GL_other_advances_class cadvance = new GL_other_advances_class();
     /**
      * Creates new form PRCR_other_advances
@@ -34,49 +34,51 @@ Interface_Events interface_events=new Interface_Events();
     public PRCR_other_advances() {
         initComponents();
     }
-    
-     public void focus() {
+
+    public void focus() {
         this.requestFocusInWindow();
         dayfield1.requestFocusInWindow();
         dayfield1.selectAll();
     }
-public void ClearTable(){
-         int rowsh = 0;
-         int column=0;
-         int k =table.getRowCount();
-            while(table.getValueAt(rowsh,0)!=null) {
-                for(column=0;column<5;column++){
-                    table.setValueAt(null, rowsh, column);
-                }
-                rowsh++;
-            
+
+    public void ClearTable() {
+        int rowsh = 0;
+        int column = 0;
+        int k = table.getRowCount();
+        while (table.getValueAt(rowsh, 0) != null) {
+            for (column = 0; column < 5; column++) {
+                table.setValueAt(null, rowsh, column);
             }
-            this.rows=0;//must set rows=0 because rows is incremented by send button
-            
-            System.out.println("table deleted");
+            rowsh++;
+
+        }
+        this.rows = 0;//must set rows=0 because rows is incremented by send button
+
+        System.out.println("table deleted");
     }
-    
-    public void ClearSelectedRow(){
-           int selectedIndex=table.getSelectedRow();
-        int filledRows=0;
-        
-        while(table.getValueAt(filledRows,0)!=null){
+
+    public void ClearSelectedRow() {
+        int selectedIndex = table.getSelectedRow();
+        int filledRows = 0;
+
+        while (table.getValueAt(filledRows, 0) != null) {
             filledRows++;
         }
-        
+
         int i;
-       for(i=selectedIndex;i<filledRows;i++){
-           table.setValueAt( table.getValueAt(i+1, 0) ,i  ,0  );
-            table.setValueAt( table.getValueAt(i+1, 1) ,i  ,1  );
-        table.setValueAt( table.getValueAt(i+1, 2) ,i  ,2  );
-         table.setValueAt( table.getValueAt(i+1, 3) ,i  ,3  );
-          table.setValueAt( table.getValueAt(i+1, 4) ,i  ,4  );
-           //table.setValueAt( table.getValueAt(i+1, 5) ,i  ,5  );
-       }
+        for (i = selectedIndex; i < filledRows; i++) {
+            table.setValueAt(table.getValueAt(i + 1, 0), i, 0);
+            table.setValueAt(table.getValueAt(i + 1, 1), i, 1);
+            table.setValueAt(table.getValueAt(i + 1, 2), i, 2);
+            table.setValueAt(table.getValueAt(i + 1, 3), i, 3);
+            table.setValueAt(table.getValueAt(i + 1, 4), i, 4);
+            //table.setValueAt( table.getValueAt(i+1, 5) ,i  ,5  );
+        }
         System.out.println(filledRows);
-        rows=filledRows-1;
-        
+        rows = filledRows - 1;
+
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -92,7 +94,8 @@ public void ClearTable(){
         empCode_JC = new javax.swing.JComboBox();
         empName2 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        division = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
         datepanel = new javax.swing.JPanel();
@@ -100,7 +103,6 @@ public void ClearTable(){
         yearfield1 = new javax.swing.JTextField();
         dayfield1 = new javax.swing.JTextField();
         datePick1 = new com.michaelbaranov.microba.calendar.DatePicker();
-        advance_type = new javax.swing.JComboBox();
         jPanel2 = new javax.swing.JPanel();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
@@ -108,12 +110,18 @@ public void ClearTable(){
         jButton2 = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        Advance_type = new javax.swing.JTextField();
         division_lb = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         advance_amount = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         work_code = new javax.swing.JLabel();
+        jLayeredPane1 = new javax.swing.JLayeredPane();
+        jLabel6 = new javax.swing.JLabel();
+        advance_type = new javax.swing.JComboBox();
+        Advance_type = new javax.swing.JTextField();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        table_total = new javax.swing.JLabel();
 
         jButton3.setText("Clear selected row");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -122,7 +130,7 @@ public void ClearTable(){
             }
         });
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 153)));
 
         jLabel4.setText("Employee Code");
 
@@ -147,17 +155,22 @@ public void ClearTable(){
 
         jLabel5.setText("Employee Name");
 
+        jLabel8.setText("Division");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabel4)
+                        .addComponent(jLabel5))
+                    .addComponent(jLabel8))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(division, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(empCode_JC, 0, 59, Short.MAX_VALUE)
                         .addGap(75, 75, 75))
@@ -172,14 +185,16 @@ public void ClearTable(){
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(empCode_JC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(empName2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addComponent(empName2, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(division, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
-
-        jLabel6.setText("Advance Type");
 
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -240,9 +255,14 @@ public void ClearTable(){
         ));
         table.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         table.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        table.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tableKeyPressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(table);
 
-        datepanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        datepanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 153)));
 
         monthfield1.setText(datehandler.get_today_month());
         monthfield1.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -303,24 +323,6 @@ public void ClearTable(){
                         .addComponent(yearfield1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        advance_type.putClientProperty("JComboBox.isTableCellEditor", Boolean.TRUE);
-        advance_type.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "TEA", "FESTIVAL", "FOODSTUFFS", "LOAN", "CEB", "TEACHER", "CHEMICAL", "PAYSLIP", "FINE", "MEALS", "PENSION", "WELFARE", "KOVIL", "OTHER_1", "OTHER_2" }));
-        advance_type.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                advance_typeItemStateChanged(evt);
-            }
-        });
-        advance_type.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                advance_typeActionPerformed(evt);
-            }
-        });
-        advance_type.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                advance_typeKeyPressed(evt);
-            }
-        });
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 102));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 51, 153)));
@@ -391,18 +393,7 @@ public void ClearTable(){
             }
         });
 
-        Advance_type.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Advance_typeActionPerformed(evt);
-            }
-        });
-        Advance_type.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                Advance_typeKeyPressed(evt);
-            }
-        });
-
-        jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 0, 153)));
 
         advance_amount.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -438,6 +429,100 @@ public void ClearTable(){
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jLayeredPane1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 0, 153)));
+
+        jLabel6.setText("Advance Type");
+
+        advance_type.putClientProperty("JComboBox.isTableCellEditor", Boolean.TRUE);
+        advance_type.setEditable(true);
+        advance_type.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "TEA", "FESTIVAL", "FOODSTUFFS", "LOAN", "CEB", "TEACHER", "CHEMICAL", "PAYSLIP", "FINE", "MEALS", "PENSION", "WELFARE", "KOVIL", "OTHER_1", "OTHER_2" }));
+        advance_type.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                advance_typeItemStateChanged(evt);
+            }
+        });
+        advance_type.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                advance_typeActionPerformed(evt);
+            }
+        });
+        advance_type.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                advance_typeKeyPressed(evt);
+            }
+        });
+
+        Advance_type.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Advance_typeActionPerformed(evt);
+            }
+        });
+        Advance_type.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                Advance_typeKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                Advance_typeKeyReleased(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
+        jLayeredPane1.setLayout(jLayeredPane1Layout);
+        jLayeredPane1Layout.setHorizontalGroup(
+            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Advance_type, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(advance_type, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jLayeredPane1Layout.setVerticalGroup(
+            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(advance_type, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Advance_type, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+        jLayeredPane1.setLayer(jLabel6, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(advance_type, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(Advance_type, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 153)));
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel1.setText("TOTAL");
+
+        table_total.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel1))
+                    .addComponent(table_total, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(table_total, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -448,77 +533,72 @@ public void ClearTable(){
                         .addContainerGap()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(51, 51, 51)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(72, 72, 72)
                                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(40, 40, 40)
+                                .addGap(61, 61, 61)
                                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(50, 50, 50)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(54, 54, 54)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(59, 59, 59)
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(51, 51, 51)
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(Advance_type, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(advance_type, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(31, 31, 31)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(236, Short.MAX_VALUE))
+                                .addGap(15, 15, 15)
+                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(49, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(10, 10, 10)
                     .addComponent(jLabel7)
-                    .addGap(8, 8, 8)
-                    .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 564, Short.MAX_VALUE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 906, Short.MAX_VALUE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(division_lb, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(work_code, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(division_lb, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(work_code, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGap(6, 6, 6)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(153, 153, 153)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel6)
-                                    .addComponent(advance_type, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(Advance_type, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(27, 27, 27)
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(75, 75, 75)
-                                .addComponent(jButton1))
-                            .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap(42, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(54, 54, 54)
+                                .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(48, 48, 48)
+                                .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(27, 27, 27)
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(106, 106, 106)
+                                .addComponent(jButton3)
+                                .addGap(45, 45, 45)
+                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(15, 15, 15)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
-                            .addGap(40, 40, 40)
-                            .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(54, 54, 54)
+                            .addGap(69, 69, 69)
                             .addComponent(jLabel7))
                         .addGroup(layout.createSequentialGroup()
-                            .addComponent(jButton3)
-                            .addGap(30, 30, 30)
+                            .addGap(68, 68, 68)
                             .addComponent(division_lb, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGap(18, 18, 18)
+                    .addGap(25, 25, 25)
                     .addComponent(work_code, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(413, Short.MAX_VALUE)))
         );
@@ -532,20 +612,32 @@ public void ClearTable(){
     private void empCode_JCItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_empCode_JCItemStateChanged
         DatabaseManager dbm = DatabaseManager.getDbCon();
         String Name = null;
+        String Division = null;
         if (evt.getStateChange() == ItemEvent.SELECTED) {
             int item = Integer.parseInt(evt.getItem().toString());
             try {
                 ResultSet query = dbm.query("SELECT * FROM personal_info WHERE code =" + item + "");
                 while (query.next()) {
                     Name = query.getString("name");
+                    
+
                 }
             } catch (SQLException ex) {
             }
+             try {
+                ResultSet query = dbm.query("SELECT * FROM checkroll_personalinfo WHERE code =" + item + "");
+                while (query.next()) {
+                    Division = query.getString("division");
+                }
+                query.close();
+            } catch (SQLException ex) {
+            }
             empName2.setText("" + Name);
+            division.setText("" + Division);
         }
 
         advance_amount.requestFocus();
-      //  W_code.selectAll();
+        //  W_code.selectAll();
     }//GEN-LAST:event_empCode_JCItemStateChanged
 
     private void empCode_JCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_empCode_JCActionPerformed
@@ -720,7 +812,7 @@ public void ClearTable(){
 
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
             //category_code.requestFocus();
-            advance_type.requestFocus();
+            Advance_type.requestFocus();
 
         }
     }//GEN-LAST:event_monthfield1KeyPressed
@@ -741,7 +833,7 @@ public void ClearTable(){
 
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
             //  category_code.requestFocus();
-                advance_type.requestFocus();
+            Advance_type.requestFocus();
         }
     }//GEN-LAST:event_yearfield1KeyPressed
 
@@ -794,12 +886,12 @@ public void ClearTable(){
                 dayfield1.selectAll();
             }                                           // /// decrementing normal values
         } else if (dayfield1.getText().equals("2") || dayfield1.getText().equals("3") || dayfield1.getText().equals("4") || dayfield1.getText().equals("5")
-            || dayfield1.getText().equals("6") || dayfield1.getText().equals("7") || dayfield1.getText().equals("8") || dayfield1.getText().equals("9")
-            || dayfield1.getText().equals("10") || dayfield1.getText().equals("11") || dayfield1.getText().equals("12") || dayfield1.getText().equals("13") || dayfield1.getText().equals("14")
-            || dayfield1.getText().equals("15") || dayfield1.getText().equals("16") || dayfield1.getText().equals("17") || dayfield1.getText().equals("18")
-            || dayfield1.getText().equals("19") || dayfield1.getText().equals("20") || dayfield1.getText().equals("21") || dayfield1.getText().equals("22")
-            || dayfield1.getText().equals("23") || dayfield1.getText().equals("24") || dayfield1.getText().equals("25") || dayfield1.getText().equals("26")
-            || dayfield1.getText().equals("27") || dayfield1.getText().equals("28") || dayfield1.getText().equals("29") || dayfield1.getText().equals("30") || dayfield1.getText().equals("31")) {
+                || dayfield1.getText().equals("6") || dayfield1.getText().equals("7") || dayfield1.getText().equals("8") || dayfield1.getText().equals("9")
+                || dayfield1.getText().equals("10") || dayfield1.getText().equals("11") || dayfield1.getText().equals("12") || dayfield1.getText().equals("13") || dayfield1.getText().equals("14")
+                || dayfield1.getText().equals("15") || dayfield1.getText().equals("16") || dayfield1.getText().equals("17") || dayfield1.getText().equals("18")
+                || dayfield1.getText().equals("19") || dayfield1.getText().equals("20") || dayfield1.getText().equals("21") || dayfield1.getText().equals("22")
+                || dayfield1.getText().equals("23") || dayfield1.getText().equals("24") || dayfield1.getText().equals("25") || dayfield1.getText().equals("26")
+                || dayfield1.getText().equals("27") || dayfield1.getText().equals("28") || dayfield1.getText().equals("29") || dayfield1.getText().equals("30") || dayfield1.getText().equals("31")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
 
                 dayfield1.setText("" + (Integer.parseInt(dayfield1.getText()) - 1));
@@ -876,12 +968,12 @@ public void ClearTable(){
                     monthfield1.setText(datechooser.Return_month(mnth + 1));
                     // incrementing normal values/////////////////////// for february separately
                 } else if (dayfield1.getText().equals("1") || dayfield1.getText().equals("2") || dayfield1.getText().equals("3") || dayfield1.getText().equals("4") || dayfield1.getText().equals("5")
-                    || dayfield1.getText().equals("6") || dayfield1.getText().equals("7") || dayfield1.getText().equals("8") || dayfield1.getText().equals("9")
-                    || dayfield1.getText().equals("10") || dayfield1.getText().equals("11") || dayfield1.getText().equals("12") || dayfield1.getText().equals("13") || dayfield1.getText().equals("14")
-                    || dayfield1.getText().equals("15") || dayfield1.getText().equals("16") || dayfield1.getText().equals("17") || dayfield1.getText().equals("18")
-                    || dayfield1.getText().equals("19") || dayfield1.getText().equals("20") || dayfield1.getText().equals("21") || dayfield1.getText().equals("22")
-                    || dayfield1.getText().equals("23") || dayfield1.getText().equals("24") || dayfield1.getText().equals("25") || dayfield1.getText().equals("26")
-                    || dayfield1.getText().equals("27") || dayfield1.getText().equals("28") || dayfield1.getText().equals("29") || dayfield1.getText().equals("30") || dayfield1.getText().equals("31")) {
+                        || dayfield1.getText().equals("6") || dayfield1.getText().equals("7") || dayfield1.getText().equals("8") || dayfield1.getText().equals("9")
+                        || dayfield1.getText().equals("10") || dayfield1.getText().equals("11") || dayfield1.getText().equals("12") || dayfield1.getText().equals("13") || dayfield1.getText().equals("14")
+                        || dayfield1.getText().equals("15") || dayfield1.getText().equals("16") || dayfield1.getText().equals("17") || dayfield1.getText().equals("18")
+                        || dayfield1.getText().equals("19") || dayfield1.getText().equals("20") || dayfield1.getText().equals("21") || dayfield1.getText().equals("22")
+                        || dayfield1.getText().equals("23") || dayfield1.getText().equals("24") || dayfield1.getText().equals("25") || dayfield1.getText().equals("26")
+                        || dayfield1.getText().equals("27") || dayfield1.getText().equals("28") || dayfield1.getText().equals("29") || dayfield1.getText().equals("30") || dayfield1.getText().equals("31")) {
 
                     dayfield1.setText("" + (Integer.parseInt(dayfield1.getText()) + 1));
 
@@ -890,12 +982,12 @@ public void ClearTable(){
             }
             // incrementing normal values
         } else if (dayfield1.getText().equals("1") || dayfield1.getText().equals("2") || dayfield1.getText().equals("3") || dayfield1.getText().equals("4") || dayfield1.getText().equals("5")
-            || dayfield1.getText().equals("6") || dayfield1.getText().equals("7") || dayfield1.getText().equals("8") || dayfield1.getText().equals("9")
-            || dayfield1.getText().equals("10") || dayfield1.getText().equals("11") || dayfield1.getText().equals("12") || dayfield1.getText().equals("13") || dayfield1.getText().equals("14")
-            || dayfield1.getText().equals("15") || dayfield1.getText().equals("16") || dayfield1.getText().equals("17") || dayfield1.getText().equals("18")
-            || dayfield1.getText().equals("19") || dayfield1.getText().equals("20") || dayfield1.getText().equals("21") || dayfield1.getText().equals("22")
-            || dayfield1.getText().equals("23") || dayfield1.getText().equals("24") || dayfield1.getText().equals("25") || dayfield1.getText().equals("26")
-            || dayfield1.getText().equals("27") || dayfield1.getText().equals("28") || dayfield1.getText().equals("29") || dayfield1.getText().equals("30") || dayfield1.getText().equals("31")) {
+                || dayfield1.getText().equals("6") || dayfield1.getText().equals("7") || dayfield1.getText().equals("8") || dayfield1.getText().equals("9")
+                || dayfield1.getText().equals("10") || dayfield1.getText().equals("11") || dayfield1.getText().equals("12") || dayfield1.getText().equals("13") || dayfield1.getText().equals("14")
+                || dayfield1.getText().equals("15") || dayfield1.getText().equals("16") || dayfield1.getText().equals("17") || dayfield1.getText().equals("18")
+                || dayfield1.getText().equals("19") || dayfield1.getText().equals("20") || dayfield1.getText().equals("21") || dayfield1.getText().equals("22")
+                || dayfield1.getText().equals("23") || dayfield1.getText().equals("24") || dayfield1.getText().equals("25") || dayfield1.getText().equals("26")
+                || dayfield1.getText().equals("27") || dayfield1.getText().equals("28") || dayfield1.getText().equals("29") || dayfield1.getText().equals("30") || dayfield1.getText().equals("31")) {
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
 
                 dayfield1.setText("" + (Integer.parseInt(dayfield1.getText()) + 1));
@@ -910,7 +1002,7 @@ public void ClearTable(){
 
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
 //            division_jc.requestFocus();
-            advance_type.requestFocus();
+            Advance_type.requestFocus();
 
         }
     }//GEN-LAST:event_dayfield1KeyPressed
@@ -925,20 +1017,10 @@ public void ClearTable(){
     }//GEN-LAST:event_datePick1ActionPerformed
 
     private void advance_typeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_advance_typeItemStateChanged
-        String Name = null;
-        if (evt.getStateChange() == ItemEvent.SELECTED) {
-            String item = evt.getItem().toString();
-            try {
-                ResultSet query = dbm.query("SELECT * FROM workcode_details WHERE code =" + item + "");
-                while (query.next()) {
-                    Name = query.getString("work");
-                }
-            } catch (SQLException ex) {
-            }
-            work_code.setText("" + Name);
-        }
+//        String Name = null;
+      
         Advance_type.setText(advance_type.getSelectedItem().toString());
-       // empCodeJC.requestFocus();
+        // empCodeJC.requestFocus();
     }//GEN-LAST:event_advance_typeItemStateChanged
 
     private void advance_typeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_advance_typeActionPerformed
@@ -947,7 +1029,7 @@ public void ClearTable(){
 
     private void advance_typeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_advance_typeKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
-         //   empCodeJC.requestFocus();
+            //   empCodeJC.requestFocus();
             empCode_JC.requestFocus();
         }        // TODO add your handling code here:
     }//GEN-LAST:event_advance_typeKeyPressed
@@ -956,14 +1038,13 @@ public void ClearTable(){
         //java.sql.Date tdate = new java.sql.Date(date.getDate().getTime());
 
         //addDateTable(tdate);//store data of workers worked in each division in each day   REMOVED INTENTIONALLY
-
         String month = null;
         String year = null;
-        Date tdate=null;
+        Date tdate = null;
 
         String ndate = null;
         try {
-            tdate=datechooser.Return_date(yearfield1,monthfield1,dayfield1);
+            tdate = datechooser.Return_date(yearfield1, monthfield1, dayfield1);
         } catch (ParseException ex) {
             Logger.getLogger(PRCR_Work_normal.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -975,84 +1056,107 @@ public void ClearTable(){
         new1_date = ne_date.toString();
         String tablename = new1_date.substring(0, 7);
 
-       
-       // saveData(tablename, tdate);
+        // saveData(tablename, tdate);
         saveDataToAdvanceBook(tdate);
         ClearTable();
-        
+
     }//GEN-LAST:event_jButton6ActionPerformed
 
-    private void saveDataToAdvanceBook(Date date){
+    private void saveDataToAdvanceBook(Date date) {
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         int rowse = 0;
-          
-                while(table.getValueAt(rowse, 0) != null) {
+
+        while (table.getValueAt(rowse, 0) != null) {
             try {
-                dbCon.insert("INSERT INTO prcr_other_advance_book(date,code,type,amount) VALUES('" +date + "','"+table.getValueAt(rowse, 0)+"','"+table.getValueAt(rowse, 2)+"','"+table.getValueAt(rowse, 3)+"')");
+                dbCon.insert("INSERT INTO prcr_other_advance_book(date,code,type,amount) VALUES('" + date + "','" + table.getValueAt(rowse, 0) + "','" + table.getValueAt(rowse, 2) + "','" + table.getValueAt(rowse, 3) + "')");
             } catch (SQLException ex) {
                 Logger.getLogger(PRCR_Add_Employee.class.getName()).log(Level.SEVERE, null, ex);
-                 JOptionPane.showMessageDialog(null, "Other Advance book is not updated!\n", "Message", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Other Advance book is not updated!\n", "Message", JOptionPane.INFORMATION_MESSAGE);
             }
             rowse++;
-                }
+        }
 
     }
-    
+
     private void saveData(String tablename, Date tdate) {
-      //  String division = null;
-      //  String work_code = null;
-       // division = (String) division_jc.getSelectedItem();
-      // work_code = (String) workCode.getSelectedItem();
-    
-    
-       
-            int rowsd = 0;
-            System.out.println("s="+table.getValueAt(rowsd, 0));
-            
-            
-          
-                while(table.getValueAt(rowsd, 0) != null) {
-                                            System.out.println("in="+table.getValueAt(rowsd, 0));               //get the current advance amount from data base,add the new amount to it,update total amount to the workdata table
-                    if(table.getValueAt(rowsd, 2).toString().equals("TEA")){Update_pr_workData(tablename, table.getValueAt(rowsd,0),"tea" , (String) table.getValueAt(rowsd, 3));}
-                    if(table.getValueAt(rowsd, 2).toString().equals("FESTIVAL")){Update_pr_workData(tablename, table.getValueAt(rowsd,0),"fest_adv" , (String) table.getValueAt(rowsd, 3));}
-                    if(table.getValueAt(rowsd, 2).toString().equals("FOODSTUFFS")){Update_pr_workData(tablename, table.getValueAt(rowsd,0),"food" , (String) table.getValueAt(rowsd, 3));}
-                    if(table.getValueAt(rowsd, 2).toString().equals("LOAN")){Update_pr_workData(tablename, table.getValueAt(rowsd,0),"loan" , (String) table.getValueAt(rowsd, 3));}
-                    if(table.getValueAt(rowsd, 2).toString().equals("CEB")){Update_pr_workData(tablename, table.getValueAt(rowsd,0),"ceb" , (String) table.getValueAt(rowsd, 3));}
-                    if(table.getValueAt(rowsd, 2).toString().equals("TEACHER")){Update_pr_workData(tablename, table.getValueAt(rowsd,0),"teacher" , (String) table.getValueAt(rowsd, 3));}
-                    if(table.getValueAt(rowsd, 2).toString().equals("CHEMICAL")){Update_pr_workData(tablename, table.getValueAt(rowsd,0),"chemical" , (String) table.getValueAt(rowsd, 3));}
-                    if(table.getValueAt(rowsd, 2).toString().equals("PAYSLIP")){Update_pr_workData(tablename, table.getValueAt(rowsd,0),"pay_slip" , (String) table.getValueAt(rowsd, 3));}
-                    if(table.getValueAt(rowsd, 2).toString().equals("FINE")){Update_pr_workData(tablename, table.getValueAt(rowsd,0),"fine" , (String) table.getValueAt(rowsd, 3));}
-                    if(table.getValueAt(rowsd, 2).toString().equals("MEALS")){Update_pr_workData(tablename, table.getValueAt(rowsd,0),"meals" , (String) table.getValueAt(rowsd, 3));}
-                    if(table.getValueAt(rowsd, 2).toString().equals("PENSION")){Update_pr_workData(tablename, table.getValueAt(rowsd,0),"pension" , (String) table.getValueAt(rowsd, 3));}
-                    if(table.getValueAt(rowsd, 2).toString().equals("WELFARE")){Update_pr_workData(tablename, table.getValueAt(rowsd,0),"welfare" , (String) table.getValueAt(rowsd, 3));}
-                    if(table.getValueAt(rowsd, 2).toString().equals("KOVIL")){Update_pr_workData(tablename, table.getValueAt(rowsd,0),"kovil" , (String) table.getValueAt(rowsd, 3));}
-                    if(table.getValueAt(rowsd, 2).toString().equals("OTHER_1")){Update_pr_workData(tablename, table.getValueAt(rowsd,0),"new_1" , (String) table.getValueAt(rowsd, 3));}
-                    if(table.getValueAt(rowsd, 2).toString().equals("OTHER_2")){Update_pr_workData(tablename, table.getValueAt(rowsd,0),"new_2" , (String) table.getValueAt(rowsd, 3));}
-                    rowsd++;
-                }
-            
-           
-                  
+        //  String division = null;
+        //  String work_code = null;
+        // division = (String) division_jc.getSelectedItem();
+        // work_code = (String) workCode.getSelectedItem();
+
+        int rowsd = 0;
+        System.out.println("s=" + table.getValueAt(rowsd, 0));
+
+        while (table.getValueAt(rowsd, 0) != null) {
+            System.out.println("in=" + table.getValueAt(rowsd, 0));               //get the current advance amount from data base,add the new amount to it,update total amount to the workdata table
+            if (table.getValueAt(rowsd, 2).toString().equals("TEA")) {
+                Update_pr_workData(tablename, table.getValueAt(rowsd, 0), "tea", (String) table.getValueAt(rowsd, 3));
+            }
+            if (table.getValueAt(rowsd, 2).toString().equals("FESTIVAL")) {
+                Update_pr_workData(tablename, table.getValueAt(rowsd, 0), "fest_adv", (String) table.getValueAt(rowsd, 3));
+            }
+            if (table.getValueAt(rowsd, 2).toString().equals("FOODSTUFFS")) {
+                Update_pr_workData(tablename, table.getValueAt(rowsd, 0), "food", (String) table.getValueAt(rowsd, 3));
+            }
+            if (table.getValueAt(rowsd, 2).toString().equals("LOAN")) {
+                Update_pr_workData(tablename, table.getValueAt(rowsd, 0), "loan", (String) table.getValueAt(rowsd, 3));
+            }
+            if (table.getValueAt(rowsd, 2).toString().equals("CEB")) {
+                Update_pr_workData(tablename, table.getValueAt(rowsd, 0), "ceb", (String) table.getValueAt(rowsd, 3));
+            }
+            if (table.getValueAt(rowsd, 2).toString().equals("TEACHER")) {
+                Update_pr_workData(tablename, table.getValueAt(rowsd, 0), "teacher", (String) table.getValueAt(rowsd, 3));
+            }
+            if (table.getValueAt(rowsd, 2).toString().equals("CHEMICAL")) {
+                Update_pr_workData(tablename, table.getValueAt(rowsd, 0), "chemical", (String) table.getValueAt(rowsd, 3));
+            }
+            if (table.getValueAt(rowsd, 2).toString().equals("PAYSLIP")) {
+                Update_pr_workData(tablename, table.getValueAt(rowsd, 0), "pay_slip", (String) table.getValueAt(rowsd, 3));
+            }
+            if (table.getValueAt(rowsd, 2).toString().equals("FINE")) {
+                Update_pr_workData(tablename, table.getValueAt(rowsd, 0), "fine", (String) table.getValueAt(rowsd, 3));
+            }
+            if (table.getValueAt(rowsd, 2).toString().equals("MEALS")) {
+                Update_pr_workData(tablename, table.getValueAt(rowsd, 0), "meals", (String) table.getValueAt(rowsd, 3));
+            }
+            if (table.getValueAt(rowsd, 2).toString().equals("PENSION")) {
+                Update_pr_workData(tablename, table.getValueAt(rowsd, 0), "pension", (String) table.getValueAt(rowsd, 3));
+            }
+            if (table.getValueAt(rowsd, 2).toString().equals("WELFARE")) {
+                Update_pr_workData(tablename, table.getValueAt(rowsd, 0), "welfare", (String) table.getValueAt(rowsd, 3));
+            }
+            if (table.getValueAt(rowsd, 2).toString().equals("KOVIL")) {
+                Update_pr_workData(tablename, table.getValueAt(rowsd, 0), "kovil", (String) table.getValueAt(rowsd, 3));
+            }
+            if (table.getValueAt(rowsd, 2).toString().equals("OTHER_1")) {
+                Update_pr_workData(tablename, table.getValueAt(rowsd, 0), "new_1", (String) table.getValueAt(rowsd, 3));
+            }
+            if (table.getValueAt(rowsd, 2).toString().equals("OTHER_2")) {
+                Update_pr_workData(tablename, table.getValueAt(rowsd, 0), "new_2", (String) table.getValueAt(rowsd, 3));
+            }
+            rowsd++;
+        }
+
     }
-                                      //Function for the savedata()//column-column that need to be updated,amount entered  
-public void Update_pr_workData(String tablename,Object code,String column,String new_amount){
+    //Function for the savedata()//column-column that need to be updated,amount entered  
 
-     double amount_u = 0;
+    public void Update_pr_workData(String tablename, Object code, String column, String new_amount) {
 
-                    if (dbm.checknReturnData("pr_workdata_" + tablename, "code", code, column) != null) {
-                        amount_u= Double.parseDouble(dbm.checknReturnData("pr_workdata_" + tablename, "code", code, column));
-                    } else {
-                        amount_u= 0;
-                    }
-                    if (new_amount != null) {
-                        amount_u = amount_u + Double.parseDouble(new_amount);
-                    } else {
-                        amount_u=amount_u;
-                    }
-                    dbm.updateDatabase("pr_workdata_" + tablename, "code", code, column, amount_u);
+        double amount_u = 0;
 
+        if (dbm.checknReturnData("pr_workdata_" + tablename, "code", code, column) != null) {
+            amount_u = Double.parseDouble(dbm.checknReturnData("pr_workdata_" + tablename, "code", code, column));
+        } else {
+            amount_u = 0;
+        }
+        if (new_amount != null) {
+            amount_u = amount_u + Double.parseDouble(new_amount);
+        } else {
+            amount_u = amount_u;
+        }
+        dbm.updateDatabase("pr_workdata_" + tablename, "code", code, column, amount_u);
 
-}
+    }
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         ClearTable();        // TODO add your handling code here:
     }//GEN-LAST:event_jButton8ActionPerformed
@@ -1064,11 +1168,12 @@ public void Update_pr_workData(String tablename,Object code,String column,String
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try{
-            if(empCode_JC.getSelectedItem().toString().length()!=0){
+        try {
+            if (empCode_JC.getSelectedItem().toString().length() != 0) {
                 table.setValueAt(empCode_JC.getSelectedItem(), rows, 0);
                 table.setValueAt(empName2.getText(), rows, 1);
                 table.setValueAt(advance_type.getSelectedItem(), rows, 2);
+                table.setValueAt(division.getText(), rows, 4);
                 if (advance_amount.getText().length() == 0) {
                     table.setValueAt("0", rows, 3);
                     JOptionPane.showMessageDialog(null, "Enter amount\n", "Message", JOptionPane.INFORMATION_MESSAGE);
@@ -1076,22 +1181,31 @@ public void Update_pr_workData(String tablename,Object code,String column,String
                     table.setValueAt(advance_amount.getText(), rows, 3);
                 }
 
-            
                 rows++;
                 // TODO add your handling code here:
                 empCode_JC.setSelectedItem(null);
                 advance_amount.setText(null);
-                
+                empName2.setText(null);
+                division.setText(null);
+
                 empCode_JC.requestFocus();
-            }else{
+                double total = 0;
+                int i = 0;
+                while (table.getValueAt(i, 0) != null) {
+                    total = total + Double.parseDouble(table.getValueAt(i, 3).toString());
+                    i++;
+                }
+                table_total.setText("" + total);
+
+            } else {
                 JOptionPane.showMessageDialog(null, "Enter the employ code\n", "Message", JOptionPane.INFORMATION_MESSAGE);
                 empCode_JC.requestFocus();
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Enter the employee code\n", "Message", JOptionPane.INFORMATION_MESSAGE);
             empCode_JC.requestFocus();
         }
-        
+
         //Advance_type.requestFocus();
         //Advance_type.selectAll();
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -1105,11 +1219,11 @@ public void Update_pr_workData(String tablename,Object code,String column,String
     }//GEN-LAST:event_Advance_typeActionPerformed
 
     private void Advance_typeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Advance_typeKeyPressed
-        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
-            
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+
             advance_type.setSelectedItem(Advance_type.getText());
-            System.out.println(Advance_type.getText());
-         //   empCodeJC.requestFocus();
+            //System.out.println(Advance_type.getText());
+               empCode_JC.requestFocus();
         }
     }//GEN-LAST:event_Advance_typeKeyPressed
 
@@ -1128,6 +1242,39 @@ public void Update_pr_workData(String tablename,Object code,String column,String
         // TODO add your handling code here:
     }//GEN-LAST:event_dayfield1ActionPerformed
 
+    private void tableKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tableKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            double total = 0;
+            int i = 0;
+            while (table.getValueAt(i, 0) != null) {
+                total = total + Double.parseDouble(table.getValueAt(i, 3).toString());
+                i++;
+            }
+            table_total.setText("" + total);
+        }
+    }//GEN-LAST:event_tableKeyPressed
+
+    Search srch = new Search();
+
+    private void Advance_typeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Advance_typeKeyReleased
+        if (evt.getKeyCode() != KeyEvent.VK_BACK_SPACE && evt.getKeyCode() != KeyEvent.VK_SHIFT && evt.getKeyCode() != KeyEvent.VK_ENTER) {
+            String a;
+            int b = Advance_type.getText().length();
+
+            String arr[] = {"TEA", "FESTIVAL", "FOODSTUFFS", "LOAN", "CEB", "TEACHER", "CHEMICAL", "PAYSLIP", "FINE", "MEALS", "PENSION", "WELFARE", "KOVIL", "OTHER_1", "OTHER_2"};
+            a = srch.Suggestions_array(arr, Advance_type.getText());
+            int c = a.length();
+            Advance_type.setText(a);
+            if (c != b) {
+                Advance_type.select(b, c);
+            }
+
+            if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+                empCode_JC.requestFocusInWindow();
+            }
+        }
+    }//GEN-LAST:event_Advance_typeKeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Advance_type;
@@ -1136,6 +1283,7 @@ public void Update_pr_workData(String tablename,Object code,String column,String
     private com.michaelbaranov.microba.calendar.DatePicker datePick1;
     private javax.swing.JPanel datepanel;
     private javax.swing.JTextField dayfield1;
+    private javax.swing.JLabel division;
     private javax.swing.JLabel division_lb;
     private javax.swing.JComboBox empCode_JC;
     private javax.swing.JLabel empName2;
@@ -1145,17 +1293,22 @@ public void Update_pr_workData(String tablename,Object code,String column,String
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField monthfield1;
     private javax.swing.JTable table;
+    private javax.swing.JLabel table_total;
     private javax.swing.JLabel work_code;
     private javax.swing.JTextField yearfield1;
     // End of variables declaration//GEN-END:variables

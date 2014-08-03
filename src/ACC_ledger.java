@@ -602,9 +602,12 @@ public class ACC_ledger {
         String year = date1.substring(0,4);
         String table_name = year+"_balances";
         
-        op_bal=Double.parseDouble(dbm.checknReturnData(table_name,"account_code",account_code,"op_bal"));
+       // op_bal=Double.parseDouble(dbm.checknReturnData(table_name,"account_code",account_code,"op_bal"));
+        double opd =Double.parseDouble(dbm.checknReturnData(table_name,"account_code",account_code,"op_bal_d"));
+        double opc =Double.parseDouble(dbm.checknReturnData(table_name,"account_code",account_code,"op_bal_c"));
+
         
-        if(main_ac_id==1||main_ac_id==2||main_ac_id==7||main_ac_id==8){
+      /*  if(main_ac_id==1||main_ac_id==2||main_ac_id==7||main_ac_id==8){
             
             a=1;
             op_bal=op_bal;
@@ -614,6 +617,16 @@ public class ACC_ledger {
         else{
             a=-1;
             op_bal=-op_bal;
+        }*/
+        
+        if(opc==0 && opd!=0){
+            op_bal=opd;
+        }
+        else if(opd==0 && opc!=0){
+            op_bal=-opc;
+        }
+        else{
+            op_bal=opd-opc;
         }
 
         temp = op_bal;
@@ -764,9 +777,7 @@ public class ACC_ledger {
         return temp;
 
     }
-
     
-   
-   
+    
 
 }

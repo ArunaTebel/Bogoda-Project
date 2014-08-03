@@ -33,8 +33,7 @@ public class PRCR_Checkroll_Monthly_workdata_database_update_class implements Ru
     String st;
     public static int columnsize;
     public static int salarycalprogressbar = 0;
-    String month;
-    String year;
+
     double pre_debt_amount = 0;
     double prvmnth_normaldays = 0;
     double prvmnth_sundays = 0;
@@ -51,11 +50,10 @@ public class PRCR_Checkroll_Monthly_workdata_database_update_class implements Ru
     double normalDayRate;
     //PRCR_Checkroll_Salary_Cal ccal = new PRCR_Checkroll_Salary_Cal();
 
-    public PRCR_Checkroll_Monthly_workdata_database_update_class(String st, String year, String month) {
+    public PRCR_Checkroll_Monthly_workdata_database_update_class(String st) {
 
         this.st = st;
-        this.year = year;
-        this.month = month;
+       
         payslip= Double.parseDouble(dbm.checknReturnData("checkroll_pay_info", "checkroll", "1", "payslip"));
          normalDayRate=Double.parseDouble(dbm.checknReturnData("checkroll_pay_info", "checkroll", "1", "normalday_rate"));
 
@@ -426,9 +424,11 @@ public class PRCR_Checkroll_Monthly_workdata_database_update_class implements Ru
        // String division[] = new String[nofdivisions];
             division = dbm.getStringArray("division_details", "code");
             nofdivisions = division.length;
-            updateMarginDates(workentryst, division, nofdivisions);//(2014-03,division[])-a method to update margin dates for this month for each division,
-    
+            //auto margin dates
+            // updateMarginDates(workentryst, division, nofdivisions);//(2014-03,division[])-a method to update margin dates for this month for each division,
+            //manual margin dates
             
+         
             year_month="pr_workdata_" + st;
             int i=0;
             

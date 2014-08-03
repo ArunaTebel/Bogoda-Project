@@ -60,7 +60,7 @@ public class Acc_Update_And_Additional_Data {
             }
         } else {
             try {
-                dbm.insert("CREATE TABLE " + new_table_name + "(account_code varchar(50),op_bal double,clo_bal double)");
+                dbm.insert("CREATE TABLE " + new_table_name + "(account_code varchar(50),op_bal_d double,op_bal_c double,clo_bal_d double,clo_bal_c double)");
             } catch (SQLException ex) {
                 Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -75,7 +75,7 @@ public class Acc_Update_And_Additional_Data {
 
                     dbm.updateDatabase(previous_year_table_name, "account_code", query.getString("account_id"), "clo_bal", temp);
 
-                 //   dbm.insert("INSERT INTO "+new_table_name+"(account_code,op_bal,clo_bal) VALUES('"+query.getString("account_id")+"','"+temp+"',0)");
+                    //   dbm.insert("INSERT INTO "+new_table_name+"(account_code,op_bal,clo_bal) VALUES('"+query.getString("account_id")+"','"+temp+"',0)");
                     //   dbm.updateDatabase("account_names","account_id",Integer.parseInt(query.getString("account_id")),"opening_balance", temp);
                 }
 
@@ -93,17 +93,21 @@ public class Acc_Update_And_Additional_Data {
 
                  dbm.updateDatabase("account_names", "account_id", Integer.parseInt(query.getString("account_id")), "opening_balance", temp);*/
                 // Here I took that other than in expense and income accounts balances will be carried forward as op balances
-                if (query.getInt("main_account_code") == 1 || query.getInt("main_account_code") == 2 || query.getInt("main_account_code") == 3 || query.getInt("main_account_code") == 4) {
-                    dbm.insert("INSERT INTO " + new_table_name + "(account_code,op_bal,clo_bal) VALUES('" + query.getString("account_id") + "','" + temp + "',0)");
+                if (query.getInt("main_account_code") == 1 || query.getInt("main_account_code") == 2) {
+                    dbm.insert("INSERT INTO " + new_table_name + "(account_code,op_bal_d,op_bal_c,clo_bal) VALUES('" + query.getString("account_id") + "','" + temp + "',0,0)");
 
-                    dbm.updateDatabase("account_names", "account_id", Integer.parseInt(query.getString("account_id")), "opening_balance", temp);  
-                
-                }
-                else{
-                    dbm.insert("INSERT INTO " + new_table_name + "(account_code,op_bal,clo_bal) VALUES('" + query.getString("account_id") + "','" + 0 + "',0)");
+                    dbm.updateDatabase("account_names", "account_id", Integer.parseInt(query.getString("account_id")), "opening_balance", temp);
 
-                dbm.updateDatabase("account_names", "account_id", Integer.parseInt(query.getString("account_id")), "opening_balance", 0);
-                
+                } else if (query.getInt("main_account_code") == 3 || query.getInt("main_account_code") == 4) {
+                    dbm.insert("INSERT INTO " + new_table_name + "(account_code,op_bal_d,op_bal_c,clo_bal) VALUES('" + query.getString("account_id") + "',0,'" + temp + "',0)");
+
+                    dbm.updateDatabase("account_names", "account_id", Integer.parseInt(query.getString("account_id")), "opening_balance", temp);
+
+                } else {
+                    dbm.insert("INSERT INTO " + new_table_name + "(account_code,op_bal_d,op_bal_c,clo_bal) VALUES('" + query.getString("account_id") + "',0,0,0)");
+
+                    dbm.updateDatabase("account_names", "account_id", Integer.parseInt(query.getString("account_id")), "opening_balance", 0);
+
                 }
 
             }
@@ -114,16 +118,36 @@ public class Acc_Update_And_Additional_Data {
 
     }
 
-    public void complete_op_bal_temp() {
+   /* public void complete_op_bal_temp() {
         DatabaseManager dbm = new DatabaseManager();
         try {
             ResultSet query = dbm.query("SELECT * FROM account_names");
             while (query.next()) {
 
                 if (dbm.checkWhetherDataExists("2014_balances", "account_code", query.getString("account_id")) == 0) {
-                    dbm.insert("INSERT INTO 2014_balances(account_code,op_bal,clo_bal)VALUES('" + query.getString("account_id") + "',0,0)");
+                    dbm.insert("INSERT INTO 2014_balances(account_code,op_bal_d,op_bal_c,clo_bal)VALUES('" + query.getString("account_id") + "',0,0,0)");
                 }
 
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Acc_Update_And_Additional_Data.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }*/
+    
+    // This method is to get the current balance initially..... P.S - change the opening_balance_calc method first  op_balance = op_c not op_balance=-op_c in line 626
+    
+    public void complete_op_bal_temp() {
+        DatabaseManager dbm = new DatabaseManager();
+        ACC_ledger ledg = new ACC_ledger();
+        double op=0;
+        
+        try {
+            ResultSet query = dbm.query("SELECT * FROM account_names");
+            while (query.next()) {
+              op=0;
+              op= ledg.opening_balance_calc(query.getInt("account_id"),"2014-12-12");
+              dbm.updateDatabase("account_names","account_id",query.getInt("account_id"),"current_balance",op);
             }
 
         } catch (SQLException ex) {
