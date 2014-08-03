@@ -138,7 +138,7 @@ public class Acc_Update_And_Additional_Data {
     // This method is to get the current balance initially..... P.S - change the opening_balance_calc method  in Acc Ledger first  op_balance = op_c not op_balance=-op_c in line 626
     
     public void complete_op_bal_temp() {
-        DatabaseManager dbm = new DatabaseManager();
+      /*  DatabaseManager dbm = new DatabaseManager();
         ACC_ledger ledg = new ACC_ledger();
         double op=0;
         
@@ -152,6 +152,6 @@ public class Acc_Update_And_Additional_Data {
 
         } catch (SQLException ex) {
             Logger.getLogger(Acc_Update_And_Additional_Data.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
     }
 }

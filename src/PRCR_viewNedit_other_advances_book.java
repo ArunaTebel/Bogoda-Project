@@ -1,11 +1,11 @@
 
 import java.awt.event.KeyEvent;
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -402,12 +402,6 @@ public class PRCR_viewNedit_other_advances_book extends javax.swing.JFrame {
         table.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         table.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jScrollPane1.setViewportView(table);
-        if (table.getColumnModel().getColumnCount() > 0) {
-            table.getColumnModel().getColumn(1).setPreferredWidth(150);
-            table.getColumnModel().getColumn(2).setPreferredWidth(150);
-            table.getColumnModel().getColumn(3).setPreferredWidth(150);
-            table.getColumnModel().getColumn(4).setPreferredWidth(150);
-        }
 
         jButton2.setText("Edit");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -416,7 +410,7 @@ public class PRCR_viewNedit_other_advances_book extends javax.swing.JFrame {
             }
         });
 
-        search.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "View all", "View from dates" }));
+        search.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "View from dates", "View all" }));
 
         jButton3.setText("Delete");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -1302,7 +1296,31 @@ public class PRCR_viewNedit_other_advances_book extends javax.swing.JFrame {
     }//GEN-LAST:event_datePick1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       int PREFEREDROWS=20;
+
+              
+        int PREFEREDROWS=0;
+        try {
+            ResultSet query = dbm.query("SELECT * FROM prcr_other_advance_book where date BETWEEN '" + datechooser.Return_date(yearfield1, monthfield1, dayfield1).toString() + "' AND '" + datechooser.Return_date(yearfield2, monthfield2, dayfield2).toString()+ "'");
+            while (query.next()) {
+                PREFEREDROWS++;
+            }
+            query.close();
+        } catch (SQLException ex) {
+
+        } catch (ParseException ex) {
+            Logger.getLogger(PRCR_viewNedit_debit_pay.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        ((DefaultTableModel)table.getModel()).setNumRows(PREFEREDROWS);
+        
+        
+        
+        
+        
+        
+        
+       
         int i, j;
         for (i = 0; i <PREFEREDROWS ; i++) {
             for (j = 0; j < 5; j++) {
@@ -1321,7 +1339,7 @@ public class PRCR_viewNedit_other_advances_book extends javax.swing.JFrame {
             i=0;
                 double total=0;
                 while(table.getValueAt(i,0)!=null){
-                    total=total+Double.parseDouble(table.getValueAt(i,3).toString());
+                    total=total+Double.parseDouble(table.getValueAt(i,4 ).toString());
                     i++;
                 }
                 table_total.setText(""+total); 
@@ -1339,7 +1357,7 @@ public class PRCR_viewNedit_other_advances_book extends javax.swing.JFrame {
                  i=0;
                 double total=0;
                 while(table.getValueAt(i,0)!=null){
-                    total=total+Double.parseDouble(table.getValueAt(i,3).toString());
+                    total=total+Double.parseDouble(table.getValueAt(i,4).toString());
                     i++;
                 }
                 table_total.setText(""+total); 
@@ -1370,6 +1388,27 @@ public class PRCR_viewNedit_other_advances_book extends javax.swing.JFrame {
         dbm.updateDatabase("prcr_checkroll_workentry", "entry", index, "ot_day", table.getValueAt(row, 5));
         dbm.updateDatabase("prcr_checkroll_workentry", "entry", index, "ot_night", table.getValueAt(row, 6));
   */      
+        
+        
+            int row[] = table.getSelectedRows();
+        int index;
+        for(int i=0;i<row.length;i++){
+        index = Integer.parseInt(table.getValueAt(row[i], 0).toString());
+        //int index=2;
+        System.out.println(row);
+        System.out.println(index);
+        dbm.updateDatabase("prcr_other_advance_book", "entry", index, "date", table.getValueAt(row[i], 1));
+        dbm.updateDatabase("prcr_other_advance_book", "entry", index, "code", table.getValueAt(row[i], 2));
+        
+        dbm.updateDatabase("prcr_other_advance_book", "entry", index, "type", table.getValueAt(row[i], 3));
+        
+        dbm.updateDatabase("prcr_other_advance_book", "entry", index, "amount", table.getValueAt(row[i], 4));
+        
+        //dbm.updateDatabase("prcr_debit_pay", "entry", index, "division", table.getValueAt(row[i], 5));
+        }
+        
+          jButton1.doClick();  
+        /*
         
 //        PRCR_otheradvance_edit_class cashedit=new PRCR_otheradvance_edit_class();
         int row = table.getSelectedRows()[0];

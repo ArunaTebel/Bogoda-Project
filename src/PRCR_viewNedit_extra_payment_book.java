@@ -1,11 +1,11 @@
 
 import java.awt.event.KeyEvent;
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -399,7 +399,7 @@ public class PRCR_viewNedit_extra_payment_book extends javax.swing.JFrame {
             }
         });
 
-        search.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "View all", "View from dates" }));
+        search.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "View from dates", "View all" }));
 
         jButton3.setText("Delete");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -1248,7 +1248,28 @@ public class PRCR_viewNedit_extra_payment_book extends javax.swing.JFrame {
     }//GEN-LAST:event_datePick1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       int PREFEREDROWS=20;
+       
+        int PREFEREDROWS=0;
+        try {
+            ResultSet query = dbm.query("SELECT * FROM prcr_other_advance_book where date BETWEEN '" + datechooser.Return_date(yearfield1, monthfield1, dayfield1).toString() + "' AND '" + datechooser.Return_date(yearfield2, monthfield2, dayfield2).toString()+ "'");
+            while (query.next()) {
+                PREFEREDROWS++;
+            }
+            query.close();
+        } catch (SQLException ex) {
+
+        } catch (ParseException ex) {
+            Logger.getLogger(PRCR_viewNedit_debit_pay.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        ((DefaultTableModel)table.getModel()).setNumRows(PREFEREDROWS);
+        
+        
+        
+        
+        
+        
         int i, j;
         for (i = 0; i <PREFEREDROWS ; i++) {
             for (j = 0; j < 7; j++) {
@@ -1291,7 +1312,24 @@ public class PRCR_viewNedit_extra_payment_book extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-     
+    int row[] = table.getSelectedRows();
+        int index;
+        for(int i=0;i<row.length;i++){
+        index = Integer.parseInt(table.getValueAt(row[i], 0).toString());
+        //int index=2;
+        System.out.println(row);
+        System.out.println(index);
+        dbm.updateDatabase("prcr_extrapayment_book", "entry", index, "date", table.getValueAt(row[i], 1));
+        dbm.updateDatabase("prcr_extrapayment_book", "entry", index, "code", table.getValueAt(row[i], 2));
+        
+        dbm.updateDatabase("prcr_extrapayment_book", "entry", index, "type", table.getValueAt(row[i], 3));
+        
+        dbm.updateDatabase("prcr_extrapayment_book", "entry", index, "amount", table.getValueAt(row[i], 4));
+        
+        //dbm.updateDatabase("prcr_debit_pay", "entry", index, "division", table.getValueAt(row[i], 5));
+        }
+          jButton1.doClick();  
+        /*     
 
         int row = table.getSelectedRows()[0];
 
@@ -1302,7 +1340,7 @@ public class PRCR_viewNedit_extra_payment_book extends javax.swing.JFrame {
         cadintf.setVisible(true);
         cadintf.setEntry(entry);
         cadintf.fill_data(entry);
-
+*/
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed

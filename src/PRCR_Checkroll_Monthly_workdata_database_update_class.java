@@ -77,8 +77,8 @@ public class PRCR_Checkroll_Monthly_workdata_database_update_class implements Ru
             dbm.insert("CREATE TABLE pr_workdata_" + yr_mnth + "(code INT,"
                     + "division VARCHAR(15)," + "register_or_casual INT,"
                     + "normal_days INT DEFAULT '0'," + "normal_pay DOUBLE DEFAULT '0'," + "sundays INT DEFAULT '0',"
-                    + "sunday_pay DOUBLE DEFAULT '0'," + "total_pay DOUBLE DEFAULT '0'," + "ot_before_hours INT DEFAULT '0',"
-                    + "ot_before_amount DOUBLE DEFAULT '0'," + "ot_after_hours INT DEFAULT '0'," + "ot_after_amount DOUBLE DEFAULT '0'," + "coinsbf DOUBLE DEFAULT '0',"
+                    + "sunday_pay DOUBLE DEFAULT '0'," + "total_pay DOUBLE DEFAULT '0'," + "ot_before_hours DOUBLE DEFAULT '0',"
+                    + "ot_before_amount DOUBLE DEFAULT '0'," + "ot_after_hours DOUBLE DEFAULT '0'," + "ot_after_amount DOUBLE DEFAULT '0'," + "coinsbf DOUBLE DEFAULT '0',"
                     + "incentive1 DOUBLE DEFAULT '0'," + "incentive2 DOUBLE DEFAULT '0'," + "extra_pay_cash DOUBLE DEFAULT '0'," + "extra_pay_overkilos DOUBLE DEFAULT '0',"
                     + "working_days_prvmnth DOUBLE DEFAULT '0'," + "extra_pay_holiday DOUBLE DEFAULT '0'," + "holidays_thsyr INT DEFAULT '0'," + "normal_days_bfr17 INT DEFAULT '0'," + "sundays_bfr17 INT DEFAULT '0'," + "extra_pay_may DOUBLE DEFAULT '0'," + "extra_pay DOUBLE DEFAULT '0',"
                     + "gross_pay DOUBLE DEFAULT '0'," + "tea DOUBLE DEFAULT '0'," + "salary_adv DOUBLE DEFAULT '0'," + "fest_adv DOUBLE DEFAULT '0',"
@@ -413,7 +413,7 @@ public class PRCR_Checkroll_Monthly_workdata_database_update_class implements Ru
         }
         //Extra pay
         if (Task_manager.extrapayC.isSelected() == false) {
-            updateExtraPay("date", workentryst);
+            updateExtraPayAndDebitpay("date", workentryst);
         }
         //Salary Calculaion
         if (Task_manager.salarycaloverallC.isSelected() == false) {
@@ -566,7 +566,7 @@ days=null;
                     }
 
                     dbm.updateDatabase("pr_workdata_" + this.st, "code", activecodes[i], "active", 1);
-                    dbm.updateDatabase("pr_workdata_" + this.st, "code", activecodes[i],"pay_slip",payslip);
+                    dbm.updateDatabase("pr_workdata_" + this.st, "code", activecodes[i],"pay_slip",2);
                     System.out.println(activecodes[i]+"------payslip-----"+payslip);
 
                 }
@@ -737,13 +737,14 @@ days=null;
         return tot;
     }
 
-    public double updateExtraPay(String date_column, String st) {
+    public double updateExtraPayAndDebitpay(String date_column, String st) {
         //DatabaseManager dbm = DatabaseManager.getDbCon();
         double tot = 0;
         double overkilos = 0;
         double cash = 0;
         double holiday = 0;
         double may = 0;
+        double debitpay=0;
 
         int code;
         int nofentries1 = 0;
@@ -752,8 +753,11 @@ days=null;
         try {
 
             int activecodes[] = dbm.prcr_active_emp_codes_for_month("prcr_extrapayment_book", st, "date", "code");
+            int activecodesdebitpay[]=dbm.prcr_active_emp_codes_for_month("prcr_debit_pay", st, "date", "code");
+            
             nofentries1 = activecodes.length;
-
+            nofentries2=activecodesdebitpay.length;
+            
             for (int i = 0; i < nofentries1; i++) {
                 overkilos = dbm.prcr_emp_code_other_advance_month_totals("prcr_extrapayment_book", st, "date", "code", activecodes[i], "type", "OVERKILOS", "amount");
                 cash = dbm.prcr_emp_code_other_advance_month_totals("prcr_extrapayment_book", st, "date", "code", activecodes[i], "type", "CASHWORK", "amount");
@@ -763,12 +767,25 @@ days=null;
                 dbm.updateDatabase("pr_workdata_" + this.st, "code", activecodes[i], "active", 1);
                 dbm.updateDatabase("pr_workdata_" + this.st, "code", activecodes[i],"pay_slip",payslip);
 
-                Task_manager.extrapayP.setValue((i * 100) / (nofentries1 + 1));
+                Task_manager.extrapayP.setValue((i * 100) / (nofentries1+nofentries2 + 1));
             }
 
+            for (int i = 0; i < nofentries2; i++) {
+                debitpay = dbm.prcr_emp_code_other_advance_month_totals("prcr_debit_pay", st, "date", "code",activecodesdebitpay[i], "type", "DEBIT PAY", "amount");
+                
+                dbm.updateDatabase("pr_workdata_" + this.st, "code", activecodesdebitpay[i], "prvs_debts_paid", debitpay);
+
+                Task_manager.extrapayP.setValue(((nofentries2+i) * 100) / (nofentries1+nofentries2 + 1));
+            }
+ 
+            
+            
+            
+            
+            
           
             Task_manager.extrapayP.setValue(100);
-            Task_manager.extrapayL.setText("Extra Pay Details has been updated");
+            Task_manager.extrapayL.setText("Extra Pay and Debit pay Details has been updated");
             Task_manager.extrapayC.setSelected(true);
             return tot;
         } catch (Exception ex) {
@@ -846,7 +863,7 @@ days=null;
                 while (query.next()) {
 
                     dbm.updateDatabase(table_name, "code", arr[i], "active", 1);
-                    dbm.updateDatabase(table_name, "code", arr[i],"pay_slip",payslip);
+                   // dbm.updateDatabase(table_name, "code", arr[i],"pay_slip",payslip);
                     dbm.updateDatabase(table_name, "code", arr[i], "normal_pay", query.getDouble("basic_salary"));
                     dbm.updateDatabase(table_name, "code", arr[i], "ot_before_hours", query.getDouble("ot_hours"));
                     dbm.updateDatabase(table_name, "code", arr[i], "ot_before_amount", query.getDouble("ot_pay"));

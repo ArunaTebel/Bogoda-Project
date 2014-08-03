@@ -17,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Dhananjaya
  */
-public class PRCR_viewNedit_workentry extends javax.swing.JFrame {
+public class PRCR_viewNedit_debit_pay extends javax.swing.JFrame {
 
     /**
      * Creates new form PRCR_viewNedit_workentry
@@ -26,7 +26,7 @@ public class PRCR_viewNedit_workentry extends javax.swing.JFrame {
     DateChooser_text datechooser = new DateChooser_text();
     DatabaseManager dbm = DatabaseManager.getDbCon();
 
-    public PRCR_viewNedit_workentry() {
+    public PRCR_viewNedit_debit_pay() {
         initComponents();
          table.setFillsViewportHeight(true);
         table.setAutoCreateRowSorter(true);
@@ -60,10 +60,13 @@ public class PRCR_viewNedit_workentry extends javax.swing.JFrame {
         table = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
         search = new javax.swing.JComboBox();
-        deleteB = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        table_total = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Payroll_Checkroll Work Entry View");
+        setTitle("Payroll_Checkroll Cash Advance Book");
 
         datepanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -81,7 +84,7 @@ public class PRCR_viewNedit_workentry extends javax.swing.JFrame {
             }
         });
 
-        dayfield2.setText(""+Integer.parseInt(datehandler.get_today_day()));
+        dayfield2.setText(Integer.parseInt(datehandler.get_today_day())+"");
         dayfield2.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 dayfield2KeyPressed(evt);
@@ -138,7 +141,7 @@ public class PRCR_viewNedit_workentry extends javax.swing.JFrame {
             }
         });
 
-        dayfield1.setText(""+Integer.parseInt(datehandler.get_today_day()));
+        dayfield1.setText(Integer.parseInt(datehandler.get_today_day())+"");
         dayfield1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 dayfield1KeyPressed(evt);
@@ -192,214 +195,244 @@ public class PRCR_viewNedit_workentry extends javax.swing.JFrame {
 
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+
             },
             new String [] {
-                "Entry", "Date", "Normal or Sunday", "Employee Code", "Work Code", "OT hours day", "OT hours night"
+                "Entry", "Date", "Employee Code", "Advance Type", "Amount"
             }
         ));
         table.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         table.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jScrollPane1.setViewportView(table);
+        if (table.getColumnModel().getColumnCount() > 0) {
+            table.getColumnModel().getColumn(1).setPreferredWidth(150);
+            table.getColumnModel().getColumn(2).setPreferredWidth(150);
+            table.getColumnModel().getColumn(3).setPreferredWidth(150);
+            table.getColumnModel().getColumn(4).setPreferredWidth(150);
+        }
 
         jButton2.setText("Edit");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -410,63 +443,101 @@ public class PRCR_viewNedit_workentry extends javax.swing.JFrame {
 
         search.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "View from dates", "View all" }));
 
-        deleteB.setText("Delete");
-        deleteB.addActionListener(new java.awt.event.ActionListener() {
+        jButton3.setText("Delete");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deleteBActionPerformed(evt);
+                jButton3ActionPerformed(evt);
             }
         });
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 153)));
+
+        table_total.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel3.setText("TOTAL");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(table_total, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(jLabel3)))
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(table_total, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(search, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(39, 39, 39)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(datepanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(61, 61, 61)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(deleteB, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(61, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 895, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(56, 56, 56))
+                        .addGap(30, 30, 30)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(search, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(39, 39, 39)
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(datepanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(85, 85, 85)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGap(80, 80, 80)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 680, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(80, 80, 80)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(86, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(38, Short.MAX_VALUE)
                 .addComponent(search, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(datepanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(jLabel1))
+                        .addGap(23, 23, 23)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(datepanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(12, 12, 12)
+                                .addComponent(jLabel1))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(16, 16, 16)
+                                .addComponent(jLabel2))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(40, 40, 40)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addComponent(jLabel2))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(deleteB, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(34, 34, 34)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(191, 191, 191))
+                        .addGap(212, 212, 212)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(281, 281, 281))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -502,10 +573,11 @@ public class PRCR_viewNedit_workentry extends javax.swing.JFrame {
             while (query.next()) {
                 num_of_rows_in_the_database++;
             }
+            query.close();
         } catch (SQLException ex) {
 
         }
-
+        
         if (num_of_rows_in_the_database >= bottom) {
             try {
                 ResultSet query = dbm.query("SELECT * FROM " + table_name + " where " + column_filtering + " BETWEEN '" + element1 + "' AND '" + element2 + "'");
@@ -520,6 +592,7 @@ public class PRCR_viewNedit_workentry extends javax.swing.JFrame {
                         break;
                     }
                 }
+                query.close();
             } catch (SQLException ex) {
 
             }
@@ -1257,11 +1330,9 @@ public class PRCR_viewNedit_workentry extends javax.swing.JFrame {
     }//GEN-LAST:event_datePick1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
-        
-        int PREFEREDROWS=0;
+int PREFEREDROWS=0;
         try {
-            ResultSet query = dbm.query("SELECT * FROM prcr_checkroll_workentry where date BETWEEN '" + datechooser.Return_date(yearfield1, monthfield1, dayfield1).toString() + "' AND '" + datechooser.Return_date(yearfield2, monthfield2, dayfield2).toString()+ "'");
+            ResultSet query = dbm.query("SELECT * FROM prcr_debit_pay where date BETWEEN '" + datechooser.Return_date(yearfield1, monthfield1, dayfield1).toString() + "' AND '" + datechooser.Return_date(yearfield2, monthfield2, dayfield2).toString()+ "'");
             while (query.next()) {
                 PREFEREDROWS++;
             }
@@ -1275,39 +1346,46 @@ public class PRCR_viewNedit_workentry extends javax.swing.JFrame {
         
         ((DefaultTableModel)table.getModel()).setNumRows(PREFEREDROWS);
         
-        
-        System.out.println(PREFEREDROWS);
-        
-        
-       
         int i, j;
         for (i = 0; i <PREFEREDROWS ; i++) {
-            for (j = 0; j < 7; j++) {
+            for (j = 0; j < 5; j++) {
                 table.setValueAt(null, i, j);
 
             }
         }
         if (search.getSelectedItem().toString().equals("View all")) {
 
-            dbm.Inserting_To_The_Table(table, "prcr_checkroll_workentry", "entry", 0, 1, PREFEREDROWS);
-            dbm.Inserting_To_The_Table(table, "prcr_checkroll_workentry", "date", 1, 1, PREFEREDROWS);
-            dbm.Inserting_To_The_Table(table, "prcr_checkroll_workentry", "normalday_or_sunday", 2, 1, PREFEREDROWS);
-            dbm.Inserting_To_The_Table(table, "prcr_checkroll_workentry", "emp_code", 3, 1, PREFEREDROWS);
-            dbm.Inserting_To_The_Table(table, "prcr_checkroll_workentry", "work_code", 4, 1, PREFEREDROWS);
-            dbm.Inserting_To_The_Table(table, "prcr_checkroll_workentry", "ot_day", 5, 1, PREFEREDROWS);
-            dbm.Inserting_To_The_Table(table, "prcr_checkroll_workentry", "ot_night", 6, 1, PREFEREDROWS);
+            dbm.Inserting_To_The_Table(table, "prcr_debit_pay", "entry", 0, 1, PREFEREDROWS);
+            dbm.Inserting_To_The_Table(table, "prcr_debit_pay", "date", 1, 1, PREFEREDROWS);
+            dbm.Inserting_To_The_Table(table, "prcr_debit_pay", "code", 2, 1, PREFEREDROWS);
+            dbm.Inserting_To_The_Table(table, "prcr_debit_pay", "type", 3, 1, PREFEREDROWS);
+            dbm.Inserting_To_The_Table(table, "prcr_debit_pay", "amount", 4, 1, PREFEREDROWS);
+            
+            i=0;
+                double total=0;
+                while(table.getValueAt(i,0)!=null){
+                    total=total+Double.parseDouble(table.getValueAt(i,4).toString());
+                    i++;
+                }
+                table_total.setText(""+total); 
+            
 
         } else {
             try {
-                Inserting_To_The_Table_Filtered_Between_Two(table, "prcr_checkroll_workentry", "entry", 0, 1, PREFEREDROWS, "date", datechooser.Return_date(yearfield1, monthfield1, dayfield1).toString(), datechooser.Return_date(yearfield2, monthfield2, dayfield2).toString());
+                Inserting_To_The_Table_Filtered_Between_Two(table, "prcr_debit_pay", "entry", 0, 1, PREFEREDROWS, "date", datechooser.Return_date(yearfield1, monthfield1, dayfield1).toString(), datechooser.Return_date(yearfield2, monthfield2, dayfield2).toString());
 
-                Inserting_To_The_Table_Filtered_Between_Two(table, "prcr_checkroll_workentry", "date", 1, 1, PREFEREDROWS, "date", datechooser.Return_date(yearfield1, monthfield1, dayfield1).toString(), datechooser.Return_date(yearfield2, monthfield2, dayfield2).toString());
-                Inserting_To_The_Table_Filtered_Between_Two(table, "prcr_checkroll_workentry", "normalday_or_sunday", 2, 1, PREFEREDROWS, "date", datechooser.Return_date(yearfield1, monthfield1, dayfield1).toString(), datechooser.Return_date(yearfield2, monthfield2, dayfield2).toString());
-                Inserting_To_The_Table_Filtered_Between_Two(table, "prcr_checkroll_workentry", "emp_code", 3, 1, PREFEREDROWS, "date", datechooser.Return_date(yearfield1, monthfield1, dayfield1).toString(), datechooser.Return_date(yearfield2, monthfield2, dayfield2).toString());
-                Inserting_To_The_Table_Filtered_Between_Two(table, "prcr_checkroll_workentry", "work_code", 4, 1, PREFEREDROWS, "date", datechooser.Return_date(yearfield1, monthfield1, dayfield1).toString(), datechooser.Return_date(yearfield2, monthfield2, dayfield2).toString());
-                Inserting_To_The_Table_Filtered_Between_Two(table, "prcr_checkroll_workentry", "ot_day", 5, 1, PREFEREDROWS, "date", datechooser.Return_date(yearfield1, monthfield1, dayfield1).toString(), datechooser.Return_date(yearfield2, monthfield2, dayfield2).toString());
-                Inserting_To_The_Table_Filtered_Between_Two(table, "prcr_checkroll_workentry", "ot_night", 6, 1, PREFEREDROWS, "date", datechooser.Return_date(yearfield1, monthfield1, dayfield1).toString(), datechooser.Return_date(yearfield2, monthfield2, dayfield2).toString());
-
+                Inserting_To_The_Table_Filtered_Between_Two(table, "prcr_debit_pay", "date", 1, 1, PREFEREDROWS, "date", datechooser.Return_date(yearfield1, monthfield1, dayfield1).toString(), datechooser.Return_date(yearfield2, monthfield2, dayfield2).toString());
+                Inserting_To_The_Table_Filtered_Between_Two(table, "prcr_debit_pay", "code", 2, 1, PREFEREDROWS, "date", datechooser.Return_date(yearfield1, monthfield1, dayfield1).toString(), datechooser.Return_date(yearfield2, monthfield2, dayfield2).toString());
+                Inserting_To_The_Table_Filtered_Between_Two(table, "prcr_debit_pay", "type", 3, 1, PREFEREDROWS, "date", datechooser.Return_date(yearfield1, monthfield1, dayfield1).toString(), datechooser.Return_date(yearfield2, monthfield2, dayfield2).toString());
+                Inserting_To_The_Table_Filtered_Between_Two(table, "prcr_debit_pay", "amount", 4, 1, PREFEREDROWS, "date", datechooser.Return_date(yearfield1, monthfield1, dayfield1).toString(), datechooser.Return_date(yearfield2, monthfield2, dayfield2).toString());
+               
+                i=0;
+                double total=0;
+                while(table.getValueAt(i,0)!=null){
+                    total=total+Double.parseDouble(table.getValueAt(i,4).toString());
+                    i++;
+                }
+                table_total.setText(""+total); 
             } catch (ParseException ex) {
                 Logger.getLogger(PRCR_viewNedit_workentry.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -1318,52 +1396,68 @@ public class PRCR_viewNedit_workentry extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-
-        
-               int row[] = table.getSelectedRows();
+       //THis code was used to update database directly from the table
+        int row[] = table.getSelectedRows();
         int index;
         for(int i=0;i<row.length;i++){
         index = Integer.parseInt(table.getValueAt(row[i], 0).toString());
         //int index=2;
         System.out.println(row);
         System.out.println(index);
-        dbm.updateDatabase("prcr_checkroll_workentry", "entry", index, "date", table.getValueAt(row[i], 1));
-        dbm.updateDatabase("prcr_checkroll_workentry", "entry", index, "normalday_or_sunday", table.getValueAt(row[i], 2));
+        dbm.updateDatabase("prcr_debit_pay", "entry", index, "date", table.getValueAt(row[i], 1));
+        dbm.updateDatabase("prcr_debit_pay", "entry", index, "code", table.getValueAt(row[i], 2));
         
-        dbm.updateDatabase("prcr_checkroll_workentry", "entry", index, "emp_code", table.getValueAt(row[i], 3));
+        dbm.updateDatabase("prcr_debit_pay", "entry", index, "type", table.getValueAt(row[i], 3));
         
-        dbm.updateDatabase("prcr_checkroll_workentry", "entry", index, "work_code", table.getValueAt(row[i], 4));
+        dbm.updateDatabase("prcr_debit_pay", "entry", index, "amount", table.getValueAt(row[i], 4));
         
-        dbm.updateDatabase("prcr_checkroll_workentry", "entry", index, "ot_day", table.getValueAt(row[i], 5));
-        dbm.updateDatabase("prcr_checkroll_workentry", "entry", index, "ot_night", table.getValueAt(row[i], 6));
+        //dbm.updateDatabase("prcr_debit_pay", "entry", index, "division", table.getValueAt(row[i], 5));
         }
-        
           jButton1.doClick();  
         /*
-// PRCR_checkroll_workentry_edit_class cwe=new PRCR_checkroll_workentry_edit_class();
+//        PRCR_cashadvance_edit_class cashedit=new PRCR_cashadvance_edit_class();
+        int row = table.getSelectedRows()[0];
+//         String s=table.getValueAt(row, 1).toString();
+//         cashedit.setDate(s);
+//         cashedit.setTableName();
+         int entry=Integer.parseInt(table.getValueAt(row,0).toString());
+//        cashedit.setEmpcode(entry);
+//        cashedit.setCashInMonthlyTable(entry);
+        PRCR_cashadvance_edit_interface2 cadintf=new PRCR_cashadvance_edit_interface2();
+        cadintf.setVisible(true);
+        cadintf.setEntry(entry);
+        cadintf.fill_data(entry);
+ /*PRCR_checkroll_workentry_edit_class cwe=new PRCR_checkroll_workentry_edit_class();
   int row = table.getSelectedRows()[0];
-//  String s=table.getValueAt(row, 1).toString();
-//  cwe.setDate(s);
-//        cwe.setTableName();
+  String s=table.getValueAt(row, 1).toString();
+  cwe.setDate(s);
+        cwe.setTableName();
         int entry=Integer.parseInt(table.getValueAt(row,0).toString());
-//        cwe.setEmpcode(entry);
-//        cwe.setNormalDays(entry);//-1 normal days if normal day,-1 sundays if sunday
-//        cwe.setOtday(entry);//substract the ot hours
-//        cwe.setOtNight(entry);
+        cwe.setEmpcode(entry);
+        cwe.setNormalDays(entry);//-1 normal days if normal day,-1 sundays if sunday
+        cwe.setOtday(entry);//substract the ot hours
+        cwe.setOtNight(entry);
         PRCR_Edit_checkroll_workentry ecw=new PRCR_Edit_checkroll_workentry();//editing is done from this window
         ecw.setVisible(true);
         ecw.setEntry(entry);
         ecw.fill_data(entry);//fill the form when popup the jframe
         */
-        // TODO add your handling code here:
+        // TODO add your handling code here:*/
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void deleteBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBActionPerformed
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         int rowd = table.getSelectedRows()[0];
         int entryd=Integer.parseInt(table.getValueAt(rowd,0).toString());
-        dbm.CheckNDeleteFromDataBase("prcr_checkroll_workentry","entry", entryd);
-        jButton1.doClick();
-    }//GEN-LAST:event_deleteBActionPerformed
+        dbm.CheckNDeleteFromDataBase("prcr_debit_pay","entry", entryd);
+        jButton1.doClick();         // TODO add your handling code here:
+        int i=0;
+                double total=0;
+                while(table.getValueAt(i,0)!=null){
+                    total=total+Double.parseDouble(table.getValueAt(i,4).toString());
+                    i++;
+                }
+                table_total.setText(""+total); 
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1407,17 +1501,20 @@ public class PRCR_viewNedit_workentry extends javax.swing.JFrame {
     private javax.swing.JPanel datepanel1;
     private javax.swing.JTextField dayfield1;
     private javax.swing.JTextField dayfield2;
-    private javax.swing.JButton deleteB;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField monthfield1;
     private javax.swing.JTextField monthfield2;
     private javax.swing.JComboBox search;
     private javax.swing.JTable table;
+    private javax.swing.JLabel table_total;
     private javax.swing.JTextField yearfield1;
     private javax.swing.JTextField yearfield2;
     // End of variables declaration//GEN-END:variables

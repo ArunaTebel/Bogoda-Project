@@ -440,7 +440,7 @@ public class PRCR_viewNedit_cash_advances_book1 extends javax.swing.JFrame {
             }
         });
 
-        search.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "View all", "View from dates" }));
+        search.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "View from dates", "View all" }));
 
         jButton3.setText("Delete");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -1346,7 +1346,7 @@ public class PRCR_viewNedit_cash_advances_book1 extends javax.swing.JFrame {
             i=0;
                 double total=0;
                 while(table.getValueAt(i,0)!=null){
-                    total=total+Double.parseDouble(table.getValueAt(i,3).toString());
+                    total=total+Double.parseDouble(table.getValueAt(i,4).toString());
                     i++;
                 }
                 table_total.setText(""+total); 
@@ -1364,7 +1364,7 @@ public class PRCR_viewNedit_cash_advances_book1 extends javax.swing.JFrame {
                 i=0;
                 double total=0;
                 while(table.getValueAt(i,0)!=null){
-                    total=total+Double.parseDouble(table.getValueAt(i,3).toString());
+                    total=total+Double.parseDouble(table.getValueAt(i,4).toString());
                     i++;
                 }
                 table_total.setText(""+total); 
@@ -1393,7 +1393,28 @@ public class PRCR_viewNedit_cash_advances_book1 extends javax.swing.JFrame {
         
         dbm.updateDatabase("prcr_checkroll_workentry", "entry", index, "ot_day", table.getValueAt(row, 5));
         dbm.updateDatabase("prcr_checkroll_workentry", "entry", index, "ot_night", table.getValueAt(row, 6));
-  */      
+  */   
+        
+            int row[] = table.getSelectedRows();
+        int index;
+        for(int i=0;i<row.length;i++){
+        index = Integer.parseInt(table.getValueAt(row[i], 0).toString());
+        //int index=2;
+        System.out.println(row);
+        System.out.println(index);
+        dbm.updateDatabase("prcr_cash_advance_book", "entry", index, "date", table.getValueAt(row[i], 1));
+        dbm.updateDatabase("prcr_cash_advance_book", "entry", index, "code", table.getValueAt(row[i], 2));
+        
+        dbm.updateDatabase("prcr_cash_advance_book", "entry", index, "type", table.getValueAt(row[i], 3));
+        
+        dbm.updateDatabase("prcr_cash_advance_book", "entry", index, "amount", table.getValueAt(row[i], 4));
+        
+        //dbm.updateDatabase("prcr_debit_pay", "entry", index, "division", table.getValueAt(row[i], 5));
+        }
+        
+        
+          jButton1.doClick();  
+        /*
 //        PRCR_cashadvance_edit_class cashedit=new PRCR_cashadvance_edit_class();
         int row = table.getSelectedRows()[0];
 //         String s=table.getValueAt(row, 1).toString();

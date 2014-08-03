@@ -53,6 +53,7 @@ public class PRCR_Staff_Salary_Cal {
     private double other_ded3;
     private double pre_debt;
     private double total_ded;
+    private double debit_pay;
     int normaldaysbfr17 = 0;
     int sundaysbfr17 = 0;
     private double prv_month_coins;
@@ -158,7 +159,7 @@ int k=0;
                 fine_ded = query.getDouble("fine");
                 welfare_ded = query.getDouble("welfare");
                 kovil_ded = query.getDouble("kovil");
-
+                 debit_pay= query.getDouble("prvs_debts_paid");
             }
 
         } catch (SQLException ex) {
@@ -223,8 +224,8 @@ int k=0;
         this.pre_debt = Double.parseDouble(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "pre_debt"));
 
         this.total_ded = EPFContribution + tea_ded + salary_adv + fest_adv + food_ded + loan + other_ded1 + other_ded2 + other_ded3 + pre_debt;
-        this.FinalSalary = grosspay - total_ded;//+ getPreMonthCoins();
-
+        this.FinalSalary = grosspay+debit_pay - total_ded;//+ getPreMonthCoins();
+        
 //        
 //        dbm.updateDatabase("pr_workdata_" + st, "code", employCode, "total_pay", totalBasicSalary);
 //        dbm.updateDatabase("pr_workdata_" + st, "code", employCode, "gross_pay", grosspay);

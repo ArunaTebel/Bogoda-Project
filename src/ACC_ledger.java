@@ -623,7 +623,7 @@ public class ACC_ledger {
             op_bal=opd;
         }
         else if(opd==0 && opc!=0){
-            op_bal=opc;
+            op_bal=-opc;
         }
         else{
             op_bal=opd-opc;
