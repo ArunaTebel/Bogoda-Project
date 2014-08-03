@@ -189,7 +189,7 @@ public class ACC_Update extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
+        /*
         Acc_Update_And_Additional_Data updt = new Acc_Update_And_Additional_Data();
 
         updt.update_table("account_payment_debitside", "account_payment_debitside_all", "Payments", null);
@@ -202,32 +202,32 @@ public class ACC_Update extends javax.swing.JPanel {
         updt.update_table("account_journal_creditside", "account_journal_creditside_all", "Journals", null);
         updt.update_table("account_journal_main", "account_journal_main_all", "Journals", null);
         
-        updt.update_account_balances();
+        updt.update_account_balances(); */
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        Acc_Update_And_Additional_Data updt = new Acc_Update_And_Additional_Data();
+ /*        Acc_Update_And_Additional_Data updt = new Acc_Update_And_Additional_Data();
 
         updt.update_table("account_payment_debitside", "account_payment_debitside_all", "Payments", null);
-        updt.update_table("account_payment_creditside", "account_payment_creditside_all", "Payments", null);
+        updt.update_table("account_payment_creditside", "account_payment_creditside_all", "Payments", null);*/
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-
+/*
         Acc_Update_And_Additional_Data updt = new Acc_Update_And_Additional_Data();
 
         updt.update_table("account_reciept_debitside", "account_reciept_debitside_all", "Receipts", null);
-        updt.update_table("account_reciept_creditside", "account_reciept_creditside_all", "Receipts", null);
+        updt.update_table("account_reciept_creditside", "account_reciept_creditside_all", "Receipts", null);*/
 
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        Acc_Update_And_Additional_Data updt = new Acc_Update_And_Additional_Data();
+ /*        Acc_Update_And_Additional_Data updt = new Acc_Update_And_Additional_Data();
 
         updt.update_table("account_journal_debitside", "account_journal_debitside_all", "Journals", null);
         updt.update_table("account_journal_creditside", "account_journal_creditside_all", "Journals", null);
-        updt.update_table("account_journal_main", "account_journal_main_all", "Journals", null);
+        updt.update_table("account_journal_main", "account_journal_main_all", "Journals", null); */
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed

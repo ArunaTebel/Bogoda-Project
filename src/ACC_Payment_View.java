@@ -209,7 +209,7 @@ public class ACC_Payment_View extends javax.swing.JPanel {
             }
         });
 
-        dayfield.setText(datehandler.get_today_day());
+        dayfield.setText(""+Integer.parseInt(datehandler.get_today_day()));
         dayfield.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 dayfieldKeyPressed(evt);
@@ -266,7 +266,7 @@ public class ACC_Payment_View extends javax.swing.JPanel {
             }
         });
 
-        dayfield2.setText(datehandler.get_today_day());
+        dayfield2.setText(""+Integer.parseInt(datehandler.get_today_day()));
         dayfield2.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 dayfield2KeyPressed(evt);

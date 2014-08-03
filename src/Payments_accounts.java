@@ -375,11 +375,54 @@ public class Payments_accounts {
         }
         return true;
     }
+    
+     public boolean addToCreditDataBaseBankall() {
+        DatabaseManager dbCon = DatabaseManager.getDbCon();
+        try {
+            dbCon.insert("INSERT INTO account_payment_creditside_all(ref_no,payment_no,date,pay_type,credit_account_id,credit_account_name,credit_description,bank_id,bank_name,branch_id,branch_name,cheque_no,cheque_date,credit_amount) VALUES('" + refNo + "','" + recieptNo + "','" + date + "','" + payType + "','" + credit_accountCode + "','" + credit_accountName + "','" + credit_description + "','" + bankCode + "','" + bankName + "','" + branchCode + "','" + branchName + "','" + chequeNo + "','" + chequeDate + "','" + creditAmount + "')");
+        } catch (SQLException ex) {
+            MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
+            return false;
+        }
+        try {
+            ResultSet rs = dbCon.query("SELECT LAST_INSERT_ID()");
+            while (rs.next()) {
+                tr_no = rs.getInt(1);
+            }
+
+        } catch (SQLException ex) {
+            MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
+            return false;
+        }
+        return true;
+    }
 
     public boolean addToCreditDataBaseCash() {
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         try {
             dbCon.insert("INSERT INTO account_payment_creditside(ref_no,payment_no,date,pay_type,credit_account_id,credit_account_name,credit_description,credit_amount) VALUES('" + refNo + "','" + recieptNo + "','" + date + "','" + payType + "','" + credit_accountCode + "','" + credit_accountName + "','" + credit_description + "','" + creditAmount + "')");
+
+        } catch (SQLException ex) {
+            MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
+            return false;
+        }
+        try {
+            ResultSet rs = dbCon.query("SELECT LAST_INSERT_ID()");
+            while (rs.next()) {
+                tr_no = rs.getInt(1);
+            }
+
+        } catch (SQLException ex) {
+            MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
+            return false;
+        }
+        return true;
+    }
+    
+    public boolean addToCreditDataBaseCashall() {
+        DatabaseManager dbCon = DatabaseManager.getDbCon();
+        try {
+            dbCon.insert("INSERT INTO account_payment_creditside_all(ref_no,payment_no,date,pay_type,credit_account_id,credit_account_name,credit_description,credit_amount) VALUES('" + refNo + "','" + recieptNo + "','" + date + "','" + payType + "','" + credit_accountCode + "','" + credit_accountName + "','" + credit_description + "','" + creditAmount + "')");
 
         } catch (SQLException ex) {
             MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
@@ -409,6 +452,19 @@ public class Payments_accounts {
         }
         return true;
     }
+    
+       public boolean addToDebitDataBaseall(int debit_acnt_code, String debit_acnt_name, String debit_descriptn, double debit_amount) {
+        DatabaseManager dbCon = DatabaseManager.getDbCon();
+        try {
+            dbCon.insert("INSERT INTO account_payment_debitside_all(tr_no,debit_account_id,debit_account_name,debit_description,debit_amount) VALUES('" + tr_no + "','" + debit_acnt_code + "','" + debit_acnt_name + "','" + debit_descriptn + "','" + debit_amount + "')");
+
+        } catch (SQLException ex) {
+            MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
+            return false;
+        }
+        return true;
+    }
+
 
     public boolean UpdateCreditDatabaseBank(int tr_no) {
         DatabaseManager dbCon = DatabaseManager.getDbCon();
@@ -430,6 +486,26 @@ public class Payments_accounts {
         return true;
     }
     
+       public boolean UpdateCreditDatabaseBankall(int tr_no) {
+        DatabaseManager dbCon = DatabaseManager.getDbCon();
+        dbCon.updateDatabase("account_payment_creditside_all", "tr_no", tr_no, "ref_no", refNo);
+        dbCon.updateDatabase("account_payment_creditside_all", "tr_no", tr_no, "payment_no", recieptNo);
+        dbCon.updateDatabase("account_payment_creditside_all", "tr_no", tr_no, "date", date);
+        dbCon.updateDatabase("account_payment_creditside_all", "tr_no", tr_no, "pay_type", payType);
+        dbCon.updateDatabase("account_payment_creditside_all", "tr_no", tr_no, "credit_account_id", credit_accountCode);
+        dbCon.updateDatabase("account_payment_creditside_all", "tr_no", tr_no, "credit_account_name", credit_accountName);
+        dbCon.updateDatabase("account_payment_creditside_all", "tr_no", tr_no, "credit_description", credit_description);
+        dbCon.updateDatabase("account_payment_creditside_all", "tr_no", tr_no, "bank_id", bankCode);
+        dbCon.updateDatabase("account_payment_creditside_all", "tr_no", tr_no, "bank_name", bankName);
+        dbCon.updateDatabase("account_payment_creditside_all", "tr_no", tr_no, "branch_id", branchCode);
+        dbCon.updateDatabase("account_payment_creditside_all", "tr_no", tr_no, "branch_name", branchName);
+        dbCon.updateDatabase("account_payment_creditside_all", "tr_no", tr_no, "cheque_no", chequeNo);
+        dbCon.updateDatabase("account_payment_creditside_all", "tr_no", tr_no, "cheque_date", chequeDate);
+        dbCon.updateDatabase("account_payment_creditside_all", "tr_no", tr_no, "credit_amount", creditAmount);
+
+        return true;
+    }
+    
        public boolean UpdateCreditDatabaseCash(int tr_no) {
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         dbCon.updateDatabase("account_payment_creditside", "tr_no", tr_no, "ref_no", refNo);
@@ -444,10 +520,29 @@ public class Payments_accounts {
         return true;
     }
        
+          public boolean UpdateCreditDatabaseCashall(int tr_no) {
+        DatabaseManager dbCon = DatabaseManager.getDbCon();
+        dbCon.updateDatabase("account_payment_creditside_all", "tr_no", tr_no, "ref_no", refNo);
+        dbCon.updateDatabase("account_payment_creditside_all", "tr_no", tr_no, "payment_no", recieptNo);
+        dbCon.updateDatabase("account_payment_creditside_all", "tr_no", tr_no, "date", date);
+        dbCon.updateDatabase("account_payment_creditside_all", "tr_no", tr_no, "pay_type", payType);
+        dbCon.updateDatabase("account_payment_creditside_all", "tr_no", tr_no, "credit_account_id", credit_accountCode);
+        dbCon.updateDatabase("account_payment_creditside_all", "tr_no", tr_no, "credit_account_name", credit_accountName);
+        dbCon.updateDatabase("account_payment_creditside_all", "tr_no", tr_no, "credit_description", credit_description);
+        dbCon.updateDatabase("account_payment_creditside_all", "tr_no", tr_no, "credit_amount", creditAmount);
+
+        return true;
+    }
+       
        
        public void DeleteDebitEntries(int tr_no){
            DatabaseManager dbCon = DatabaseManager.getDbCon();
            dbCon.CheckNDeleteFromDataBase("account_payment_debitside","tr_no",tr_no);
+       }
+       
+        public void DeleteDebitEntriesall(int tr_no){
+           DatabaseManager dbCon = DatabaseManager.getDbCon();
+           dbCon.CheckNDeleteFromDataBase("account_payment_debitside_all","tr_no",tr_no);
        }
        
        
@@ -455,6 +550,17 @@ public class Payments_accounts {
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         try {
             dbCon.insert("INSERT INTO account_payment_debitside(tr_no,debit_account_id,debit_account_name,debit_description,debit_amount) VALUES('" + tr_no1 + "','" + debit_acnt_code + "','" + debit_acnt_name + "','" + debit_descriptn + "','" + debit_amount + "')");
+
+        } catch (SQLException ex) {
+            MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
+            return false;
+        }
+        return true;
+    }
+           public boolean addToDebitDataBaseEditall(int tr_no1, int debit_acnt_code, String debit_acnt_name, String debit_descriptn, double debit_amount) {
+        DatabaseManager dbCon = DatabaseManager.getDbCon();
+        try {
+            dbCon.insert("INSERT INTO account_payment_debitside_all(tr_no,debit_account_id,debit_account_name,debit_description,debit_amount) VALUES('" + tr_no1 + "','" + debit_acnt_code + "','" + debit_acnt_name + "','" + debit_descriptn + "','" + debit_amount + "')");
 
         } catch (SQLException ex) {
             MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
@@ -473,6 +579,18 @@ public class Payments_accounts {
            
            return true;
        }
+       
+         public boolean UpdateDebitDatabaseall(int tr_no){
+           
+        DatabaseManager dbCon = DatabaseManager.getDbCon();
+        dbCon.updateDatabase("account_payment_debitside_all", "tr_no", tr_no, "debit_account_id",debit_accountCode);
+        dbCon.updateDatabase("account_payment_debitside_all", "tr_no", tr_no, "debit_account_name",debit_accountName);
+        dbCon.updateDatabase("account_payment_debitside_all", "tr_no", tr_no, "debit_description",debit_description);
+        dbCon.updateDatabase("account_payment_debitside_all", "tr_no", tr_no, "debit_amount",debitAmount);
+           
+           return true;
+       }
+       
     /*   // this has to be coded later
      public void addToDebitDataBase() {
      DatabaseManager dbCon = DatabaseManager.getDbCon();

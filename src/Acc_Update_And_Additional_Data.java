@@ -135,7 +135,7 @@ public class Acc_Update_And_Additional_Data {
         }
     }*/
     
-    // This method is to get the current balance initially..... P.S - change the opening_balance_calc method first  op_balance = op_c not op_balance=-op_c in line 626
+    // This method is to get the current balance initially..... P.S - change the opening_balance_calc method  in Acc Ledger first  op_balance = op_c not op_balance=-op_c in line 626
     
     public void complete_op_bal_temp() {
         DatabaseManager dbm = new DatabaseManager();

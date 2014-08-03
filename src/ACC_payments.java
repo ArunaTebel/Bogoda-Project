@@ -688,7 +688,7 @@ public class ACC_payments extends javax.swing.JPanel {
             }
         });
 
-        dayfield.setText(datehandler.get_today_day());
+        dayfield.setText(""+Integer.parseInt(datehandler.get_today_day()));
         dayfield.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 dayfieldKeyPressed(evt);
