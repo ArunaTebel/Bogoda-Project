@@ -60,6 +60,9 @@ public class PRCR_viewNedit_other_advances_book extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         search = new javax.swing.JComboBox();
         jButton3 = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        table_total = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Payroll_Checkroll OtherAdvances Book");
@@ -422,6 +425,36 @@ public class PRCR_viewNedit_other_advances_book extends javax.swing.JFrame {
             }
         });
 
+        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 153)));
+
+        table_total.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel3.setText("TOTAL");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(table_total, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(jLabel3)))
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(table_total, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -446,9 +479,11 @@ public class PRCR_viewNedit_other_advances_book extends javax.swing.JFrame {
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(73, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(67, 67, 67)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 680, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(271, 271, 271))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(90, 90, 90))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -469,9 +504,14 @@ public class PRCR_viewNedit_other_advances_book extends javax.swing.JFrame {
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(34, 34, 34)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(191, 191, 191))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(149, 149, 149)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(274, 274, 274))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -1278,6 +1318,14 @@ public class PRCR_viewNedit_other_advances_book extends javax.swing.JFrame {
             dbm.Inserting_To_The_Table(table, "prcr_other_advance_book", "type", 3, 1, PREFEREDROWS);
             dbm.Inserting_To_The_Table(table, "prcr_other_advance_book", "amount", 4, 1, PREFEREDROWS);
             
+            i=0;
+                double total=0;
+                while(table.getValueAt(i,0)!=null){
+                    total=total+Double.parseDouble(table.getValueAt(i,3).toString());
+                    i++;
+                }
+                table_total.setText(""+total); 
+            
 
         } else {
             try {
@@ -1288,6 +1336,14 @@ public class PRCR_viewNedit_other_advances_book extends javax.swing.JFrame {
                 Inserting_To_The_Table_Filtered_Between_Two(table, "prcr_other_advance_book", "type", 3, 1, PREFEREDROWS, "date", datechooser.Return_date(yearfield1, monthfield1, dayfield1).toString(), datechooser.Return_date(yearfield2, monthfield2, dayfield2).toString());
                 Inserting_To_The_Table_Filtered_Between_Two(table, "prcr_other_advance_book", "amount", 4, 1, PREFEREDROWS, "date", datechooser.Return_date(yearfield1, monthfield1, dayfield1).toString(), datechooser.Return_date(yearfield2, monthfield2, dayfield2).toString());
                
+                 i=0;
+                double total=0;
+                while(table.getValueAt(i,0)!=null){
+                    total=total+Double.parseDouble(table.getValueAt(i,3).toString());
+                    i++;
+                }
+                table_total.setText(""+total); 
+                
             } catch (ParseException ex) {
                 Logger.getLogger(PRCR_viewNedit_workentry.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -1350,6 +1406,13 @@ int rowd = table.getSelectedRows()[0];
         int entryd=Integer.parseInt(table.getValueAt(rowd,0).toString());
         dbm.CheckNDeleteFromDataBase("prcr_other_advance_book","entry", entryd);
         jButton1.doClick();           // TODO add your handling code here:
+        int i=0;
+                double total=0;
+                while(table.getValueAt(i,0)!=null){
+                    total=total+Double.parseDouble(table.getValueAt(i,3).toString());
+                    i++;
+                }
+                table_total.setText(""+total); 
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
@@ -1399,12 +1462,15 @@ int rowd = table.getSelectedRows()[0];
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField monthfield1;
     private javax.swing.JTextField monthfield2;
     private javax.swing.JComboBox search;
     private javax.swing.JTable table;
+    private javax.swing.JLabel table_total;
     private javax.swing.JTextField yearfield1;
     private javax.swing.JTextField yearfield2;
     // End of variables declaration//GEN-END:variables

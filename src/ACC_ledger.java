@@ -603,6 +603,8 @@ public class ACC_ledger {
         String table_name = year+"_balances";
         
         op_bal=Double.parseDouble(dbm.checknReturnData(table_name,"account_code",account_code,"op_bal"));
+       // double op1 =Double.parseDouble(dbm.checknReturnData(table_name,"account_code",account_code,"op_bal"));
+
         
         if(main_ac_id==1||main_ac_id==2||main_ac_id==7||main_ac_id==8){
             
