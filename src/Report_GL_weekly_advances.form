@@ -166,6 +166,7 @@
     <Component class="javax.swing.JButton" name="view">
       <Properties>
         <Property name="text" type="java.lang.String" value="Update"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="viewMouseClicked"/>

@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b4a7e90f-236c-48e1-b463-a16c40591ab1">
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="144"/>
 	<parameter name="USER" class="java.lang.String"/>
 	<parameter name="from_date" class="java.util.Date"/>
 	<parameter name="to_date" class="java.util.Date"/>
@@ -31,8 +31,7 @@ ORDER BY
      gl_other_advances.`type` ASC,
      gl_other_advances.`item_type` ASC,
      gl_other_advances.`item_name` ASC,
- gl_other_advances.`tr_no`
- ]]>
+ gl_other_advances.`tr_no`]]>
 	</queryString>
 	<field name="gl_other_advances_advance_id" class="java.lang.Integer"/>
 	<field name="gl_other_advances_type" class="java.lang.String"/>
@@ -338,35 +337,35 @@ ORDER BY
 				<reportElement x="1" y="23" width="554" height="1" uuid="8b820536-4e3c-4646-9176-72c78990b115"/>
 			</line>
 			<staticText>
-				<reportElement x="0" y="3" width="27" height="22" uuid="4e90050f-d1e6-4ef4-86ca-cb2e073d0452"/>
+				<reportElement x="33" y="5" width="47" height="15" uuid="4e90050f-d1e6-4ef4-86ca-cb2e073d0452"/>
 				<textElement>
-					<font size="8" isBold="true"/>
+					<font size="8" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Order NO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="36" y="5" width="38" height="20" uuid="4791931b-8855-41e0-8927-d3c5c9622a2e"/>
+				<reportElement x="73" y="5" width="38" height="20" uuid="4791931b-8855-41e0-8927-d3c5c9622a2e"/>
 				<textElement>
 					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Date]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="88" y="5" width="26" height="20" uuid="47c124dd-3377-4e2c-b369-8160cf8284c5"/>
+				<reportElement x="109" y="5" width="26" height="20" uuid="47c124dd-3377-4e2c-b369-8160cf8284c5"/>
 				<textElement>
 					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Sup ID]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="225" y="5" width="46" height="20" uuid="068c9b33-d77c-464c-aa43-ec200f2b4d75"/>
+				<reportElement x="236" y="5" width="46" height="20" uuid="068c9b33-d77c-464c-aa43-ec200f2b4d75"/>
 				<textElement>
 					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Item]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="304" y="5" width="46" height="20" uuid="bc69e3e0-b08d-4ba8-82ef-910716220541"/>
+				<reportElement x="315" y="5" width="46" height="20" uuid="bc69e3e0-b08d-4ba8-82ef-910716220541"/>
 				<textElement>
 					<font size="8" isBold="true"/>
 				</textElement>
@@ -408,32 +407,39 @@ ORDER BY
 				<text><![CDATA[Month Amnt]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="120" y="5" width="47" height="16" uuid="730fcc47-1255-4e68-8872-fbf9b7f2fce2"/>
+				<reportElement x="154" y="5" width="47" height="16" uuid="730fcc47-1255-4e68-8872-fbf9b7f2fce2"/>
 				<textElement>
 					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="5" width="100" height="12" uuid="cb2faaff-4568-44f1-8678-5bf2e1fb4b41"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Tr_NO]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="21" splitType="Stretch">
 			<textField pattern="yyyy-MM-dd">
-				<reportElement x="36" y="1" width="46" height="15" uuid="7d768aac-eb02-42d3-9948-70d452827421"/>
+				<reportElement x="71" y="1" width="46" height="15" uuid="7d768aac-eb02-42d3-9948-70d452827421"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{gl_other_advances_Date}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="83" y="1" width="32" height="15" uuid="3993803c-7d33-4f98-9a3d-6edee3a2cc27"/>
+				<reportElement x="102" y="1" width="32" height="15" uuid="3993803c-7d33-4f98-9a3d-6edee3a2cc27"/>
 				<textElement textAlignment="Right">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{gl_other_advances_id}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="226" y="1" width="68" height="15" uuid="0c71c7bf-5ea3-4696-900b-73739585dfa6"/>
+				<reportElement x="237" y="1" width="68" height="15" uuid="0c71c7bf-5ea3-4696-900b-73739585dfa6"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
@@ -475,25 +481,32 @@ ORDER BY
 				<textFieldExpression><![CDATA[$F{gl_other_advances_item_quantity}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="294" y="1" width="56" height="15" uuid="8f15b7f2-d588-4926-869f-94f3fa76fe3a"/>
+				<reportElement x="305" y="1" width="56" height="15" uuid="8f15b7f2-d588-4926-869f-94f3fa76fe3a"/>
 				<textElement textAlignment="Right">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{gl_other_advances_item_type}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="1" width="25" height="20" uuid="d40872a5-fb57-41a5-9829-1265f8be4159"/>
+				<reportElement x="37" y="1" width="34" height="11" uuid="d40872a5-fb57-41a5-9829-1265f8be4159"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{gl_other_advances_order_num}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="120" y="1" width="100" height="20" uuid="913a1c28-a0ab-4666-b80e-30e24f3a7377"/>
+				<reportElement x="140" y="1" width="89" height="20" uuid="913a1c28-a0ab-4666-b80e-30e24f3a7377"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{suppliers_sup_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="1" width="34" height="12" uuid="92940983-012d-4b3b-b815-439faf8a0f62"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{gl_other_advances_tr_no}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

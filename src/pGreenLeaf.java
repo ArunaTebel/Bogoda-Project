@@ -153,7 +153,7 @@ public class pGreenLeaf extends javax.swing.JPanel {
         jButton6.setBorderPainted(false);
         jButton6.setEnabled(false);
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "---------", "Supplier", "Category", "Transport Code", "Leaf Rate", "----------" }));
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "---------", "PreDebits", "Extra Amount", "----------" }));
         jComboBox3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox3ActionPerformed(evt);
@@ -165,7 +165,7 @@ public class pGreenLeaf extends javax.swing.JPanel {
             }
         });
 
-        jButton7.setText("Veiw");
+        jButton7.setText("Alter");
         jButton7.setBorderPainted(false);
         jButton7.setEnabled(false);
 
@@ -312,7 +312,32 @@ public class pGreenLeaf extends javax.swing.JPanel {
     }//GEN-LAST:event_Add_comboActionPerformed
 
     private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
-        // TODO add your handling code here:
+      String selection = jComboBox3.getSelectedItem().toString();
+        
+        if (selection.equalsIgnoreCase("Extra Amount")) {
+            
+          GL_extrapay Addsupp = new GL_extrapay();
+
+       GL_content.removeAll();
+
+       Addsupp.setSize(GL_content.getSize());
+
+       GL_content.add(Addsupp);
+        validate();
+        repaint();
+        }
+        if (selection.equalsIgnoreCase("PreDebits")) {
+            
+//          Add_category Addcat = new Add_category();
+//
+//       GL_content.removeAll();
+//
+//       Addcat.setSize(GL_content.getSize());
+//
+//       GL_content.add(Addcat);
+//        validate();
+//        repaint();
+        }
     }//GEN-LAST:event_jComboBox3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

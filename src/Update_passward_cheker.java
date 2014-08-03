@@ -19,7 +19,7 @@ public class Update_passward_cheker extends javax.swing.JFrame {
     public Update_passward_cheker() {
         initComponents();
         try{
-         this.setIconImage(new ImageIcon(getClass().getResource("iconpng.png")).getImage());
+         this.setIconImage(new ImageIcon(getClass().getResource("Iconpng.png")).getImage());
         }catch(Exception e){}
     }
 

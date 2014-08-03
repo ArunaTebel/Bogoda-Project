@@ -101,8 +101,10 @@ public class Report_GL_monthly_ledger extends javax.swing.JPanel {
             Thread a = new Thread(new Background(55));
 
            // Thread t1 = new Thread(new update(yearfield.getText(), monthfield.getText()));
+             double limit =dbm.checknReturnDoubleData("rate_details", "Code_name", "CASH_LIMIT", "rate");
             HashMap param = new HashMap();
             param.put("USER", user.get_current_user());
+            param.put("cash_limit", limit);
             param.put("year", yearfield.getText());
             param.put("month", datehandler.return_month_as_num(monthfield.getText()));
             param.put("Month", datehandler.Return_month_full(datehandler.return_index(monthfield.getText())) + " " + yearfield.getText().toString());
@@ -297,6 +299,7 @@ public class Report_GL_monthly_ledger extends javax.swing.JPanel {
         );
 
         view.setText("Update");
+        view.setEnabled(false);
         view.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 viewMouseClicked(evt);

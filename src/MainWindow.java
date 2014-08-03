@@ -36,7 +36,7 @@ public class MainWindow extends javax.swing.JFrame {
         initComponents();
     //    String ss = System.getProperty("user.name");
         
-       int a = (int) (Math.random()*10);
+       int a = (int) (Math.random()*3);
        
        
 
@@ -44,17 +44,15 @@ public class MainWindow extends javax.swing.JFrame {
      //  System.out.println(a);
        try{
       
-      this.setIconImage(new ImageIcon(getClass().getResource("iconpng.png")).getImage());
+      this.setIconImage(new ImageIcon(getClass().getResource("Iconpng.png")).getImage());
       jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("BogodaAreal"+a+".jpg")));
        } catch(NullPointerException e){
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("BogodaAreal"+7+".jpg")));
+           System.out.println("fail"+a);
+       // jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("BogodaAreal"+7+".jpg")));
        }
       
         Info.setText("");
-        String s = userAC.get_current_user();
-        TimeCheck time = new TimeCheck(s);
-        Thread t = new Thread(time);
-        t.start();
+        
 
         if (userAC.Checkip()) {
 
@@ -62,6 +60,11 @@ public class MainWindow extends javax.swing.JFrame {
             Info.setText("New ip detected");
 
         }
+        
+        String s = userAC.get_current_user();
+        TimeCheck time = new TimeCheck(s);
+        Thread t = new Thread(time);
+        t.start();
 
         jButton1.setEnabled(false);
         jButton2.setEnabled(false);
@@ -288,26 +291,27 @@ public class MainWindow extends javax.swing.JFrame {
         Main_Content.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         Main_Content.setLayout(null);
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Blogo.png"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/splash/Picture177.png"))); // NOI18N
+        jLabel2.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         Main_Content.add(jLabel2);
-        jLabel2.setBounds(10, 10, 340, 70);
+        jLabel2.setBounds(410, 210, 470, 140);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("User Name");
         Main_Content.add(jLabel4);
-        jLabel4.setBounds(120, 200, 90, 40);
+        jLabel4.setBounds(80, 250, 90, 40);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Password");
         Main_Content.add(jLabel5);
-        jLabel5.setBounds(120, 240, 90, 40);
+        jLabel5.setBounds(80, 290, 90, 40);
 
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Copyrights @ NineLights 2014. All rights reserved.");
+        jLabel6.setText("Copyright© NineLights 2014. All rights reserved.");
         Main_Content.add(jLabel6);
-        jLabel6.setBounds(0, 360, 330, 40);
+        jLabel6.setBounds(10, 410, 330, 40);
 
         jButton14.setBackground(new java.awt.Color(0, 0, 102));
         jButton14.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -319,17 +323,19 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
         Main_Content.add(jButton14);
-        jButton14.setBounds(190, 290, 130, 40);
+        jButton14.setBounds(150, 340, 160, 40);
 
-        Pass.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        Pass.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
+        Pass.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 153, 0), 1, true));
         Pass.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 PassKeyPressed(evt);
             }
         });
         Main_Content.add(Pass);
-        Pass.setBounds(190, 250, 130, 30);
+        Pass.setBounds(150, 300, 160, 30);
 
+        User_id.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 153, 0), 1, true));
         User_id.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 User_idActionPerformed(evt);
@@ -344,14 +350,14 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
         Main_Content.add(User_id);
-        User_id.setBounds(190, 210, 130, 30);
+        User_id.setBounds(150, 260, 160, 30);
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pat.png"))); // NOI18N
         jLabel3.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         Main_Content.add(jLabel3);
-        jLabel3.setBounds(-230, 130, 770, 420);
+        jLabel3.setBounds(-260, 180, 770, 420);
 
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BogodaAreal8.jpg"))); // NOI18N
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BogodaAreal2.jpg"))); // NOI18N
         jLabel7.setText("jLabel3");
         jLabel7.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         Main_Content.add(jLabel7);
@@ -793,7 +799,7 @@ public class MainWindow extends javax.swing.JFrame {
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
        // User_id.setText("AdminNL");
         
-        Thread t = new Thread(new WelfareThread());
+       Thread t = new Thread(new WelfareThread());
         Thread t1 = new Thread(new PRCRWelfareThread());
         t.start();
         t1.start();
@@ -816,7 +822,7 @@ public class MainWindow extends javax.swing.JFrame {
             
             
             
-            } if(a.equals("2")){
+            } else if(a.equals("2")){
             
         jButton1.setEnabled(true);
         
@@ -832,7 +838,7 @@ public class MainWindow extends javax.swing.JFrame {
         jMenu3.setEnabled(true);
         }
             
-          if(a.equals("3")){
+            else if(a.equals("3")){
             
         jButton1.setEnabled(true);
         
@@ -849,7 +855,7 @@ public class MainWindow extends javax.swing.JFrame {
         jMenu3.setEnabled(true);
         }
           
-           if(a.equals("4")){
+            else if(a.equals("4")){
             
         
         jButton4.setEnabled(true);
@@ -862,7 +868,7 @@ public class MainWindow extends javax.swing.JFrame {
        // jMenu2.setEnabled(true);
         jMenu3.setEnabled(true);
         }
-            if(a.equals("5")){
+           else if(a.equals("5")){
             
         
         //jButton4.setEnabled(true);
@@ -876,7 +882,7 @@ public class MainWindow extends javax.swing.JFrame {
        // jMenu3.setEnabled(true);
         }
            
-            if(a.equals("22")){
+           else if(a.equals("22")){
             
         jButton1.setEnabled(true);
         
@@ -897,6 +903,27 @@ public class MainWindow extends javax.swing.JFrame {
         jMenu2.setEnabled(true);
         jMenu3.setEnabled(true);
         }
+            
+            
+             else if(a.equals("6")){
+            
+      
+        
+        
+        
+        jButton7.setEnabled(true);
+        jButton8.setEnabled(true);
+        
+        jButton11.setEnabled(true);
+        
+        jButton15.setEnabled(true);
+        topBar.setEnabled(true);
+        //jMenu1.setEnabled(true);
+        jMenu2.setEnabled(true);
+       // jMenu3.setEnabled(true);
+        }
+            
+             else{}
         // Main_Content.removeAll();
         inteface_move.smooth_move(jLabel3, 6, 3, 3,1);
         inteface_move.smooth_move(User_id, 6, 3, 3,1);
@@ -905,6 +932,7 @@ public class MainWindow extends javax.swing.JFrame {
         inteface_move.smooth_move(jLabel4, 6, 3, 3,1);
         inteface_move.smooth_move(jLabel5, 6, 5, 3,1);
         inteface_move.smooth_move(jLabel6, 6, 3, 3,1);
+        inteface_move.smooth_move(jLabel2, 7, 2, 1,1);
         
       //  User_id.setVisible(false);
        // Pass.setVisible(false);
@@ -1159,7 +1187,7 @@ System.exit(0);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        topBar.setBackground(new java.awt.Color(100, 100, 0));
+        topBar.setBackground(new java.awt.Color(0, 102, 102));
        // BGS_Advance bgs = new BGS_Advance();
         BGS_mainwindow bgs=new BGS_mainwindow();
 

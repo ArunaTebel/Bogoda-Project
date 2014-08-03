@@ -41,10 +41,10 @@ public class BGS_mainwindow extends javax.swing.JPanel {
         );
         content_panelLayout.setVerticalGroup(
             content_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 442, Short.MAX_VALUE)
+            .addGap(0, 425, Short.MAX_VALUE)
         );
 
-        jButton2.setBackground(new java.awt.Color(0, 102, 0));
+        jButton2.setBackground(new java.awt.Color(0, 102, 102));
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("Payroll-Checkroll");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -63,7 +63,7 @@ public class BGS_mainwindow extends javax.swing.JPanel {
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(0, 102, 0));
+        jButton1.setBackground(new java.awt.Color(0, 102, 102));
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Green Leaf");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -88,17 +88,17 @@ public class BGS_mainwindow extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(content_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jButton1)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jButton2)
-                .addGap(0, 561, Short.MAX_VALUE))
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 317, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, 0)
                 .addComponent(content_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -109,7 +109,7 @@ public class BGS_mainwindow extends javax.swing.JPanel {
         BGS_PRCR_Advance cashadvance=new BGS_PRCR_Advance();
         interface_events.insertpanel(cashadvance, content_panel);
         cashadvance.focus();
-        jButton1.setBackground(new java.awt.Color(0, 102, 0));
+        jButton1.setBackground(new java.awt.Color(0, 102, 102));
         jButton2.setBackground(new java.awt.Color(0, 0, 0));
         cashadvance.focus();
         
@@ -127,7 +127,7 @@ public class BGS_mainwindow extends javax.swing.JPanel {
 //        GL_Other_Advances otheradvance = new GL_Other_Advances();
         BGS_Advance otheradvance=new BGS_Advance();
         interface_events.insertpanel(otheradvance, content_panel);
-        jButton2.setBackground(new java.awt.Color(0, 102, 0));
+        jButton2.setBackground(new java.awt.Color(0, 102, 102));
         jButton1.setBackground(new java.awt.Color(0, 0, 0));
         otheradvance.focus();
 

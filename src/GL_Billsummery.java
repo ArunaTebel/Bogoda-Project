@@ -32,7 +32,7 @@ public class GL_Billsummery extends javax.swing.JFrame {
         UIManager.getLookAndFeelDefaults().put("nimbusOrange", (new Color(51, 153, 0)));
         initComponents();
         try{
-         this.setIconImage(new ImageIcon(getClass().getResource("iconpng.png")).getImage());
+         this.setIconImage(new ImageIcon(getClass().getResource("Iconpng.png")).getImage());
         }catch(Exception e){}
         
          GL_BillsummeryPanel bill = new GL_BillsummeryPanel();

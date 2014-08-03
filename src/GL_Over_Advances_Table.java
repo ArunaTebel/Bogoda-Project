@@ -10,6 +10,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JProgressBar;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
@@ -254,6 +256,42 @@ public class GL_Over_Advances_Table extends javax.swing.JPanel {
     
     
     
+    }
+    
+    
+    public void removeSelectedRows(JTable table) {
+        int m = i / 50;
+        DefaultTableModel model = (DefaultTableModel) this.table.getModel();
+        int[] rows = table.getSelectedRows();
+        //  deleted += rows.length;
+        for (int n = 0; n < rows.length; n++) {
+
+            dbm.CheckNDeleteFromDataBase("gl_over_advance", "sup_id", table.getValueAt(rows[n] - n, 0));
+            set_table(i + 1, i + 50);
+
+            //  System.out.println(table.getValueAt(rows[i] - i, 0));
+            // model.removeRow(rows[i] - i);
+        }
+        int k = 0;
+        int j = 0;
+        while (k <= 49) {
+            j = 0;
+
+            while (j < 11) {
+
+                table.setValueAt(null, k, j);
+                j++;
+            }
+            k++;
+            set_table(i + 1, i + 50);
+
+            page_info.setText("Page " + (m + 1) + " of" + " " + no_of_pages);
+
+            // set_table();
+            a = dbm.Checking_Length_Of_The_Table("gl_over_advance", "sup_id");
+        }
+       // return deleted;
+
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -773,7 +811,7 @@ public class GL_Over_Advances_Table extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // removeSelectedRows(table);
+         removeSelectedRows(table);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed

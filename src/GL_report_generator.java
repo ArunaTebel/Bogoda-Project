@@ -242,23 +242,29 @@ public class GL_report_generator {
                 String type = "other";
 
                 type = query.getString("item_type");
-                if (type.equals("Tea")) {
-                    cat_totals[0] += tot;
-                } else if (type.equals("Manure")) {
-                    cat_totals[1] += tot;
-                } else if (type.equals("Chemicals")) {
-                    cat_totals[2] += tot;
-                } else if (type.equals("Shop")) {
-                    cat_totals[3] += tot;
-                } else if (type.equals("Coir Bags")) {
-                    cat_totals[4] += tot;
-                } else if (type.equals("Spray Tanks")) {
-                    cat_totals[5] += tot;
-                } else {
-                    cat_totals[6] += tot;
+                switch (type) {
+                    case "Tea":
+                        cat_totals[0] += tot;
+                        break;
+                    case "Manure":
+                        cat_totals[1] += tot;
+                        break;
+                    case "Chemicals":
+                        cat_totals[2] += tot;
+                        break;
+                    case "Shop":
+                        cat_totals[3] += tot;
+                        break;
+                    case "Coir Bags":
+                        cat_totals[4] += tot;
+                        break;
+                    case "Spray Tanks":
+                        cat_totals[5] += tot;
+                        break;
+                    default:
+                        cat_totals[6] += tot;
+                        break;
                 }
-
-                // 
             }
             query.close();
 
@@ -446,13 +452,16 @@ public class GL_report_generator {
         double other_advance;
         double tax;
         double cards;
+        double cards2;
+        
         double net_amount;
         double plusTax;
         double coinscf;
         double bal_cf;
         double final_total;
+        double extra= 0;
         tax = dbm.checknReturnDoubleData("rate_details", "Code_name", "INTAX", "rate");
-            cards = dbm.checknReturnDoubleData("rate_details", "Code_name", "CARDS", "rate");
+            cards2 = dbm.checknReturnDoubleData("rate_details", "Code_name", "CARDS", "rate");
         // String task = "3";
 
         ResultSet query = dbm.query("SELECT * FROM suppliers");
@@ -465,6 +474,8 @@ public class GL_report_generator {
             sup = query.getInt("sup_id");
             name = query.getString("sup_name");
             pay = query.getString("sup_pay_type");
+            
+            extra = dbm.checknReturnDoubleData("gl_extra_pay", "entry", year+month+sup,"amount");
             //String trans_code = query.getString("")
 
             // System.out.println(pay);
@@ -480,13 +491,13 @@ public class GL_report_generator {
             trans=0;
             ResultSet query1 = dbm.query("SELECT * FROM daily_transactions_current WHERE entry LIKE '" + year + month + sup + "' ");
             while (query1.next()) {
-                //trans = query1.getDouble("trans");
+                trans = query1.getDouble("trans");
                 total_kg = query1.getDouble("Total");
             }
             query1.close();
             
-             String tr =dbm.checknReturnData("suppliers", "sup_id", sup, "trans_rate");
-              trans = dbm.checknReturnDoubleData("tranport_rates", "Trans_id",tr, "Trans_rate");
+           //  String tr =dbm.checknReturnData("suppliers", "sup_id", sup, "trans_rate");
+            //  trans = dbm.checknReturnDoubleData("tranport_rates", "Trans_id",tr, "Trans_rate");
 
           ////   trans = dbm.checknReturnDoubleData("daily_transactions_current", "entry", year + month + sup, "trans");
             //System.out.println(trans_rate);
@@ -494,7 +505,7 @@ public class GL_report_generator {
             //System.out.println(total_kg);
             leaf_code = dbm.checknReturnData("suppliers", "sup_id", sup, "leaf_rate_code");
             leaf_rate = dbm.checknReturnDoubleData("leaf_category", "category_name", leaf_code, "category_id");
-            if(leaf_code.length()==7 && !leaf_code.equals("DEFAULT")){System.out.println("WRONG PAY val");}
+         //   if(leaf_code.length()==7 && !leaf_code.equals("DEFAULT")){System.out.println("WRONG PAY val");}
             coinsbf=0;
             pre_debts=0;
 
@@ -534,10 +545,11 @@ public class GL_report_generator {
             
            // System.out.println(tax);
             // if()
+            cards = cards2;
             if (total_kg == 0) {
                 cards = 0;
             }
-            trans = trans*total_kg;
+          //  trans = trans*total_kg;
           //  System.out.println(trans);
             net_amount = ((coinsbf + (total_kg * leaf_rate)) - (pre_debts + cash_advance + other_advance + cards + loans + trans + welf));
 
@@ -566,13 +578,13 @@ public class GL_report_generator {
                 k++;
                 // System.out.println(k);
                 //double Grand_total =
-                dbm.insert("INSERT INTO gl_monthly_ledger_current(entry,year,month,sup_id,name,pay,total_kg,set_value,gross_amount,coins_bf,total_payable,pre_debts,cash_advances,other_advances,loans,cards,transport,welfare,total_deduction,net_amount,tax,final_payable,coins_cf,final_amount,bal_cf,nloans,nother) "
-                        + "VALUES('" + year + month + sup + "','" + year + "','" + month + "','" + sup + "','" + name + "','" + pay + "','" + total_kg + "','" + leaf_rate + "','" + (total_kg * leaf_rate) + "','" + coinsbf + "','" + (coinsbf + (total_kg * leaf_rate)) + "','" + pre_debts + "','" + cash_advance + "','" + other_advance + "','" + loans + "','" + cards + "','" + trans + "','" + welf + "','" + (pre_debts + cash_advance + other_advance + cards + loans + trans + welf) + "','" + net_amount + "','" + plusTax + "','" + (net_amount + plusTax) + "','" + coinscf + "','" + final_total + "','" + bal_cf + "','" + loans_next + "','" + other_next + "')");
+                dbm.insert("INSERT INTO gl_monthly_ledger_current(entry,year,month,sup_id,name,pay,total_kg,set_value,extra,gross_amount,coins_bf,total_payable,pre_debts,cash_advances,other_advances,loans,cards,transport,welfare,total_deduction,net_amount,tax,final_payable,coins_cf,final_amount,bal_cf,nloans,nother) "
+                        + "VALUES('" + year + month + sup + "','" + year + "','" + month + "','" + sup + "','" + name + "','" + pay + "','" + total_kg + "','" + leaf_rate + "','" + extra + "','" + (total_kg * leaf_rate) + "','" + coinsbf + "','" + (coinsbf + (total_kg * leaf_rate)) + "','" + pre_debts + "','" + cash_advance + "','" + other_advance + "','" + loans + "','" + cards + "','" + trans + "','" + welf + "','" + (pre_debts + cash_advance + other_advance + cards + loans + trans + welf) + "','" + net_amount + "','" + plusTax + "','" + (net_amount + plusTax) + "','" + coinscf + "','" + final_total + "','" + bal_cf + "','" + loans_next + "','" + other_next + "')");
                 //  dbCon.insert("INSERT INTO daily_transactions_current(year,month,sup_id,day_1,Total) VALUES('" + year + "','" + month + "','"  + sup + "','" + day_totals[0] +  "','"+ total + "')");
 
             } catch (SQLException ex) {
                 //MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
-                dbm.insert("UPDATE  gl_monthly_ledger_current SET year='" + year + "',month='" + month + "',sup_id='" + sup + "',name='" + name + "',pay='" + pay + "',total_kg='" + total_kg + "',set_value='" + leaf_rate + "',gross_amount='" + (total_kg * leaf_rate) + "',coins_bf='" + coinsbf + "',total_payable='" + (coinsbf + (total_kg * leaf_rate)) + "',pre_debts='" + pre_debts + "',cash_advances='" + cash_advance + "',other_advances='" + other_advance + "',loans ='" + loans + "',cards='" + cards + "',transport='" + trans + "',welfare = '" + welf + "',total_deduction='" + (pre_debts + cash_advance + other_advance + cards + trans) + "',net_amount='" + net_amount + "',tax='" + plusTax + "',final_payable='" + (net_amount + plusTax) + "',coins_cf='" + coinscf + "',final_amount='" + final_total + "',bal_cf='" + bal_cf + "',nloans='" + loans_next + "',nother='" + other_next + "' Where entry = '" + year + month + sup + "'");
+                dbm.insert("UPDATE  gl_monthly_ledger_current SET year='" + year + "',month='" + month + "',sup_id='" + sup + "',name='" + name + "',pay='" + pay + "',total_kg='" + total_kg + "',set_value='" + leaf_rate + "',extra='" + extra + "',gross_amount='" + (total_kg * leaf_rate) + "',coins_bf='" + coinsbf + "',total_payable='" + (coinsbf + (total_kg * leaf_rate)) + "',pre_debts='" + pre_debts + "',cash_advances='" + cash_advance + "',other_advances='" + other_advance + "',loans ='" + loans + "',cards='" + cards + "',transport='" + trans + "',welfare = '" + welf + "',total_deduction='" + (pre_debts + cash_advance + other_advance + cards + trans) + "',net_amount='" + net_amount + "',tax='" + plusTax + "',final_payable='" + (net_amount + plusTax) + "',coins_cf='" + coinscf + "',final_amount='" + final_total + "',bal_cf='" + bal_cf + "',nloans='" + loans_next + "',nother='" + other_next + "' Where entry = '" + year + month + sup + "'");
 
             }//}
             try {
@@ -607,7 +619,7 @@ public class GL_report_generator {
     public void pre_debt_and_coin_Update(String year, String month) {
         double coin = 0, debts = 0;
         int sup = 0;
-        String task = "4";
+        //String task = "4";
         int k = 0;
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         try {

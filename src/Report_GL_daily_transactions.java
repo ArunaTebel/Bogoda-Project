@@ -261,6 +261,7 @@ public class Report_GL_daily_transactions extends javax.swing.JPanel {
         );
 
         view.setText("Update");
+        view.setEnabled(false);
         view.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 viewMouseClicked(evt);

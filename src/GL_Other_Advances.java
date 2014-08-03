@@ -1,6 +1,5 @@
 
 
-import java.awt.Component;
 import java.awt.event.KeyEvent;
 import java.beans.PropertyVetoException;
 import java.text.ParseException;
@@ -1197,13 +1196,13 @@ public class GL_Other_Advances extends javax.swing.JPanel {
                 
                 if(!edit.getText().equals("")){ tr_no = Integer.parseInt(edit.getText());            }
                  //int tr_no = Integer.parseInt(edit.getText());
-                 supplier_id.setSelectedItem(dbm.checknReturnData("gl_other_advances","order_num",tr_no,"id"));
-                 order_no.setText(dbm.checknReturnData("gl_other_advances","order_num",tr_no,"order_num"));
-                 Discription_code.setSelectedItem(dbm.checknReturnData("rate_details","Name",dbm.checknReturnData("gl_other_advances","order_num",tr_no,"item_name"),"Code_name"));
-                 qty.setText(dbm.checknReturnData("gl_other_advances","order_num",tr_no,"item_quantity"));
+                 supplier_id.setSelectedItem(dbm.checknReturnData("gl_other_advances","tr_no",tr_no,"id"));
+                 order_no.setText(dbm.checknReturnData("gl_other_advances","tr_no",tr_no,"order_num"));
+                 Discription_code.setSelectedItem(dbm.checknReturnData("rate_details","Name",dbm.checknReturnData("gl_other_advances","tr_no",tr_no,"item_name"),"Code_name"));
+                 qty.setText(dbm.checknReturnData("gl_other_advances","tr_no",tr_no,"item_quantity"));
                  amount.setText(""+(Double.parseDouble(qty.getText())*Double.parseDouble(Rate.getText())));
                  
-                 String date= dbm.checknReturnData("gl_other_advances","order_num",tr_no,"Date");
+                 String date= dbm.checknReturnData("gl_other_advances","tr_no",tr_no,"Date");
                  
                  java.sql.Date Datef = null;
                  Datef=java.sql.Date.valueOf(date);
@@ -1226,7 +1225,7 @@ public class GL_Other_Advances extends javax.swing.JPanel {
         int reply = JOptionPane.showConfirmDialog(null,"Are You Sure?" , "Delete Entry", JOptionPane.YES_NO_OPTION);
         
         if(reply==JOptionPane.YES_OPTION){
-            dbm.CheckNDeleteFromDataBase("gl_other_advances","order_num",Integer.parseInt(edit.getText()));
+            dbm.CheckNDeleteFromDataBase("gl_other_advances","tr_no",Integer.parseInt(edit.getText()));
             supplier_id.setSelectedIndex(0);
             Discription_code.setSelectedIndex(0);
             qty.setText(null);

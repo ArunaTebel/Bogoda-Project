@@ -21,6 +21,7 @@ public class TimeCheck implements Runnable{
     public String month;
     public String year;
     public String user;
+    Date_Handler datehandler = new Date_Handler();
     
     public TimeCheck(String a){
         this.user = a;
@@ -35,12 +36,14 @@ public class TimeCheck implements Runnable{
     
     public void checkTime() {
         String s = getTime();
-        this.year = s.substring(0,4);
         this.month = s.substring(5, 7);
+        this.month = datehandler.Return_month_full(Integer.parseInt(month));
+        this.year = s.substring(0,4);
+        //
         this.date = s.substring(8, 10);
         this.hour = s.substring(12, 14);
         this.minute = s.substring(15, 17);
-        MainWindow.topBar.setText("Welcome! " + user + "             " + hour + ":" + minute + "           " + month + "-" + date + "-" + year);
+        MainWindow.topBar.setText("Welcome! " + user + "             " + hour + ":" + minute + "           " + date + "-" + month+ "-" + year);
         
     }
     

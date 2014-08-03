@@ -19,7 +19,7 @@ public class New_window extends javax.swing.JFrame {
     public New_window() {
         initComponents();
         try{
-         this.setIconImage(new ImageIcon(getClass().getResource("iconpng.png")).getImage());
+         this.setIconImage(new ImageIcon(getClass().getResource("Iconpng.png")).getImage());
         }catch(Exception e){
             
         }

@@ -936,8 +936,8 @@ public class GLcash_advance extends javax.swing.JPanel {
             Save.setEnabled(false);
         }
         
-        update.update_month_check(Save, yearfield, monthfield);
-        update.update_month_check(Save1, yearfield, monthfield);
+       // update.update_month_check(Save, yearfield, monthfield);
+        //update.update_month_check(Save1, yearfield, monthfield);
     }//GEN-LAST:event_EmergencyItemStateChanged
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -1369,8 +1369,8 @@ public class GLcash_advance extends javax.swing.JPanel {
     }//GEN-LAST:event_supplier_idActionPerformed
 
     private void PermissionItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_PermissionItemStateChanged
-        update.update_month_check(Save, yearfield, monthfield);
-        update.update_month_check(Save1, yearfield, monthfield);
+//        update.update_month_check(Save, yearfield, monthfield);
+      //  update.update_month_check(Save1, yearfield, monthfield);
     }//GEN-LAST:event_PermissionItemStateChanged
 
     private void PermissionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PermissionActionPerformed

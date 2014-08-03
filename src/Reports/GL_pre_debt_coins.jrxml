@@ -6,14 +6,15 @@
 	<parameter name="USER" class="java.lang.String"/>
 	<parameter name="month" class="java.lang.String"/>
 	<parameter name="Month" class="java.lang.String"/>
-	<queryString language="SQL">
+	<queryString>
 		<![CDATA[SELECT
      supplier_pre_debt_coins.`sup_id` AS supplier_pre_debt_coins_sup_id,
      supplier_pre_debt_coins.`pre_debts` AS supplier_pre_debt_coins_pre_debts,
      supplier_pre_debt_coins.`coins` AS supplier_pre_debt_coins_coins,
      supplier_pre_debt_coins.`month` AS supplier_pre_debt_coins_month
 FROM
-     `supplier_pre_debt_coins` supplier_pre_debt_coins]]>
+     `supplier_pre_debt_coins` supplier_pre_debt_coins
+where month=$P{month}]]>
 	</queryString>
 	<field name="supplier_pre_debt_coins_sup_id" class="java.lang.Integer"/>
 	<field name="supplier_pre_debt_coins_pre_debts" class="java.lang.Double"/>

@@ -1162,62 +1162,62 @@ public class GL_Welfare extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-        
-        String thisMonth = yearfield.getText() + "-" + Integer.parseInt(datehandler.return_month_as_num(monthfield.getText()));
-        
-        DatabaseManager dbm = new DatabaseManager();
        
-        String table = "welfare";
-        String coloumnG = "month";
-        String coloumnN = null;
-        int supId = 0;
-        int newOld = 0;
-        int suspended = 0;
-        int remain = 0;
-        int before = 0;
-        double amount = 0;
-            System.out.println("Running qwelf");
-        int oldRate = (int) dbm.checknReturnDoubleData("rate_details", "Code_name", "WELF_RATE", "rate");
-        int newRate = (int) dbm.checknReturnDoubleData("rate_details", "Code_name", "WELF_NEW", "rate");
-        
-        try {
-            ResultSet query = dbm.query("SELECT * FROM " + table + " where " + coloumnG + " = '" + thisMonth + "'");
-            while (query.next()) {
-                coloumnN = "sup_id";
-                supId = query.getInt(coloumnN);
-                 String examount = dbm.filterReturn2StringData("welfare", "sup_id", supId+"","month",thisMonth, "amount");
-        if(examount==null){
-                coloumnN = "new_old";
-                newOld = query.getInt(coloumnN);
-                coloumnN = "suspended_months";
-                suspended = query.getInt(coloumnN);
-                coloumnN = "suspended_remain";
-                remain = query.getInt(coloumnN);
-                coloumnN = "before_after";
-                before = query.getInt(coloumnN);
-                
-                if (remain >= 0) {
-                    if ((remain == 0 && before == 0) || (remain == suspended && before == 1)) {
-                        if (newOld == 0) {
-                            amount = suspended * oldRate;
-                        } else {
-                            amount = suspended * newRate;
-                        }
-                    } else {
-                        amount = 0;
-                    }
-                } else {
-                    if (newOld == 0) {
-                        amount = oldRate;
-                    } else {
-                        amount = newRate;
-                    }                    
-                }
-                dbm.update("welfare", "month", "sup_id", thisMonth, supId, "amount", amount);                
-            }}
-        } catch (SQLException ex) {
-            Logger.getLogger(GL_Welfare.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        String thisMonth = yearfield.getText() + "-" + Integer.parseInt(datehandler.return_month_as_num(monthfield.getText()));
+//        
+//        DatabaseManager dbm = new DatabaseManager();
+//       
+//        String table = "welfare";
+//        String coloumnG = "month";
+//        String coloumnN = null;
+//        int supId = 0;
+//        int newOld = 0;
+//        int suspended = 0;
+//        int remain = 0;
+//        int before = 0;
+//        double amount = 0;
+//            System.out.println("Running qwelf");
+//        int oldRate = (int) dbm.checknReturnDoubleData("rate_details", "Code_name", "WELF_RATE", "rate");
+//        int newRate = (int) dbm.checknReturnDoubleData("rate_details", "Code_name", "WELF_NEW", "rate");
+//        
+//        try {
+//            ResultSet query = dbm.query("SELECT * FROM " + table + " where " + coloumnG + " = '" + thisMonth + "'");
+//            while (query.next()) {
+//                coloumnN = "sup_id";
+//                supId = query.getInt(coloumnN);
+//                 String examount = dbm.filterReturn2StringData("welfare", "sup_id", supId+"","month",thisMonth, "amount");
+//        if(examount==null){
+//                coloumnN = "new_old";
+//                newOld = query.getInt(coloumnN);
+//                coloumnN = "suspended_months";
+//                suspended = query.getInt(coloumnN);
+//                coloumnN = "suspended_remain";
+//                remain = query.getInt(coloumnN);
+//                coloumnN = "before_after";
+//                before = query.getInt(coloumnN);
+//                
+//                if (remain >= 0) {
+//                    if ((remain == 0 && before == 0) || (remain == suspended && before == 1)) {
+//                        if (newOld == 0) {
+//                            amount = suspended * oldRate;
+//                        } else {
+//                            amount = suspended * newRate;
+//                        }
+//                    } else {
+//                        amount = 0;
+//                    }
+//                } else {
+//                    if (newOld == 0) {
+//                        amount = oldRate;
+//                    } else {
+//                        amount = newRate;
+//                    }                    
+//                }
+//                dbm.update("welfare", "month", "sup_id", thisMonth, supId, "amount", amount);                
+//            }}
+//        } catch (SQLException ex) {
+//            Logger.getLogger(GL_Welfare.class.getName()).log(Level.SEVERE, null, ex);
+//        }
 
         //reportgen.update_welfare(yearfield.getText(), datehandler.return_month_as_num(monthfield.getText()));
            //reportgen.update_taskmanager(yearfield.getText(), datehandler.return_month_as_num(monthfield.getText()), "4");

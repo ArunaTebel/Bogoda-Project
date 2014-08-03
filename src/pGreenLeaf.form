@@ -154,13 +154,11 @@
     <Component class="javax.swing.JComboBox" name="jComboBox3">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="6">
+          <StringArray count="4">
             <StringItem index="0" value="---------"/>
-            <StringItem index="1" value="Supplier"/>
-            <StringItem index="2" value="Category"/>
-            <StringItem index="3" value="Transport Code"/>
-            <StringItem index="4" value="Leaf Rate"/>
-            <StringItem index="5" value="----------"/>
+            <StringItem index="1" value="PreDebits"/>
+            <StringItem index="2" value="Extra Amount"/>
+            <StringItem index="3" value="----------"/>
           </StringArray>
         </Property>
       </Properties>
@@ -171,7 +169,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButton7">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Veiw"/>
+        <Property name="text" type="java.lang.String" value="Alter"/>
         <Property name="borderPainted" type="boolean" value="false"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
