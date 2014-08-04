@@ -444,7 +444,7 @@ public class ACC_Journal_View extends javax.swing.JPanel {
 
         tbl.setVisible(true);
         tbl.setExtendedState(ACC_Reciept_View_Table.MAXIMIZED_BOTH);
-        if (search.getText() == "All") {
+        if ("All".equals(search.getText())) {
             tbl.Table_Fill_All();
 
         } else if ("Date".equals(search.getText())) {
@@ -453,10 +453,10 @@ public class ACC_Journal_View extends javax.swing.JPanel {
             } catch (ParseException ex) {
                 Logger.getLogger(ACC_Reciept_View.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } else if (search.getText() == "Credit Account ID" || search.getText() == "Credit Description" || search.getText() == "Credit Amount") {
+        } else if ("Credit Account ID".equals(search.getText()) || "Credit Description".equals(search.getText()) || "Credit Amount".equals(search.getText())) {
 
             tbl.Table_Fill_Credit_Search(Return_String_Field(search.getText()), field.getText());
-        } else if (search.getText() == "Transaction No." || search.getText() == "Reference No." || search.getText() == "Journal No.") {
+        } else if ("Transaction No.".equals(search.getText()) || "Reference No.".equals(search.getText()) || "Journal No.".equals(search.getText())) {
 
             tbl.Table_Fill_Main_Search(Return_String_Field(search.getText()), field.getText());
         } else {

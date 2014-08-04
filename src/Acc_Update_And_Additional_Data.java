@@ -7,13 +7,22 @@ import java.util.logging.Logger;
 
 public class Acc_Update_And_Additional_Data {
 
-    public void update_table(String table1, String table2, String field, String user) {
+    public void update_table(String table1, String table2, String field, String user,String date) {
         try {
             DatabaseManager dbm = DatabaseManager.getDbCon();
             Date_Handler dt = new Date_Handler();
+            int yearo;
+            yearo=Integer.parseInt(date.substring(0,4));
+            
+            
+            String yearo_yearn= yearo + "-"+(yearo-1999);
+            
+            
             dbm.insert("INSERT INTO " + table2 + " SELECT * FROM " + table1 + "");
             dbm.DeleteTable(table1);
-            dbm.insert("INSERT INTO account_update_details(field,date,user) VALUES ('" + field + "','" + dt.get_today_date_time() + "','" + user + "')");
+            dbm.insert("INSERT INTO account_update_details(field,date,user) VALUES ('" + field + "','" + date + "','" + user + "')");
+            dbm.insert("Truncate acc_current_period_act");
+            dbm.insert("INSERT INTO acc_current_period_act (period) VALUES('"+yearo_yearn+"')");
 
         } catch (SQLException ex) {
             Logger.getLogger(Acc_Update_And_Additional_Data.class.getName()).log(Level.SEVERE, null, ex);
@@ -118,14 +127,14 @@ public class Acc_Update_And_Additional_Data {
 
     }
 
-   /* public void complete_op_bal_temp() {
+   public void complete_op_bal_temp() {
         DatabaseManager dbm = new DatabaseManager();
         try {
             ResultSet query = dbm.query("SELECT * FROM account_names");
             while (query.next()) {
 
-                if (dbm.checkWhetherDataExists("2014_balances", "account_code", query.getString("account_id")) == 0) {
-                    dbm.insert("INSERT INTO 2014_balances(account_code,op_bal_d,op_bal_c,clo_bal)VALUES('" + query.getString("account_id") + "',0,0,0)");
+                if (dbm.checkWhetherDataExists("2015_balances", "account_code", query.getString("account_id")) == 0) {
+                    dbm.insert("INSERT INTO 2015_balances(account_code,op_bal_d,op_bal_c,clo_bal)VALUES('" + query.getString("account_id") + "',0,0,0)");
                 }
 
             }
@@ -133,11 +142,11 @@ public class Acc_Update_And_Additional_Data {
         } catch (SQLException ex) {
             Logger.getLogger(Acc_Update_And_Additional_Data.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }*/
+    }
     
     // This method is to get the current balance initially..... P.S - change the opening_balance_calc method  in Acc Ledger first  op_balance = op_c not op_balance=-op_c in line 626
     
-    public void complete_op_bal_temp() {
+  //  public void complete_op_bal_temp() {
       /*  DatabaseManager dbm = new DatabaseManager();
         ACC_ledger ledg = new ACC_ledger();
         double op=0;
@@ -153,5 +162,5 @@ public class Acc_Update_And_Additional_Data {
         } catch (SQLException ex) {
             Logger.getLogger(Acc_Update_And_Additional_Data.class.getName()).log(Level.SEVERE, null, ex);
         }*/
-    }
+   // }
 }

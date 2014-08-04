@@ -145,9 +145,9 @@ public class ACC_Edit_journals1 extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
         debit_account_name = new javax.swing.JLabel();
         send = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
-        jScrollPane5 = new javax.swing.JScrollPane();
+        jScrollPane7 = new javax.swing.JScrollPane();
         debit_description_table = new javax.swing.JTable();
+        jButton10 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -747,6 +747,27 @@ public class ACC_Edit_journals1 extends javax.swing.JFrame {
             }
         });
 
+        debit_description_table.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null}
+            },
+            new String [] {
+                "Discription"
+            }
+        ));
+        debit_description_table.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jScrollPane7.setViewportView(debit_description_table);
+        credit_account_code_table.setAutoResizeMode(credit_account_code_table.AUTO_RESIZE_OFF);
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -757,27 +778,29 @@ public class ACC_Edit_journals1 extends javax.swing.JFrame {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(debit_account_code, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(debit_account_code, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                                        .addComponent(jButton5)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(jPanel5Layout.createSequentialGroup()
-                                        .addComponent(jButton9)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel16)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(debit_total, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                                        .addComponent(debit_description, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, 0)
-                                        .addComponent(debit_amount, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                                .addComponent(jButton5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                            .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(167, 167, 167)
-                                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(jPanel5Layout.createSequentialGroup()
+                                    .addComponent(jButton9)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel16)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(debit_total, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                                    .addComponent(debit_description, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(0, 0, 0)
+                                    .addComponent(debit_amount, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(debit_account_name, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -798,7 +821,8 @@ public class ACC_Edit_journals1 extends javax.swing.JFrame {
                 .addGap(3, 3, 3)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(1, 1, 1)
@@ -820,40 +844,14 @@ public class ACC_Edit_journals1 extends javax.swing.JFrame {
             }
         });
 
-        debit_description_table.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null}
-            },
-            new String [] {
-                "Discription"
-            }
-        ));
-        debit_description_table.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jScrollPane5.setViewportView(debit_description_table);
-        credit_account_code_table.setAutoResizeMode(credit_account_code_table.AUTO_RESIZE_OFF);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(376, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton10)
-                        .addGap(372, 372, 372))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(336, 336, 336))))
+                .addContainerGap(388, Short.MAX_VALUE)
+                .addComponent(jButton10)
+                .addGap(372, 372, 372))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
@@ -884,9 +882,7 @@ public class ACC_Edit_journals1 extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
-                .addGap(428, 428, 428)
+                .addContainerGap(466, Short.MAX_VALUE)
                 .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -919,23 +915,67 @@ public class ACC_Edit_journals1 extends javax.swing.JFrame {
     public void Fill_Edit_Form(int tr_no) {
 
         try {
-            ref_no.setText(dbm.checknReturnStringDataReceipts("account_journal_main", "tr_no", tr_no, "ref_no"));
-            journal_no.setText(dbm.checknReturnStringDataReceipts("account_journal_main", "tr_no", tr_no, "journal_no"));
-            pay_type.setSelectedItem(dbm.checknReturnStringDataReceipts("account_journal_main", "tr_no", tr_no, "pay_type"));
-            if ("Cheque".equals(dbm.checknReturnStringDataReceipts("account_journal_main", "tr_no", tr_no, "pay_type"))) {
-                bank_code.setSelectedItem(dbm.checknReturnStringDataReceipts("account_journal_main", "tr_no", tr_no, "bank_id"));
-                branch_code.setSelectedItem(dbm.checknReturnStringDataReceipts("account_journal_main", "tr_no", tr_no, "branch_id"));
-                chequeNo.setText(dbm.checknReturnStringDataReceipts("account_journal_main", "tr_no", tr_no, "cheque_no"));
-                chequeDate.setDate(java.sql.Date.valueOf(dbm.checknReturnStringDataReceipts("account_journal_main", "tr_no", tr_no, "cheque_date")));
-            } else {
+            String current = null;
 
+            String given_period = null;
+
+            try {
+                ResultSet rs = dbm.query("SELECT * FROM acc_current_period_act");
+                while (rs.next()) {
+                    current = rs.getString("period");
+                }
+                rs.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ACC_Edit_Payments.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-            String[] s = new String[3];
-            s = dbm.checknReturnStringDataReceipts("account_journal_main", "tr_no", tr_no, "date").split("-");
-            yearfield.setText(s[0]);
-            monthfield.setText(datehandler.Return_month(Integer.parseInt(s[1])));
-            dayfield.setText("" + Integer.parseInt(s[2]));
+            try {
+                ResultSet rs1 = dbm.query("SELECT * FROM acc_current_period");
+                while (rs1.next()) {
+                    given_period = rs1.getString("period");
+                }
+                rs1.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ACC_Edit_Payments.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            if (current.equals(given_period)) {
+
+                ref_no.setText(dbm.checknReturnStringDataReceipts("account_journal_main", "tr_no", tr_no, "ref_no"));
+                journal_no.setText(dbm.checknReturnStringDataReceipts("account_journal_main", "tr_no", tr_no, "journal_no"));
+                pay_type.setSelectedItem(dbm.checknReturnStringDataReceipts("account_journal_main", "tr_no", tr_no, "pay_type"));
+                if ("Cheque".equals(dbm.checknReturnStringDataReceipts("account_journal_main", "tr_no", tr_no, "pay_type"))) {
+                    bank_code.setSelectedItem(dbm.checknReturnStringDataReceipts("account_journal_main", "tr_no", tr_no, "bank_id"));
+                    branch_code.setSelectedItem(dbm.checknReturnStringDataReceipts("account_journal_main", "tr_no", tr_no, "branch_id"));
+                    chequeNo.setText(dbm.checknReturnStringDataReceipts("account_journal_main", "tr_no", tr_no, "cheque_no"));
+                    chequeDate.setDate(java.sql.Date.valueOf(dbm.checknReturnStringDataReceipts("account_journal_main", "tr_no", tr_no, "cheque_date")));
+                } else {
+
+                }
+                String[] s = new String[3];
+                s = dbm.checknReturnStringDataReceipts("account_journal_main", "tr_no", tr_no, "date").split("-");
+                yearfield.setText(s[0]);
+                monthfield.setText(datehandler.Return_month(Integer.parseInt(s[1])));
+                dayfield.setText("" + Integer.parseInt(s[2]));
+            } else {
+                ref_no.setText(dbm.checknReturnStringDataReceipts("account_journal_main_all", "tr_no", tr_no, "ref_no"));
+                journal_no.setText(dbm.checknReturnStringDataReceipts("account_journal_main_all", "tr_no", tr_no, "journal_no"));
+                pay_type.setSelectedItem(dbm.checknReturnStringDataReceipts("account_journal_main_all", "tr_no", tr_no, "pay_type"));
+                if ("Cheque".equals(dbm.checknReturnStringDataReceipts("account_journal_main_all", "tr_no", tr_no, "pay_type"))) {
+                    bank_code.setSelectedItem(dbm.checknReturnStringDataReceipts("account_journal_main_all", "tr_no", tr_no, "bank_id"));
+                    branch_code.setSelectedItem(dbm.checknReturnStringDataReceipts("account_journal_main_all", "tr_no", tr_no, "branch_id"));
+                    chequeNo.setText(dbm.checknReturnStringDataReceipts("account_journal_main_all", "tr_no", tr_no, "cheque_no"));
+                    chequeDate.setDate(java.sql.Date.valueOf(dbm.checknReturnStringDataReceipts("account_journal_main_all", "tr_no", tr_no, "cheque_date")));
+                } else {
+
+                }
+                String[] s = new String[3];
+                s = dbm.checknReturnStringDataReceipts("account_journal_main_all", "tr_no", tr_no, "date").split("-");
+                yearfield.setText(s[0]);
+                monthfield.setText(datehandler.Return_month(Integer.parseInt(s[1])));
+                dayfield.setText("" + Integer.parseInt(s[2]));
+
+            }
 
             /// edited upto here
             db.Inserting_To_The_Table_Filtered_Journal_Main_Search(debit_account_code_table, "debit_account_id", 0, 1, 50, "tr_no", tr_no, 2);
@@ -1765,48 +1805,48 @@ public class ACC_Edit_journals1 extends javax.swing.JFrame {
                             dbm.updateDatabase("account_names", "account_id", Integer.parseInt((String) credit_account_code_table.getValueAt(i, 0)), "current_balance", credit_updated_value);
                             i++;
                         }
-                        
+
                         ref_no.setText(null);
-                journal_no.setText(null);
-                pay_type.setSelectedIndex(0);
-                bank_code.setSelectedIndex(0);
-                branch_code.setSelectedIndex(0);
-                bank_name.setText(null);
-                branch_name.setText(null);
-                chequeNo.setText(null);
-                debit_account_code.setSelectedIndex(0);
-                debit_description.setText(null);
-                debit_amount.setText(null);
-                debit_account_name.setText(null);
-                credit_account_code.setSelectedIndex(0);
-                credit_account_name.setText(null);
-                credit_description.setText(null);
-                credit_amount.setText(null);
-                debit_total.setText(null);
-                credit_total.setText(null);
-                difference.setText(null);
+                        journal_no.setText(null);
+                        pay_type.setSelectedIndex(0);
+                        bank_code.setSelectedIndex(0);
+                        branch_code.setSelectedIndex(0);
+                        bank_name.setText(null);
+                        branch_name.setText(null);
+                        chequeNo.setText(null);
+                        debit_account_code.setSelectedIndex(0);
+                        debit_description.setText(null);
+                        debit_amount.setText(null);
+                        debit_account_name.setText(null);
+                        credit_account_code.setSelectedIndex(0);
+                        credit_account_name.setText(null);
+                        credit_description.setText(null);
+                        credit_amount.setText(null);
+                        debit_total.setText(null);
+                        credit_total.setText(null);
+                        difference.setText(null);
 
-                // clear credit table all
-                {
-                    int j = 0;
-                    while (credit_account_code_table.getValueAt(j, 0) != null) {
-                        credit_account_code_table.setValueAt(null, j, 0);
-                        credit_description_table.setValueAt(null, j, 0);
-                        credit_amount_table.setValueAt(null, j, 0);
-                        j++;
-                    }
-                }
+                        // clear credit table all
+                        {
+                            int j = 0;
+                            while (credit_account_code_table.getValueAt(j, 0) != null) {
+                                credit_account_code_table.setValueAt(null, j, 0);
+                                credit_description_table.setValueAt(null, j, 0);
+                                credit_amount_table.setValueAt(null, j, 0);
+                                j++;
+                            }
+                        }
 
-                // clear debit table all
-                {
-                    int j = 0;
-                    while (debit_account_code_table.getValueAt(j, 0) != null) {
-                        debit_account_code_table.setValueAt(null, j, 0);
-                        debit_description_table.setValueAt(null, j, 0);
-                        debit_amount_table.setValueAt(null, j, 0);
-                        j++;
-                    }
-                }
+                        // clear debit table all
+                        {
+                            int j = 0;
+                            while (debit_account_code_table.getValueAt(j, 0) != null) {
+                                debit_account_code_table.setValueAt(null, j, 0);
+                                debit_description_table.setValueAt(null, j, 0);
+                                debit_amount_table.setValueAt(null, j, 0);
+                                j++;
+                            }
+                        }
                     }
                 } catch (ParseException ex) {
                     Logger.getLogger(ACC_journals.class.getName()).log(Level.SEVERE, null, ex);
@@ -1950,46 +1990,46 @@ public class ACC_Edit_journals1 extends javax.swing.JFrame {
                          }*/
                     }
                     ref_no.setText(null);
-                journal_no.setText(null);
-                pay_type.setSelectedIndex(0);
-                bank_code.setSelectedIndex(0);
-                branch_code.setSelectedIndex(0);
-                bank_name.setText(null);
-                branch_name.setText(null);
-                chequeNo.setText(null);
-                debit_account_code.setSelectedIndex(0);
-                debit_description.setText(null);
-                debit_amount.setText(null);
-                debit_account_name.setText(null);
-                credit_account_code.setSelectedIndex(0);
-                credit_account_name.setText(null);
-                credit_description.setText(null);
-                credit_amount.setText(null);
-                debit_total.setText(null);
-                credit_total.setText(null);
-                difference.setText(null);
+                    journal_no.setText(null);
+                    pay_type.setSelectedIndex(0);
+                    bank_code.setSelectedIndex(0);
+                    branch_code.setSelectedIndex(0);
+                    bank_name.setText(null);
+                    branch_name.setText(null);
+                    chequeNo.setText(null);
+                    debit_account_code.setSelectedIndex(0);
+                    debit_description.setText(null);
+                    debit_amount.setText(null);
+                    debit_account_name.setText(null);
+                    credit_account_code.setSelectedIndex(0);
+                    credit_account_name.setText(null);
+                    credit_description.setText(null);
+                    credit_amount.setText(null);
+                    debit_total.setText(null);
+                    credit_total.setText(null);
+                    difference.setText(null);
 
-                // clear credit table all
-                {
-                    int j = 0;
-                    while (credit_account_code_table.getValueAt(j, 0) != null) {
-                        credit_account_code_table.setValueAt(null, j, 0);
-                        credit_description_table.setValueAt(null, j, 0);
-                        credit_amount_table.setValueAt(null, j, 0);
-                        j++;
+                    // clear credit table all
+                    {
+                        int j = 0;
+                        while (credit_account_code_table.getValueAt(j, 0) != null) {
+                            credit_account_code_table.setValueAt(null, j, 0);
+                            credit_description_table.setValueAt(null, j, 0);
+                            credit_amount_table.setValueAt(null, j, 0);
+                            j++;
+                        }
                     }
-                }
 
-                // clear debit table all
-                {
-                    int j = 0;
-                    while (debit_account_code_table.getValueAt(j, 0) != null) {
-                        debit_account_code_table.setValueAt(null, j, 0);
-                        debit_description_table.setValueAt(null, j, 0);
-                        debit_amount_table.setValueAt(null, j, 0);
-                        j++;
+                    // clear debit table all
+                    {
+                        int j = 0;
+                        while (debit_account_code_table.getValueAt(j, 0) != null) {
+                            debit_account_code_table.setValueAt(null, j, 0);
+                            debit_description_table.setValueAt(null, j, 0);
+                            debit_amount_table.setValueAt(null, j, 0);
+                            j++;
+                        }
                     }
-                }
                 } catch (ParseException ex) {
                     Logger.getLogger(ACC_journals.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -2143,15 +2183,14 @@ public class ACC_Edit_journals1 extends javax.swing.JFrame {
                 dbm.CheckNDeleteFromDataBase("account_journal_creditside", "tr_no", tr_no);
 
                 int i = 0;
-                
-                    // Debit Side of the interface
-                // Delete DebitSide
 
+                // Debit Side of the interface
+                // Delete DebitSide
                 for (i = 0; i < countd; i++) {
                     dbm.updateDatabase("account_names", "account_id", d_acc_id[i], "current_balance", d_acc_amts[i]);
                 }
 
-                    // Credit Side of the interface
+                // Credit Side of the interface
                 // Delete CreditSide
                 i = 0;
 
@@ -2348,8 +2387,8 @@ public class ACC_Edit_journals1 extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTextField journal_no;
     private javax.swing.JTextField monthfield;
