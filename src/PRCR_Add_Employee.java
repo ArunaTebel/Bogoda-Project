@@ -53,7 +53,6 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
-        jButton2 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         genderC = new javax.swing.JComboBox();
         jLabel20 = new javax.swing.JLabel();
@@ -154,16 +153,9 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
-        jButton2.setText("Register Employee");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
         genderC.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Male", "Female" }));
 
-        jLabel20.setText("NIC");
+        jLabel20.setText("NIC*");
 
         name.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -652,7 +644,6 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(registerOrNot)
                     .addComponent(registerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(125, 125, 125))
         );
@@ -671,9 +662,7 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
                 .addComponent(registerOrNot)
                 .addGap(18, 18, 18)
                 .addComponent(registerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(111, 111, 111)
-                .addComponent(jButton2)
-                .addGap(18, 18, 18)
+                .addGap(152, 152, 152)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -714,6 +703,8 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
     }//GEN-LAST:event_bloodGrpActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+
+       try{ 
         piObject.setSinhalaName(sup_name_sinhala.getText());
         piObject.setName(name.getText());
         try {
@@ -818,6 +809,8 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
                     }
                     DatabaseManager dbCon = DatabaseManager.getDbCon();
                     try {
+                            dbCon.insert("INSERT INTO checkroll_personalinfo(code,division,register_or_casual) VALUES('" + Integer.parseInt(empCode_JC.getSelectedItem().toString()) + "','" + "STAFF" + "','" + reg + "')");
+                    
                         dbCon.insert("INSERT INTO staff_personalinfo(code,basic_salary,register_or_casual) VALUES('" + Integer.parseInt(empCode_JC.getSelectedItem().toString()) + "','" + Double.parseDouble(basicSalary.getText()) + "','" + reg + "')");
                     } catch (SQLException ex) {
                         //Logger.getLogger(PRCR_Add_Employee.class.getName()).log(Level.SEVERE, null, ex);
@@ -833,7 +826,11 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
             
         }
          JOptionPane.showMessageDialog(null,"Successfully added.Employee No \n" + empCode_JC.getSelectedItem(), "Message", JOptionPane.INFORMATION_MESSAGE);
-
+       }catch(Exception e ){
+         JOptionPane.showMessageDialog(null,"Error\n"+ e.getMessage(), "Message", JOptionPane.INFORMATION_MESSAGE);
+      
+       
+       }
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void division_jcItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_division_jcItemStateChanged
@@ -855,11 +852,6 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
             division_lb.setText("" + Name);
         }
     }//GEN-LAST:event_division_jcItemStateChanged
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        PRCR_Register_employee pre = new PRCR_Register_employee();
-        pre.setVisible(true);// TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
 
     private void monthfieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_monthfieldKeyPressed
         if (monthfield.getText().equals("Jan")) {
@@ -1229,6 +1221,7 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
     }//GEN-LAST:event_sup_name_sinhalaKeyPressed
 
     private void empCode_JCItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_empCode_JCItemStateChanged
+       try{
         DatabaseManager dbm = DatabaseManager.getDbCon();
         String Name = null;
         String sinhalaName = null;
@@ -1324,7 +1317,9 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
             }
 
         }
-
+       }catch(Exception e){
+       
+       }
         // W_code.requestFocus();
         // W_code.selectAll();
     }//GEN-LAST:event_empCode_JCItemStateChanged
@@ -1345,6 +1340,9 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
     }//GEN-LAST:event_epf_noActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+
+        try{
+        
         dbm.updateDatabase("personal_info", "code", empCode_JC.getSelectedItem(), "name", name.getText());
         dbm.updateDatabase("personal_info", "code", empCode_JC.getSelectedItem(), "sinhala_name", sup_name_sinhala.getText());
         dbm.updateDatabase("personal_info", "code", empCode_JC.getSelectedItem(), "nic", NIC.getText());
@@ -1392,7 +1390,10 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
          dbm.updateDatabase("checkroll_personalinfo", "code", empCode_JC.getSelectedItem(), "register_or_casual","0"); 
         }
          JOptionPane.showMessageDialog(null, "Details are updated for the employee \n" + empCode_JC.getSelectedItem(), "Message", JOptionPane.INFORMATION_MESSAGE);
-
+        }catch(Exception e){
+         JOptionPane.showMessageDialog(null, "Error! \n" + e.getMessage(), "Message", JOptionPane.INFORMATION_MESSAGE);
+       
+        }
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void monthfield1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_monthfield1KeyPressed
@@ -2143,7 +2144,6 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
     private javax.swing.JComboBox empCode_JC;
     private javax.swing.JTextField epf_no;
     private javax.swing.JComboBox genderC;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
