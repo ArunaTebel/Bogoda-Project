@@ -1321,6 +1321,10 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
 //        saveData(tablename, ne_date, tdate);
         saveDataToWorkEntry(tdate);
         ClearTable();
+        dayfield1.setEnabled(true);
+        monthfield1.setEnabled(true);
+        yearfield1.setEnabled(true);
+        dayfield1.requestFocus();
 
     }//GEN-LAST:event_jButton6ActionPerformed
 
@@ -1398,9 +1402,14 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_empCode_JCActionPerformed
 
+    MessageBox msg = new MessageBox();
+    
     private void empCode_JCItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_empCode_JCItemStateChanged
-        DatabaseManager dbm = DatabaseManager.getDbCon();
+
         String Name = null;
+        try{
+        DatabaseManager dbm = DatabaseManager.getDbCon();
+        
         String division_name = null;
         if (evt.getStateChange() == ItemEvent.SELECTED) {
             int item = Integer.parseInt(evt.getItem().toString());
@@ -1431,6 +1440,16 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
         }
 
         W_code.requestFocus();
+        }
+        catch(Exception e){
+            Name=null;
+            empName.setText(null);       
+        }
+        if(empName.getText()==null){
+            
+            msg.showMessage("Employee code not in Database. Please Check Again", "Check-Roll", "info");
+             empCode_JC.requestFocus();
+        }
 
     }//GEN-LAST:event_empCode_JCItemStateChanged
 
@@ -1609,7 +1628,7 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
 
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
             //category_code.requestFocus();
-
+            empCode_JC.requestFocus();
         }
     }//GEN-LAST:event_monthfield1KeyPressed
 
@@ -1629,7 +1648,7 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
 
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
             //  category_code.requestFocus();
-
+            empCode_JC.requestFocus();
         }
     }//GEN-LAST:event_yearfield1KeyPressed
 
@@ -1926,7 +1945,7 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
 
     Search srch = new Search();
     private void W_codeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_W_codeKeyReleased
-       if (evt.getKeyCode() != KeyEvent.VK_BACK_SPACE && evt.getKeyCode() != KeyEvent.VK_SHIFT && evt.getKeyCode() != KeyEvent.VK_ENTER) {
+   /*    if (evt.getKeyCode() != KeyEvent.VK_BACK_SPACE && evt.getKeyCode() != KeyEvent.VK_SHIFT && evt.getKeyCode() != KeyEvent.VK_ENTER) {
             String a;
             int b = W_code.getText().length();
 
@@ -1949,7 +1968,7 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
                     jButton1.requestFocus();
                 }
             }
-        }
+        }*/
     }//GEN-LAST:event_W_codeKeyReleased
 
 
