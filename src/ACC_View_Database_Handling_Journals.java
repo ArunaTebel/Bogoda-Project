@@ -573,7 +573,7 @@ public class ACC_View_Database_Handling_Journals {
                                 countd++;
                                 numd++;
                             }
-                            query.close();
+                            query1.close();
                             ResultSet query2 = dbm.query("SELECT * FROM account_journal_creditside where tr_no = '" + query.getInt("tr_no") + "'");
                             while (query2.next()) {
                                 countc++;
