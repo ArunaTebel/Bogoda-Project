@@ -224,6 +224,8 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
 
+        jButton11.setFont(new java.awt.Font("Tahoma", 0, 30)); // NOI18N
+        jButton11.setText("W");
         jButton11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton11ActionPerformed(evt);
@@ -693,17 +695,9 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-//        ACC_Reciept_View view = new ACC_Reciept_View();
-//
-//        Main_Content.removeAll();
-//        view.Start();
-//
-//        view.setSize(Main_Content.getSize());
-//
-//        Main_Content.add(view);
-//        validate();
-//        repaint();
-//        //  view.focus();
+      PRCR_Employee_Worksummary bill = new PRCR_Employee_Worksummary("SupID");
+         bill.setLocation(100,50);
+         bill.setVisible(true);
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
@@ -832,6 +826,7 @@ public class MainWindow extends javax.swing.JFrame {
         jButton9.setEnabled(true);
         
         jButton15.setEnabled(true);
+         jButton11.setEnabled(true);
         topBar.setEnabled(true);
         jMenu1.setEnabled(true);
        // jMenu2.setEnabled(true);
