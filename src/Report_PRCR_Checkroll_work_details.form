@@ -358,9 +358,9 @@
                       </Group>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="divisionbox" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="division_jc" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="divisionbox" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -458,7 +458,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="view">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Veiw"/>
+            <Property name="text" type="java.lang.String" value="View"/>
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="viewMouseClicked"/>

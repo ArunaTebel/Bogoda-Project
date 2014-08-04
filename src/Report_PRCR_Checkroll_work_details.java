@@ -40,6 +40,9 @@ public class Report_PRCR_Checkroll_work_details extends javax.swing.JPanel {
                     Logger.getLogger(Reports_GL.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
+            
+            view.setEnabled(true);
+            
 
         }
     }
@@ -623,7 +626,7 @@ public class Report_PRCR_Checkroll_work_details extends javax.swing.JPanel {
             }
         });
 
-        view.setText("Veiw");
+        view.setText("View");
         view.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 viewMouseClicked(evt);
@@ -686,9 +689,9 @@ public class Report_PRCR_Checkroll_work_details extends javax.swing.JPanel {
                         .addGap(3, 3, 3)
                         .addComponent(EmpName, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(divisionbox)
-                    .addComponent(division_jc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(division_jc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(divisionbox))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(workCodebox)
