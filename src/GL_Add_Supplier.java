@@ -35,6 +35,9 @@ Date_Handler date_handler = new Date_Handler();
         initComponents();
         trans_rate.setSelectedIndex(2);
         welf.setSelectedIndex(1);
+        supplier_id.setSelectedItem(0);
+        supplier_id.getEditor().setItem("");
+        
     }
  
     public void add_welf(){
@@ -137,13 +140,13 @@ Date_Handler date_handler = new Date_Handler();
     }
     
     public void clear(){
-    supplier_id.setSelectedIndex(0);
+ /*  supplier_id.setSelectedIndex(0);
     sup_name.setText("");
     sup_name_sinhala.setText("");
     Cat_code.setSelectedIndex(0);
     trans_rate.setSelectedIndex(0);
     trans_rate1.setSelectedIndex(0);
-    bank_code.setSelectedIndex(0);
+    bank_code.setSelectedIndex(0);  */
     branch_code.setSelectedIndex(0);
     acc_no.setText("");
     tel.setText("");
@@ -153,6 +156,10 @@ Date_Handler date_handler = new Date_Handler();
     cat_name2.setText("");
     bank_name.setText("");
     branch_name.setText("");
+        
+        supplier_id.setSelectedItem(0);
+        supplier_id.getEditor().setItem("");
+        supplier_id.requestFocus();
     
     
     }
@@ -215,6 +222,8 @@ Date_Handler date_handler = new Date_Handler();
         jPanel4 = new javax.swing.JPanel();
         welf = new javax.swing.JComboBox();
         jLabel10 = new javax.swing.JLabel();
+        quit1 = new javax.swing.JButton();
+        quit2 = new javax.swing.JButton();
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
@@ -418,9 +427,8 @@ Date_Handler date_handler = new Date_Handler();
             }
         });
 
-        trans_rate.setEditable(true);
-        trans_rate.putClientProperty("JComboBox.isTableCellEditor", Boolean.TRUE);
-        trans_rate.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("tranport_rates", "Trans_id"))
+        //trans_rate.putClientProperty("JComboBox.isTableCellEditor", Boolean.TRUE);
+        trans_rate.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray2("tranport_rates", "Trans_id"))
         );
         trans_rate.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -433,31 +441,43 @@ Date_Handler date_handler = new Date_Handler();
             }
         });
 
-        bank_code.setEditable(true);
-        bank_code.putClientProperty("JComboBox.isTableCellEditor", Boolean.TRUE);
-        bank_code.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("bank", "bank_id")));
+        //bank_code.putClientProperty("JComboBox.isTableCellEditor", Boolean.TRUE);
+        bank_code.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray2("bank", "bank_id")));
         bank_code.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 bank_codeItemStateChanged(evt);
             }
         });
+        bank_code.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                bank_codeKeyPressed(evt);
+            }
+        });
 
-        branch_code.setEditable(true);
         branch_code.putClientProperty("JComboBox.isTableCellEditor", Boolean.TRUE);
-        branch_code.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("bank_branch", "branch_id")));
+        branch_code.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray2("bank_branch", "branch_id")));
         branch_code.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 branch_codeItemStateChanged(evt);
             }
         });
+        branch_code.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                branch_codeKeyPressed(evt);
+            }
+        });
 
-        Cat_code.putClientProperty("JComboBox.isTableCellEditor", Boolean.TRUE);
-        Cat_code.setEditable(true);
-        supplier_id.putClientProperty("JComboBox.isTableCellEditor", Boolean.TRUE);
-        Cat_code.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("category", "category_id")));
+        //Cat_code.putClientProperty("JComboBox.isTableCellEditor", Boolean.TRUE);
+        //supplier_id.putClientProperty("JComboBox.isTableCellEditor", Boolean.TRUE);
+        Cat_code.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray2("category", "category_id")));
         Cat_code.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 Cat_codeItemStateChanged(evt);
+            }
+        });
+        Cat_code.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                Cat_codeKeyPressed(evt);
             }
         });
 
@@ -490,9 +510,8 @@ Date_Handler date_handler = new Date_Handler();
 
         jLabel20.setText("Rs");
 
-        trans_rate1.setEditable(true);
-        supplier_id.putClientProperty("JComboBox.isTableCellEditor", Boolean.TRUE);
-        trans_rate1.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("leaf_category", "category_name"))
+        //supplier_id.putClientProperty("JComboBox.isTableCellEditor", Boolean.TRUE);
+        trans_rate1.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray2("leaf_category", "category_name"))
         );
         trans_rate1.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -537,6 +556,30 @@ Date_Handler date_handler = new Date_Handler();
                 .addContainerGap())
         );
 
+        quit1.setText("Cancel");
+        quit1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                quit1ActionPerformed(evt);
+            }
+        });
+        quit1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                quit1KeyPressed(evt);
+            }
+        });
+
+        quit2.setText("Cancel");
+        quit2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                quit2ActionPerformed(evt);
+            }
+        });
+        quit2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                quit2KeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -572,16 +615,18 @@ Date_Handler date_handler = new Date_Handler();
                             .addComponent(jLabel12)
                             .addComponent(jLabel11)
                             .addComponent(jLabel9))))
+                .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(bank_code, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(47, 47, 47)
                                 .addComponent(jLabel16)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(bank_name, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(bank_name, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(quit1))
                             .addComponent(acc_no, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(address, javax.swing.GroupLayout.PREFERRED_SIZE, 488, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -597,28 +642,29 @@ Date_Handler date_handler = new Date_Handler();
                                     .addComponent(jLabel18)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addComponent(branch_name, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(96, 96, 96))))
+                                    .addGap(18, 18, 18)
+                                    .addComponent(quit2)
+                                    .addGap(13, 13, 13)))
+                            .addComponent(payment_method, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(276, 276, 276)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(4, 4, 4))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(4, 4, 4)
                                 .addComponent(supplier_id, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(payment_method, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(sup_name_sinhala, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(sup_name, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(trans_rate1, 0, 1, Short.MAX_VALUE)
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(Cat_code, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(trans_rate, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(Cat_code, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(trans_rate, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(trans_rate1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -674,16 +720,16 @@ Date_Handler date_handler = new Date_Handler();
                     .addComponent(jLabel20))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel21)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(trans_rate1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel21))
+                            .addComponent(cat_name2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(trans_rate1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(payment_method, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6)))
-                    .addComponent(cat_name2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel6))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(2, 2, 2)
@@ -699,12 +745,14 @@ Date_Handler date_handler = new Date_Handler();
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(bank_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel16))
-                        .addGap(20, 20, 20)
+                            .addComponent(jLabel16)
+                            .addComponent(quit1))
+                        .addGap(17, 17, 17)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(branch_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel18))
-                        .addGap(14, 14, 14)
+                            .addComponent(jLabel18)
+                            .addComponent(quit2))
+                        .addGap(12, 12, 12)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(acc_no, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel9))
@@ -726,9 +774,9 @@ Date_Handler date_handler = new Date_Handler();
                     .addGroup(layout.createSequentialGroup()
                         .addGap(15, 15, 15)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(225, 225, 225)
+                        .addGap(219, 219, 219)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 36, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -786,7 +834,7 @@ Date_Handler date_handler = new Date_Handler();
     }//GEN-LAST:event_saveActionPerformed
 
     private void supplier_idItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_supplier_idItemStateChanged
-        if(supplier_id.getSelectedItem()!=null){
+        if(supplier_id.getSelectedItem()!=null && supplier_id.getSelectedItem()!=""){
             try {
                 sup_name.setText(dbm.checknReturnData("suppliers", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "sup_name"));
                 sup_name_sinhala.setText(dbm.checknReturnData("suppliers", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "sup_sin_name"));
@@ -797,6 +845,8 @@ Date_Handler date_handler = new Date_Handler();
                 address.setText(dbm.checknReturnData("suppliers", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "sup_address"));
                 tel.setText(dbm.checknReturnData("suppliers", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "sup_tel"));
                 bank_code.setSelectedItem(dbm.checknReturnData("suppliers", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "bank_id"));
+                //System.out.println(dbm.checknReturnData("suppliers", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "bank_id"));
+                
                 branch_code.setSelectedItem(dbm.checknReturnData("suppliers", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "branch_id"));
              //   welf.setSelectedItem(dbm.checknReturnData("suppliers", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "welfare"));
                 trans_rate1.setSelectedItem(dbm.checknReturnData("suppliers", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "leaf_rate_code"));
@@ -828,7 +878,7 @@ Date_Handler date_handler = new Date_Handler();
         if(bank_code.getSelectedItem()!=null){
             bank_name.setText(dbm.checknReturnData("bank", "bank_id", Integer.parseInt(bank_code.getSelectedItem().toString()), "bank_name"));
             
-            branch_code.requestFocusInWindow();
+           // branch_code.requestFocusInWindow();
         }
     }//GEN-LAST:event_bank_codeItemStateChanged
 
@@ -836,7 +886,7 @@ Date_Handler date_handler = new Date_Handler();
        if(branch_code.getSelectedItem()!=null){
             branch_name.setText(dbm.checknReturnData("bank_branch", "branch_id", Integer.parseInt(branch_code.getSelectedItem().toString()), "branch_name"));
             
-            acc_no.requestFocusInWindow();
+           // acc_no.requestFocusInWindow();
         }
     }//GEN-LAST:event_branch_codeItemStateChanged
 
@@ -844,7 +894,7 @@ Date_Handler date_handler = new Date_Handler();
          if(Cat_code.getSelectedItem()!=null){
             cat_name.setText(dbm.checknReturnStringData("category", "category_id", Cat_code.getSelectedItem().toString(), "category_name"));
              
-            trans_rate.requestFocusInWindow();
+          //  trans_rate.requestFocusInWindow();
         }
          
     }//GEN-LAST:event_Cat_codeItemStateChanged
@@ -861,7 +911,7 @@ Date_Handler date_handler = new Date_Handler();
    if(trans_rate.getSelectedItem()!=null){
             cat_name1.setText(dbm.checknReturnStringData("tranport_rates", "Trans_id", trans_rate.getSelectedItem().toString(), "Trans_rate"));
              
-           trans_rate1.requestFocusInWindow();  
+           //trans_rate1.requestFocusInWindow();  
         }
              
         
@@ -869,7 +919,7 @@ Date_Handler date_handler = new Date_Handler();
     }//GEN-LAST:event_trans_rateItemStateChanged
 
     private void trans_rateKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_trans_rateKeyPressed
-        interface_events.Change_focus_Enterkey_c(payment_method, evt);
+        interface_events.Change_focus_Enterkey_c(trans_rate1, evt);
     }//GEN-LAST:event_trans_rateKeyPressed
 
     private void payment_methodKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_payment_methodKeyPressed
@@ -923,13 +973,13 @@ Date_Handler date_handler = new Date_Handler();
         if(trans_rate.getSelectedItem()!=null){
             cat_name2.setText(dbm.checknReturnStringData("leaf_category", "category_name", trans_rate1.getSelectedItem().toString(), "category_id"));
              
-                 payment_method.requestFocus();
+                // payment_method.requestFocus();
         }
   
     }//GEN-LAST:event_trans_rate1ItemStateChanged
 
     private void trans_rate1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_trans_rate1KeyPressed
-        // TODO add your handling code here:
+        interface_events.Change_focus_Enterkey_c(payment_method, evt);
     }//GEN-LAST:event_trans_rate1KeyPressed
 
     private void quitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quitActionPerformed
@@ -1012,6 +1062,34 @@ Date_Handler date_handler = new Date_Handler();
         }
     }//GEN-LAST:event_jButton6ActionPerformed
 
+    private void Cat_codeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Cat_codeKeyPressed
+        interface_events.Change_focus_Enterkey_c(trans_rate, evt);
+    }//GEN-LAST:event_Cat_codeKeyPressed
+
+    private void bank_codeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_bank_codeKeyPressed
+       interface_events.Change_focus_Enterkey_c(branch_code, evt);
+    }//GEN-LAST:event_bank_codeKeyPressed
+
+    private void branch_codeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_branch_codeKeyPressed
+       interface_events.Change_focus_Enterkey_t(acc_no, evt);
+    }//GEN-LAST:event_branch_codeKeyPressed
+
+    private void quit1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quit1ActionPerformed
+        bank_code.setSelectedItem(null);
+    }//GEN-LAST:event_quit1ActionPerformed
+
+    private void quit1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_quit1KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_quit1KeyPressed
+
+    private void quit2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quit2ActionPerformed
+        branch_code.setSelectedItem(null);
+    }//GEN-LAST:event_quit2ActionPerformed
+
+    private void quit2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_quit2KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_quit2KeyPressed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox Cat_code;
@@ -1056,6 +1134,8 @@ Date_Handler date_handler = new Date_Handler();
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JComboBox payment_method;
     private javax.swing.JButton quit;
+    private javax.swing.JButton quit1;
+    private javax.swing.JButton quit2;
     private javax.swing.JButton save;
     private javax.swing.JTextField sup_name;
     private javax.swing.JTextField sup_name_sinhala;

@@ -29,7 +29,7 @@ public class MainWindow extends javax.swing.JFrame {
     UIDefaults defaults = UIManager.getLookAndFeelDefaults();
 
     public MainWindow() {
-      //  userAC.validate();
+        userAC.validate();
         
       //   defaults.put("nimbusOrange", defaults.get("nimbusBase"));
         UIManager.getLookAndFeelDefaults().put("nimbusOrange", (new Color(51, 153, 0)));
@@ -294,7 +294,7 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/splash/Picture177.png"))); // NOI18N
         jLabel2.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         Main_Content.add(jLabel2);
-        jLabel2.setBounds(410, 210, 470, 140);
+        jLabel2.setBounds(390, 210, 470, 140);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -355,7 +355,7 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pat.png"))); // NOI18N
         jLabel3.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         Main_Content.add(jLabel3);
-        jLabel3.setBounds(-260, 180, 770, 420);
+        jLabel3.setBounds(-270, 180, 770, 420);
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BogodaAreal2.jpg"))); // NOI18N
         jLabel7.setText("jLabel3");
