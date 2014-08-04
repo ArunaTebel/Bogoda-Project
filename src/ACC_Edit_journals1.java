@@ -919,23 +919,67 @@ public class ACC_Edit_journals1 extends javax.swing.JFrame {
     public void Fill_Edit_Form(int tr_no) {
 
         try {
-            ref_no.setText(dbm.checknReturnStringDataReceipts("account_journal_main", "tr_no", tr_no, "ref_no"));
-            journal_no.setText(dbm.checknReturnStringDataReceipts("account_journal_main", "tr_no", tr_no, "journal_no"));
-            pay_type.setSelectedItem(dbm.checknReturnStringDataReceipts("account_journal_main", "tr_no", tr_no, "pay_type"));
-            if ("Cheque".equals(dbm.checknReturnStringDataReceipts("account_journal_main", "tr_no", tr_no, "pay_type"))) {
-                bank_code.setSelectedItem(dbm.checknReturnStringDataReceipts("account_journal_main", "tr_no", tr_no, "bank_id"));
-                branch_code.setSelectedItem(dbm.checknReturnStringDataReceipts("account_journal_main", "tr_no", tr_no, "branch_id"));
-                chequeNo.setText(dbm.checknReturnStringDataReceipts("account_journal_main", "tr_no", tr_no, "cheque_no"));
-                chequeDate.setDate(java.sql.Date.valueOf(dbm.checknReturnStringDataReceipts("account_journal_main", "tr_no", tr_no, "cheque_date")));
-            } else {
+            String current = null;
 
+            String given_period = null;
+
+            try {
+                ResultSet rs = dbm.query("SELECT * FROM acc_current_period_act");
+                while (rs.next()) {
+                    current = rs.getString("period");
+                }
+                rs.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ACC_Edit_Payments.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-            String[] s = new String[3];
-            s = dbm.checknReturnStringDataReceipts("account_journal_main", "tr_no", tr_no, "date").split("-");
-            yearfield.setText(s[0]);
-            monthfield.setText(datehandler.Return_month(Integer.parseInt(s[1])));
-            dayfield.setText("" + Integer.parseInt(s[2]));
+            try {
+                ResultSet rs1 = dbm.query("SELECT * FROM acc_current_period");
+                while (rs1.next()) {
+                    given_period = rs1.getString("period");
+                }
+                rs1.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ACC_Edit_Payments.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            if (current.equals(given_period)) {
+
+                ref_no.setText(dbm.checknReturnStringDataReceipts("account_journal_main", "tr_no", tr_no, "ref_no"));
+                journal_no.setText(dbm.checknReturnStringDataReceipts("account_journal_main", "tr_no", tr_no, "journal_no"));
+                pay_type.setSelectedItem(dbm.checknReturnStringDataReceipts("account_journal_main", "tr_no", tr_no, "pay_type"));
+                if ("Cheque".equals(dbm.checknReturnStringDataReceipts("account_journal_main", "tr_no", tr_no, "pay_type"))) {
+                    bank_code.setSelectedItem(dbm.checknReturnStringDataReceipts("account_journal_main", "tr_no", tr_no, "bank_id"));
+                    branch_code.setSelectedItem(dbm.checknReturnStringDataReceipts("account_journal_main", "tr_no", tr_no, "branch_id"));
+                    chequeNo.setText(dbm.checknReturnStringDataReceipts("account_journal_main", "tr_no", tr_no, "cheque_no"));
+                    chequeDate.setDate(java.sql.Date.valueOf(dbm.checknReturnStringDataReceipts("account_journal_main", "tr_no", tr_no, "cheque_date")));
+                } else {
+
+                }
+                String[] s = new String[3];
+                s = dbm.checknReturnStringDataReceipts("account_journal_main", "tr_no", tr_no, "date").split("-");
+                yearfield.setText(s[0]);
+                monthfield.setText(datehandler.Return_month(Integer.parseInt(s[1])));
+                dayfield.setText("" + Integer.parseInt(s[2]));
+            } else {
+                ref_no.setText(dbm.checknReturnStringDataReceipts("account_journal_main_all", "tr_no", tr_no, "ref_no"));
+                journal_no.setText(dbm.checknReturnStringDataReceipts("account_journal_main_all", "tr_no", tr_no, "journal_no"));
+                pay_type.setSelectedItem(dbm.checknReturnStringDataReceipts("account_journal_main_all", "tr_no", tr_no, "pay_type"));
+                if ("Cheque".equals(dbm.checknReturnStringDataReceipts("account_journal_main_all", "tr_no", tr_no, "pay_type"))) {
+                    bank_code.setSelectedItem(dbm.checknReturnStringDataReceipts("account_journal_main_all", "tr_no", tr_no, "bank_id"));
+                    branch_code.setSelectedItem(dbm.checknReturnStringDataReceipts("account_journal_main_all", "tr_no", tr_no, "branch_id"));
+                    chequeNo.setText(dbm.checknReturnStringDataReceipts("account_journal_main_all", "tr_no", tr_no, "cheque_no"));
+                    chequeDate.setDate(java.sql.Date.valueOf(dbm.checknReturnStringDataReceipts("account_journal_main_all", "tr_no", tr_no, "cheque_date")));
+                } else {
+
+                }
+                String[] s = new String[3];
+                s = dbm.checknReturnStringDataReceipts("account_journal_main_all", "tr_no", tr_no, "date").split("-");
+                yearfield.setText(s[0]);
+                monthfield.setText(datehandler.Return_month(Integer.parseInt(s[1])));
+                dayfield.setText("" + Integer.parseInt(s[2]));
+
+            }
 
             /// edited upto here
             db.Inserting_To_The_Table_Filtered_Journal_Main_Search(debit_account_code_table, "debit_account_id", 0, 1, 50, "tr_no", tr_no, 2);
@@ -1765,48 +1809,48 @@ public class ACC_Edit_journals1 extends javax.swing.JFrame {
                             dbm.updateDatabase("account_names", "account_id", Integer.parseInt((String) credit_account_code_table.getValueAt(i, 0)), "current_balance", credit_updated_value);
                             i++;
                         }
-                        
+
                         ref_no.setText(null);
-                journal_no.setText(null);
-                pay_type.setSelectedIndex(0);
-                bank_code.setSelectedIndex(0);
-                branch_code.setSelectedIndex(0);
-                bank_name.setText(null);
-                branch_name.setText(null);
-                chequeNo.setText(null);
-                debit_account_code.setSelectedIndex(0);
-                debit_description.setText(null);
-                debit_amount.setText(null);
-                debit_account_name.setText(null);
-                credit_account_code.setSelectedIndex(0);
-                credit_account_name.setText(null);
-                credit_description.setText(null);
-                credit_amount.setText(null);
-                debit_total.setText(null);
-                credit_total.setText(null);
-                difference.setText(null);
+                        journal_no.setText(null);
+                        pay_type.setSelectedIndex(0);
+                        bank_code.setSelectedIndex(0);
+                        branch_code.setSelectedIndex(0);
+                        bank_name.setText(null);
+                        branch_name.setText(null);
+                        chequeNo.setText(null);
+                        debit_account_code.setSelectedIndex(0);
+                        debit_description.setText(null);
+                        debit_amount.setText(null);
+                        debit_account_name.setText(null);
+                        credit_account_code.setSelectedIndex(0);
+                        credit_account_name.setText(null);
+                        credit_description.setText(null);
+                        credit_amount.setText(null);
+                        debit_total.setText(null);
+                        credit_total.setText(null);
+                        difference.setText(null);
 
-                // clear credit table all
-                {
-                    int j = 0;
-                    while (credit_account_code_table.getValueAt(j, 0) != null) {
-                        credit_account_code_table.setValueAt(null, j, 0);
-                        credit_description_table.setValueAt(null, j, 0);
-                        credit_amount_table.setValueAt(null, j, 0);
-                        j++;
-                    }
-                }
+                        // clear credit table all
+                        {
+                            int j = 0;
+                            while (credit_account_code_table.getValueAt(j, 0) != null) {
+                                credit_account_code_table.setValueAt(null, j, 0);
+                                credit_description_table.setValueAt(null, j, 0);
+                                credit_amount_table.setValueAt(null, j, 0);
+                                j++;
+                            }
+                        }
 
-                // clear debit table all
-                {
-                    int j = 0;
-                    while (debit_account_code_table.getValueAt(j, 0) != null) {
-                        debit_account_code_table.setValueAt(null, j, 0);
-                        debit_description_table.setValueAt(null, j, 0);
-                        debit_amount_table.setValueAt(null, j, 0);
-                        j++;
-                    }
-                }
+                        // clear debit table all
+                        {
+                            int j = 0;
+                            while (debit_account_code_table.getValueAt(j, 0) != null) {
+                                debit_account_code_table.setValueAt(null, j, 0);
+                                debit_description_table.setValueAt(null, j, 0);
+                                debit_amount_table.setValueAt(null, j, 0);
+                                j++;
+                            }
+                        }
                     }
                 } catch (ParseException ex) {
                     Logger.getLogger(ACC_journals.class.getName()).log(Level.SEVERE, null, ex);
@@ -1950,46 +1994,46 @@ public class ACC_Edit_journals1 extends javax.swing.JFrame {
                          }*/
                     }
                     ref_no.setText(null);
-                journal_no.setText(null);
-                pay_type.setSelectedIndex(0);
-                bank_code.setSelectedIndex(0);
-                branch_code.setSelectedIndex(0);
-                bank_name.setText(null);
-                branch_name.setText(null);
-                chequeNo.setText(null);
-                debit_account_code.setSelectedIndex(0);
-                debit_description.setText(null);
-                debit_amount.setText(null);
-                debit_account_name.setText(null);
-                credit_account_code.setSelectedIndex(0);
-                credit_account_name.setText(null);
-                credit_description.setText(null);
-                credit_amount.setText(null);
-                debit_total.setText(null);
-                credit_total.setText(null);
-                difference.setText(null);
+                    journal_no.setText(null);
+                    pay_type.setSelectedIndex(0);
+                    bank_code.setSelectedIndex(0);
+                    branch_code.setSelectedIndex(0);
+                    bank_name.setText(null);
+                    branch_name.setText(null);
+                    chequeNo.setText(null);
+                    debit_account_code.setSelectedIndex(0);
+                    debit_description.setText(null);
+                    debit_amount.setText(null);
+                    debit_account_name.setText(null);
+                    credit_account_code.setSelectedIndex(0);
+                    credit_account_name.setText(null);
+                    credit_description.setText(null);
+                    credit_amount.setText(null);
+                    debit_total.setText(null);
+                    credit_total.setText(null);
+                    difference.setText(null);
 
-                // clear credit table all
-                {
-                    int j = 0;
-                    while (credit_account_code_table.getValueAt(j, 0) != null) {
-                        credit_account_code_table.setValueAt(null, j, 0);
-                        credit_description_table.setValueAt(null, j, 0);
-                        credit_amount_table.setValueAt(null, j, 0);
-                        j++;
+                    // clear credit table all
+                    {
+                        int j = 0;
+                        while (credit_account_code_table.getValueAt(j, 0) != null) {
+                            credit_account_code_table.setValueAt(null, j, 0);
+                            credit_description_table.setValueAt(null, j, 0);
+                            credit_amount_table.setValueAt(null, j, 0);
+                            j++;
+                        }
                     }
-                }
 
-                // clear debit table all
-                {
-                    int j = 0;
-                    while (debit_account_code_table.getValueAt(j, 0) != null) {
-                        debit_account_code_table.setValueAt(null, j, 0);
-                        debit_description_table.setValueAt(null, j, 0);
-                        debit_amount_table.setValueAt(null, j, 0);
-                        j++;
+                    // clear debit table all
+                    {
+                        int j = 0;
+                        while (debit_account_code_table.getValueAt(j, 0) != null) {
+                            debit_account_code_table.setValueAt(null, j, 0);
+                            debit_description_table.setValueAt(null, j, 0);
+                            debit_amount_table.setValueAt(null, j, 0);
+                            j++;
+                        }
                     }
-                }
                 } catch (ParseException ex) {
                     Logger.getLogger(ACC_journals.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -2143,15 +2187,14 @@ public class ACC_Edit_journals1 extends javax.swing.JFrame {
                 dbm.CheckNDeleteFromDataBase("account_journal_creditside", "tr_no", tr_no);
 
                 int i = 0;
-                
-                    // Debit Side of the interface
-                // Delete DebitSide
 
+                // Debit Side of the interface
+                // Delete DebitSide
                 for (i = 0; i < countd; i++) {
                     dbm.updateDatabase("account_names", "account_id", d_acc_id[i], "current_balance", d_acc_amts[i]);
                 }
 
-                    // Credit Side of the interface
+                // Credit Side of the interface
                 // Delete CreditSide
                 i = 0;
 

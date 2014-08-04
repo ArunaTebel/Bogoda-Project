@@ -1,6 +1,8 @@
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ACC_View_Database_Handling_Journals {
 
@@ -14,978 +16,2174 @@ public class ACC_View_Database_Handling_Journals {
      */
     public boolean Inserting_To_The_Table_Filtered_Journal_Full(javax.swing.JTable table, String column_name, int table_column_num, int bottom, int top, int key) {
 
-        int num_of_rows_filled_in_table = 0;
-        int num_of_rows_in_the_database = 0;
-        int rows_in_debit = 0;
-        int rows_in_credit = 0;
-        int count = 0;
-        int countd = 0;
-        int countc = 0;
-        int numd = 0;
-        int numc = 0;
-        int tr_no = 0;
-        int num = 0;
-        /*  while (table.getValueAt(num_of_columns_filled_in_table, table_column_num) != null) {
-         num_of_columns_filled_in_table++;
-         } */
-        //  "SELECT * FROM " + table_name + " WHERE " + table_column_giving + " =" + row_element + ""
+        String current = null;
+
+        String given_period = null;
 
         try {
-            ResultSet query = dbm.query("SELECT * FROM account_journal_main ");
-            while (query.next()) {
-                ResultSet query1 = dbm.query("SELECT * FROM account_journal_debitside where tr_no = '" + query.getInt("tr_no") + "'");
-                while (query1.next()) {
-                    rows_in_debit++;
-                }
+            ResultSet rs = dbm.query("SELECT * FROM acc_current_period_act");
+            while (rs.next()) {
+                current = rs.getString("period");
             }
+            rs.close();
         } catch (SQLException ex) {
-
+            Logger.getLogger(ACC_Edit_Payments.class.getName()).log(Level.SEVERE, null, ex);
         }
+
         try {
-            ResultSet query = dbm.query("SELECT * FROM account_journal_main ");
-            while (query.next()) {
-                ResultSet query1 = dbm.query("SELECT * FROM account_journal_creditside where tr_no = '" + query.getInt("tr_no") + "'");
-                while (query1.next()) {
-                    rows_in_credit++;
-                }
+            ResultSet rs1 = dbm.query("SELECT * FROM acc_current_period");
+            while (rs1.next()) {
+                given_period = rs1.getString("period");
             }
+            rs1.close();
         } catch (SQLException ex) {
-
+            Logger.getLogger(ACC_Edit_Payments.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        num_of_rows_in_the_database = Math.max(rows_in_credit, rows_in_debit);
-        
+        if (current.equals(given_period)) {
 
-        // key 1 for main, 2 for debit , 3 for credit
-        if (key == 1) {
+            int num_of_rows_filled_in_table = 0;
+            int num_of_rows_in_the_database = 0;
+            int rows_in_debit = 0;
+            int rows_in_credit = 0;
+            int count = 0;
+            int countd = 0;
+            int countc = 0;
+            int numd = 0;
+            int numc = 0;
+            int tr_no = 0;
+            int num = 0;
+            /*  while (table.getValueAt(num_of_columns_filled_in_table, table_column_num) != null) {
+             num_of_columns_filled_in_table++;
+             } */
+            //  "SELECT * FROM " + table_name + " WHERE " + table_column_giving + " =" + row_element + ""
 
-            if (num_of_rows_in_the_database >= bottom) {
-                try {
-
-                    ResultSet query = dbm.query("SELECT * FROM account_journal_main");
-                    while (query.next()) {
-                        numd = 0;
-                        numc=0;
-                        countc=0;
-                        countd=0;
-                        ResultSet query1 = dbm.query("SELECT * FROM account_journal_debitside where tr_no = '" + query.getInt("tr_no") + "'");
-                        while (query1.next()) {
-                            countd++;
-                            numd++;
-                        }
-                        ResultSet query2 = dbm.query("SELECT * FROM account_journal_creditside where tr_no = '" + query.getInt("tr_no") + "'");
-                        while (query2.next()) {
-                            countc++;
-                            numc++;
-                        }
-
-                        count = count+Math.max(countc, countd);
-                        num = Math.max(numc, numd);
-
-                        if (count < bottom) {
-
-                        } else if (count >= bottom && count <= top) {
-                            table.setValueAt(query.getString(column_name), num_of_rows_filled_in_table, table_column_num);
-                            num_of_rows_filled_in_table = num_of_rows_filled_in_table + num;
-                        } else {
-                            break;
-                        }
+            try {
+                ResultSet query = dbm.query("SELECT * FROM account_journal_main ");
+                while (query.next()) {
+                    ResultSet query1 = dbm.query("SELECT * FROM account_journal_debitside where tr_no = '" + query.getInt("tr_no") + "'");
+                    while (query1.next()) {
+                        rows_in_debit++;
                     }
-                } catch (SQLException ex) {
-
+                    query1.close();
                 }
-            } else {
-                return false;
+                query.close();
+            } catch (SQLException ex) {
 
             }
-            return true;
-        } else if (key == 2) {
+            try {
+                ResultSet query = dbm.query("SELECT * FROM account_journal_main ");
+                while (query.next()) {
+                    ResultSet query1 = dbm.query("SELECT * FROM account_journal_creditside where tr_no = '" + query.getInt("tr_no") + "'");
+                    while (query1.next()) {
+                        rows_in_credit++;
+                    }
+                    query1.close();
+                }
+                query.close();
+            } catch (SQLException ex) {
 
-            if (num_of_rows_in_the_database >= bottom) {
-                try {
+            }
 
-                    ResultSet query = dbm.query("SELECT * FROM account_journal_main");
-                    while (query.next()) {
-                        //  num = 0;
-                        countc=0;
-                        countd=0;
-                        numc=0;
-                        numd=0;
-                        ResultSet query1 = dbm.query("SELECT * FROM account_journal_debitside where tr_no = '" + query.getInt("tr_no") + "'");
-                        while (query1.next()) {
-                            countd++;
-                            numd++;
-                        }
-                        ResultSet query2 = dbm.query("SELECT * FROM account_journal_creditside where tr_no = '" + query.getInt("tr_no") + "'");
-                        while (query2.next()) {
-                            countc++;
-                            numc++;
-                        }
+            num_of_rows_in_the_database = Math.max(rows_in_credit, rows_in_debit);
 
-                        count = Math.max(countc, countd)+count;
-                        num= Math.max(numc, numd);
+            // key 1 for main, 2 for debit , 3 for credit
+            if (key == 1) {
 
-                        ResultSet query3 = dbm.query("SELECT * FROM account_journal_debitside where tr_no = '" + query.getInt("tr_no") + "'");
-                        while (query3.next()) {
-                            
+                if (num_of_rows_in_the_database >= bottom) {
+                    try {
+
+                        ResultSet query = dbm.query("SELECT * FROM account_journal_main");
+                        while (query.next()) {
+                            numd = 0;
+                            numc = 0;
+                            countc = 0;
+                            countd = 0;
+                            ResultSet query1 = dbm.query("SELECT * FROM account_journal_debitside where tr_no = '" + query.getInt("tr_no") + "'");
+                            while (query1.next()) {
+                                countd++;
+                                numd++;
+                            }
+                            query1.close();
+                            ResultSet query2 = dbm.query("SELECT * FROM account_journal_creditside where tr_no = '" + query.getInt("tr_no") + "'");
+                            while (query2.next()) {
+                                countc++;
+                                numc++;
+                            }
+                            query2.close();
+
+                            count = count + Math.max(countc, countd);
+                            num = Math.max(numc, numd);
+
                             if (count < bottom) {
 
                             } else if (count >= bottom && count <= top) {
-                                table.setValueAt(query3.getString(column_name), num_of_rows_filled_in_table, table_column_num);
-                                num_of_rows_filled_in_table++;
+                                table.setValueAt(query.getString(column_name), num_of_rows_filled_in_table, table_column_num);
+                                num_of_rows_filled_in_table = num_of_rows_filled_in_table + num;
                             } else {
                                 break;
                             }
                         }
-                        num_of_rows_filled_in_table=num_of_rows_filled_in_table-numd+num;
+                        query.close();
+                    } catch (SQLException ex) {
 
                     }
-                } catch (SQLException ex) {
+                } else {
+                    return false;
 
                 }
-            } else {
-                return false;
+                return true;
+            } else if (key == 2) {
 
-            }
+                if (num_of_rows_in_the_database >= bottom) {
+                    try {
 
-            return true;
-        } else if (key == 3) {
-            if (num_of_rows_in_the_database >= bottom) {
-                try {
-
-                    ResultSet query = dbm.query("SELECT * FROM account_journal_main");
-                    while (query.next()) {
-                       //  num = 0;
-                        countc=0;
-                        countd=0;
-                        numc=0;
-                        numd=0;
-                        ResultSet query1 = dbm.query("SELECT * FROM account_journal_debitside where tr_no = '" + query.getInt("tr_no") + "'");
-                        while (query1.next()) {
-                            countd++;
-                            numd++;
-                        }
-                        ResultSet query2 = dbm.query("SELECT * FROM account_journal_creditside where tr_no = '" + query.getInt("tr_no") + "'");
-                        while (query2.next()) {
-                            countc++;
-                            numc++;
-                        }
-
-                        count = count+Math.max(countc, countd);
-                        num= Math.max(numc, numd);
-
-                        ResultSet query3 = dbm.query("SELECT * FROM account_journal_creditside where tr_no = '" + query.getInt("tr_no") + "'");
-                        while (query3.next()) {
-                            if (count < bottom) {
-
-                            } else if (count >= bottom && count <= top) {
-                                table.setValueAt(query3.getString(column_name), num_of_rows_filled_in_table, table_column_num);
-                                num_of_rows_filled_in_table++;
-                            } else {
-                                break;
+                        ResultSet query = dbm.query("SELECT * FROM account_journal_main");
+                        while (query.next()) {
+                            //  num = 0;
+                            countc = 0;
+                            countd = 0;
+                            numc = 0;
+                            numd = 0;
+                            ResultSet query1 = dbm.query("SELECT * FROM account_journal_debitside where tr_no = '" + query.getInt("tr_no") + "'");
+                            while (query1.next()) {
+                                countd++;
+                                numd++;
                             }
+                            query1.close();
+                            ResultSet query2 = dbm.query("SELECT * FROM account_journal_creditside where tr_no = '" + query.getInt("tr_no") + "'");
+                            while (query2.next()) {
+                                countc++;
+                                numc++;
+                            }
+                            query2.close();
+                            count = Math.max(countc, countd) + count;
+                            num = Math.max(numc, numd);
+
+                            ResultSet query3 = dbm.query("SELECT * FROM account_journal_debitside where tr_no = '" + query.getInt("tr_no") + "'");
+                            while (query3.next()) {
+
+                                if (count < bottom) {
+
+                                } else if (count >= bottom && count <= top) {
+                                    table.setValueAt(query3.getString(column_name), num_of_rows_filled_in_table, table_column_num);
+                                    num_of_rows_filled_in_table++;
+                                } else {
+                                    break;
+                                }
+                            }
+                            query3.close();
+                            num_of_rows_filled_in_table = num_of_rows_filled_in_table - numd + num;
+
                         }
-                        num_of_rows_filled_in_table=num_of_rows_filled_in_table-numc+num;
+                        query.close();
+                    } catch (SQLException ex) {
 
                     }
-                } catch (SQLException ex) {
+                } else {
+                    return false;
 
                 }
+
+                return true;
+            } else if (key == 3) {
+                if (num_of_rows_in_the_database >= bottom) {
+                    try {
+
+                        ResultSet query = dbm.query("SELECT * FROM account_journal_main");
+                        while (query.next()) {
+                            //  num = 0;
+                            countc = 0;
+                            countd = 0;
+                            numc = 0;
+                            numd = 0;
+                            ResultSet query1 = dbm.query("SELECT * FROM account_journal_debitside where tr_no = '" + query.getInt("tr_no") + "'");
+                            while (query1.next()) {
+                                countd++;
+                                numd++;
+                            }
+                            query1.close();
+                            ResultSet query2 = dbm.query("SELECT * FROM account_journal_creditside where tr_no = '" + query.getInt("tr_no") + "'");
+                            while (query2.next()) {
+                                countc++;
+                                numc++;
+                            }
+                            query2.close();
+                            count = count + Math.max(countc, countd);
+                            num = Math.max(numc, numd);
+
+                            ResultSet query3 = dbm.query("SELECT * FROM account_journal_creditside where tr_no = '" + query.getInt("tr_no") + "'");
+                            while (query3.next()) {
+                                if (count < bottom) {
+
+                                } else if (count >= bottom && count <= top) {
+                                    table.setValueAt(query3.getString(column_name), num_of_rows_filled_in_table, table_column_num);
+                                    num_of_rows_filled_in_table++;
+                                } else {
+                                    break;
+                                }
+                            }
+                            query3.close();
+                            num_of_rows_filled_in_table = num_of_rows_filled_in_table - numc + num;
+
+                        }
+                        query.close();
+                    } catch (SQLException ex) {
+
+                    }
+                } else {
+                    return false;
+
+                }
+
+                return true;
             } else {
                 return false;
 
             }
 
-            return true;
         } else {
+
+            int num_of_rows_filled_in_table = 0;
+            int num_of_rows_in_the_database = 0;
+            int rows_in_debit = 0;
+            int rows_in_credit = 0;
+            int count = 0;
+            int countd = 0;
+            int countc = 0;
+            int numd = 0;
+            int numc = 0;
+            int tr_no = 0;
+            int num = 0;
+            /*  while (table.getValueAt(num_of_columns_filled_in_table, table_column_num) != null) {
+             num_of_columns_filled_in_table++;
+             } */
+            //  "SELECT * FROM " + table_name + " WHERE " + table_column_giving + " =" + row_element + ""
+
+            try {
+                ResultSet query = dbm.query("SELECT * FROM account_journal_main_all ");
+                while (query.next()) {
+                    ResultSet query1 = dbm.query("SELECT * FROM account_journal_debitside_all where tr_no = '" + query.getInt("tr_no") + "'");
+                    while (query1.next()) {
+                        rows_in_debit++;
+                    }
+                    query1.close();
+                }
+                query.close();
+            } catch (SQLException ex) {
+
+            }
+            try {
+                ResultSet query = dbm.query("SELECT * FROM account_journal_main_all ");
+                while (query.next()) {
+                    ResultSet query1 = dbm.query("SELECT * FROM account_journal_creditside_all where tr_no = '" + query.getInt("tr_no") + "'");
+                    while (query1.next()) {
+                        rows_in_credit++;
+                    }
+                    query1.close();
+                }
+                query.close();
+            } catch (SQLException ex) {
+
+            }
+
+            num_of_rows_in_the_database = Math.max(rows_in_credit, rows_in_debit);
+
+            // key 1 for main, 2 for debit , 3 for credit
+            if (key == 1) {
+
+                if (num_of_rows_in_the_database >= bottom) {
+                    try {
+
+                        ResultSet query = dbm.query("SELECT * FROM account_journal_main_all");
+                        while (query.next()) {
+                            numd = 0;
+                            numc = 0;
+                            countc = 0;
+                            countd = 0;
+                            ResultSet query1 = dbm.query("SELECT * FROM account_journal_debitside_all where tr_no = '" + query.getInt("tr_no") + "'");
+                            while (query1.next()) {
+                                countd++;
+                                numd++;
+                            }
+                            query1.close();
+                            ResultSet query2 = dbm.query("SELECT * FROM account_journal_creditside_all where tr_no = '" + query.getInt("tr_no") + "'");
+                            while (query2.next()) {
+                                countc++;
+                                numc++;
+                            }
+                            query2.close();
+
+                            count = count + Math.max(countc, countd);
+                            num = Math.max(numc, numd);
+
+                            if (count < bottom) {
+
+                            } else if (count >= bottom && count <= top) {
+                                table.setValueAt(query.getString(column_name), num_of_rows_filled_in_table, table_column_num);
+                                num_of_rows_filled_in_table = num_of_rows_filled_in_table + num;
+                            } else {
+                                break;
+                            }
+                        }
+                        query.close();
+                    } catch (SQLException ex) {
+
+                    }
+                } else {
+                    return false;
+
+                }
+                return true;
+            } else if (key == 2) {
+
+                if (num_of_rows_in_the_database >= bottom) {
+                    try {
+
+                        ResultSet query = dbm.query("SELECT * FROM account_journal_main_all");
+                        while (query.next()) {
+                            //  num = 0;
+                            countc = 0;
+                            countd = 0;
+                            numc = 0;
+                            numd = 0;
+                            ResultSet query1 = dbm.query("SELECT * FROM account_journal_debitside_all where tr_no = '" + query.getInt("tr_no") + "'");
+                            while (query1.next()) {
+                                countd++;
+                                numd++;
+                            }
+                            query1.close();
+                            ResultSet query2 = dbm.query("SELECT * FROM account_journal_creditside_all where tr_no = '" + query.getInt("tr_no") + "'");
+                            while (query2.next()) {
+                                countc++;
+                                numc++;
+                            }
+                            query2.close();
+                            count = Math.max(countc, countd) + count;
+                            num = Math.max(numc, numd);
+
+                            ResultSet query3 = dbm.query("SELECT * FROM account_journal_debitside_all where tr_no = '" + query.getInt("tr_no") + "'");
+                            while (query3.next()) {
+
+                                if (count < bottom) {
+
+                                } else if (count >= bottom && count <= top) {
+                                    table.setValueAt(query3.getString(column_name), num_of_rows_filled_in_table, table_column_num);
+                                    num_of_rows_filled_in_table++;
+                                } else {
+                                    break;
+                                }
+                            }
+                            query3.close();
+                            num_of_rows_filled_in_table = num_of_rows_filled_in_table - numd + num;
+
+                        }
+                        query.close();
+                    } catch (SQLException ex) {
+
+                    }
+                } else {
+                    return false;
+
+                }
+
+                return true;
+            } else if (key == 3) {
+                if (num_of_rows_in_the_database >= bottom) {
+                    try {
+
+                        ResultSet query = dbm.query("SELECT * FROM account_journal_main_all");
+                        while (query.next()) {
+                            //  num = 0;
+                            countc = 0;
+                            countd = 0;
+                            numc = 0;
+                            numd = 0;
+                            ResultSet query1 = dbm.query("SELECT * FROM account_journal_debitside_all where tr_no = '" + query.getInt("tr_no") + "'");
+                            while (query1.next()) {
+                                countd++;
+                                numd++;
+                            }
+                            query1.close();
+                            ResultSet query2 = dbm.query("SELECT * FROM account_journal_creditside_all where tr_no = '" + query.getInt("tr_no") + "'");
+                            while (query2.next()) {
+                                countc++;
+                                numc++;
+                            }
+                            query2.close();
+                            count = count + Math.max(countc, countd);
+                            num = Math.max(numc, numd);
+
+                            ResultSet query3 = dbm.query("SELECT * FROM account_journal_creditside_all where tr_no = '" + query.getInt("tr_no") + "'");
+                            while (query3.next()) {
+                                if (count < bottom) {
+
+                                } else if (count >= bottom && count <= top) {
+                                    table.setValueAt(query3.getString(column_name), num_of_rows_filled_in_table, table_column_num);
+                                    num_of_rows_filled_in_table++;
+                                } else {
+                                    break;
+                                }
+                            }
+                            query3.close();
+                            num_of_rows_filled_in_table = num_of_rows_filled_in_table - numc + num;
+
+                        }
+                        query.close();
+                    } catch (SQLException ex) {
+
+                    }
+                } else {
+                    return false;
+
+                }
+
+                return true;
+            } else {
+                return false;
+
+            }
+        }
+
+    }
+
+    // edited upto this point
+    public boolean Inserting_To_The_Table_Filtered_Journal_Main_Search(javax.swing.JTable table, String column_name, int table_column_num, int bottom, int top, String column_filtering, Object element, int key) {
+
+        String current = null;
+
+        String given_period = null;
+
+        try {
+            ResultSet rs = dbm.query("SELECT * FROM acc_current_period_act");
+            while (rs.next()) {
+                current = rs.getString("period");
+            }
+            rs.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ACC_Edit_Payments.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        try {
+            ResultSet rs1 = dbm.query("SELECT * FROM acc_current_period");
+            while (rs1.next()) {
+                given_period = rs1.getString("period");
+            }
+            rs1.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ACC_Edit_Payments.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        if (current.equals(given_period)) {
+
+            int num_of_rows_filled_in_table = 0;
+            int num_of_rows_in_the_database = 0;
+            int rows_in_credit = 0;
+            int rows_in_debit = 0;
+            int countc = 0;
+            int countd = 0;
+            int count = 0;
+            int num = 0;
+            int numc = 0;
+            int numd = 0;
+            /*  while (table.getValueAt(num_of_columns_filled_in_table, table_column_num) != null) {
+             num_of_columns_filled_in_table++;
+             } */
+            //  "SELECT * FROM " + table_name + " WHERE " + table_column_giving + " =" + row_element + ""
+
+            try {
+                ResultSet query = dbm.query("SELECT * FROM account_journal_main where " + column_filtering + " LIKE '" + element + "'");
+                while (query.next()) {
+                    ResultSet query1 = dbm.query("SELECT * FROM account_journal_debitside where tr_no = '" + query.getInt("tr_no") + "'");
+                    while (query1.next()) {
+                        rows_in_debit++;
+                    }
+                    query1.close();
+                    ResultSet query2 = dbm.query("SELECT * FROM account_journal_creditside where tr_no = '" + query.getInt("tr_no") + "'");
+                    while (query2.next()) {
+                        rows_in_credit++;
+                    }
+                    query2.close();
+                }
+                query.close();
+                num_of_rows_in_the_database = Math.max(rows_in_credit, rows_in_debit);
+            } catch (SQLException ex) {
+
+            }
+
+            if (key == 1) {
+
+                if (num_of_rows_in_the_database >= bottom) {
+                    try {
+
+                        ResultSet query = dbm.query("SELECT * FROM account_journal_main where " + column_filtering + " LIKE '" + element + "'");
+                        while (query.next()) {
+                            numc = 0;
+                            numd = 0;
+                            countc = 0;
+                            countd = 0;
+                            ResultSet query1 = dbm.query("SELECT * FROM account_journal_debitside where tr_no = '" + query.getInt("tr_no") + "'");
+                            while (query1.next()) {
+                                countd++;
+                                numd++;
+                            }
+                            query1.close();
+                            ResultSet query2 = dbm.query("SELECT * FROM account_journal_creditside where tr_no = '" + query.getInt("tr_no") + "'");
+                            while (query2.next()) {
+                                countc++;
+                                numc++;
+                            }
+                            query2.close();
+
+                            count = Math.max(countc, countd) + count;
+                            num = Math.max(numc, numd);
+
+                            if (count < bottom) {
+
+                            } else if (count >= bottom && count <= top) {
+                                table.setValueAt(query.getString(column_name), num_of_rows_filled_in_table, table_column_num);
+                                num_of_rows_filled_in_table = num_of_rows_filled_in_table + num;
+                            } else {
+                                break;
+                            }
+
+                        }
+                        query.close();
+                    } catch (SQLException ex) {
+
+                    }
+                } else {
+                    return false;
+
+                }
+                return true;
+            } else if (key == 2) {
+
+                if (num_of_rows_in_the_database >= bottom) {
+                    try {
+
+                        ResultSet query = dbm.query("SELECT * FROM account_journal_main where " + column_filtering + " LIKE '" + element + "'");
+                        while (query.next()) {
+                            countc = 0;
+                            countd = 0;
+                            numc = 0;
+                            numd = 0;
+                            ResultSet query1 = dbm.query("SELECT * FROM account_journal_debitside where tr_no = '" + query.getInt("tr_no") + "'");
+                            while (query1.next()) {
+                                countd++;
+                                numd++;
+                            }
+                            query.close();
+                            ResultSet query2 = dbm.query("SELECT * FROM account_journal_creditside where tr_no = '" + query.getInt("tr_no") + "'");
+                            while (query2.next()) {
+                                countc++;
+                                numc++;
+                            }
+                            query2.close();
+                            count = Math.max(countc, countd) + count;
+                            num = Math.max(numc, numd);
+
+                            ResultSet query3 = dbm.query("SELECT * FROM account_journal_debitside where tr_no = '" + query.getInt("tr_no") + "'");
+                            while (query3.next()) {
+                                if (count < bottom) {
+
+                                } else if (count >= bottom && count <= top) {
+                                    table.setValueAt(query3.getString(column_name), num_of_rows_filled_in_table, table_column_num);
+                                    num_of_rows_filled_in_table++;
+                                } else {
+                                    break;
+                                }
+                            }
+                            query3.close();
+                            num_of_rows_filled_in_table = num_of_rows_filled_in_table + num - numd;
+
+                        }
+                        query.close();
+                    } catch (SQLException ex) {
+
+                    }
+                } else {
+                    return false;
+
+                }
+                return true;
+            } else if (key == 3) {
+                if (num_of_rows_in_the_database >= bottom) {
+                    try {
+
+                        ResultSet query = dbm.query("SELECT * FROM account_journal_main where " + column_filtering + " LIKE '" + element + "'");
+                        while (query.next()) {
+                            numc = 0;
+                            numd = 0;
+                            countc = 0;
+                            countd = 0;
+                            ResultSet query1 = dbm.query("SELECT * FROM account_journal_debitside where tr_no = '" + query.getInt("tr_no") + "'");
+                            while (query1.next()) {
+                                countd++;
+                                numd++;
+                            }
+                            query1.close();
+                            ResultSet query2 = dbm.query("SELECT * FROM account_journal_creditside where tr_no = '" + query.getInt("tr_no") + "'");
+                            while (query2.next()) {
+                                countc++;
+                                numc++;
+                            }
+                            query2.close();
+                            count = Math.max(countc, countd) + count;
+                            num = Math.max(numc, numd);
+
+                            ResultSet query3 = dbm.query("SELECT * FROM account_journal_creditside where tr_no = '" + query.getInt("tr_no") + "'");
+                            while (query3.next()) {
+                                if (count < bottom) {
+
+                                } else if (count >= bottom && count <= top) {
+                                    table.setValueAt(query3.getString(column_name), num_of_rows_filled_in_table, table_column_num);
+                                    num_of_rows_filled_in_table++;
+                                } else {
+                                    break;
+                                }
+                            }
+                            query3.close();
+                            num_of_rows_filled_in_table = num_of_rows_filled_in_table + num - numc;
+                            // System.out.println(num_of_rows_filled_in_table);
+                        }
+                        query.close();
+                    } catch (SQLException ex) {
+
+                    }
+                } else {
+                    return false;
+
+                }
+                return true;
+            }
+            return false;
+
+        } else {
+
+            int num_of_rows_filled_in_table = 0;
+            int num_of_rows_in_the_database = 0;
+            int rows_in_credit = 0;
+            int rows_in_debit = 0;
+            int countc = 0;
+            int countd = 0;
+            int count = 0;
+            int num = 0;
+            int numc = 0;
+            int numd = 0;
+            /*  while (table.getValueAt(num_of_columns_filled_in_table, table_column_num) != null) {
+             num_of_columns_filled_in_table++;
+             } */
+            //  "SELECT * FROM " + table_name + " WHERE " + table_column_giving + " =" + row_element + ""
+
+            try {
+                ResultSet query = dbm.query("SELECT * FROM account_journal_main_all where " + column_filtering + " LIKE '" + element + "'");
+                while (query.next()) {
+                    ResultSet query1 = dbm.query("SELECT * FROM account_journal_debitside_all where tr_no = '" + query.getInt("tr_no") + "'");
+                    while (query1.next()) {
+                        rows_in_debit++;
+                    }
+                    query1.close();
+                    ResultSet query2 = dbm.query("SELECT * FROM account_journal_creditside_all where tr_no = '" + query.getInt("tr_no") + "'");
+                    while (query2.next()) {
+                        rows_in_credit++;
+                    }
+                    query2.close();
+                }
+                query.close();
+                num_of_rows_in_the_database = Math.max(rows_in_credit, rows_in_debit);
+            } catch (SQLException ex) {
+
+            }
+
+            if (key == 1) {
+
+                if (num_of_rows_in_the_database >= bottom) {
+                    try {
+
+                        ResultSet query = dbm.query("SELECT * FROM account_journal_main_all where " + column_filtering + " LIKE '" + element + "'");
+                        while (query.next()) {
+                            numc = 0;
+                            numd = 0;
+                            countc = 0;
+                            countd = 0;
+                            ResultSet query1 = dbm.query("SELECT * FROM account_journal_debitside_all where tr_no = '" + query.getInt("tr_no") + "'");
+                            while (query1.next()) {
+                                countd++;
+                                numd++;
+                            }
+                            query1.close();
+                            ResultSet query2 = dbm.query("SELECT * FROM account_journal_creditside_all where tr_no = '" + query.getInt("tr_no") + "'");
+                            while (query2.next()) {
+                                countc++;
+                                numc++;
+                            }
+                            query2.close();
+
+                            count = Math.max(countc, countd) + count;
+                            num = Math.max(numc, numd);
+
+                            if (count < bottom) {
+
+                            } else if (count >= bottom && count <= top) {
+                                table.setValueAt(query.getString(column_name), num_of_rows_filled_in_table, table_column_num);
+                                num_of_rows_filled_in_table = num_of_rows_filled_in_table + num;
+                            } else {
+                                break;
+                            }
+
+                        }
+                        query.close();
+                    } catch (SQLException ex) {
+
+                    }
+                } else {
+                    return false;
+
+                }
+                return true;
+            } else if (key == 2) {
+
+                if (num_of_rows_in_the_database >= bottom) {
+                    try {
+
+                        ResultSet query = dbm.query("SELECT * FROM account_journal_main_all where " + column_filtering + " LIKE '" + element + "'");
+                        while (query.next()) {
+                            countc = 0;
+                            countd = 0;
+                            numc = 0;
+                            numd = 0;
+                            ResultSet query1 = dbm.query("SELECT * FROM account_journal_debitside_all where tr_no = '" + query.getInt("tr_no") + "'");
+                            while (query1.next()) {
+                                countd++;
+                                numd++;
+                            }
+                            query.close();
+                            ResultSet query2 = dbm.query("SELECT * FROM account_journal_creditside_all where tr_no = '" + query.getInt("tr_no") + "'");
+                            while (query2.next()) {
+                                countc++;
+                                numc++;
+                            }
+                            query2.close();
+                            count = Math.max(countc, countd) + count;
+                            num = Math.max(numc, numd);
+
+                            ResultSet query3 = dbm.query("SELECT * FROM account_journal_debitside_all where tr_no = '" + query.getInt("tr_no") + "'");
+                            while (query3.next()) {
+                                if (count < bottom) {
+
+                                } else if (count >= bottom && count <= top) {
+                                    table.setValueAt(query3.getString(column_name), num_of_rows_filled_in_table, table_column_num);
+                                    num_of_rows_filled_in_table++;
+                                } else {
+                                    break;
+                                }
+                            }
+                            query3.close();
+                            num_of_rows_filled_in_table = num_of_rows_filled_in_table + num - numd;
+
+                        }
+                        query.close();
+                    } catch (SQLException ex) {
+
+                    }
+                } else {
+                    return false;
+
+                }
+                return true;
+            } else if (key == 3) {
+                if (num_of_rows_in_the_database >= bottom) {
+                    try {
+
+                        ResultSet query = dbm.query("SELECT * FROM account_journal_main_all where " + column_filtering + " LIKE '" + element + "'");
+                        while (query.next()) {
+                            numc = 0;
+                            numd = 0;
+                            countc = 0;
+                            countd = 0;
+                            ResultSet query1 = dbm.query("SELECT * FROM account_journal_debitside_all where tr_no = '" + query.getInt("tr_no") + "'");
+                            while (query1.next()) {
+                                countd++;
+                                numd++;
+                            }
+                            query1.close();
+                            ResultSet query2 = dbm.query("SELECT * FROM account_journal_creditside_all where tr_no = '" + query.getInt("tr_no") + "'");
+                            while (query2.next()) {
+                                countc++;
+                                numc++;
+                            }
+                            query2.close();
+                            count = Math.max(countc, countd) + count;
+                            num = Math.max(numc, numd);
+
+                            ResultSet query3 = dbm.query("SELECT * FROM account_journal_creditside_all where tr_no = '" + query.getInt("tr_no") + "'");
+                            while (query3.next()) {
+                                if (count < bottom) {
+
+                                } else if (count >= bottom && count <= top) {
+                                    table.setValueAt(query3.getString(column_name), num_of_rows_filled_in_table, table_column_num);
+                                    num_of_rows_filled_in_table++;
+                                } else {
+                                    break;
+                                }
+                            }
+                            query3.close();
+                            num_of_rows_filled_in_table = num_of_rows_filled_in_table + num - numc;
+                            // System.out.println(num_of_rows_filled_in_table);
+                        }
+                        query.close();
+                    } catch (SQLException ex) {
+
+                    }
+                } else {
+                    return false;
+
+                }
+                return true;
+            }
             return false;
 
         }
 
     }
-    
-    // edited upto this point
-
-    public boolean Inserting_To_The_Table_Filtered_Journal_Main_Search(javax.swing.JTable table, String column_name, int table_column_num, int bottom, int top, String column_filtering, Object element, int key) {
-
-        int num_of_rows_filled_in_table = 0;
-        int num_of_rows_in_the_database = 0;
-        int rows_in_credit = 0;
-        int rows_in_debit = 0;
-        int countc = 0;
-        int countd = 0;
-        int count = 0;
-        int num = 0;
-        int numc = 0;
-        int numd = 0;
-        /*  while (table.getValueAt(num_of_columns_filled_in_table, table_column_num) != null) {
-         num_of_columns_filled_in_table++;
-         } */
-        //  "SELECT * FROM " + table_name + " WHERE " + table_column_giving + " =" + row_element + ""
-
-        try {
-            ResultSet query = dbm.query("SELECT * FROM account_journal_main where " + column_filtering + " LIKE '" + element + "'");
-            while (query.next()) {
-                ResultSet query1 = dbm.query("SELECT * FROM account_journal_debitside where tr_no = '" + query.getInt("tr_no") + "'");
-                while (query1.next()) {
-                    rows_in_debit++;
-                }
-                ResultSet query2 = dbm.query("SELECT * FROM account_journal_creditside where tr_no = '" + query.getInt("tr_no") + "'");
-                while (query2.next()) {
-                    rows_in_credit++;
-                }
-            }
-            num_of_rows_in_the_database = Math.max(rows_in_credit, rows_in_debit);
-        } catch (SQLException ex) {
-
-        }
-
-        if (key == 1) {
-
-            if (num_of_rows_in_the_database >= bottom) {
-                try {
-
-                    ResultSet query = dbm.query("SELECT * FROM account_journal_main where " + column_filtering + " LIKE '" + element + "'");
-                    while (query.next()) {
-                        numc = 0;
-                        numd = 0;
-                        countc=0;
-                        countd=0;
-                        ResultSet query1 = dbm.query("SELECT * FROM account_journal_debitside where tr_no = '" + query.getInt("tr_no") + "'");
-                        while (query1.next()) {
-                            countd++;
-                            numd++;
-                        }
-                        ResultSet query2 = dbm.query("SELECT * FROM account_journal_creditside where tr_no = '" + query.getInt("tr_no") + "'");
-                        while (query2.next()) {
-                            countc++;
-                            numc++;
-                        }
-
-                        count = Math.max(countc, countd)+count;
-                        num = Math.max(numc, numd);
-
-                        if (count < bottom) {
-
-                        } else if (count >= bottom && count <= top) {
-                            table.setValueAt(query.getString(column_name), num_of_rows_filled_in_table, table_column_num);
-                            num_of_rows_filled_in_table = num_of_rows_filled_in_table + num;
-                        } else {
-                            break;
-                        }
-
-                    }
-                } catch (SQLException ex) {
-
-                }
-            } else {
-                return false;
-
-            }
-            return true;
-        } else if (key == 2) {
-
-            if (num_of_rows_in_the_database >= bottom) {
-                try {
-
-                    ResultSet query = dbm.query("SELECT * FROM account_journal_main where " + column_filtering + " LIKE '" + element + "'");
-                    while (query.next()) {
-                        countc=0;
-                        countd=0;
-                        numc=0;
-                        numd=0;
-                        ResultSet query1 = dbm.query("SELECT * FROM account_journal_debitside where tr_no = '" + query.getInt("tr_no") + "'");
-                        while (query1.next()) {
-                            countd++;
-                            numd++;
-                        }
-                        ResultSet query2 = dbm.query("SELECT * FROM account_journal_creditside where tr_no = '" + query.getInt("tr_no") + "'");
-                        while (query2.next()) {
-                            countc++;
-                            numc++;
-                        }
-
-                        count = Math.max(countc, countd)+count;
-                        num=Math.max(numc, numd);
-
-                        ResultSet query3 = dbm.query("SELECT * FROM account_journal_debitside where tr_no = '" + query.getInt("tr_no") + "'");
-                        while(query3.next()){
-                        if (count < bottom) {
-
-                        } else if (count >= bottom && count <= top) {
-                            table.setValueAt(query3.getString(column_name), num_of_rows_filled_in_table, table_column_num);
-                            num_of_rows_filled_in_table++;
-                        } else {
-                            break;
-                        }
-                    }
-                        num_of_rows_filled_in_table=num_of_rows_filled_in_table+num-numd;
-                        
-                    }
-                } catch (SQLException ex) {
-
-                }
-            } else {
-                return false;
-
-            }
-            return true;
-        } else if (key == 3) {
-            if (num_of_rows_in_the_database >= bottom) {
-                try {
-
-                    ResultSet query = dbm.query("SELECT * FROM account_journal_main where " + column_filtering + " LIKE '" + element + "'");
-                    while (query.next()) {
-                        numc = 0;
-                        numd=0;
-                        countc=0;
-                        countd=0;
-                        ResultSet query1 = dbm.query("SELECT * FROM account_journal_debitside where tr_no = '" + query.getInt("tr_no") + "'");
-                        while (query1.next()) {
-                            countd++;
-                            numd++;
-                        }
-                        ResultSet query2 = dbm.query("SELECT * FROM account_journal_creditside where tr_no = '" + query.getInt("tr_no") + "'");
-                        while (query2.next()) {
-                            countc++;
-                            numc++;
-                        }
-
-                        count = Math.max(countc, countd)+count;
-                        num = Math.max(numc, numd);
-
-                        ResultSet query3 = dbm.query("SELECT * FROM account_journal_creditside where tr_no = '" + query.getInt("tr_no") + "'");
-                        while(query3.next()){
-                        if (count < bottom) {
-
-                        } else if (count >= bottom && count <= top) {
-                            table.setValueAt(query3.getString(column_name), num_of_rows_filled_in_table, table_column_num);
-                            num_of_rows_filled_in_table++;
-                        } else {
-                            break;
-                        }
-                    }
-                        num_of_rows_filled_in_table=num_of_rows_filled_in_table+num-numc;
-                       // System.out.println(num_of_rows_filled_in_table);
-                    }
-                } catch (SQLException ex) {
-
-                }
-            } else {
-                return false;
-
-            }
-            return true;
-        }
-        return false;
-
-    }
 
     public boolean Inserting_To_The_Table_Filtered_Journal_Debit_Search(javax.swing.JTable table, String column_name, int table_column_num, int bottom, int top, String column_filtering, Object element, int key) {
 
-        int num_of_rows_filled_in_table = 0;
-        int num_of_rows_in_the_database = 0;
-        int rows_in_credit = 0;
-        int rows_in_debit = 0;
-        int countc = 0;
-        int countd = 0;
-        int count = 0;
-        int tr_no = 0;
-        int num = 0;
-        int numc = 0;
-        int numd = 0;
-        /*  while (table.getValueAt(num_of_columns_filled_in_table, table_column_num) != null) {
-         num_of_columns_filled_in_table++;
-         } */
-        //  "SELECT * FROM " + table_name + " WHERE " + table_column_giving + " =" + row_element + ""
+        String current = null;
+
+        String given_period = null;
 
         try {
-            ResultSet query = dbm.query("SELECT * FROM account_journal_debitside where " + column_filtering + " LIKE '" + element + "'");
-
-            while (query.next()) {
-                if (query.getInt("tr_no") != tr_no) {
-                    ResultSet query1 = dbm.query("SELECT * FROM account_journal_debitside where tr_no LIKE '" + query.getInt("tr_no") + "'");
-                    while (query1.next()) {
-                        rows_in_debit++;
-                    }
-                    ResultSet query2 = dbm.query("SELECT * FROM account_journal_creditside where tr_no LIKE '" + query.getInt("tr_no") + "'");
-                    while (query2.next()) {
-                        rows_in_credit++;
-                    }
-                    tr_no = query.getInt("tr_no");
-                }
-
+            ResultSet rs = dbm.query("SELECT * FROM acc_current_period_act");
+            while (rs.next()) {
+                current = rs.getString("period");
             }
-
-            num_of_rows_in_the_database = Math.max(rows_in_credit, rows_in_debit);
-
+            rs.close();
         } catch (SQLException ex) {
+            Logger.getLogger(ACC_Edit_Payments.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        try {
+            ResultSet rs1 = dbm.query("SELECT * FROM acc_current_period");
+            while (rs1.next()) {
+                given_period = rs1.getString("period");
+            }
+            rs1.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ACC_Edit_Payments.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        if (current.equals(given_period)) {
+
+            int num_of_rows_filled_in_table = 0;
+            int num_of_rows_in_the_database = 0;
+            int rows_in_credit = 0;
+            int rows_in_debit = 0;
+            int countc = 0;
+            int countd = 0;
+            int count = 0;
+            int tr_no = 0;
+            int num = 0;
+            int numc = 0;
+            int numd = 0;
+            /*  while (table.getValueAt(num_of_columns_filled_in_table, table_column_num) != null) {
+             num_of_columns_filled_in_table++;
+             } */
+            //  "SELECT * FROM " + table_name + " WHERE " + table_column_giving + " =" + row_element + ""
+
+            try {
+                ResultSet query = dbm.query("SELECT * FROM account_journal_debitside where " + column_filtering + " LIKE '" + element + "'");
+
+                while (query.next()) {
+                    if (query.getInt("tr_no") != tr_no) {
+                        ResultSet query1 = dbm.query("SELECT * FROM account_journal_debitside where tr_no LIKE '" + query.getInt("tr_no") + "'");
+                        while (query1.next()) {
+                            rows_in_debit++;
+                        }
+                        query1.close();
+                        ResultSet query2 = dbm.query("SELECT * FROM account_journal_creditside where tr_no LIKE '" + query.getInt("tr_no") + "'");
+                        while (query2.next()) {
+                            rows_in_credit++;
+                        }
+                        query2.close();
+                        tr_no = query.getInt("tr_no");
+                    }
+
+                }
+                query.close();
+                num_of_rows_in_the_database = Math.max(rows_in_credit, rows_in_debit);
+
+            } catch (SQLException ex) {
+
+            }
+
+            if (key == 1) {
+
+                tr_no = 0;
+                if (num_of_rows_in_the_database >= bottom) {
+                    try {
+
+                        ResultSet query = dbm.query("SELECT * FROM account_journal_debitside where " + column_filtering + " LIKE '" + element + "'");
+                        while (query.next()) {
+                            if (tr_no != query.getInt("tr_no")) {
+
+                                numc = 0;
+                                numd = 0;
+                                countc = 0;
+                                countd = 0;
+
+                                ResultSet query2 = dbm.query("SELECT * FROM account_journal_debitside where tr_no = '" + query.getInt("tr_no") + "'");
+                                while (query2.next()) {
+                                    numd++;
+                                    countd++;
+                                }
+                                query2.close();
+                                ResultSet query3 = dbm.query("SELECT * FROM account_journal_creditside where tr_no = '" + query.getInt("tr_no") + "'");
+                                while (query3.next()) {
+                                    numc++;
+                                    countc++;
+                                }
+                                query3.close();
+                                count = Math.max(countc, countd) + count;
+                                num = Math.max(numc, numd);
+                                ResultSet query1 = dbm.query("SELECT * FROM account_journal_main where tr_no = '" + query.getInt("tr_no") + "'");
+                                while (query1.next()) {
+                                    if (count < bottom) {
+
+                                    } else if (count >= bottom && count <= top) {
+                                        table.setValueAt(query1.getString(column_name), num_of_rows_filled_in_table, table_column_num);
+                                        num_of_rows_filled_in_table = num_of_rows_filled_in_table + num;
+                                    } else {
+                                        break;
+                                    }
+                                }
+                                query1.close();
+                                tr_no = query.getInt("tr_no");
+
+                            }
+                        }
+                        query.close();
+                    } catch (SQLException ex) {
+
+                    }
+                } else {
+                    return false;
+
+                }
+                return true;
+            } else if (key == 2) {
+                tr_no = 0;
+                if (num_of_rows_in_the_database >= bottom) {
+                    try {
+
+                        ResultSet query = dbm.query("SELECT * FROM account_journal_debitside where " + column_filtering + " LIKE '" + element + "'");
+                        while (query.next()) {
+
+                            if (tr_no != query.getInt("tr_no")) {
+
+                                numc = 0;
+                                numd = 0;
+                                countc = 0;
+                                countd = 0;
+
+                                ResultSet query2 = dbm.query("SELECT * FROM account_journal_debitside where tr_no = '" + query.getInt("tr_no") + "'");
+                                while (query2.next()) {
+                                    numd++;
+                                    countd++;
+                                }
+                                query2.close();
+                                ResultSet query3 = dbm.query("SELECT * FROM account_journal_creditside where tr_no = '" + query.getInt("tr_no") + "'");
+                                while (query3.next()) {
+                                    numc++;
+                                    countc++;
+                                }
+                                query3.close();
+
+                                count = Math.max(countc, countd) + count;
+                                num = Math.max(numc, numd);
+
+                                ResultSet query1 = dbm.query("SELECT * FROM account_journal_debitside where tr_no = '" + query.getInt("tr_no") + "'");
+                                while (query1.next()) {
+
+                                    if (count < bottom) {
+
+                                    } else if (count >= bottom && count <= top) {
+                                        table.setValueAt(query1.getString(column_name), num_of_rows_filled_in_table, table_column_num);
+                                        num_of_rows_filled_in_table++;
+
+                                    } else {
+                                        break;
+                                    }
+                                }
+                                query1.close();
+                                num_of_rows_filled_in_table = num_of_rows_filled_in_table + num - numd;
+                                tr_no = query.getInt("tr_no");
+                            }
+                        }
+                        query.close();
+                    } catch (SQLException ex) {
+
+                    }
+                } else {
+                    return false;
+
+                }
+                return true;
+            } else if (key == 3) {
+                tr_no = 0;
+                if (num_of_rows_in_the_database >= bottom) {
+                    try {
+
+                        ResultSet query = dbm.query("SELECT * FROM account_journal_debitside where " + column_filtering + " LIKE '" + element + "'");
+                        while (query.next()) {
+                            if (tr_no != query.getInt("tr_no")) {
+
+                                numc = 0;
+                                numd = 0;
+                                countc = 0;
+                                countd = 0;
+
+                                ResultSet query2 = dbm.query("SELECT * FROM account_journal_debitside where tr_no = '" + query.getInt("tr_no") + "'");
+                                while (query2.next()) {
+                                    numd++;
+                                    countd++;
+                                }
+                                query2.close();
+                                ResultSet query3 = dbm.query("SELECT * FROM account_journal_creditside where tr_no = '" + query.getInt("tr_no") + "'");
+                                while (query3.next()) {
+                                    numc++;
+                                    countc++;
+                                }
+                                query3.close();
+                                count = Math.max(countc, countd) + count;
+                                num = Math.max(numc, numd);
+
+                                ResultSet query1 = dbm.query("SELECT * FROM account_journal_creditside where tr_no = '" + query.getInt("tr_no") + "'");
+                                while (query1.next()) {
+
+                                    if (count < bottom) {
+
+                                    } else if (count >= bottom && count <= top) {
+                                        table.setValueAt(query1.getString(column_name), num_of_rows_filled_in_table, table_column_num);
+                                        num_of_rows_filled_in_table++;
+                                    } else {
+                                        break;
+                                    }
+                                }
+                                query1.close();
+                                num_of_rows_filled_in_table = num_of_rows_filled_in_table - numc + num;
+                                tr_no = query.getInt("tr_no");
+                                num = 0;
+                            }
+                        }
+                        query.close();
+                    } catch (SQLException ex) {
+
+                    }
+                } else {
+                    return false;
+
+                }
+                return true;
+            }
+            return false;
+
+        } else {
+            int num_of_rows_filled_in_table = 0;
+            int num_of_rows_in_the_database = 0;
+            int rows_in_credit = 0;
+            int rows_in_debit = 0;
+            int countc = 0;
+            int countd = 0;
+            int count = 0;
+            int tr_no = 0;
+            int num = 0;
+            int numc = 0;
+            int numd = 0;
+            /*  while (table.getValueAt(num_of_columns_filled_in_table, table_column_num) != null) {
+             num_of_columns_filled_in_table++;
+             } */
+            //  "SELECT * FROM " + table_name + " WHERE " + table_column_giving + " =" + row_element + ""
+
+            try {
+                ResultSet query = dbm.query("SELECT * FROM account_journal_debitside_all where " + column_filtering + " LIKE '" + element + "'");
+
+                while (query.next()) {
+                    if (query.getInt("tr_no") != tr_no) {
+                        ResultSet query1 = dbm.query("SELECT * FROM account_journal_debitside_all where tr_no LIKE '" + query.getInt("tr_no") + "'");
+                        while (query1.next()) {
+                            rows_in_debit++;
+                        }
+                        query1.close();
+                        ResultSet query2 = dbm.query("SELECT * FROM account_journal_creditside_all where tr_no LIKE '" + query.getInt("tr_no") + "'");
+                        while (query2.next()) {
+                            rows_in_credit++;
+                        }
+                        query2.close();
+                        tr_no = query.getInt("tr_no");
+                    }
+
+                }
+                query.close();
+                num_of_rows_in_the_database = Math.max(rows_in_credit, rows_in_debit);
+
+            } catch (SQLException ex) {
+
+            }
+
+            if (key == 1) {
+
+                tr_no = 0;
+                if (num_of_rows_in_the_database >= bottom) {
+                    try {
+
+                        ResultSet query = dbm.query("SELECT * FROM account_journal_debitside_all where " + column_filtering + " LIKE '" + element + "'");
+                        while (query.next()) {
+                            if (tr_no != query.getInt("tr_no")) {
+
+                                numc = 0;
+                                numd = 0;
+                                countc = 0;
+                                countd = 0;
+
+                                ResultSet query2 = dbm.query("SELECT * FROM account_journal_debitside_all where tr_no = '" + query.getInt("tr_no") + "'");
+                                while (query2.next()) {
+                                    numd++;
+                                    countd++;
+                                }
+                                query2.close();
+                                ResultSet query3 = dbm.query("SELECT * FROM account_journal_creditside_all where tr_no = '" + query.getInt("tr_no") + "'");
+                                while (query3.next()) {
+                                    numc++;
+                                    countc++;
+                                }
+                                query3.close();
+                                count = Math.max(countc, countd) + count;
+                                num = Math.max(numc, numd);
+                                ResultSet query1 = dbm.query("SELECT * FROM account_journal_main_all where tr_no = '" + query.getInt("tr_no") + "'");
+                                while (query1.next()) {
+                                    if (count < bottom) {
+
+                                    } else if (count >= bottom && count <= top) {
+                                        table.setValueAt(query1.getString(column_name), num_of_rows_filled_in_table, table_column_num);
+                                        num_of_rows_filled_in_table = num_of_rows_filled_in_table + num;
+                                    } else {
+                                        break;
+                                    }
+                                }
+                                query1.close();
+                                tr_no = query.getInt("tr_no");
+
+                            }
+                        }
+                        query.close();
+                    } catch (SQLException ex) {
+
+                    }
+                } else {
+                    return false;
+
+                }
+                return true;
+            } else if (key == 2) {
+                tr_no = 0;
+                if (num_of_rows_in_the_database >= bottom) {
+                    try {
+
+                        ResultSet query = dbm.query("SELECT * FROM account_journal_debitside_all where " + column_filtering + " LIKE '" + element + "'");
+                        while (query.next()) {
+
+                            if (tr_no != query.getInt("tr_no")) {
+
+                                numc = 0;
+                                numd = 0;
+                                countc = 0;
+                                countd = 0;
+
+                                ResultSet query2 = dbm.query("SELECT * FROM account_journal_debitside_all where tr_no = '" + query.getInt("tr_no") + "'");
+                                while (query2.next()) {
+                                    numd++;
+                                    countd++;
+                                }
+                                query2.close();
+                                ResultSet query3 = dbm.query("SELECT * FROM account_journal_creditside_all where tr_no = '" + query.getInt("tr_no") + "'");
+                                while (query3.next()) {
+                                    numc++;
+                                    countc++;
+                                }
+                                query3.close();
+
+                                count = Math.max(countc, countd) + count;
+                                num = Math.max(numc, numd);
+
+                                ResultSet query1 = dbm.query("SELECT * FROM account_journal_debitside_all where tr_no = '" + query.getInt("tr_no") + "'");
+                                while (query1.next()) {
+
+                                    if (count < bottom) {
+
+                                    } else if (count >= bottom && count <= top) {
+                                        table.setValueAt(query1.getString(column_name), num_of_rows_filled_in_table, table_column_num);
+                                        num_of_rows_filled_in_table++;
+
+                                    } else {
+                                        break;
+                                    }
+                                }
+                                query1.close();
+                                num_of_rows_filled_in_table = num_of_rows_filled_in_table + num - numd;
+                                tr_no = query.getInt("tr_no");
+                            }
+                        }
+                        query.close();
+                    } catch (SQLException ex) {
+
+                    }
+                } else {
+                    return false;
+
+                }
+                return true;
+            } else if (key == 3) {
+                tr_no = 0;
+                if (num_of_rows_in_the_database >= bottom) {
+                    try {
+
+                        ResultSet query = dbm.query("SELECT * FROM account_journal_debitside_all where " + column_filtering + " LIKE '" + element + "'");
+                        while (query.next()) {
+                            if (tr_no != query.getInt("tr_no")) {
+
+                                numc = 0;
+                                numd = 0;
+                                countc = 0;
+                                countd = 0;
+
+                                ResultSet query2 = dbm.query("SELECT * FROM account_journal_debitside_all where tr_no = '" + query.getInt("tr_no") + "'");
+                                while (query2.next()) {
+                                    numd++;
+                                    countd++;
+                                }
+                                query2.close();
+                                ResultSet query3 = dbm.query("SELECT * FROM account_journal_creditside_all where tr_no = '" + query.getInt("tr_no") + "'");
+                                while (query3.next()) {
+                                    numc++;
+                                    countc++;
+                                }
+                                query3.close();
+                                count = Math.max(countc, countd) + count;
+                                num = Math.max(numc, numd);
+
+                                ResultSet query1 = dbm.query("SELECT * FROM account_journal_creditside_all where tr_no = '" + query.getInt("tr_no") + "'");
+                                while (query1.next()) {
+
+                                    if (count < bottom) {
+
+                                    } else if (count >= bottom && count <= top) {
+                                        table.setValueAt(query1.getString(column_name), num_of_rows_filled_in_table, table_column_num);
+                                        num_of_rows_filled_in_table++;
+                                    } else {
+                                        break;
+                                    }
+                                }
+                                query1.close();
+                                num_of_rows_filled_in_table = num_of_rows_filled_in_table - numc + num;
+                                tr_no = query.getInt("tr_no");
+                                num = 0;
+                            }
+                        }
+                        query.close();
+                    } catch (SQLException ex) {
+
+                    }
+                } else {
+                    return false;
+
+                }
+                return true;
+            }
+            return false;
 
         }
 
-        if (key == 1) {
-
-            tr_no = 0;
-            if (num_of_rows_in_the_database >= bottom) {
-                try {
-
-                    ResultSet query = dbm.query("SELECT * FROM account_journal_debitside where " + column_filtering + " LIKE '" + element + "'");
-                    while (query.next()) {
-                        if (tr_no != query.getInt("tr_no")) {
-                            
-                            numc=0;
-                            numd=0;
-                            countc=0;
-                            countd=0;
-
-                            ResultSet query2 = dbm.query("SELECT * FROM account_journal_debitside where tr_no = '" + query.getInt("tr_no") + "'");
-                            while (query2.next()) {
-                                numd++;
-                                countd++;
-                            }
-                            ResultSet query3 = dbm.query("SELECT * FROM account_journal_creditside where tr_no = '" + query.getInt("tr_no") + "'");
-                            while (query3.next()) {
-                                numc++;
-                                countc++;
-                            }
-                            count=Math.max(countc,countd)+count;
-                            num=Math.max(numc, numd);
-                            ResultSet query1 = dbm.query("SELECT * FROM account_journal_main where tr_no = '" + query.getInt("tr_no") + "'");
-                            while (query1.next()) {
-                                if (count < bottom) {
-
-                                } else if (count >= bottom && count <= top) {
-                                    table.setValueAt(query1.getString(column_name), num_of_rows_filled_in_table, table_column_num);
-                                    num_of_rows_filled_in_table = num_of_rows_filled_in_table + num;
-                                } else {
-                                    break;
-                                }
-                            }
-                            tr_no = query.getInt("tr_no");
-              
-                        }
-                    }
-                } catch (SQLException ex) {
-
-                }
-            } else {
-                return false;
-
-            }
-            return true;
-        } else if (key == 2) {
-            tr_no = 0;
-            if (num_of_rows_in_the_database >= bottom) {
-                try {
-
-                    ResultSet query = dbm.query("SELECT * FROM account_journal_debitside where " + column_filtering + " LIKE '" + element + "'");
-                    while (query.next()) {
-
-                        
-                        if (tr_no != query.getInt("tr_no")) {
-                            
-                            numc=0;
-                            numd=0;
-                            countc=0;
-                            countd=0;
-
-                            ResultSet query2 = dbm.query("SELECT * FROM account_journal_debitside where tr_no = '" + query.getInt("tr_no") + "'");
-                            while (query2.next()) {
-                                numd++;
-                                countd++;
-                            }
-                            ResultSet query3 = dbm.query("SELECT * FROM account_journal_creditside where tr_no = '" + query.getInt("tr_no") + "'");
-                            while (query3.next()) {
-                                numc++;
-                                countc++;
-                            }
-                            
-                            count=Math.max(countc,countd)+count;
-                            num=Math.max(numc, numd);
-                            
-                            ResultSet query1 = dbm.query("SELECT * FROM account_journal_debitside where tr_no = '" + query.getInt("tr_no") + "'");
-                            while (query1.next()) {
-
-                                if (count < bottom) {
-
-                                } else if (count >= bottom && count <= top) {
-                                    table.setValueAt(query1.getString(column_name), num_of_rows_filled_in_table, table_column_num);
-                                    num_of_rows_filled_in_table++;
-                                  
-                                } else {
-                                    break;
-                                }
-                            }
-                            num_of_rows_filled_in_table=num_of_rows_filled_in_table+num-numd;
-                            tr_no = query.getInt("tr_no");
-                        }
-                    }
-                } catch (SQLException ex) {
-
-                }
-            } else {
-                return false;
-
-            }
-            return true;
-        } else if (key == 3) {
-            tr_no = 0;
-            if (num_of_rows_in_the_database >= bottom) {
-                try {
-
-                    ResultSet query = dbm.query("SELECT * FROM account_journal_debitside where " + column_filtering + " LIKE '" + element + "'");
-                    while (query.next()) {
-                        if (tr_no != query.getInt("tr_no")) {
-                            
-                            numc=0;
-                            numd=0;
-                            countc=0;
-                            countd=0;
-
-                            ResultSet query2 = dbm.query("SELECT * FROM account_journal_debitside where tr_no = '" + query.getInt("tr_no") + "'");
-                            while (query2.next()) {
-                                numd++;
-                                countd++;
-                            }
-                            ResultSet query3 = dbm.query("SELECT * FROM account_journal_creditside where tr_no = '" + query.getInt("tr_no") + "'");
-                            while (query3.next()) {
-                                numc++;
-                                countc++;
-                            }
-                            count=Math.max(countc,countd)+count;
-                            num=Math.max(numc, numd);
-                            
-                            
-                            ResultSet query1 = dbm.query("SELECT * FROM account_journal_creditside where tr_no = '" + query.getInt("tr_no") + "'");
-                            while (query1.next()) {
-
-                                if (count < bottom) {
-
-                                } else if (count >= bottom && count <= top) {
-                                    table.setValueAt(query1.getString(column_name), num_of_rows_filled_in_table, table_column_num);
-                                    num_of_rows_filled_in_table++;
-                                } else {
-                                    break;
-                                }
-                            }
-                            num_of_rows_filled_in_table=num_of_rows_filled_in_table-numc+num;
-                            tr_no = query.getInt("tr_no");
-                            num = 0;
-                        }
-                    }
-                } catch (SQLException ex) {
-
-                }
-            } else {
-                return false;
-
-            }
-            return true;
-        }
-        return false;
     }
 
     public boolean Inserting_To_The_Table_Filtered_Journal_Credit_Search(javax.swing.JTable table, String column_name, int table_column_num, int bottom, int top, String column_filtering, Object element, int key) {
 
-        int num_of_rows_filled_in_table = 0;
-        int num_of_rows_in_the_database = 0;
-        int rows_in_credit = 0;
-        int rows_in_debit = 0;
-        int countc = 0;
-        int countd = 0;
-        int count = 0;
-        int tr_no = 0;
-        int num = 0;
-        int numc = 0;
-        int numd = 0;
-        /*  while (table.getValueAt(num_of_columns_filled_in_table, table_column_num) != null) {
-         num_of_columns_filled_in_table++;
-         } */
-        //  "SELECT * FROM " + table_name + " WHERE " + table_column_giving + " =" + row_element + ""
+        String current = null;
+
+        String given_period = null;
 
         try {
-            ResultSet query = dbm.query("SELECT * FROM account_journal_creditside where " + column_filtering + " LIKE '" + element + "'");
+            ResultSet rs = dbm.query("SELECT * FROM acc_current_period_act");
+            while (rs.next()) {
+                current = rs.getString("period");
+            }
+            rs.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ACC_Edit_Payments.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
-            while (query.next()) {
-                if (query.getInt("tr_no") != tr_no) {
-                    ResultSet query1 = dbm.query("SELECT * FROM account_journal_debitside where tr_no LIKE '" + query.getInt("tr_no") + "'");
+        try {
+            ResultSet rs1 = dbm.query("SELECT * FROM acc_current_period");
+            while (rs1.next()) {
+                given_period = rs1.getString("period");
+            }
+            rs1.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ACC_Edit_Payments.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        if (current.equals(given_period)) {
+
+            int num_of_rows_filled_in_table = 0;
+            int num_of_rows_in_the_database = 0;
+            int rows_in_credit = 0;
+            int rows_in_debit = 0;
+            int countc = 0;
+            int countd = 0;
+            int count = 0;
+            int tr_no = 0;
+            int num = 0;
+            int numc = 0;
+            int numd = 0;
+            /*  while (table.getValueAt(num_of_columns_filled_in_table, table_column_num) != null) {
+             num_of_columns_filled_in_table++;
+             } */
+            //  "SELECT * FROM " + table_name + " WHERE " + table_column_giving + " =" + row_element + ""
+
+            try {
+                ResultSet query = dbm.query("SELECT * FROM account_journal_creditside where " + column_filtering + " LIKE '" + element + "'");
+
+                while (query.next()) {
+                    if (query.getInt("tr_no") != tr_no) {
+                        ResultSet query1 = dbm.query("SELECT * FROM account_journal_debitside where tr_no LIKE '" + query.getInt("tr_no") + "'");
+                        while (query1.next()) {
+                            rows_in_debit++;
+                        }
+                        ResultSet query2 = dbm.query("SELECT * FROM account_journal_creditside where tr_no LIKE '" + query.getInt("tr_no") + "'");
+                        while (query2.next()) {
+                            rows_in_credit++;
+                        }
+                        tr_no = query.getInt("tr_no");
+                    }
+
+                }
+                query.close();
+
+                num_of_rows_in_the_database = Math.max(rows_in_credit, rows_in_debit);
+
+            } catch (SQLException ex) {
+
+            }
+
+            if (key == 1) {
+
+                tr_no = 0;
+                if (num_of_rows_in_the_database >= bottom) {
+                    try {
+
+                        ResultSet query = dbm.query("SELECT * FROM account_journal_creditside where " + column_filtering + " LIKE '" + element + "'");
+                        while (query.next()) {
+
+                            if (tr_no != query.getInt("tr_no")) {
+
+                                numd = 0;
+                                numc = 0;
+                                countc = 0;
+                                countd = 0;
+
+                                ResultSet query2 = dbm.query("SELECT * FROM account_journal_debitside where tr_no = '" + query.getInt("tr_no") + "'");
+                                while (query2.next()) {
+                                    numd++;
+                                    countd++;
+                                }
+                                query2.close();
+                                ResultSet query3 = dbm.query("SELECT * FROM account_journal_creditside where tr_no = '" + query.getInt("tr_no") + "'");
+                                while (query3.next()) {
+                                    numc++;
+                                    countc++;
+                                }
+                                query3.close();
+                                num = Math.max(numc, numd);
+                                count = Math.max(countc, countd) + count;
+                                ResultSet query1 = dbm.query("SELECT * FROM account_journal_main where tr_no = '" + query.getInt("tr_no") + "'");
+                                while (query1.next()) {
+
+                                    if (count < bottom) {
+
+                                    } else if (count >= bottom && count <= top) {
+                                        table.setValueAt(query1.getString(column_name), num_of_rows_filled_in_table, table_column_num);
+                                        num_of_rows_filled_in_table = num_of_rows_filled_in_table + num;
+                                        num = 0;
+                                    } else {
+                                        break;
+                                    }
+                                }
+                                query1.close();
+                                tr_no = query.getInt("tr_no");
+                                num = 0;
+                            }
+                        }
+                        query.close();
+                    } catch (SQLException ex) {
+
+                    }
+                } else {
+                    return false;
+
+                }
+                return true;
+            } else if (key == 2) {
+                tr_no = 0;
+                if (num_of_rows_in_the_database >= bottom) {
+                    try {
+
+                        ResultSet query = dbm.query("SELECT * FROM account_journal_creditside where " + column_filtering + " LIKE '" + element + "'");
+                        while (query.next()) {
+
+                            //count++;
+                            if (tr_no != query.getInt("tr_no")) {
+
+                                numd = 0;
+                                numc = 0;
+                                countc = 0;
+                                countd = 0;
+
+                                ResultSet query2 = dbm.query("SELECT * FROM account_journal_debitside where tr_no = '" + query.getInt("tr_no") + "'");
+                                while (query2.next()) {
+                                    numd++;
+                                    countd++;
+                                }
+                                query2.close();
+                                ResultSet query3 = dbm.query("SELECT * FROM account_journal_creditside where tr_no = '" + query.getInt("tr_no") + "'");
+                                while (query3.next()) {
+                                    numc++;
+                                    countc++;
+                                }
+                                query3.close();
+                                num = Math.max(numc, numd);
+                                count = Math.max(countc, countd) + count;
+                                ResultSet query1 = dbm.query("SELECT * FROM account_journal_debitside where tr_no = '" + query.getInt("tr_no") + "'");
+                                while (query1.next()) {
+
+                                    if (count < bottom) {
+
+                                    } else if (count >= bottom && count <= top) {
+                                        table.setValueAt(query1.getString(column_name), num_of_rows_filled_in_table, table_column_num);
+                                        num_of_rows_filled_in_table++;
+                                    } else {
+                                        break;
+                                    }
+                                }
+                                query1.close();
+                                num_of_rows_filled_in_table = num_of_rows_filled_in_table + num - numd;
+                                tr_no = query.getInt("tr_no");
+                            }
+                        }
+                        query.close();
+                    } catch (SQLException ex) {
+
+                    }
+                } else {
+                    return false;
+
+                }
+                return true;
+            } else if (key == 3) {
+                tr_no = 0;
+                if (num_of_rows_in_the_database >= bottom) {
+                    try {
+
+                        ResultSet query = dbm.query("SELECT * FROM account_journal_creditside where " + column_filtering + " LIKE '" + element + "'");
+                        while (query.next()) {
+
+                            //count++;
+                            if (tr_no != query.getInt("tr_no")) {
+
+                                numc = 0;
+                                numd = 0;
+                                countc = 0;
+                                countd = 0;
+
+                                ResultSet query2 = dbm.query("SELECT * FROM account_journal_debitside where tr_no = '" + query.getInt("tr_no") + "'");
+                                while (query2.next()) {
+                                    numd++;
+                                    countd++;
+                                }
+                                query2.close();
+                                ResultSet query3 = dbm.query("SELECT * FROM account_journal_creditside where tr_no = '" + query.getInt("tr_no") + "'");
+                                while (query3.next()) {
+                                    numc++;
+                                    countc++;
+                                }
+                                query3.close();
+                                num = Math.max(numc, numd);
+                                count = Math.max(countc, countd) + count;
+
+                                ResultSet query1 = dbm.query("SELECT * FROM account_journal_creditside where tr_no = '" + query.getInt("tr_no") + "'");
+                                while (query1.next()) {
+
+                                    if (count < bottom) {
+
+                                    } else if (count >= bottom && count <= top) {
+                                        table.setValueAt(query1.getString(column_name), num_of_rows_filled_in_table, table_column_num);
+                                        num_of_rows_filled_in_table++;
+
+                                    } else {
+                                        break;
+                                    }
+                                }
+                                query1.close();
+                                tr_no = query.getInt("tr_no");
+                                num_of_rows_filled_in_table = num_of_rows_filled_in_table + num - numc;
+                            }
+                        }
+                        query.close();
+                    } catch (SQLException ex) {
+
+                    }
+                } else {
+                    return false;
+
+                }
+                return true;
+            }
+            return false;
+
+        } else {
+            int num_of_rows_filled_in_table = 0;
+            int num_of_rows_in_the_database = 0;
+            int rows_in_credit = 0;
+            int rows_in_debit = 0;
+            int countc = 0;
+            int countd = 0;
+            int count = 0;
+            int tr_no = 0;
+            int num = 0;
+            int numc = 0;
+            int numd = 0;
+            /*  while (table.getValueAt(num_of_columns_filled_in_table, table_column_num) != null) {
+             num_of_columns_filled_in_table++;
+             } */
+            //  "SELECT * FROM " + table_name + " WHERE " + table_column_giving + " =" + row_element + ""
+
+            try {
+                ResultSet query = dbm.query("SELECT * FROM account_journal_creditside_all where " + column_filtering + " LIKE '" + element + "'");
+
+                while (query.next()) {
+                    if (query.getInt("tr_no") != tr_no) {
+                        ResultSet query1 = dbm.query("SELECT * FROM account_journal_debitside_all where tr_no LIKE '" + query.getInt("tr_no") + "'");
+                        while (query1.next()) {
+                            rows_in_debit++;
+                        }
+                        ResultSet query2 = dbm.query("SELECT * FROM account_journal_creditside_all where tr_no LIKE '" + query.getInt("tr_no") + "'");
+                        while (query2.next()) {
+                            rows_in_credit++;
+                        }
+                        tr_no = query.getInt("tr_no");
+                    }
+
+                }
+                query.close();
+
+                num_of_rows_in_the_database = Math.max(rows_in_credit, rows_in_debit);
+
+            } catch (SQLException ex) {
+
+            }
+
+            if (key == 1) {
+
+                tr_no = 0;
+                if (num_of_rows_in_the_database >= bottom) {
+                    try {
+
+                        ResultSet query = dbm.query("SELECT * FROM account_journal_creditside_all where " + column_filtering + " LIKE '" + element + "'");
+                        while (query.next()) {
+
+                            if (tr_no != query.getInt("tr_no")) {
+
+                                numd = 0;
+                                numc = 0;
+                                countc = 0;
+                                countd = 0;
+
+                                ResultSet query2 = dbm.query("SELECT * FROM account_journal_debitside_all where tr_no = '" + query.getInt("tr_no") + "'");
+                                while (query2.next()) {
+                                    numd++;
+                                    countd++;
+                                }
+                                query2.close();
+                                ResultSet query3 = dbm.query("SELECT * FROM account_journal_creditside_all where tr_no = '" + query.getInt("tr_no") + "'");
+                                while (query3.next()) {
+                                    numc++;
+                                    countc++;
+                                }
+                                query3.close();
+                                num = Math.max(numc, numd);
+                                count = Math.max(countc, countd) + count;
+                                ResultSet query1 = dbm.query("SELECT * FROM account_journal_main_all where tr_no = '" + query.getInt("tr_no") + "'");
+                                while (query1.next()) {
+
+                                    if (count < bottom) {
+
+                                    } else if (count >= bottom && count <= top) {
+                                        table.setValueAt(query1.getString(column_name), num_of_rows_filled_in_table, table_column_num);
+                                        num_of_rows_filled_in_table = num_of_rows_filled_in_table + num;
+                                        num = 0;
+                                    } else {
+                                        break;
+                                    }
+                                }
+                                query1.close();
+                                tr_no = query.getInt("tr_no");
+                                num = 0;
+                            }
+                        }
+                        query.close();
+                    } catch (SQLException ex) {
+
+                    }
+                } else {
+                    return false;
+
+                }
+                return true;
+            } else if (key == 2) {
+                tr_no = 0;
+                if (num_of_rows_in_the_database >= bottom) {
+                    try {
+
+                        ResultSet query = dbm.query("SELECT * FROM account_journal_creditside_all where " + column_filtering + " LIKE '" + element + "'");
+                        while (query.next()) {
+
+                            //count++;
+                            if (tr_no != query.getInt("tr_no")) {
+
+                                numd = 0;
+                                numc = 0;
+                                countc = 0;
+                                countd = 0;
+
+                                ResultSet query2 = dbm.query("SELECT * FROM account_journal_debitside_all where tr_no = '" + query.getInt("tr_no") + "'");
+                                while (query2.next()) {
+                                    numd++;
+                                    countd++;
+                                }
+                                query2.close();
+                                ResultSet query3 = dbm.query("SELECT * FROM account_journal_creditside_all where tr_no = '" + query.getInt("tr_no") + "'");
+                                while (query3.next()) {
+                                    numc++;
+                                    countc++;
+                                }
+                                query3.close();
+                                num = Math.max(numc, numd);
+                                count = Math.max(countc, countd) + count;
+                                ResultSet query1 = dbm.query("SELECT * FROM account_journal_debitside_all where tr_no = '" + query.getInt("tr_no") + "'");
+                                while (query1.next()) {
+
+                                    if (count < bottom) {
+
+                                    } else if (count >= bottom && count <= top) {
+                                        table.setValueAt(query1.getString(column_name), num_of_rows_filled_in_table, table_column_num);
+                                        num_of_rows_filled_in_table++;
+                                    } else {
+                                        break;
+                                    }
+                                }
+                                query1.close();
+                                num_of_rows_filled_in_table = num_of_rows_filled_in_table + num - numd;
+                                tr_no = query.getInt("tr_no");
+                            }
+                        }
+                        query.close();
+                    } catch (SQLException ex) {
+
+                    }
+                } else {
+                    return false;
+
+                }
+                return true;
+            } else if (key == 3) {
+                tr_no = 0;
+                if (num_of_rows_in_the_database >= bottom) {
+                    try {
+
+                        ResultSet query = dbm.query("SELECT * FROM account_journal_creditside_all where " + column_filtering + " LIKE '" + element + "'");
+                        while (query.next()) {
+
+                            //count++;
+                            if (tr_no != query.getInt("tr_no")) {
+
+                                numc = 0;
+                                numd = 0;
+                                countc = 0;
+                                countd = 0;
+
+                                ResultSet query2 = dbm.query("SELECT * FROM account_journal_debitside_all where tr_no = '" + query.getInt("tr_no") + "'");
+                                while (query2.next()) {
+                                    numd++;
+                                    countd++;
+                                }
+                                query2.close();
+                                ResultSet query3 = dbm.query("SELECT * FROM account_journal_creditside_all where tr_no = '" + query.getInt("tr_no") + "'");
+                                while (query3.next()) {
+                                    numc++;
+                                    countc++;
+                                }
+                                query3.close();
+                                num = Math.max(numc, numd);
+                                count = Math.max(countc, countd) + count;
+
+                                ResultSet query1 = dbm.query("SELECT * FROM account_journal_creditside_all where tr_no = '" + query.getInt("tr_no") + "'");
+                                while (query1.next()) {
+
+                                    if (count < bottom) {
+
+                                    } else if (count >= bottom && count <= top) {
+                                        table.setValueAt(query1.getString(column_name), num_of_rows_filled_in_table, table_column_num);
+                                        num_of_rows_filled_in_table++;
+
+                                    } else {
+                                        break;
+                                    }
+                                }
+                                query1.close();
+                                tr_no = query.getInt("tr_no");
+                                num_of_rows_filled_in_table = num_of_rows_filled_in_table + num - numc;
+                            }
+                        }
+                        query.close();
+                    } catch (SQLException ex) {
+
+                    }
+                } else {
+                    return false;
+
+                }
+                return true;
+            }
+            return false;
+
+        }
+
+    }
+
+    public boolean Inserting_To_The_Table_Filtered_Journal_Date_Search(javax.swing.JTable table, String column_name, int table_column_num, int bottom, int top, String column_filtering, Object element1, Object element2, int key) {
+
+        String current = null;
+
+        String given_period = null;
+
+        try {
+            ResultSet rs = dbm.query("SELECT * FROM acc_current_period_act");
+            while (rs.next()) {
+                current = rs.getString("period");
+            }
+            rs.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ACC_Edit_Payments.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        try {
+            ResultSet rs1 = dbm.query("SELECT * FROM acc_current_period");
+            while (rs1.next()) {
+                given_period = rs1.getString("period");
+            }
+            rs1.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ACC_Edit_Payments.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        if (current.equals(given_period)) {
+
+            int num_of_rows_filled_in_table = 0;
+            int num_of_rows_in_the_database = 0;
+            int rows_in_credit = 0;
+            int rows_in_debit = 0;
+            int countc = 0;
+            int countd = 0;
+            int count = 0;
+            int tr_no = 0;
+            int num = 0;
+            int numc = 0;
+            int numd = 0;
+            /*  while (table.getValueAt(num_of_columns_filled_in_table, table_column_num) != null) {
+             num_of_columns_filled_in_table++;
+             } */
+            //  "SELECT * FROM " + table_name + " WHERE " + table_column_giving + " =" + row_element + ""
+
+            try {
+                ResultSet query = dbm.query("SELECT * FROM account_journal_main where " + column_filtering + " BETWEEN '" + element1 + "' AND '" + element2 + "'");
+                while (query.next()) {
+                    ResultSet query1 = dbm.query("SELECT * FROM account_journal_debitside where tr_no = '" + query.getInt("tr_no") + "'");
                     while (query1.next()) {
                         rows_in_debit++;
                     }
-                    ResultSet query2 = dbm.query("SELECT * FROM account_journal_creditside where tr_no LIKE '" + query.getInt("tr_no") + "'");
+                    query1.close();
+                    ResultSet query2 = dbm.query("SELECT * FROM account_journal_creditside where tr_no = '" + query.getInt("tr_no") + "'");
                     while (query2.next()) {
                         rows_in_credit++;
                     }
-                    tr_no = query.getInt("tr_no");
+                    query2.close();
                 }
+                query.close();
+                num_of_rows_in_the_database = Math.max(rows_in_credit, rows_in_debit);
+            } catch (SQLException ex) {
 
             }
 
-            num_of_rows_in_the_database = Math.max(rows_in_credit, rows_in_debit);
+            if (key == 1) {
 
-        } catch (SQLException ex) {
+                if (num_of_rows_in_the_database >= bottom) {
+                    try {
 
-        }
-
-        if (key == 1) {
-
-            tr_no = 0;
-            if (num_of_rows_in_the_database >= bottom) {
-                try {
-
-                    ResultSet query = dbm.query("SELECT * FROM account_journal_creditside where " + column_filtering + " LIKE '" + element + "'");
-                    while (query.next()) {
-                        
-                        if (tr_no != query.getInt("tr_no")) {
-                            
-                            numd=0;
-                            numc=0;
-                            countc=0;
-                            countd=0;
-
-                            ResultSet query2 = dbm.query("SELECT * FROM account_journal_debitside where tr_no = '" + query.getInt("tr_no") + "'");
-                            while (query2.next()) {
-                                numd++;
-                                countd++;
-                            }
-                            ResultSet query3 = dbm.query("SELECT * FROM account_journal_creditside where tr_no = '" + query.getInt("tr_no") + "'");
-                            while (query3.next()) {
-                                numc++;
-                                countc++;
-                            }
-                            num= Math.max(numc, numd);
-                            count= Math.max(countc,countd)+count;
-                            ResultSet query1 = dbm.query("SELECT * FROM account_journal_main where tr_no = '" + query.getInt("tr_no") + "'");
-                            while (query1.next()) {
-
-                                if (count < bottom) {
-
-                                } else if (count >= bottom && count <= top) {
-                                    table.setValueAt(query1.getString(column_name), num_of_rows_filled_in_table, table_column_num);
-                                    num_of_rows_filled_in_table = num_of_rows_filled_in_table + num;
-                                    num = 0;
-                                } else {
-                                    break;
-                                }
-                            }
-                            tr_no = query.getInt("tr_no");
-                            num = 0;
-                        }
-                    }
-                } catch (SQLException ex) {
-
-                }
-            } else {
-                return false;
-
-            }
-            return true;
-        } else if (key == 2) {
-            tr_no = 0;
-            if (num_of_rows_in_the_database >= bottom) {
-                try {
-
-                    ResultSet query = dbm.query("SELECT * FROM account_journal_creditside where " + column_filtering + " LIKE '" + element + "'");
-                    while (query.next()) {
-
-                        //count++;
-                        if (tr_no != query.getInt("tr_no")) {
-                            
-                            numd=0;
-                            numc=0;
-                            countc=0;
-                            countd=0;
-
-                            ResultSet query2 = dbm.query("SELECT * FROM account_journal_debitside where tr_no = '" + query.getInt("tr_no") + "'");
-                            while (query2.next()) {
-                                numd++;
-                                countd++;
-                            }
-                            ResultSet query3 = dbm.query("SELECT * FROM account_journal_creditside where tr_no = '" + query.getInt("tr_no") + "'");
-                            while (query3.next()) {
-                                numc++;
-                                countc++;
-                            }
-                            num= Math.max(numc, numd);
-                            count= Math.max(countc,countd)+count;
+                        ResultSet query = dbm.query("SELECT * FROM account_journal_main where " + column_filtering + " BETWEEN '" + element1 + "' AND '" + element2 + "'");
+                        while (query.next()) {
+                            numc = 0;
+                            numd = 0;
+                            countc = 0;
+                            countd = 0;
                             ResultSet query1 = dbm.query("SELECT * FROM account_journal_debitside where tr_no = '" + query.getInt("tr_no") + "'");
                             while (query1.next()) {
+                                countd++;
+                                numd++;
+                            }
+                            query1.close();
+                            ResultSet query2 = dbm.query("SELECT * FROM account_journal_creditside where tr_no = '" + query.getInt("tr_no") + "'");
+                            while (query2.next()) {
+                                countc++;
+                                numc++;
+                            }
+                            query2.close();
+                            count = Math.max(countc, countd) + count;
+                            num = Math.max(numc, numd);
 
+                            if (count < bottom) {
+
+                            } else if (count >= bottom && count <= top) {
+                                table.setValueAt(query.getString(column_name), num_of_rows_filled_in_table, table_column_num);
+                                num_of_rows_filled_in_table = num_of_rows_filled_in_table + num;
+                            } else {
+                                break;
+                            }
+
+                        }
+                        query.close();
+                    } catch (SQLException ex) {
+
+                    }
+                } else {
+                    return false;
+
+                }
+                return true;
+            } else if (key == 2) {
+
+                if (num_of_rows_in_the_database >= bottom) {
+                    try {
+
+                        ResultSet query = dbm.query("SELECT * FROM account_journal_main where " + column_filtering + " BETWEEN '" + element1 + "' AND '" + element2 + "'");
+                        while (query.next()) {
+                            numc = 0;
+                            numd = 0;
+                            countc = 0;
+                            countd = 0;
+                            ResultSet query1 = dbm.query("SELECT * FROM account_journal_debitside where tr_no = '" + query.getInt("tr_no") + "'");
+                            while (query1.next()) {
+                                countd++;
+                                numd++;
+                            }
+                            query1.close();
+                            ResultSet query2 = dbm.query("SELECT * FROM account_journal_creditside where tr_no = '" + query.getInt("tr_no") + "'");
+                            while (query2.next()) {
+                                countc++;
+                                numc++;
+                            }
+                            query2.close();
+                            count = Math.max(countc, countd) + count;
+                            num = Math.max(numc, numd);
+
+                            ResultSet query3 = dbm.query("SELECT * FROM account_journal_debitside where tr_no = '" + query.getInt("tr_no") + "'");
+                            while (query3.next()) {
                                 if (count < bottom) {
 
                                 } else if (count >= bottom && count <= top) {
-                                    table.setValueAt(query1.getString(column_name), num_of_rows_filled_in_table, table_column_num);
+                                    table.setValueAt(query3.getString(column_name), num_of_rows_filled_in_table, table_column_num);
                                     num_of_rows_filled_in_table++;
                                 } else {
                                     break;
                                 }
                             }
-                            num_of_rows_filled_in_table=num_of_rows_filled_in_table+num-numd;
-                            tr_no = query.getInt("tr_no");
+                            query3.close();
+                            num_of_rows_filled_in_table = num_of_rows_filled_in_table + num - numd;
                         }
+                        query.close();
+                    } catch (SQLException ex) {
+
                     }
-                } catch (SQLException ex) {
+                } else {
+                    return false;
 
                 }
-            } else {
-                return false;
+                return true;
+            } else if (key == 3) {
 
-            }
-            return true;
-        } else if (key == 3) {
-            tr_no = 0;
-            if (num_of_rows_in_the_database >= bottom) {
-                try {
+                if (num_of_rows_in_the_database >= bottom) {
+                    try {
 
-                    ResultSet query = dbm.query("SELECT * FROM account_journal_creditside where " + column_filtering + " LIKE '" + element + "'");
-                    while (query.next()) {
-
-                        //count++;
-                        if (tr_no != query.getInt("tr_no")) {
-
-                            numc=0;
-                            numd=0;
-                            countc=0;
-                            countd=0;
-                            
-                            ResultSet query2 = dbm.query("SELECT * FROM account_journal_debitside where tr_no = '" + query.getInt("tr_no") + "'");
-                            while (query2.next()) {
-                                numd++;
+                        ResultSet query = dbm.query("SELECT * FROM account_journal_main where " + column_filtering + " BETWEEN '" + element1 + "' AND '" + element2 + "'");
+                        while (query.next()) {
+                            numc = 0;
+                            numd = 0;
+                            countc = 0;
+                            countd = 0;
+                            ResultSet query1 = dbm.query("SELECT * FROM account_journal_debitside where tr_no = '" + query.getInt("tr_no") + "'");
+                            while (query1.next()) {
                                 countd++;
+                                numd++;
                             }
+                            query1.close();
+                            ResultSet query2 = dbm.query("SELECT * FROM account_journal_creditside where tr_no = '" + query.getInt("tr_no") + "'");
+                            while (query2.next()) {
+                                countc++;
+                                numc++;
+                            }
+                            query2.close();
+
+                            count = Math.max(countc, countd) + count;
+                            num = Math.max(numc, numd);
+
                             ResultSet query3 = dbm.query("SELECT * FROM account_journal_creditside where tr_no = '" + query.getInt("tr_no") + "'");
                             while (query3.next()) {
-                                numc++;
-                                countc++;
-                            }
-                            num= Math.max(numc, numd);
-                            count= Math.max(countc,countd)+count;
-                            
-                            ResultSet query1 = dbm.query("SELECT * FROM account_journal_creditside where tr_no = '" + query.getInt("tr_no") + "'");
-                            while (query1.next()) {
-
-                                
                                 if (count < bottom) {
 
                                 } else if (count >= bottom && count <= top) {
-                                    table.setValueAt(query1.getString(column_name), num_of_rows_filled_in_table, table_column_num);
+                                    table.setValueAt(query3.getString(column_name), num_of_rows_filled_in_table, table_column_num);
                                     num_of_rows_filled_in_table++;
-                                 
                                 } else {
                                     break;
                                 }
                             }
-                            tr_no = query.getInt("tr_no");
-                            num_of_rows_filled_in_table=num_of_rows_filled_in_table+num-numc;
+                            query3.close();
+                            num_of_rows_filled_in_table = num_of_rows_filled_in_table + num - numc;
                         }
+                        query.close();
+                    } catch (SQLException ex) {
+
                     }
-                } catch (SQLException ex) {
+                } else {
+                    return false;
 
                 }
-            } else {
-                return false;
+                return true;
+            }
+            return false;
+
+        } else {
+
+            int num_of_rows_filled_in_table = 0;
+            int num_of_rows_in_the_database = 0;
+            int rows_in_credit = 0;
+            int rows_in_debit = 0;
+            int countc = 0;
+            int countd = 0;
+            int count = 0;
+            int tr_no = 0;
+            int num = 0;
+            int numc = 0;
+            int numd = 0;
+            /*  while (table.getValueAt(num_of_columns_filled_in_table, table_column_num) != null) {
+             num_of_columns_filled_in_table++;
+             } */
+            //  "SELECT * FROM " + table_name + " WHERE " + table_column_giving + " =" + row_element + ""
+
+            try {
+                ResultSet query = dbm.query("SELECT * FROM account_journal_main_all where " + column_filtering + " BETWEEN '" + element1 + "' AND '" + element2 + "'");
+                while (query.next()) {
+                    ResultSet query1 = dbm.query("SELECT * FROM account_journal_debitside_all where tr_no = '" + query.getInt("tr_no") + "'");
+                    while (query1.next()) {
+                        rows_in_debit++;
+                    }
+                    query1.close();
+                    ResultSet query2 = dbm.query("SELECT * FROM account_journal_creditside_all where tr_no = '" + query.getInt("tr_no") + "'");
+                    while (query2.next()) {
+                        rows_in_credit++;
+                    }
+                    query2.close();
+                }
+                query.close();
+                num_of_rows_in_the_database = Math.max(rows_in_credit, rows_in_debit);
+            } catch (SQLException ex) {
 
             }
-            return true;
+
+            if (key == 1) {
+
+                if (num_of_rows_in_the_database >= bottom) {
+                    try {
+
+                        ResultSet query = dbm.query("SELECT * FROM account_journal_main_all where " + column_filtering + " BETWEEN '" + element1 + "' AND '" + element2 + "'");
+                        while (query.next()) {
+                            numc = 0;
+                            numd = 0;
+                            countc = 0;
+                            countd = 0;
+                            ResultSet query1 = dbm.query("SELECT * FROM account_journal_debitside_all where tr_no = '" + query.getInt("tr_no") + "'");
+                            while (query1.next()) {
+                                countd++;
+                                numd++;
+                            }
+                            query1.close();
+                            ResultSet query2 = dbm.query("SELECT * FROM account_journal_creditside_all where tr_no = '" + query.getInt("tr_no") + "'");
+                            while (query2.next()) {
+                                countc++;
+                                numc++;
+                            }
+                            query2.close();
+                            count = Math.max(countc, countd) + count;
+                            num = Math.max(numc, numd);
+
+                            if (count < bottom) {
+
+                            } else if (count >= bottom && count <= top) {
+                                table.setValueAt(query.getString(column_name), num_of_rows_filled_in_table, table_column_num);
+                                num_of_rows_filled_in_table = num_of_rows_filled_in_table + num;
+                            } else {
+                                break;
+                            }
+
+                        }
+                        query.close();
+                    } catch (SQLException ex) {
+
+                    }
+                } else {
+                    return false;
+
+                }
+                return true;
+            } else if (key == 2) {
+
+                if (num_of_rows_in_the_database >= bottom) {
+                    try {
+
+                        ResultSet query = dbm.query("SELECT * FROM account_journal_main_all where " + column_filtering + " BETWEEN '" + element1 + "' AND '" + element2 + "'");
+                        while (query.next()) {
+                            numc = 0;
+                            numd = 0;
+                            countc = 0;
+                            countd = 0;
+                            ResultSet query1 = dbm.query("SELECT * FROM account_journal_debitside_all where tr_no = '" + query.getInt("tr_no") + "'");
+                            while (query1.next()) {
+                                countd++;
+                                numd++;
+                            }
+                            query1.close();
+                            ResultSet query2 = dbm.query("SELECT * FROM account_journal_creditside_all where tr_no = '" + query.getInt("tr_no") + "'");
+                            while (query2.next()) {
+                                countc++;
+                                numc++;
+                            }
+                            query2.close();
+                            count = Math.max(countc, countd) + count;
+                            num = Math.max(numc, numd);
+
+                            ResultSet query3 = dbm.query("SELECT * FROM account_journal_debitside_all where tr_no = '" + query.getInt("tr_no") + "'");
+                            while (query3.next()) {
+                                if (count < bottom) {
+
+                                } else if (count >= bottom && count <= top) {
+                                    table.setValueAt(query3.getString(column_name), num_of_rows_filled_in_table, table_column_num);
+                                    num_of_rows_filled_in_table++;
+                                } else {
+                                    break;
+                                }
+                            }
+                            query3.close();
+                            num_of_rows_filled_in_table = num_of_rows_filled_in_table + num - numd;
+                        }
+                        query.close();
+                    } catch (SQLException ex) {
+
+                    }
+                } else {
+                    return false;
+
+                }
+                return true;
+            } else if (key == 3) {
+
+                if (num_of_rows_in_the_database >= bottom) {
+                    try {
+
+                        ResultSet query = dbm.query("SELECT * FROM account_journal_main_all where " + column_filtering + " BETWEEN '" + element1 + "' AND '" + element2 + "'");
+                        while (query.next()) {
+                            numc = 0;
+                            numd = 0;
+                            countc = 0;
+                            countd = 0;
+                            ResultSet query1 = dbm.query("SELECT * FROM account_journal_debitside_all where tr_no = '" + query.getInt("tr_no") + "'");
+                            while (query1.next()) {
+                                countd++;
+                                numd++;
+                            }
+                            query1.close();
+                            ResultSet query2 = dbm.query("SELECT * FROM account_journal_creditside_all where tr_no = '" + query.getInt("tr_no") + "'");
+                            while (query2.next()) {
+                                countc++;
+                                numc++;
+                            }
+                            query2.close();
+
+                            count = Math.max(countc, countd) + count;
+                            num = Math.max(numc, numd);
+
+                            ResultSet query3 = dbm.query("SELECT * FROM account_journal_creditside_all where tr_no = '" + query.getInt("tr_no") + "'");
+                            while (query3.next()) {
+                                if (count < bottom) {
+
+                                } else if (count >= bottom && count <= top) {
+                                    table.setValueAt(query3.getString(column_name), num_of_rows_filled_in_table, table_column_num);
+                                    num_of_rows_filled_in_table++;
+                                } else {
+                                    break;
+                                }
+                            }
+                            query3.close();
+                            num_of_rows_filled_in_table = num_of_rows_filled_in_table + num - numc;
+                        }
+                        query.close();
+                    } catch (SQLException ex) {
+
+                    }
+                } else {
+                    return false;
+
+                }
+                return true;
+            }
+            return false;
+
         }
-        return false;
 
     }
-    
-    
-    public boolean Inserting_To_The_Table_Filtered_Journal_Date_Search(javax.swing.JTable table, String column_name, int table_column_num, int bottom, int top, String column_filtering, Object element1,Object element2, int key) {
 
-        int num_of_rows_filled_in_table = 0;
-        int num_of_rows_in_the_database = 0;
-        int rows_in_credit = 0;
-        int rows_in_debit = 0;
-        int countc = 0;
-        int countd = 0;
-        int count = 0;
-        int tr_no = 0;
-        int num = 0;
-        int numc = 0;
-        int numd = 0;
-        /*  while (table.getValueAt(num_of_columns_filled_in_table, table_column_num) != null) {
-         num_of_columns_filled_in_table++;
-         } */
-        //  "SELECT * FROM " + table_name + " WHERE " + table_column_giving + " =" + row_element + ""
-
-        try {
-            ResultSet query = dbm.query("SELECT * FROM account_journal_main where " + column_filtering + " BETWEEN '" + element1 + "' AND '"+element2+"'");
-            while (query.next()) {
-                ResultSet query1 = dbm.query("SELECT * FROM account_journal_debitside where tr_no = '" + query.getInt("tr_no") + "'");
-                while (query1.next()) {
-                    rows_in_debit++;
-                }
-                ResultSet query2 = dbm.query("SELECT * FROM account_journal_creditside where tr_no = '" + query.getInt("tr_no") + "'");
-                while (query2.next()) {
-                    rows_in_credit++;
-                }
-            }
-            num_of_rows_in_the_database = Math.max(rows_in_credit, rows_in_debit);
-        } catch (SQLException ex) {
-
-        }
-
-        if (key == 1) {
-
-            if (num_of_rows_in_the_database >= bottom) {
-                try {
-
-                    ResultSet query = dbm.query("SELECT * FROM account_journal_main where " + column_filtering + " BETWEEN '" + element1 + "' AND '"+element2+"'");
-                    while (query.next()) {
-                        numc=0;
-                        numd=0;
-                        countc=0;
-                        countd=0;
-                        ResultSet query1 = dbm.query("SELECT * FROM account_journal_debitside where tr_no = '" + query.getInt("tr_no") + "'");
-                        while (query1.next()) {
-                            countd++;
-                            numd++;
-                        }
-                        ResultSet query2 = dbm.query("SELECT * FROM account_journal_creditside where tr_no = '" + query.getInt("tr_no") + "'");
-                        while (query2.next()) {
-                            countc++;
-                            numc++;
-                        }
-
-                        count = Math.max(countc, countd)+count;
-                        num = Math.max(numc, numd);
-
-                        if (count < bottom) {
-
-                        } else if (count >= bottom && count <= top) {
-                            table.setValueAt(query.getString(column_name), num_of_rows_filled_in_table, table_column_num);
-                            num_of_rows_filled_in_table = num_of_rows_filled_in_table + num;
-                        } else {
-                            break;
-                        }
-
-                    }
-                } catch (SQLException ex) {
-
-                }
-            } else {
-                return false;
-
-            }
-            return true;
-        } else if (key == 2) {
-
-            if (num_of_rows_in_the_database >= bottom) {
-                try {
-
-                    ResultSet query = dbm.query("SELECT * FROM account_journal_main where " + column_filtering + " BETWEEN '" + element1 + "' AND '"+element2+"'");
-                    while (query.next()) {
-                        numc=0;
-                        numd=0;
-                        countc=0;
-                        countd=0;
-                        ResultSet query1 = dbm.query("SELECT * FROM account_journal_debitside where tr_no = '" + query.getInt("tr_no") + "'");
-                        while (query1.next()) {
-                            countd++;
-                            numd++;
-                        }
-                        ResultSet query2 = dbm.query("SELECT * FROM account_journal_creditside where tr_no = '" + query.getInt("tr_no") + "'");
-                        while (query2.next()) {
-                            countc++;
-                            numc++;
-                        }
-
-                        count = Math.max(countc, countd)+count;
-                        num = Math.max(numc, numd);
-
-                        ResultSet query3 = dbm.query("SELECT * FROM account_journal_debitside where tr_no = '" + query.getInt("tr_no") + "'");
-                        while(query3.next()){
-                        if (count < bottom) {
-
-                        } else if (count >= bottom && count <= top) {
-                            table.setValueAt(query3.getString(column_name), num_of_rows_filled_in_table, table_column_num);
-                            num_of_rows_filled_in_table++;
-                        } else {
-                            break;
-                        }
-                    }
-                        num_of_rows_filled_in_table=num_of_rows_filled_in_table+num-numd;
-                    }
-                } catch (SQLException ex) {
-
-                }
-            } else {
-                return false;
-
-            }
-            return true;
-        } else if (key == 3) {
-          
-            if (num_of_rows_in_the_database >= bottom) {
-                try {
-
-                    ResultSet query = dbm.query("SELECT * FROM account_journal_main where " + column_filtering + " BETWEEN '" + element1 + "' AND '"+element2+"'");
-                    while (query.next()) {
-                        numc=0;
-                        numd=0;
-                        countc=0;
-                        countd=0;
-                        ResultSet query1 = dbm.query("SELECT * FROM account_journal_debitside where tr_no = '" + query.getInt("tr_no") + "'");
-                        while (query1.next()) {
-                            countd++;
-                            numd++;
-                        }
-                        ResultSet query2 = dbm.query("SELECT * FROM account_journal_creditside where tr_no = '" + query.getInt("tr_no") + "'");
-                        while (query2.next()) {
-                            countc++;
-                            numc++;
-                        }
-
-                        count = Math.max(countc, countd)+count;
-                        num = Math.max(numc, numd);
-
-                        ResultSet query3 = dbm.query("SELECT * FROM account_journal_creditside where tr_no = '" + query.getInt("tr_no") + "'");
-                        while(query3.next()){
-                        if (count < bottom) {
-
-                        } else if (count >= bottom && count <= top) {
-                            table.setValueAt(query3.getString(column_name), num_of_rows_filled_in_table, table_column_num);
-                            num_of_rows_filled_in_table++;
-                        } else {
-                            break;
-                        }
-                    }
-                       num_of_rows_filled_in_table=num_of_rows_filled_in_table+num-numc; 
-                    }
-                } catch (SQLException ex) {
-
-                }
-            } else {
-                return false;
-
-            }
-            return true;
-        }
-        return false;
-
-    }
-    
-    
-    
-    
-    
-     public void Fill_table_without_filtering(javax.swing.JTable table, int bottom, int top){
-         Inserting_To_The_Table_Filtered_Journal_Full(table, "tr_no", 0, bottom, top, 1);
+    public void Fill_table_without_filtering(javax.swing.JTable table, int bottom, int top) {
+        Inserting_To_The_Table_Filtered_Journal_Full(table, "tr_no", 0, bottom, top, 1);
         Inserting_To_The_Table_Filtered_Journal_Full(table, "journal_no", 1, bottom, top, 1);
         Inserting_To_The_Table_Filtered_Journal_Full(table, "ref_no", 2, bottom, top, 1);
-        Inserting_To_The_Table_Filtered_Journal_Full(table, "date", 3, bottom, top,  1);
-        Inserting_To_The_Table_Filtered_Journal_Full(table, "pay_type", 4, bottom, top,  1);
-        Inserting_To_The_Table_Filtered_Journal_Full(table, "debit_account_id", 5, bottom, top,  2);
+        Inserting_To_The_Table_Filtered_Journal_Full(table, "date", 3, bottom, top, 1);
+        Inserting_To_The_Table_Filtered_Journal_Full(table, "pay_type", 4, bottom, top, 1);
+        Inserting_To_The_Table_Filtered_Journal_Full(table, "debit_account_id", 5, bottom, top, 2);
         Inserting_To_The_Table_Filtered_Journal_Full(table, "debit_account_name", 6, bottom, top, 2);
-        Inserting_To_The_Table_Filtered_Journal_Full(table, "debit_description", 7, bottom, top,  2);
+        Inserting_To_The_Table_Filtered_Journal_Full(table, "debit_description", 7, bottom, top, 2);
         Inserting_To_The_Table_Filtered_Journal_Full(table, "debit_amount", 8, bottom, top, 2);
-        Inserting_To_The_Table_Filtered_Journal_Full(table, "credit_account_id", 9, bottom, top,  3);
+        Inserting_To_The_Table_Filtered_Journal_Full(table, "credit_account_id", 9, bottom, top, 3);
         Inserting_To_The_Table_Filtered_Journal_Full(table, "credit_account_name", 10, bottom, top, 3);
         Inserting_To_The_Table_Filtered_Journal_Full(table, "credit_description", 11, bottom, top, 3);
-       Inserting_To_The_Table_Filtered_Journal_Full(table, "credit_amount", 12, bottom, top, 3);
+        Inserting_To_The_Table_Filtered_Journal_Full(table, "credit_amount", 12, bottom, top, 3);
     }
 
     public void Filtered_table_For_Journal_Main_Search(javax.swing.JTable table, String filtering_column, Object element, int bottom, int top) {
@@ -1038,10 +2236,9 @@ public class ACC_View_Database_Handling_Journals {
         Inserting_To_The_Table_Filtered_Journal_Credit_Search(table, "credit_description", 11, bottom, top, filtering_column, element, 3);
         Inserting_To_The_Table_Filtered_Journal_Credit_Search(table, "credit_amount", 12, bottom, top, filtering_column, element, 3);
     }
-    
-    
+
     public void Filtered_table_For_Journal_Date_Search(javax.swing.JTable table, String filtering_column, Object element1, Object element2, int bottom, int top) {
-        
+
         Inserting_To_The_Table_Filtered_Journal_Date_Search(table, "tr_no", 0, bottom, top, filtering_column, element1, element2, 1);
         Inserting_To_The_Table_Filtered_Journal_Date_Search(table, "journal_no", 1, bottom, top, filtering_column, element1, element2, 1);
         Inserting_To_The_Table_Filtered_Journal_Date_Search(table, "ref_no", 2, bottom, top, filtering_column, element1, element2, 1);

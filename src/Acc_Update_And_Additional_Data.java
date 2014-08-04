@@ -7,13 +7,22 @@ import java.util.logging.Logger;
 
 public class Acc_Update_And_Additional_Data {
 
-    public void update_table(String table1, String table2, String field, String user) {
+    public void update_table(String table1, String table2, String field, String user,String date) {
         try {
             DatabaseManager dbm = DatabaseManager.getDbCon();
             Date_Handler dt = new Date_Handler();
+            int yearo;
+            yearo=Integer.parseInt(date.substring(0,4));
+            
+            
+            String yearo_yearn= yearo + "-"+(yearo-1999);
+            
+            
             dbm.insert("INSERT INTO " + table2 + " SELECT * FROM " + table1 + "");
             dbm.DeleteTable(table1);
-            dbm.insert("INSERT INTO account_update_details(field,date,user) VALUES ('" + field + "','" + dt.get_today_date_time() + "','" + user + "')");
+            dbm.insert("INSERT INTO account_update_details(field,date,user) VALUES ('" + field + "','" + date + "','" + user + "')");
+            dbm.insert("Truncate acc_current_period_act");
+            dbm.insert("INSERT INTO acc_current_period_act (period) VALUES('"+yearo_yearn+"')");
 
         } catch (SQLException ex) {
             Logger.getLogger(Acc_Update_And_Additional_Data.class.getName()).log(Level.SEVERE, null, ex);
