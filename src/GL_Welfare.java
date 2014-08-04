@@ -146,7 +146,8 @@ public class GL_Welfare extends javax.swing.JPanel {
     String[] temp1 = datehandler.Reverse_months(year, month, 1).split("-");
     String[] temp2 = datehandler.Reverse_months(year, month, 2).split("-");
     while(i<a.length){
-      sup = Integer.parseInt(a[i]);
+            try{
+      sup = Integer.parseInt(a[i]);} catch(Exception ee){ sup= 0;      }
      double Total= 0,Total1 = 0;
                     //String year1 = day.substring(0, 5);
                     //String month1 = day.substring(5, 7);
@@ -396,8 +397,14 @@ public class GL_Welfare extends javax.swing.JPanel {
                     amount = newRate;
                 }                
             }
+  try{
+            
             dbm.update("welfare", "month", "sup_id", thisMonth, supId, "amount", amount);
-    
+  }catch(Exception er){
+      System.out.println("Error at welfare update");
+  
+  
+  }   
     
     
     
@@ -444,6 +451,8 @@ public class GL_Welfare extends javax.swing.JPanel {
         while(j<2){
         String[] temp =datehandler.Reverse_months(year, month, j+1).split("-");
          a=dbm.checknReturnData("welfare","entry",temp[0]+temp[1]+arr[i],"suspended_months");
+            System.out.println(temp[0]+temp[1]+arr[i]);
+            if(a!=null){
          if(Integer.parseInt(a)>0){
          
          k++;
@@ -454,15 +463,19 @@ public class GL_Welfare extends javax.swing.JPanel {
          
          
         }
+            j++;
+        }
         dbm.updateDatabase("welfare", "entry", year+month+arr[i], "amount", oldRate*(1+k));
         
         System.out.println(arr[i]);
+    
+    
     i++;
     }
+        }
+     }
     
-    }
     
-    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -503,7 +516,6 @@ public class GL_Welfare extends javax.swing.JPanel {
         jButton9 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
-        jButton12 = new javax.swing.JButton();
         datepanel = new javax.swing.JPanel();
         monthfield = new javax.swing.JTextField();
         yearfield = new javax.swing.JTextField();
@@ -848,26 +860,19 @@ public class GL_Welfare extends javax.swing.JPanel {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(11, 11, 11)
+                .addGap(18, 18, 18)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         jButton10.setText("View All");
         jButton10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton10ActionPerformed(evt);
-            }
-        });
-
-        jButton12.setText("Update Welfare");
-        jButton12.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton12ActionPerformed(evt);
             }
         });
 
@@ -1044,8 +1049,7 @@ public class GL_Welfare extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(136, 136, 136)
                         .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(10, 10, 10)
@@ -1073,9 +1077,7 @@ public class GL_Welfare extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(43, 43, 43)
+                        .addGap(93, 93, 93)
                         .addComponent(Nreg)
                         .addGap(27, 27, 27)
                         .addComponent(reg)
@@ -1090,7 +1092,7 @@ public class GL_Welfare extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(7, 7, 7)
                         .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(31, 31, 31)
+                        .addGap(26, 26, 26)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1160,68 +1162,6 @@ public class GL_Welfare extends javax.swing.JPanel {
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         }        
     }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-       
-//        String thisMonth = yearfield.getText() + "-" + Integer.parseInt(datehandler.return_month_as_num(monthfield.getText()));
-//        
-//        DatabaseManager dbm = new DatabaseManager();
-//       
-//        String table = "welfare";
-//        String coloumnG = "month";
-//        String coloumnN = null;
-//        int supId = 0;
-//        int newOld = 0;
-//        int suspended = 0;
-//        int remain = 0;
-//        int before = 0;
-//        double amount = 0;
-//            System.out.println("Running qwelf");
-//        int oldRate = (int) dbm.checknReturnDoubleData("rate_details", "Code_name", "WELF_RATE", "rate");
-//        int newRate = (int) dbm.checknReturnDoubleData("rate_details", "Code_name", "WELF_NEW", "rate");
-//        
-//        try {
-//            ResultSet query = dbm.query("SELECT * FROM " + table + " where " + coloumnG + " = '" + thisMonth + "'");
-//            while (query.next()) {
-//                coloumnN = "sup_id";
-//                supId = query.getInt(coloumnN);
-//                 String examount = dbm.filterReturn2StringData("welfare", "sup_id", supId+"","month",thisMonth, "amount");
-//        if(examount==null){
-//                coloumnN = "new_old";
-//                newOld = query.getInt(coloumnN);
-//                coloumnN = "suspended_months";
-//                suspended = query.getInt(coloumnN);
-//                coloumnN = "suspended_remain";
-//                remain = query.getInt(coloumnN);
-//                coloumnN = "before_after";
-//                before = query.getInt(coloumnN);
-//                
-//                if (remain >= 0) {
-//                    if ((remain == 0 && before == 0) || (remain == suspended && before == 1)) {
-//                        if (newOld == 0) {
-//                            amount = suspended * oldRate;
-//                        } else {
-//                            amount = suspended * newRate;
-//                        }
-//                    } else {
-//                        amount = 0;
-//                    }
-//                } else {
-//                    if (newOld == 0) {
-//                        amount = oldRate;
-//                    } else {
-//                        amount = newRate;
-//                    }                    
-//                }
-//                dbm.update("welfare", "month", "sup_id", thisMonth, supId, "amount", amount);                
-//            }}
-//        } catch (SQLException ex) {
-//            Logger.getLogger(GL_Welfare.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-
-        //reportgen.update_welfare(yearfield.getText(), datehandler.return_month_as_num(monthfield.getText()));
-           //reportgen.update_taskmanager(yearfield.getText(), datehandler.return_month_as_num(monthfield.getText()), "4");
-    }//GEN-LAST:event_jButton12ActionPerformed
 
     private void monthfieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_monthfieldKeyPressed
         if (monthfield.getText().equals("Jan")) {
@@ -1571,7 +1511,7 @@ public class GL_Welfare extends javax.swing.JPanel {
         regsterbt.setSelected(true);
         //beforeAfterButton.setSelected(false);
         
-        execute(jTextArea3); 
+        execute_resume(jTextArea3); 
         Thread a = new Thread(new calc(reg, Nreg, sus, attention, yearfield.getText(), datehandler.return_month_as_num(monthfield.getText())));
         a.start();
     }//GEN-LAST:event_jButton15ActionPerformed
@@ -1601,7 +1541,6 @@ public class GL_Welfare extends javax.swing.JPanel {
     private javax.swing.JPanel datepanel;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton15;

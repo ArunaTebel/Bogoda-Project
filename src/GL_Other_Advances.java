@@ -45,8 +45,8 @@ public class GL_Other_Advances extends javax.swing.JPanel {
     
     public void clear(){
      supplier_id.setSelectedIndex(0);
-            Discription_code.setSelectedIndex(0);
-            Rate.setText("");
+           // Discription_code.setSelectedIndex(0);
+            //Rate.setText("");
             qty.setText("");
             amount.setText("");
             month_inst.setText("");
@@ -704,7 +704,8 @@ public class GL_Other_Advances extends javax.swing.JPanel {
                     allowable.setText("" + bill.bill_sum_cal(Integer.parseInt(supplier_id.getSelectedItem().toString()), yearfield.getText(), datehandler.return_month_as_num(monthfield.getText()), Double.parseDouble(set_val.getText())));
         // allowable.setText("" + (dbm.checknReturnDataForCashAdvances("green_leaf_transactions", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "tr_date","2014-01-19","2014-01-21", "net_qty")));
                     
-                   order_no.requestFocus();
+                   //order_no.requestFocus();
+                    Discription_code.requestFocus();
                 }
             } catch (ParseException ex) {
                 Logger.getLogger(GL_Other_Advances.class.getName()).log(Level.SEVERE, null, ex);
@@ -874,8 +875,8 @@ public class GL_Other_Advances extends javax.swing.JPanel {
         }
         
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
-            supplier_id.requestFocus();
-            
+          //  supplier_id.requestFocus();
+            order_no.requestFocus();
         } update.update_month_check(save1, yearfield, monthfield);
         
     }//GEN-LAST:event_monthfieldKeyPressed
@@ -898,8 +899,10 @@ public class GL_Other_Advances extends javax.swing.JPanel {
             supplier_id.requestFocus();
             
         }
+        
+        order_no.requestFocus();
     
-        update.update_month_check(save1, yearfield, monthfield);
+       // update.update_month_check(save1, yearfield, monthfield);
       
     }//GEN-LAST:event_yearfieldKeyPressed
 
@@ -1067,7 +1070,8 @@ public class GL_Other_Advances extends javax.swing.JPanel {
         }
         
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
-            supplier_id.requestFocus();
+            //supplier_id.requestFocus();
+            order_no.requestFocus();
             
         }
          update.update_month_check(save1, yearfield, monthfield);
@@ -1276,7 +1280,7 @@ public class GL_Other_Advances extends javax.swing.JPanel {
     }//GEN-LAST:event_order_noActionPerformed
 
     private void order_noKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_order_noKeyPressed
-       interface_events.Change_focus_Enterkey_c(Discription_code, evt);
+       interface_events.Change_focus_Enterkey_c(supplier_id, evt);
     }//GEN-LAST:event_order_noKeyPressed
 
     private void order_noKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_order_noKeyReleased

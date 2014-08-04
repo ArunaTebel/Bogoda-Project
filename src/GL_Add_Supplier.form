@@ -55,9 +55,9 @@
                       </Group>
                   </Group>
               </Group>
+              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <Component id="bank_code" min="-2" pref="61" max="-2" attributes="0"/>
@@ -65,6 +65,8 @@
                               <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="bank_name" min="-2" pref="221" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="quit1" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Component id="acc_no" alignment="0" min="-2" pref="247" max="-2" attributes="0"/>
                           <Component id="address" min="-2" pref="488" max="-2" attributes="0"/>
@@ -82,34 +84,34 @@
                                   <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="branch_name" min="-2" pref="221" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="96" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="quit2" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
                               </Group>
                           </Group>
+                          <Component id="payment_method" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="276" max="-2" attributes="0"/>
                       <Component id="jPanel2" alignment="1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="14" pref="14" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="4" pref="4" max="-2" attributes="0"/>
                               <Component id="supplier_id" min="-2" pref="110" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                               <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="payment_method" min="-2" max="-2" attributes="0"/>
                                   <Component id="sup_name_sinhala" min="-2" pref="315" max="-2" attributes="0"/>
                                   <Component id="sup_name" alignment="0" min="-2" pref="315" max="-2" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                          <Component id="trans_rate1" pref="0" max="32767" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="Cat_code" min="-2" pref="96" max="-2" attributes="0"/>
-                                              <Component id="trans_rate" min="-2" pref="96" max="-2" attributes="0"/>
-                                          </Group>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="Cat_code" min="-2" pref="96" max="-2" attributes="0"/>
+                                          <Component id="trans_rate" min="-2" pref="96" max="-2" attributes="0"/>
+                                          <Component id="trans_rate1" alignment="0" min="-2" pref="96" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
@@ -188,20 +190,20 @@
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
+                  <Component id="jLabel21" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="cat_name2" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="trans_rate1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel21" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="payment_method" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <Component id="cat_name2" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <EmptySpace min="2" pref="2" max="-2" attributes="0"/>
@@ -221,13 +223,15 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="bank_name" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel16" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="quit1" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="branch_name" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel18" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="quit2" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="acc_no" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -256,11 +260,11 @@
                   <Group type="102" attributes="0">
                       <EmptySpace min="15" pref="15" max="-2" attributes="0"/>
                       <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="225" pref="225" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="219" max="-2" attributes="0"/>
                       <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="36" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -577,9 +581,9 @@
     </Component>
     <Component class="javax.swing.JComboBox" name="trans_rate">
       <Properties>
-        <Property name="editable" type="boolean" value="true" postCode="trans_rate.putClientProperty(&quot;JComboBox.isTableCellEditor&quot;, Boolean.TRUE);"/>
+        <Property name="editable" postCode="//trans_rate.putClientProperty(&quot;JComboBox.isTableCellEditor&quot;, Boolean.TRUE);"/>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="new javax.swing.DefaultComboBoxModel(dbm.getStringArray(&quot;tranport_rates&quot;, &quot;Trans_id&quot;))&#xa;    " type="code"/>
+          <Connection code="new javax.swing.DefaultComboBoxModel(dbm.getStringArray2(&quot;tranport_rates&quot;, &quot;Trans_id&quot;))&#xa;    " type="code"/>
         </Property>
       </Properties>
       <Events>
@@ -589,38 +593,41 @@
     </Component>
     <Component class="javax.swing.JComboBox" name="bank_code">
       <Properties>
-        <Property name="editable" type="boolean" value="true" postCode="bank_code.putClientProperty(&quot;JComboBox.isTableCellEditor&quot;, Boolean.TRUE);"/>
+        <Property name="editable" postCode="//bank_code.putClientProperty(&quot;JComboBox.isTableCellEditor&quot;, Boolean.TRUE);"/>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="new javax.swing.DefaultComboBoxModel(dbm.getStringArray(&quot;bank&quot;, &quot;bank_id&quot;))" type="code"/>
+          <Connection code="new javax.swing.DefaultComboBoxModel(dbm.getStringArray2(&quot;bank&quot;, &quot;bank_id&quot;))" type="code"/>
         </Property>
       </Properties>
       <Events>
         <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="bank_codeItemStateChanged"/>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="bank_codeKeyPressed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JComboBox" name="branch_code">
       <Properties>
-        <Property name="editable" type="boolean" value="true" postCode="branch_code.putClientProperty(&quot;JComboBox.isTableCellEditor&quot;, Boolean.TRUE);"/>
+        <Property name="editable" postCode="branch_code.putClientProperty(&quot;JComboBox.isTableCellEditor&quot;, Boolean.TRUE);"/>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="new javax.swing.DefaultComboBoxModel(dbm.getStringArray(&quot;bank_branch&quot;, &quot;branch_id&quot;))" type="code"/>
+          <Connection code="new javax.swing.DefaultComboBoxModel(dbm.getStringArray2(&quot;bank_branch&quot;, &quot;branch_id&quot;))" type="code"/>
         </Property>
       </Properties>
       <Events>
         <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="branch_codeItemStateChanged"/>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="branch_codeKeyPressed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JComboBox" name="Cat_code">
       <Properties>
-        <Property name="editable" type="boolean" value="true" postCode="supplier_id.putClientProperty(&quot;JComboBox.isTableCellEditor&quot;, Boolean.TRUE);"/>
+        <Property name="editable" postCode="//supplier_id.putClientProperty(&quot;JComboBox.isTableCellEditor&quot;, Boolean.TRUE);"/>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="new javax.swing.DefaultComboBoxModel(dbm.getStringArray(&quot;category&quot;, &quot;category_id&quot;))" type="code"/>
+          <Connection code="new javax.swing.DefaultComboBoxModel(dbm.getStringArray2(&quot;category&quot;, &quot;category_id&quot;))" type="code"/>
         </Property>
       </Properties>
       <Events>
         <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="Cat_codeItemStateChanged"/>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="Cat_codeKeyPressed"/>
       </Events>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="Cat_code.putClientProperty(&quot;JComboBox.isTableCellEditor&quot;, Boolean.TRUE);"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="//Cat_code.putClientProperty(&quot;JComboBox.isTableCellEditor&quot;, Boolean.TRUE);"/>
       </AuxValues>
     </Component>
     <Container class="javax.swing.JPanel" name="jPanel3">
@@ -664,9 +671,9 @@
     </Component>
     <Component class="javax.swing.JComboBox" name="trans_rate1">
       <Properties>
-        <Property name="editable" type="boolean" value="true" postCode="supplier_id.putClientProperty(&quot;JComboBox.isTableCellEditor&quot;, Boolean.TRUE);"/>
+        <Property name="editable" postCode="//supplier_id.putClientProperty(&quot;JComboBox.isTableCellEditor&quot;, Boolean.TRUE);"/>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="new javax.swing.DefaultComboBoxModel(dbm.getStringArray(&quot;leaf_category&quot;, &quot;category_name&quot;))&#xa;    " type="code"/>
+          <Connection code="new javax.swing.DefaultComboBoxModel(dbm.getStringArray2(&quot;leaf_category&quot;, &quot;category_name&quot;))&#xa;    " type="code"/>
         </Property>
       </Properties>
       <Events>
@@ -740,5 +747,23 @@
         </Component>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JButton" name="quit1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Cancel"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="quit1ActionPerformed"/>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="quit1KeyPressed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="quit2">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Cancel"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="quit2ActionPerformed"/>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="quit2KeyPressed"/>
+      </Events>
+    </Component>
   </SubComponents>
 </Form>

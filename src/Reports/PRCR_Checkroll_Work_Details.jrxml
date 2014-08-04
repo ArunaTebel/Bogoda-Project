@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b4a7e90f-236c-48e1-b463-a16c40591ab1">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="190"/>
+	<property name="ireport.y" value="96"/>
 	<parameter name="USER" class="java.lang.String"/>
 	<parameter name="from_date" class="java.util.Date"/>
 	<parameter name="to_date" class="java.util.Date"/>
@@ -21,12 +21,18 @@
      prcr_checkroll_workentry.`work_code` AS prcr_checkroll_workentry_work_code,
      prcr_checkroll_workentry.`ot_day` AS prcr_checkroll_workentry_ot_day,
      prcr_checkroll_workentry.`ot_night` AS prcr_checkroll_workentry_ot_night,
-     prcr_checkroll_workentry.`division` AS prcr_checkroll_workentry_division
+     prcr_checkroll_workentry.`division` AS prcr_checkroll_workentry_division,
+     personal_info.`name` AS personal_info_name,
+     personal_info.`code` AS personal_info_code
 FROM
-     `prcr_checkroll_workentry` prcr_checkroll_workentry
-WHERE date<=$P{to_date} && date>=$P{from_date}
-AND $P!{col1}=$P{a} AND $P!{col2}=$P{b} AND $P!{col3}=$P{c}
-ORDER BY prcr_checkroll_workentry.`work_code`]]>
+     `personal_info` personal_info INNER JOIN `prcr_checkroll_workentry` prcr_checkroll_workentry ON personal_info.`code` = prcr_checkroll_workentry.`emp_code`
+WHERE
+     $P{to_date}>= date      &&    date >= $P{from_date}
+ AND $P!{col1} = $P{a}
+ AND $P!{col2} = $P{b}
+ AND $P!{col3} = $P{c}
+ORDER BY
+     prcr_checkroll_workentry.`work_code` ASC]]>
 	</queryString>
 	<field name="prcr_checkroll_workentry_entry" class="java.lang.Integer"/>
 	<field name="prcr_checkroll_workentry_date" class="java.sql.Date"/>
@@ -36,6 +42,8 @@ ORDER BY prcr_checkroll_workentry.`work_code`]]>
 	<field name="prcr_checkroll_workentry_ot_day" class="java.lang.Double"/>
 	<field name="prcr_checkroll_workentry_ot_night" class="java.lang.Double"/>
 	<field name="prcr_checkroll_workentry_division" class="java.lang.String"/>
+	<field name="personal_info_name" class="java.lang.String"/>
+	<field name="personal_info_code" class="java.lang.Integer"/>
 	<variable name="TITLE" class="java.lang.String"/>
 	<variable name="variable1" class="java.lang.Integer" calculation="DistinctCount">
 		<variableExpression><![CDATA[$F{prcr_checkroll_workentry_work_code}]]></variableExpression>
@@ -52,23 +60,23 @@ ORDER BY prcr_checkroll_workentry.`work_code`]]>
 	<variable name="otdayhrspage_1" class="java.lang.Double" calculation="Sum">
 		<variableExpression><![CDATA[$F{prcr_checkroll_workentry_ot_day}]]></variableExpression>
 	</variable>
-	<variable name="normaldayspage" class="java.lang.Integer" resetType="Page" calculation="Count">
-		<variableExpression><![CDATA[$F{prcr_checkroll_workentry_normalday_or_sunday}=="n"]]></variableExpression>
+	<variable name="normaldayspage" class="java.lang.Integer" resetType="Page" calculation="Sum">
+		<variableExpression><![CDATA[($F{prcr_checkroll_workentry_normalday_or_sunday}=="n" ? 1 : 0)]]></variableExpression>
 	</variable>
-	<variable name="sundayspage" class="java.lang.Integer" resetType="Page" calculation="Count">
+	<variable name="sundayspage" class="java.lang.Integer" resetType="Page" calculation="Sum">
 		<variableExpression><![CDATA[( $F{prcr_checkroll_workentry_normalday_or_sunday}=="s" ? 1 : 0 )]]></variableExpression>
 	</variable>
-	<variable name="normaldayspage_1" class="java.lang.Integer" calculation="Count">
-		<variableExpression><![CDATA[$F{prcr_checkroll_workentry_normalday_or_sunday}=="n"]]></variableExpression>
+	<variable name="normaldayspage_1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[($F{prcr_checkroll_workentry_normalday_or_sunday}=="n"?1:0)]]></variableExpression>
 	</variable>
-	<variable name="sundayspage_1" class="java.lang.Integer" calculation="Count">
-		<variableExpression><![CDATA[$F{prcr_checkroll_workentry_normalday_or_sunday}=="s"]]></variableExpression>
+	<variable name="sundayspage_1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[($F{prcr_checkroll_workentry_normalday_or_sunday}=="s"?1:0)]]></variableExpression>
 	</variable>
-	<variable name="sundayspage_1_2" class="java.lang.Integer" resetType="Group" resetGroup="Work Code" calculation="Count">
-		<variableExpression><![CDATA[$F{prcr_checkroll_workentry_normalday_or_sunday}=="s"]]></variableExpression>
+	<variable name="sundayspage_1_2" class="java.lang.Integer" resetType="Group" resetGroup="Work Code" calculation="Sum">
+		<variableExpression><![CDATA[($F{prcr_checkroll_workentry_normalday_or_sunday}=="s"?1:0)]]></variableExpression>
 	</variable>
 	<variable name="normaldayspage_1_2" class="java.lang.Integer" resetType="Group" resetGroup="Work Code" calculation="Count">
-		<variableExpression><![CDATA[$F{prcr_checkroll_workentry_normalday_or_sunday}=="n"]]></variableExpression>
+		<variableExpression><![CDATA[($F{prcr_checkroll_workentry_normalday_or_sunday}=="n"?1:0)]]></variableExpression>
 	</variable>
 	<variable name="otnighthrspage_1_2" class="java.lang.Double" resetType="Group" resetGroup="Work Code" calculation="Sum">
 		<variableExpression><![CDATA[$F{prcr_checkroll_workentry_ot_night}]]></variableExpression>
@@ -83,13 +91,15 @@ ORDER BY prcr_checkroll_workentry.`work_code`]]>
 				<staticText>
 					<reportElement x="0" y="10" width="69" height="20" uuid="4fd9f613-d893-4936-96cc-641c1f2aa84e"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font isBold="true"/>
+						<font isBold="true" isUnderline="true"/>
 					</textElement>
 					<text><![CDATA[Work Code]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="69" y="10" width="69" height="20" uuid="2843ef42-8135-44d2-a58f-d55363de08d2"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true" isUnderline="true"/>
+					</textElement>
 					<textFieldExpression><![CDATA[$F{prcr_checkroll_workentry_work_code}]]></textFieldExpression>
 				</textField>
 			</band>
@@ -98,14 +108,14 @@ ORDER BY prcr_checkroll_workentry.`work_code`]]>
 			<band height="57">
 				<staticText>
 					<reportElement x="108" y="0" width="67" height="20" uuid="d7d8cef4-82c6-4e03-a31b-4d7fe7dab5da"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
+					<textElement textAlignment="Center" verticalAlignment="Top">
 						<font isBold="true"/>
 					</textElement>
 					<text><![CDATA[Normal Days]]></text>
 				</staticText>
 				<staticText>
 					<reportElement x="109" y="20" width="67" height="20" uuid="a6b4da86-800c-4aa9-a945-b1bfdd73190d"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
+					<textElement textAlignment="Center" verticalAlignment="Top">
 						<font isBold="true"/>
 					</textElement>
 					<text><![CDATA[Sundays]]></text>
@@ -119,22 +129,22 @@ ORDER BY prcr_checkroll_workentry.`work_code`]]>
 				</staticText>
 				<textField>
 					<reportElement x="175" y="20" width="30" height="20" uuid="de30a32e-2d23-4933-84b8-16318fe4c470"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textElement textAlignment="Center" verticalAlignment="Top"/>
 					<textFieldExpression><![CDATA[$V{sundayspage_1_2}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="175" y="0" width="31" height="20" uuid="02ff48b2-cf17-4327-91cc-901f318e19e2"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textElement textAlignment="Center" verticalAlignment="Top"/>
 					<textFieldExpression><![CDATA[$V{normaldayspage_1_2}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="345" y="20" width="69" height="20" uuid="b17ff9ca-77b8-49da-970c-82c5e890c748"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textElement textAlignment="Center" verticalAlignment="Top"/>
 					<textFieldExpression><![CDATA[$V{otnighthrspage_1_2}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="346" y="0" width="69" height="20" uuid="ad29015c-7576-42fc-9216-8d6051cba010"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textElement textAlignment="Center" verticalAlignment="Top"/>
 					<textFieldExpression><![CDATA[$V{otdayhrspage_1_2}]]></textFieldExpression>
 				</textField>
 				<staticText>
@@ -241,49 +251,49 @@ ORDER BY prcr_checkroll_workentry.`work_code`]]>
 				<reportElement x="1" y="33" width="571" height="1" uuid="8b820536-4e3c-4646-9176-72c78990b115"/>
 			</line>
 			<staticText>
-				<reportElement x="0" y="5" width="69" height="20" uuid="026c51a7-dbb5-4ea2-821b-605ab31f68c6"/>
+				<reportElement x="0" y="5" width="33" height="28" uuid="026c51a7-dbb5-4ea2-821b-605ab31f68c6"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Entry No.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="69" y="5" width="69" height="20" uuid="2bd91a99-d742-470d-98a2-d71ccfd00f08"/>
+				<reportElement x="239" y="5" width="69" height="20" uuid="2bd91a99-d742-470d-98a2-d71ccfd00f08"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Date]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="138" y="5" width="69" height="28" uuid="80a932f4-8af9-4c76-b99d-def3f6f70914"/>
+				<reportElement x="308" y="5" width="51" height="28" uuid="80a932f4-8af9-4c76-b99d-def3f6f70914"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Normalday(n) or Sunday]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="207" y="5" width="69" height="20" uuid="f7b67565-1a58-4114-9728-eeac09f1abf6"/>
+				<reportElement x="34" y="5" width="74" height="20" uuid="f7b67565-1a58-4114-9728-eeac09f1abf6"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Employee Code]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="276" y="5" width="69" height="20" uuid="6e0a5d15-f554-45be-aa24-ec1e05499cbc"/>
+				<reportElement x="359" y="5" width="46" height="20" uuid="6e0a5d15-f554-45be-aa24-ec1e05499cbc"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Work Code]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="345" y="5" width="69" height="20" uuid="1786a46d-8bdd-4640-bc06-f1b320a1f25c"/>
+				<reportElement x="405" y="5" width="46" height="20" uuid="1786a46d-8bdd-4640-bc06-f1b320a1f25c"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[OT Day Hrs]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="414" y="5" width="69" height="20" uuid="9abcdf56-1274-40d7-9be0-09bd13f7f417"/>
+				<reportElement x="451" y="5" width="46" height="20" uuid="9abcdf56-1274-40d7-9be0-09bd13f7f417"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
@@ -296,42 +306,49 @@ ORDER BY prcr_checkroll_workentry.`work_code`]]>
 				</textElement>
 				<text><![CDATA[Division]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="118" y="5" width="120" height="20" uuid="c8789e45-72a7-4915-9a0f-ccc1bb28e6c8"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Name]]></text>
+			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="23" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="0" width="69" height="20" uuid="e3e7ed1e-db71-4110-8dfc-00ab3c17fb3c"/>
+				<reportElement x="2" y="0" width="33" height="20" uuid="e3e7ed1e-db71-4110-8dfc-00ab3c17fb3c"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_workentry_entry}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="69" y="0" width="69" height="20" uuid="61599965-88e3-4478-b4a2-6190f7706d27"/>
+				<reportElement x="240" y="0" width="68" height="20" uuid="61599965-88e3-4478-b4a2-6190f7706d27"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_workentry_date}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="138" y="0" width="69" height="20" uuid="133dfced-c650-466d-9c47-0dd1f0d235d5"/>
+				<reportElement x="308" y="0" width="51" height="20" uuid="133dfced-c650-466d-9c47-0dd1f0d235d5"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_workentry_normalday_or_sunday}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="207" y="0" width="69" height="20" uuid="de17cc47-5616-4891-8fd2-474f6e3a4779"/>
+				<reportElement x="34" y="0" width="75" height="20" uuid="de17cc47-5616-4891-8fd2-474f6e3a4779"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_workentry_emp_code}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="276" y="0" width="69" height="20" uuid="ed339e03-078a-4e04-bce6-c6b4c2026e6f"/>
+				<reportElement x="359" y="0" width="46" height="20" uuid="ed339e03-078a-4e04-bce6-c6b4c2026e6f"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_workentry_work_code}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="345" y="0" width="69" height="20" uuid="ed47782b-1209-4e8f-aec6-45dfa3d4a6ad"/>
+				<reportElement x="405" y="0" width="46" height="20" uuid="ed47782b-1209-4e8f-aec6-45dfa3d4a6ad"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_workentry_ot_day}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="414" y="0" width="69" height="20" uuid="cb9833ab-f8a9-49a3-b4da-b84877a23c9f"/>
+				<reportElement x="451" y="0" width="46" height="20" uuid="cb9833ab-f8a9-49a3-b4da-b84877a23c9f"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_workentry_ot_night}]]></textFieldExpression>
 			</textField>
@@ -340,6 +357,10 @@ ORDER BY prcr_checkroll_workentry.`work_code`]]>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_workentry_division}]]></textFieldExpression>
 			</textField>
+			<textField>
+				<reportElement x="121" y="0" width="117" height="20" uuid="0f21126c-ce2a-4c6c-be77-cf15ae105f20"/>
+				<textFieldExpression><![CDATA[$F{personal_info_name}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 	<columnFooter>
@@ -347,30 +368,19 @@ ORDER BY prcr_checkroll_workentry.`work_code`]]>
 	</columnFooter>
 	<pageFooter>
 		<band height="56" splitType="Stretch">
-			<line>
-				<reportElement x="1" y="-13" width="571" height="1" uuid="0d048f90-0a60-4753-b7bf-906c8bd8f6af"/>
-				<graphicElement>
-					<pen lineWidth="0.5"/>
-				</graphicElement>
-			</line>
-			<textField>
-				<reportElement x="348" y="20" width="69" height="20" uuid="cd6acbcb-ca94-49cd-9bf8-e1de934a65e8"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$V{variable1}]]></textFieldExpression>
-			</textField>
 			<textField>
 				<reportElement x="348" y="0" width="69" height="20" uuid="eff14025-43b0-4d5f-978c-cd1e0f5315bd"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
 				<textFieldExpression><![CDATA[$V{otdayhrspage}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="177" y="0" width="30" height="20" uuid="28792d7b-9119-4557-a6da-a732dcf5b8f4"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
 				<textFieldExpression><![CDATA[$V{normaldayspage}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="177" y="20" width="30" height="20" uuid="58fd1745-061b-4243-8cf4-3a5a92971bd1"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
 				<textFieldExpression><![CDATA[$V{sundayspage}]]></textFieldExpression>
 			</textField>
 			<staticText>
@@ -382,24 +392,18 @@ ORDER BY prcr_checkroll_workentry.`work_code`]]>
 			</staticText>
 			<staticText>
 				<reportElement x="109" y="0" width="67" height="20" uuid="17b72d0f-e097-4687-9168-1783782a65ea"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Normal Days]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="110" y="20" width="67" height="20" uuid="9321ab34-1268-4a1a-b154-d4280a8ad641"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Sundays]]></text>
 			</staticText>
-			<line>
-				<reportElement x="1" y="-28" width="571" height="1" uuid="b4af606b-8326-44e2-8eb5-cfd4582bc012"/>
-				<graphicElement>
-					<pen lineWidth="0.5"/>
-				</graphicElement>
-			</line>
 			<staticText>
 				<reportElement x="279" y="20" width="69" height="20" uuid="a6f9db85-3e7f-40f3-b3c2-e353a11f64de"/>
 				<textElement textAlignment="Center">
@@ -414,28 +418,33 @@ ORDER BY prcr_checkroll_workentry.`work_code`]]>
 				</textElement>
 				<text><![CDATA[OT Day Hrs]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="348" y="20" width="69" height="20" uuid="8aa56281-0ca1-4129-ada1-8881f85d4912"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$V{otnighthrspage_1_2}]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageFooter>
 	<summary>
 		<band height="42" splitType="Stretch">
 			<textField>
 				<reportElement x="346" y="20" width="69" height="20" uuid="6dd86fce-4f9d-4e40-a6a3-05a76a7d47ec"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
 				<textFieldExpression><![CDATA[$V{otnighthrspage_1}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="345" y="0" width="69" height="20" uuid="5f9e9a75-dd6f-41d9-bb0e-f75fe15e240a"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
 				<textFieldExpression><![CDATA[$V{otdayhrspage_1}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="176" y="0" width="31" height="20" uuid="e251cf55-cb3b-40c5-89ec-a9da52470861"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
 				<textFieldExpression><![CDATA[$V{normaldayspage_1}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="176" y="20" width="30" height="20" uuid="89154e6a-a5b1-41ba-b25d-d6374d2f6dfb"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
 				<textFieldExpression><![CDATA[$V{sundayspage_1}]]></textFieldExpression>
 			</textField>
 			<staticText>
@@ -447,14 +456,14 @@ ORDER BY prcr_checkroll_workentry.`work_code`]]>
 			</staticText>
 			<staticText>
 				<reportElement x="109" y="0" width="67" height="20" uuid="0a74077a-a185-46f2-8d77-0def80111271"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Normal Days]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="109" y="20" width="67" height="20" uuid="7b210e97-f972-4879-a18f-97deedbcb690"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Sundays]]></text>
