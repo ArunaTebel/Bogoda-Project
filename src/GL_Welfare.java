@@ -1523,7 +1523,7 @@ public class GL_Welfare extends javax.swing.JPanel {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
        Acc_Update_And_Additional_Data tst = new Acc_Update_And_Additional_Data();
        
-       tst.complete_op_bal_temp();
+      // tst.complete_op_bal_temp();
     }//GEN-LAST:event_jButton4ActionPerformed
 
    
