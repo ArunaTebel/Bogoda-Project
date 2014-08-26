@@ -313,7 +313,7 @@ public class ACC_Update extends javax.swing.JPanel {
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         Acc_Update_And_Additional_Data up = new Acc_Update_And_Additional_Data();
-        up.complete_op_bal_temp();
+      //  up.complete_op_bal_temp();
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void monthfieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_monthfieldKeyPressed
