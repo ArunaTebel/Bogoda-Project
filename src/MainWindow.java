@@ -29,14 +29,14 @@ public class MainWindow extends javax.swing.JFrame {
     UIDefaults defaults = UIManager.getLookAndFeelDefaults();
 
     public MainWindow() {
-        //userAC.validate();
+        userAC.validate();
         
       //   defaults.put("nimbusOrange", defaults.get("nimbusBase"));
         UIManager.getLookAndFeelDefaults().put("nimbusOrange", (new Color(51, 153, 0)));
         initComponents();
     //    String ss = System.getProperty("user.name");
         
-       int a = (int) (Math.random()*3);
+       int a = (int) (Math.random()*4);
        
        
 
@@ -61,10 +61,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         }
         
-        String s = userAC.get_current_user();
-        TimeCheck time = new TimeCheck(s);
-        Thread t = new Thread(time);
-        t.start();
+       
 
         jButton1.setEnabled(false);
         jButton2.setEnabled(false);
@@ -133,6 +130,7 @@ public class MainWindow extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         Info = new javax.swing.JLabel();
         jButton15 = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
@@ -328,7 +326,6 @@ public class MainWindow extends javax.swing.JFrame {
         jButton14.setBounds(150, 340, 160, 40);
 
         Pass.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        Pass.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 153, 0), 1, true));
         Pass.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 PassKeyPressed(evt);
@@ -337,7 +334,6 @@ public class MainWindow extends javax.swing.JFrame {
         Main_Content.add(Pass);
         Pass.setBounds(150, 300, 160, 30);
 
-        User_id.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 153, 0), 1, true));
         User_id.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 User_idActionPerformed(evt);
@@ -526,6 +522,9 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
 
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/splash/icon green.png"))); // NOI18N
+        jLabel9.setToolTipText("NineLights™");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -550,8 +549,12 @@ public class MainWindow extends javax.swing.JFrame {
                 .addComponent(jButton15, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 71, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                 .addComponent(Main_Content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -569,8 +572,11 @@ public class MainWindow extends javax.swing.JFrame {
                         .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Main_Content, javax.swing.GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE))
+                    .addComponent(Main_Content, javax.swing.GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -725,8 +731,8 @@ public class MainWindow extends javax.swing.JFrame {
         validate();
         repaint();
         pgreenleaf.focus();
-        pgreenleaf =null;
-
+        pgreenleaf = null;
+        
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -755,7 +761,7 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        topBar.setBackground(new java.awt.Color(153, 0, 153));
+        topBar.setBackground(new java.awt.Color(129, 1, 93));
         pAccounts paccunts = new pAccounts();
 
         Main_Content.removeAll();
@@ -793,15 +799,26 @@ public class MainWindow extends javax.swing.JFrame {
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
        // User_id.setText("AdminNL");
         
-       Thread t = new Thread(new WelfareThread());
-        Thread t1 = new Thread(new PRCRWelfareThread());
-        t.start();
-        t1.start();
+        
+      
 
        String pwd = dbm.checknReturnStringData("user_data", "user_name", User_id.getText(), "pwd");
         if(Pass.getText().equals(pwd)){
+         ////////////////////////////////////////////////////Welfare Threads///////////////////////////////////////////////////   
+             Thread t = new Thread(new WelfareThread());
+        Thread t1 = new Thread(new PRCRWelfareThread());
+        t.start();
+        t1.start();
+            
+         /////////////////////////////////////////////////////time Thread//////////////////////////////////////////////////////   
+             String s = User_id.getText();
+        TimeCheck time = new TimeCheck(s);
+        Thread tim = new Thread(time);
+        tim.start();
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        
             String a = dbm.checknReturnData("user_data", "user_name", User_id.getText(), "access");
-            System.out.println(a);
+            //System.out.println(a);
             if(a.equals("1")){
             jButton2.setEnabled(true);
             jButton7.setEnabled(true);
@@ -1281,6 +1298,7 @@ System.exit(0);
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;

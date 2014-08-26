@@ -11,15 +11,22 @@
      supplier_pre_debt_coins.`sup_id` AS supplier_pre_debt_coins_sup_id,
      supplier_pre_debt_coins.`pre_debts` AS supplier_pre_debt_coins_pre_debts,
      supplier_pre_debt_coins.`coins` AS supplier_pre_debt_coins_coins,
-     supplier_pre_debt_coins.`month` AS supplier_pre_debt_coins_month
+     supplier_pre_debt_coins.`month` AS supplier_pre_debt_coins_month,
+     suppliers.`sup_name` AS suppliers_sup_name,
+     category.`category_name` AS category_category_name
 FROM
-     `supplier_pre_debt_coins` supplier_pre_debt_coins
-where month=$P{month}]]>
+     `category` category INNER JOIN `suppliers` suppliers ON category.`category_id` = suppliers.`cat_id`
+     INNER JOIN `supplier_pre_debt_coins` supplier_pre_debt_coins ON suppliers.`sup_id` = supplier_pre_debt_coins.`sup_id`
+WHERE
+     month = $P{month}
+order by category.`category_name`]]>
 	</queryString>
 	<field name="supplier_pre_debt_coins_sup_id" class="java.lang.Integer"/>
 	<field name="supplier_pre_debt_coins_pre_debts" class="java.lang.Double"/>
 	<field name="supplier_pre_debt_coins_coins" class="java.lang.Double"/>
 	<field name="supplier_pre_debt_coins_month" class="java.lang.String"/>
+	<field name="suppliers_sup_name" class="java.lang.String"/>
+	<field name="category_category_name" class="java.lang.String"/>
 	<variable name="TITLE" class="java.lang.String"/>
 	<variable name="sum2" class="java.lang.Double" calculation="Sum">
 		<variableExpression><![CDATA[$F{supplier_pre_debt_coins_pre_debts}]]></variableExpression>
@@ -27,6 +34,43 @@ where month=$P{month}]]>
 	<variable name="variable2" class="java.lang.Double" calculation="Sum">
 		<variableExpression><![CDATA[$F{supplier_pre_debt_coins_coins}]]></variableExpression>
 	</variable>
+	<variable name="gsum" class="java.lang.Double" resetType="Group" resetGroup="category" calculation="Sum">
+		<variableExpression><![CDATA[$F{supplier_pre_debt_coins_pre_debts}]]></variableExpression>
+	</variable>
+	<group name="category">
+		<groupExpression><![CDATA[$F{category_category_name}]]></groupExpression>
+		<groupHeader>
+			<band height="24">
+				<textField>
+					<reportElement x="0" y="4" width="115" height="20" uuid="69d60388-864f-41d1-901c-6bce7fa4c973"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{category_category_name}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="21">
+				<textField pattern="#,##0.00">
+					<reportElement x="267" y="0" width="100" height="20" uuid="dc97a624-2d6d-4ad1-bef0-928c8e9d9135"/>
+					<textFieldExpression><![CDATA[$V{gsum}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="1" y="1" width="554" height="1" uuid="b20d7a02-7f12-48ee-8184-a495219e4f8b"/>
+					<graphicElement>
+						<pen lineWidth="0.5"/>
+					</graphicElement>
+				</line>
+				<line>
+					<reportElement x="1" y="19" width="554" height="1" uuid="464f0f19-7d1b-420f-8202-26de22773bec"/>
+					<graphicElement>
+						<pen lineWidth="0.5"/>
+					</graphicElement>
+				</line>
+			</band>
+		</groupFooter>
+	</group>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -122,18 +166,25 @@ where month=$P{month}]]>
 				<text><![CDATA[SupId]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="138" y="5" width="138" height="20" uuid="3b8116bb-1798-49d1-ac23-cc78d8113144"/>
+				<reportElement x="267" y="5" width="138" height="20" uuid="3b8116bb-1798-49d1-ac23-cc78d8113144"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Pre_debts]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="276" y="5" width="138" height="20" uuid="f1b08a36-03ae-431a-b8cf-0f362808bd87"/>
+				<reportElement x="412" y="5" width="138" height="20" uuid="f1b08a36-03ae-431a-b8cf-0f362808bd87"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Coins]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="115" y="5" width="100" height="20" uuid="abb2c35d-e01e-4ce8-97a6-6dae3b2a5e47"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Name]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -144,12 +195,16 @@ where month=$P{month}]]>
 				<textFieldExpression><![CDATA[$F{supplier_pre_debt_coins_sup_id}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement x="138" y="0" width="138" height="15" uuid="3bcd1652-aa35-4ec3-b935-43e520a6ccb5"/>
+				<reportElement x="267" y="0" width="138" height="15" uuid="3bcd1652-aa35-4ec3-b935-43e520a6ccb5"/>
 				<textFieldExpression><![CDATA[$F{supplier_pre_debt_coins_pre_debts}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement x="276" y="0" width="138" height="15" uuid="a53a71f1-a276-44dc-a6d8-19b2ecaed1b5"/>
+				<reportElement x="412" y="0" width="138" height="15" uuid="a53a71f1-a276-44dc-a6d8-19b2ecaed1b5"/>
 				<textFieldExpression><![CDATA[$F{supplier_pre_debt_coins_coins}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="115" y="0" width="124" height="16" uuid="299adb89-6a69-4108-8be6-da2b9591abeb"/>
+				<textFieldExpression><![CDATA[$F{suppliers_sup_name}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -176,11 +231,11 @@ where month=$P{month}]]>
 	<summary>
 		<band height="42" splitType="Stretch">
 			<textField pattern="#,##0.00">
-				<reportElement x="138" y="3" width="100" height="20" uuid="84399408-34db-4478-bbf9-ba2f90ae08b3"/>
+				<reportElement x="267" y="3" width="100" height="20" uuid="84399408-34db-4478-bbf9-ba2f90ae08b3"/>
 				<textFieldExpression><![CDATA[$V{sum2}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement x="276" y="3" width="100" height="20" uuid="5fde69f7-2b1c-4a6b-a153-1475a40cbd11"/>
+				<reportElement x="412" y="3" width="100" height="20" uuid="5fde69f7-2b1c-4a6b-a153-1475a40cbd11"/>
 				<textFieldExpression><![CDATA[$V{variable2}]]></textFieldExpression>
 			</textField>
 			<line>

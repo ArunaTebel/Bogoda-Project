@@ -104,6 +104,7 @@ public class Report_GL_monthly_ledger extends javax.swing.JPanel {
              double limit =dbm.checknReturnDoubleData("rate_details", "Code_name", "CASH_LIMIT", "rate");
             HashMap param = new HashMap();
             param.put("USER", user.get_current_user());
+            param.put("Cat",Cat_code.getEditor().getItem().toString());
             param.put("cash_limit", limit);
             param.put("year", yearfield.getText());
             param.put("month", datehandler.return_month_as_num(monthfield.getText()));
@@ -229,6 +230,8 @@ public class Report_GL_monthly_ledger extends javax.swing.JPanel {
         view3 = new javax.swing.JButton();
         view4 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        Cat_code = new javax.swing.JComboBox();
+        route = new javax.swing.JCheckBox();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 6));
 
@@ -364,6 +367,21 @@ public class Report_GL_monthly_ledger extends javax.swing.JPanel {
 
         jLabel1.setText("For this month");
 
+        Cat_code.setEditable(true);
+        Cat_code.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("category", "category_id")));
+        Cat_code.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                Cat_codeItemStateChanged(evt);
+            }
+        });
+
+        route.setText("Routewise");
+        route.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                routeItemStateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -381,12 +399,14 @@ public class Report_GL_monthly_ledger extends javax.swing.JPanel {
                         .addGap(58, 58, 58)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(view4, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1)))
+                            .addComponent(jLabel1)
+                            .addComponent(route, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Cat_code, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 18, Short.MAX_VALUE))
+                .addGap(0, 23, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -407,7 +427,12 @@ public class Report_GL_monthly_ledger extends javax.swing.JPanel {
                         .addComponent(view3, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(view2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(route)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Cat_code, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(32, 32, 32)
                 .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -649,8 +674,14 @@ public class Report_GL_monthly_ledger extends javax.swing.JPanel {
     }//GEN-LAST:event_view1MouseClicked
 
     private void view1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_view1ActionPerformed
-          Thread b = new Thread(new report_old("monthly_ledger"));
+        if(route.isSelected()){
+        Thread b = new Thread(new report_old("monthly_ledger_root"));
         b.start();
+        }
+        else{
+         Thread b = new Thread(new report_old("monthly_ledger"));
+        b.start();
+        }
     }//GEN-LAST:event_view1ActionPerformed
 
     private void view3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_view3MouseClicked
@@ -671,8 +702,25 @@ public class Report_GL_monthly_ledger extends javax.swing.JPanel {
         b.start();
     }//GEN-LAST:event_view4ActionPerformed
 
+    private void Cat_codeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_Cat_codeItemStateChanged
+        // if(Cat_code.getSelectedItem()!=null){
+            //   cat_name.setText(dbm.checknReturnData("category", "category_id", Cat_code.getSelectedItem(), "category_name"));
+
+            // trans_rate.requestFocusInWindow();
+            //  }
+    }//GEN-LAST:event_Cat_codeItemStateChanged
+
+    private void routeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_routeItemStateChanged
+        if (route.isEnabled()) {
+           // supplier_id.setEnabled(false);
+            //supplier.setSelected(false);
+            Cat_code.setEnabled(true);
+        }
+    }//GEN-LAST:event_routeItemStateChanged
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox Cat_code;
     private com.michaelbaranov.microba.calendar.DatePicker datePicker1;
     private javax.swing.JPanel datepanel;
     private javax.swing.JLabel jLabel1;
@@ -680,6 +728,7 @@ public class Report_GL_monthly_ledger extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JTextField monthfield;
+    private javax.swing.JCheckBox route;
     private javax.swing.JButton view;
     private javax.swing.JButton view1;
     private javax.swing.JButton view2;

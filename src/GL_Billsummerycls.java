@@ -280,6 +280,8 @@ public class GL_Billsummerycls {
                 total += query.getDouble("amount");
 
             }
+            
+            query.close();
 
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -301,11 +303,13 @@ public class GL_Billsummerycls {
             ResultSet query = dbm.query("SELECT * FROM " + "gl_other_advances" + " where " + "id" + " = '" + sup_id + " 'AND " + "Date" + " BETWEEN'" + date1 + "' AND '" + date4 + "'");
 
             while (query.next()) {
+                
 
                 // int dates = Integer.parseInt(date_handler.get_day(query.getDate("ordered_date")));
                 total += query.getDouble("total_amount");
 
             }
+            query.close();
 
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -366,6 +370,8 @@ public class GL_Billsummerycls {
                 System.out.println(total[i][4]);
                 i++;
             }
+            
+            query.close();
 
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());

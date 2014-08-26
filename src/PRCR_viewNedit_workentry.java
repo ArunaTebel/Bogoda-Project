@@ -1,4 +1,5 @@
 
+import java.awt.event.ItemEvent;
 import java.awt.event.KeyEvent;
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -61,6 +62,17 @@ public class PRCR_viewNedit_workentry extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         search = new javax.swing.JComboBox();
         deleteB = new javax.swing.JButton();
+        division_jc = new javax.swing.JComboBox();
+        division_lb = new javax.swing.JLabel();
+        divisionCB = new javax.swing.JCheckBox();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        normaldayT = new javax.swing.JTextField();
+        normaldayT1 = new javax.swing.JTextField();
+        OTNIGHTT = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        OTDAYT = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Payroll_Checkroll Work Entry View");
@@ -408,7 +420,7 @@ public class PRCR_viewNedit_workentry extends javax.swing.JFrame {
             }
         });
 
-        search.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "View from dates", "View all" }));
+        search.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "View from dates" }));
 
         deleteB.setText("Delete");
         deleteB.addActionListener(new java.awt.event.ActionListener() {
@@ -417,6 +429,49 @@ public class PRCR_viewNedit_workentry extends javax.swing.JFrame {
             }
         });
 
+        division_jc.setEditable(true);
+        division_jc.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("division_details", "code")));
+        division_jc.setSelectedItem(" ");
+        division_jc.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                division_jcItemStateChanged(evt);
+            }
+        });
+
+        divisionCB.setText("Division");
+
+        jLabel3.setText("NormalDays");
+
+        jLabel4.setText("Sundays");
+
+        normaldayT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                normaldayTActionPerformed(evt);
+            }
+        });
+
+        normaldayT1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                normaldayT1ActionPerformed(evt);
+            }
+        });
+
+        OTNIGHTT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                OTNIGHTTActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setText("OT Night");
+
+        OTDAYT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                OTDAYTActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setText("OT Day");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -424,49 +479,91 @@ public class PRCR_viewNedit_workentry extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(search, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(39, 39, 39)
-                        .addComponent(jLabel2)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(datepanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(61, 61, 61)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(normaldayT, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(34, 34, 34)
+                        .addComponent(jLabel4)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(normaldayT1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(35, 35, 35)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(OTDAYT, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27)
+                        .addComponent(jLabel5)
                         .addGap(18, 18, 18)
-                        .addComponent(deleteB, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(61, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 895, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(56, 56, 56))
+                        .addComponent(OTNIGHTT, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane1)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(39, 39, 39)
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(divisionCB)
+                                    .addComponent(datepanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(deleteB, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(search, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(222, 222, 222)
+                        .addComponent(division_jc, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(division_lb, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(38, Short.MAX_VALUE)
-                .addComponent(search, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(search, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(division_lb, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(division_jc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(divisionCB)))
                 .addGap(23, 23, 23)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(datepanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(jLabel1))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(datepanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(12, 12, 12)
+                                .addComponent(jLabel1))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(16, 16, 16)
+                                .addComponent(jLabel2)))
+                        .addGap(28, 28, 28)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addComponent(jLabel2))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(68, 68, 68)
+                        .addGap(26, 26, 26)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(deleteB, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(34, 34, 34)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(191, 191, 191))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(deleteB, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(39, 39, 39)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4)
+                    .addComponent(normaldayT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(normaldayT1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6)
+                    .addComponent(OTDAYT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5)
+                    .addComponent(OTNIGHTT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(138, 138, 138))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -498,7 +595,7 @@ public class PRCR_viewNedit_workentry extends javax.swing.JFrame {
         //  "SELECT * FROM " + table_name + " WHERE " + table_column_giving + " =" + row_element + ""
 
         try {
-            ResultSet query = dbm.query("SELECT * FROM " + table_name + " where " + column_filtering + " BETWEEN '" + element1 + "' AND '" + element2 + "'");
+            ResultSet query = dbm.query("SELECT * FROM " + table_name + " where division='"+division_jc.getSelectedItem().toString()+"' AND " + column_filtering + " BETWEEN '" + element1 + "' AND '" + element2 + "'");
             while (query.next()) {
                 num_of_rows_in_the_database++;
             }
@@ -508,7 +605,7 @@ public class PRCR_viewNedit_workentry extends javax.swing.JFrame {
 
         if (num_of_rows_in_the_database >= bottom) {
             try {
-                ResultSet query = dbm.query("SELECT * FROM " + table_name + " where " + column_filtering + " BETWEEN '" + element1 + "' AND '" + element2 + "'");
+                ResultSet query = dbm.query("SELECT * FROM " + table_name + " where division='"+division_jc.getSelectedItem().toString()+"' AND " + column_filtering + " BETWEEN '" + element1 + "' AND '" + element2 + "'");
                 while (query.next()) {
                     count++;
                     if (count < bottom) {
@@ -1257,11 +1354,22 @@ public class PRCR_viewNedit_workentry extends javax.swing.JFrame {
     }//GEN-LAST:event_datePick1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
+        normaldayT.setText("");
+        normaldayT1.setText("");
+        OTDAYT.setText("");
+        OTNIGHTT.setText("");
         
         int PREFEREDROWS=0;
         try {
-            ResultSet query = dbm.query("SELECT * FROM prcr_checkroll_workentry where date BETWEEN '" + datechooser.Return_date(yearfield1, monthfield1, dayfield1).toString() + "' AND '" + datechooser.Return_date(yearfield2, monthfield2, dayfield2).toString()+ "'");
+            
+            ResultSet query;
+            if(divisionCB.isSelected()){
+            query = dbm.query("SELECT * FROM prcr_checkroll_workentry where division='"+division_jc.getSelectedItem().toString()+"' AND date BETWEEN '" + datechooser.Return_date(yearfield1, monthfield1, dayfield1).toString() + "' AND '" + datechooser.Return_date(yearfield2, monthfield2, dayfield2).toString()+ "'");
+            }else{
+            query = dbm.query("SELECT * FROM prcr_checkroll_workentry where date BETWEEN '" + datechooser.Return_date(yearfield1, monthfield1, dayfield1).toString() + "' AND '" + datechooser.Return_date(yearfield2, monthfield2, dayfield2).toString()+ "'");
+            
+            }
+            
             while (query.next()) {
                 PREFEREDROWS++;
             }
@@ -1313,8 +1421,28 @@ public class PRCR_viewNedit_workentry extends javax.swing.JFrame {
             }
 
         }
+        int row=0;
+        int normal=0;
+        int sunday=0;
+        double otday=0;
+        double otnight=0;
+        for(int l=0;l<PREFEREDROWS;l++){
+        if(table.getValueAt(row,2).equals("n")){
+            normal++;
+        }else{
+        sunday++;
+        }
         
-       
+        otday=otday+Double.parseDouble(table.getValueAt(row,5).toString());
+        otnight=otnight+Double.parseDouble(table.getValueAt(row,6).toString());
+        row++;
+        }
+        normaldayT.setText(normal+"");
+        normaldayT1.setText(sunday+"");
+        OTDAYT.setText(otday+"");
+        OTNIGHTT.setText(otnight+"");
+        
+           
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -1365,6 +1493,42 @@ public class PRCR_viewNedit_workentry extends javax.swing.JFrame {
         jButton1.doClick();
     }//GEN-LAST:event_deleteBActionPerformed
 
+    private void division_jcItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_division_jcItemStateChanged
+        DatabaseManager dbma = DatabaseManager.getDbCon();
+        String Name = null;
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            String item = evt.getItem().toString();
+
+            try {
+                ResultSet query = dbma.query("SELECT * FROM division_details WHERE code =" + item + "");
+                while (query.next()) {
+                    Name = query.getString("division");
+                    System.out.println(Name);
+                }
+            } catch (SQLException ex) {
+                System.out.println("error");
+            }
+
+            division_lb.setText("" + Name);
+        }
+    }//GEN-LAST:event_division_jcItemStateChanged
+
+    private void normaldayTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_normaldayTActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_normaldayTActionPerformed
+
+    private void normaldayT1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_normaldayT1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_normaldayT1ActionPerformed
+
+    private void OTNIGHTTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OTNIGHTTActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_OTNIGHTTActionPerformed
+
+    private void OTDAYTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OTDAYTActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_OTDAYTActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1401,6 +1565,8 @@ public class PRCR_viewNedit_workentry extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField OTDAYT;
+    private javax.swing.JTextField OTNIGHTT;
     private com.michaelbaranov.microba.calendar.DatePicker datePick1;
     private com.michaelbaranov.microba.calendar.DatePicker datePick2;
     private javax.swing.JPanel datepanel;
@@ -1408,14 +1574,23 @@ public class PRCR_viewNedit_workentry extends javax.swing.JFrame {
     private javax.swing.JTextField dayfield1;
     private javax.swing.JTextField dayfield2;
     private javax.swing.JButton deleteB;
+    private javax.swing.JCheckBox divisionCB;
+    private javax.swing.JComboBox division_jc;
+    private javax.swing.JLabel division_lb;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField monthfield1;
     private javax.swing.JTextField monthfield2;
+    private javax.swing.JTextField normaldayT;
+    private javax.swing.JTextField normaldayT1;
     private javax.swing.JComboBox search;
     private javax.swing.JTable table;
     private javax.swing.JTextField yearfield1;

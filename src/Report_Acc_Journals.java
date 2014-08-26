@@ -37,7 +37,7 @@ public class Report_Acc_Journals extends javax.swing.JPanel {
 
         @Override
         public void run() {
-           //  jProgressBar1.setIndeterminate(true);
+            //  jProgressBar1.setIndeterminate(true);
             // view.setEnabled(false);
             jProgressBar1.setVisible(true);
             int a = (int) (Math.random() * 500);
@@ -60,38 +60,43 @@ public class Report_Acc_Journals extends javax.swing.JPanel {
 
         @Override
         public void run() {
-           //  jProgressBar1.setIndeterminate(true);
+            //  jProgressBar1.setIndeterminate(true);
 
             Thread a = new Thread(new Background());
-            
+
             Acc_Journal_Report_Help_Database help = new Acc_Journal_Report_Help_Database();
-            
+
             help.create_database();
 
             if (!andbutton.isSelected()) {
 
                 if (field_choice1.getSelectedItem().toString() == "All") {
-                    HashMap param = new HashMap();
-                    param.put("USER", new UserAccountControl().get_current_user());
                     jProgressBar1.setValue(45);
                     jProgressBar1.repaint();
-                    String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
                     a.start();
+
+                    HashMap param = new HashMap();
+                    param.put("USER", new UserAccountControl().get_current_user());
+
+                    String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
+
                     generate.create("Account Journals", "D:\\", param, location, "Account Journal All.jrxml");
                     a.stop();
                     ;
                     jProgressBar1.setValue(100);
-                }
-                else if ( field_choice1.getSelectedItem().toString()=="Date"){
+                } else if (field_choice1.getSelectedItem().toString() == "Date") {
                     try {
-                        HashMap param = new HashMap();
-                        param.put("USER", new UserAccountControl().get_current_user());
-                        param.put("Date1", datechooser.Return_date(yearfield,monthfield,dayfield));
-                        param.put("Date2", datechooser.Return_date(yearfield2,monthfield2,dayfield2));
                         jProgressBar1.setValue(45);
                         jProgressBar1.repaint();
-                        String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
                         a.start();
+                        HashMap param = new HashMap();
+                        param.put("USER", new UserAccountControl().get_current_user());
+                        param.put("Date1", datechooser.Return_date(yearfield, monthfield, dayfield));
+                        param.put("Date2", datechooser.Return_date(yearfield2, monthfield2, dayfield2));
+                        // jProgressBar1.setValue(45);
+                        //jProgressBar1.repaint();
+                        String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
+                        // a.start();
                         generate.create("Account Journals", "D:\\", param, location, "Account Journal Date.jrxml");
                         a.stop();
                         ;
@@ -99,39 +104,42 @@ public class Report_Acc_Journals extends javax.swing.JPanel {
                     } catch (ParseException ex) {
                         Logger.getLogger(Report_Acc_Journals.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                }
-
-                else {
+                } else {
+                    jProgressBar1.setValue(45);
+                    jProgressBar1.repaint();
+                    a.start();
                     HashMap param = new HashMap();
                     param.put("USER", new UserAccountControl().get_current_user());
                     param.put("a", Return_String_Field(search.getText()));
                     param.put("b", field.getText());
-                    jProgressBar1.setValue(45);
-                    jProgressBar1.repaint();
+                    // jProgressBar1.setValue(45);
+                    // jProgressBar1.repaint();
                     String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
-                    a.start();
+                    // a.start();
                     generate.create("Account Journals", "D:\\", param, location, "Account Journal.jrxml");
                     a.stop();
                     ;
                     jProgressBar1.setValue(100);
                 }
-            }
-            else{
+            } else {
                 //////// When andbutton is not activated
-                
-                if(field_choice1.getSelectedItem().toString()=="Date"){
-                    
-                          try {
-                        HashMap param = new HashMap();
-                        param.put("USER", new UserAccountControl().get_current_user());
-                        param.put("Date1", datechooser.Return_date(yearfield,monthfield,dayfield));
-                        param.put("Date2", datechooser.Return_date(yearfield2,monthfield2,dayfield2));
-                        param.put("a", Return_String_Field(search1.getText()));
-                        param.put("b", field1.getText());
+
+                if (field_choice1.getSelectedItem().toString() == "Date") {
+
+                    try {
                         jProgressBar1.setValue(45);
                         jProgressBar1.repaint();
-                        String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
                         a.start();
+                        HashMap param = new HashMap();
+                        param.put("USER", new UserAccountControl().get_current_user());
+                        param.put("Date1", datechooser.Return_date(yearfield, monthfield, dayfield));
+                        param.put("Date2", datechooser.Return_date(yearfield2, monthfield2, dayfield2));
+                        param.put("a", Return_String_Field(search1.getText()));
+                        param.put("b", field1.getText());
+                       // jProgressBar1.setValue(45);
+                        // jProgressBar1.repaint();
+                        String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
+                        // a.start();
                         generate.create("Account Journals", "D:\\", param, location, "Account Journal AndDate.jrxml");
                         a.stop();
                         ;
@@ -139,28 +147,29 @@ public class Report_Acc_Journals extends javax.swing.JPanel {
                     } catch (ParseException ex) {
                         Logger.getLogger(Report_Acc_Journals.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    
-                }
-               
-                else{
-                    
-                     HashMap param = new HashMap();
+
+                } else {
+
+                    jProgressBar1.setValue(45);
+                    jProgressBar1.repaint();
+                    a.start();
+                    HashMap param = new HashMap();
                     param.put("USER", new UserAccountControl().get_current_user());
                     param.put("a", Return_String_Field(search.getText()));
                     param.put("b", field.getText());
                     param.put("c", Return_String_Field(search1.getText()));
                     param.put("d", field1.getText());
-                    jProgressBar1.setValue(45);
-                    jProgressBar1.repaint();
+                    // jProgressBar1.setValue(45);
+                    //jProgressBar1.repaint();
                     String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
-                    a.start();
+                    //a.start();
                     generate.create("Account Journals", "D:\\", param, location, "Account Journal AndNormal.jrxml");
                     a.stop();
                     ;
                     jProgressBar1.setValue(100);
-                    
+
                 }
-                
+
             }
         }
     }

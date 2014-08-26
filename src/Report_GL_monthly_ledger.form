@@ -38,6 +38,8 @@
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="view4" min="-2" pref="112" max="-2" attributes="0"/>
                           <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                          <Component id="route" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="Cat_code" alignment="0" min="-2" pref="106" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -46,7 +48,7 @@
                   </Group>
                   <Component id="jPanel2" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="0" pref="18" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="23" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -71,7 +73,13 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="view2" min="-2" pref="33" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jLabel1" min="-2" pref="22" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Component id="jLabel1" min="-2" pref="22" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="route" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="Cat_code" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
               <Component id="jProgressBar1" min="-2" pref="29" max="-2" attributes="0"/>
@@ -239,6 +247,25 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="For this month"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="Cat_code">
+      <Properties>
+        <Property name="editable" type="boolean" value="true"/>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="new javax.swing.DefaultComboBoxModel(dbm.getStringArray(&quot;category&quot;, &quot;category_id&quot;))" type="code"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="Cat_codeItemStateChanged"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="route">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Routewise"/>
+      </Properties>
+      <Events>
+        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="routeItemStateChanged"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

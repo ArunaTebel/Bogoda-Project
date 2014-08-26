@@ -36,6 +36,9 @@ public class Report_Acc_Ledger extends javax.swing.JPanel {
 
     }
 
+    public void start(){
+        date_check.setSelected(true);
+    }
     public class Background implements Runnable {
 
         @Override
@@ -89,6 +92,11 @@ public class Report_Acc_Ledger extends javax.swing.JPanel {
                 if (!all.isSelected()) {
 
                     if (date_check.isSelected()) {
+                        jProgressBar1.setValue(45);
+                        jProgressBar1.repaint();
+                        
+                        a.start();
+                        
                         accountCode = Integer.parseInt(account_code.getSelectedItem().toString());
 
                         account_name = dbm.checknReturnData("account_names", "account_id", accountCode, "account_name");
@@ -119,15 +127,20 @@ public class Report_Acc_Ledger extends javax.swing.JPanel {
                         param.put("To_Date", to_date);
                         param.put("Op_Bal", op_bal);
 
-                        jProgressBar1.setValue(45);
-                        jProgressBar1.repaint();
+                       // jProgressBar1.setValue(45);
+                       // jProgressBar1.repaint();
                         String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
-                        a.start();
+                       // a.start();
                         generate.create("Account Ledgers", "D:\\", param, location, "Report_ACC_LedgerAccounts.jrxml");
                         a.stop();
                         ;
                         jProgressBar1.setValue(100);
                     } else if (trans_check.isSelected()) {
+                        
+                        jProgressBar1.setValue(45);
+                        jProgressBar1.repaint();
+                        
+                        a.start();
                         accountCode = Integer.parseInt(account_code.getSelectedItem().toString());
 
                         account_name = dbm.checknReturnData("account_names", "account_id", accountCode, "account_name");
@@ -158,10 +171,10 @@ public class Report_Acc_Ledger extends javax.swing.JPanel {
                         param.put("To_Date", to_date);
                         param.put("Op_Bal", op_bal);
 
-                        jProgressBar1.setValue(45);
-                        jProgressBar1.repaint();
+                      //  jProgressBar1.setValue(45);
+                      //  jProgressBar1.repaint();
                         String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
-                        a.start();
+                      //  a.start();
                         generate.create("Account Ledgers", "D:\\", param, location, "Report_ACC_LedgerAccounts_Sort_TR.jrxml");
                         a.stop();
                         ;
@@ -170,16 +183,18 @@ public class Report_Acc_Ledger extends javax.swing.JPanel {
                 } else {
 
                     if (date_check.isSelected()) {
+                        jProgressBar1.setValue(45);
+                        jProgressBar1.repaint();
+                         a.start();
                         HashMap param = new HashMap();
                         from_date = updt.checknReturnData();
                         to_date = dt.get_today_date();
-                        a.start();
+                       
                         ledg.fill_all();
                         param.put("USER", new UserAccountControl().get_current_user());
                         param.put("From_Date", from_date);
                         param.put("To_Date", to_date);
-                        jProgressBar1.setValue(45);
-                        jProgressBar1.repaint();
+                        
                         String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
 
                         generate.create("Account Ledgers", "D:\\", param, location, "Report_ACC_LedgerAccounts_All.jrxml");
@@ -187,16 +202,18 @@ public class Report_Acc_Ledger extends javax.swing.JPanel {
                         ;
                         jProgressBar1.setValue(100);
                     } else if (trans_check.isSelected()) {
+                        jProgressBar1.setValue(45);
+                        jProgressBar1.repaint();
+                        a.start();
                         HashMap param = new HashMap();
                         from_date = updt.checknReturnData();
                         to_date = dt.get_today_date();
-                        a.start();
+                        
                         ledg.fill_all();
                         param.put("USER", new UserAccountControl().get_current_user());
                         param.put("From_Date", from_date);
                         param.put("To_Date", to_date);
-                        jProgressBar1.setValue(45);
-                        jProgressBar1.repaint();
+                        
                         String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
 
                         generate.create("Account Ledgers", "D:\\", param, location, "Report_ACC_LedgerAccounts_All_Sort_Tr.jrxml");
@@ -212,6 +229,13 @@ public class Report_Acc_Ledger extends javax.swing.JPanel {
 
                     if (date_check.isSelected()) {
                         try {
+                             jProgressBar1.setValue(45);
+                            jProgressBar1.repaint();
+                           
+                            a.start();
+                          
+                            
+                            
                             accountCode = Integer.parseInt(account_code.getSelectedItem().toString());
 
                             account_name = dbm.checknReturnData("account_names", "account_id", accountCode, "account_name");
@@ -237,10 +261,10 @@ public class Report_Acc_Ledger extends javax.swing.JPanel {
                             param.put("To_Date", to_date);
                             param.put("Op_Bal", op_bal);
 
-                            jProgressBar1.setValue(45);
-                            jProgressBar1.repaint();
+                           // jProgressBar1.setValue(45);
+                           // jProgressBar1.repaint();
                             String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
-                            a.start();
+                          //  a.start();
                             generate.create("Account Ledgers", "D:\\", param, location, "Report_ACC_LedgerAccounts.jrxml");
                             a.stop();
                             ;
@@ -250,6 +274,10 @@ public class Report_Acc_Ledger extends javax.swing.JPanel {
                         }
                     } else if (trans_check.isSelected()) {
                         try {
+                            jProgressBar1.setValue(45);
+                            jProgressBar1.repaint();
+                           
+                            a.start();
                             accountCode = Integer.parseInt(account_code.getSelectedItem().toString());
 
                             account_name = dbm.checknReturnData("account_names", "account_id", accountCode, "account_name");
@@ -275,10 +303,10 @@ public class Report_Acc_Ledger extends javax.swing.JPanel {
                             param.put("To_Date", to_date);
                             param.put("Op_Bal", op_bal);
 
-                            jProgressBar1.setValue(45);
-                            jProgressBar1.repaint();
+                          //  jProgressBar1.setValue(45);
+                          //  jProgressBar1.repaint();
                             String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
-                            a.start();
+                          //  a.start();
                             generate.create("Account Ledgers", "D:\\", param, location, "Report_ACC_LedgerAccounts_Sort_TR.jrxml");
                             a.stop();
                             ;
@@ -291,6 +319,10 @@ public class Report_Acc_Ledger extends javax.swing.JPanel {
 
                     if (date_check.isSelected()) {
                         try {
+                            jProgressBar1.setValue(45);
+                            jProgressBar1.repaint();
+                           
+                            a.start();
                             HashMap param = new HashMap();
                             to_date = dt.get_date_as_a_String(date_chooser.Return_date(yearfield2, monthfield2, dayfield2));
                             from_date = dt.get_date_as_a_String(date_chooser.Return_date(yearfield, monthfield, dayfield));
@@ -300,10 +332,10 @@ public class Report_Acc_Ledger extends javax.swing.JPanel {
                             param.put("USER", new UserAccountControl().get_current_user());
                             param.put("From_Date", from_date);
                             param.put("To_Date", to_date);
-                            jProgressBar1.setValue(45);
-                            jProgressBar1.repaint();
+                          //  jProgressBar1.setValue(45);
+                          //  jProgressBar1.repaint();
                             String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
-                            a.start();
+                          //  a.start();
                             generate.create("Account Ledgers", "D:\\", param, location, "Report_ACC_LedgerAccounts_All.jrxml");
                             a.stop();
                             ;
@@ -314,6 +346,11 @@ public class Report_Acc_Ledger extends javax.swing.JPanel {
                     }
                     else if(trans_check.isSelected()){
                         try {
+                           
+                            jProgressBar1.setValue(45);
+                            jProgressBar1.repaint();
+                           
+                            a.start();
                             HashMap param = new HashMap();
                             to_date = dt.get_date_as_a_String(date_chooser.Return_date(yearfield2, monthfield2, dayfield2));
                             from_date = dt.get_date_as_a_String(date_chooser.Return_date(yearfield, monthfield, dayfield));
@@ -323,10 +360,10 @@ public class Report_Acc_Ledger extends javax.swing.JPanel {
                             param.put("USER", new UserAccountControl().get_current_user());
                             param.put("From_Date", from_date);
                             param.put("To_Date", to_date);
-                            jProgressBar1.setValue(45);
-                            jProgressBar1.repaint();
+                            //jProgressBar1.setValue(45);
+                            //jProgressBar1.repaint();
                             String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
-                            a.start();
+                            //a.start();
                             generate.create("Account Ledgers", "D:\\", param, location, "Report_ACC_LedgerAccounts_All_Sort_Tr.jrxml");
                             a.stop();
                             ;
@@ -1627,11 +1664,17 @@ public class Report_Acc_Ledger extends javax.swing.JPanel {
         if (date_check.isSelected()) {
             trans_check.setSelected(false);
         }
+        else{
+            trans_check.setSelected(true);
+        }
     }//GEN-LAST:event_date_checkItemStateChanged
 
     private void trans_checkItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_trans_checkItemStateChanged
         if (trans_check.isSelected()) {
             date_check.setSelected(false);
+        }
+        else{
+            date_check.setSelected(true);
         }
     }//GEN-LAST:event_trans_checkItemStateChanged
 

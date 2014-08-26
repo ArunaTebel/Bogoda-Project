@@ -274,7 +274,7 @@ public String get_day(Date date) {
     }
          String set_string(){
      String X = srch.Search_para("")[1];
-     String a = (CV+"")+srch.Search_para("")[0]+dbCon.apply()[0]+srch.Search_para("")[1]+return_month_as_numS("");
+     String a = (CV+"")+srch.Search_para("")[0]+dbCon.apply()[1]+srch.Search_para("")[1]+return_month_as_numS("");
       String b =srch.Search_para("")[1]+en.check_report()[1]+srch.Search_para("")[1]+"log"+en.validate_report()[0];
      return a+b;
      }

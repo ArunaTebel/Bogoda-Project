@@ -1432,7 +1432,7 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
             empName.setText(Name);
             division.setText(division_name);
 
-            if ("FAC".equals(division_name)) {
+            if ("FAC".equals(division_name)|| "TA".equals(division_name)) {
                 fac_panel.setVisible(true);
             } else {
                 fac_panel.setVisible(false);

@@ -554,7 +554,7 @@ String adloc = dbm.checknReturnStringData("file_locations", "description", "Cash
             
             cadvance.set_amount(Double.parseDouble(table.getValueAt(rows[n] - n,5).toString()));
        
-            cadvance.set_sup_id(Integer.parseInt(table.getValueAt(rows[n] - n,4).toString()));
+            cadvance.set_sup_id(Integer.parseInt(table.getValueAt(rows[n] - n,2).toString()));
             
             cadvance.set_sup_name(table.getValueAt(rows[n] - n,5).toString());
             

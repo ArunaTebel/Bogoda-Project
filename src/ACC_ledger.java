@@ -1306,6 +1306,12 @@ public class ACC_ledger {
 
             // op_bal = Double.parseDouble(dbm.checknReturnData("account_names","account_id",account_code,"opening_balance"));
             String year = date1.substring(0, 4);
+            String month = date1.substring(5, 7);
+
+            if (Integer.parseInt(month) < 4) {
+                year = "" + (Integer.parseInt(year) - 1);
+            }
+            
             String table_name = year + "_balances";
 
             // op_bal=Double.parseDouble(dbm.checknReturnData(table_name,"account_code",account_code,"op_bal"));
@@ -1487,7 +1493,19 @@ public class ACC_ledger {
 
             // op_bal = Double.parseDouble(dbm.checknReturnData("account_names","account_id",account_code,"opening_balance"));
             String year = date1.substring(0, 4);
+            String month = date1.substring(5, 7);
+
+            if (Integer.parseInt(month) < 4) {
+                year = "" + (Integer.parseInt(year) - 1);
+            }
             String table_name = year + "_balances";
+            String year_begining = year + "-04-01";
+            java.util.Date dtYear = null;
+            try {
+                dtYear = new SimpleDateFormat("yyyy-MM-dd").parse(year_begining);
+            } catch (ParseException ex) {
+                Logger.getLogger(ACC_ledger.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
             // op_bal=Double.parseDouble(dbm.checknReturnData(table_name,"account_code",account_code,"op_bal"));
             double opd = Double.parseDouble(dbm.checknReturnData(table_name, "account_code", account_code, "op_bal_d"));
@@ -1534,7 +1552,7 @@ public class ACC_ledger {
                         Logger.getLogger(ACC_ledger.class.getName()).log(Level.SEVERE, null, ex);
                     }
 
-                    if (dtD.before(date1D)) {
+                    if (dtD.before(date1D) && dtD.after(dtYear)) {//dddf
 
                         temp = temp - query.getDouble("credit_amount");
 
@@ -1565,7 +1583,7 @@ public class ACC_ledger {
                         Logger.getLogger(ACC_ledger.class.getName()).log(Level.SEVERE, null, ex);
                     }
 
-                    if (dtD.before(date1D)) {
+                    if (dtD.before(date1D) && dtD.after(dtYear)) {
                         temp = temp + query.getDouble("debit_amount");
                     }
                 }
@@ -1594,7 +1612,7 @@ public class ACC_ledger {
                         Logger.getLogger(ACC_ledger.class.getName()).log(Level.SEVERE, null, ex);
                     }
 
-                    if (dtD.before(date1D)) {
+                    if (dtD.before(date1D) && dtD.after(dtYear)) {
                         temp = temp + query.getDouble("debit_amount");
                     }
                 }
@@ -1604,7 +1622,7 @@ public class ACC_ledger {
             }
 
             try {
-                ResultSet query = dbm.query("SELECT * FROM account_payment_creditside_all WHERE credit_account_id LIKE '" + account_code + "' AND date < '" + date1 + "'");
+                ResultSet query = dbm.query("SELECT * FROM account_payment_creditside_all WHERE credit_account_id LIKE '" + account_code + "' AND date > '" + year_begining + "' AND date < '" + date1 + "'");
                 while (query.next()) {
 
                     temp = temp - query.getDouble("credit_amount");
@@ -1616,7 +1634,7 @@ public class ACC_ledger {
 
             // Search and fill in Receipts
             try {
-                ResultSet query = dbm.query("SELECT * FROM account_reciept_debitside_all WHERE debit_account_id LIKE '" + account_code + "' AND date < '" + date1 + "'");
+                ResultSet query = dbm.query("SELECT * FROM account_reciept_debitside_all WHERE debit_account_id LIKE '" + account_code + "' AND date > '" + year_begining + "' AND  date < '" + date1 + "'");
                 while (query.next()) {
 
                     temp = temp + query.getDouble("debit_amount");
@@ -1645,7 +1663,7 @@ public class ACC_ledger {
                         Logger.getLogger(ACC_ledger.class.getName()).log(Level.SEVERE, null, ex);
                     }
 
-                    if (dtD.before(date1D)) {
+                    if (dtD.before(date1D) && dtD.after(dtYear)) {
                         temp = temp - query.getDouble("credit_amount");
                     }
                 }

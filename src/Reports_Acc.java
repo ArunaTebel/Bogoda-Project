@@ -378,6 +378,7 @@ Date_Handler date_handler = new Date_Handler();
         content.add(accr);
         validate();
         repaint();
+        accr.start();
     }//GEN-LAST:event_jButton12ActionPerformed
 
     

@@ -27,7 +27,21 @@ public class GL_report_generator {
     public GL_report_generator() {
 
     }
+    
+    public void add_to_active_list(int sup_id,  String month){
+        try {
+            dbm.insert("INSERT INTO gl_active_list values('"+sup_id+"','"+month+sup_id+"')");
+        } catch (SQLException ex) {
+            System.out.println("Duplicate");
+        }
+    
+    
+    
+    }
+    
+     public void delete_from_active_list(int sup_id,  String month){}
 
+     
     public double[] get_day_totals(int sup_id, String year, String month) //take year and month and return daily totals for the specific user 
     {
         double[] total = new double[33];

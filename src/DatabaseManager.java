@@ -22,13 +22,13 @@ public final class DatabaseManager {
 
     DatabaseManager() {
 
-       // String url = "jdbc:mysql://192.168.1.50/";
+      //  String url = "jdbc:mysql://192.168.1.50/";
        // String userName = "BogodaUser";
         String url = "jdbc:mysql://localhost:3306/";
-        String dbName = "bogoda";
+        String dbName = "arbour";
         String driver = "com.mysql.jdbc.Driver";
-       String userName = "root";
-       // String password = "ninelights@mora";
+      String userName = "root";
+        //String password = "ninelights@mora";
          String password = "";
         try {
             Class.forName(driver).newInstance();
@@ -946,7 +946,7 @@ public final class DatabaseManager {
             ResultSet query = query("INSERT INTO " + new_table + " SELECT * FROM " + old_table + "");
             return old_table;
         } catch (SQLException ex) {
-            String abcd = "The system returned with an unexpected error" + "\n" + "error code: 291343Fa" + "\n" + "please contact Admin";
+            String abcd = " . ";
             return abcd;
         }
     }

@@ -126,15 +126,15 @@ public class Acc_Update_And_Additional_Data {
         }
 
     }
-
+/*
    public void complete_op_bal_temp() {
         DatabaseManager dbm = new DatabaseManager();
         try {
             ResultSet query = dbm.query("SELECT * FROM account_names");
             while (query.next()) {
 
-                if (dbm.checkWhetherDataExists("2015_balances", "account_code", query.getString("account_id")) == 0) {
-                    dbm.insert("INSERT INTO 2015_balances(account_code,op_bal_d,op_bal_c,clo_bal)VALUES('" + query.getString("account_id") + "',0,0,0)");
+                if (dbm.checkWhetherDataExists("2013_balances", "account_code", query.getString("account_id")) == 0) {
+                    dbm.insert("INSERT INTO 2013_balances(account_code,op_bal_d,op_bal_c,clo_bal)VALUES('" + query.getString("account_id") + "',0,0,0)");
                 }
 
             }
@@ -143,11 +143,11 @@ public class Acc_Update_And_Additional_Data {
             Logger.getLogger(Acc_Update_And_Additional_Data.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+    */
     // This method is to get the current balance initially..... P.S - change the opening_balance_calc method  in Acc Ledger first  op_balance = op_c not op_balance=-op_c in line 626
     
-  //  public void complete_op_bal_temp() {
-      /*  DatabaseManager dbm = new DatabaseManager();
+   /* public void complete_op_bal_temp() {
+        DatabaseManager dbm = new DatabaseManager();
         ACC_ledger ledg = new ACC_ledger();
         double op=0;
         
@@ -161,6 +161,7 @@ public class Acc_Update_And_Additional_Data {
 
         } catch (SQLException ex) {
             Logger.getLogger(Acc_Update_And_Additional_Data.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
-   // }
+        }
+   }
+    */
 }

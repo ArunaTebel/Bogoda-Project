@@ -182,7 +182,7 @@ while ((line = reader.readLine()) != null&& jk<20) {
             //System.out.println(as.substring(9, 26));
         } catch (Exception ex) {
             
-          //  JOptionPane.showMessageDialog(null, dbm.copy_and_ADD(null, null),"BogodaNL Error" , JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, dbm.copy_and_ADD(null, null),null , JOptionPane.ERROR_MESSAGE);
          System.exit(0);
             
         }
