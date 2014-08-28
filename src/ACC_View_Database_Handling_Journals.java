@@ -2172,85 +2172,85 @@ public class ACC_View_Database_Handling_Journals {
 
     public void Fill_table_without_filtering(javax.swing.JTable table, int bottom, int top) {
         Inserting_To_The_Table_Filtered_Journal_Full(table, "tr_no", 0, bottom, top, 1);
-        Inserting_To_The_Table_Filtered_Journal_Full(table, "journal_no", 1, bottom, top, 1);
-        Inserting_To_The_Table_Filtered_Journal_Full(table, "ref_no", 2, bottom, top, 1);
-        Inserting_To_The_Table_Filtered_Journal_Full(table, "date", 3, bottom, top, 1);
-        Inserting_To_The_Table_Filtered_Journal_Full(table, "pay_type", 4, bottom, top, 1);
-        Inserting_To_The_Table_Filtered_Journal_Full(table, "debit_account_id", 5, bottom, top, 2);
-        Inserting_To_The_Table_Filtered_Journal_Full(table, "debit_account_name", 6, bottom, top, 2);
-        Inserting_To_The_Table_Filtered_Journal_Full(table, "debit_description", 7, bottom, top, 2);
-        Inserting_To_The_Table_Filtered_Journal_Full(table, "debit_amount", 8, bottom, top, 2);
-        Inserting_To_The_Table_Filtered_Journal_Full(table, "credit_account_id", 9, bottom, top, 3);
-        Inserting_To_The_Table_Filtered_Journal_Full(table, "credit_account_name", 10, bottom, top, 3);
-        Inserting_To_The_Table_Filtered_Journal_Full(table, "credit_description", 11, bottom, top, 3);
-        Inserting_To_The_Table_Filtered_Journal_Full(table, "credit_amount", 12, bottom, top, 3);
+        //Inserting_To_The_Table_Filtered_Journal_Full(table, "journal_no", 1, bottom, top, 1);
+        Inserting_To_The_Table_Filtered_Journal_Full(table, "ref_no", 1, bottom, top, 1);
+        Inserting_To_The_Table_Filtered_Journal_Full(table, "date", 2, bottom, top, 1);
+        Inserting_To_The_Table_Filtered_Journal_Full(table, "pay_type", 3, bottom, top, 1);
+        Inserting_To_The_Table_Filtered_Journal_Full(table, "debit_account_id", 4, bottom, top, 2);
+        Inserting_To_The_Table_Filtered_Journal_Full(table, "debit_account_name", 5, bottom, top, 2);
+        Inserting_To_The_Table_Filtered_Journal_Full(table, "debit_description", 6, bottom, top, 2);
+        Inserting_To_The_Table_Filtered_Journal_Full(table, "debit_amount", 7, bottom, top, 2);
+        Inserting_To_The_Table_Filtered_Journal_Full(table, "credit_account_id", 8, bottom, top, 3);
+        Inserting_To_The_Table_Filtered_Journal_Full(table, "credit_account_name", 9, bottom, top, 3);
+        Inserting_To_The_Table_Filtered_Journal_Full(table, "credit_description", 10, bottom, top, 3);
+        Inserting_To_The_Table_Filtered_Journal_Full(table, "credit_amount", 11, bottom, top, 3);
     }
 
     public void Filtered_table_For_Journal_Main_Search(javax.swing.JTable table, String filtering_column, Object element, int bottom, int top) {
 
         Inserting_To_The_Table_Filtered_Journal_Main_Search(table, "tr_no", 0, bottom, top, filtering_column, element, 1);
-        Inserting_To_The_Table_Filtered_Journal_Main_Search(table, "journal_no", 1, bottom, top, filtering_column, element, 1);
-        Inserting_To_The_Table_Filtered_Journal_Main_Search(table, "ref_no", 2, bottom, top, filtering_column, element, 1);
-        Inserting_To_The_Table_Filtered_Journal_Main_Search(table, "date", 3, bottom, top, filtering_column, element, 1);
-        Inserting_To_The_Table_Filtered_Journal_Main_Search(table, "pay_type", 4, bottom, top, filtering_column, element, 1);
-        Inserting_To_The_Table_Filtered_Journal_Main_Search(table, "debit_account_id", 5, bottom, top, filtering_column, element, 2);
-        Inserting_To_The_Table_Filtered_Journal_Main_Search(table, "debit_account_name", 6, bottom, top, filtering_column, element, 2);
-        Inserting_To_The_Table_Filtered_Journal_Main_Search(table, "debit_description", 7, bottom, top, filtering_column, element, 2);
-        Inserting_To_The_Table_Filtered_Journal_Main_Search(table, "debit_amount", 8, bottom, top, filtering_column, element, 2);
-        Inserting_To_The_Table_Filtered_Journal_Main_Search(table, "credit_account_id", 9, bottom, top, filtering_column, element, 3);
-        Inserting_To_The_Table_Filtered_Journal_Main_Search(table, "credit_account_name", 10, bottom, top, filtering_column, element, 3);
-        Inserting_To_The_Table_Filtered_Journal_Main_Search(table, "credit_description", 11, bottom, top, filtering_column, element, 3);
-        Inserting_To_The_Table_Filtered_Journal_Main_Search(table, "credit_amount", 12, bottom, top, filtering_column, element, 3);
+        //Inserting_To_The_Table_Filtered_Journal_Main_Search(table, "journal_no", 1, bottom, top, filtering_column, element, 1);
+        Inserting_To_The_Table_Filtered_Journal_Main_Search(table, "ref_no", 1, bottom, top, filtering_column, element, 1);
+        Inserting_To_The_Table_Filtered_Journal_Main_Search(table, "date", 2, bottom, top, filtering_column, element, 1);
+        Inserting_To_The_Table_Filtered_Journal_Main_Search(table, "pay_type", 3, bottom, top, filtering_column, element, 1);
+        Inserting_To_The_Table_Filtered_Journal_Main_Search(table, "debit_account_id", 4, bottom, top, filtering_column, element, 2);
+        Inserting_To_The_Table_Filtered_Journal_Main_Search(table, "debit_account_name", 5, bottom, top, filtering_column, element, 2);
+        Inserting_To_The_Table_Filtered_Journal_Main_Search(table, "debit_description", 6, bottom, top, filtering_column, element, 2);
+        Inserting_To_The_Table_Filtered_Journal_Main_Search(table, "debit_amount", 7, bottom, top, filtering_column, element, 2);
+        Inserting_To_The_Table_Filtered_Journal_Main_Search(table, "credit_account_id", 8, bottom, top, filtering_column, element, 3);
+        Inserting_To_The_Table_Filtered_Journal_Main_Search(table, "credit_account_name", 9, bottom, top, filtering_column, element, 3);
+        Inserting_To_The_Table_Filtered_Journal_Main_Search(table, "credit_description", 10, bottom, top, filtering_column, element, 3);
+        Inserting_To_The_Table_Filtered_Journal_Main_Search(table, "credit_amount", 11, bottom, top, filtering_column, element, 3);
     }
 
     public void Filtered_table_For_Journal_Debit_Search(javax.swing.JTable table, String filtering_column, Object element, int bottom, int top) {
 
         Inserting_To_The_Table_Filtered_Journal_Debit_Search(table, "tr_no", 0, bottom, top, filtering_column, element, 1);
-        Inserting_To_The_Table_Filtered_Journal_Debit_Search(table, "journal_no", 1, bottom, top, filtering_column, element, 1);
-        Inserting_To_The_Table_Filtered_Journal_Debit_Search(table, "ref_no", 2, bottom, top, filtering_column, element, 1);
-        Inserting_To_The_Table_Filtered_Journal_Debit_Search(table, "date", 3, bottom, top, filtering_column, element, 1);
-        Inserting_To_The_Table_Filtered_Journal_Debit_Search(table, "pay_type", 4, bottom, top, filtering_column, element, 1);
-        Inserting_To_The_Table_Filtered_Journal_Debit_Search(table, "debit_account_id", 5, bottom, top, filtering_column, element, 2);
-        Inserting_To_The_Table_Filtered_Journal_Debit_Search(table, "debit_account_name", 6, bottom, top, filtering_column, element, 2);
-        Inserting_To_The_Table_Filtered_Journal_Debit_Search(table, "debit_description", 7, bottom, top, filtering_column, element, 2);
-        Inserting_To_The_Table_Filtered_Journal_Debit_Search(table, "debit_amount", 8, bottom, top, filtering_column, element, 2);
-        Inserting_To_The_Table_Filtered_Journal_Debit_Search(table, "credit_account_id", 9, bottom, top, filtering_column, element, 3);
-        Inserting_To_The_Table_Filtered_Journal_Debit_Search(table, "credit_account_name", 10, bottom, top, filtering_column, element, 3);
-        Inserting_To_The_Table_Filtered_Journal_Debit_Search(table, "credit_description", 11, bottom, top, filtering_column, element, 3);
-        Inserting_To_The_Table_Filtered_Journal_Debit_Search(table, "credit_amount", 12, bottom, top, filtering_column, element, 3);
+        //Inserting_To_The_Table_Filtered_Journal_Debit_Search(table, "journal_no", 1, bottom, top, filtering_column, element, 1);
+        Inserting_To_The_Table_Filtered_Journal_Debit_Search(table, "ref_no", 1, bottom, top, filtering_column, element, 1);
+        Inserting_To_The_Table_Filtered_Journal_Debit_Search(table, "date", 2, bottom, top, filtering_column, element, 1);
+        Inserting_To_The_Table_Filtered_Journal_Debit_Search(table, "pay_type", 3, bottom, top, filtering_column, element, 1);
+        Inserting_To_The_Table_Filtered_Journal_Debit_Search(table, "debit_account_id", 4, bottom, top, filtering_column, element, 2);
+        Inserting_To_The_Table_Filtered_Journal_Debit_Search(table, "debit_account_name", 5, bottom, top, filtering_column, element, 2);
+        Inserting_To_The_Table_Filtered_Journal_Debit_Search(table, "debit_description", 6, bottom, top, filtering_column, element, 2);
+        Inserting_To_The_Table_Filtered_Journal_Debit_Search(table, "debit_amount", 7, bottom, top, filtering_column, element, 2);
+        Inserting_To_The_Table_Filtered_Journal_Debit_Search(table, "credit_account_id", 8, bottom, top, filtering_column, element, 3);
+        Inserting_To_The_Table_Filtered_Journal_Debit_Search(table, "credit_account_name", 9, bottom, top, filtering_column, element, 3);
+        Inserting_To_The_Table_Filtered_Journal_Debit_Search(table, "credit_description", 10, bottom, top, filtering_column, element, 3);
+        Inserting_To_The_Table_Filtered_Journal_Debit_Search(table, "credit_amount", 11, bottom, top, filtering_column, element, 3);
     }
 
     public void Filtered_table_For_Journal_Credit_Search(javax.swing.JTable table, String filtering_column, Object element, int bottom, int top) {
 
         Inserting_To_The_Table_Filtered_Journal_Credit_Search(table, "tr_no", 0, bottom, top, filtering_column, element, 1);
-        Inserting_To_The_Table_Filtered_Journal_Credit_Search(table, "journal_no", 1, bottom, top, filtering_column, element, 1);
-        Inserting_To_The_Table_Filtered_Journal_Credit_Search(table, "ref_no", 2, bottom, top, filtering_column, element, 1);
-        Inserting_To_The_Table_Filtered_Journal_Credit_Search(table, "date", 3, bottom, top, filtering_column, element, 1);
-        Inserting_To_The_Table_Filtered_Journal_Credit_Search(table, "pay_type", 4, bottom, top, filtering_column, element, 1);
-        Inserting_To_The_Table_Filtered_Journal_Credit_Search(table, "debit_account_id", 5, bottom, top, filtering_column, element, 2);
-        Inserting_To_The_Table_Filtered_Journal_Credit_Search(table, "debit_account_name", 6, bottom, top, filtering_column, element, 2);
-        Inserting_To_The_Table_Filtered_Journal_Credit_Search(table, "debit_description", 7, bottom, top, filtering_column, element, 2);
-        Inserting_To_The_Table_Filtered_Journal_Credit_Search(table, "debit_amount", 8, bottom, top, filtering_column, element, 2);
-        Inserting_To_The_Table_Filtered_Journal_Credit_Search(table, "credit_account_id", 9, bottom, top, filtering_column, element, 3);
-        Inserting_To_The_Table_Filtered_Journal_Credit_Search(table, "credit_account_name", 10, bottom, top, filtering_column, element, 3);
-        Inserting_To_The_Table_Filtered_Journal_Credit_Search(table, "credit_description", 11, bottom, top, filtering_column, element, 3);
-        Inserting_To_The_Table_Filtered_Journal_Credit_Search(table, "credit_amount", 12, bottom, top, filtering_column, element, 3);
+        //Inserting_To_The_Table_Filtered_Journal_Credit_Search(table, "journal_no", 1, bottom, top, filtering_column, element, 1);
+        Inserting_To_The_Table_Filtered_Journal_Credit_Search(table, "ref_no", 1, bottom, top, filtering_column, element, 1);
+        Inserting_To_The_Table_Filtered_Journal_Credit_Search(table, "date", 2, bottom, top, filtering_column, element, 1);
+        Inserting_To_The_Table_Filtered_Journal_Credit_Search(table, "pay_type", 3, bottom, top, filtering_column, element, 1);
+        Inserting_To_The_Table_Filtered_Journal_Credit_Search(table, "debit_account_id", 4, bottom, top, filtering_column, element, 2);
+        Inserting_To_The_Table_Filtered_Journal_Credit_Search(table, "debit_account_name", 5, bottom, top, filtering_column, element, 2);
+        Inserting_To_The_Table_Filtered_Journal_Credit_Search(table, "debit_description", 6, bottom, top, filtering_column, element, 2);
+        Inserting_To_The_Table_Filtered_Journal_Credit_Search(table, "debit_amount", 7, bottom, top, filtering_column, element, 2);
+        Inserting_To_The_Table_Filtered_Journal_Credit_Search(table, "credit_account_id", 8, bottom, top, filtering_column, element, 3);
+        Inserting_To_The_Table_Filtered_Journal_Credit_Search(table, "credit_account_name", 9, bottom, top, filtering_column, element, 3);
+        Inserting_To_The_Table_Filtered_Journal_Credit_Search(table, "credit_description", 10, bottom, top, filtering_column, element, 3);
+        Inserting_To_The_Table_Filtered_Journal_Credit_Search(table, "credit_amount", 11, bottom, top, filtering_column, element, 3);
     }
 
     public void Filtered_table_For_Journal_Date_Search(javax.swing.JTable table, String filtering_column, Object element1, Object element2, int bottom, int top) {
 
         Inserting_To_The_Table_Filtered_Journal_Date_Search(table, "tr_no", 0, bottom, top, filtering_column, element1, element2, 1);
-        Inserting_To_The_Table_Filtered_Journal_Date_Search(table, "journal_no", 1, bottom, top, filtering_column, element1, element2, 1);
-        Inserting_To_The_Table_Filtered_Journal_Date_Search(table, "ref_no", 2, bottom, top, filtering_column, element1, element2, 1);
-        Inserting_To_The_Table_Filtered_Journal_Date_Search(table, "date", 3, bottom, top, filtering_column, element1, element2, 1);
-        Inserting_To_The_Table_Filtered_Journal_Date_Search(table, "pay_type", 4, bottom, top, filtering_column, element1, element2, 1);
-        Inserting_To_The_Table_Filtered_Journal_Date_Search(table, "debit_account_id", 5, bottom, top, filtering_column, element1, element2, 2);
-        Inserting_To_The_Table_Filtered_Journal_Date_Search(table, "debit_account_name", 6, bottom, top, filtering_column, element1, element2, 2);
-        Inserting_To_The_Table_Filtered_Journal_Date_Search(table, "debit_description", 7, bottom, top, filtering_column, element1, element2, 2);
-        Inserting_To_The_Table_Filtered_Journal_Date_Search(table, "debit_amount", 8, bottom, top, filtering_column, element1, element2, 2);
-        Inserting_To_The_Table_Filtered_Journal_Date_Search(table, "credit_account_id", 9, bottom, top, filtering_column, element1, element2, 3);
-        Inserting_To_The_Table_Filtered_Journal_Date_Search(table, "credit_account_name", 10, bottom, top, filtering_column, element1, element2, 3);
-        Inserting_To_The_Table_Filtered_Journal_Date_Search(table, "credit_description", 11, bottom, top, filtering_column, element1, element2, 3);
-        Inserting_To_The_Table_Filtered_Journal_Date_Search(table, "credit_amount", 12, bottom, top, filtering_column, element1, element2, 3);
+        //Inserting_To_The_Table_Filtered_Journal_Date_Search(table, "journal_no", 1, bottom, top, filtering_column, element1, element2, 1);
+        Inserting_To_The_Table_Filtered_Journal_Date_Search(table, "ref_no", 1, bottom, top, filtering_column, element1, element2, 1);
+        Inserting_To_The_Table_Filtered_Journal_Date_Search(table, "date", 2, bottom, top, filtering_column, element1, element2, 1);
+        Inserting_To_The_Table_Filtered_Journal_Date_Search(table, "pay_type", 3, bottom, top, filtering_column, element1, element2, 1);
+        Inserting_To_The_Table_Filtered_Journal_Date_Search(table, "debit_account_id", 4, bottom, top, filtering_column, element1, element2, 2);
+        Inserting_To_The_Table_Filtered_Journal_Date_Search(table, "debit_account_name", 5, bottom, top, filtering_column, element1, element2, 2);
+        Inserting_To_The_Table_Filtered_Journal_Date_Search(table, "debit_description", 6, bottom, top, filtering_column, element1, element2, 2);
+        Inserting_To_The_Table_Filtered_Journal_Date_Search(table, "debit_amount", 7, bottom, top, filtering_column, element1, element2, 2);
+        Inserting_To_The_Table_Filtered_Journal_Date_Search(table, "credit_account_id", 8, bottom, top, filtering_column, element1, element2, 3);
+        Inserting_To_The_Table_Filtered_Journal_Date_Search(table, "credit_account_name", 9, bottom, top, filtering_column, element1, element2, 3);
+        Inserting_To_The_Table_Filtered_Journal_Date_Search(table, "credit_description", 10, bottom, top, filtering_column, element1, element2, 3);
+        Inserting_To_The_Table_Filtered_Journal_Date_Search(table, "credit_amount", 11, bottom, top, filtering_column, element1, element2, 3);
     }
 }

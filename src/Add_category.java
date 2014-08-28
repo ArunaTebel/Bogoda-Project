@@ -17,7 +17,7 @@ public class Add_category extends javax.swing.JPanel {
      * Creates new form Add_category
      */
     Category cobject =new Category();
-    DatabaseManager dbm = new DatabaseManager();
+    DatabaseManager dbm = DatabaseManager.getDbCon();
     public Add_category() {
         initComponents();
     }

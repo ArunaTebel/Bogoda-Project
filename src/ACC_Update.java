@@ -37,6 +37,28 @@ public class ACC_Update extends javax.swing.JPanel {
         }
 
     }
+    
+    // If this method doesn't work copy the above method body to this
+    public String checknReturnDataN() {
+        DatabaseManager dbm = DatabaseManager.getDbCon();
+        String year_month=null;
+        try {
+            ResultSet query = dbm.query("SELECT * FROM acc_current_period");
+            while (query.next()) {
+                year_month=query.getString("period");
+            }
+            if(year_month.equals("Previous")){
+                return "2013-04-01";
+            }
+            else{
+            return year_month.substring(0,4)+"-04-01";
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            return "" + ex.getErrorCode();
+        }
+
+    }
 
     public ACC_Update() {
         initComponents();
@@ -313,7 +335,7 @@ public class ACC_Update extends javax.swing.JPanel {
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         Acc_Update_And_Additional_Data up = new Acc_Update_And_Additional_Data();
-      //  up.complete_op_bal_temp();
+        up.complete_op_bal_temp();
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void monthfieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_monthfieldKeyPressed

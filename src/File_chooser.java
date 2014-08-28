@@ -25,7 +25,7 @@ public class File_chooser extends javax.swing.JPanel {
         
     }
     
-    DatabaseManager dbm = new DatabaseManager();
+    DatabaseManager dbm =DatabaseManager.getDbCon();
 
     /**
      * This method is called from within the constructor to initialize the form.

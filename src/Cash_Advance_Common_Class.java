@@ -9,7 +9,7 @@ public class Cash_Advance_Common_Class {
 
     UserAccountControl UserAC = new UserAccountControl();
     Date_Handler date_handler = new Date_Handler();
-    DatabaseManager dbm = new DatabaseManager();
+    DatabaseManager dbm = DatabaseManager.getDbCon();
     int sup_id, bank;
     String sup_name, emrg, ref_no, cheque, date_time, special_permission;
     double max_allowable;

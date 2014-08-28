@@ -85,11 +85,9 @@ public class ACC_Edit_journals1 extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         pay_type = new javax.swing.JComboBox();
         ref_no = new javax.swing.JTextField();
-        journal_no = new javax.swing.JTextField();
         datepanel = new javax.swing.JPanel();
         monthfield = new javax.swing.JTextField();
         yearfield = new javax.swing.JTextField();
@@ -157,8 +155,6 @@ public class ACC_Edit_journals1 extends javax.swing.JFrame {
 
         jLabel2.setText("Date");
 
-        jLabel3.setText("Journal No:");
-
         jLabel4.setText("Pay Type");
 
         pay_type.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Cash", "Cheque" }));
@@ -181,12 +177,6 @@ public class ACC_Edit_journals1 extends javax.swing.JFrame {
         ref_no.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 ref_noKeyPressed(evt);
-            }
-        });
-
-        journal_no.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                journal_noKeyPressed(evt);
             }
         });
 
@@ -253,15 +243,9 @@ public class ACC_Edit_journals1 extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(journal_no, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ref_no, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ref_no, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -286,14 +270,10 @@ public class ACC_Edit_journals1 extends javax.swing.JFrame {
                             .addComponent(ref_no, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel4)
-                        .addComponent(pay_type, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel3)
-                        .addComponent(journal_no, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(pay_type, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 102, 0), 2, true), "CREDIT"));
@@ -401,7 +381,7 @@ public class ACC_Edit_journals1 extends javax.swing.JFrame {
         jLabel14.setText("Total");
 
         credit_account_name.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        credit_account_name.setForeground(new java.awt.Color(153, 153, 153));
+        credit_account_name.setForeground(new java.awt.Color(255, 0, 102));
         credit_account_name.setText("Account name here");
 
         send2.setText("Send");
@@ -732,7 +712,7 @@ public class ACC_Edit_journals1 extends javax.swing.JFrame {
         jLabel16.setText("Total");
 
         debit_account_name.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        debit_account_name.setForeground(new java.awt.Color(153, 153, 153));
+        debit_account_name.setForeground(new java.awt.Color(255, 0, 102));
         debit_account_name.setText("Account name here");
 
         send.setText("Send");
@@ -779,28 +759,26 @@ public class ACC_Edit_journals1 extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(debit_account_code, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                                .addComponent(jButton5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                             .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jButton5, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(jPanel5Layout.createSequentialGroup()
-                                    .addComponent(jButton9)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel16)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(debit_total, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                                    .addComponent(debit_description, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(0, 0, 0)
-                                    .addComponent(debit_amount, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addComponent(jButton9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel16)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(debit_total, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                                .addComponent(debit_description, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, 0)
+                                .addComponent(debit_amount, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(debit_account_name, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -942,7 +920,7 @@ public class ACC_Edit_journals1 extends javax.swing.JFrame {
             if (current.equals(given_period)) {
 
                 ref_no.setText(dbm.checknReturnStringDataReceipts("account_journal_main", "tr_no", tr_no, "ref_no"));
-                journal_no.setText(dbm.checknReturnStringDataReceipts("account_journal_main", "tr_no", tr_no, "journal_no"));
+               // journal_no.setText(dbm.checknReturnStringDataReceipts("account_journal_main", "tr_no", tr_no, "journal_no"));
                 pay_type.setSelectedItem(dbm.checknReturnStringDataReceipts("account_journal_main", "tr_no", tr_no, "pay_type"));
                 if ("Cheque".equals(dbm.checknReturnStringDataReceipts("account_journal_main", "tr_no", tr_no, "pay_type"))) {
                     bank_code.setSelectedItem(dbm.checknReturnStringDataReceipts("account_journal_main", "tr_no", tr_no, "bank_id"));
@@ -959,7 +937,7 @@ public class ACC_Edit_journals1 extends javax.swing.JFrame {
                 dayfield.setText("" + Integer.parseInt(s[2]));
             } else {
                 ref_no.setText(dbm.checknReturnStringDataReceipts("account_journal_main_all", "tr_no", tr_no, "ref_no"));
-                journal_no.setText(dbm.checknReturnStringDataReceipts("account_journal_main_all", "tr_no", tr_no, "journal_no"));
+                //journal_no.setText(dbm.checknReturnStringDataReceipts("account_journal_main_all", "tr_no", tr_no, "journal_no"));
                 pay_type.setSelectedItem(dbm.checknReturnStringDataReceipts("account_journal_main_all", "tr_no", tr_no, "pay_type"));
                 if ("Cheque".equals(dbm.checknReturnStringDataReceipts("account_journal_main_all", "tr_no", tr_no, "pay_type"))) {
                     bank_code.setSelectedItem(dbm.checknReturnStringDataReceipts("account_journal_main_all", "tr_no", tr_no, "bank_id"));
@@ -1128,10 +1106,6 @@ public class ACC_Edit_journals1 extends javax.swing.JFrame {
         interface_events.Change_focus_Enterkey_t(dayfield, evt);
     }//GEN-LAST:event_ref_noKeyPressed
 
-    private void journal_noKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_journal_noKeyPressed
-        interface_events.Change_focus_Enterkey_c(pay_type, evt);
-    }//GEN-LAST:event_journal_noKeyPressed
-
     private void monthfieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_monthfieldKeyPressed
         if (monthfield.getText().equals("Jan")) {
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
@@ -1292,7 +1266,7 @@ public class ACC_Edit_journals1 extends javax.swing.JFrame {
         }
 
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
-            journal_no.requestFocus();
+            pay_type.requestFocus();
 
         }
     }//GEN-LAST:event_monthfieldKeyPressed
@@ -1312,7 +1286,7 @@ public class ACC_Edit_journals1 extends javax.swing.JFrame {
         }
 
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
-            journal_no.requestFocus();
+            pay_type.requestFocus();
 
         }
     }//GEN-LAST:event_yearfieldKeyPressed
@@ -1481,7 +1455,7 @@ public class ACC_Edit_journals1 extends javax.swing.JFrame {
         }
 
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
-            journal_no.requestFocus();
+            pay_type.requestFocus();
 
         }
     }//GEN-LAST:event_dayfieldKeyPressed
@@ -1492,7 +1466,7 @@ public class ACC_Edit_journals1 extends javax.swing.JFrame {
         dayfield.setText("" + Integer.parseInt(datehandler.get_day(datef)));
         monthfield.setText(datehandler.get_month(datef));
         yearfield.setText(datehandler.get_year(datef));
-        journal_no.requestFocus();
+        pay_type.requestFocus();
 
     }//GEN-LAST:event_datePicker1ActionPerformed
 
@@ -1587,7 +1561,7 @@ public class ACC_Edit_journals1 extends javax.swing.JFrame {
 
         if (Double.parseDouble(difference.getText()) == 0) {
 
-            if (ref_no.getText().length() != 0 && journal_no.getText().length() != 0 && debit_account_code_table.getValueAt(0, 0) != null && credit_account_code_table.getValueAt(0, 0) != null) {
+            if (ref_no.getText().length() != 0 && debit_account_code_table.getValueAt(0, 0) != null && credit_account_code_table.getValueAt(0, 0) != null) {
                 save.setEnabled(true);
                 save.requestFocus();
 
@@ -1695,7 +1669,7 @@ public class ACC_Edit_journals1 extends javax.swing.JFrame {
 
                     boolean addToMainJournalDataBase = false;
                     jaobject.setRefNo(ref_no.getText());
-                    jaobject.setJournalNo(journal_no.getText());
+                    //jaobject.setJournalNo(journal_no.getText());
                     jaobject.setDate(datechooser.Return_date(yearfield, monthfield, dayfield));
 
                     jaobject.setPayType(pay_type.getSelectedItem().toString());
@@ -1807,7 +1781,7 @@ public class ACC_Edit_journals1 extends javax.swing.JFrame {
                         }
 
                         ref_no.setText(null);
-                        journal_no.setText(null);
+                        //journal_no.setText(null);
                         pay_type.setSelectedIndex(0);
                         bank_code.setSelectedIndex(0);
                         branch_code.setSelectedIndex(0);
@@ -1878,7 +1852,7 @@ public class ACC_Edit_journals1 extends javax.swing.JFrame {
 
                     boolean addToMainJournalDataBaseall = false;
                     jaobject.setRefNo(ref_no.getText());
-                    jaobject.setJournalNo(journal_no.getText());
+                    //jaobject.setJournalNo(journal_no.getText());
                     jaobject.setDate(datechooser.Return_date(yearfield, monthfield, dayfield));
 
                     jaobject.setPayType(pay_type.getSelectedItem().toString());
@@ -1990,7 +1964,7 @@ public class ACC_Edit_journals1 extends javax.swing.JFrame {
                          }*/
                     }
                     ref_no.setText(null);
-                    journal_no.setText(null);
+                    //journal_no.setText(null);
                     pay_type.setSelectedIndex(0);
                     bank_code.setSelectedIndex(0);
                     branch_code.setSelectedIndex(0);
@@ -2199,7 +2173,7 @@ public class ACC_Edit_journals1 extends javax.swing.JFrame {
                 }
 
                 ref_no.setText(null);
-                journal_no.setText(null);
+                //journal_no.setText(null);
                 pay_type.setSelectedIndex(0);
                 bank_code.setSelectedIndex(0);
                 branch_code.setSelectedIndex(0);
@@ -2251,7 +2225,7 @@ public class ACC_Edit_journals1 extends javax.swing.JFrame {
                 dbm.CheckNDeleteFromDataBase("account_journal_creditside_all", "tr_no", tr_no);
 
                 ref_no.setText(null);
-                journal_no.setText(null);
+                //journal_no.setText(null);
                 pay_type.setSelectedIndex(0);
                 bank_code.setSelectedIndex(0);
                 branch_code.setSelectedIndex(0);
@@ -2373,7 +2347,6 @@ public class ACC_Edit_journals1 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
@@ -2390,7 +2363,6 @@ public class ACC_Edit_journals1 extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTextField journal_no;
     private javax.swing.JTextField monthfield;
     private javax.swing.JComboBox pay_type;
     private javax.swing.JTextField ref_no;

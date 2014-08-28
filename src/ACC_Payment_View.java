@@ -338,7 +338,7 @@ public class ACC_Payment_View extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        field_choice.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " ", "All", "Transaction No.", "Date", "Receipt No.", "Reference No.", "Debit Account ID", "Debit Description", "Debit Amount", "Credit Account ID", "Credit Description", "Credit Amount" }));
+        field_choice.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "All", "Transaction No.", "Date", "Reference No.", "Debit Account ID", "Debit Description", "Debit Amount", "Credit Account ID", "Credit Description", "Credit Amount" }));
         field_choice.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 field_choiceItemStateChanged(evt);

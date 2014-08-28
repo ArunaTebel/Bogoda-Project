@@ -251,13 +251,6 @@ ORDER BY
 				<reportElement x="1" y="33" width="571" height="1" uuid="8b820536-4e3c-4646-9176-72c78990b115"/>
 			</line>
 			<staticText>
-				<reportElement x="0" y="5" width="33" height="28" uuid="026c51a7-dbb5-4ea2-821b-605ab31f68c6"/>
-				<textElement textAlignment="Center">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Entry No.]]></text>
-			</staticText>
-			<staticText>
 				<reportElement x="239" y="5" width="69" height="20" uuid="2bd91a99-d742-470d-98a2-d71ccfd00f08"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
@@ -272,7 +265,7 @@ ORDER BY
 				<text><![CDATA[Normalday(n) or Sunday]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="34" y="5" width="74" height="20" uuid="f7b67565-1a58-4114-9728-eeac09f1abf6"/>
+				<reportElement x="2" y="5" width="92" height="20" uuid="f7b67565-1a58-4114-9728-eeac09f1abf6"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
@@ -317,12 +310,7 @@ ORDER BY
 	</columnHeader>
 	<detail>
 		<band height="23" splitType="Stretch">
-			<textField>
-				<reportElement x="2" y="0" width="33" height="20" uuid="e3e7ed1e-db71-4110-8dfc-00ab3c17fb3c"/>
-				<textElement textAlignment="Center"/>
-				<textFieldExpression><![CDATA[$F{prcr_checkroll_workentry_entry}]]></textFieldExpression>
-			</textField>
-			<textField>
+			<textField pattern="yyyy/MM/dd">
 				<reportElement x="240" y="0" width="68" height="20" uuid="61599965-88e3-4478-b4a2-6190f7706d27"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_workentry_date}]]></textFieldExpression>
@@ -333,7 +321,7 @@ ORDER BY
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_workentry_normalday_or_sunday}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="34" y="0" width="75" height="20" uuid="de17cc47-5616-4891-8fd2-474f6e3a4779"/>
+				<reportElement x="1" y="0" width="93" height="20" uuid="de17cc47-5616-4891-8fd2-474f6e3a4779"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_workentry_emp_code}]]></textFieldExpression>
 			</textField>

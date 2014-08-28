@@ -9,7 +9,7 @@
  * @author Pramo
  */
 public class Update {
-    DatabaseManager dbm = new DatabaseManager();
+    DatabaseManager dbm = DatabaseManager.getDbCon();
     Date_Handler datehandler = new Date_Handler();
     public Update(){}
     

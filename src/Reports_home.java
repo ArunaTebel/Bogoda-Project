@@ -21,7 +21,7 @@ public class Reports_home extends javax.swing.JPanel {
         initComponents();
     }
 Report_gen generate = new Report_gen();
-DatabaseManager dbm = new DatabaseManager();
+DatabaseManager dbm =  DatabaseManager.getDbCon();
         
     /**
      * This method is called from within the constructor to initialize the form.

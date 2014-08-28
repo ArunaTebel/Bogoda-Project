@@ -17,7 +17,7 @@ public class PRCRWelfareWork {
     DatabaseManager dbm;
     
     public PRCRWelfareWork(){
-        this.dbm = new DatabaseManager();
+        this.dbm =  DatabaseManager.getDbCon();
     }
     
     public String getMonth(){

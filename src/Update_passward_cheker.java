@@ -94,7 +94,7 @@ public class Update_passward_cheker extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       DatabaseManager dbm = new DatabaseManager();
+       DatabaseManager dbm = DatabaseManager.getDbCon();
         String user;
         user = dbm.checknReturnData("user_data", "user_name", jTextField1.getText(), "pwd");
         String type = dbm.checknReturnData("user_data", "user_name", jTextField1.getText(), "admin");

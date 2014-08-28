@@ -27,7 +27,7 @@ public class GL_Loans extends javax.swing.JPanel {
 
     DateChooser_text datechooser = new DateChooser_text();
     Date_Handler datehandler = new Date_Handler();
-    DatabaseManager dbm = new DatabaseManager();
+    DatabaseManager dbm = DatabaseManager.getDbCon();
     GL_Billsummerycls bill = new GL_Billsummerycls();
     Update update = new Update();
             
@@ -68,6 +68,32 @@ public class GL_Loans extends javax.swing.JPanel {
         
         GL_Billsummerycls gl = new GL_Billsummerycls();
         return Double.parseDouble(gl.two_dec_places(""+((amount-repay*(month-1))*int_rate/100+repay)));
+    }
+     
+       public int days_for_month(int month){
+        if(month==1 || month == 3 || month ==5 || month==7 || month==8 || month==10 || month ==12){
+            return 31;
+        }
+        else if(month==2){
+            return 28;
+        }
+        else{
+            return 30;
+        }
+    }
+    
+     private double instalment_for_the_month_by_date(double amount,double int_rate,int instalments,int month,int taken_date,int act_month){
+        double repay = amount/instalments;
+        double taken_dt = taken_date;
+        double days_fr_act_mnth = days_for_month(act_month);
+        
+        GL_Billsummerycls gl = new GL_Billsummerycls();
+        if(month==1){
+            return Double.parseDouble(gl.two_dec_places(""+((amount)*int_rate*((days_fr_act_mnth-taken_dt)/days_fr_act_mnth)/100+repay)));
+        }
+        else{
+        return Double.parseDouble(gl.two_dec_places(""+((amount-repay*(month-1))*int_rate/100+repay)));
+        }
     }
 
 
@@ -816,7 +842,7 @@ public class GL_Loans extends javax.swing.JPanel {
                 double[] monthlyPay = new double[installments];
                 
                 for(int i=0;i<installments;i++){
-                    monthlyPay[i]=instalment_for_the_month(amount, rate, installments, i+1);
+                    monthlyPay[i]=instalment_for_the_month_by_date(amount, rate, installments, i+1,Integer.parseInt(dayfield.getText()),dt.return_index(monthfield.getText()));
                 }
                 int i;
                 int monthNum = Integer.parseInt(month);
@@ -1315,7 +1341,7 @@ public class GL_Loans extends javax.swing.JPanel {
          bill.setVisible(true);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
-
+ Date_Handler dt = new Date_Handler();
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
 
         schedule.setText(null);
@@ -1325,11 +1351,12 @@ public class GL_Loans extends javax.swing.JPanel {
         double int_rate = Double.parseDouble(rateField.getText());
         double amount = Double.parseDouble(amountField.getText());
 
-        Date_Handler dt = new Date_Handler();
+       
 
         for(i=0;i<instalments;i++){
 
-            schedule.setText(schedule.getText()+"\n"+(dt.forwad_months(yearfield.getText(),dt.return_month_as_num(monthfield.getText()), i))+"  -  "+instalment_for_the_month(amount, int_rate, instalments, i+1));
+          //  schedule.setText(schedule.getText()+"\n"+(dt.forwad_months(yearfield.getText(),dt.return_month_as_num(monthfield.getText()), i))+"  -  "+instalment_for_the_month(amount, int_rate, instalments, i+1));
+                        schedule.setText(schedule.getText()+"\n"+(dt.forwad_months(yearfield.getText(),dt.return_month_as_num(monthfield.getText()), i))+"  -  "+instalment_for_the_month_by_date(amount, int_rate, instalments, i+1,Integer.parseInt(dayfield.getText()),dt.return_index(monthfield.getText())));
 
         }
     }//GEN-LAST:event_jButton8ActionPerformed

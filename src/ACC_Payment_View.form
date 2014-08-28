@@ -458,19 +458,17 @@
             <Component class="javax.swing.JComboBox" name="field_choice">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="12">
-                    <StringItem index="0" value=" "/>
-                    <StringItem index="1" value="All"/>
-                    <StringItem index="2" value="Transaction No."/>
-                    <StringItem index="3" value="Date"/>
-                    <StringItem index="4" value="Receipt No."/>
-                    <StringItem index="5" value="Reference No."/>
-                    <StringItem index="6" value="Debit Account ID"/>
-                    <StringItem index="7" value="Debit Description"/>
-                    <StringItem index="8" value="Debit Amount"/>
-                    <StringItem index="9" value="Credit Account ID"/>
-                    <StringItem index="10" value="Credit Description"/>
-                    <StringItem index="11" value="Credit Amount"/>
+                  <StringArray count="10">
+                    <StringItem index="0" value="All"/>
+                    <StringItem index="1" value="Transaction No."/>
+                    <StringItem index="2" value="Date"/>
+                    <StringItem index="3" value="Reference No."/>
+                    <StringItem index="4" value="Debit Account ID"/>
+                    <StringItem index="5" value="Debit Description"/>
+                    <StringItem index="6" value="Debit Amount"/>
+                    <StringItem index="7" value="Credit Account ID"/>
+                    <StringItem index="8" value="Credit Description"/>
+                    <StringItem index="9" value="Credit Amount"/>
                   </StringArray>
                 </Property>
               </Properties>

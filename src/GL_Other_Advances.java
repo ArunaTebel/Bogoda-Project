@@ -691,26 +691,44 @@ public class GL_Other_Advances extends javax.swing.JPanel {
         try {
             try {
                 if (supplier_id.getSelectedItem() != null) {
-                    supplier_name.setText(dbm.checknReturnData("suppliers", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "sup_name"));
                     
-                   
-                    
-                    int gl_cashadvance_set_date_int = 10;   // This has to be taken from the database later
-
-                    Date_Handler date_handler = new Date_Handler();
-                    date_handler.set_glcash_advance_starting_date_int(gl_cashadvance_set_date_int);
-                    // A seperate class glcashadvances may have to be created in the future
-                    java.sql.Date datef = datechooser.Return_date(yearfield, monthfield, dayfield);
-                    allowable.setText("" + bill.bill_sum_cal(Integer.parseInt(supplier_id.getSelectedItem().toString()), yearfield.getText(), datehandler.return_month_as_num(monthfield.getText()), Double.parseDouble(set_val.getText())));
-        // allowable.setText("" + (dbm.checknReturnDataForCashAdvances("green_leaf_transactions", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "tr_date","2014-01-19","2014-01-21", "net_qty")));
-                    
-                   //order_no.requestFocus();
+                    String result;
+                try {
+                    result = dbm.filterReturn2StringData("gl_other_advances", "id", supplier_id.getSelectedItem() + "", "Date", datechooser.Return_date(yearfield, monthfield, dayfield) + "", "tr_no");
+                } catch (ParseException ex) {
+                    Logger.getLogger(GLcash_advance.class.getName()).log(Level.SEVERE, null, ex);
+                    result = null;
+                }
+                if (result != null) {
+                    int reply = JOptionPane.showConfirmDialog(allowable,
+                            "Duplicate Entry" + "\n" + "Cancel?", "Duplicate", JOptionPane.YES_NO_OPTION);
+                    if (reply == JOptionPane.NO_OPTION) {
+                     supplier_name.setText(dbm.checknReturnData("suppliers", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "sup_name"));
+                      java.sql.Date datef = datechooser.Return_date(yearfield, monthfield, dayfield);
+                    try{  allowable.setText("" + bill.bill_sum_cal(Integer.parseInt(supplier_id.getSelectedItem().toString()), yearfield.getText(), datehandler.return_month_as_num(monthfield.getText()), Double.parseDouble(set_val.getText())));
+                  } catch(NumberFormatException ee){}
                     Discription_code.requestFocus();
+                    }
+                    if (reply == JOptionPane.YES_OPTION) {
+                    supplier_id.getEditor().selectAll();
+                    supplier_name.setText("");
+                    }
+                    
+                    
+                }
+                else{ supplier_name.setText(dbm.checknReturnData("suppliers", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "sup_name"));
+                      java.sql.Date datef = datechooser.Return_date(yearfield, monthfield, dayfield);
+                  try{  allowable.setText("" + bill.bill_sum_cal(Integer.parseInt(supplier_id.getSelectedItem().toString()), yearfield.getText(), datehandler.return_month_as_num(monthfield.getText()), Double.parseDouble(set_val.getText())));
+                  } catch(NumberFormatException ee){}
+                  Discription_code.requestFocus();}
+                    
+                    
                 }
             } catch (ParseException ex) {
                 Logger.getLogger(GL_Other_Advances.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (NumberFormatException ex) {
+       } catch (NumberFormatException ex) {
+            //System.out.println(ex.getMessage());
             supplier_id.setSelectedIndex(0);
         }
     }//GEN-LAST:event_supplier_idItemStateChanged

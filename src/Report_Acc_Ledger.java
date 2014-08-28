@@ -23,7 +23,7 @@ import javax.swing.UIManager;
 public class Report_Acc_Ledger extends javax.swing.JPanel {
 
     UIDefaults defaults = UIManager.getLookAndFeelDefaults();
-    DatabaseManager dbm = new DatabaseManager();
+   DatabaseManager dbm =  DatabaseManager.getDbCon();
     Report_gen generate = new Report_gen();
     Date_Handler dt = new Date_Handler();
 
@@ -74,7 +74,7 @@ public class Report_Acc_Ledger extends javax.swing.JPanel {
 
         DateChooser_text date_chooser = new DateChooser_text();
 
-        DatabaseManager dbm = new DatabaseManager();
+        DatabaseManager dbm =  DatabaseManager.getDbCon();
 
         @Override
         public void run() {
@@ -105,7 +105,7 @@ public class Report_Acc_Ledger extends javax.swing.JPanel {
 
                         HashMap param = new HashMap();
 
-                        from_date = updt.checknReturnData();
+                        from_date = updt.checknReturnDataN();
 
                         to_date = dt.get_today_date();
 
@@ -149,7 +149,7 @@ public class Report_Acc_Ledger extends javax.swing.JPanel {
 
                         HashMap param = new HashMap();
 
-                        from_date = updt.checknReturnData();
+                        from_date = updt.checknReturnDataN();
 
                         to_date = dt.get_today_date();
 
@@ -187,7 +187,7 @@ public class Report_Acc_Ledger extends javax.swing.JPanel {
                         jProgressBar1.repaint();
                          a.start();
                         HashMap param = new HashMap();
-                        from_date = updt.checknReturnData();
+                        from_date = updt.checknReturnDataN();
                         to_date = dt.get_today_date();
                        
                         ledg.fill_all();
@@ -206,7 +206,7 @@ public class Report_Acc_Ledger extends javax.swing.JPanel {
                         jProgressBar1.repaint();
                         a.start();
                         HashMap param = new HashMap();
-                        from_date = updt.checknReturnData();
+                        from_date = updt.checknReturnDataN();
                         to_date = dt.get_today_date();
                         
                         ledg.fill_all();
@@ -710,7 +710,7 @@ public class Report_Acc_Ledger extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        op_bal_tick.setText("Opening Balance");
+        op_bal_tick.setText("No Opening Balance");
 
         date_range.setText("Date Range");
         date_range.addItemListener(new java.awt.event.ItemListener() {
@@ -1604,7 +1604,7 @@ public class Report_Acc_Ledger extends javax.swing.JPanel {
 
     private void account_codeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_account_codeItemStateChanged
 
-        DatabaseManager dbm = new DatabaseManager();
+        DatabaseManager dbm =  DatabaseManager.getDbCon();
         MessageBox msg = new MessageBox();
 
         try {

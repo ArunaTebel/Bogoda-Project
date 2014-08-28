@@ -18,7 +18,7 @@ import javax.swing.table.DefaultTableModel;
 public class GL_BillsummeryPanel extends javax.swing.JPanel {
 
     Interface_Events interface_events = new Interface_Events();
-    DatabaseManager dbm = new DatabaseManager();
+    DatabaseManager dbm = DatabaseManager.getDbCon();
     UIDefaults defaults = UIManager.getLookAndFeelDefaults();
     DateChooser_text datechooser = new DateChooser_text();
     GL_Billsummerycls billsum = new GL_Billsummerycls();

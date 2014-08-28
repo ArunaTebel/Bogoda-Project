@@ -7,7 +7,7 @@ public class Reciepts_accounts {
 
     int tr_no;
     String refNo;
-    String recieptNo; // auto
+    //String recieptNo; // auto
     Date date; // this should be automatically diplayed
     String payType; // this is selected from a combo box... it should contain cash/cheque and credit.. Deafault should be set to cash
     int debit_accountCode; // set default the account code of cash..
@@ -31,7 +31,7 @@ public class Reciepts_accounts {
 
         tr_no = 0;
         refNo = null;
-        recieptNo = null;
+        //recieptNo = null;
         date = null;
         payType = null;
         debit_accountCode = 0;
@@ -59,11 +59,6 @@ public class Reciepts_accounts {
     public void setRefNo(String refNo) {
         this.refNo = refNo;
     }
-
-    public void setRecieptNo(String recieptNo) {
-        this.recieptNo = recieptNo;
-    }
-
     public void setDate(Date date) {
         this.date = date;
     }
@@ -211,10 +206,6 @@ public class Reciepts_accounts {
         return refNo;
     }
 
-    public String getRecieptNo() {
-        return recieptNo;
-    }
-
     public Date getDate() {
         return date;
     }
@@ -358,7 +349,7 @@ public class Reciepts_accounts {
     public boolean addToDebitDataBaseBank() {
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         try {
-            dbCon.insert("INSERT INTO account_reciept_debitside(ref_no,reciept_no,date,pay_type,debit_account_id,debit_account_name,debit_description,bank_id,bank_name,branch_id,branch_name,cheque_no,cheque_date,debit_amount) VALUES('" + refNo + "','" + recieptNo + "','" + date + "','" + payType + "','" + debit_accountCode + "','" + debit_accountName + "','" + debit_description + "','" + bankCode + "','" + bankName + "','" + branchCode + "','" + branchName + "','" + chequeNo + "','" + chequeDate + "','" + debitAmount + "')");
+            dbCon.insert("INSERT INTO account_reciept_debitside(ref_no,date,pay_type,debit_account_id,debit_account_name,debit_description,bank_id,bank_name,branch_id,branch_name,cheque_no,cheque_date,debit_amount) VALUES('" + refNo + "','" + date + "','" + payType + "','" + debit_accountCode + "','" + debit_accountName + "','" + debit_description + "','" + bankCode + "','" + bankName + "','" + branchCode + "','" + branchName + "','" + chequeNo + "','" + chequeDate + "','" + debitAmount + "')");
         } catch (SQLException ex) {
             MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
             return false;
@@ -379,7 +370,7 @@ public class Reciepts_accounts {
      public boolean addToDebitDataBaseBankall() {
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         try {
-            dbCon.insert("INSERT INTO account_reciept_debitside_all(ref_no,reciept_no,date,pay_type,debit_account_id,debit_account_name,debit_description,bank_id,bank_name,branch_id,branch_name,cheque_no,cheque_date,debit_amount) VALUES('" + refNo + "','" + recieptNo + "','" + date + "','" + payType + "','" + debit_accountCode + "','" + debit_accountName + "','" + debit_description + "','" + bankCode + "','" + bankName + "','" + branchCode + "','" + branchName + "','" + chequeNo + "','" + chequeDate + "','" + debitAmount + "')");
+            dbCon.insert("INSERT INTO account_reciept_debitside_all(ref_no,date,pay_type,debit_account_id,debit_account_name,debit_description,bank_id,bank_name,branch_id,branch_name,cheque_no,cheque_date,debit_amount) VALUES('" + refNo + "','" + date + "','" + payType + "','" + debit_accountCode + "','" + debit_accountName + "','" + debit_description + "','" + bankCode + "','" + bankName + "','" + branchCode + "','" + branchName + "','" + chequeNo + "','" + chequeDate + "','" + debitAmount + "')");
         } catch (SQLException ex) {
             MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
             return false;
@@ -400,7 +391,7 @@ public class Reciepts_accounts {
     public boolean addToDebitDataBaseCash() {
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         try {
-            dbCon.insert("INSERT INTO account_reciept_debitside(ref_no,reciept_no,date,pay_type,debit_account_id,debit_account_name,debit_description,debit_amount) VALUES('" + refNo + "','" + recieptNo + "','" + date + "','" + payType + "','" + debit_accountCode + "','" + debit_accountName + "','" + debit_description + "','" + debitAmount + "')");
+            dbCon.insert("INSERT INTO account_reciept_debitside(ref_no,date,pay_type,debit_account_id,debit_account_name,debit_description,debit_amount) VALUES('" + refNo + "','" + date + "','" + payType + "','" + debit_accountCode + "','" + debit_accountName + "','" + debit_description + "','" + debitAmount + "')");
 
         } catch (SQLException ex) {
             MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
@@ -421,7 +412,7 @@ public class Reciepts_accounts {
       public boolean addToDebitDataBaseCashall() {
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         try {
-            dbCon.insert("INSERT INTO account_reciept_debitside_all(ref_no,reciept_no,date,pay_type,debit_account_id,debit_account_name,debit_description,debit_amount) VALUES('" + refNo + "','" + recieptNo + "','" + date + "','" + payType + "','" + debit_accountCode + "','" + debit_accountName + "','" + debit_description + "','" + debitAmount + "')");
+            dbCon.insert("INSERT INTO account_reciept_debitside_all(ref_no,date,pay_type,debit_account_id,debit_account_name,debit_description,debit_amount) VALUES('" + refNo + "','" + date + "','" + payType + "','" + debit_accountCode + "','" + debit_accountName + "','" + debit_description + "','" + debitAmount + "')");
 
         } catch (SQLException ex) {
             MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
@@ -467,7 +458,7 @@ public class Reciepts_accounts {
     public boolean UpdateDebitDatabaseBank(int tr_no) {
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         dbCon.updateDatabase("account_reciept_debitside", "tr_no", tr_no, "ref_no", refNo);
-        dbCon.updateDatabase("account_reciept_debitside", "tr_no", tr_no, "reciept_no", recieptNo);
+        //dbCon.updateDatabase("account_reciept_debitside", "tr_no", tr_no, "reciept_no", recieptNo);
         dbCon.updateDatabase("account_reciept_debitside", "tr_no", tr_no, "date", date);
         dbCon.updateDatabase("account_reciept_debitside", "tr_no", tr_no, "pay_type", payType);
         dbCon.updateDatabase("account_reciept_debitside", "tr_no", tr_no, "debit_account_id", debit_accountCode);
@@ -487,7 +478,7 @@ public class Reciepts_accounts {
     public boolean UpdateDebitDatabaseBankall(int tr_no) {
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         dbCon.updateDatabase("account_reciept_debitside_all", "tr_no", tr_no, "ref_no", refNo);
-        dbCon.updateDatabase("account_reciept_debitside_all", "tr_no", tr_no, "reciept_no", recieptNo);
+//        dbCon.updateDatabase("account_reciept_debitside_all", "tr_no", tr_no, "reciept_no", recieptNo);
         dbCon.updateDatabase("account_reciept_debitside_all", "tr_no", tr_no, "date", date);
         dbCon.updateDatabase("account_reciept_debitside_all", "tr_no", tr_no, "pay_type", payType);
         dbCon.updateDatabase("account_reciept_debitside_all", "tr_no", tr_no, "debit_account_id", debit_accountCode);
@@ -508,7 +499,7 @@ public class Reciepts_accounts {
        public boolean UpdateDebitDatabaseCash(int tr_no) {
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         dbCon.updateDatabase("account_reciept_debitside", "tr_no", tr_no, "ref_no", refNo);
-        dbCon.updateDatabase("account_reciept_debitside", "tr_no", tr_no, "reciept_no", recieptNo);
+//        dbCon.updateDatabase("account_reciept_debitside", "tr_no", tr_no, "reciept_no", recieptNo);
         dbCon.updateDatabase("account_reciept_debitside", "tr_no", tr_no, "date", date);
         dbCon.updateDatabase("account_reciept_debitside", "tr_no", tr_no, "pay_type", payType);
         dbCon.updateDatabase("account_reciept_debitside", "tr_no", tr_no, "debit_account_id", debit_accountCode);
@@ -522,7 +513,7 @@ public class Reciepts_accounts {
           public boolean UpdateDebitDatabaseCashall(int tr_no) {
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         dbCon.updateDatabase("account_reciept_debitside_all", "tr_no", tr_no, "ref_no", refNo);
-        dbCon.updateDatabase("account_reciept_debitside_all", "tr_no", tr_no, "reciept_no", recieptNo);
+//        dbCon.updateDatabase("account_reciept_debitside_all", "tr_no", tr_no, "reciept_no", recieptNo);
         dbCon.updateDatabase("account_reciept_debitside_all", "tr_no", tr_no, "date", date);
         dbCon.updateDatabase("account_reciept_debitside_all", "tr_no", tr_no, "pay_type", payType);
         dbCon.updateDatabase("account_reciept_debitside_all", "tr_no", tr_no, "debit_account_id", debit_accountCode);

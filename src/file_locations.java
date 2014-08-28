@@ -6,7 +6,7 @@
 public class file_locations extends javax.swing.JPanel {
 
     Location aobject = new Location();
-    DatabaseManager dbm = new DatabaseManager();
+    DatabaseManager dbm =DatabaseManager.getDbCon();
     Interface_Events interface_events = new Interface_Events();
 
     /**

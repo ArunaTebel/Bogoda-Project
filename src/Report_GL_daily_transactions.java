@@ -197,7 +197,7 @@ public class Report_GL_daily_transactions extends javax.swing.JPanel {
     Date_Handler datehandler = new Date_Handler();
     Report_gen generate = new Report_gen();
     UserAccountControl user = new UserAccountControl();
-    DatabaseManager dbm = new DatabaseManager();
+   DatabaseManager dbm =  DatabaseManager.getDbCon();
     String saveloc = dbm.checknReturnStringData("file_locations", "description", "ReportSave", "location");
     Update update = new Update();
 

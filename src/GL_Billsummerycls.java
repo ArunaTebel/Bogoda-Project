@@ -14,7 +14,7 @@ import java.sql.SQLException;
  */
 public class GL_Billsummerycls {
 
-    DatabaseManager dbm = new DatabaseManager();
+    DatabaseManager dbm = DatabaseManager.getDbCon();
     Date_Handler datehandler = new Date_Handler();
     int id;
     double Total_kg;

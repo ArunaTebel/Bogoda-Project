@@ -3,7 +3,7 @@ import javax.swing.JOptionPane;
 
 
 public class GL_Add_leafcategory extends javax.swing.JPanel {
-    DatabaseManager dbm = new DatabaseManager();
+    DatabaseManager dbm = DatabaseManager.getDbCon();
     
     LeafCategory lcobject = new LeafCategory();
     public GL_Add_leafcategory() {

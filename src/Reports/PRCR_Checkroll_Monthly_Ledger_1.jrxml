@@ -88,9 +88,9 @@ WHERE
 	<field name="prcr_checkroll_ledger_report_sundays" class="java.lang.Integer"/>
 	<field name="prcr_checkroll_ledger_report_sunday_pay" class="java.lang.Double"/>
 	<field name="prcr_checkroll_ledger_report_total_pay" class="java.lang.Double"/>
-	<field name="prcr_checkroll_ledger_report_ot_before_hours" class="java.lang.Integer"/>
+	<field name="prcr_checkroll_ledger_report_ot_before_hours" class="java.lang.Double"/>
 	<field name="prcr_checkroll_ledger_report_ot_before_amount" class="java.lang.Double"/>
-	<field name="prcr_checkroll_ledger_report_ot_after_hours" class="java.lang.Integer"/>
+	<field name="prcr_checkroll_ledger_report_ot_after_hours" class="java.lang.Double"/>
 	<field name="prcr_checkroll_ledger_report_ot_after_amount" class="java.lang.Double"/>
 	<field name="prcr_checkroll_ledger_report_incentive1" class="java.lang.Double"/>
 	<field name="prcr_checkroll_ledger_report_incentive2" class="java.lang.Double"/>

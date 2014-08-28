@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 
 public class ACC_ledger {
 
-    DatabaseManager dbm = new DatabaseManager();
+    DatabaseManager dbm = DatabaseManager.getDbCon();
 
     public void fill_account_code(int account_code) {
 
@@ -40,7 +40,7 @@ public class ACC_ledger {
 
         if (current.equals(given_period)) {
 
-            DatabaseManager dbm = new DatabaseManager();
+            DatabaseManager dbm =DatabaseManager.getDbCon();
             String dt;
             try {
                 dbm.insert("Truncate account_ledger_temp");
@@ -133,7 +133,7 @@ public class ACC_ledger {
             }
         } else {
 
-            DatabaseManager dbm = new DatabaseManager();
+            DatabaseManager dbm = DatabaseManager.getDbCon();
             String dt;
             try {
                 dbm.insert("Truncate account_ledger_temp");
@@ -258,7 +258,7 @@ public class ACC_ledger {
 
         if (current.equals(given_period)) {
 
-            DatabaseManager dbm = new DatabaseManager();
+            DatabaseManager dbm = DatabaseManager.getDbCon();
             String dt;
 
             try {
@@ -448,7 +448,7 @@ public class ACC_ledger {
 
         } else {
 
-            DatabaseManager dbm = new DatabaseManager();
+            DatabaseManager dbm = DatabaseManager.getDbCon();
             String dt;
 
             try {
@@ -668,7 +668,7 @@ public class ACC_ledger {
 
         if (current.equals(given_period)) {
 
-            DatabaseManager dbm = new DatabaseManager();
+            DatabaseManager dbm = DatabaseManager.getDbCon();
             String dt;
 
             try {
@@ -764,7 +764,7 @@ public class ACC_ledger {
 
         } else {
 
-            DatabaseManager dbm = new DatabaseManager();
+            DatabaseManager dbm = DatabaseManager.getDbCon();
             String dt;
 
             try {
@@ -890,7 +890,7 @@ public class ACC_ledger {
 
         if (current.equals(given_period)) {
 
-            DatabaseManager dbm = new DatabaseManager();
+            DatabaseManager dbm = DatabaseManager.getDbCon();
             String dt;
 
             try {
@@ -1078,7 +1078,7 @@ public class ACC_ledger {
             }
         } else {
 
-            DatabaseManager dbm = new DatabaseManager();
+            DatabaseManager dbm = DatabaseManager.getDbCon();
             String dt;
 
             try {
@@ -1296,7 +1296,7 @@ public class ACC_ledger {
 
         if (current.equals(given_period)) {
 
-            DatabaseManager dbm = new DatabaseManager();
+            DatabaseManager dbm = DatabaseManager.getDbCon();
             String dt;
             int a;
             double op_bal = 0;
@@ -1483,7 +1483,7 @@ public class ACC_ledger {
 
         } else {
 
-            DatabaseManager dbm = new DatabaseManager();
+            DatabaseManager dbm = DatabaseManager.getDbCon();
             String dt;
             int a;
             double op_bal = 0;

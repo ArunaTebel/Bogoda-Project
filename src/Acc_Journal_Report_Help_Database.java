@@ -6,7 +6,7 @@ import java.util.logging.Logger;
 
 public class Acc_Journal_Report_Help_Database {
 
-    DatabaseManager dbm = new DatabaseManager();
+    DatabaseManager dbm = DatabaseManager.getDbCon();
 
     int tr_no;
     int dr_count = 0;

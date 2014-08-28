@@ -28,7 +28,7 @@ public class PRCRHolidayPayFactory {
     int[] lastYearHolidays;
 
     public PRCRHolidayPayFactory() {
-        dbm = new DatabaseManager();
+        dbm = DatabaseManager.getDbCon();
 
         String coloumn = "epf";
         String table = "checkroll_pay_info";

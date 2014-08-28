@@ -136,6 +136,17 @@ public class Report_PRCR_ETF_Monthly extends javax.swing.JPanel {
 
                 HashMap param = new HashMap();
                 param.put("USER", user.get_current_user());
+                
+                double grandtotal=0;
+                try {
+                    ResultSet query=dbm.query("SELECT * FROM prcr_checkroll_ledger_report WHERE active LIKE '"+1+"'");
+                    while(query.next()){
+                        grandtotal=grandtotal+query.getDouble("etf");
+                    }
+                    param.put("grandtotalP",grandtotal);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Report_PRCR_EPF_Monthly.class.getName()).log(Level.SEVERE, null, ex);
+                }
 
             //    param.put("DIVISION", division_jc.getSelectedItem().toString());
 
@@ -200,7 +211,7 @@ public class Report_PRCR_ETF_Monthly extends javax.swing.JPanel {
     Date_Handler datehandler = new Date_Handler();
     Report_gen generate = new Report_gen();
     UserAccountControl user = new UserAccountControl();
-    DatabaseManager dbm = new DatabaseManager();
+   DatabaseManager dbm =  DatabaseManager.getDbCon();
 
     public void focus() {
         //dayfield.requestFocus();
@@ -387,10 +398,11 @@ public class Report_PRCR_ETF_Monthly extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(division_jc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(divisionCB))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(divisionCB)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2)
+                        .addComponent(division_jc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(40, 40, 40)
                 .addComponent(view, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)

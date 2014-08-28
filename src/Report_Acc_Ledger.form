@@ -542,7 +542,7 @@
       <SubComponents>
         <Component class="javax.swing.JCheckBox" name="op_bal_tick">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Opening Balance"/>
+            <Property name="text" type="java.lang.String" value="No Opening Balance"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JCheckBox" name="date_range">

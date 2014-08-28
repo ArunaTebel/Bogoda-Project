@@ -23,7 +23,7 @@ import javax.swing.JOptionPane;
  */
 public class UserAccountControl {
 
-    DatabaseManager dbm = new DatabaseManager();
+    DatabaseManager dbm = DatabaseManager.getDbCon();
      DatabaseManager dbCon = DatabaseManager.getDbCon();
      Date_Handler date = new Date_Handler();
      Report_gen en = new Report_gen();

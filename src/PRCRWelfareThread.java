@@ -18,7 +18,7 @@ import javax.swing.JOptionPane;
  */
 public class PRCRWelfareThread implements Runnable{
     public void run(){
-        DatabaseManager dbm = new DatabaseManager();
+        DatabaseManager dbm =  DatabaseManager.getDbCon();
         Calendar currentDate = Calendar.getInstance();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         

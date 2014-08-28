@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
  *
  * @author Pramo
  */
-public class GL_extrapay extends javax.swing.JPanel {
+public class GL_debit_edit extends javax.swing.JPanel {
     Update update = new Update();
     Date_Handler datehandler = new Date_Handler();
     DatabaseManager dbm = DatabaseManager.getDbCon();
@@ -24,7 +24,7 @@ public class GL_extrapay extends javax.swing.JPanel {
     /**
      * Creates new form GL_extrapay
      */
-    public GL_extrapay() {
+    public GL_debit_edit() {
         initComponents();
     }
 
@@ -131,7 +131,7 @@ public class GL_extrapay extends javax.swing.JPanel {
 
         jLabel2.setText("Name ");
 
-        jLabel6.setText("Amount");
+        jLabel6.setText("Debit Amount");
 
         amount.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         amount.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -144,6 +144,7 @@ public class GL_extrapay extends javax.swing.JPanel {
 
         jPanel2.setBackground(new java.awt.Color(0, 102, 0));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 153)));
+        jPanel2.setEnabled(false);
 
         jButton6.setText("Supplier Status");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
@@ -156,6 +157,7 @@ public class GL_extrapay extends javax.swing.JPanel {
 
         jLabel19.setText("Edit Trans ID here");
 
+        edit2.setEnabled(false);
         edit2.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 edit2KeyPressed(evt);
@@ -184,6 +186,7 @@ public class GL_extrapay extends javax.swing.JPanel {
 
         delete.setForeground(new java.awt.Color(102, 204, 0));
         delete.setText("Delete Entry");
+        delete.setEnabled(false);
         delete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deleteActionPerformed(evt);
@@ -221,6 +224,7 @@ public class GL_extrapay extends javax.swing.JPanel {
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 51, 153)));
 
         Save.setText("Save");
+        Save.setEnabled(false);
         Save.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SaveActionPerformed(evt);
@@ -298,20 +302,17 @@ public class GL_extrapay extends javax.swing.JPanel {
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(39, 39, 39))))
             .addGroup(layout.createSequentialGroup()
-                .addGap(121, 121, 121)
+                .addGap(51, 51, 51)
+                .addComponent(jLabel6)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(amount, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(37, 37, 37)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel6)
-                            .addGap(18, 18, 18)
-                            .addComponent(jLabel16))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(54, 54, 54)
-                            .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGap(91, 91, 91)
+                    .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(585, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
@@ -332,20 +333,19 @@ public class GL_extrapay extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(36, 36, 36)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-                .addComponent(amount, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(105, 105, 105)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(amount, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel16)
+                    .addComponent(jLabel6))
+                .addGap(103, 103, 103)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                     .addGap(14, 14, 14)
                     .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(190, 190, 190)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel6)
-                        .addComponent(jLabel16))
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addContainerGap(393, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -558,16 +558,16 @@ public class GL_extrapay extends javax.swing.JPanel {
                 try {
 
                     supplier_name.setText(dbm.checknReturnData("suppliers", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "sup_name"));
+                    String entry = yearfield.getText()+datehandler.return_month_as_num(monthfield.getText())+supplier_id.getSelectedItem();
+                    String amountt = dbm.checknReturnData("supplier_pre_debt_coins", "entry", entry, "pre_debts");
+                    amount.setText(amountt);
 
-                    int gl_cashadvance_set_date_int = 10;   // This has to be taken from the database later
-
-                    Date_Handler date_handler = new Date_Handler();
-                    date_handler.set_glcash_advance_starting_date_int(gl_cashadvance_set_date_int);
+                   
                     // A seperate class glcashadvances may have to be created in the future
 
                     //max_allowable.setText(""+bill_sum.bill_sum_cal(Integer.parseInt(supplier_id.getSelectedItem().toString()), yearfield.getText(), datehandler.return_month_as_num(monthfield.getText()),(Double.parseDouble(Set_val.getText()))));
-                } catch (NullPointerException e) {
-                    supplier_id.setSelectedIndex(1);
+                } catch (Exception e) {
+                    supplier_id.setSelectedIndex(0);
 
                 }
                 amount.requestFocusInWindow();
@@ -658,27 +658,27 @@ public class GL_extrapay extends javax.swing.JPanel {
     }//GEN-LAST:event_deleteActionPerformed
 
     private void SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveActionPerformed
-       String month = datehandler.return_month_as_num(monthfield.getText());
-       String year = yearfield.getText();
-       String sup_id = null;
-       double Amount = 0;
-       String user = userac.get_current_user();
-       String date_time = datehandler.get_today_date_time();
-       
-              
-               
-       try{
-       sup_id = supplier_id.getSelectedItem().toString();
-       Amount = Double.parseDouble(amount.getText());
-       } catch(Exception  e){  JOptionPane.showMessageDialog(amount, "Invalid Id");} 
-        try {
-            dbm.insert("INSERT INTO gl_extra_pay (entry,month,sup_id, amount,user,date_time) values('"+year+month+sup_id+"','"+year+month+"','"+sup_id+"','"+Amount+"','"+user+"','"+date_time+"')");
-             clear();
-            JOptionPane.showMessageDialog(amount, "Saved");
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(amount, "Error");
-            Logger.getLogger(GL_extrapay.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//       String month = datehandler.return_month_as_num(monthfield.getText());
+//       String year = yearfield.getText();
+//       String sup_id = null;
+//       double Amount = 0;
+//       String user = userac.get_current_user();
+//       String date_time = datehandler.get_today_date_time();
+//       
+//              
+//               
+//       try{
+//       sup_id = supplier_id.getSelectedItem().toString();
+//       Amount = Double.parseDouble(amount.getText());
+//       } catch(Exception  e){  JOptionPane.showMessageDialog(amount, "Invalid Id");} 
+//        try {
+//            dbm.insert("INSERT INTO gl_extra_pay (entry,month,sup_id, amount,user,date_time) values('"+year+month+sup_id+"','"+year+month+"','"+sup_id+"','"+Amount+"','"+user+"','"+date_time+"')");
+//             clear();
+//            JOptionPane.showMessageDialog(amount, "Saved");
+//        } catch (SQLException ex) {
+//            JOptionPane.showMessageDialog(amount, "Error");
+//            Logger.getLogger(GL_extrapay.class.getName()).log(Level.SEVERE, null, ex);
+//        }
        
        
              
@@ -716,8 +716,8 @@ supplier_id.setSelectedIndex(0);
        sup_id = supplier_id.getSelectedItem().toString();
        Amount = Double.parseDouble(amount.getText());
        } catch(Exception  e){  JOptionPane.showMessageDialog(amount, "Invalid Id");} 
-        try {
-            dbm.insert("UPDATE gl_extra_pay SET sup_id= '"+sup_id+"', month='"+year+month+"', amount='"+Amount+"', user='"+user+"', date_time='"+date_time+"'  WHERE entry = '"+year+month+sup_id+"'");
+        try {//("supplier_pre_debt_coins", "entry", entry, "pre_debts");
+            dbm.insert("UPDATE supplier_pre_debt_coins SET pre_debts= '"+Amount+"'  WHERE entry = '"+year+month+sup_id+"'");
               clear();
                supplier_id.requestFocus();
             JOptionPane.showMessageDialog(amount, "Updated"); 

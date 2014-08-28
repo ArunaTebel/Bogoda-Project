@@ -53,7 +53,7 @@ public class PRCR_DivisionDetails {
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         try {
             
-            dbCon.insert("INSERT INTO division_details(division,code,description) VALUES('" + division + "','" + code + "','"+description+"')");
+            dbCon.insert("INSERT INTO division_details(division,code) VALUES('" + division + "','" + code + "')");
             
         } catch (SQLException ex) {
             MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");

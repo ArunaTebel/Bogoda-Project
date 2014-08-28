@@ -13,7 +13,7 @@ import java.awt.event.KeyEvent;
 public class DateChooser extends javax.swing.JPanel {
 
     Date_Handler date_handler = new Date_Handler();
-    DatabaseManager dbm = new DatabaseManager();
+    DatabaseManager dbm = DatabaseManager.getDbCon();
     Search srch = new Search();
 
     /**

@@ -22,7 +22,7 @@ public class Acc_Change_Period extends javax.swing.JFrame {
     public Acc_Change_Period() {
         initComponents();
     }
-    DatabaseManager dbm = new DatabaseManager();
+    DatabaseManager dbm = DatabaseManager.getDbCon();
     
     public void start_set(){
         try {
@@ -212,7 +212,7 @@ public class Acc_Change_Period extends javax.swing.JFrame {
     }//GEN-LAST:event_previousItemStateChanged
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-                DatabaseManager dbm = new DatabaseManager();
+                DatabaseManager dbm = DatabaseManager.getDbCon();
         String period=null;
         if(current.isSelected()){
             try {

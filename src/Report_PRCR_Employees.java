@@ -155,7 +155,7 @@ public class Report_PRCR_Employees extends javax.swing.JPanel {
     DateChooser_text datechooser = new DateChooser_text();
     Date_Handler datehandler = new Date_Handler();
     Report_gen generate = new Report_gen();
-    DatabaseManager dbm = new DatabaseManager();
+    DatabaseManager dbm =  DatabaseManager.getDbCon();
 
     public void focus() {
   //      dayfield.requestFocus();

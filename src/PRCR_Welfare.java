@@ -23,7 +23,7 @@ import javax.swing.JOptionPane;
  */
 public class PRCR_Welfare extends javax.swing.JPanel {
 
-    DatabaseManager dbm = new DatabaseManager();
+    DatabaseManager dbm =  DatabaseManager.getDbCon();
     GL_report_generator reportgen = new GL_report_generator();
     Date_Handler datehandler = new Date_Handler();
     Report_gen generate = new Report_gen();
@@ -514,7 +514,7 @@ public class PRCR_Welfare extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        DatabaseManager dbm = new DatabaseManager();
+        DatabaseManager dbm =  DatabaseManager.getDbCon();
         Calendar currentDate = Calendar.getInstance();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -583,7 +583,7 @@ public class PRCR_Welfare extends javax.swing.JPanel {
         t1.run();
         String thisMonth = yearfield.getText() + "-" + Integer.parseInt(datehandler.return_month_as_num(monthfield.getText()));
 
-        DatabaseManager dbm = new DatabaseManager();
+        DatabaseManager dbm =  DatabaseManager.getDbCon();
         String table = "prcr_welfare";
         String coloumnG = "month";
         String coloumnN = null;

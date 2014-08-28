@@ -17,7 +17,7 @@ public class Add_Branch extends javax.swing.JPanel {
      * Creates new form Add_Branch
      */
     BankBranch branch=new BankBranch();
-    DatabaseManager dbm = new DatabaseManager();
+    DatabaseManager dbm = DatabaseManager.getDbCon();
     
     
     public Add_Branch() {

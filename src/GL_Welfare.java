@@ -22,7 +22,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class GL_Welfare extends javax.swing.JPanel {
     
-    DatabaseManager dbm = new DatabaseManager();
+    DatabaseManager dbm = DatabaseManager.getDbCon();
     GL_report_generator reportgen = new GL_report_generator();
     Date_Handler datehandler = new Date_Handler();
     Report_gen generate = new Report_gen();
@@ -257,7 +257,7 @@ public class GL_Welfare extends javax.swing.JPanel {
     
     public void Update(String supId){
     
-      DatabaseManager dbm = new DatabaseManager();
+      DatabaseManager dbm = DatabaseManager.getDbCon();
             Calendar currentDate = Calendar.getInstance();
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
             

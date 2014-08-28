@@ -7,7 +7,7 @@ public class Journals_account {
 
     int tr_no;
     String refNo;
-    String journalNo; // auto
+    //String journalNo; // auto
     Date date; // this should be automatically diplayed
     String payType; // this is selected from a combo box... it should contain cash/cheque and credit.. Deafault should be set to cash
     int bankCode;
@@ -19,7 +19,7 @@ public class Journals_account {
 
     public Journals_account() {
         refNo = null;
-        journalNo = null;
+//        journalNo = null;
         date = null;
         payType = null;
         bankCode = 0;
@@ -38,9 +38,7 @@ public class Journals_account {
         this.refNo = refNo;
     }
 
-    public void setJournalNo(String recieptNo) {
-        this.journalNo = recieptNo;
-    }
+  
 
     public void setDate(Date date) {
         this.date = date;
@@ -79,9 +77,6 @@ public class Journals_account {
         return refNo;
     }
 
-    public String getJournaltNo() {
-        return journalNo;
-    }
 
     public Date getDate() {
         return date;
@@ -124,7 +119,7 @@ public class Journals_account {
     public boolean addToMainJournalDataBaseBank() {
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         try {
-            dbCon.insert("INSERT INTO account_journal_main(ref_no,journal_no,date,pay_type,bank_id,bank_name,branch_id,branch_name,cheque_no,cheque_date) VALUES('" + refNo + "','" + journalNo + "','" + date + "','" + payType + "','" + bankCode + "','" + bankName + "','" + branchCode + "','" + branchName + "','" + chequeNo + "','" + chequeDate + "')");
+            dbCon.insert("INSERT INTO account_journal_main(ref_no,date,pay_type,bank_id,bank_name,branch_id,branch_name,cheque_no,cheque_date) VALUES('" + refNo + "','" + date + "','" + payType + "','" + bankCode + "','" + bankName + "','" + branchCode + "','" + branchName + "','" + chequeNo + "','" + chequeDate + "')");
         } catch (SQLException ex) {
             MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
             return false;
@@ -146,7 +141,7 @@ public class Journals_account {
         public boolean addToMainJournalDataBaseBankall() {
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         try {
-            dbCon.insert("INSERT INTO account_journal_main_all(ref_no,journal_no,date,pay_type,bank_id,bank_name,branch_id,branch_name,cheque_no,cheque_date) VALUES('" + refNo + "','" + journalNo + "','" + date + "','" + payType + "','" + bankCode + "','" + bankName + "','" + branchCode + "','" + branchName + "','" + chequeNo + "','" + chequeDate + "')");
+            dbCon.insert("INSERT INTO account_journal_main_all(ref_no,date,pay_type,bank_id,bank_name,branch_id,branch_name,cheque_no,cheque_date) VALUES('" + refNo + "','" + date + "','" + payType + "','" + bankCode + "','" + bankName + "','" + branchCode + "','" + branchName + "','" + chequeNo + "','" + chequeDate + "')");
         } catch (SQLException ex) {
             MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
             return false;
@@ -168,7 +163,7 @@ public class Journals_account {
     public boolean addToMainJournalDataBaseCash() {
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         try {
-            dbCon.insert("INSERT INTO account_journal_main(ref_no,journal_no,date,pay_type) VALUES('" + refNo + "','" + journalNo + "','" + date + "','" + payType + "')");
+            dbCon.insert("INSERT INTO account_journal_main(ref_no,date,pay_type) VALUES('" + refNo + "','" + date + "','" + payType + "')");
         } catch (SQLException ex) {
             MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
             return false;
@@ -190,7 +185,7 @@ public class Journals_account {
       public boolean addToMainJournalDataBaseCashall() {
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         try {
-            dbCon.insert("INSERT INTO account_journal_main_all(ref_no,journal_no,date,pay_type) VALUES('" + refNo + "','" + journalNo + "','" + date + "','" + payType + "')");
+            dbCon.insert("INSERT INTO account_journal_main_all(ref_no,date,pay_type) VALUES('" + refNo + "','" + date + "','" + payType + "')");
         } catch (SQLException ex) {
             MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
             return false;
@@ -261,7 +256,7 @@ public class Journals_account {
     public boolean UpdateMainDatabaseBank(int tr_no){
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         dbCon.updateDatabase("account_journal_main", "tr_no", tr_no, "ref_no", refNo);
-        dbCon.updateDatabase("account_journal_main", "tr_no", tr_no, "journal_no",journalNo);
+        //dbCon.updateDatabase("account_journal_main", "tr_no", tr_no, "journal_no",journalNo);
         dbCon.updateDatabase("account_journal_main", "tr_no", tr_no, "date", date);
         dbCon.updateDatabase("account_journal_main", "tr_no", tr_no, "pay_type", payType);
         dbCon.updateDatabase("account_journal_main", "tr_no", tr_no, "bank_id", bankCode);
@@ -276,7 +271,7 @@ public class Journals_account {
      public boolean UpdateMainDatabaseBankall(int tr_no){
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         dbCon.updateDatabase("account_journal_main_all", "tr_no", tr_no, "ref_no", refNo);
-        dbCon.updateDatabase("account_journal_main_all", "tr_no", tr_no, "journal_no",journalNo);
+//        dbCon.updateDatabase("account_journal_main_all", "tr_no", tr_no, "journal_no",journalNo);
         dbCon.updateDatabase("account_journal_main_all", "tr_no", tr_no, "date", date);
         dbCon.updateDatabase("account_journal_main_all", "tr_no", tr_no, "pay_type", payType);
         dbCon.updateDatabase("account_journal_main_all", "tr_no", tr_no, "bank_id", bankCode);
@@ -291,7 +286,7 @@ public class Journals_account {
     public boolean UpdateMainDatabaseCash(int tr_no){
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         dbCon.updateDatabase("account_journal_main", "tr_no", tr_no, "ref_no", refNo);
-        dbCon.updateDatabase("account_journal_main", "tr_no", tr_no, "journal_no",journalNo);
+//        dbCon.updateDatabase("account_journal_main", "tr_no", tr_no, "journal_no",journalNo);
         dbCon.updateDatabase("account_journal_main", "tr_no", tr_no, "date", date);
         dbCon.updateDatabase("account_journal_main", "tr_no", tr_no, "pay_type", payType);
         return true;
@@ -300,7 +295,7 @@ public class Journals_account {
       public boolean UpdateMainDatabaseCashall(int tr_no){
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         dbCon.updateDatabase("account_journal_main_all", "tr_no", tr_no, "ref_no", refNo);
-        dbCon.updateDatabase("account_journal_main_all", "tr_no", tr_no, "journal_no",journalNo);
+//        dbCon.updateDatabase("account_journal_main_all", "tr_no", tr_no, "journal_no",journalNo);
         dbCon.updateDatabase("account_journal_main_all", "tr_no", tr_no, "date", date);
         dbCon.updateDatabase("account_journal_main_all", "tr_no", tr_no, "pay_type", payType);
         return true;

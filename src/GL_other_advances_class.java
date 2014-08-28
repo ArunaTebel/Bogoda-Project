@@ -10,7 +10,7 @@ public class GL_other_advances_class {
 
     UserAccountControl UserAC = new UserAccountControl();
     Date_Handler date_handler = new Date_Handler();
-    DatabaseManager dbm = new DatabaseManager();
+    DatabaseManager dbm = DatabaseManager.getDbCon();
     String user = UserAC.get_current_user();
     int sup_id;
     String sup_name;

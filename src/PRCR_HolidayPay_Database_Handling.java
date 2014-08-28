@@ -34,7 +34,7 @@ public final class PRCR_HolidayPay_Database_Handling {
      */
     public static synchronized DatabaseManager getDbCon() {
         if (db == null) {
-            db = new DatabaseManager();
+           // db = new DatabaseManager();
         }
         return db;
     }
@@ -292,7 +292,7 @@ public final class PRCR_HolidayPay_Database_Handling {
 
     public int num_of_holidays_for(int this_year, int emp_code) {
 
-        DatabaseManager dbm = new DatabaseManager();
+       DatabaseManager dbm =  DatabaseManager.getDbCon();
         
         int year;  
         if(dbm.checknReturnData("checkroll_personalinfo","code",emp_code,"division")=="FAC"){
@@ -314,7 +314,7 @@ public final class PRCR_HolidayPay_Database_Handling {
     
      public int num_of_holidays_for_willie(int this_year, int emp_code) {
 
-        DatabaseManager dbm = new DatabaseManager();
+        DatabaseManager dbm =  DatabaseManager.getDbCon();
         
         String year_code;  
         if(dbm.checknReturnData("checkroll_personalinfo","code",emp_code,"division")=="FAC"){

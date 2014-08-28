@@ -104,9 +104,9 @@ public class PersonalInfo {
      }
      public void setRegisterOrNot(boolean BregisterOrNot){
          if(BregisterOrNot==true){
-         this.registerOrNot="Registered";}
+         this.registerOrNot="REGISTER";}
          else{
-         this.registerOrNot="Not Registered";
+         this.registerOrNot="CASUAL";
          }
          
      }

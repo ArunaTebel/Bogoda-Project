@@ -19,7 +19,7 @@ import org.jdesktop.swingx.renderer.StringValues;
 public class PRCR_Employee_Worksummary extends javax.swing.JFrame {
 
     Interface_Events interface_events = new Interface_Events();
-    DatabaseManager dbm = new DatabaseManager();
+    DatabaseManager dbm =  DatabaseManager.getDbCon();
     UIDefaults defaults = UIManager.getLookAndFeelDefaults();
 
     Date_Handler date_handler = new Date_Handler();

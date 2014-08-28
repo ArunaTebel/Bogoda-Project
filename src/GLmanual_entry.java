@@ -1022,6 +1022,7 @@ public class GLmanual_entry extends javax.swing.JPanel {
                     if (reply == JOptionPane.YES_OPTION) {
 
                         supplier_id.getEditor().selectAll();
+                        name.setText("");
 
                     }
 

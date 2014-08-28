@@ -20,7 +20,7 @@ import javax.swing.JOptionPane;
 public class WelfareThread implements Runnable{
     
     public void run(){
-        DatabaseManager dbm = new DatabaseManager();
+        DatabaseManager dbm =DatabaseManager.getDbCon();
         Calendar currentDate = Calendar.getInstance();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         
@@ -154,7 +154,7 @@ public class WelfareThread implements Runnable{
             
             dbm.updateDatabase("is_welfare_updated", "is_updated", isUpdated, "is_updated", month);
             
-            JOptionPane.showMessageDialog(null, "Welfare Updated");
+           /// JOptionPane.showMessageDialog(null, "Welfare Updated");
             
             
             

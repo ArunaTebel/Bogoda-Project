@@ -1,3 +1,8 @@
+
+import java.awt.event.ItemEvent;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -14,6 +19,7 @@ public class PRCR_Add_Workcode extends javax.swing.JPanel {
      * Creates new form PRCR_Add_Chekrlpay
      */
     WorkCodeDetails wcdObject=new WorkCodeDetails();
+    DatabaseManager dbm=DatabaseManager.getDbCon();
     public PRCR_Add_Workcode() {
         initComponents();
     }
@@ -40,8 +46,8 @@ public class PRCR_Add_Workcode extends javax.swing.JPanel {
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         work = new javax.swing.JTextField();
-        code = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
+        workCode = new javax.swing.JComboBox();
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
@@ -125,13 +131,26 @@ public class PRCR_Add_Workcode extends javax.swing.JPanel {
             }
         });
 
-        code.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                codeActionPerformed(evt);
+        jLabel6.setText("Work ");
+
+        workCode.putClientProperty("JComboBox.isTableCellEditor", Boolean.TRUE);
+        workCode.setEditable(true);
+        workCode.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("workcode_details","code")));
+        workCode.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                workCodeItemStateChanged(evt);
             }
         });
-
-        jLabel6.setText("Work ");
+        workCode.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                workCodeActionPerformed(evt);
+            }
+        });
+        workCode.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                workCodeKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -147,15 +166,15 @@ public class PRCR_Add_Workcode extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(31, 31, 31)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel6))
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel1))
                         .addGap(66, 66, 66)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(work, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(code, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(work, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
+                                    .addComponent(workCode, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
@@ -165,19 +184,20 @@ public class PRCR_Add_Workcode extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(42, 42, 42)
-                        .addComponent(jLabel6))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(39, 39, 39)
-                        .addComponent(work, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(16, 16, 16)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(code, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))))
-                .addGap(18, 18, 18)
+                            .addComponent(jLabel1)
+                            .addComponent(workCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(work, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6))
+                        .addGap(32, 32, 32)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(description, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -190,8 +210,8 @@ public class PRCR_Add_Workcode extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         wcdObject.setWork(work.getText());
-        wcdObject.setCode(code.getText());
-        wcdObject.setDescription(description.getText());
+        wcdObject.setCode(workCode.getSelectedItem().toString());
+        //wcdObject.setDescription(description.getText());
         wcdObject.addTodatabase();
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -199,13 +219,50 @@ public class PRCR_Add_Workcode extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_workActionPerformed
 
-    private void codeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codeActionPerformed
+    private void workCodeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_workCodeItemStateChanged
+
+DatabaseManager dbma = DatabaseManager.getDbCon();
+        String Name = null;
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            String item = evt.getItem().toString();
+            int present=0;
+
+            try {
+                ResultSet query = dbma.query("SELECT * FROM workcode_details WHERE code ='" + item + "'");
+                while (query.next()) {
+                    Name = query.getString("work");
+                    present=1;
+                }
+                if(present==1){
+                jButton1.setEnabled(false);
+                work.setText(""+Name);
+                }
+                else{
+                jButton1.setEnabled(true);
+                
+                }
+                
+            } catch (SQLException ex) {
+                System.out.println("error");
+            }
+
+            // division_lb.setText("" + Name);
+        }
+    }//GEN-LAST:event_workCodeItemStateChanged
+
+    private void workCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_workCodeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_codeActionPerformed
+    }//GEN-LAST:event_workCodeActionPerformed
+
+    private void workCodeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_workCodeKeyPressed
+//        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
+//            otday.requestFocus();
+//
+//        }        // TODO add your handling code here:
+    }//GEN-LAST:event_workCodeKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField code;
     private javax.swing.JTextField description;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -220,5 +277,6 @@ public class PRCR_Add_Workcode extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField work;
+    private javax.swing.JComboBox workCode;
     // End of variables declaration//GEN-END:variables
 }

@@ -121,7 +121,7 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="0"/>
-    <Property name="title" type="java.lang.String" value="Management System. Bogoda Tea Factory"/>
+    <Property name="title" type="java.lang.String" value="Management System. Bogoda Group Tea Factory"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="menuBar" type="java.lang.String" value="jMenuBar1"/>
@@ -371,11 +371,11 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/splash/Picture177.png"/>
                 </Property>
-                <Property name="verticalAlignment" type="int" value="3"/>
+                <Property name="verticalAlignment" type="int" value="1"/>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="390" y="210" width="470" height="140"/>
+                  <AbsoluteConstraints x="390" y="220" width="470" height="190"/>
                 </Constraint>
               </Constraints>
             </Component>

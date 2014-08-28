@@ -30,7 +30,7 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
     Date_Handler datehandler = new Date_Handler();
     DateChooser_text datechooser = new DateChooser_text();
     private int reg = 0;//used to update database table:checkroll_personalinfo,column:registerorcasual,if registered reg=1 
-
+    private int gender=0;
     public PRCR_Add_Employee() {
         initComponents();
         checkroll_division.setVisible(false);
@@ -785,6 +785,13 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
                     || ((staffOrCheckroll.getSelectedItem() == "Staff" && basicSalary.getText().length() != 0)))) {
                 
                 piObject.addToDataBase();//update personal info
+                
+                if(genderC.getSelectedItem().toString().equals("Male")){
+                    gender=1;
+                    }else{
+                    gender=0;
+                    }
+                
                 if (staffOrCheckroll.getSelectedItem() == "Checkroll") {
                     
                     if (registerOrNot.isSelected()) { //use to update database table:checkroll_personalinfo,column:registerorcasual,if registered reg=1
@@ -794,9 +801,11 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
                         reg = 0;
                     }
                     
+                    
+                    
                     DatabaseManager dbCon = DatabaseManager.getDbCon();
                     try {//update checkroll_personalinfo
-                        dbCon.insert("INSERT INTO checkroll_personalinfo(code,division,register_or_casual) VALUES('" + Integer.parseInt(empCode_JC.getSelectedItem().toString()) + "','" + division_jc.getSelectedItem().toString() + "','" + reg + "')");
+                        dbCon.insert("INSERT INTO checkroll_personalinfo(code,division,gender,register_or_casual) VALUES('" + Integer.parseInt(empCode_JC.getSelectedItem().toString()) + "','" + division_jc.getSelectedItem().toString() + "','"+gender+"','" + reg + "')");
                     } catch (SQLException ex) {
                         Logger.getLogger(PRCR_Add_Employee.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -809,7 +818,7 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
                     }
                     DatabaseManager dbCon = DatabaseManager.getDbCon();
                     try {
-                            dbCon.insert("INSERT INTO checkroll_personalinfo(code,division,register_or_casual) VALUES('" + Integer.parseInt(empCode_JC.getSelectedItem().toString()) + "','" + "STAFF" + "','" + reg + "')");
+                            dbCon.insert("INSERT INTO checkroll_personalinfo(code,division,gender,register_or_casual) VALUES('" + Integer.parseInt(empCode_JC.getSelectedItem().toString()) + "','" + "STAFF" + "','"+gender+"','" + reg + "')");
                     
                         dbCon.insert("INSERT INTO staff_personalinfo(code,basic_salary,register_or_casual) VALUES('" + Integer.parseInt(empCode_JC.getSelectedItem().toString()) + "','" + Double.parseDouble(basicSalary.getText()) + "','" + reg + "')");
                     } catch (SQLException ex) {
@@ -840,13 +849,13 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
             String item = evt.getItem().toString();
 
             try {
-                ResultSet query = dbma.query("SELECT * FROM division_details WHERE code =" + item + "");
+                ResultSet query = dbma.query("SELECT * FROM division_details WHERE code ='" + item + "'");
                 while (query.next()) {
                     Name = query.getString("division");
                     System.out.println(Name);
                 }
             } catch (SQLException ex) {
-                System.out.println("error");
+                System.out.println("error"+ex.getMessage());
             }
 
             division_lb.setText("" + Name);
@@ -1239,6 +1248,7 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
         String epfNoo = null;
         if (evt.getStateChange() == ItemEvent.SELECTED) {
             int item = Integer.parseInt(evt.getItem().toString());
+            int present=0;
             try {
                 ResultSet query = dbm.query("SELECT * FROM personal_info WHERE code =" + item + "");
                 while (query.next()) {
@@ -1254,11 +1264,29 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
                     joineddate = query.getString("joined_date");
                     regdate = query.getString("permanent_date");
                     epfNoo = query.getString("epf_no");
+                    present=1;
 
                 }
             } catch (SQLException ex) {
             }
             name.setText("" + Name);
+            if(present==1){
+            jButton6.setEnabled(false);
+            jButton9.setEnabled(true);
+            }else{
+            jButton6.setEnabled(true);
+            jButton9.setEnabled(false);
+            yearfield1.setText("");
+                monthfield1.setText("");
+                dayfield1.setText("");
+                yearfield.setText("1500");
+                monthfield.setText("Jan");
+                dayfield.setText("1");
+                yearfield3.setText("");
+                monthfield3.setText("");
+                dayfield3.setText("");
+            
+            }
             sup_name_sinhala.setText("" + sinhalaName);
             NIC.setText("" + nic);
             telNo.setText("" + telNoo);

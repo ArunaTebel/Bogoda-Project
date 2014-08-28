@@ -20,7 +20,7 @@ import javax.swing.UIManager;
 public class Report_Acc_Journals extends javax.swing.JPanel {
 
     UIDefaults defaults = UIManager.getLookAndFeelDefaults();
-    DatabaseManager dbm = new DatabaseManager();
+    DatabaseManager dbm =  DatabaseManager.getDbCon();
     Report_gen generate = new Report_gen();
 
     /**

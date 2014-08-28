@@ -99,11 +99,9 @@ public class ACC_payments extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         payType = new javax.swing.JComboBox();
         refNo = new javax.swing.JTextField();
-        recieptNo = new javax.swing.JTextField();
         datepanel = new javax.swing.JPanel();
         monthfield = new javax.swing.JTextField();
         yearfield = new javax.swing.JTextField();
@@ -261,7 +259,7 @@ public class ACC_payments extends javax.swing.JPanel {
         jLabel14.setText("Total");
 
         debit_account_name.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        debit_account_name.setForeground(new java.awt.Color(153, 153, 153));
+        debit_account_name.setForeground(new java.awt.Color(255, 0, 102));
         debit_account_name.setText("Account name here");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -585,7 +583,7 @@ public class ACC_payments extends javax.swing.JPanel {
         jLabel12.setText("Amount");
 
         credit_accountName.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        credit_accountName.setForeground(new java.awt.Color(153, 153, 153));
+        credit_accountName.setForeground(new java.awt.Color(255, 0, 102));
         credit_accountName.setText("Account name here");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -633,8 +631,6 @@ public class ACC_payments extends javax.swing.JPanel {
 
         jLabel2.setText("Date");
 
-        jLabel3.setText("Recept No:");
-
         jLabel4.setText("Pay Type");
 
         payType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Cash", "Cheque" }));
@@ -663,12 +659,6 @@ public class ACC_payments extends javax.swing.JPanel {
         refNo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 refNoKeyPressed(evt);
-            }
-        });
-
-        recieptNo.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                recieptNoKeyPressed(evt);
             }
         });
 
@@ -735,25 +725,18 @@ public class ACC_payments extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(refNo, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(recieptNo, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
+                        .addComponent(refNo, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(18, 18, 18)
-                        .addComponent(payType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel2))
+                    .addComponent(payType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -765,15 +748,13 @@ public class ACC_payments extends javax.swing.JPanel {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
                             .addComponent(jLabel1)
-                            .addComponent(refNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(refNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(payType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4)))
                     .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(payType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(recieptNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         jButton5.setText("Send");
@@ -947,7 +928,7 @@ public class ACC_payments extends javax.swing.JPanel {
         try {
             boolean addToCreditDataBase;
             raobject.setRefNo(refNo.getText());
-            raobject.setRecieptNo(recieptNo.getText());
+//            raobject.setRecieptNo(recieptNo.getText());
 
             raobject.setDate(datechooser.Return_date(yearfield, monthfield, dayfield));
             raobject.setPayType(payType.getSelectedItem().toString());
@@ -1031,7 +1012,7 @@ public class ACC_payments extends javax.swing.JPanel {
                     j++;
                 }
 
-                recieptNo.setText(null);
+//                recieptNo.setText(null);
                 refNo.setText(null);
                 payType.setSelectedIndex(0);
                 bankCode.setSelectedIndex(0);
@@ -1235,10 +1216,6 @@ public class ACC_payments extends javax.swing.JPanel {
         interface_events.Change_focus_Enterkey_t(dayfield, evt);
         dayfield.selectAll();
     }//GEN-LAST:event_refNoKeyPressed
-
-    private void recieptNoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_recieptNoKeyPressed
-        interface_events.Change_focus_Enterkey_c(payType, evt);
-    }//GEN-LAST:event_recieptNoKeyPressed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         int i = 0;
@@ -1454,7 +1431,7 @@ public class ACC_payments extends javax.swing.JPanel {
                     dayfield.requestFocus();
                 } else {
                     chkd = 1;
-                    recieptNo.requestFocus();
+                    payType.requestFocus();
                 }
 
             } catch (ParseException ex) {
@@ -1488,7 +1465,7 @@ public class ACC_payments extends javax.swing.JPanel {
                     dayfield.requestFocus();
                 } else {
                     chkd = 1;
-                    recieptNo.requestFocus();
+                    payType.requestFocus();
                 }
 
             } catch (ParseException ex) {
@@ -1670,7 +1647,7 @@ public class ACC_payments extends javax.swing.JPanel {
                     dayfield.requestFocus();
                 } else {
                     chkd = 1;
-                    recieptNo.requestFocus();
+                    payType.requestFocus();
                 }
 
             } catch (ParseException ex) {
@@ -1685,7 +1662,7 @@ public class ACC_payments extends javax.swing.JPanel {
         dayfield.setText(datehandler.get_day(datef));
         monthfield.setText(datehandler.get_month(datef));
         yearfield.setText(datehandler.get_year(datef));
-        recieptNo.requestFocus();
+        payType.requestFocus();
     }//GEN-LAST:event_datePicker1ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
@@ -1698,7 +1675,7 @@ public class ACC_payments extends javax.swing.JPanel {
             j++;
         }
 
-        recieptNo.setText(null);
+//        recieptNo.setText(null);
         refNo.setText(null);
         payType.setSelectedIndex(0);
         bankCode.setSelectedIndex(0);
@@ -1800,7 +1777,6 @@ public class ACC_payments extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -1818,7 +1794,6 @@ public class ACC_payments extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField monthfield;
     private javax.swing.JComboBox payType;
-    private javax.swing.JTextField recieptNo;
     private javax.swing.JTextField refNo;
     private javax.swing.JTextField total;
     private javax.swing.JTextField yearfield;

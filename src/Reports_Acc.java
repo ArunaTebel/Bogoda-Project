@@ -32,7 +32,7 @@ Date_Handler date_handler = new Date_Handler();
         progress.setStringPainted(true);
        
     }
-    DatabaseManager dbm = new DatabaseManager();
+   DatabaseManager dbm =  DatabaseManager.getDbCon();
 
     public class Background1 implements Runnable {
 

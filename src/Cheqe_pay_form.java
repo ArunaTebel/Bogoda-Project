@@ -14,7 +14,7 @@ import java.awt.event.KeyEvent;
 public class Cheqe_pay_form extends javax.swing.JFrame {
     
     Interface_Events interface_events = new Interface_Events();
-    DatabaseManager dbm = new DatabaseManager();
+    DatabaseManager dbm = DatabaseManager.getDbCon();
 
     /**
      * Creates new form Cheqe_pay_form

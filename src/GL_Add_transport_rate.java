@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
  * @author Pramo
  */
 public class GL_Add_transport_rate extends javax.swing.JPanel {
-DatabaseManager dbm = new DatabaseManager();
+DatabaseManager dbm = DatabaseManager.getDbCon();
 Interface_Events interface_events = new Interface_Events();
     
     private GL_addTransport_rate add_trans;

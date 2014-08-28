@@ -43,7 +43,7 @@ public class Reports_PRCR extends javax.swing.JPanel {
         progress.setStringPainted(true);
 
     }
-    DatabaseManager dbm = new DatabaseManager();
+    DatabaseManager dbm =  DatabaseManager.getDbCon();
 
     /**
      * This method is called from within the constructor to initialize the form.

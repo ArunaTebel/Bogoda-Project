@@ -607,7 +607,7 @@ public class PRCR_salary_checkrollpay extends javax.swing.JPanel {
         // category_code.requestFocus();
     }//GEN-LAST:event_datePick1ActionPerformed
 
-    DatabaseManager dbm = new DatabaseManager();
+   DatabaseManager dbm =  DatabaseManager.getDbCon();
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         
         int emp_code =Integer.parseInt(code.getSelectedItem().toString());

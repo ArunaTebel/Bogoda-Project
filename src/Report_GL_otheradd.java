@@ -170,7 +170,7 @@ UIDefaults defaults = UIManager.getLookAndFeelDefaults();
     DateChooser_text datechooser = new DateChooser_text();
     Date_Handler datehandler = new Date_Handler();
     Report_gen generate = new Report_gen();
-    DatabaseManager dbm = new DatabaseManager();
+    DatabaseManager dbm =  DatabaseManager.getDbCon();
     String saveloc = dbm.checknReturnStringData("file_locations", "description", "ReportSave", "location");
 
     public void focus() {

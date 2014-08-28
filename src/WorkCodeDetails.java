@@ -53,7 +53,7 @@ public class WorkCodeDetails {
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         try {
             
-            dbCon.insert("INSERT INTO workcode_details(work,code,description) VALUES('" + work + "','" + code + "','"+description+"')");
+            dbCon.insert("INSERT INTO workcode_details(work,code) VALUES('" + work + "','" + code + "')");
             
         } catch (SQLException ex) {
             MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");

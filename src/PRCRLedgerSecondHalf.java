@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
  * @author Acer
  */
 public class PRCRLedgerSecondHalf implements Runnable{
-    DatabaseManager dbm = new DatabaseManager();;
+    DatabaseManager dbm = DatabaseManager.getDbCon();
     int[] workCodes;
     int year;
     

@@ -23,7 +23,7 @@ public class PRCR_Extrapayment_edit_interfacee extends javax.swing.JFrame {
 
     
     
-       DatabaseManager dbm = new DatabaseManager();
+      DatabaseManager dbm =  DatabaseManager.getDbCon();
     Date_Handler datehandler = new Date_Handler();
     Interface_Events interface_events = new Interface_Events();
     private int rows = 0;

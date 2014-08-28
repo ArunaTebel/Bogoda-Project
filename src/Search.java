@@ -10,7 +10,7 @@
  */
 public class Search {
 
-    DatabaseManager dbm = new DatabaseManager();
+    DatabaseManager dbm = DatabaseManager.getDbCon();
 
     public String Suggestions(String table, String col, String word) {
         String Sg = null;

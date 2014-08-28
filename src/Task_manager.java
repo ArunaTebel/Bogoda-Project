@@ -21,7 +21,7 @@ public class Task_manager extends javax.swing.JPanel {
  UIDefaults defaults = UIManager.getLookAndFeelDefaults();
  
     Date_Handler datehandler = new Date_Handler();
-    DatabaseManager dbm = new DatabaseManager();
+    DatabaseManager dbm =  DatabaseManager.getDbCon();
     GL_report_generator report_gen = new GL_report_generator();
     Update update = new Update();
     Thread a;

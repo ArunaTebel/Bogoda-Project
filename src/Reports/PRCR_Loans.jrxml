@@ -17,12 +17,13 @@
      prcr_loans.`rate` AS gl_loans_rate,
      prcr_loans.`month_year` AS gl_loans_date,
      prcr_loans.`issue_date` AS gl_loans_issue_date,
-     prcr_loans.`monthly_amount` AS gl_loans_monthly_amount
+     prcr_loans.`monthly_amount` AS gl_loans_monthly_amount,
+     prcr_loans.`date` AS prcr_loans_date
 FROM
      `prcr_loans` prcr_loans
 WHERE
-     month_year >= $P{from_date}
- AND month_year <= $P{to_date}
+     date >= $P{from_date}
+ AND date <= $P{to_date}
 ORDER BY
      prcr_loans.`type` ASC]]>
 	</queryString>
@@ -36,6 +37,7 @@ ORDER BY
 	<field name="gl_loans_date" class="java.lang.String"/>
 	<field name="gl_loans_issue_date" class="java.sql.Date"/>
 	<field name="gl_loans_monthly_amount" class="java.lang.Double"/>
+	<field name="prcr_loans_date" class="java.sql.Date"/>
 	<variable name="TITLE" class="java.lang.String"/>
 	<variable name="sum1" class="java.lang.Double" calculation="Sum">
 		<variableExpression><![CDATA[$F{gl_loans_monthly_amount}]]></variableExpression>

@@ -763,18 +763,18 @@ public class ACC_View_Database_Handling_Payment {
          dbm.Inserting_To_The_Table(table, "gl_cash_advance_book", "amount", 5,bottom,top); */
 
         Inserting_To_The_Table_Filtered_Payment_Credit_Search(table, "tr_no", 0, bottom, top, filtering_column, element, 1);
-        Inserting_To_The_Table_Filtered_Payment_Credit_Search(table, "payment_no", 1, bottom, top, filtering_column, element, 1);
-        Inserting_To_The_Table_Filtered_Payment_Credit_Search(table, "ref_no", 2, bottom, top, filtering_column, element, 1);
-        Inserting_To_The_Table_Filtered_Payment_Credit_Search(table, "date", 3, bottom, top, filtering_column, element, 1);
-        Inserting_To_The_Table_Filtered_Payment_Credit_Search(table, "pay_type", 4, bottom, top, filtering_column, element, 1);
-        Inserting_To_The_Table_Filtered_Payment_Credit_Search(table, "credit_account_id", 5, bottom, top, filtering_column, element, 1);
-        Inserting_To_The_Table_Filtered_Payment_Credit_Search(table, "credit_account_name", 6, bottom, top, filtering_column, element, 1);
-        Inserting_To_The_Table_Filtered_Payment_Credit_Search(table, "credit_description", 7, bottom, top, filtering_column, element, 1);
-        Inserting_To_The_Table_Filtered_Payment_Credit_Search(table, "credit_amount", 8, bottom, top, filtering_column, element, 1);
-        Inserting_To_The_Table_Filtered_Payment_Credit_Search(table, "debit_account_id", 9, bottom, top, filtering_column, element, 0);
-        Inserting_To_The_Table_Filtered_Payment_Credit_Search(table, "debit_account_name", 10, bottom, top, filtering_column, element, 0);
-        Inserting_To_The_Table_Filtered_Payment_Credit_Search(table, "debit_description", 11, bottom, top, filtering_column, element, 0);
-        Inserting_To_The_Table_Filtered_Payment_Credit_Search(table, "debit_amount", 12, bottom, top, filtering_column, element, 0);
+        //Inserting_To_The_Table_Filtered_Payment_Credit_Search(table, "payment_no", 1, bottom, top, filtering_column, element, 1);
+        Inserting_To_The_Table_Filtered_Payment_Credit_Search(table, "ref_no", 1, bottom, top, filtering_column, element, 1);
+        Inserting_To_The_Table_Filtered_Payment_Credit_Search(table, "date", 2, bottom, top, filtering_column, element, 1);
+        Inserting_To_The_Table_Filtered_Payment_Credit_Search(table, "pay_type", 3, bottom, top, filtering_column, element, 1);
+        Inserting_To_The_Table_Filtered_Payment_Credit_Search(table, "credit_account_id", 4, bottom, top, filtering_column, element, 1);
+        Inserting_To_The_Table_Filtered_Payment_Credit_Search(table, "credit_account_name", 5, bottom, top, filtering_column, element, 1);
+        Inserting_To_The_Table_Filtered_Payment_Credit_Search(table, "credit_description", 6, bottom, top, filtering_column, element, 1);
+        Inserting_To_The_Table_Filtered_Payment_Credit_Search(table, "credit_amount", 7, bottom, top, filtering_column, element, 1);
+        Inserting_To_The_Table_Filtered_Payment_Credit_Search(table, "debit_account_id", 8, bottom, top, filtering_column, element, 0);
+        Inserting_To_The_Table_Filtered_Payment_Credit_Search(table, "debit_account_name", 9, bottom, top, filtering_column, element, 0);
+        Inserting_To_The_Table_Filtered_Payment_Credit_Search(table, "debit_description", 10, bottom, top, filtering_column, element, 0);
+        Inserting_To_The_Table_Filtered_Payment_Credit_Search(table, "debit_amount", 11, bottom, top, filtering_column, element, 0);
     }
 
     /*
@@ -799,18 +799,18 @@ public class ACC_View_Database_Handling_Payment {
          dbm.Inserting_To_The_Table(table, "gl_cash_advance_book", "amount", 5,bottom,top); */
 
         Inserting_To_The_Table_Filtered_Payment_Debit_Search(table, "tr_no", 0, bottom, top, filtering_column, element, 1);
-        Inserting_To_The_Table_Filtered_Payment_Debit_Search(table, "payment_no", 1, bottom, top, filtering_column, element, 1);
-        Inserting_To_The_Table_Filtered_Payment_Debit_Search(table, "ref_no", 2, bottom, top, filtering_column, element, 1);
-        Inserting_To_The_Table_Filtered_Payment_Debit_Search(table, "date", 3, bottom, top, filtering_column, element, 1);
-        Inserting_To_The_Table_Filtered_Payment_Debit_Search(table, "pay_type", 4, bottom, top, filtering_column, element, 1);
-        Inserting_To_The_Table_Filtered_Payment_Debit_Search(table, "credit_account_id", 5, bottom, top, filtering_column, element, 1);
-        Inserting_To_The_Table_Filtered_Payment_Debit_Search(table, "credit_account_name", 6, bottom, top, filtering_column, element, 1);
-        Inserting_To_The_Table_Filtered_Payment_Debit_Search(table, "credit_description", 7, bottom, top, filtering_column, element, 1);
-        Inserting_To_The_Table_Filtered_Payment_Debit_Search(table, "credit_amount", 8, bottom, top, filtering_column, element, 1);
-        Inserting_To_The_Table_Filtered_Payment_Debit_Search(table, "debit_account_id", 9, bottom, top, filtering_column, element, 0);
-        Inserting_To_The_Table_Filtered_Payment_Debit_Search(table, "debit_account_name", 10, bottom, top, filtering_column, element, 0);
-        Inserting_To_The_Table_Filtered_Payment_Debit_Search(table, "debit_description", 11, bottom, top, filtering_column, element, 0);
-        Inserting_To_The_Table_Filtered_Payment_Debit_Search(table, "debit_amount", 12, bottom, top, filtering_column, element, 0);
+       // Inserting_To_The_Table_Filtered_Payment_Debit_Search(table, "payment_no", 1, bottom, top, filtering_column, element, 1);
+        Inserting_To_The_Table_Filtered_Payment_Debit_Search(table, "ref_no", 1, bottom, top, filtering_column, element, 1);
+        Inserting_To_The_Table_Filtered_Payment_Debit_Search(table, "date", 2, bottom, top, filtering_column, element, 1);
+        Inserting_To_The_Table_Filtered_Payment_Debit_Search(table, "pay_type", 3, bottom, top, filtering_column, element, 1);
+        Inserting_To_The_Table_Filtered_Payment_Debit_Search(table, "credit_account_id", 4, bottom, top, filtering_column, element, 1);
+        Inserting_To_The_Table_Filtered_Payment_Debit_Search(table, "credit_account_name", 5, bottom, top, filtering_column, element, 1);
+        Inserting_To_The_Table_Filtered_Payment_Debit_Search(table, "credit_description", 6, bottom, top, filtering_column, element, 1);
+        Inserting_To_The_Table_Filtered_Payment_Debit_Search(table, "credit_amount", 7, bottom, top, filtering_column, element, 1);
+        Inserting_To_The_Table_Filtered_Payment_Debit_Search(table, "debit_account_id", 8, bottom, top, filtering_column, element, 0);
+        Inserting_To_The_Table_Filtered_Payment_Debit_Search(table, "debit_account_name", 9, bottom, top, filtering_column, element, 0);
+        Inserting_To_The_Table_Filtered_Payment_Debit_Search(table, "debit_description", 10, bottom, top, filtering_column, element, 0);
+        Inserting_To_The_Table_Filtered_Payment_Debit_Search(table, "debit_amount", 11, bottom, top, filtering_column, element, 0);
     }
 
     /*
@@ -1296,18 +1296,18 @@ public class ACC_View_Database_Handling_Payment {
          dbm.Inserting_To_The_Table(table, "gl_cash_advance_book", "amount", 5,bottom,top); */
 
         Inserting_To_The_Table_Filtered_Between_Two_Payment_Credit_Search(table, "tr_no", 0, bottom, top, filtering_column, element1, element2, 1);
-        Inserting_To_The_Table_Filtered_Between_Two_Payment_Credit_Search(table, "payment_no", 1, bottom, top, filtering_column, element1, element2, 1);
-        Inserting_To_The_Table_Filtered_Between_Two_Payment_Credit_Search(table, "ref_no", 2, bottom, top, filtering_column, element1, element2, 1);
-        Inserting_To_The_Table_Filtered_Between_Two_Payment_Credit_Search(table, "date", 3, bottom, top, filtering_column, element1, element2, 1);
-        Inserting_To_The_Table_Filtered_Between_Two_Payment_Credit_Search(table, "pay_type", 4, bottom, top, filtering_column, element1, element2, 1);
-        Inserting_To_The_Table_Filtered_Between_Two_Payment_Credit_Search(table, "credit_account_id", 5, bottom, top, filtering_column, element1, element2, 1);
-        Inserting_To_The_Table_Filtered_Between_Two_Payment_Credit_Search(table, "credit_account_name", 6, bottom, top, filtering_column, element1, element2, 1);
-        Inserting_To_The_Table_Filtered_Between_Two_Payment_Credit_Search(table, "credit_description", 7, bottom, top, filtering_column, element1, element2, 1);
-        Inserting_To_The_Table_Filtered_Between_Two_Payment_Credit_Search(table, "credit_amount", 8, bottom, top, filtering_column, element1, element2, 1);
-        Inserting_To_The_Table_Filtered_Between_Two_Payment_Credit_Search(table, "debit_account_id", 9, bottom, top, filtering_column, element1, element2, 0);
-        Inserting_To_The_Table_Filtered_Between_Two_Payment_Credit_Search(table, "debit_account_name", 10, bottom, top, filtering_column, element1, element2, 0);
-        Inserting_To_The_Table_Filtered_Between_Two_Payment_Credit_Search(table, "debit_description", 11, bottom, top, filtering_column, element1, element2, 0);
-        Inserting_To_The_Table_Filtered_Between_Two_Payment_Credit_Search(table, "debit_amount", 12, bottom, top, filtering_column, element1, element2, 0);
+        //Inserting_To_The_Table_Filtered_Between_Two_Payment_Credit_Search(table, "payment_no", 1, bottom, top, filtering_column, element1, element2, 1);
+        Inserting_To_The_Table_Filtered_Between_Two_Payment_Credit_Search(table, "ref_no", 1, bottom, top, filtering_column, element1, element2, 1);
+        Inserting_To_The_Table_Filtered_Between_Two_Payment_Credit_Search(table, "date", 2, bottom, top, filtering_column, element1, element2, 1);
+        Inserting_To_The_Table_Filtered_Between_Two_Payment_Credit_Search(table, "pay_type", 3, bottom, top, filtering_column, element1, element2, 1);
+        Inserting_To_The_Table_Filtered_Between_Two_Payment_Credit_Search(table, "credit_account_id", 4, bottom, top, filtering_column, element1, element2, 1);
+        Inserting_To_The_Table_Filtered_Between_Two_Payment_Credit_Search(table, "credit_account_name", 5, bottom, top, filtering_column, element1, element2, 1);
+        Inserting_To_The_Table_Filtered_Between_Two_Payment_Credit_Search(table, "credit_description", 6, bottom, top, filtering_column, element1, element2, 1);
+        Inserting_To_The_Table_Filtered_Between_Two_Payment_Credit_Search(table, "credit_amount", 7, bottom, top, filtering_column, element1, element2, 1);
+        Inserting_To_The_Table_Filtered_Between_Two_Payment_Credit_Search(table, "debit_account_id", 8, bottom, top, filtering_column, element1, element2, 0);
+        Inserting_To_The_Table_Filtered_Between_Two_Payment_Credit_Search(table, "debit_account_name", 9, bottom, top, filtering_column, element1, element2, 0);
+        Inserting_To_The_Table_Filtered_Between_Two_Payment_Credit_Search(table, "debit_description", 10, bottom, top, filtering_column, element1, element2, 0);
+        Inserting_To_The_Table_Filtered_Between_Two_Payment_Credit_Search(table, "debit_amount", 11, bottom, top, filtering_column, element1, element2, 0);
     }
 
     /*
@@ -1332,18 +1332,18 @@ public class ACC_View_Database_Handling_Payment {
          dbm.Inserting_To_The_Table(table, "gl_cash_advance_book", "amount", 5,bottom,top); */
 
         Inserting_To_The_Table_Filtered_Between_Two_Payment_Debit_Search(table, "tr_no", 0, bottom, top, filtering_column, element1, element2, 1);
-        Inserting_To_The_Table_Filtered_Between_Two_Payment_Debit_Search(table, "payment_no", 1, bottom, top, filtering_column, element1, element2, 1);
-        Inserting_To_The_Table_Filtered_Between_Two_Payment_Debit_Search(table, "ref_no", 2, bottom, top, filtering_column, element1, element2, 1);
-        Inserting_To_The_Table_Filtered_Between_Two_Payment_Debit_Search(table, "date", 3, bottom, top, filtering_column, element1, element2, 1);
-        Inserting_To_The_Table_Filtered_Between_Two_Payment_Debit_Search(table, "pay_type", 4, bottom, top, filtering_column, element1, element2, 1);
-        Inserting_To_The_Table_Filtered_Between_Two_Payment_Debit_Search(table, "credit_account_id", 5, bottom, top, filtering_column, element1, element2, 1);
-        Inserting_To_The_Table_Filtered_Between_Two_Payment_Debit_Search(table, "credit_account_name", 6, bottom, top, filtering_column, element1, element2, 1);
-        Inserting_To_The_Table_Filtered_Between_Two_Payment_Debit_Search(table, "credit_description", 7, bottom, top, filtering_column, element1, element2, 1);
-        Inserting_To_The_Table_Filtered_Between_Two_Payment_Debit_Search(table, "credit_amount", 8, bottom, top, filtering_column, element1, element2, 1);
-        Inserting_To_The_Table_Filtered_Between_Two_Payment_Debit_Search(table, "debit_account_id", 9, bottom, top, filtering_column, element1, element2, 0);
-        Inserting_To_The_Table_Filtered_Between_Two_Payment_Debit_Search(table, "debit_account_name", 10, bottom, top, filtering_column, element1, element2, 0);
-        Inserting_To_The_Table_Filtered_Between_Two_Payment_Debit_Search(table, "debit_description", 11, bottom, top, filtering_column, element1, element2, 0);
-        Inserting_To_The_Table_Filtered_Between_Two_Payment_Debit_Search(table, "debit_amount", 12, bottom, top, filtering_column, element1, element2, 0);
+        //Inserting_To_The_Table_Filtered_Between_Two_Payment_Debit_Search(table, "payment_no", 1, bottom, top, filtering_column, element1, element2, 1);
+        Inserting_To_The_Table_Filtered_Between_Two_Payment_Debit_Search(table, "ref_no", 1, bottom, top, filtering_column, element1, element2, 1);
+        Inserting_To_The_Table_Filtered_Between_Two_Payment_Debit_Search(table, "date", 2, bottom, top, filtering_column, element1, element2, 1);
+        Inserting_To_The_Table_Filtered_Between_Two_Payment_Debit_Search(table, "pay_type", 3, bottom, top, filtering_column, element1, element2, 1);
+        Inserting_To_The_Table_Filtered_Between_Two_Payment_Debit_Search(table, "credit_account_id", 4, bottom, top, filtering_column, element1, element2, 1);
+        Inserting_To_The_Table_Filtered_Between_Two_Payment_Debit_Search(table, "credit_account_name", 5, bottom, top, filtering_column, element1, element2, 1);
+        Inserting_To_The_Table_Filtered_Between_Two_Payment_Debit_Search(table, "credit_description", 6, bottom, top, filtering_column, element1, element2, 1);
+        Inserting_To_The_Table_Filtered_Between_Two_Payment_Debit_Search(table, "credit_amount", 7, bottom, top, filtering_column, element1, element2, 1);
+        Inserting_To_The_Table_Filtered_Between_Two_Payment_Debit_Search(table, "debit_account_id", 8, bottom, top, filtering_column, element1, element2, 0);
+        Inserting_To_The_Table_Filtered_Between_Two_Payment_Debit_Search(table, "debit_account_name", 9, bottom, top, filtering_column, element1, element2, 0);
+        Inserting_To_The_Table_Filtered_Between_Two_Payment_Debit_Search(table, "debit_description", 10, bottom, top, filtering_column, element1, element2, 0);
+        Inserting_To_The_Table_Filtered_Between_Two_Payment_Debit_Search(table, "debit_amount", 11, bottom, top, filtering_column, element1, element2, 0);
     }
 
     /// Methods For AND search
@@ -2846,102 +2846,102 @@ public class ACC_View_Database_Handling_Payment {
     public void Filtered_table_For_Payments_For_Date_Credit_Two_Search(javax.swing.JTable table, String filtering_column, Object element1, Object element2, int bottom, int top, String filtering_column2, Object element3) {
 
         Inserting_To_The_Table_Filtered_Date_Credit_Search(table, "tr_no", 0, bottom, top, filtering_column, element1, element2, filtering_column2, element3, 1);
-        Inserting_To_The_Table_Filtered_Date_Credit_Search(table, "payment_no", 1, bottom, top, filtering_column, element1, element2, filtering_column2, element3, 1);
-        Inserting_To_The_Table_Filtered_Date_Credit_Search(table, "ref_no", 2, bottom, top, filtering_column, element1, element2, filtering_column2, element3, 1);
-        Inserting_To_The_Table_Filtered_Date_Credit_Search(table, "date", 3, bottom, top, filtering_column, element1, element2, filtering_column2, element3, 1);
-        Inserting_To_The_Table_Filtered_Date_Credit_Search(table, "pay_type", 4, bottom, top, filtering_column, element1, element2, filtering_column2, element3, 1);
-        Inserting_To_The_Table_Filtered_Date_Credit_Search(table, "credit_account_id", 5, bottom, top, filtering_column, element1, element2, filtering_column2, element3, 1);
-        Inserting_To_The_Table_Filtered_Date_Credit_Search(table, "credit_account_name", 6, bottom, top, filtering_column, element1, element2, filtering_column2, element3, 1);
-        Inserting_To_The_Table_Filtered_Date_Credit_Search(table, "credit_description", 7, bottom, top, filtering_column, element1, element2, filtering_column2, element3, 1);
-        Inserting_To_The_Table_Filtered_Date_Credit_Search(table, "credit_amount", 8, bottom, top, filtering_column, element1, element2, filtering_column2, element3, 1);
-        Inserting_To_The_Table_Filtered_Date_Credit_Search(table, "debit_account_id", 9, bottom, top, filtering_column, element1, element2, filtering_column2, element3, 0);
-        Inserting_To_The_Table_Filtered_Date_Credit_Search(table, "debit_account_name", 10, bottom, top, filtering_column, element1, element2, filtering_column2, element3, 0);
-        Inserting_To_The_Table_Filtered_Date_Credit_Search(table, "debit_description", 11, bottom, top, filtering_column, element1, element2, filtering_column2, element3, 0);
-        Inserting_To_The_Table_Filtered_Date_Credit_Search(table, "debit_amount", 12, bottom, top, filtering_column, element1, element2, filtering_column2, element3, 0);
+     //   Inserting_To_The_Table_Filtered_Date_Credit_Search(table, "payment_no", 1, bottom, top, filtering_column, element1, element2, filtering_column2, element3, 1);
+        Inserting_To_The_Table_Filtered_Date_Credit_Search(table, "ref_no", 1, bottom, top, filtering_column, element1, element2, filtering_column2, element3, 1);
+        Inserting_To_The_Table_Filtered_Date_Credit_Search(table, "date", 2, bottom, top, filtering_column, element1, element2, filtering_column2, element3, 1);
+        Inserting_To_The_Table_Filtered_Date_Credit_Search(table, "pay_type", 3, bottom, top, filtering_column, element1, element2, filtering_column2, element3, 1);
+        Inserting_To_The_Table_Filtered_Date_Credit_Search(table, "credit_account_id", 4, bottom, top, filtering_column, element1, element2, filtering_column2, element3, 1);
+        Inserting_To_The_Table_Filtered_Date_Credit_Search(table, "credit_account_name", 5, bottom, top, filtering_column, element1, element2, filtering_column2, element3, 1);
+        Inserting_To_The_Table_Filtered_Date_Credit_Search(table, "credit_description", 6, bottom, top, filtering_column, element1, element2, filtering_column2, element3, 1);
+        Inserting_To_The_Table_Filtered_Date_Credit_Search(table, "credit_amount", 7, bottom, top, filtering_column, element1, element2, filtering_column2, element3, 1);
+        Inserting_To_The_Table_Filtered_Date_Credit_Search(table, "debit_account_id", 8, bottom, top, filtering_column, element1, element2, filtering_column2, element3, 0);
+        Inserting_To_The_Table_Filtered_Date_Credit_Search(table, "debit_account_name", 9, bottom, top, filtering_column, element1, element2, filtering_column2, element3, 0);
+        Inserting_To_The_Table_Filtered_Date_Credit_Search(table, "debit_description", 10, bottom, top, filtering_column, element1, element2, filtering_column2, element3, 0);
+        Inserting_To_The_Table_Filtered_Date_Credit_Search(table, "debit_amount", 11, bottom, top, filtering_column, element1, element2, filtering_column2, element3, 0);
     }
 
     public void Filtered_table_For_Payments_For_Date_Debit_Two_Search(javax.swing.JTable table, String filtering_column, Object element1, Object element2, int bottom, int top, String filtering_column2, Object element3) {
 
         Inserting_To_The_Table_Filtered_Date_Debit_Search(table, "tr_no", 0, bottom, top, filtering_column, element1, element2, filtering_column2, element3, 1);
-        Inserting_To_The_Table_Filtered_Date_Debit_Search(table, "payment_no", 1, bottom, top, filtering_column, element1, element2, filtering_column2, element3, 1);
-        Inserting_To_The_Table_Filtered_Date_Debit_Search(table, "ref_no", 2, bottom, top, filtering_column, element1, element2, filtering_column2, element3, 1);
-        Inserting_To_The_Table_Filtered_Date_Debit_Search(table, "date", 3, bottom, top, filtering_column, element1, element2, filtering_column2, element3, 1);
-        Inserting_To_The_Table_Filtered_Date_Debit_Search(table, "pay_type", 4, bottom, top, filtering_column, element1, element2, filtering_column2, element3, 1);
-        Inserting_To_The_Table_Filtered_Date_Debit_Search(table, "credit_account_id", 5, bottom, top, filtering_column, element1, element2, filtering_column2, element3, 1);
-        Inserting_To_The_Table_Filtered_Date_Debit_Search(table, "credit_account_name", 6, bottom, top, filtering_column, element1, element2, filtering_column2, element3, 1);
-        Inserting_To_The_Table_Filtered_Date_Debit_Search(table, "credit_description", 7, bottom, top, filtering_column, element1, element2, filtering_column2, element3, 1);
-        Inserting_To_The_Table_Filtered_Date_Debit_Search(table, "credit_amount", 8, bottom, top, filtering_column, element1, element2, filtering_column2, element3, 1);
-        Inserting_To_The_Table_Filtered_Date_Debit_Search(table, "debit_account_id", 9, bottom, top, filtering_column, element1, element2, filtering_column2, element3, 0);
-        Inserting_To_The_Table_Filtered_Date_Debit_Search(table, "debit_account_name", 10, bottom, top, filtering_column, element1, element2, filtering_column2, element3, 0);
-        Inserting_To_The_Table_Filtered_Date_Debit_Search(table, "debit_description", 11, bottom, top, filtering_column, element1, element2, filtering_column2, element3, 0);
-        Inserting_To_The_Table_Filtered_Date_Debit_Search(table, "debit_amount", 12, bottom, top, filtering_column, element1, element2, filtering_column2, element3, 0);
+       // Inserting_To_The_Table_Filtered_Date_Debit_Search(table, "payment_no", 1, bottom, top, filtering_column, element1, element2, filtering_column2, element3, 1);
+        Inserting_To_The_Table_Filtered_Date_Debit_Search(table, "ref_no", 1, bottom, top, filtering_column, element1, element2, filtering_column2, element3, 1);
+        Inserting_To_The_Table_Filtered_Date_Debit_Search(table, "date", 2, bottom, top, filtering_column, element1, element2, filtering_column2, element3, 1);
+        Inserting_To_The_Table_Filtered_Date_Debit_Search(table, "pay_type", 3, bottom, top, filtering_column, element1, element2, filtering_column2, element3, 1);
+        Inserting_To_The_Table_Filtered_Date_Debit_Search(table, "credit_account_id", 4, bottom, top, filtering_column, element1, element2, filtering_column2, element3, 1);
+        Inserting_To_The_Table_Filtered_Date_Debit_Search(table, "credit_account_name", 5, bottom, top, filtering_column, element1, element2, filtering_column2, element3, 1);
+        Inserting_To_The_Table_Filtered_Date_Debit_Search(table, "credit_description", 6, bottom, top, filtering_column, element1, element2, filtering_column2, element3, 1);
+        Inserting_To_The_Table_Filtered_Date_Debit_Search(table, "credit_amount", 7, bottom, top, filtering_column, element1, element2, filtering_column2, element3, 1);
+        Inserting_To_The_Table_Filtered_Date_Debit_Search(table, "debit_account_id", 8, bottom, top, filtering_column, element1, element2, filtering_column2, element3, 0);
+        Inserting_To_The_Table_Filtered_Date_Debit_Search(table, "debit_account_name", 9, bottom, top, filtering_column, element1, element2, filtering_column2, element3, 0);
+        Inserting_To_The_Table_Filtered_Date_Debit_Search(table, "debit_description", 10, bottom, top, filtering_column, element1, element2, filtering_column2, element3, 0);
+        Inserting_To_The_Table_Filtered_Date_Debit_Search(table, "debit_amount", 11, bottom, top, filtering_column, element1, element2, filtering_column2, element3, 0);
     }
 
     public void Filtered_table_For_Payments_Credit_Credit_Search(javax.swing.JTable table, String filtering_column, Object element, int bottom, int top, String filtering_column2, Object element2) {
 
         Inserting_To_The_Table_Filtered_Payment_Credit_Credit_Search(table, "tr_no", 0, bottom, top, filtering_column, element, filtering_column2, element2, 1);
-        Inserting_To_The_Table_Filtered_Payment_Credit_Credit_Search(table, "payment_no", 1, bottom, top, filtering_column, element, filtering_column2, element2, 1);
-        Inserting_To_The_Table_Filtered_Payment_Credit_Credit_Search(table, "ref_no", 2, bottom, top, filtering_column, element, filtering_column2, element2, 1);
-        Inserting_To_The_Table_Filtered_Payment_Credit_Credit_Search(table, "date", 3, bottom, top, filtering_column, element, filtering_column2, element2, 1);
-        Inserting_To_The_Table_Filtered_Payment_Credit_Credit_Search(table, "pay_type", 4, bottom, top, filtering_column, element, filtering_column2, element2, 1);
-        Inserting_To_The_Table_Filtered_Payment_Credit_Credit_Search(table, "credit_account_id", 5, bottom, top, filtering_column, element, filtering_column2, element2, 1);
-        Inserting_To_The_Table_Filtered_Payment_Credit_Credit_Search(table, "credit_account_name", 6, bottom, top, filtering_column, element, filtering_column2, element2, 1);
-        Inserting_To_The_Table_Filtered_Payment_Credit_Credit_Search(table, "credit_description", 7, bottom, top, filtering_column, element, filtering_column2, element2, 1);
-        Inserting_To_The_Table_Filtered_Payment_Credit_Credit_Search(table, "credit_amount", 8, bottom, top, filtering_column, element, filtering_column2, element2, 1);
-        Inserting_To_The_Table_Filtered_Payment_Credit_Credit_Search(table, "debit_account_id", 9, bottom, top, filtering_column, element, filtering_column2, element2, 0);
-        Inserting_To_The_Table_Filtered_Payment_Credit_Credit_Search(table, "debit_account_name", 10, bottom, top, filtering_column, element, filtering_column2, element2, 0);
-        Inserting_To_The_Table_Filtered_Payment_Credit_Credit_Search(table, "debit_description", 11, bottom, top, filtering_column, element, filtering_column2, element2, 0);
-        Inserting_To_The_Table_Filtered_Payment_Credit_Credit_Search(table, "debit_amount", 12, bottom, top, filtering_column, element, filtering_column2, element2, 0);
+       // Inserting_To_The_Table_Filtered_Payment_Credit_Credit_Search(table, "payment_no", 1, bottom, top, filtering_column, element, filtering_column2, element2, 1);
+        Inserting_To_The_Table_Filtered_Payment_Credit_Credit_Search(table, "ref_no", 1, bottom, top, filtering_column, element, filtering_column2, element2, 1);
+        Inserting_To_The_Table_Filtered_Payment_Credit_Credit_Search(table, "date", 2, bottom, top, filtering_column, element, filtering_column2, element2, 1);
+        Inserting_To_The_Table_Filtered_Payment_Credit_Credit_Search(table, "pay_type", 3, bottom, top, filtering_column, element, filtering_column2, element2, 1);
+        Inserting_To_The_Table_Filtered_Payment_Credit_Credit_Search(table, "credit_account_id", 4, bottom, top, filtering_column, element, filtering_column2, element2, 1);
+        Inserting_To_The_Table_Filtered_Payment_Credit_Credit_Search(table, "credit_account_name", 5, bottom, top, filtering_column, element, filtering_column2, element2, 1);
+        Inserting_To_The_Table_Filtered_Payment_Credit_Credit_Search(table, "credit_description", 6, bottom, top, filtering_column, element, filtering_column2, element2, 1);
+        Inserting_To_The_Table_Filtered_Payment_Credit_Credit_Search(table, "credit_amount", 7, bottom, top, filtering_column, element, filtering_column2, element2, 1);
+        Inserting_To_The_Table_Filtered_Payment_Credit_Credit_Search(table, "debit_account_id", 8, bottom, top, filtering_column, element, filtering_column2, element2, 0);
+        Inserting_To_The_Table_Filtered_Payment_Credit_Credit_Search(table, "debit_account_name", 9, bottom, top, filtering_column, element, filtering_column2, element2, 0);
+        Inserting_To_The_Table_Filtered_Payment_Credit_Credit_Search(table, "debit_description", 10, bottom, top, filtering_column, element, filtering_column2, element2, 0);
+        Inserting_To_The_Table_Filtered_Payment_Credit_Credit_Search(table, "debit_amount", 11, bottom, top, filtering_column, element, filtering_column2, element2, 0);
     }
 
     public void Filtered_table_For_Payments_Debit_Debit_Search(javax.swing.JTable table, String filtering_column, Object element, int bottom, int top, String filtering_column2, Object element2) {
 
         Inserting_To_The_Table_Filtered_Payment_Debit_Debit_Search(table, "tr_no", 0, bottom, top, filtering_column, element, filtering_column2, element2, 1);
-        Inserting_To_The_Table_Filtered_Payment_Debit_Debit_Search(table, "payment_no", 1, bottom, top, filtering_column, element, filtering_column2, element2, 1);
-        Inserting_To_The_Table_Filtered_Payment_Debit_Debit_Search(table, "ref_no", 2, bottom, top, filtering_column, element, filtering_column2, element2, 1);
-        Inserting_To_The_Table_Filtered_Payment_Debit_Debit_Search(table, "date", 3, bottom, top, filtering_column, element, filtering_column2, element2, 1);
-        Inserting_To_The_Table_Filtered_Payment_Debit_Debit_Search(table, "pay_type", 4, bottom, top, filtering_column, element, filtering_column2, element2, 1);
-        Inserting_To_The_Table_Filtered_Payment_Debit_Debit_Search(table, "credit_account_id", 5, bottom, top, filtering_column, element, filtering_column2, element2, 1);
-        Inserting_To_The_Table_Filtered_Payment_Debit_Debit_Search(table, "credit_account_name", 6, bottom, top, filtering_column, element, filtering_column2, element2, 1);
-        Inserting_To_The_Table_Filtered_Payment_Debit_Debit_Search(table, "credit_description", 7, bottom, top, filtering_column, element, filtering_column2, element2, 1);
-        Inserting_To_The_Table_Filtered_Payment_Debit_Debit_Search(table, "credit_amount", 8, bottom, top, filtering_column, element, filtering_column2, element2, 1);
-        Inserting_To_The_Table_Filtered_Payment_Debit_Debit_Search(table, "debit_account_id", 9, bottom, top, filtering_column, element, filtering_column2, element2, 0);
-        Inserting_To_The_Table_Filtered_Payment_Debit_Debit_Search(table, "debit_account_name", 10, bottom, top, filtering_column, element, filtering_column2, element2, 0);
-        Inserting_To_The_Table_Filtered_Payment_Debit_Debit_Search(table, "debit_description", 11, bottom, top, filtering_column, element, filtering_column2, element2, 0);
-        Inserting_To_The_Table_Filtered_Payment_Debit_Debit_Search(table, "debit_amount", 12, bottom, top, filtering_column, element, filtering_column2, element2, 0);
+       // Inserting_To_The_Table_Filtered_Payment_Debit_Debit_Search(table, "payment_no", 1, bottom, top, filtering_column, element, filtering_column2, element2, 1);
+        Inserting_To_The_Table_Filtered_Payment_Debit_Debit_Search(table, "ref_no", 1, bottom, top, filtering_column, element, filtering_column2, element2, 1);
+        Inserting_To_The_Table_Filtered_Payment_Debit_Debit_Search(table, "date", 2, bottom, top, filtering_column, element, filtering_column2, element2, 1);
+        Inserting_To_The_Table_Filtered_Payment_Debit_Debit_Search(table, "pay_type", 3, bottom, top, filtering_column, element, filtering_column2, element2, 1);
+        Inserting_To_The_Table_Filtered_Payment_Debit_Debit_Search(table, "credit_account_id", 4, bottom, top, filtering_column, element, filtering_column2, element2, 1);
+        Inserting_To_The_Table_Filtered_Payment_Debit_Debit_Search(table, "credit_account_name", 5, bottom, top, filtering_column, element, filtering_column2, element2, 1);
+        Inserting_To_The_Table_Filtered_Payment_Debit_Debit_Search(table, "credit_description", 6, bottom, top, filtering_column, element, filtering_column2, element2, 1);
+        Inserting_To_The_Table_Filtered_Payment_Debit_Debit_Search(table, "credit_amount", 7, bottom, top, filtering_column, element, filtering_column2, element2, 1);
+        Inserting_To_The_Table_Filtered_Payment_Debit_Debit_Search(table, "debit_account_id", 8, bottom, top, filtering_column, element, filtering_column2, element2, 0);
+        Inserting_To_The_Table_Filtered_Payment_Debit_Debit_Search(table, "debit_account_name", 9, bottom, top, filtering_column, element, filtering_column2, element2, 0);
+        Inserting_To_The_Table_Filtered_Payment_Debit_Debit_Search(table, "debit_description", 10, bottom, top, filtering_column, element, filtering_column2, element2, 0);
+        Inserting_To_The_Table_Filtered_Payment_Debit_Debit_Search(table, "debit_amount", 11, bottom, top, filtering_column, element, filtering_column2, element2, 0);
     }
 
     public void Filtered_table_For_Payments_Credit_Debit_Search(javax.swing.JTable table, String filtering_column, Object element, int bottom, int top, String filtering_column2, Object element2) {
 
         Inserting_To_The_Table_Filtered_Payment_Credit_Debit_Search(table, "tr_no", 0, bottom, top, filtering_column, element, filtering_column2, element2, 1);
-        Inserting_To_The_Table_Filtered_Payment_Credit_Debit_Search(table, "payment_no", 1, bottom, top, filtering_column, element, filtering_column2, element2, 1);
-        Inserting_To_The_Table_Filtered_Payment_Credit_Debit_Search(table, "ref_no", 2, bottom, top, filtering_column, element, filtering_column2, element2, 1);
-        Inserting_To_The_Table_Filtered_Payment_Credit_Debit_Search(table, "date", 3, bottom, top, filtering_column, element, filtering_column2, element2, 1);
-        Inserting_To_The_Table_Filtered_Payment_Credit_Debit_Search(table, "pay_type", 4, bottom, top, filtering_column, element, filtering_column2, element2, 1);
-        Inserting_To_The_Table_Filtered_Payment_Credit_Debit_Search(table, "credit_account_id", 5, bottom, top, filtering_column, element, filtering_column2, element2, 1);
-        Inserting_To_The_Table_Filtered_Payment_Credit_Debit_Search(table, "credit_account_name", 6, bottom, top, filtering_column, element, filtering_column2, element2, 1);
-        Inserting_To_The_Table_Filtered_Payment_Credit_Debit_Search(table, "credit_description", 7, bottom, top, filtering_column, element, filtering_column2, element2, 1);
-        Inserting_To_The_Table_Filtered_Payment_Credit_Debit_Search(table, "credit_amount", 8, bottom, top, filtering_column, element, filtering_column2, element2, 1);
-        Inserting_To_The_Table_Filtered_Payment_Credit_Debit_Search(table, "debit_account_id", 9, bottom, top, filtering_column, element, filtering_column2, element2, 0);
-        Inserting_To_The_Table_Filtered_Payment_Credit_Debit_Search(table, "debit_account_name", 10, bottom, top, filtering_column, element, filtering_column2, element2, 0);
-        Inserting_To_The_Table_Filtered_Payment_Credit_Debit_Search(table, "debit_description", 11, bottom, top, filtering_column, element, filtering_column2, element2, 0);
-        Inserting_To_The_Table_Filtered_Payment_Credit_Debit_Search(table, "debit_amount", 12, bottom, top, filtering_column, element, filtering_column2, element2, 0);
+        //Inserting_To_The_Table_Filtered_Payment_Credit_Debit_Search(table, "payment_no", 1, bottom, top, filtering_column, element, filtering_column2, element2, 1);
+        Inserting_To_The_Table_Filtered_Payment_Credit_Debit_Search(table, "ref_no", 1, bottom, top, filtering_column, element, filtering_column2, element2, 1);
+        Inserting_To_The_Table_Filtered_Payment_Credit_Debit_Search(table, "date", 2, bottom, top, filtering_column, element, filtering_column2, element2, 1);
+        Inserting_To_The_Table_Filtered_Payment_Credit_Debit_Search(table, "pay_type", 3, bottom, top, filtering_column, element, filtering_column2, element2, 1);
+        Inserting_To_The_Table_Filtered_Payment_Credit_Debit_Search(table, "credit_account_id", 4, bottom, top, filtering_column, element, filtering_column2, element2, 1);
+        Inserting_To_The_Table_Filtered_Payment_Credit_Debit_Search(table, "credit_account_name", 5, bottom, top, filtering_column, element, filtering_column2, element2, 1);
+        Inserting_To_The_Table_Filtered_Payment_Credit_Debit_Search(table, "credit_description", 6, bottom, top, filtering_column, element, filtering_column2, element2, 1);
+        Inserting_To_The_Table_Filtered_Payment_Credit_Debit_Search(table, "credit_amount", 7, bottom, top, filtering_column, element, filtering_column2, element2, 1);
+        Inserting_To_The_Table_Filtered_Payment_Credit_Debit_Search(table, "debit_account_id", 8, bottom, top, filtering_column, element, filtering_column2, element2, 0);
+        Inserting_To_The_Table_Filtered_Payment_Credit_Debit_Search(table, "debit_account_name", 9, bottom, top, filtering_column, element, filtering_column2, element2, 0);
+        Inserting_To_The_Table_Filtered_Payment_Credit_Debit_Search(table, "debit_description", 10, bottom, top, filtering_column, element, filtering_column2, element2, 0);
+        Inserting_To_The_Table_Filtered_Payment_Credit_Debit_Search(table, "debit_amount", 11, bottom, top, filtering_column, element, filtering_column2, element2, 0);
     }
 
     public void Fill_table_without_filtering(javax.swing.JTable table, int bottom, int top) {
         Inserting_To_The_Table_Filtered_Payment_Full(table, "tr_no", 0, bottom, top, 1);
-        Inserting_To_The_Table_Filtered_Payment_Full(table, "reciept_no", 1, bottom, top, 1);
-        Inserting_To_The_Table_Filtered_Payment_Full(table, "ref_no", 2, bottom, top, 1);
-        Inserting_To_The_Table_Filtered_Payment_Full(table, "date", 3, bottom, top, 1);
-        Inserting_To_The_Table_Filtered_Payment_Full(table, "pay_type", 4, bottom, top, 1);
-        Inserting_To_The_Table_Filtered_Payment_Full(table, "credit_account_id", 5, bottom, top, 1);
-        Inserting_To_The_Table_Filtered_Payment_Full(table, "credit_account_name", 6, bottom, top, 1);
-        Inserting_To_The_Table_Filtered_Payment_Full(table, "credit_description", 7, bottom, top, 1);
-        Inserting_To_The_Table_Filtered_Payment_Full(table, "credit_amount", 8, bottom, top, 1);
-        Inserting_To_The_Table_Filtered_Payment_Full(table, "debit_account_id", 9, bottom, top, 0);
-        Inserting_To_The_Table_Filtered_Payment_Full(table, "debit_account_name", 10, bottom, top, 0);
-        Inserting_To_The_Table_Filtered_Payment_Full(table, "debit_description", 11, bottom, top, 0);
-        Inserting_To_The_Table_Filtered_Payment_Full(table, "debit_amount", 12, bottom, top, 0);
+       // Inserting_To_The_Table_Filtered_Payment_Full(table, "reciept_no", 1, bottom, top, 1);
+        Inserting_To_The_Table_Filtered_Payment_Full(table, "ref_no", 1, bottom, top, 1);
+        Inserting_To_The_Table_Filtered_Payment_Full(table, "date", 2, bottom, top, 1);
+        Inserting_To_The_Table_Filtered_Payment_Full(table, "pay_type", 3, bottom, top, 1);
+        Inserting_To_The_Table_Filtered_Payment_Full(table, "credit_account_id", 4, bottom, top, 1);
+        Inserting_To_The_Table_Filtered_Payment_Full(table, "credit_account_name", 5, bottom, top, 1);
+        Inserting_To_The_Table_Filtered_Payment_Full(table, "credit_description", 6, bottom, top, 1);
+        Inserting_To_The_Table_Filtered_Payment_Full(table, "credit_amount", 7, bottom, top, 1);
+        Inserting_To_The_Table_Filtered_Payment_Full(table, "debit_account_id", 8, bottom, top, 0);
+        Inserting_To_The_Table_Filtered_Payment_Full(table, "debit_account_name", 9, bottom, top, 0);
+        Inserting_To_The_Table_Filtered_Payment_Full(table, "debit_description", 10, bottom, top, 0);
+        Inserting_To_The_Table_Filtered_Payment_Full(table, "debit_amount", 11, bottom, top, 0);
     }
 
 }

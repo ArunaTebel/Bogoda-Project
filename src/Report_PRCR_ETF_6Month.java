@@ -160,7 +160,7 @@ public class Report_PRCR_ETF_6Month extends javax.swing.JPanel {
     Date_Handler datehandler = new Date_Handler();
     Report_gen generate = new Report_gen();
     UserAccountControl user = new UserAccountControl();
-    DatabaseManager dbm = new DatabaseManager();
+    DatabaseManager dbm =  DatabaseManager.getDbCon();
 
     public void focus() {
         //dayfield.requestFocus();

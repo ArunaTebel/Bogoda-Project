@@ -20,7 +20,7 @@ import javax.swing.JOptionPane;
  * @author Pramo
  */
 public class GL_Add_Supplier extends javax.swing.JPanel {
-DatabaseManager dbm = new DatabaseManager();
+DatabaseManager dbm = DatabaseManager.getDbCon();
 Interface_Events interface_events = new Interface_Events();
 GL_report_generator reportgen = new GL_report_generator();
 DateChooser_text date_chooser= new DateChooser_text();
@@ -45,7 +45,7 @@ Date_Handler date_handler = new Date_Handler();
             
            
             
-            DatabaseManager dbm = new DatabaseManager();
+            DatabaseManager dbm = DatabaseManager.getDbCon();
             Calendar currentDate = Calendar.getInstance();
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
             

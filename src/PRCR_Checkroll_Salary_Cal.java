@@ -61,6 +61,7 @@ public class PRCR_Checkroll_Salary_Cal {
     private double fine_ded;
     private double welfare_ded;
     private double kovil_ded;
+     private double new_1;
     private double other_ded1;
     private double meals_ded;
     private double other_ded2;
@@ -172,6 +173,7 @@ public class PRCR_Checkroll_Salary_Cal {
                 welfare_ded = query.getDouble("welfare");
                 kovil_ded = query.getDouble("kovil");
                 meals_ded = query.getDouble("meals");
+                new_1=query.getDouble("new_1");
                 debit_pay= query.getDouble("prvs_debts_paid");
 
             }
@@ -198,7 +200,7 @@ public class PRCR_Checkroll_Salary_Cal {
 
         this.incentive1Amount = workdays * incentive1Rate;
 
-        if (workdays > margin) {//done
+        if (workdays >= margin) {//done
             incentive2Amount = workdays * incentive2Rate;
         } else {
             incentive2Amount = 0;
@@ -239,7 +241,7 @@ public class PRCR_Checkroll_Salary_Cal {
             EPFContribution2 = 0;
             ETFContribution = 0;
         }
-
+        totalEPF=EPFContribution+EPFContribution2;
 //        this.tea_ded = Double.parseDouble(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "tea"));
 //        this.salary_adv = Double.parseDouble(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "salary_adv"));
 //        this.fest_adv = Double.parseDouble(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "fest_adv"));
@@ -252,7 +254,7 @@ public class PRCR_Checkroll_Salary_Cal {
 //        this.fine_ded = Double.parseDouble(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "fine"));
 //        this.welfare_ded = Double.parseDouble(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "welfare"));
 //        this.kovil_ded = Double.parseDouble(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "kovil"));
-        this.other_ded1 = ceb_ded + teacher_ded + chemical_ded + payslip_ded + fine_ded + kovil_ded + welfare_ded;
+        this.other_ded1 = ceb_ded + teacher_ded + chemical_ded + payslip_ded + fine_ded + kovil_ded + welfare_ded+new_1;
 
         this.meals_ded = Double.parseDouble(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "meals"));
 

@@ -43,7 +43,7 @@ Date_Handler date_handler = new Date_Handler();
         progress.setStringPainted(true);
        
     }
-    DatabaseManager dbm = new DatabaseManager();
+    DatabaseManager dbm =  DatabaseManager.getDbCon();
       String saveloc = dbm.checknReturnStringData("file_locations", "description", "ReportSave", "location");
 
     /**

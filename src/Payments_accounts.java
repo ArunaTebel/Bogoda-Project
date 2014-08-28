@@ -7,7 +7,7 @@ public class Payments_accounts {
 
     int tr_no;
     String refNo;
-    String recieptNo; // auto
+    //String recieptNo; // auto
     Date date; // this should be automatically diplayed
     String payType; // this is selected from a combo box... it should contain cash/cheque and debit.. Deafault should be set to cash
     int credit_accountCode; // set default the account code of cash..
@@ -31,7 +31,7 @@ public class Payments_accounts {
 
         tr_no = 0;
         refNo = null;
-        recieptNo = null;
+//        recieptNo = null;
         date = null;
         payType = null;
         credit_accountCode = 0;
@@ -60,9 +60,7 @@ public class Payments_accounts {
         this.refNo = refNo;
     }
 
-    public void setRecieptNo(String recieptNo) {
-        this.recieptNo = recieptNo;
-    }
+   
 
     public void setDate(Date date) {
         this.date = date;
@@ -211,9 +209,7 @@ public class Payments_accounts {
         return refNo;
     }
 
-    public String getRecieptNo() {
-        return recieptNo;
-    }
+   
 
     public Date getDate() {
         return date;
@@ -358,7 +354,7 @@ public class Payments_accounts {
     public boolean addToCreditDataBaseBank() {
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         try {
-            dbCon.insert("INSERT INTO account_payment_creditside(ref_no,payment_no,date,pay_type,credit_account_id,credit_account_name,credit_description,bank_id,bank_name,branch_id,branch_name,cheque_no,cheque_date,credit_amount) VALUES('" + refNo + "','" + recieptNo + "','" + date + "','" + payType + "','" + credit_accountCode + "','" + credit_accountName + "','" + credit_description + "','" + bankCode + "','" + bankName + "','" + branchCode + "','" + branchName + "','" + chequeNo + "','" + chequeDate + "','" + creditAmount + "')");
+            dbCon.insert("INSERT INTO account_payment_creditside(ref_no,date,pay_type,credit_account_id,credit_account_name,credit_description,bank_id,bank_name,branch_id,branch_name,cheque_no,cheque_date,credit_amount) VALUES('" + refNo + "','" + date + "','" + payType + "','" + credit_accountCode + "','" + credit_accountName + "','" + credit_description + "','" + bankCode + "','" + bankName + "','" + branchCode + "','" + branchName + "','" + chequeNo + "','" + chequeDate + "','" + creditAmount + "')");
         } catch (SQLException ex) {
             MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
             return false;
@@ -379,7 +375,7 @@ public class Payments_accounts {
      public boolean addToCreditDataBaseBankall() {
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         try {
-            dbCon.insert("INSERT INTO account_payment_creditside_all(ref_no,payment_no,date,pay_type,credit_account_id,credit_account_name,credit_description,bank_id,bank_name,branch_id,branch_name,cheque_no,cheque_date,credit_amount) VALUES('" + refNo + "','" + recieptNo + "','" + date + "','" + payType + "','" + credit_accountCode + "','" + credit_accountName + "','" + credit_description + "','" + bankCode + "','" + bankName + "','" + branchCode + "','" + branchName + "','" + chequeNo + "','" + chequeDate + "','" + creditAmount + "')");
+            dbCon.insert("INSERT INTO account_payment_creditside_all(ref_no,date,pay_type,credit_account_id,credit_account_name,credit_description,bank_id,bank_name,branch_id,branch_name,cheque_no,cheque_date,credit_amount) VALUES('" + refNo + "','" + date + "','" + payType + "','" + credit_accountCode + "','" + credit_accountName + "','" + credit_description + "','" + bankCode + "','" + bankName + "','" + branchCode + "','" + branchName + "','" + chequeNo + "','" + chequeDate + "','" + creditAmount + "')");
         } catch (SQLException ex) {
             MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
             return false;
@@ -400,7 +396,7 @@ public class Payments_accounts {
     public boolean addToCreditDataBaseCash() {
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         try {
-            dbCon.insert("INSERT INTO account_payment_creditside(ref_no,payment_no,date,pay_type,credit_account_id,credit_account_name,credit_description,credit_amount) VALUES('" + refNo + "','" + recieptNo + "','" + date + "','" + payType + "','" + credit_accountCode + "','" + credit_accountName + "','" + credit_description + "','" + creditAmount + "')");
+            dbCon.insert("INSERT INTO account_payment_creditside(ref_no,date,pay_type,credit_account_id,credit_account_name,credit_description,credit_amount) VALUES('" + refNo + "','" + date + "','" + payType + "','" + credit_accountCode + "','" + credit_accountName + "','" + credit_description + "','" + creditAmount + "')");
 
         } catch (SQLException ex) {
             MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
@@ -422,7 +418,7 @@ public class Payments_accounts {
     public boolean addToCreditDataBaseCashall() {
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         try {
-            dbCon.insert("INSERT INTO account_payment_creditside_all(ref_no,payment_no,date,pay_type,credit_account_id,credit_account_name,credit_description,credit_amount) VALUES('" + refNo + "','" + recieptNo + "','" + date + "','" + payType + "','" + credit_accountCode + "','" + credit_accountName + "','" + credit_description + "','" + creditAmount + "')");
+            dbCon.insert("INSERT INTO account_payment_creditside_all(ref_no,date,pay_type,credit_account_id,credit_account_name,credit_description,credit_amount) VALUES('" + refNo + "','" + date + "','" + payType + "','" + credit_accountCode + "','" + credit_accountName + "','" + credit_description + "','" + creditAmount + "')");
 
         } catch (SQLException ex) {
             MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
@@ -469,7 +465,7 @@ public class Payments_accounts {
     public boolean UpdateCreditDatabaseBank(int tr_no) {
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         dbCon.updateDatabase("account_payment_creditside", "tr_no", tr_no, "ref_no", refNo);
-        dbCon.updateDatabase("account_payment_creditside", "tr_no", tr_no, "payment_no", recieptNo);
+//        dbCon.updateDatabase("account_payment_creditside", "tr_no", tr_no, "payment_no", recieptNo);
         dbCon.updateDatabase("account_payment_creditside", "tr_no", tr_no, "date", date);
         dbCon.updateDatabase("account_payment_creditside", "tr_no", tr_no, "pay_type", payType);
         dbCon.updateDatabase("account_payment_creditside", "tr_no", tr_no, "credit_account_id", credit_accountCode);
@@ -489,7 +485,7 @@ public class Payments_accounts {
        public boolean UpdateCreditDatabaseBankall(int tr_no) {
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         dbCon.updateDatabase("account_payment_creditside_all", "tr_no", tr_no, "ref_no", refNo);
-        dbCon.updateDatabase("account_payment_creditside_all", "tr_no", tr_no, "payment_no", recieptNo);
+//        dbCon.updateDatabase("account_payment_creditside_all", "tr_no", tr_no, "payment_no", recieptNo);
         dbCon.updateDatabase("account_payment_creditside_all", "tr_no", tr_no, "date", date);
         dbCon.updateDatabase("account_payment_creditside_all", "tr_no", tr_no, "pay_type", payType);
         dbCon.updateDatabase("account_payment_creditside_all", "tr_no", tr_no, "credit_account_id", credit_accountCode);
@@ -509,7 +505,7 @@ public class Payments_accounts {
        public boolean UpdateCreditDatabaseCash(int tr_no) {
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         dbCon.updateDatabase("account_payment_creditside", "tr_no", tr_no, "ref_no", refNo);
-        dbCon.updateDatabase("account_payment_creditside", "tr_no", tr_no, "payment_no", recieptNo);
+//        dbCon.updateDatabase("account_payment_creditside", "tr_no", tr_no, "payment_no", recieptNo);
         dbCon.updateDatabase("account_payment_creditside", "tr_no", tr_no, "date", date);
         dbCon.updateDatabase("account_payment_creditside", "tr_no", tr_no, "pay_type", payType);
         dbCon.updateDatabase("account_payment_creditside", "tr_no", tr_no, "credit_account_id", credit_accountCode);
@@ -523,7 +519,7 @@ public class Payments_accounts {
           public boolean UpdateCreditDatabaseCashall(int tr_no) {
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         dbCon.updateDatabase("account_payment_creditside_all", "tr_no", tr_no, "ref_no", refNo);
-        dbCon.updateDatabase("account_payment_creditside_all", "tr_no", tr_no, "payment_no", recieptNo);
+//        dbCon.updateDatabase("account_payment_creditside_all", "tr_no", tr_no, "payment_no", recieptNo);
         dbCon.updateDatabase("account_payment_creditside_all", "tr_no", tr_no, "date", date);
         dbCon.updateDatabase("account_payment_creditside_all", "tr_no", tr_no, "pay_type", payType);
         dbCon.updateDatabase("account_payment_creditside_all", "tr_no", tr_no, "credit_account_id", credit_accountCode);

@@ -6,7 +6,7 @@
 public class Add_Rate_details extends javax.swing.JPanel {
 
     Rate_Details aobject = new Rate_Details();
-    DatabaseManager dbm = new DatabaseManager();
+    DatabaseManager dbm = DatabaseManager.getDbCon();
     Interface_Events interface_events = new Interface_Events();
 
     /**

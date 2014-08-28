@@ -199,7 +199,7 @@ int k=0;
             EPFContribution2 = 0;
             ETFContribution = 0;
         }
-
+        totalEPF=EPFContribution+EPFContribution2;
 //        this.tea_ded = Double.parseDouble(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "tea"));
 //        this.salary_adv = Double.parseDouble(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "salary_adv"));
 //        this.fest_adv = Double.parseDouble(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "fest_adv"));

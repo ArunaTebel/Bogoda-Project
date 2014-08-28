@@ -328,15 +328,15 @@ public class pGreenLeaf extends javax.swing.JPanel {
         }
         if (selection.equalsIgnoreCase("PreDebits")) {
             
-//          Add_category Addcat = new Add_category();
+          GL_debit_edit Addcat = new GL_debit_edit();
 //
-//       GL_content.removeAll();
+       GL_content.removeAll();
 //
-//       Addcat.setSize(GL_content.getSize());
+       Addcat.setSize(GL_content.getSize());
 //
-//       GL_content.add(Addcat);
-//        validate();
-//        repaint();
+       GL_content.add(Addcat);
+       validate();
+        repaint();
         }
     }//GEN-LAST:event_jComboBox3ActionPerformed
 

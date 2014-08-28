@@ -28,16 +28,19 @@ public class GLcash_advance extends javax.swing.JPanel {
     DateChooser_text datechooser = new DateChooser_text();
     GL_Billsummerycls bill_sum = new GL_Billsummerycls();
     Update update = new Update();
+    
 
     public GLcash_advance() {
         initComponents();
-
+      // Emergency.setSelected(true);
+       
+     // Save.setEnabled(true);
         String selection = (String) cash_cheque_combo.getSelectedItem();
 
         if (selection.equalsIgnoreCase("Cash")) {
 
             Cheque_pay.setVisible(false);
-            Save.setEnabled(false);
+            Save.setEnabled(true);
 
         }
     }
@@ -45,7 +48,7 @@ public class GLcash_advance extends javax.swing.JPanel {
     public void focus() {
         this.requestFocusInWindow();
         dayfield.requestFocus();
-        Set_val.setText(dbm.checknReturnStringData("rate_details", "Code_name", "GLSET", "rate")+"");
+        Set_val.setText(dbm.checknReturnStringData("rate_details", "Code_name", "GLSET", "rate") + "");
         dayfield.selectAll();
 
     }
@@ -760,7 +763,7 @@ public class GLcash_advance extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cash_cheque_comboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cash_cheque_comboActionPerformed
-   
+
         String selection = (String) cash_cheque_combo.getSelectedItem();
 
         if (selection.equalsIgnoreCase("Cash")) {
@@ -778,31 +781,73 @@ public class GLcash_advance extends javax.swing.JPanel {
     }//GEN-LAST:event_cash_cheque_comboActionPerformed
 
     private void supplier_idItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_supplier_idItemStateChanged
-     
-        
+
         if (supplier_id.getSelectedIndex() != 0) {
-             if(supplier_id.getSelectedItem()!=null){
-            try {
-                
-                supplier_name.setText(dbm.checknReturnData("suppliers", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "sup_name"));
-                
-                
-                
-                int gl_cashadvance_set_date_int = 10;   // This has to be taken from the database later
-                
-                Date_Handler date_handler = new Date_Handler();
-                date_handler.set_glcash_advance_starting_date_int(gl_cashadvance_set_date_int);
-                // A seperate class glcashadvances may have to be created in the future
-                
-                max_allowable.setText(""+bill_sum.bill_sum_cal(Integer.parseInt(supplier_id.getSelectedItem().toString()), yearfield.getText(), datehandler.return_month_as_num(monthfield.getText()),(Double.parseDouble(Set_val.getText()))));
-              } catch (NullPointerException e) {
-                supplier_id.setSelectedIndex(1);
-                
+            if (supplier_id.getSelectedItem() != null) {
+
+                String result;
+                try {
+                    result = dbm.filterReturn2StringData("gl_cash_advance", "sup_id", supplier_id.getSelectedItem() + "", "ordered_date", datechooser.Return_date(yearfield, monthfield, dayfield) + "", "entry_no");
+                } catch (ParseException ex) {
+                    Logger.getLogger(GLcash_advance.class.getName()).log(Level.SEVERE, null, ex);
+                    result = null;
+                }
+                if (result != null) {
+                    int reply = JOptionPane.showConfirmDialog(max_allowable,
+                            "Duplicate Entry" + "\n" + "Cancel?", "Duplicate", JOptionPane.YES_NO_OPTION);
+                    if (reply == JOptionPane.NO_OPTION) {
+                        try {
+
+                            supplier_name.setText(dbm.checknReturnData("suppliers", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "sup_name"));
+
+                            int gl_cashadvance_set_date_int = 10;   // This has to be taken from the database later
+
+                            Date_Handler date_handler = new Date_Handler();
+                            date_handler.set_glcash_advance_starting_date_int(gl_cashadvance_set_date_int);
+                            // A seperate class glcashadvances may have to be created in the future
+                            amount.requestFocusInWindow();
+                            try {
+                                max_allowable.setText("" + bill_sum.bill_sum_cal(Integer.parseInt(supplier_id.getSelectedItem().toString()), yearfield.getText(), datehandler.return_month_as_num(monthfield.getText()), (Double.parseDouble(Set_val.getText()))));
+                            } catch (NumberFormatException eee) {
+                            }
+                            amount.requestFocusInWindow();
+                            //  System.out.println("DONEEEE");
+                        } catch (NullPointerException e) {
+                            supplier_id.setSelectedIndex(1);
+                            supplier_name.setText("");
+
+                        }
+
+                    }
+                    if (reply == JOptionPane.YES_OPTION) {
+                        supplier_id.getEditor().selectAll();
+                        supplier_name.setText("");
+                    }
+                } else {
+                    try {
+
+                        supplier_name.setText(dbm.checknReturnData("suppliers", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "sup_name"));
+
+                        int gl_cashadvance_set_date_int = 10;   // This has to be taken from the database later
+
+                        Date_Handler date_handler = new Date_Handler();
+                        date_handler.set_glcash_advance_starting_date_int(gl_cashadvance_set_date_int);
+                        // A seperate class glcashadvances may have to be created in the future
+                        amount.requestFocusInWindow();
+                        try {
+                            max_allowable.setText("" + bill_sum.bill_sum_cal(Integer.parseInt(supplier_id.getSelectedItem().toString()), yearfield.getText(), datehandler.return_month_as_num(monthfield.getText()), (Double.parseDouble(Set_val.getText()))));
+                        } catch (NumberFormatException eee) {
+                        }
+                    } catch (NullPointerException e) {
+                        supplier_id.setSelectedIndex(1);
+                        supplier_name.setText("");
+                    }
+
+                }
             }
-            amount.requestFocusInWindow();
-        }
 
         }
+        // Trying to handle duplicates have duplicated the code 
     }//GEN-LAST:event_supplier_idItemStateChanged
 
     private void amountKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_amountKeyPressed
@@ -823,83 +868,83 @@ public class GLcash_advance extends javax.swing.JPanel {
     }//GEN-LAST:event_cash_cheque_comboKeyPressed
 
     private void SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveActionPerformed
-     if(Emergency.isSelected()){
-        
-        if (cash_cheque_combo.getSelectedItem().toString() == "Cash") {
+        if (Emergency.isSelected()) {
 
-            if (supplier_id.getSelectedItem() == null || amount.getText().length() == 0) {
+            if (cash_cheque_combo.getSelectedItem().toString() == "Cash") {
 
-                Red_message.setText("Fill all the Empty fields before Save");
-            } else {
-                try {
-                    // save button action here when cash selected
+                if (supplier_id.getSelectedItem() == null || amount.getText().length() == 0) {
 
-                    interface_events.Respond_enter(Save1, null);
-                    cadvance.set_permission(Permission.isSelected());
-                    cadvance.set_sup_id(Integer.parseInt(supplier_id.getSelectedItem().toString()));
-                    cadvance.set_max_allowable(Double.parseDouble(max_allowable.getText()));
-                    cadvance.set_amount(Double.parseDouble(amount.getText()));
-                    java.sql.Date date3 = datechooser.Return_date(yearfield, monthfield, dayfield);
-                    cadvance.set_issue_date(date3);
-                    cadvance.set_sup_name(supplier_name.getText());
-                    cadvance.set_pay_type(cash_cheque_combo.getSelectedItem().toString());
-                    cadvance.set_emergency(Emergency.isSelected());
-                    Date Ldate = java.sql.Date.valueOf(datehandler.get_today_date());
-            cadvance.set_date(Ldate);
-                    cadvance.set_cheque_date(date3);
+                    Red_message.setText("Fill all the Empty fields before Save");
+                } else {
+                    try {
+                        // save button action here when cash selected
 
-                    cadvance.addToDataBasemain();
+                        interface_events.Respond_enter(Save1, null);
+                        cadvance.set_permission(Permission.isSelected());
+                        cadvance.set_sup_id(Integer.parseInt(supplier_id.getSelectedItem().toString()));
+                        cadvance.set_max_allowable(Double.parseDouble(max_allowable.getText()));
+                        cadvance.set_amount(Double.parseDouble(amount.getText()));
+                        java.sql.Date date3 = datechooser.Return_date(yearfield, monthfield, dayfield);
+                        cadvance.set_issue_date(date3);
+                        cadvance.set_sup_name(supplier_name.getText());
+                        cadvance.set_pay_type(cash_cheque_combo.getSelectedItem().toString());
+                        cadvance.set_emergency(Emergency.isSelected());
+                        Date Ldate = java.sql.Date.valueOf(datehandler.get_today_date());
+                        cadvance.set_date(Ldate);
+                        cadvance.set_cheque_date(date3);
 
-                    Red_message.setText("Saved cash");
+                        cadvance.addToDataBasemain();
+
+                        Red_message.setText("Saved cash");
+                        supplier_id.setSelectedIndex(0);
+                        supplier_name.setText(" ");
+                        amount.setText(null);
+                        supplier_id.requestFocusInWindow();
+                    } catch (ParseException ex) {
+                        Logger.getLogger(GLcash_advance.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                }
+            }
+
+            if (cash_cheque_combo.getSelectedItem().toString() == "Cheque") {
+
+                if (supplier_id.getSelectedItem() == null || Cheque_Refno.getText().length() == 0 || jComboBox1.getSelectedItem() == null || Cheque_no.getText().length() == 0 || amount.getText().length() == 0) {
+
+                    Red_message.setText("Fill all the Empty fields before Save");
+
+                } else {
+                    Red_message.setText("Saved cheque");
+                    // save button action here when cheque selected
                     supplier_id.setSelectedIndex(0);
                     supplier_name.setText(" ");
                     amount.setText(null);
+                    Cheque_Refno.setText(null);
+                    Cheque_no.setText(null);
+                    jComboBox1.setSelectedItem(null);
+                    bank_name.setText(" ");
                     supplier_id.requestFocusInWindow();
-                } catch (ParseException ex) {
-                    Logger.getLogger(GLcash_advance.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
             }
-        }
 
-        if (cash_cheque_combo.getSelectedItem().toString() == "Cheque") {
+            if (Permission.isSelected()) {
+                try {
+                    GL_Over_Advance overadvance = new GL_Over_Advance();
 
-            if (supplier_id.getSelectedItem() == null || Cheque_Refno.getText().length() == 0 || jComboBox1.getSelectedItem() == null || Cheque_no.getText().length() == 0 || amount.getText().length() == 0) {
-
-                Red_message.setText("Fill all the Empty fields before Save");
-
-            } else {
-                Red_message.setText("Saved cheque");
-                            // save button action here when cheque selected
-                 supplier_id.setSelectedIndex(0);
-                supplier_name.setText(" ");
-                amount.setText(null);
-                Cheque_Refno.setText(null);
-                Cheque_no.setText(null);
-                jComboBox1.setSelectedItem(null);
-                bank_name.setText(" ");
-                supplier_id.requestFocusInWindow();
+                    overadvance.Set_Sup_ID(Integer.parseInt(supplier_id.getSelectedItem().toString()));
+                    overadvance.Set_Sup_Name();
+                    overadvance.Set_Category_Code();
+                    overadvance.Set_Advance_Taken(Double.parseDouble(amount.getText()));
+                    overadvance.Set_Issued_Date(datechooser.Return_date(yearfield, monthfield, dayfield));
+                    overadvance.AddToOverAdvanceDatabase();
+                } catch (ParseException ex) {
+                    Logger.getLogger(GLcash_advance.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
-
+        } else {
+            JOptionPane.showMessageDialog(datechooser, "This entry should be saved to the book");
         }
-        
-        if(Permission.isSelected()){
-            try {
-                GL_Over_Advance overadvance = new GL_Over_Advance();
-                
-                overadvance.Set_Sup_ID(Integer.parseInt(supplier_id.getSelectedItem().toString()));
-                overadvance.Set_Sup_Name();
-                overadvance.Set_Category_Code();
-                overadvance.Set_Advance_Taken(Double.parseDouble(amount.getText()));
-                overadvance.Set_Issued_Date(datechooser.Return_date(yearfield,monthfield,dayfield));
-                overadvance.AddToOverAdvanceDatabase();
-            } catch (ParseException ex) {
-                Logger.getLogger(GLcash_advance.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-     }
-     else{  JOptionPane.showMessageDialog(datechooser, "This entry should be saved to the book");
-             }
     }//GEN-LAST:event_SaveActionPerformed
 
     private void SaveFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_SaveFocusGained
@@ -921,13 +966,13 @@ public class GLcash_advance extends javax.swing.JPanel {
             cadvance.set_pay_type(cash_cheque_combo.getSelectedItem().toString());
             cadvance.addToDataBase();
             supplier_id.setSelectedIndex(0);
-                    supplier_name.setText(" ");
-                    amount.setText(null);
-                    supplier_id.requestFocusInWindow();
+            supplier_name.setText(" ");
+            amount.setText(null);
+            supplier_id.requestFocusInWindow();
         } catch (ParseException ex) {
             Logger.getLogger(GLcash_advance.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
 
     }//GEN-LAST:event_Save1ActionPerformed
 
@@ -943,22 +988,22 @@ public class GLcash_advance extends javax.swing.JPanel {
             Save1.setEnabled(true);
             Save.setEnabled(false);
         }
-        
-       // update.update_month_check(Save, yearfield, monthfield);
+
+        // update.update_month_check(Save, yearfield, monthfield);
         //update.update_month_check(Save1, yearfield, monthfield);
     }//GEN-LAST:event_EmergencyItemStateChanged
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        try{
-        GL_Billsummery bill = new GL_Billsummery(supplier_id.getSelectedItem().toString());
-         bill.setVisible(true);
-        }catch (Exception e){
-         GL_Billsummery bill = new GL_Billsummery("SupID");
-         bill.setVisible(true);
+        try {
+            GL_Billsummery bill = new GL_Billsummery(supplier_id.getSelectedItem().toString());
+            bill.setVisible(true);
+        } catch (Exception e) {
+            GL_Billsummery bill = new GL_Billsummery("SupID");
+            bill.setVisible(true);
         }
        // bill.setSize(1000, 700);
-       
-        
+
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
@@ -1355,7 +1400,7 @@ public class GLcash_advance extends javax.swing.JPanel {
             supplier_id.requestFocus();
 
         }
-         update.update_month_check(Save, yearfield, monthfield);
+        update.update_month_check(Save, yearfield, monthfield);
         update.update_month_check(Save1, yearfield, monthfield);
         update.update_month_check(UpdateB, yearfield, monthfield);
     }//GEN-LAST:event_dayfieldKeyPressed
@@ -1363,11 +1408,11 @@ public class GLcash_advance extends javax.swing.JPanel {
     private void datePicker1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datePicker1ActionPerformed
         java.sql.Date datef = new java.sql.Date(datePicker1.getDate().getTime());
 
-        dayfield.setText(Integer.parseInt(datehandler.get_day(datef))+"");
+        dayfield.setText(Integer.parseInt(datehandler.get_day(datef)) + "");
         monthfield.setText(datehandler.get_month(datef));
         yearfield.setText(datehandler.get_year(datef));
         supplier_id.requestFocus();
-         update.update_month_check(Save, yearfield, monthfield);
+        update.update_month_check(Save, yearfield, monthfield);
         update.update_month_check(Save1, yearfield, monthfield);
         update.update_month_check(UpdateB, yearfield, monthfield);
     }//GEN-LAST:event_datePicker1ActionPerformed
@@ -1378,7 +1423,7 @@ public class GLcash_advance extends javax.swing.JPanel {
 
     private void PermissionItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_PermissionItemStateChanged
 //        update.update_month_check(Save, yearfield, monthfield);
-      //  update.update_month_check(Save1, yearfield, monthfield);
+        //  update.update_month_check(Save1, yearfield, monthfield);
     }//GEN-LAST:event_PermissionItemStateChanged
 
     private void PermissionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PermissionActionPerformed
@@ -1386,98 +1431,104 @@ public class GLcash_advance extends javax.swing.JPanel {
     }//GEN-LAST:event_PermissionActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        dbm.updateDatabase("rate_details", "Code_name", "GLSET","rate", Double.parseDouble(Set_val.getText()));
+        dbm.updateDatabase("rate_details", "Code_name", "GLSET", "rate", Double.parseDouble(Set_val.getText()));
         Red_message.setText("Set value saved");
-       double a =  bill_sum.bill_sum_cal(Integer.parseInt(supplier_id.getSelectedItem().toString()), yearfield.getText(), datehandler.return_month_as_num(monthfield.getText()), Double.parseDouble(Set_val.getText()));
-       max_allowable.setText(""+a);
+        double a = bill_sum.bill_sum_cal(Integer.parseInt(supplier_id.getSelectedItem().toString()), yearfield.getText(), datehandler.return_month_as_num(monthfield.getText()), Double.parseDouble(Set_val.getText()));
+        max_allowable.setText("" + a);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void edit2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_edit2KeyPressed
-        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
 
             try {
-                Save.setEnabled(false); 
-                
+                Save.setEnabled(false);
+
                 int tr_no = 0;
-                
-                if(!edit2.getText().equals("")){ tr_no = Integer.parseInt(edit2.getText());            }
+
+                if (!edit2.getText().equals("")) {
+                    tr_no = Integer.parseInt(edit2.getText());
+                }
                 supplier_id.setSelectedItem(dbm.checknReturnData("gl_cash_advance", "entry_no", tr_no, "sup_id"));
-                
-                String date= dbm.checknReturnData("gl_cash_advance", "entry_no", tr_no, "issued_date");
-               String pay = dbm.checknReturnData("gl_cash_advance", "entry_no", tr_no, "pay_type");
-               if(pay.equals("cash")){
-               cash_cheque_combo.setSelectedIndex(0);
-               }
-               else if(pay.equals("cheque")){
-               cash_cheque_combo.setSelectedIndex(1);}
+
+                String date = dbm.checknReturnData("gl_cash_advance", "entry_no", tr_no, "issued_date");
+                String pay = dbm.checknReturnData("gl_cash_advance", "entry_no", tr_no, "pay_type");
+                if (pay.equals("cash")) {
+                    cash_cheque_combo.setSelectedIndex(0);
+                } else if (pay.equals("cheque")) {
+                    cash_cheque_combo.setSelectedIndex(1);
+                }
                 java.sql.Date Datef = null;
-                Datef=java.sql.Date.valueOf(date);
+                Datef = java.sql.Date.valueOf(date);
 
                 datePicker1.setDate(Datef);
                 String amo = dbm.checknReturnData("gl_cash_advance", "entry_no", tr_no, "amount");
                 amount.setText(amo);
                 String sp = dbm.checknReturnData("gl_cash_advance", "entry_no", tr_no, "special_permission");
                 String em = dbm.checknReturnData("gl_cash_advance", "entry_no", tr_no, "emergency");
-                
-               if(sp.equals("YES")){Permission.setSelected(true);}
-               else{Permission.setSelected(false);}
-               if(em.equals("YES")){ Emergency.setSelected(true);}
-               else{Emergency.setSelected(false);}
-               
+
+                if (sp.equals("YES")) {
+                    Permission.setSelected(true);
+                } else {
+                    Permission.setSelected(false);
+                }
+                if (em.equals("YES")) {
+                    Emergency.setSelected(true);
+                } else {
+                    Emergency.setSelected(false);
+                }
+
                 //table.setValueAt(1, 0, 0);
-               
                 jButton1.setEnabled(false);
             } catch (Exception ex) {
-                
+
             }
             delete.setEnabled(true);
         }
-         update.update_month_check(Save, yearfield, monthfield);
-         update.update_month_check(Save1, yearfield, monthfield);
-           Save.setEnabled(false); 
+        update.update_month_check(Save, yearfield, monthfield);
+        update.update_month_check(Save1, yearfield, monthfield);
+        Save.setEnabled(false);
     }//GEN-LAST:event_edit2KeyPressed
 
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
         int reply = JOptionPane.showConfirmDialog(max_allowable,
-            "Are you Sure?" + "\n" + "Delete entry "+ edit2.getText()+"?", "Confirm", JOptionPane.YES_NO_OPTION);
-        if (reply == JOptionPane.NO_OPTION) {}
+                "Are you Sure?" + "\n" + "Delete entry " + edit2.getText() + "?", "Confirm", JOptionPane.YES_NO_OPTION);
+        if (reply == JOptionPane.NO_OPTION) {
+        }
         if (reply == JOptionPane.YES_OPTION) {
 
-            dbm.CheckNDeleteFromDataBase("gl_cash_advance","entry_no",Integer.parseInt(edit2.getText()));
+            dbm.CheckNDeleteFromDataBase("gl_cash_advance", "entry_no", Integer.parseInt(edit2.getText()));
 
             int k = 0;
             int j = 0;
-           
-            supplier_id.setSelectedIndex(0);
-            
 
-           
+            supplier_id.setSelectedIndex(0);
+
             edit2.setText(null);
-            
+
             JOptionPane.showMessageDialog(datechooser, "Deleted");
 
         }
     }//GEN-LAST:event_deleteActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-         try{
-        GL_Billsummery bill = new GL_Billsummery(supplier_id.getSelectedItem().toString());
-         bill.setVisible(true);
-        }catch (Exception e){
-         GL_Billsummery bill = new GL_Billsummery("SupID");
-         bill.setVisible(true);
+        try {
+            GL_Billsummery bill = new GL_Billsummery(supplier_id.getSelectedItem().toString());
+            bill.setVisible(true);
+        } catch (Exception e) {
+            GL_Billsummery bill = new GL_Billsummery("SupID");
+            bill.setVisible(true);
         }
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         supplier_id.setSelectedIndex(0);
-                    supplier_name.setText(" ");
-                    amount.setText(null);
-                    supplier_id.requestFocusInWindow();
+        supplier_name.setText(" ");
+        amount.setText(null);
+        supplier_id.requestFocusInWindow();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void UpdateBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateBActionPerformed
-       if (cash_cheque_combo.getSelectedItem().toString() == "Cash") {
+        if (cash_cheque_combo.getSelectedItem().toString() == "Cash") {
 
             if (supplier_id.getSelectedItem() == null || amount.getText().length() == 0) {
 
@@ -1521,8 +1572,8 @@ public class GLcash_advance extends javax.swing.JPanel {
 
             } else {
                 Red_message.setText("Saved cheque");
-                            // save button action here when cheque selected
-                 supplier_id.setSelectedIndex(0);
+                // save button action here when cheque selected
+                supplier_id.setSelectedIndex(0);
                 supplier_name.setText(" ");
                 amount.setText(null);
                 Cheque_Refno.setText(null);
@@ -1533,22 +1584,22 @@ public class GLcash_advance extends javax.swing.JPanel {
             }
 
         }
-        
-        if(Permission.isSelected()){
+
+        if (Permission.isSelected()) {
             try {
                 GL_Over_Advance overadvance = new GL_Over_Advance();
-                
+
                 overadvance.Set_Sup_ID(Integer.parseInt(supplier_id.getSelectedItem().toString()));
                 overadvance.Set_Sup_Name();
                 overadvance.Set_Category_Code();
                 overadvance.Set_Advance_Taken(Double.parseDouble(amount.getText()));
-                overadvance.Set_Issued_Date(datechooser.Return_date(yearfield,monthfield,dayfield));
+                overadvance.Set_Issued_Date(datechooser.Return_date(yearfield, monthfield, dayfield));
                 overadvance.AddToOverAdvanceDatabase();
             } catch (ParseException ex) {
                 Logger.getLogger(GLcash_advance.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-   
+
     }//GEN-LAST:event_UpdateBActionPerformed
 
 

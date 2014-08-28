@@ -20,7 +20,7 @@ public class Add_Bank extends javax.swing.JPanel {
      * Creates new form Add_Bank
      */
     Bank bankObject = new Bank();
-    DatabaseManager dbm = new DatabaseManager();
+    DatabaseManager dbm = DatabaseManager.getDbCon();
     
     public Add_Bank() {
         initComponents();

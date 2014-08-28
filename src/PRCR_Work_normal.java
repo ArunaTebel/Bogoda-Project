@@ -32,7 +32,7 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
     public PRCR_Work_normal() {
 
         initComponents();
-
+jRadioButton1.setSelected(true);
     }
 
     public void focus() {
@@ -1429,25 +1429,61 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
                 query.close();
             } catch (SQLException ex) {
             }
+            Date tdate=null;
+            int present=0;
+            tdate = datechooser.Return_date(yearfield1, monthfield1, dayfield1);
+            ResultSet query=dbm.query("SELECT * FROM prcr_checkroll_workentry WHERE emp_code ='"+item+"' AND date='"+tdate+"'");
+            
+            while(query.next()){
+            
+                JOptionPane.showMessageDialog(null, "Duplicate entry!\n", "Message", JOptionPane.INFORMATION_MESSAGE);
+                
+                present=1;
+            
+            }
+            if(present==0){
             empName.setText(Name);
+            }else{
+            empName.setText(null);
+            }
+            
             division.setText(division_name);
 
-            if ("FAC".equals(division_name)|| "TA".equals(division_name)) {
+            if ("FAC".equals(division_name)|| "KA".equals(division_name) || "WI".equals(division_name)) {
                 fac_panel.setVisible(true);
             } else {
                 fac_panel.setVisible(false);
             }
+            
+            
+            
+//            
+//                    Date tdate=null;
+//            tdate = datechooser.Return_date(yearfield1, monthfield1, dayfield1);
+//            ResultSet query=dbm.query("SELECT * FROM prcr_checkroll_workentry WHERE emp_code LIKE '"+item+"' AND date LIKE '"+tdate+"'");
+//            
+//            while(query.next()){
+//            
+//                //JOptionPane.showMessageDialog(null, "Duplicate entry!\n", "Message", JOptionPane.INFORMATION_MESSAGE);
+//                msg.showMessage("Duplicate Entry!", "Check-Roll", "info");
+//               empCode_JC.requestFocus();
+//                
+//            
+//            }
+            
         }
 
+        
         W_code.requestFocus();
         }
         catch(Exception e){
+            System.out.println(e.getMessage());
             Name=null;
             empName.setText(null);       
         }
         if(empName.getText()==null){
             
-            msg.showMessage("Employee code not in Database. Please Check Again", "Check-Roll", "info");
+            msg.showMessage("Employee code not in Database or Duplicate Entry. Please Check Again", "Check-Roll", "info");
              empCode_JC.requestFocus();
         }
 
@@ -1840,8 +1876,33 @@ public class PRCR_Work_normal extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void empCode_JCKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_empCode_JCKeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  try {
+            ////// ChaNGE  focus on enter////////////////
+
+            Date tdate=null;
+            tdate = datechooser.Return_date(yearfield1, monthfield1, dayfield1);
+            ResultSet query = null;
+            try {
+                query = dbm.query("SELECT * FROM prcr_checkroll_workentry WHERE emp_code LIKE '"+empCode_JC.getSelectedItem().toString()+"' AND date LIKE '"+tdate+"'");
+            } catch (SQLException ex) {
+                Logger.getLogger(PRCR_Work_normal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+                while(query.next()){
+                    
+                    //JOptionPane.showMessageDialog(null, "Duplicate entry!\n", "Message", JOptionPane.INFORMATION_MESSAGE);
+                    msg.showMessage("Duplicate Entry!", "Check-Roll", "info");
+                    empCode_JC.requestFocus();
+                    
+                    
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(PRCR_Work_normal.class.getName()).log(Level.SEVERE, null, ex);
+            }
             workCode.requestFocus();
+            }            catch (ParseException ex) {
+                Logger.getLogger(PRCR_Work_normal.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
         }        // TODO add your handling code here:
     }//GEN-LAST:event_empCode_JCKeyPressed

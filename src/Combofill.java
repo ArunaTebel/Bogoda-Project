@@ -70,7 +70,7 @@ public  class Combofill implements FocusListener {
         Combo = combo;
         table_name = table;
         col = coloum;
-         DatabaseManager dbm = new DatabaseManager();
+         DatabaseManager dbm = DatabaseManager.getDbCon();
         
     }
 

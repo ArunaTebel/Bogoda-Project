@@ -107,6 +107,19 @@ public class Report_PRCR_EPF_Monthly extends javax.swing.JPanel {
             
             if(divisionCB.isSelected()){
             HashMap param = new HashMap();
+            
+//             double grandtotal=0;
+//                try {
+//                    ResultSet query=dbm.query("SELECT * FROM prcr_checkroll_ledger_report WHERE active LIKE 1 AND division LIKE'"+division_jc.getSelectedItem()+"'");
+//                    while(query.next()){
+//                        grandtotal=grandtotal+query.getDouble("total_epf");
+//                    }
+//                    param.put("grandtotalP",grandtotal);
+//                } catch (SQLException ex) {
+//                    Logger.getLogger(Report_PRCR_EPF_Monthly.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//            
+            
             param.put("USER", user.get_current_user());
             param.put("DIVISION", division_jc.getSelectedItem().toString());
 //         param.put("Month", datehandler.return_month_as_num(monthfield.getText()));
@@ -135,6 +148,19 @@ public class Report_PRCR_EPF_Monthly extends javax.swing.JPanel {
         }else{
     
                 HashMap param = new HashMap();
+                
+                double grandtotal=0;
+                try {
+                    ResultSet query=dbm.query("SELECT * FROM prcr_checkroll_ledger_report WHERE active LIKE '"+1+"'");
+                    while(query.next()){
+                        grandtotal=grandtotal+query.getDouble("total_epf");
+                    }
+                    param.put("grandtotalP",grandtotal);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Report_PRCR_EPF_Monthly.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                
             param.put("USER", user.get_current_user());
             //param.put("DIVISION", division_jc.getSelectedItem().toString());
 //         param.put("Month", datehandler.return_month_as_num(monthfield.getText()));
@@ -198,7 +224,7 @@ public class Report_PRCR_EPF_Monthly extends javax.swing.JPanel {
     Date_Handler datehandler = new Date_Handler();
     Report_gen generate = new Report_gen();
     UserAccountControl user = new UserAccountControl();
-    DatabaseManager dbm = new DatabaseManager();
+    DatabaseManager dbm =  DatabaseManager.getDbCon();
 
     public void focus() {
         //dayfield.requestFocus();
