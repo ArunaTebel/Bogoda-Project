@@ -127,7 +127,9 @@ int k=0;
     public void CalculateSalary(String st, String division,int employCode) {
 
          System.out.println(employCode+"---staff----"+k++);
+         
         year_month = "pr_workdata_" + st;
+        dbm.updateDatabase(year_month, "code", employCode,"pay_slip",0);
         try {
            query = dbm.query("SELECT * FROM " + year_month + " WHERE code LIKE '" + employCode + "'");
             while (query.next()) {

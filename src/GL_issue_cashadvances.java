@@ -29,7 +29,7 @@ public class GL_issue_cashadvances extends javax.swing.JPanel {
             int length = dbm.getStringArray("gl_cash_advance_book", "amount").length;
 
             while (j < length - 1) {
-                total = total + Integer.parseInt(dbm.getStringArray("gl_cash_advance_book", "amount")[j + 1]);
+                total = total + Double.parseDouble(dbm.getStringArray("gl_cash_advance_book", "amount")[j + 1]);
 
                 if (j < 50) {
                     pageTotal.setText("" + total);

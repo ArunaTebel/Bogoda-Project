@@ -51,6 +51,7 @@ public class GL_Other_Advances extends javax.swing.JPanel {
             amount.setText("");
             month_inst.setText("");
             order_no.setText("");
+            supplier_name.setText("");
     
     
     
@@ -693,19 +694,20 @@ public class GL_Other_Advances extends javax.swing.JPanel {
                 if (supplier_id.getSelectedItem() != null) {
                     
                     String result;
-                try {
-                    result = dbm.filterReturn2StringData("gl_other_advances", "id", supplier_id.getSelectedItem() + "", "Date", datechooser.Return_date(yearfield, monthfield, dayfield) + "", "tr_no");
-                } catch (ParseException ex) {
-                    Logger.getLogger(GLcash_advance.class.getName()).log(Level.SEVERE, null, ex);
+//                try {
+//                    result = dbm.filterReturn2StringData("gl_other_advances", "id", supplier_id.getSelectedItem() + "", "Date", datechooser.Return_date(yearfield, monthfield, dayfield) + "", "tr_no");
+//                } catch (ParseException ex) {
+//                    Logger.getLogger(GLcash_advance.class.getName()).log(Level.SEVERE, null, ex);
+//                    result = null;
+//                }
                     result = null;
-                }
                 if (result != null) {
                     int reply = JOptionPane.showConfirmDialog(allowable,
                             "Duplicate Entry" + "\n" + "Cancel?", "Duplicate", JOptionPane.YES_NO_OPTION);
                     if (reply == JOptionPane.NO_OPTION) {
                      supplier_name.setText(dbm.checknReturnData("suppliers", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "sup_name"));
                       java.sql.Date datef = datechooser.Return_date(yearfield, monthfield, dayfield);
-                    try{  allowable.setText("" + bill.bill_sum_cal(Integer.parseInt(supplier_id.getSelectedItem().toString()), yearfield.getText(), datehandler.return_month_as_num(monthfield.getText()), Double.parseDouble(set_val.getText())));
+                    try{  allowable.setText("" + bill.two_dec_places(""+bill.bill_sum_cal(Integer.parseInt(supplier_id.getSelectedItem().toString()), yearfield.getText(), datehandler.return_month_as_num(monthfield.getText()), Double.parseDouble(set_val.getText()))));
                   } catch(NumberFormatException ee){}
                     Discription_code.requestFocus();
                     }
@@ -718,7 +720,7 @@ public class GL_Other_Advances extends javax.swing.JPanel {
                 }
                 else{ supplier_name.setText(dbm.checknReturnData("suppliers", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "sup_name"));
                       java.sql.Date datef = datechooser.Return_date(yearfield, monthfield, dayfield);
-                  try{  allowable.setText("" + bill.bill_sum_cal(Integer.parseInt(supplier_id.getSelectedItem().toString()), yearfield.getText(), datehandler.return_month_as_num(monthfield.getText()), Double.parseDouble(set_val.getText())));
+                  try{ allowable.setText("" + bill.two_dec_places(""+bill.bill_sum_cal(Integer.parseInt(supplier_id.getSelectedItem().toString()), yearfield.getText(), datehandler.return_month_as_num(monthfield.getText()), Double.parseDouble(set_val.getText()))));
                   } catch(NumberFormatException ee){}
                   Discription_code.requestFocus();}
                     
@@ -1165,7 +1167,25 @@ public class GL_Other_Advances extends javax.swing.JPanel {
     }//GEN-LAST:event_save1ActionPerformed
 
     private void qtyKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_qtyKeyReleased
-        try {amount.setText(bill.two_dec_places("" + Double.parseDouble(qty.getText()) * Double.parseDouble(Rate.getText())));
+       String result, result2;
+        try {
+                    result = dbm.filterReturn3StringData("gl_other_advances", "id", supplier_id.getSelectedItem() + "", "Date", datechooser.Return_date(yearfield, monthfield, dayfield) + "","item_name",CodeName.getText(), "tr_no");
+                     result2 = dbm.filterReturn3StringData("gl_other_advance_book", "id", supplier_id.getSelectedItem() + "", "Date", datechooser.Return_date(yearfield, monthfield, dayfield) + "","item_name",CodeName.getText(),"tr_no");
+                     
+        } catch (ParseException ex) {
+                    Logger.getLogger(GLcash_advance.class.getName()).log(Level.SEVERE, null, ex);
+                    result = null;
+                    result2 = null;
+                    
+                    
+                    
+                }
+        
+        if (result != null || result2 != null) {
+                    int reply = JOptionPane.showConfirmDialog(allowable,
+                            "Duplicate Entry" + "\n" + "Cancel?", "Duplicate", JOptionPane.YES_NO_OPTION);
+                    if (reply == JOptionPane.NO_OPTION) {
+                     try {amount.setText(bill.two_dec_places("" + Double.parseDouble(qty.getText()) * Double.parseDouble(Rate.getText())));
         month_inst.setText(bill.two_dec_places("" + Double.parseDouble(amount.getText()) / Double.parseDouble(installments.getSelectedItem().toString())));
                     
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
@@ -1177,6 +1197,40 @@ public class GL_Other_Advances extends javax.swing.JPanel {
             qty.setText(null);
            // System.out.println("Excp");
         }
+                    }
+                    if (reply == JOptionPane.YES_OPTION) {
+                      clear();
+                      order_no.requestFocus();
+                    }
+        }
+        else{
+         try {amount.setText(bill.two_dec_places("" + Double.parseDouble(qty.getText()) * Double.parseDouble(Rate.getText())));
+        month_inst.setText(bill.two_dec_places("" + Double.parseDouble(amount.getText()) / Double.parseDouble(installments.getSelectedItem().toString())));
+                    
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
+            save1.requestFocus();
+            
+        }
+
+        } catch (Exception e) {
+            qty.setText(null);
+           // System.out.println("Excp");
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        }
+        
+        
+       
     
     
     }//GEN-LAST:event_qtyKeyReleased

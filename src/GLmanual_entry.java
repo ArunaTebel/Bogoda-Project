@@ -980,10 +980,16 @@ public class GLmanual_entry extends javax.swing.JPanel {
                 DatabaseManager dbm = DatabaseManager.getDbCon();
                 String Name = null;
                 String category = null;
-
-                int item = Integer.parseInt(supplier_id.getSelectedItem().toString());
+                String result2= null;
+                 int i = 0;
+                 int item = Integer.parseInt(supplier_id.getSelectedItem().toString());
+            while (table.getValueAt(i, 0) != null) {
+                if(table.getValueAt(i, 0) == item+""){ result2 = item+"";}
+                i++;
+            }
+                //int item = Integer.parseInt(supplier_id.getSelectedItem().toString());
                 String result = dbm.filterReturn2StringData("green_leaf_transactions", "sup_id", item + "", "tr_date", datechooser.Return_date(yearfield, monthfield, dayfield) + "", "tr_id");
-                if (result != null) {
+                if (result != null ||result2 != null ) {
                     int reply = JOptionPane.showConfirmDialog(other,
                             "Duplicate Entry" + "\n" + "Cancel?", "Duplicate ID", JOptionPane.YES_NO_OPTION);
                     if (reply == JOptionPane.NO_OPTION) {

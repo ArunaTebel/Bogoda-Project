@@ -156,7 +156,7 @@ public class MainWindow extends javax.swing.JFrame {
         jMenuItem11.setText("jMenuItem11");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle("Management System. Bogoda Group Tea Factory");
+        setTitle("Management System. Arbour Valley Tea Factory");
 
         jPanel1.setBackground(new java.awt.Color(51, 51, 51));
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -294,7 +294,7 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/splash/Picture177.png"))); // NOI18N
         jLabel2.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         Main_Content.add(jLabel2);
-        jLabel2.setBounds(390, 220, 470, 190);
+        jLabel2.setBounds(390, 220, 470, 110);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));

@@ -22,15 +22,15 @@ public final class DatabaseManager {
 
     private DatabaseManager() {
 
-        String url = "jdbc:mysql://192.168.1.50/";
-        String userName = "BogodaUser";
-       // String url = "jdbc:mysql://localhost:3306/";
-       // String dbName = "arbour";
-        String dbName = "bogoda";
+      //  String url = "jdbc:mysql://192.168.1.50/";
+      //  String userName = "BogodaUser";
+        String url = "jdbc:mysql://localhost:3306/";
+        String dbName = "arbour";
+       // String dbName = "bogoda";
         String driver = "com.mysql.jdbc.Driver";
-    //  String userName = "root";
-        String password = "ninelights@mora";
-        // String password = "";
+      String userName = "root";
+        //String password = "ninelights@mora";
+         String password = "";
         try {
             Class.forName(driver).newInstance();
             this.conn = (Connection) DriverManager.getConnection(url + dbName, userName, password);
@@ -173,6 +173,23 @@ public final class DatabaseManager {
   String a = null;
         try {
             ResultSet query = query("SELECT * FROM " + table_name + " where " + table_column_giving + " LIKE '" + row_element + "' AND " + table_column_giving2 + " LIKE '" + row_element2 + "'");
+            while (query.next()) {
+                a= (query.getString(table_column_need));
+            }
+            
+            query.close();
+            return  a;
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            return "" + ex.getErrorCode();
+        }
+       // return null;
+    }
+    
+     public String filterReturn3StringData(String table_name, String table_column_giving, String row_element, String table_column_giving2, String row_element2,String table_column_giving3, String row_element3, String table_column_need) {
+  String a = null;
+        try {
+            ResultSet query = query("SELECT * FROM " + table_name + " where " + table_column_giving + " LIKE '" + row_element + "' AND " + table_column_giving2 + " LIKE '" + row_element2 + "'AND " + table_column_giving3 + " LIKE '" + row_element3 + "'");
             while (query.next()) {
                 a= (query.getString(table_column_need));
             }

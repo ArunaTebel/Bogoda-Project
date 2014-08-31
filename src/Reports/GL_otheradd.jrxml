@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b4a7e90f-236c-48e1-b463-a16c40591ab1">
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="144"/>
+	<property name="ireport.y" value="288"/>
 	<parameter name="USER" class="java.lang.String"/>
 	<parameter name="from_date" class="java.util.Date"/>
 	<parameter name="to_date" class="java.util.Date"/>
@@ -85,7 +85,7 @@ ORDER BY
 	<variable name="typecount" class="java.lang.Integer" resetType="Group" resetGroup="TYPE" calculation="Count">
 		<variableExpression><![CDATA[$F{gl_other_advances_Date}]]></variableExpression>
 	</variable>
-	<group name="gl_other_advances_type">
+	<group name="gl_other_advances_type" isStartNewPage="true">
 		<groupExpression><![CDATA[$F{gl_other_advances_type}]]></groupExpression>
 		<groupHeader>
 			<band height="21">
@@ -148,7 +148,7 @@ ORDER BY
 			</band>
 		</groupFooter>
 	</group>
-	<group name="TYPE">
+	<group name="TYPE" isStartNewPage="true">
 		<groupExpression><![CDATA[$F{gl_other_advances_item_type}]]></groupExpression>
 		<groupHeader>
 			<band height="24">

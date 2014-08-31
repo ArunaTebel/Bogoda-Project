@@ -1292,9 +1292,9 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
             telNo.setText("" + telNoo);
             bloodGrp.setSelectedItem(bld);
             if (dob != null) {
-                yearfield3.setText("" + dob.substring(0, 4));
+                yearfield3.setText("" + Integer.parseInt(dob.substring(0, 4)));
                 monthfield3.setText("" + datehandler.Return_month(Integer.parseInt(dob.substring(5, 7))));
-                dayfield3.setText("" + dob.substring(8, 10));
+                dayfield3.setText("" + Integer.parseInt(dob.substring(8, 10)));
             } else {
                 yearfield3.setText("");
                 monthfield3.setText("");
@@ -1315,9 +1315,9 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
                 staffOrCheckroll.setSelectedItem("Staff");
             }
             if (joineddate != null) {
-                yearfield1.setText("" + joineddate.substring(0, 4));
+                yearfield1.setText("" + Integer.parseInt(joineddate.substring(0, 4)));
                 monthfield1.setText("" + datehandler.Return_month(Integer.parseInt(joineddate.substring(5, 7))));
-                dayfield1.setText("" + joineddate.substring(8, 10));
+                dayfield1.setText("" + Integer.parseInt(joineddate.substring(8, 10)));
             } else {
                 yearfield1.setText("");
                 monthfield1.setText("");
@@ -1332,9 +1332,9 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
 
                 registerPanel.setVisible(true);
                 if (regdate != null) {
-                    yearfield.setText("" + regdate.substring(0, 4));
+                    yearfield.setText("" + Integer.parseInt(regdate.substring(0, 4)));
                     monthfield.setText("" + datehandler.Return_month(Integer.parseInt(regdate.substring(5, 7))));
-                    dayfield.setText("" + regdate.substring(8, 10));
+                    dayfield.setText("" + Integer.parseInt(regdate.substring(8, 10)));
                 } else {
                     yearfield.setText("");
                     monthfield.setText("");
@@ -1403,15 +1403,207 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
             
         }
         if(registerOrNot.isSelected()){
+         
+            
+             //Add new member with new epf no , if epf no is available
+            
+             if(dbm.checkWhetherDataExists("personal_info", "code",epf_no.getText().toString())==0 &&  dbm.checkWhetherDataExists("prcr_registration","casual_code",empCode_JC.getSelectedItem())==0){  
+            
             dbm.updateDatabase("personal_info", "code", empCode_JC.getSelectedItem(), "register_or_not", "REGISTER");
-            dbm.updateDatabase("checkroll_personalinfo", "code", empCode_JC.getSelectedItem(), "register_or_casual","1"); 
+            //dbm.updateDatabase("checkroll_personalinfo", "code", empCode_JC.getSelectedItem(), "register_or_casual","1"); 
              dbm.updateDatabase("personal_info", "code", empCode_JC.getSelectedItem(), "epf_no",epf_no.getText()); 
-
-             try {
+             
+             
+             
+             
+             
+          
+             
+       try{ 
+        piObject.setSinhalaName(sup_name_sinhala.getText());
+        piObject.setName(name.getText());
+        try {
+            piObject.setCode(Integer.parseInt(epf_no.getText().toString()));//if code is not given run this part without giving error
+        } catch (Exception e) {
+            
+        }
+        piObject.setNIC(NIC.getText());
+        try {
+            try {
+                //if joined date is not given make it null without giving error
+                
+                piObject.setDOB(datechooser.Return_date(yearfield3, monthfield3, dayfield3));
+                
+                
+            } catch (ParseException ex) {
+                Logger.getLogger(PRCR_Add_Employee.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        } catch (NullPointerException e) {
+            piObject.setDOB(null);
+            
+            //JOptionPane.showMessageDialog(null, "Employee is not registered", "Message", JOptionPane.INFORMATION_MESSAGE);
+        }
+        piObject.setTelNo(telNo.getText());
+        piObject.setBloodGrp(bloodGrp.getSelectedItem().toString());
+        piObject.setRegisterOrNot(registerOrNot.isSelected());
+        piObject.setCheckrollOrStaff(staffOrCheckroll.getSelectedItem().toString());
+        try {
+            try {
+                //if joined date is not given make it null without giving error
+                
+                piObject.setJoinedDate(datechooser.Return_date(yearfield1, monthfield1, dayfield1));
+            } catch (ParseException ex) {
+                Logger.getLogger(PRCR_Add_Employee.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        } catch (NullPointerException e) {
+            piObject.setJoinedDate(null);
+            
+            //JOptionPane.showMessageDialog(null, "Employee is not registered", "Message", JOptionPane.INFORMATION_MESSAGE);
+        }
+        try {
+            try {
+                //if permanent date is not given make it null without giving error
+                
+                piObject.setPermanentDate(datechooser.Return_date(yearfield, monthfield, dayfield));
+            } catch (ParseException ex) {
+                Logger.getLogger(PRCR_Add_Employee.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (NullPointerException e) {
+            
+            piObject.setPermanentDate(null);
+            //JOptionPane.showMessageDialog(null, "Employee is not registered", "Message", JOptionPane.INFORMATION_MESSAGE);
+        }
+        try {
+            if (staffOrCheckroll.getSelectedItem() == "Staff") {
+                piObject.setBasicSallary(Double.parseDouble(basicSalary.getText()));
+            } else {
+                piObject.setDivision(division_jc.getSelectedItem().toString());
+            }
+        } catch (Exception e) {
+            
+        }
+        piObject.setETF(ETF.isSelected());
+        try {
+            piObject.setEPF(Integer.parseInt(epf_no.getText()));
+        } catch (Exception e) {
+            piObject.setEPF(0);  //if EPF number is not given make it zero when employee is not registered
+            //if employee is registered this will do no harm coz epf_no must give to register
+        }
+        piObject.setWelfare(welfare.isSelected());
+        if ((registerOrNot.isSelected() && epf_no.getText().length() != 0)
+                || (registerOrNot.isSelected() == false && epf_no.getText().length() == 0)) {  //if employee is registered epf number should be there,if not no need of EPF number
+            
+            if (empCode_JC.getSelectedItem().toString().length() != 0 && name.getText().length() != 0 &&//code,name should be given,for check roll division must be selected,for staff basic salary must be given
+                    ((staffOrCheckroll.getSelectedItem() == "Checkroll" && division_jc.getSelectedItem().toString().length() > 1)
+                    || ((staffOrCheckroll.getSelectedItem() == "Staff" && basicSalary.getText().length() != 0)))) {
+                
+                piObject.addToDataBase();//update personal info
+                
+                if(genderC.getSelectedItem().toString().equals("Male")){
+                    gender=1;
+                    }else{
+                    gender=0;
+                    }
+                
+                if (staffOrCheckroll.getSelectedItem() == "Checkroll") {
+                    
+                    if (registerOrNot.isSelected()) { //use to update database table:checkroll_personalinfo,column:registerorcasual,if registered reg=1
+                        reg = 1;
+                        
+                    } else {
+                        reg = 0;
+                    }
+                    
+                    
+                    
+                    DatabaseManager dbCon = DatabaseManager.getDbCon();
+                    try {//update checkroll_personalinfo
+                        dbCon.insert("INSERT INTO checkroll_personalinfo(code,division,gender,register_or_casual) VALUES('" + Integer.parseInt(epf_no.getText().toString()) + "','" + division_jc.getSelectedItem().toString() + "','"+gender+"','" + reg + "')");
+                    } catch (SQLException ex) {
+                       
+                        JOptionPane.showMessageDialog(null, "Error ", "Message", JOptionPane.INFORMATION_MESSAGE);
+            
+        
+                        Logger.getLogger(PRCR_Add_Employee.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
+                } else {
+                    if (registerOrNot.isSelected()) { //use to update database table:checkroll_personalinfo,column:registerorcasual,if registered reg=1
+                        reg = 1;
+                    } else {
+                        reg = 0;
+                    }
+                    
+                    try {
+                            dbm.insert("INSERT INTO checkroll_personalinfo(code,division,gender,register_or_casual) VALUES('" + Integer.parseInt(epf_no.getText().toString()) + "','" + "STAFF" + "','"+gender+"','" + reg + "')");
+                    
+                        dbm.insert("INSERT INTO staff_personalinfo(code,basic_salary,register_or_casual) VALUES('" + Integer.parseInt(epf_no.getText().toString()) + "','" + Double.parseDouble(basicSalary.getText()) + "','" + reg + "')");
+                    } catch (SQLException ex) {
+                        //Logger.getLogger(PRCR_Add_Employee.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
+                }
+            } else {
+                
+                JOptionPane.showMessageDialog(null, "Incorrect input! Please check again and save ", "Message", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Enter epf number! check again and save ", "Message", JOptionPane.INFORMATION_MESSAGE);
+            
+        }
+        
+              try {
             dbm.updateDatabase("personal_info", "code", empCode_JC.getSelectedItem(), "permanent_date", datechooser.Return_date(yearfield, monthfield, dayfield));
         } catch (ParseException ex) {
             Logger.getLogger(PRCR_Add_Employee.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        //insert data in to prcr_registration   
+           System.out.println("1565");
+              String st;
+        if (datehandler.return_index(monthfield.getText()) < 10) {
+            st = yearfield.getText() + "_0" + datehandler.return_index(monthfield.getText());
+        } else {
+            st = yearfield.getText() + "_" + datehandler.return_index(monthfield.getText());
+        }
+        System.out.println("1572"+st);
+           String prv_yrmnth = ReturnPrvMnthTableName(st);  
+           System.out.println("1573"+prv_yrmnth);
+            double pre_debt_amount = Double.parseDouble(dbm.checknReturnData("pr_workdata_" + prv_yrmnth, "code", Integer.parseInt(empCode_JC.getSelectedItem().toString() ), "next_month"));//+Double.parseDouble(dbm.checknReturnData("pr_workdata_" + yrmnth, "code", codes[i], "prvs_debts_paid"));
+                    pre_debt_amount = -pre_debt_amount;
+//              
+            double  coinsbf = Double.parseDouble(dbm.checknReturnData("pr_workdata_" + prv_yrmnth, "code", Integer.parseInt(empCode_JC.getSelectedItem().toString() ), "coins"));
+           System.out.println("1577"+coinsbf+","+pre_debt_amount);
+            if(dbm.checkWhetherDataExists("prcr_registration","casual_code",empCode_JC.getSelectedItem())==0){   
+        dbm.insert("INSERT INTO prcr_registration(register_month,casual_code,reg_code,coins,debits) VALUES('" +st + "','" +empCode_JC.getSelectedItem()  + "','"+epf_no.getText()+"','" + coinsbf + "','" + pre_debt_amount + "')");
+         }else{
+           JOptionPane.showMessageDialog(null,"Already Registered" , "Message", JOptionPane.INFORMATION_MESSAGE);
+       
+         }           
+              
+              
+         JOptionPane.showMessageDialog(null,"Successfully Registered.Employee Casual No-" + empCode_JC.getSelectedItem()+ "\n Regitsered EPF No-"+epf_no.getText(), "Message", JOptionPane.INFORMATION_MESSAGE);
+       }catch(Exception e ){
+         JOptionPane.showMessageDialog(null,"Error 1587\n"+ e.getCause()+e.getMessage()+e.getLocalizedMessage(), "Message", JOptionPane.INFORMATION_MESSAGE);
+      
+       
+       }
+
+             
+             
+             
+         
+       
+        }else{
+        
+        JOptionPane.showMessageDialog(null, "EPF No Already exist! \n" , "Message", JOptionPane.INFORMATION_MESSAGE);
+       
+            
+        }
+
+       
             
         }else{
          dbm.updateDatabase("personal_info", "code", empCode_JC.getSelectedItem(), "register_or_not", "CASUAL");
@@ -1422,8 +1614,31 @@ public class PRCR_Add_Employee extends javax.swing.JPanel {
          JOptionPane.showMessageDialog(null, "Error! \n" + e.getMessage(), "Message", JOptionPane.INFORMATION_MESSAGE);
        
         }
+
     }//GEN-LAST:event_jButton9ActionPerformed
 
+        public String ReturnPrvMnthTableName(String thisMnth) {
+        String[] year_month = new String[2];
+        int[] yr_mnth_int = new int[2];
+        year_month = thisMnth.split("_");
+        yr_mnth_int[0] = Integer.parseInt(year_month[0]);
+        yr_mnth_int[1] = Integer.parseInt(year_month[1]);
+        if (yr_mnth_int[1] == 1) {
+            yr_mnth_int[0] = yr_mnth_int[0] - 1;
+            yr_mnth_int[1] = 12;
+        } else {
+            yr_mnth_int[1] = yr_mnth_int[1] - 1;
+        }
+        String prvMnth;
+        if (yr_mnth_int[1] > 9) {
+            prvMnth = String.valueOf(yr_mnth_int[0]) + "_" + String.valueOf(yr_mnth_int[1]);
+        } else {
+            prvMnth = String.valueOf(yr_mnth_int[0]) + "_0" + String.valueOf(yr_mnth_int[1]);
+        }
+        return prvMnth;
+    }
+
+  
     private void monthfield1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_monthfield1KeyPressed
         if (monthfield1.getText().equals("Jan")) {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {

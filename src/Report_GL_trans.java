@@ -155,6 +155,38 @@ UIDefaults defaults = UIManager.getLookAndFeelDefaults();
             
         }     
     }
+     
+      public  class reportsum implements Runnable{
+        @Override
+        public void run(){
+           //  jProgressBar1.setIndeterminate(true);
+           
+                Thread a = new Thread(new Background());
+               
+                       
+            try {
+                HashMap param = new HashMap();
+                //jProgressBar1.setValue(10);
+                Date Return_date1 = datechooser.Return_date(yearfield, monthfield, dayfield);
+               // jProgressBar1.setValue(20);
+                Date Return_date2 = datechooser.Return_date(yearfield2, monthfield2, dayfield2);
+                param.put("from_date", Return_date1);
+                param.put("to_date", Return_date2);
+                param.put("USER",new UserAccountControl().get_current_user());
+                jProgressBar1.setValue(45);
+                jProgressBar1.repaint();
+                // Date Return_date = datechooser.Return_date(yearfield, monthfield, dayfield);
+                String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
+                a.start();
+                generate.create("GL_trans_sum", saveloc, param, location, "GL_trans_Gcategory_sum.jrxml");
+                a.stop();;
+                jProgressBar1.setValue(100);
+            } catch (ParseException ex) {
+                Logger.getLogger(Report_GL_trans.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        view.setEnabled(true);
+        }
+      }
     /**
      *
      */
@@ -209,6 +241,7 @@ UIDefaults defaults = UIManager.getLookAndFeelDefaults();
         view = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jProgressBar1 = new javax.swing.JProgressBar();
+        view1 = new javax.swing.JButton();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 6));
 
@@ -457,6 +490,13 @@ UIDefaults defaults = UIManager.getLookAndFeelDefaults();
         jLabel4.setForeground(new java.awt.Color(51, 51, 51));
         jLabel4.setText("Transactions ");
 
+        view1.setText("Summery");
+        view1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                view1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -470,7 +510,9 @@ UIDefaults defaults = UIManager.getLookAndFeelDefaults();
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(view, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(view, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(view1, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 26, Short.MAX_VALUE))
             .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -479,16 +521,17 @@ UIDefaults defaults = UIManager.getLookAndFeelDefaults();
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(view, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20)
+                        .addComponent(view1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(view, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -1392,6 +1435,13 @@ UIDefaults defaults = UIManager.getLookAndFeelDefaults();
         }
     }//GEN-LAST:event_supplierItemStateChanged
 
+    private void view1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_view1ActionPerformed
+ Thread b = new Thread(new reportsum());
+        
+       // a.start();
+        b.start();        // TODO add your handling code here:
+    }//GEN-LAST:event_view1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox Cat_code;
@@ -1414,6 +1464,7 @@ UIDefaults defaults = UIManager.getLookAndFeelDefaults();
     private javax.swing.JCheckBox supplier;
     private javax.swing.JComboBox supplier_id;
     private javax.swing.JButton view;
+    private javax.swing.JButton view1;
     private javax.swing.JTextField yearfield;
     private javax.swing.JTextField yearfield2;
     // End of variables declaration//GEN-END:variables

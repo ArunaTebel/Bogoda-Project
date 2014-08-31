@@ -1,5 +1,4 @@
 
-import java.awt.Container;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -387,6 +386,7 @@ public class pGreenLeaf extends javax.swing.JPanel {
         GL_content.add(loans);
         validate();
         repaint(); 
+        loans.focus();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton1KeyReleased

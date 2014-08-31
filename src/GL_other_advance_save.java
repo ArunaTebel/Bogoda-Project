@@ -72,6 +72,7 @@ public class GL_other_advance_save extends javax.swing.JPanel {
         while (table.getValueAt(k, 0) != null) {
             tot = tot + Double.parseDouble(table.getValueAt(k, 8).toString());
             k++;
+            if(k==49){break;}
         }
         qty_total.setText("" + tot);
     }
@@ -388,6 +389,7 @@ public class GL_other_advance_save extends javax.swing.JPanel {
             while (table.getValueAt(k, 0) != null) {
                 tot = tot + Double.parseDouble(table.getValueAt(k, 8).toString());
                 k++;
+                if(k==49){break;}
             }
             qty_total.setText("" + tot);
     }//GEN-LAST:event_jButton3ActionPerformed
@@ -462,9 +464,10 @@ public class GL_other_advance_save extends javax.swing.JPanel {
             
             int k = 0;
             tot=0;
-            while (table.getValueAt(k, 0) != null) {
+            while ((table.getValueAt(k, 0) != null) ) {
                 tot = tot + Double.parseDouble(table.getValueAt(k, 8).toString());
                 k++;
+                if(k==49){break;}
             }
             qty_total.setText("" + tot);
         }
@@ -489,6 +492,7 @@ public class GL_other_advance_save extends javax.swing.JPanel {
             while (table.getValueAt(k, 0) != null) {
                 tot = tot + Double.parseDouble(table.getValueAt(k, 8).toString());
                 k++;
+                if(k==49){break;}
             }
             qty_total.setText("" + tot);
         }
@@ -540,6 +544,7 @@ public class GL_other_advance_save extends javax.swing.JPanel {
             while (table.getValueAt(k, 0) != null) {
                 tot = tot + Double.parseDouble(table.getValueAt(k, 8).toString());
                 k++;
+                if(k==49){break;}
             }
             qty_total.setText("" + tot);
     }//GEN-LAST:event_jButton1ActionPerformed

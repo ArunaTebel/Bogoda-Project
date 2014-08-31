@@ -48,9 +48,9 @@ public class GL_Loans extends javax.swing.JPanel {
 //            System.out.println(comp);
 //            comp.addFocusListener(new ComponentFocusListener());
 //       }
-         Component[] comps = supplier_id.getComponents();
+        // Component[] comps = supplier_id.getComponents();
         // comps[2].addFocusListener(new Combofill(supplier_id,"rate_details","Code_name"));
-        comps[2].addFocusListener(new Combofill(supplier_id,"suppliers","sup_id"));
+        //comps[2].addFocusListener(new Combofill(supplier_id,"suppliers","sup_id"));
 
         String selection = (String) cash_cheque_combo.getSelectedItem();
       
@@ -61,6 +61,13 @@ public class GL_Loans extends javax.swing.JPanel {
 
         double rate = dbm.checknReturnDoubleData("rate_details", "Code_name", "LOAN-R", "rate");
         rateField.setText("" + rate);
+    }
+    
+    public void focus(){
+    dayfield.requestFocus();
+    dayfield.selectAll();
+            
+    
     }
     
      private double instalment_for_the_month(double amount,double int_rate,int instalments,int month){
@@ -873,7 +880,13 @@ public class GL_Loans extends javax.swing.JPanel {
                 amountField.setText("");
                 payField.setText("");
                 schedule.setText("");
+                
+          
+       
                 JOptionPane.showMessageDialog(datechooser, "Loan Saved To Transaction No. "+transaction);
+                
+                 supplier_id.requestFocus();
+           supplier_id.getEditor().selectAll();
             } catch (HeadlessException | NumberFormatException | SQLException | ParseException ex) {
                 Logger.getLogger(GL_Loans.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(datechooser, "There are empty fields");
@@ -1079,6 +1092,10 @@ public class GL_Loans extends javax.swing.JPanel {
             yearfield.requestFocus();
             yearfield.selectAll();
         }
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+           supplier_id.requestFocus();
+           supplier_id.getEditor().selectAll();
+        }
     }//GEN-LAST:event_monthfieldKeyPressed
 
     private void yearfieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_yearfieldKeyPressed
@@ -1093,6 +1110,10 @@ public class GL_Loans extends javax.swing.JPanel {
         if (evt.getKeyCode() == KeyEvent.VK_LEFT) {
             monthfield.requestFocus();
             monthfield.selectAll();
+        }
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+           supplier_id.requestFocus();
+           supplier_id.getEditor().selectAll();
         }
     }//GEN-LAST:event_yearfieldKeyPressed
 
@@ -1290,6 +1311,10 @@ public class GL_Loans extends javax.swing.JPanel {
         if (evt.getKeyCode() == KeyEvent.VK_RIGHT) {
             monthfield.requestFocus();
             monthfield.selectAll();
+        }
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+           supplier_id.requestFocus();
+           supplier_id.getEditor().selectAll();
         }
     }//GEN-LAST:event_dayfieldKeyPressed
 

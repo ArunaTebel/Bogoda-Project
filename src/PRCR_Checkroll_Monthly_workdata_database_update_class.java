@@ -151,6 +151,29 @@ public class PRCR_Checkroll_Monthly_workdata_database_update_class implements Ru
             }
 
         }
+        
+         try {
+            ResultSet query=dbm.query("SELECT * FROM prcr_registration WHERE register_month LIKE '"+yrmnth+"'");
+           System.out.println("162:"+yrmnth);
+            while(query.next()){
+                
+                System.out.println("162:"+query.getInt("reg_code")+","+query.getInt("debits"));
+                
+                dbm.updateDatabase("pr_workdata_" + yrmnth, "code", query.getInt("reg_code"), "coinsbf", query.getDouble("coins"));
+                 dbm.updateDatabase("pr_workdata_" + yrmnth, "code", query.getInt("casual_code"), "coinsbf", 0);//remove debts from casual number,
+                dbm.updateDatabase("pr_workdata_" + yrmnth, "code", query.getInt("reg_code"), "pre_debt", query.getDouble("debits"));
+                dbm.updateDatabase("pr_workdata_" + yrmnth, "code", query.getInt("casual_code"), "pre_debt", 0);
+                
+                 if (query.getDouble("debits") != 0 || query.getDouble("coins") > 0) {
+                    dbm.updateDatabase("pr_workdata_" + this.st, "code", query.getInt("reg_code"), "active", 2);
+                }//If thr is debit balance in previous month set active=1
+            }
+            query.close();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(PRCR_Checkroll_Monthly_workdata_database_update_class.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 
     public String ReturnPrvMnthTableName(String thisMnth) {
