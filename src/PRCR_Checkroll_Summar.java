@@ -10,6 +10,7 @@ import java.awt.event.KeyEvent;
 import java.io.FileOutputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.ImageIcon;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -33,6 +34,11 @@ public class PRCR_Checkroll_Summar extends javax.swing.JFrame {
     
     public PRCR_Checkroll_Summar() {
         initComponents();
+        try{
+         this.setIconImage(new ImageIcon(getClass().getResource("Iconpng.png")).getImage());
+        }catch(Exception e){
+            
+        }
     }
 
     /**

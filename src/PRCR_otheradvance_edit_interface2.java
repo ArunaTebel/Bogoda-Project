@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /*
@@ -104,6 +105,11 @@ Interface_Events interface_events=new Interface_Events();
      */
     public PRCR_otheradvance_edit_interface2() {
         initComponents();
+        try{
+         this.setIconImage(new ImageIcon(getClass().getResource("Iconpng.png")).getImage());
+        }catch(Exception e){
+            
+        }
     }
 
     /**

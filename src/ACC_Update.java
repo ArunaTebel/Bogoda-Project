@@ -290,7 +290,7 @@ public class ACC_Update extends javax.swing.JPanel {
     Date_Handler datehandler = new Date_Handler();
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
-            Acc_Update_And_Additional_Data updt = new Acc_Update_And_Additional_Data();
+        /*    Acc_Update_And_Additional_Data updt = new Acc_Update_And_Additional_Data();
             
             updt.update_table("account_payment_debitside", "account_payment_debitside_all", "Payments", null,datehandler.get_date_as_a_String(datechooser.Return_date(yearfield, monthfield, dayfield)));
             updt.update_table("account_payment_creditside", "account_payment_creditside_all", "Payments", null,datehandler.get_date_as_a_String(datechooser.Return_date(yearfield, monthfield, dayfield)));
@@ -302,8 +302,8 @@ public class ACC_Update extends javax.swing.JPanel {
             updt.update_table("account_journal_creditside", "account_journal_creditside_all", "Journals", null,datehandler.get_date_as_a_String(datechooser.Return_date(yearfield, monthfield, dayfield)));
             updt.update_table("account_journal_main", "account_journal_main_all", "Journals", null,datehandler.get_date_as_a_String(datechooser.Return_date(yearfield, monthfield, dayfield)));
             
-            updt.update_account_balances(); 
-        } catch (ParseException ex) {
+            updt.update_account_balances(); */
+        } catch (Exception ex) {
             Logger.getLogger(ACC_Update.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -334,8 +334,8 @@ public class ACC_Update extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        Acc_Update_And_Additional_Data up = new Acc_Update_And_Additional_Data();
-        up.complete_op_bal_temp();
+      //  Acc_Update_And_Additional_Data up = new Acc_Update_And_Additional_Data();
+      //  up.complete_op_bal_temp();
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void monthfieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_monthfieldKeyPressed

@@ -3,6 +3,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
+import javax.swing.JRadioButton;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -21,35 +23,97 @@ public class Acc_Change_Period extends javax.swing.JFrame {
      */
     public Acc_Change_Period() {
         initComponents();
+        try{
+         this.setIconImage(new ImageIcon(getClass().getResource("Iconpng.png")).getImage());
+        }catch(Exception e){
+            
+        }
     }
-    DatabaseManager dbm = DatabaseManager.getDbCon();
+      DatabaseManager dbm =  DatabaseManager.getDbCon();
     
+    private void create_new_tables(String period){
+        try {
+            String temp=null;
+            String temp1=null;
+            temp1="account_reciept_debitside";
+            temp=temp1+"_"+period;
+            dbm.insert("CREATE TABLE `"+temp+"` LIKE "+temp1+"");
+            temp1="account_reciept_creditside";
+            temp=temp1+"_"+period;
+            dbm.insert("CREATE TABLE `"+temp+"` LIKE "+temp1+"");
+            temp1="account_payment_creditside";
+            temp=temp1+"_"+period;
+            dbm.insert("CREATE TABLE `"+temp+"` LIKE "+temp1+"");
+            temp1="account_payment_debitside";
+            temp=temp1+"_"+period;
+            dbm.insert("CREATE TABLE `"+temp+"` LIKE "+temp1+"");
+            temp1="account_journal_main";
+            temp=temp1+"_"+period;
+            dbm.insert("CREATE TABLE `"+temp+"` LIKE "+temp1+"");
+            temp1="account_journal_debitside";
+            temp=temp1+"_"+period;
+            dbm.insert("CREATE TABLE `"+temp+"` LIKE "+temp1+"");
+            temp1="account_journal_creditside";
+            temp=temp1+"_"+period;
+            dbm.insert("CREATE TABLE `"+temp+"` LIKE "+temp1+"");
+            temp1="account_names";
+            temp=temp1+"_"+period;
+            dbm.insert("CREATE TABLE `"+temp+"` LIKE "+temp1+"");
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Acc_Change_Period.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private void set_button(String name){
+        if("2008-09".equals(name)){
+            acc_2008.setSelected(true);
+        }
+        else if("2009-10".equals(name)){
+            acc_2009.setSelected(true);
+        }
+        else if("2010-11".equals(name)){
+            acc_2010.setSelected(true);
+        }
+        else if("2011-12".equals(name)){
+            acc_2011.setSelected(true);
+        }
+        else if("2012-13".equals(name)){
+            acc_2012.setSelected(true);
+        }
+        else if("2013-14".equals(name)){
+            acc_2013.setSelected(true);
+        }
+        else if("2014-15".equals(name)){
+            acc_2014.setSelected(true);
+        }
+        else if("2015-16".equals(name)){
+            acc_2015.setSelected(true);
+        }
+        else if("2016-17".equals(name)){
+            acc_2016.setSelected(true);
+        }
+        else if("2017-18".equals(name)){
+            acc_2017.setSelected(true);
+        }
+        else if("2018-19".equals(name)){
+            acc_2018.setSelected(true);
+        }
+        else if("2019-20".equals(name)){
+            acc_2019.setSelected(true);
+        }
+      
+    }
     public void start_set(){
         try {
             String s1=null;
-            String s2=null;
-            ResultSet query = dbm.query("SELECT * FROM acc_current_period");
+            ResultSet query = dbm.query("SELECT * FROM accounting_period");
             while(query.next()){
                 s1=query.getString("period");
             }
             query.close();
-            ResultSet query1 = dbm.query("SELECT * FROM acc_current_period_act");
-            while(query1.next()){
-                 s2=query1.getString("period");
-            }
-            query1.close();
-            
-            if(s1.equals(s2)){
-                
-                current.setSelected(true);
-                
-                previous.setSelected(false);
-            }
-            else{
-                    current.setSelected(false);
-                    
-                    previous.setSelected(true);
-            }
+            set_button(s1);
+           
         } catch (SQLException ex) {
             Logger.getLogger(Acc_Change_Period.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -68,63 +132,26 @@ public class Acc_Change_Period extends javax.swing.JFrame {
     private void initComponents() {
 
         jRadioButton1 = new javax.swing.JRadioButton();
-        jPanel1 = new javax.swing.JPanel();
-        previous = new javax.swing.JRadioButton();
-        current = new javax.swing.JRadioButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        acc_2008 = new javax.swing.JRadioButton();
+        acc_2009 = new javax.swing.JRadioButton();
+        acc_2014 = new javax.swing.JRadioButton();
+        acc_2010 = new javax.swing.JRadioButton();
+        acc_2016 = new javax.swing.JRadioButton();
+        acc_2011 = new javax.swing.JRadioButton();
+        acc_2017 = new javax.swing.JRadioButton();
+        acc_2012 = new javax.swing.JRadioButton();
+        acc_2018 = new javax.swing.JRadioButton();
+        acc_2015 = new javax.swing.JRadioButton();
+        acc_2013 = new javax.swing.JRadioButton();
+        acc_2019 = new javax.swing.JRadioButton();
 
         jRadioButton1.setText("jRadioButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 153)));
-
-        previous.setText("Previous Years");
-        previous.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                previousItemStateChanged(evt);
-            }
-        });
-        previous.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                previousActionPerformed(evt);
-            }
-        });
-
-        current.setText("Current Period");
-        current.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                currentItemStateChanged(evt);
-            }
-        });
-        current.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                currentActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(current)
-                    .addComponent(previous))
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(current)
-                .addGap(18, 18, 18)
-                .addComponent(previous)
-                .addContainerGap())
-        );
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setText("Accounting Period");
@@ -153,95 +180,614 @@ public class Acc_Change_Period extends javax.swing.JFrame {
             }
         });
 
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 153)));
+
+        acc_2008.setText("2008-09");
+        acc_2008.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                acc_2008ItemStateChanged(evt);
+            }
+        });
+        acc_2008.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                acc_2008ActionPerformed(evt);
+            }
+        });
+
+        acc_2009.setText("2009-10");
+        acc_2009.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                acc_2009ItemStateChanged(evt);
+            }
+        });
+        acc_2009.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                acc_2009ActionPerformed(evt);
+            }
+        });
+
+        acc_2014.setText("2014-15");
+        acc_2014.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                acc_2014ItemStateChanged(evt);
+            }
+        });
+        acc_2014.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                acc_2014ActionPerformed(evt);
+            }
+        });
+
+        acc_2010.setText("2010-11");
+        acc_2010.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                acc_2010ItemStateChanged(evt);
+            }
+        });
+        acc_2010.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                acc_2010ActionPerformed(evt);
+            }
+        });
+
+        acc_2016.setText("2016-17");
+        acc_2016.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                acc_2016ItemStateChanged(evt);
+            }
+        });
+        acc_2016.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                acc_2016ActionPerformed(evt);
+            }
+        });
+
+        acc_2011.setText("2011-12");
+        acc_2011.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                acc_2011ItemStateChanged(evt);
+            }
+        });
+        acc_2011.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                acc_2011ActionPerformed(evt);
+            }
+        });
+
+        acc_2017.setText("2017-18");
+        acc_2017.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                acc_2017ItemStateChanged(evt);
+            }
+        });
+        acc_2017.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                acc_2017ActionPerformed(evt);
+            }
+        });
+
+        acc_2012.setText("2012-13");
+        acc_2012.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                acc_2012ItemStateChanged(evt);
+            }
+        });
+        acc_2012.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                acc_2012ActionPerformed(evt);
+            }
+        });
+
+        acc_2018.setText("2018-19");
+        acc_2018.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                acc_2018ItemStateChanged(evt);
+            }
+        });
+        acc_2018.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                acc_2018ActionPerformed(evt);
+            }
+        });
+
+        acc_2015.setText("2015-16");
+        acc_2015.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                acc_2015ItemStateChanged(evt);
+            }
+        });
+        acc_2015.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                acc_2015ActionPerformed(evt);
+            }
+        });
+
+        acc_2013.setText("2013-14");
+        acc_2013.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                acc_2013ItemStateChanged(evt);
+            }
+        });
+        acc_2013.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                acc_2013ActionPerformed(evt);
+            }
+        });
+
+        acc_2019.setText("2019-20");
+        acc_2019.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                acc_2019ItemStateChanged(evt);
+            }
+        });
+        acc_2019.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                acc_2019ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(acc_2013)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(acc_2019))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(acc_2012)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
+                        .addComponent(acc_2018))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(acc_2011)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(acc_2017))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(acc_2010)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(acc_2016))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(acc_2008)
+                            .addComponent(acc_2009))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(acc_2014, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(acc_2015, javax.swing.GroupLayout.Alignment.TRAILING))))
+                .addGap(26, 26, 26))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(acc_2008)
+                    .addComponent(acc_2014))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(acc_2009)
+                    .addComponent(acc_2015))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(acc_2010)
+                    .addComponent(acc_2016))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(acc_2011)
+                    .addComponent(acc_2017))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(acc_2012)
+                    .addComponent(acc_2018))
+                .addGap(13, 13, 13)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(acc_2013)
+                    .addComponent(acc_2019))
+                .addContainerGap(25, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(71, 71, 71))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(133, 133, 133))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(42, 42, 42)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(35, 35, 35))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(136, 136, 136))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(7, 7, 7)
+                .addGap(8, 8, 8)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(25, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(26, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(147, 147, 147))))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void currentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_currentActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_currentActionPerformed
-
-    private void previousActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_previousActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_previousActionPerformed
-
-    private void currentItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_currentItemStateChanged
-        if(current.isSelected()){
-            previous.setSelected(false);
+    private String return_string(javax.swing.JRadioButton a){
+       return a.getText();
+    }
+    
+    private javax.swing.JRadioButton get_activate_button(){
+        if(acc_2008.isSelected()){
+            return acc_2008;
+        }
+        else if(acc_2009.isSelected()){
+            return acc_2009;
+        }
+        else if(acc_2010.isSelected()){
+            return acc_2010;
+        }
+        else if(acc_2011.isSelected()){
+            return acc_2011;
+        }
+        else if(acc_2012.isSelected()){
+            return acc_2012;
+        }
+        else if(acc_2013.isSelected()){
+            return acc_2013;
+        }
+        else if(acc_2014.isSelected()){
+            return acc_2014;
+        }
+        else if(acc_2015.isSelected()){
+            return acc_2015;
+        }
+        else if(acc_2016.isSelected()){
+            return acc_2016;
+        }
+        else if(acc_2017.isSelected()){
+            return acc_2017;
+        }
+        else if(acc_2018.isSelected()){
+            return acc_2018;
+        }
+        else if(acc_2019.isSelected()){
+            return acc_2019;
         }
         else{
-            previous.setSelected(true);
-        }
-    }//GEN-LAST:event_currentItemStateChanged
-
-    private void previousItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_previousItemStateChanged
-        if(previous.isSelected()){
-            current.setSelected(false);
-        }
-        else{
-            current.setSelected(true);
-        }
-    }//GEN-LAST:event_previousItemStateChanged
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-                DatabaseManager dbm = DatabaseManager.getDbCon();
-        String period=null;
-        if(current.isSelected()){
+            return acc_2014;
+        }    
+    }
+    
+    private String return_period(){
+        return return_string(get_activate_button());
+    }
+    
+    private void change_databases(String table_name){
+        String new_period = return_period();
+        String new_table=table_name+"_"+new_period;
+        String prev_table=null;
+          String prev_period=null;
             try {
-                ResultSet query = dbm.query("SELECT * FROM acc_current_period_act");
+                ResultSet query = dbm.query("SELECT * FROM accounting_period");
                 while(query.next()){
-                    period=query.getString("period");
+                    prev_period=query.getString("period");
                 }
                 query.close();
-                dbm.insert("Truncate acc_current_period");
-                dbm.insert("INSERT INTO acc_current_period (period) VALUES ('"+period+"')");
-            } catch (SQLException ex) {
+                prev_table=table_name+"_"+prev_period;
+                
+                dbm.insert("RENAME TABLE `"+table_name+"` TO `"+prev_table+"`");
+                dbm.insert("RENAME TABLE `"+new_table+"` TO `"+table_name+"`");
+                 
+                 } catch (SQLException ex) {
                 Logger.getLogger(Acc_Change_Period.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
-        else if(previous.isSelected()){
+    }
+    
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+        String prev_period=null;
             try {
-              /*  ResultSet query = dbm.query("SELECT * FROM acc_current_period_act");
+                
+                change_databases("account_reciept_debitside");
+                change_databases("account_reciept_creditside");
+                change_databases("account_payment_debitside");
+                change_databases("account_payment_creditside");
+                change_databases("account_journal_main");
+                change_databases("account_journal_debitside");
+                change_databases("account_journal_creditside");
+                change_databases("account_names");
+                 ResultSet query = dbm.query("SELECT * FROM accounting_period");
                 while(query.next()){
-                    period=query.getString("period");
+                    prev_period=query.getString("period");
                 }
-                query.close();*/
-                dbm.insert("Truncate acc_current_period");
-                dbm.insert("INSERT INTO acc_current_period (period) VALUES ('"+"Previous"+"')");
+                query.close();
+                dbm.insert("Truncate accounting_period");
+                dbm.insert("INSERT INTO accounting_period (period) VALUES ('"+return_period()+"')");
             } catch (SQLException ex) {
                 Logger.getLogger(Acc_Change_Period.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+            } 
+        /*
+        create_new_tables("2008-09");
+        create_new_tables("2009-10");
+        create_new_tables("2010-11");
+        create_new_tables("2011-12");
+        create_new_tables("2012-13");
+        create_new_tables("2013-14");
+        create_new_tables("2015-16");
+        create_new_tables("2016-17");
+        create_new_tables("2017-18");
+        create_new_tables("2018-19");
+        create_new_tables("2019-20"); 
+        */
+        
+        
+       
 
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void acc_2008ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_acc_2008ItemStateChanged
+        if(acc_2008.isSelected()){
+            acc_2009.setSelected(false);
+            acc_2010.setSelected(false);
+            acc_2011.setSelected(false);
+            acc_2012.setSelected(false);
+            acc_2013.setSelected(false);
+            acc_2014.setSelected(false);
+            acc_2015.setSelected(false);
+            acc_2016.setSelected(false);
+            acc_2017.setSelected(false);
+            acc_2018.setSelected(false);
+            acc_2019.setSelected(false);
+            
+        }
+    }//GEN-LAST:event_acc_2008ItemStateChanged
+
+    private void acc_2008ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acc_2008ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_acc_2008ActionPerformed
+
+    private void acc_2009ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_acc_2009ItemStateChanged
+          if(acc_2009.isSelected()){
+            acc_2008.setSelected(false);
+            acc_2010.setSelected(false);
+            acc_2011.setSelected(false);
+            acc_2012.setSelected(false);
+            acc_2013.setSelected(false);
+            acc_2014.setSelected(false);
+            acc_2015.setSelected(false);
+            acc_2016.setSelected(false);
+            acc_2017.setSelected(false);
+            acc_2018.setSelected(false);
+            acc_2019.setSelected(false);
+            
+        }
+    }//GEN-LAST:event_acc_2009ItemStateChanged
+
+    private void acc_2009ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acc_2009ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_acc_2009ActionPerformed
+
+    private void acc_2014ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_acc_2014ItemStateChanged
+           if(acc_2014.isSelected()){
+            acc_2009.setSelected(false);
+            acc_2010.setSelected(false);
+            acc_2011.setSelected(false);
+            acc_2012.setSelected(false);
+            acc_2013.setSelected(false);
+            acc_2008.setSelected(false);
+            acc_2015.setSelected(false);
+            acc_2016.setSelected(false);
+            acc_2017.setSelected(false);
+            acc_2018.setSelected(false);
+            acc_2019.setSelected(false);
+            
+        }
+    }//GEN-LAST:event_acc_2014ItemStateChanged
+
+    private void acc_2014ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acc_2014ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_acc_2014ActionPerformed
+
+    private void acc_2010ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_acc_2010ItemStateChanged
+           if(acc_2010.isSelected()){
+            acc_2009.setSelected(false);
+            acc_2008.setSelected(false);
+            acc_2011.setSelected(false);
+            acc_2012.setSelected(false);
+            acc_2013.setSelected(false);
+            acc_2014.setSelected(false);
+            acc_2015.setSelected(false);
+            acc_2016.setSelected(false);
+            acc_2017.setSelected(false);
+            acc_2018.setSelected(false);
+            acc_2019.setSelected(false);
+            
+        }
+    }//GEN-LAST:event_acc_2010ItemStateChanged
+
+    private void acc_2010ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acc_2010ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_acc_2010ActionPerformed
+
+    private void acc_2016ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_acc_2016ItemStateChanged
+           if(acc_2016.isSelected()){
+            acc_2009.setSelected(false);
+            acc_2010.setSelected(false);
+            acc_2011.setSelected(false);
+            acc_2012.setSelected(false);
+            acc_2013.setSelected(false);
+            acc_2014.setSelected(false);
+            acc_2015.setSelected(false);
+            acc_2008.setSelected(false);
+            acc_2017.setSelected(false);
+            acc_2018.setSelected(false);
+            acc_2019.setSelected(false);
+            
+        }
+    }//GEN-LAST:event_acc_2016ItemStateChanged
+
+    private void acc_2016ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acc_2016ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_acc_2016ActionPerformed
+
+    private void acc_2011ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_acc_2011ItemStateChanged
+           if(acc_2011.isSelected()){
+            acc_2009.setSelected(false);
+            acc_2010.setSelected(false);
+            acc_2008.setSelected(false);
+            acc_2012.setSelected(false);
+            acc_2013.setSelected(false);
+            acc_2014.setSelected(false);
+            acc_2015.setSelected(false);
+            acc_2016.setSelected(false);
+            acc_2017.setSelected(false);
+            acc_2018.setSelected(false);
+            acc_2019.setSelected(false);
+            
+        }
+    }//GEN-LAST:event_acc_2011ItemStateChanged
+
+    private void acc_2011ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acc_2011ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_acc_2011ActionPerformed
+
+    private void acc_2017ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_acc_2017ItemStateChanged
+           if(acc_2017.isSelected()){
+            acc_2009.setSelected(false);
+            acc_2010.setSelected(false);
+            acc_2011.setSelected(false);
+            acc_2012.setSelected(false);
+            acc_2013.setSelected(false);
+            acc_2014.setSelected(false);
+            acc_2015.setSelected(false);
+            acc_2016.setSelected(false);
+            acc_2008.setSelected(false);
+            acc_2018.setSelected(false);
+            acc_2019.setSelected(false);
+            
+        }
+    }//GEN-LAST:event_acc_2017ItemStateChanged
+
+    private void acc_2017ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acc_2017ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_acc_2017ActionPerformed
+
+    private void acc_2012ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_acc_2012ItemStateChanged
+           if(acc_2012.isSelected()){
+            acc_2009.setSelected(false);
+            acc_2010.setSelected(false);
+            acc_2011.setSelected(false);
+            acc_2008.setSelected(false);
+            acc_2013.setSelected(false);
+            acc_2014.setSelected(false);
+            acc_2015.setSelected(false);
+            acc_2016.setSelected(false);
+            acc_2017.setSelected(false);
+            acc_2018.setSelected(false);
+            acc_2019.setSelected(false);
+            
+        }
+    }//GEN-LAST:event_acc_2012ItemStateChanged
+
+    private void acc_2012ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acc_2012ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_acc_2012ActionPerformed
+
+    private void acc_2018ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_acc_2018ItemStateChanged
+           if(acc_2018.isSelected()){
+            acc_2009.setSelected(false);
+            acc_2010.setSelected(false);
+            acc_2011.setSelected(false);
+            acc_2012.setSelected(false);
+            acc_2013.setSelected(false);
+            acc_2014.setSelected(false);
+            acc_2015.setSelected(false);
+            acc_2016.setSelected(false);
+            acc_2017.setSelected(false);
+            acc_2008.setSelected(false);
+            acc_2019.setSelected(false);
+            
+        }
+    }//GEN-LAST:event_acc_2018ItemStateChanged
+
+    private void acc_2018ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acc_2018ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_acc_2018ActionPerformed
+
+    private void acc_2015ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_acc_2015ItemStateChanged
+           if(acc_2015.isSelected()){
+            acc_2009.setSelected(false);
+            acc_2010.setSelected(false);
+            acc_2011.setSelected(false);
+            acc_2012.setSelected(false);
+            acc_2013.setSelected(false);
+            acc_2014.setSelected(false);
+            acc_2008.setSelected(false);
+            acc_2016.setSelected(false);
+            acc_2017.setSelected(false);
+            acc_2018.setSelected(false);
+            acc_2019.setSelected(false);
+            
+        }
+    }//GEN-LAST:event_acc_2015ItemStateChanged
+
+    private void acc_2015ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acc_2015ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_acc_2015ActionPerformed
+
+    private void acc_2013ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_acc_2013ItemStateChanged
+           if(acc_2013.isSelected()){
+            acc_2009.setSelected(false);
+            acc_2010.setSelected(false);
+            acc_2011.setSelected(false);
+            acc_2012.setSelected(false);
+            acc_2008.setSelected(false);
+            acc_2014.setSelected(false);
+            acc_2015.setSelected(false);
+            acc_2016.setSelected(false);
+            acc_2017.setSelected(false);
+            acc_2018.setSelected(false);
+            acc_2019.setSelected(false);
+            
+        }
+    }//GEN-LAST:event_acc_2013ItemStateChanged
+
+    private void acc_2013ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acc_2013ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_acc_2013ActionPerformed
+
+    private void acc_2019ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_acc_2019ItemStateChanged
+           if(acc_2019.isSelected()){
+            acc_2009.setSelected(false);
+            acc_2010.setSelected(false);
+            acc_2011.setSelected(false);
+            acc_2012.setSelected(false);
+            acc_2013.setSelected(false);
+            acc_2014.setSelected(false);
+            acc_2015.setSelected(false);
+            acc_2016.setSelected(false);
+            acc_2017.setSelected(false);
+            acc_2018.setSelected(false);
+            acc_2008.setSelected(false);
+            
+        }
+    }//GEN-LAST:event_acc_2019ItemStateChanged
+
+    private void acc_2019ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acc_2019ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_acc_2019ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -279,12 +825,22 @@ public class Acc_Change_Period extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JRadioButton current;
+    private javax.swing.JRadioButton acc_2008;
+    private javax.swing.JRadioButton acc_2009;
+    private javax.swing.JRadioButton acc_2010;
+    private javax.swing.JRadioButton acc_2011;
+    private javax.swing.JRadioButton acc_2012;
+    private javax.swing.JRadioButton acc_2013;
+    private javax.swing.JRadioButton acc_2014;
+    private javax.swing.JRadioButton acc_2015;
+    private javax.swing.JRadioButton acc_2016;
+    private javax.swing.JRadioButton acc_2017;
+    private javax.swing.JRadioButton acc_2018;
+    private javax.swing.JRadioButton acc_2019;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton previous;
     // End of variables declaration//GEN-END:variables
 }

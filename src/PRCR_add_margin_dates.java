@@ -1,5 +1,6 @@
 
 import java.sql.SQLException;
+import javax.swing.ImageIcon;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -20,6 +21,11 @@ private String division;
      */
     public PRCR_add_margin_dates(String month,String division) {
         initComponents();
+        try{
+         this.setIconImage(new ImageIcon(getClass().getResource("Iconpng.png")).getImage());
+        }catch(Exception e){
+            
+        }
         this.month=month;
         jLabel2.setText(month+" for Division :"+division);
         this.division=division;

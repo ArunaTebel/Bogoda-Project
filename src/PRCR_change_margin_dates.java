@@ -3,6 +3,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /*
@@ -28,6 +29,11 @@ public class PRCR_change_margin_dates extends javax.swing.JFrame {
     DatabaseManager dbm=DatabaseManager.getDbCon();
     public PRCR_change_margin_dates() {
         initComponents();
+        try{
+         this.setIconImage(new ImageIcon(getClass().getResource("Iconpng.png")).getImage());
+        }catch(Exception e){
+            
+        }
         
         
        

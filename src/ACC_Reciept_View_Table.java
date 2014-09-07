@@ -1,4 +1,5 @@
 
+import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -18,6 +19,11 @@ public class ACC_Reciept_View_Table extends javax.swing.JFrame {
      */
     public ACC_Reciept_View_Table() {
         initComponents();
+        try{
+         this.setIconImage(new ImageIcon(getClass().getResource("Iconpng.png")).getImage());
+        }catch(Exception e){
+            
+        }
     }
     
     ACC_View_Database_Handling db = new ACC_View_Database_Handling();

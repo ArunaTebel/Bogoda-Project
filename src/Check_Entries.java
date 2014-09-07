@@ -28,4 +28,13 @@ public class Check_Entries {
             return 0;
         }
     }
+    
+     public double string_to_double(String s){
+        if(isDouble(s)){
+            return Double.parseDouble(s);
+        }
+        else{
+            return 0;
+        }
+    }
 }

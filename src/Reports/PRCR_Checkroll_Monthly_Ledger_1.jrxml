@@ -8,6 +8,15 @@
 	<parameter name="REGISTER" class="java.lang.String"/>
 	<parameter name="Month" class="java.lang.String"/>
 	<parameter name="RegisterLable" class="java.lang.String"/>
+	<parameter name="Active1" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="Active2" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="Active3" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[SELECT
      prcr_checkroll_ledger_report.`code` AS prcr_checkroll_ledger_report_code,
@@ -78,7 +87,7 @@ FROM
 WHERE
      division = $P{DIVISION}
      and register_or_casual = $P{REGISTER}
-     and active = 1]]>
+     and (active = $P{Active1} or active = $P{Active2} or active = $P{Active3} )]]>
 	</queryString>
 	<field name="prcr_checkroll_ledger_report_code" class="java.lang.Integer"/>
 	<field name="prcr_checkroll_ledger_report_division" class="java.lang.String"/>

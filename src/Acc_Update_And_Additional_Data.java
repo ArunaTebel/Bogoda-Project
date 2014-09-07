@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 
 public class Acc_Update_And_Additional_Data {
 
-    public void update_table(String table1, String table2, String field, String user,String date) {
+  /*  public void update_table(String table1, String table2, String field, String user,String date) {
         try {
             DatabaseManager dbm = DatabaseManager.getDbCon();
             Date_Handler dt = new Date_Handler();
@@ -28,7 +28,7 @@ public class Acc_Update_And_Additional_Data {
             Logger.getLogger(Acc_Update_And_Additional_Data.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-    }
+    }*/
 
     public void copy_table(String table1, String table2) {
         try {
@@ -50,76 +50,93 @@ public class Acc_Update_And_Additional_Data {
     }
 
     public void update_account_balances() {
-
-        // under this method all the current balances of the accounts will be transfered in to their op balances + the current balances
-        // will be recorded in a new table as the op balances for the new year + they also be recorded in the previous years table as closing balances
-        DatabaseManager dbm = DatabaseManager.getDbCon();
-        Date_Handler dt = new Date_Handler();
-
-        String new_table_name = dt.get_today_year() + "_balances";
-        String previous_year_table_name = (Integer.parseInt(dt.get_today_year()) - 1) + "_balances";
-
-        double temp = 0;
-
-        if (dbm.TableExistence(new_table_name)) {
-            try {
-                dbm.insert("Truncate " + new_table_name + "");
-            } catch (SQLException ex) {
-                Logger.getLogger(Acc_Update_And_Additional_Data.class.getName()).log(Level.SEVERE, null, ex);
+        try {
+            
+            // under this method all the current balances of the accounts will be transfered in to their op balances + the current balances
+            // will be recorded in a new table as the op balances for the new year + they also be recorded in the previous years table as closing balances
+            DatabaseManager dbm = DatabaseManager.getDbCon();
+            Date_Handler dt = new Date_Handler();
+            
+            String year= null;
+            String yeart=null;
+            ResultSet query2 = dbm.query("SELECT * FROM accounting_period");
+            while(query2.next()){
+                yeart=query2.getString("period");
             }
-        } else {
-            try {
-                dbm.insert("CREATE TABLE " + new_table_name + "(account_code varchar(50),op_bal_d double,op_bal_c double,clo_bal_d double,clo_bal_c double)");
-            } catch (SQLException ex) {
-                Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
+            query2.close();
+            year = yeart.substring(0, 4);
+             String new_table_name = dt.get_today_year() + "_balances";
+         //   String new_table_name = year + "_balances";
+            
+              String previous_year_table_name = (Integer.parseInt(dt.get_today_year()) - 1) + "_balances";
+            
+          //  String previous_year_table_name = (Integer.parseInt(year) - 1) + "_balances";
+            
+            double temp = 0;
+            
+            if (dbm.TableExistence(new_table_name)) {
+                try {
+                    dbm.insert("Truncate " + new_table_name + "");
+                } catch (SQLException ex) {
+                    Logger.getLogger(Acc_Update_And_Additional_Data.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                try {
+                    dbm.insert("CREATE TABLE " + new_table_name + "(account_code varchar(50),op_bal_d double,op_bal_c double,clo_bal_d double,clo_bal_c double)");
+                } catch (SQLException ex) {
+                    Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
-        }
-
-        if (dbm.TableExistence(previous_year_table_name) == true) {
-
+            
+            if (dbm.TableExistence(previous_year_table_name) == true) {
+                
+                try {
+                    ResultSet query = dbm.query("SELECT * FROM account_names");
+                    while (query.next()) {
+                        temp = Double.parseDouble(query.getString("current_balance"));
+                        
+                        dbm.updateDatabase(previous_year_table_name, "account_code", query.getString("account_id"), "clo_bal", temp);
+                        
+                        //   dbm.insert("INSERT INTO "+new_table_name+"(account_code,op_bal,clo_bal) VALUES('"+query.getString("account_id")+"','"+temp+"',0)");
+                        //   dbm.updateDatabase("account_names","account_id",Integer.parseInt(query.getString("account_id")),"opening_balance", temp);
+                    }
+                    
+                } catch (SQLException ex) {
+                    Logger.getLogger(Acc_Update_And_Additional_Data.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
             try {
                 ResultSet query = dbm.query("SELECT * FROM account_names");
                 while (query.next()) {
                     temp = Double.parseDouble(query.getString("current_balance"));
-
-                    dbm.updateDatabase(previous_year_table_name, "account_code", query.getString("account_id"), "clo_bal", temp);
-
-                    //   dbm.insert("INSERT INTO "+new_table_name+"(account_code,op_bal,clo_bal) VALUES('"+query.getString("account_id")+"','"+temp+"',0)");
-                    //   dbm.updateDatabase("account_names","account_id",Integer.parseInt(query.getString("account_id")),"opening_balance", temp);
+                    
+                    //dbm.updateDatabase(previous_year_table_name,"account_code",query.getString("account_id"),"clo_bal",temp);
+                    /*     dbm.insert("INSERT INTO " + new_table_name + "(account_code,op_bal,clo_bal) VALUES('" + query.getString("account_id") + "','" + temp + "',0)");
+                    
+                    dbm.updateDatabase("account_names", "account_id", Integer.parseInt(query.getString("account_id")), "opening_balance", temp);*/
+                    // Here I took that other than in expense and income accounts balances will be carried forward as op balances
+                    if (query.getInt("main_account_code") == 1 || query.getInt("main_account_code") == 2) {
+                        dbm.insert("INSERT INTO " + new_table_name + "(account_code,op_bal_d,op_bal_c,clo_bal) VALUES('" + query.getString("account_id") + "','" + temp + "',0,0)");
+                        
+                        dbm.updateDatabase("account_names", "account_id", Integer.parseInt(query.getString("account_id")), "opening_balance", temp);
+                        
+                    } else if (query.getInt("main_account_code") == 3 || query.getInt("main_account_code") == 4) {
+                        dbm.insert("INSERT INTO " + new_table_name + "(account_code,op_bal_d,op_bal_c,clo_bal) VALUES('" + query.getString("account_id") + "',0,'" + temp + "',0)");
+                        
+                        dbm.updateDatabase("account_names", "account_id", Integer.parseInt(query.getString("account_id")), "opening_balance", temp);
+                        
+                    } else {
+                        dbm.insert("INSERT INTO " + new_table_name + "(account_code,op_bal_d,op_bal_c,clo_bal) VALUES('" + query.getString("account_id") + "',0,0,0)");
+                        
+                        dbm.updateDatabase("account_names", "account_id", Integer.parseInt(query.getString("account_id")), "opening_balance", 0);
+                        
+                    }
+                    
                 }
 
             } catch (SQLException ex) {
                 Logger.getLogger(Acc_Update_And_Additional_Data.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
-        try {
-            ResultSet query = dbm.query("SELECT * FROM account_names");
-            while (query.next()) {
-                temp = Double.parseDouble(query.getString("current_balance"));
-
-                    //dbm.updateDatabase(previous_year_table_name,"account_code",query.getString("account_id"),"clo_bal",temp);
-           /*     dbm.insert("INSERT INTO " + new_table_name + "(account_code,op_bal,clo_bal) VALUES('" + query.getString("account_id") + "','" + temp + "',0)");
-
-                 dbm.updateDatabase("account_names", "account_id", Integer.parseInt(query.getString("account_id")), "opening_balance", temp);*/
-                // Here I took that other than in expense and income accounts balances will be carried forward as op balances
-                if (query.getInt("main_account_code") == 1 || query.getInt("main_account_code") == 2) {
-                    dbm.insert("INSERT INTO " + new_table_name + "(account_code,op_bal_d,op_bal_c,clo_bal) VALUES('" + query.getString("account_id") + "','" + temp + "',0,0)");
-
-                    dbm.updateDatabase("account_names", "account_id", Integer.parseInt(query.getString("account_id")), "opening_balance", temp);
-
-                } else if (query.getInt("main_account_code") == 3 || query.getInt("main_account_code") == 4) {
-                    dbm.insert("INSERT INTO " + new_table_name + "(account_code,op_bal_d,op_bal_c,clo_bal) VALUES('" + query.getString("account_id") + "',0,'" + temp + "',0)");
-
-                    dbm.updateDatabase("account_names", "account_id", Integer.parseInt(query.getString("account_id")), "opening_balance", temp);
-
-                } else {
-                    dbm.insert("INSERT INTO " + new_table_name + "(account_code,op_bal_d,op_bal_c,clo_bal) VALUES('" + query.getString("account_id") + "',0,0,0)");
-
-                    dbm.updateDatabase("account_names", "account_id", Integer.parseInt(query.getString("account_id")), "opening_balance", 0);
-
-                }
-
-            }
 
         } catch (SQLException ex) {
             Logger.getLogger(Acc_Update_And_Additional_Data.class.getName()).log(Level.SEVERE, null, ex);
@@ -127,14 +144,26 @@ public class Acc_Update_And_Additional_Data {
 
     }
 
-   public void complete_op_bal_temp() {
-        DatabaseManager dbm = DatabaseManager.getDbCon();
+  /* public void complete_op_bal_temp() {
+          DatabaseManager dbm =  DatabaseManager.getDbCon();
         try {
             ResultSet query = dbm.query("SELECT * FROM account_names");
             while (query.next()) {
 
-                if (dbm.checkWhetherDataExists("2015_balances", "account_code", query.getString("account_id")) == 0) {
-                    dbm.insert("INSERT INTO 2015_balances(account_code,op_bal_d,op_bal_c,clo_bal)VALUES('" + query.getString("account_id") + "',0,0,0)");
+                if (dbm.checkWhetherDataExists("2014_balances", "account_code", query.getString("account_id")) == 0) {
+                    dbm.insert("INSERT INTO 2014_balances(account_code,op_bal_d,op_bal_c,clo_bal)VALUES('" + query.getString("account_id") + "',0,0,0)");
+                }
+                if (dbm.checkWhetherDataExists("2013_balances", "account_code", query.getString("account_id")) == 0) {
+                    dbm.insert("INSERT INTO 2013_balances(account_code,op_bal_d,op_bal_c,clo_bal)VALUES('" + query.getString("account_id") + "',0,0,0)");
+                }
+                if (dbm.checkWhetherDataExists("2012_balances", "account_code", query.getString("account_id")) == 0) {
+                    dbm.insert("INSERT INTO 2012_balances(account_code,op_bal_d,op_bal_c,clo_bal)VALUES('" + query.getString("account_id") + "',0,0,0)");
+                }
+                if (dbm.checkWhetherDataExists("2011_balances", "account_code", query.getString("account_id")) == 0) {
+                    dbm.insert("INSERT INTO 2011_balances(account_code,op_bal_d,op_bal_c,clo_bal)VALUES('" + query.getString("account_id") + "',0,0,0)");
+                }
+                if (dbm.checkWhetherDataExists("2010_balances", "account_code", query.getString("account_id")) == 0) {
+                    dbm.insert("INSERT INTO 2010_balances(account_code,op_bal_d,op_bal_c,clo_bal)VALUES('" + query.getString("account_id") + "',0,0,0)");
                 }
 
             }
@@ -143,11 +172,11 @@ public class Acc_Update_And_Additional_Data {
             Logger.getLogger(Acc_Update_And_Additional_Data.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+    */
     // This method is to get the current balance initially..... P.S - change the opening_balance_calc method  in Acc Ledger first  op_balance = op_c not op_balance=-op_c in line 626
     
-  //  public void complete_op_bal_temp() {
-      /*  DatabaseManager dbm = new DatabaseManager();
+    public void complete_op_bal_temp() {
+        DatabaseManager dbm = DatabaseManager.getDbCon();
         ACC_ledger ledg = new ACC_ledger();
         double op=0;
         
@@ -161,6 +190,6 @@ public class Acc_Update_And_Additional_Data {
 
         } catch (SQLException ex) {
             Logger.getLogger(Acc_Update_And_Additional_Data.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
-   // }
+        }
+    }
 }

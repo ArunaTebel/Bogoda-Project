@@ -188,7 +188,7 @@
     </Container>
     <Component class="javax.swing.JButton" name="view">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Update"/>
+        <Property name="text" type="java.lang.String" value="View All"/>
       </Properties>
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="viewMouseClicked"/>
@@ -207,7 +207,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="view2">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Open last"/>
+        <Property name="text" type="java.lang.String" value="print"/>
       </Properties>
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="view2MouseClicked"/>

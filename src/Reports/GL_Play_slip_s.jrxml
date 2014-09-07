@@ -92,7 +92,7 @@ FROM
 WHERE
      gl_monthly_ledger_current.`year` = $P{year}
  AND gl_monthly_ledger_current.`month` = $P{month}
-     and gl_monthly_ledger_current.`final_amount` != 0
+     and (gl_monthly_ledger_current.`final_amount` != 0 OR total_kg != 0)
 ORDER BY
      suppliers.`cat_id` ASC,
      gl_monthly_ledger_current.`sup_id` ASC]]>

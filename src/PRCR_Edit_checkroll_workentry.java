@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /*
@@ -38,6 +39,11 @@ public class PRCR_Edit_checkroll_workentry extends javax.swing.JFrame {
      */
     public PRCR_Edit_checkroll_workentry() {
         initComponents();
+        try{
+         this.setIconImage(new ImageIcon(getClass().getResource("Iconpng.png")).getImage());
+        }catch(Exception e){
+            
+        }
     }
 
     Date_Handler datehandler = new Date_Handler();

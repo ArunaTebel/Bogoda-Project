@@ -1,13 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="1008" pageHeight="792" orientation="Landscape" columnWidth="968" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b4a7e90f-236c-48e1-b463-a16c40591ab1">
 	<property name="ireport.zoom" value="2.0"/>
-	<property name="ireport.x" value="1069"/>
-	<property name="ireport.y" value="116"/>
+	<property name="ireport.x" value="775"/>
+	<property name="ireport.y" value="192"/>
 	<parameter name="USER" class="java.lang.String"/>
 	<parameter name="DIVISION" class="java.lang.String"/>
 	<parameter name="REGISTER" class="java.lang.String"/>
 	<parameter name="Month" class="java.lang.String"/>
 	<parameter name="RegisterLable" class="java.lang.String"/>
+	<parameter name="Active1" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="Active2" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="Active3" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[SELECT
      prcr_checkroll_ledger_report.`code` AS prcr_checkroll_ledger_report_code,
@@ -78,7 +87,7 @@ FROM
 WHERE
      division = $P{DIVISION}
      and register_or_casual = $P{REGISTER}
-     and active = 1]]>
+     and (active = $P{Active1} or active = $P{Active2} or active = $P{Active3} )]]>
 	</queryString>
 	<field name="prcr_checkroll_ledger_report_code" class="java.lang.Integer"/>
 	<field name="prcr_checkroll_ledger_report_division" class="java.lang.String"/>
@@ -88,9 +97,9 @@ WHERE
 	<field name="prcr_checkroll_ledger_report_sundays" class="java.lang.Integer"/>
 	<field name="prcr_checkroll_ledger_report_sunday_pay" class="java.lang.Double"/>
 	<field name="prcr_checkroll_ledger_report_total_pay" class="java.lang.Double"/>
-	<field name="prcr_checkroll_ledger_report_ot_before_hours" class="java.lang.Integer"/>
+	<field name="prcr_checkroll_ledger_report_ot_before_hours" class="java.lang.Double"/>
 	<field name="prcr_checkroll_ledger_report_ot_before_amount" class="java.lang.Double"/>
-	<field name="prcr_checkroll_ledger_report_ot_after_hours" class="java.lang.Integer"/>
+	<field name="prcr_checkroll_ledger_report_ot_after_hours" class="java.lang.Double"/>
 	<field name="prcr_checkroll_ledger_report_ot_after_amount" class="java.lang.Double"/>
 	<field name="prcr_checkroll_ledger_report_incentive1" class="java.lang.Double"/>
 	<field name="prcr_checkroll_ledger_report_incentive2" class="java.lang.Double"/>
@@ -143,7 +152,124 @@ WHERE
 	<field name="prcr_checkroll_ledger_report_extra_pay_may" class="java.lang.Double"/>
 	<field name="prcr_checkroll_ledger_report_active" class="java.lang.Integer"/>
 	<field name="prcr_checkroll_ledger_report_coinsbf" class="java.lang.Double"/>
+	<variable name="basicGT" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{prcr_checkroll_ledger_report_normal_pay}]]></variableExpression>
+	</variable>
+	<variable name="allowance1GT" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{prcr_checkroll_ledger_report_ot_after_hours}]]></variableExpression>
+	</variable>
+	<variable name="allowance2GT" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{prcr_checkroll_ledger_report_ot_after_amount}]]></variableExpression>
+	</variable>
 	<variable name="TITLE" class="java.lang.String"/>
+	<variable name="allowance3" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{prcr_checkroll_ledger_report_extra_pay_may}]]></variableExpression>
+	</variable>
+	<variable name="total_pay" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{prcr_checkroll_ledger_report_total_pay}]]></variableExpression>
+	</variable>
+	<variable name="ot_hours" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{prcr_checkroll_ledger_report_ot_before_hours}]]></variableExpression>
+	</variable>
+	<variable name="ot_pay" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{prcr_checkroll_ledger_report_ot_before_amount}]]></variableExpression>
+	</variable>
+	<variable name="incentive_1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{prcr_checkroll_ledger_report_incentive1}]]></variableExpression>
+	</variable>
+	<variable name="incentive_2" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{prcr_checkroll_ledger_report_incentive2}]]></variableExpression>
+	</variable>
+	<variable name="extra1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{prcr_checkroll_ledger_report_extra_pay_cash}]]></variableExpression>
+	</variable>
+	<variable name="extra2" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{prcr_checkroll_ledger_report_extra_pay_overkilos}]]></variableExpression>
+	</variable>
+	<variable name="coinsbf" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{prcr_checkroll_ledger_report_coinsbf}]]></variableExpression>
+	</variable>
+	<variable name="gross_pay" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{prcr_checkroll_ledger_report_gross_pay}]]></variableExpression>
+	</variable>
+	<variable name="teacher" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{prcr_checkroll_ledger_report_teacher}]]></variableExpression>
+	</variable>
+	<variable name="welfare" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{prcr_checkroll_ledger_report_welfare}]]></variableExpression>
+	</variable>
+	<variable name="tea" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{prcr_checkroll_ledger_report_tea}]]></variableExpression>
+	</variable>
+	<variable name="loan" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{prcr_checkroll_ledger_report_loan}]]></variableExpression>
+	</variable>
+	<variable name="ceb" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{prcr_checkroll_ledger_report_ceb}]]></variableExpression>
+	</variable>
+	<variable name="food" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{prcr_checkroll_ledger_report_food}]]></variableExpression>
+	</variable>
+	<variable name="chemical" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{prcr_checkroll_ledger_report_chemical}]]></variableExpression>
+	</variable>
+	<variable name="fine" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{prcr_checkroll_ledger_report_fine}]]></variableExpression>
+	</variable>
+	<variable name="kovil" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{prcr_checkroll_ledger_report_kovil}]]></variableExpression>
+	</variable>
+	<variable name="meals" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{prcr_checkroll_ledger_report_meals}]]></variableExpression>
+	</variable>
+	<variable name="pension" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{prcr_checkroll_ledger_report_pension}]]></variableExpression>
+	</variable>
+	<variable name="predebt" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{prcr_checkroll_ledger_report_pre_debt}]]></variableExpression>
+	</variable>
+	<variable name="epf10" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{prcr_checkroll_ledger_report_epf10}]]></variableExpression>
+	</variable>
+	<variable name="epf12" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{prcr_checkroll_ledger_report_epf12}]]></variableExpression>
+	</variable>
+	<variable name="totalepf" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{prcr_checkroll_ledger_report_total_epf}]]></variableExpression>
+	</variable>
+	<variable name="etf" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{prcr_checkroll_ledger_report_etf}]]></variableExpression>
+	</variable>
+	<variable name="totalded" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{prcr_checkroll_ledger_report_total_ded}]]></variableExpression>
+	</variable>
+	<variable name="balancepay" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{prcr_checkroll_ledger_report_full_salary}]]></variableExpression>
+	</variable>
+	<variable name="coins" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{prcr_checkroll_ledger_report_coins}]]></variableExpression>
+	</variable>
+	<variable name="paidamnt" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{prcr_checkroll_ledger_report_paid_amount}]]></variableExpression>
+	</variable>
+	<variable name="next_mnth" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{prcr_checkroll_ledger_report_next_month}]]></variableExpression>
+	</variable>
+	<variable name="other1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{prcr_checkroll_ledger_report_other_ded1}]]></variableExpression>
+	</variable>
+	<variable name="festadv" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{prcr_checkroll_ledger_report_fest_adv}]]></variableExpression>
+	</variable>
+	<variable name="salaryadv" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{prcr_checkroll_ledger_report_salary_adv}]]></variableExpression>
+	</variable>
+	<variable name="other3" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{prcr_checkroll_ledger_report_other_ded3}]]></variableExpression>
+	</variable>
+	<variable name="other2" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{prcr_checkroll_ledger_report_other_ded2}]]></variableExpression>
+	</variable>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -252,7 +378,7 @@ WHERE
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8" isBold="false"/>
 				</textElement>
-				<text><![CDATA[Sunday Pay]]></text>
+				<text><![CDATA[No Pay]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="185" y="21" width="50" height="20" uuid="539b9d99-9ccd-4832-a5a6-1b952ab00e13"/>
@@ -958,7 +1084,7 @@ WHERE
 		<band height="16" splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="29" splitType="Stretch">
+		<band height="23" splitType="Stretch">
 			<textField evaluationTime="Report">
 				<reportElement x="618" y="3" width="40" height="20" uuid="a28f6025-2bc0-4bc1-a2d3-6de88975440a"/>
 				<textElement>
@@ -980,6 +1106,202 @@ WHERE
 		</band>
 	</pageFooter>
 	<summary>
-		<band height="8" splitType="Stretch"/>
+		<band height="65" splitType="Stretch">
+			<textField>
+				<reportElement x="79" y="0" width="49" height="20" uuid="1567152f-70a0-4053-937e-9cd9841cc1dd"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$V{basicGT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="131" y="0" width="54" height="20" uuid="14985d7d-4a07-407d-a2ed-924d59c8d7bc"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$V{allowance1GT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="131" y="20" width="54" height="20" uuid="d177669d-28b2-481a-9f7e-1812f313e43b"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$V{allowance2GT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="131" y="40" width="54" height="20" uuid="25d59de0-4c46-48b3-a3ac-d0b461c18035"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$V{allowance3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="186" y="0" width="48" height="20" uuid="abe75b8e-c4fa-4fba-aa24-f40c3ce961d6"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$V{total_pay}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="186" y="20" width="48" height="20" uuid="8f123da2-d377-4c97-873b-5726b0720b14"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$V{ot_hours}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="186" y="40" width="48" height="20" uuid="27063b6d-d2b2-4634-a21a-72110b28fa1c"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$V{ot_pay}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="242" y="0" width="54" height="20" uuid="3502dd2b-64dd-4bf8-a4a8-7f6a8c299083"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$V{incentive_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="242" y="20" width="54" height="20" uuid="e68fdb0f-7ca1-4e0a-b6d3-c7bc657cc8a6"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$V{incentive_2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="297" y="0" width="43" height="20" uuid="defdebbc-be9c-43f7-beee-9027ef7ef948"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$V{extra1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="297" y="20" width="43" height="20" uuid="30387ad8-6792-4380-84fd-0193b3296056"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$V{extra2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="297" y="40" width="43" height="20" uuid="849ab49b-d110-4291-b4fd-9b1389a97fa1"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$V{coinsbf}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="343" y="0" width="50" height="20" uuid="a6819120-236e-4f94-b056-01bf8326a19e"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$V{gross_pay}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="394" y="40" width="51" height="20" uuid="220667ac-a2cc-433b-9977-8ca8c74ce362"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$V{tea}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="448" y="0" width="39" height="20" uuid="5ac4d092-b1db-4b54-bc0f-9f46456183fa"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$V{food}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="448" y="20" width="38" height="20" uuid="f88c591a-0056-4af2-abbb-9700350a645c"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$V{loan}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="487" y="20" width="35" height="20" uuid="a17c5446-60c7-48d3-a835-eea0b93b1176"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$V{teacher}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="487" y="40" width="35" height="20" uuid="3829dcf5-e68f-4368-ac8f-a0d9913857b4"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$V{chemical}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="526" y="40" width="40" height="20" uuid="c371d758-727e-442d-87fc-ea7f9b0c9c66"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$V{fine}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="526" y="0" width="40" height="20" uuid="7c22d7c5-1e93-4f28-bb6d-529070a55171"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$V{welfare}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="568" y="0" width="39" height="20" uuid="a8d42db7-d524-4414-93ce-2d95a6c7e78c"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$V{kovil}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="487" y="0" width="35" height="20" uuid="783dd858-a352-43e1-a83e-88c846251e63"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$V{ceb}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="651" y="0" width="45" height="20" uuid="032a1a13-a3fd-4626-862e-d9b04e312dc8"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$V{meals}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="651" y="40" width="45" height="20" uuid="0d3fb2ae-66fc-4aaa-9970-3b1e2a6d19ab"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$V{pension}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00">
+				<reportElement x="699" y="40" width="46" height="20" uuid="14ad7aef-2850-4136-87c2-21219fe36f53"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$V{predebt}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="609" y="20" width="41" height="20" uuid="4414f782-4a95-4924-9f4c-5c4e1cc232a0"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$V{epf10}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="759" y="1" width="51" height="20" uuid="af11494a-26c1-499a-8061-1868e72c3275"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$V{totalded}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00">
+				<reportElement x="759" y="20" width="51" height="20" uuid="19fdb78f-0c34-4dee-bc5d-165172b49f0f"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$V{balancepay}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00">
+				<reportElement x="759" y="40" width="51" height="20" uuid="39c671f0-a1ff-4670-88fd-be4bdf09560d"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$V{coins}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00">
+				<reportElement x="824" y="0" width="100" height="20" uuid="f699b77c-19af-4c60-8a01-7d85ec58f2ce"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$V{paidamnt}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00">
+				<reportElement x="823" y="40" width="100" height="20" uuid="8b10cc58-d238-423f-9216-2909e20590ea"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$V{next_mnth}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="924" y="1" width="45" height="20" uuid="2dbf11c5-d51f-45ef-8cb1-185d5708db49"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$V{epf12}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="923" y="21" width="45" height="20" uuid="021101bb-f48c-4e09-915f-05d9f95ecd42"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$V{totalepf}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="924" y="40" width="45" height="20" uuid="16215648-f569-40b0-9b18-41cfb9ac7e06"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$V{etf}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="609" y="0" width="41" height="20" uuid="4167f875-f2a4-4e00-a6a7-c967ee96718f"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$V{other1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="394" y="20" width="50" height="20" uuid="03213042-8efc-40bf-abe6-e7ea7c8c1664"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$V{festadv}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="394" y="0" width="50" height="20" uuid="5206aff2-2fee-46d4-a6e9-e8351780725d"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$V{salaryadv}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="651" y="20" width="45" height="20" uuid="e4467164-0edd-491e-ba8e-4e918d0b4b27"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$V{other2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="699" y="0" width="46" height="20" uuid="58ee38d1-413a-4228-9318-9bd8015dc81b"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$V{other3}]]></textFieldExpression>
+			</textField>
+		</band>
 	</summary>
 </jasperReport>

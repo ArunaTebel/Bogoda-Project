@@ -14,6 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.*;
 import java.awt.print.*;
+import javax.swing.ImageIcon;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
@@ -39,6 +40,11 @@ public class PRCR_Checkroll_Amalgamation extends javax.swing.JFrame {
 
     public PRCR_Checkroll_Amalgamation() {
         initComponents();
+        try{
+         this.setIconImage(new ImageIcon(getClass().getResource("Iconpng.png")).getImage());
+        }catch(Exception e){
+            
+        }
         jTable1.setAutoCreateRowSorter(true);
         jTable1.getTableHeader().setFont( new Font( "Arial" , Font.BOLD, 10));
 

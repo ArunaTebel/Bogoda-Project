@@ -3,6 +3,7 @@ import java.awt.event.KeyEvent;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -25,6 +26,11 @@ public class PRCR_Register_employee extends javax.swing.JFrame {
     DateChooser_text datechooser =new DateChooser_text();
     public PRCR_Register_employee() {
         initComponents();
+        try{
+         this.setIconImage(new ImageIcon(getClass().getResource("Iconpng.png")).getImage());
+        }catch(Exception e){
+            
+        }
     }
 
     /**

@@ -93,8 +93,13 @@ public class Report_PRCR_Monthly_Ledger extends javax.swing.JPanel {
     }
 
     public class report_old implements Runnable {
-
-        public report_old() {
+        private int active1=0;
+        private int active2=0;
+        private int active3=0;
+        public report_old(int active1,int active2,int active3) {
+            this.active1=active1;
+            this.active2=active2;
+            this.active3=active3;
         }
 
         @Override
@@ -115,6 +120,11 @@ public class Report_PRCR_Monthly_Ledger extends javax.swing.JPanel {
                 param.put("REGISTER", "0");
                 param.put("RegisterLable","Casual");
             }
+            
+            param.put("Active1",active1);
+            param.put("Active2",active2);
+            param.put("Active3",active3);
+            
             a.start();
             // t1.run();
 
@@ -271,7 +281,7 @@ public class Report_PRCR_Monthly_Ledger extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        view.setText("Update");
+        view.setText("View All");
         view.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 viewMouseClicked(evt);
@@ -286,7 +296,7 @@ public class Report_PRCR_Monthly_Ledger extends javax.swing.JPanel {
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel4.setText("Mothly Ledger");
 
-        view2.setText("Open last");
+        view2.setText("print");
         view2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 view2MouseClicked(evt);
@@ -582,6 +592,11 @@ public class Report_PRCR_Monthly_Ledger extends javax.swing.JPanel {
     }//GEN-LAST:event_datePicker1ActionPerformed
 
     private void viewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewActionPerformed
+ duplicateTable("pr_workdata_" + getST(monthfield.getText(), yearfield.getText()), "prcr_checkroll_ledger_report");
+
+        Thread b = new Thread(new report_old(1,2,3));
+        b.start();
+
 //     int a= JOptionPane.showConfirmDialog(datechooser, "This will update the Daily transactions list. it will take several minutes to complete.. Are you sure?");
 //        System.out.println(a); 
 //         Thread b = new Thread(new report());
@@ -600,6 +615,12 @@ public class Report_PRCR_Monthly_Ledger extends javax.swing.JPanel {
     }//GEN-LAST:event_view2MouseClicked
 
     private void view2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_view2ActionPerformed
+duplicateTable("pr_workdata_" + getST(monthfield.getText(), yearfield.getText()), "prcr_checkroll_ledger_report");
+
+        Thread b = new Thread(new report_old(1,1,1));
+        b.start();
+
+
 //        String save_location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
 //        
 //        String file_name= dbm.checknReturnStringData("last_report", "type", "Weekly_Advances_", "filename");
@@ -618,7 +639,7 @@ public class Report_PRCR_Monthly_Ledger extends javax.swing.JPanel {
     private void view1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_view1ActionPerformed
         duplicateTable("pr_workdata_" + getST(monthfield.getText(), yearfield.getText()), "prcr_checkroll_ledger_report");
 
-        Thread b = new Thread(new report_old());
+        Thread b = new Thread(new report_old(1,2,2));
         b.start();
     }//GEN-LAST:event_view1ActionPerformed
 

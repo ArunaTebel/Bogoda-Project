@@ -1,5 +1,6 @@
 
 import java.awt.event.KeyEvent;
+import javax.swing.ImageIcon;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -21,6 +22,11 @@ public class Cheqe_pay_form extends javax.swing.JFrame {
      */
     public Cheqe_pay_form() {
         initComponents();
+        try{
+         this.setIconImage(new ImageIcon(getClass().getResource("Iconpng.png")).getImage());
+        }catch(Exception e){
+            
+        }
     }
 
     /**

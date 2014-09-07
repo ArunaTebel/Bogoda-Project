@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -27,6 +28,11 @@ public class PRCR_viewNedit_cash_advances_book1 extends javax.swing.JFrame {
 
     public PRCR_viewNedit_cash_advances_book1() {
         initComponents();
+        try{
+         this.setIconImage(new ImageIcon(getClass().getResource("Iconpng.png")).getImage());
+        }catch(Exception e){
+            
+        }
          table.setFillsViewportHeight(true);
         table.setAutoCreateRowSorter(true);
 

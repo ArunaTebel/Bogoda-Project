@@ -61,7 +61,7 @@ public class ACC_Payment_View extends javax.swing.JPanel {
             }
             combo = arr2;
         } else {
-            System.out.println("aaaa");
+           
 
         }
 

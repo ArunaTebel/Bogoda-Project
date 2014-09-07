@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -27,6 +28,11 @@ public class PRCR_viewNedit_other_advances_book extends javax.swing.JFrame {
 
     public PRCR_viewNedit_other_advances_book() {
         initComponents();
+        try{
+         this.setIconImage(new ImageIcon(getClass().getResource("Iconpng.png")).getImage());
+        }catch(Exception e){
+            
+        }
          table.setFillsViewportHeight(true);
         table.setAutoCreateRowSorter(true);
 

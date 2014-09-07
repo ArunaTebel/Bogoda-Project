@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /*
@@ -44,6 +45,11 @@ public class PRCR_Extrapayment_edit_interfacee extends javax.swing.JFrame {
      */
     public PRCR_Extrapayment_edit_interfacee() {
         initComponents();
+        try{
+         this.setIconImage(new ImageIcon(getClass().getResource("Iconpng.png")).getImage());
+        }catch(Exception e){
+            
+        }
     }
 public void setEntry(int entry){
         this.entry=entry;

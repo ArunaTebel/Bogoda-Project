@@ -459,21 +459,27 @@ public class pAccounts extends javax.swing.JPanel {
         journals.foucs();
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    ACC_Journal_View jview = new ACC_Journal_View();
-    ACC_Reciept_View rview = new ACC_Reciept_View();
-    ACC_Payment_View pview = new ACC_Payment_View();
+    
     
     private void viewItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_viewItemStateChanged
+  
+    
+    
+        
+        
         if(view.getSelectedItem().toString()=="Journals"){
+            ACC_Journal_View jview = new ACC_Journal_View();
             jview.setVisible(true);
             jview.Start();
             jview.focus();
         }
         else if(view.getSelectedItem().toString()=="Receipts"){
+            ACC_Reciept_View rview = new ACC_Reciept_View();
             rview.setVisible(true);
             rview.focus();
         }
         if(view.getSelectedItem().toString()=="Payments"){
+            ACC_Payment_View pview = new ACC_Payment_View();
             pview.setVisible(true);
             pview.focus();
         }

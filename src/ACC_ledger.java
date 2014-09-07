@@ -1313,6 +1313,8 @@ public class ACC_ledger {
             }
             
             String table_name = year + "_balances";
+            
+            //table_name="2014_balances";
 
             // op_bal=Double.parseDouble(dbm.checknReturnData(table_name,"account_code",account_code,"op_bal"));
             double opd = Double.parseDouble(dbm.checknReturnData(table_name, "account_code", account_code, "op_bal_d"));

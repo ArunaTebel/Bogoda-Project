@@ -143,9 +143,14 @@ public class PRCR_Checkroll_Monthly_workdata_database_update_class implements Ru
 
                 dbm.updateDatabase("pr_workdata_" + yrmnth, "code", codes[i], "working_days_prvmnth", (prvmnth_normaldays + prvmnth_sundays));
                 dbm.updateDatabase("pr_workdata_" + yrmnth, "code", codes[i], "pre_debt", pre_debt_amount);
-                if (pre_debt_amount != 0 || coinsbf > 0) {
+                if (coinsbf > 0) {
+                    dbm.updateDatabase("pr_workdata_" + this.st, "code", codes[i], "active", 3);//actve = 2 codes will not be in ledger
+                }
+                if (pre_debt_amount != 0 ) {
                     dbm.updateDatabase("pr_workdata_" + this.st, "code", codes[i], "active", 2);
-                }//If thr is debit balance in previous month set active=1
+                }
+
+//If thr is debit balance in previous month set active=1
             } catch (Exception e) {
                 System.out.println(e.getMessage() + " i=" + i);
             }
