@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b4a7e90f-236c-48e1-b463-a16c40591ab1">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="9" uuid="b4a7e90f-236c-48e1-b463-a16c40591ab1">
 	<property name="ireport.zoom" value="1.5421731577181266"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="109"/>
+	<property name="ireport.y" value="106"/>
 	<parameter name="USER" class="java.lang.String"/>
 	<parameter name="year" class="java.lang.String"/>
 	<parameter name="month" class="java.lang.String"/>
@@ -160,7 +160,7 @@ ORDER BY
 		<band splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="371" splitType="Stretch">
+		<band height="380" splitType="Stretch">
 			<rectangle>
 				<reportElement x="1" y="4" width="571" height="345" uuid="0b102bfe-124c-47db-a44f-f4271fe0f7a1"/>
 				<graphicElement>
@@ -216,9 +216,9 @@ ORDER BY
 				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_coins_bf}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement x="73" y="180" width="48" height="20" uuid="3de7c9ca-99ff-498c-9b7d-7f745da0abf4"/>
+				<reportElement x="60" y="180" width="61" height="20" uuid="3de7c9ca-99ff-498c-9b7d-7f745da0abf4"/>
 				<textElement textAlignment="Right">
-					<font size="8"/>
+					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_total_payable}]]></textFieldExpression>
 			</textField>
@@ -272,9 +272,9 @@ ORDER BY
 				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_welfare}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement x="223" y="180" width="69" height="20" uuid="ff8ce320-1900-4688-b0ef-da48b1257469"/>
+				<reportElement x="217" y="180" width="75" height="20" uuid="ff8ce320-1900-4688-b0ef-da48b1257469"/>
 				<textElement textAlignment="Right">
-					<font size="8"/>
+					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_total_deduction}]]></textFieldExpression>
 			</textField>
@@ -415,7 +415,7 @@ ORDER BY
 				<text><![CDATA[Amount]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="320" y="177" width="47" height="20" uuid="52da3e0e-b604-4648-b721-76153abe6279"/>
+				<reportElement x="360" y="180" width="47" height="20" uuid="52da3e0e-b604-4648-b721-76153abe6279"/>
 				<textElement>
 					<font size="8" isBold="false"/>
 				</textElement>
@@ -443,7 +443,7 @@ ORDER BY
 				<text><![CDATA[Previous Debits]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="7" y="180" width="61" height="20" uuid="860b4d72-10a6-4917-bf11-d771257f941c"/>
+				<reportElement x="7" y="180" width="52" height="20" uuid="860b4d72-10a6-4917-bf11-d771257f941c"/>
 				<textElement>
 					<font size="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
 				</textElement>
@@ -505,14 +505,14 @@ ORDER BY
 				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_coins_cf}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement x="379" y="149" width="70" height="15" uuid="08bdaab0-6cb0-4021-bf74-1a8f1fed0eb5"/>
+				<reportElement x="367" y="149" width="82" height="15" uuid="08bdaab0-6cb0-4021-bf74-1a8f1fed0eb5"/>
 				<textElement textAlignment="Right">
-					<font size="8" isBold="true"/>
+					<font size="10" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_final_amount}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement x="379" y="178" width="70" height="20" uuid="5d38c2b5-498f-4ce5-acc5-2eb71eeaed77"/>
+				<reportElement x="379" y="180" width="70" height="20" uuid="5d38c2b5-498f-4ce5-acc5-2eb71eeaed77"/>
 				<textElement textAlignment="Right">
 					<font size="8"/>
 				</textElement>
@@ -1024,7 +1024,7 @@ ORDER BY
 				<textFieldExpression><![CDATA[$P{Month}]]></textFieldExpression>
 			</textField>
 			<rectangle radius="10">
-				<reportElement x="466" y="63" width="100" height="129" uuid="da6141d7-7530-4fbd-8a11-e232f5a0ef50"/>
+				<reportElement x="466" y="64" width="100" height="129" uuid="da6141d7-7530-4fbd-8a11-e232f5a0ef50"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
@@ -1062,7 +1062,7 @@ ORDER BY
 				<textElement>
 					<font size="8"/>
 				</textElement>
-				<text><![CDATA[Chem]]></text>
+				<text><![CDATA[Chemicals]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="512" y="105" width="46" height="15" uuid="436c4643-f905-430b-b816-2990032df5bb"/>
@@ -1128,14 +1128,14 @@ ORDER BY
 				<textFieldExpression><![CDATA[$F{other_advance_totals_other}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="474" y="178" width="39" height="11" uuid="046dc3c1-e1ba-4b54-9d84-3a7c3135b8c7"/>
+				<reportElement x="474" y="178" width="24" height="11" uuid="046dc3c1-e1ba-4b54-9d84-3a7c3135b8c7"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[Total]]></text>
 			</staticText>
 			<textField pattern="#,##0.00">
-				<reportElement x="513" y="177" width="45" height="12" uuid="205e7f43-8362-496f-90f2-bfc3c2630d24"/>
+				<reportElement x="498" y="177" width="60" height="12" uuid="205e7f43-8362-496f-90f2-bfc3c2630d24"/>
 				<textElement textAlignment="Right">
 					<font size="8"/>
 				</textElement>

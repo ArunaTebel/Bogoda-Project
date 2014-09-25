@@ -150,10 +150,20 @@ public class GL_Over_Advances_Table extends javax.swing.JPanel {
                 temp1 = datehandler.forwad_months(year, month, 1).split("-");
                 temp2 = datehandler.forwad_months(year, month, 2).split("-");
                 temp3 = datehandler.forwad_months(year, month, 3).split("-");
-                out1 = overadvance.calculate(sup, temp1[0], temp1[1]);
-                out2 = overadvance.calculate(sup, temp2[0], temp2[1]);
-                out3 = overadvance.calculate(sup, temp3[0], temp3[1]);
-                out = overadvance.calculate(sup, year, month);
+                
+               if(Integer.parseInt(cyear+cmonth)>Integer.parseInt(year+month)){
+                 out = overadvance.calculate(sup, year, month);
+                 if(Integer.parseInt(cyear+cmonth)>Integer.parseInt(temp1[0]+temp1[1])){
+                       out1 = overadvance.calculate(sup, temp1[0], temp1[1]);
+                       if(Integer.parseInt(cyear+cmonth)>Integer.parseInt(temp2[0]+temp2[1])){
+                          out2 = overadvance.calculate(sup, temp2[0], temp2[1]);
+                          if(Integer.parseInt(cyear+cmonth)>Integer.parseInt(temp3[0]+temp3[1])){
+                            out3 = overadvance.calculate(sup, temp3[0], temp3[1]);  
+               }}}}
+                
+                
+                
+                
                
 
                 ////////////////////////////////////////// table header change////////////////////////////////
@@ -592,8 +602,10 @@ public class GL_Over_Advances_Table extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
+        jPanel3.setBackground(new java.awt.Color(0, 102, 0));
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("Margin");
 
         margin.addActionListener(new java.awt.event.ActionListener() {
@@ -788,7 +800,8 @@ public class GL_Over_Advances_Table extends javax.swing.JPanel {
         }
     }
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-
+       GL_Billsummery bill = new GL_Billsummery("SupID");
+         bill.setVisible(true);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void supplier_idItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_supplier_idItemStateChanged
