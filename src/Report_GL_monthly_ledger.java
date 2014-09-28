@@ -90,8 +90,9 @@ public class Report_GL_monthly_ledger extends javax.swing.JPanel {
 
     }
      public class report_old implements Runnable {
-
-        public report_old() {
+   String report;
+        public report_old(String rep) {
+            report = rep;
         }
 
         @Override
@@ -112,7 +113,7 @@ public class Report_GL_monthly_ledger extends javax.swing.JPanel {
 
             String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
 
-           String dateNow= generate.create("Monthly_Ledger", saveloc, param, location, "monthly_ledger.jrxml");
+           String dateNow= generate.create("Monthly_Ledger", saveloc, param, location, report+".jrxml");
             a.stop();
             jProgressBar1.setValue(100);
             try {
@@ -190,6 +191,7 @@ public class Report_GL_monthly_ledger extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         view2 = new javax.swing.JButton();
         view1 = new javax.swing.JButton();
+        view3 = new javax.swing.JButton();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 6));
 
@@ -298,6 +300,18 @@ public class Report_GL_monthly_ledger extends javax.swing.JPanel {
             }
         });
 
+        view3.setText("Summery");
+        view3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                view3MouseClicked(evt);
+            }
+        });
+        view3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                view3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -314,7 +328,8 @@ public class Report_GL_monthly_ledger extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(view2, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
                             .addComponent(view, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(view1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(view1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(view3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(122, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -329,8 +344,10 @@ public class Report_GL_monthly_ledger extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(view1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(view3, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(view2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(71, 71, 71)
+                .addGap(32, 32, 32)
                 .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -571,9 +588,18 @@ public class Report_GL_monthly_ledger extends javax.swing.JPanel {
     }//GEN-LAST:event_view1MouseClicked
 
     private void view1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_view1ActionPerformed
-          Thread b = new Thread(new report_old());
+          Thread b = new Thread(new report_old("monthly_ledger"));
         b.start();
     }//GEN-LAST:event_view1ActionPerformed
+
+    private void view3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_view3MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_view3MouseClicked
+
+    private void view3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_view3ActionPerformed
+         Thread b = new Thread(new report_old("monthly_ledger Summery"));
+        b.start();
+    }//GEN-LAST:event_view3ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -586,6 +612,7 @@ public class Report_GL_monthly_ledger extends javax.swing.JPanel {
     private javax.swing.JButton view;
     private javax.swing.JButton view1;
     private javax.swing.JButton view2;
+    private javax.swing.JButton view3;
     private javax.swing.JTextField yearfield;
     // End of variables declaration//GEN-END:variables
 }

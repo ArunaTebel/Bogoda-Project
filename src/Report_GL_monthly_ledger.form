@@ -37,6 +37,7 @@
                           <Component id="view2" pref="110" max="32767" attributes="0"/>
                           <Component id="view" max="32767" attributes="0"/>
                           <Component id="view1" alignment="0" max="32767" attributes="0"/>
+                          <Component id="view3" alignment="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -56,8 +57,10 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="view1" min="-2" pref="33" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
+              <Component id="view3" min="-2" pref="33" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="view2" min="-2" pref="33" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="71" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
               <Component id="jProgressBar1" min="-2" pref="29" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -198,6 +201,15 @@
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="view1MouseClicked"/>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="view1ActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="view3">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Summery"/>
+      </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="view3MouseClicked"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="view3ActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
