@@ -129,7 +129,7 @@ public class PRCRHolidayPayFactory {
     }
 
     public void getFactoryWorkerCodes() {
-        String factoryCode = "BG";
+        String factoryCode = "FAC";
         String table = "checkroll_personalinfo";
         String coloumn = "division";
         String neededColoumn = "code";
@@ -231,7 +231,12 @@ public class PRCRHolidayPayFactory {
             for (j = 0; j < 12; j++) {
                 totalPay = totalPay + paymentPerMonth[i][j];
             }
+            if(total1!=0){
             averagePay = totalPay / total1;
+            }
+            else{
+                averagePay=0;
+            }
 
             if (genderCodes[i] == 1) {
                 if (total2 < maleRanges[0][0]) {
