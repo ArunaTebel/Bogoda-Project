@@ -100,4 +100,21 @@ public class Acc_Update_And_Additional_Data {
         }
 
     }
+    
+    public void complete_op_bal_temp(){
+        DatabaseManager dbm = new DatabaseManager();
+          try {
+            ResultSet query = dbm.query("SELECT * FROM account_names");
+            while (query.next()) {
+                
+                if(dbm.checkWhetherDataExists("2014_balances","account_code",query.getString("account_id"))==0){
+                    dbm.insert("INSERT INTO 2014_balances(account_code,op_bal,clo_bal)VALUES('"+query.getString("account_id")+"',0,0)");
+                }
+
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Acc_Update_And_Additional_Data.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
