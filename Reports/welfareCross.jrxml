@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b4a7e90f-236c-48e1-b463-a16c40591ab1">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Crosstab Data Text" hAlign="Center"/>
+	<parameter name="USER" class="java.lang.String"/>
+	<parameter name="Month" class="java.lang.String"/>
+	<parameter name="year" class="java.lang.String"/>
+	<parameter name="12month" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     welfare.`entry` AS welfare_entry,
+     welfare.`month` AS welfare_month,
+     welfare.`sup_id` AS welfare_sup_id,
+     welfare.`months_on_welfare` AS welfare_months_on_welfare,
+     welfare.`new_old` AS welfare_new_old,
+     welfare.`suspended_months` AS welfare_suspended_months,
+     welfare.`suspended_remain` AS welfare_suspended_remain,
+     welfare.`before_after` AS welfare_before_after,
+     welfare.`amount` AS welfare_amount,
+     suppliers.`sup_id` AS suppliers_sup_id,
+     suppliers.`cat_id` AS suppliers_cat_id,
+     category.`category_name` AS category_category_name,
+     suppliers.`sup_name` AS suppliers_sup_name,
+     welfare.`month2` AS welfare_month2
+FROM
+     `suppliers` suppliers INNER JOIN `welfare` welfare ON suppliers.`sup_id` = welfare.`sup_id`
+     INNER JOIN `category` category ON suppliers.`cat_id` = category.`category_id`
+where month2>$P{12month}
+ORDER BY
+     suppliers.`cat_id` ASC, welfare.`month2`]]>
+	</queryString>
+	<field name="welfare_entry" class="java.lang.Integer"/>
+	<field name="welfare_month" class="java.lang.String"/>
+	<field name="welfare_sup_id" class="java.lang.Integer"/>
+	<field name="welfare_months_on_welfare" class="java.lang.Integer"/>
+	<field name="welfare_new_old" class="java.lang.Integer"/>
+	<field name="welfare_suspended_months" class="java.lang.Integer"/>
+	<field name="welfare_suspended_remain" class="java.lang.Integer"/>
+	<field name="welfare_before_after" class="java.lang.Integer"/>
+	<field name="welfare_amount" class="java.lang.Integer"/>
+	<field name="suppliers_sup_id" class="java.lang.Integer"/>
+	<field name="suppliers_cat_id" class="java.lang.String"/>
+	<field name="category_category_name" class="java.lang.String"/>
+	<field name="suppliers_sup_name" class="java.lang.String"/>
+	<field name="welfare_month2" class="java.lang.Integer"/>
+	<variable name="TITLE" class="java.lang.String"/>
+	<variable name="Total" class="java.lang.Double" calculation="Sum"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="83" splitType="Stretch">
+			<staticText>
+				<reportElement x="1" y="3" width="81" height="11" uuid="3e709542-151f-4b92-8a79-9527db2b951e"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Report generated:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="16" width="15" height="20" uuid="b253ceae-65b5-4d6e-bd4d-cd9f29f5de4c"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[by:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="1" y="57" width="555" height="1" uuid="e13c4d67-1e7f-4c1c-96d2-2316ab27579e"/>
+			</line>
+			<staticText>
+				<reportElement x="340" y="9" width="216" height="27" uuid="75b687d7-fe40-4adf-9851-27816341e992"/>
+				<textElement>
+					<font fontName="Segoe UI Light" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bogoda Group Tea Factory]]></text>
+			</staticText>
+			<line>
+				<reportElement x="1" y="0" width="555" height="1" uuid="aeb39eae-cf99-495a-9b95-9031f30f70b7"/>
+			</line>
+			<staticText>
+				<reportElement x="417" y="30" width="114" height="20" uuid="fe112270-8629-41c5-b43e-d57409be5b2e"/>
+				<text><![CDATA[Kolawenigama, Deniyaya]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement x="82" y="3" width="100" height="11" uuid="54a20eec-890c-4e8c-9249-a8bf0da283f9"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="15" y="17" width="100" height="20" uuid="a7284fb9-5755-493b-9033-b8778b4d88dd"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{USER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="61" width="100" height="20" uuid="be3868b7-a771-452f-89dd-b034ccd43a67"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Welfare List]]></text>
+			</staticText>
+		</band>
+	</title>
+	<summary>
+		<band height="228" splitType="Stretch">
+			<textField evaluationTime="Report">
+				<reportElement x="278" y="0" width="40" height="20" uuid="a28f6025-2bc0-4bc1-a2d3-6de88975440a"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="198" y="0" width="80" height="20" uuid="c7b2c106-44fc-4aed-b3a9-e5ad706e21ea"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="1" y="14" width="554" height="1" uuid="d7a5e76c-711e-4144-8792-6c22d548d539"/>
+			</line>
+			<crosstab>
+				<reportElement x="0" y="20" width="555" height="88" uuid="057de905-78ac-4788-b36c-cc1ac5fbc597"/>
+				<rowGroup name="category_category_name" width="70" totalPosition="End">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{category_category_name}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents backcolor="#F0F8FF" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<textField>
+								<reportElement style="Crosstab Data Text" x="0" y="0" width="70" height="25" uuid="b08b5fcc-d462-4232-8715-830e10f3be41"/>
+								<textElement textAlignment="Left"/>
+								<textFieldExpression><![CDATA[$V{category_category_name}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents backcolor="#BFE1FF" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<staticText>
+								<reportElement x="0" y="0" width="70" height="25" uuid="bbfc2a01-7653-45f9-8290-34f6dbade54c"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<text><![CDATA[Total category_category_name]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<rowGroup name="group1" width="33">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{welfare_sup_id}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents>
+							<textField>
+								<reportElement style="Crosstab Data Text" x="0" y="0" width="33" height="25" uuid="39bacf20-0978-44f3-89c9-1f7621c8b7d8"/>
+								<box>
+									<pen lineWidth="0.25"/>
+									<topPen lineWidth="0.25"/>
+									<leftPen lineWidth="0.25"/>
+									<bottomPen lineWidth="0.25"/>
+									<rightPen lineWidth="0.25"/>
+								</box>
+								<textFieldExpression><![CDATA[$V{group1}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents/>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<rowGroup name="group2" width="100">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{suppliers_sup_name}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents>
+							<textField>
+								<reportElement style="Crosstab Data Text" x="0" y="0" width="100" height="25" uuid="a9dcd327-0ea3-45f6-8a95-318ad15f4dc0"/>
+								<box leftPadding="2">
+									<pen lineWidth="0.5"/>
+									<topPen lineWidth="0.5"/>
+									<leftPen lineWidth="0.5"/>
+									<bottomPen lineWidth="0.5"/>
+									<rightPen lineWidth="0.5"/>
+								</box>
+								<textFieldExpression><![CDATA[$V{group2}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents/>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<columnGroup name="welfare_month2" height="30">
+					<bucket class="java.lang.Integer">
+						<bucketExpression><![CDATA[$F{welfare_month2}]]></bucketExpression>
+					</bucket>
+					<crosstabColumnHeader>
+						<cellContents backcolor="#F0F8FF" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<textField>
+								<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="30" uuid="31299a8e-cf75-4715-832c-4ae62f2454ec"/>
+								<textFieldExpression><![CDATA[$V{welfare_month2}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabColumnHeader>
+					<crosstabTotalColumnHeader>
+						<cellContents/>
+					</crosstabTotalColumnHeader>
+				</columnGroup>
+				<measure name="welfare_amountMeasure" class="java.lang.Integer" calculation="Sum">
+					<measureExpression><![CDATA[$F{welfare_amount}]]></measureExpression>
+				</measure>
+				<crosstabCell width="50" height="25">
+					<cellContents>
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25" uuid="d90732bc-69d2-409e-adab-56dab775f8cb"/>
+							<textFieldExpression><![CDATA[$V{welfare_amountMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell height="25" rowTotalGroup="category_category_name">
+					<cellContents backcolor="#BFE1FF" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField pattern="#,##0.00">
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25" uuid="f24b9b67-9ebf-4fcd-9982-356e62f80b8d"/>
+							<textFieldExpression><![CDATA[$V{welfare_amountMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="50" columnTotalGroup="welfare_month2">
+					<cellContents backcolor="#BFE1FF" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25" uuid="a4673016-b40f-4646-ae2e-fde535c9afc5"/>
+							<textFieldExpression><![CDATA[$V{welfare_amountMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell rowTotalGroup="category_category_name" columnTotalGroup="welfare_month2">
+					<cellContents backcolor="#BFE1FF" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25" uuid="551b32f0-85b8-42e9-94c0-e6e910a26953"/>
+							<textFieldExpression><![CDATA[$V{welfare_amountMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell rowTotalGroup="group1">
+					<cellContents/>
+				</crosstabCell>
+				<crosstabCell rowTotalGroup="group1" columnTotalGroup="welfare_month2">
+					<cellContents/>
+				</crosstabCell>
+				<crosstabCell rowTotalGroup="group2">
+					<cellContents/>
+				</crosstabCell>
+				<crosstabCell rowTotalGroup="group2" columnTotalGroup="welfare_month2">
+					<cellContents/>
+				</crosstabCell>
+			</crosstab>
+		</band>
+	</summary>
+</jasperReport>

@@ -378,7 +378,7 @@ public class Report_PRCR_cadvance extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        view.setText("Veiw");
+        view.setText("View");
         view.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 viewMouseClicked(evt);

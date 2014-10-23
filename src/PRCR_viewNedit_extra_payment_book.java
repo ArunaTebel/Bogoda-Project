@@ -1257,7 +1257,7 @@ public class PRCR_viewNedit_extra_payment_book extends javax.swing.JFrame {
        
         int PREFEREDROWS=0;
         try {
-            ResultSet query = dbm.query("SELECT * FROM prcr_other_advance_book where date BETWEEN '" + datechooser.Return_date(yearfield1, monthfield1, dayfield1).toString() + "' AND '" + datechooser.Return_date(yearfield2, monthfield2, dayfield2).toString()+ "'");
+            ResultSet query = dbm.query("SELECT * FROM prcr_extrapayment_book where date BETWEEN '" + datechooser.Return_date(yearfield1, monthfield1, dayfield1).toString() + "' AND '" + datechooser.Return_date(yearfield2, monthfield2, dayfield2).toString()+ "'");
             while (query.next()) {
                 PREFEREDROWS++;
             }

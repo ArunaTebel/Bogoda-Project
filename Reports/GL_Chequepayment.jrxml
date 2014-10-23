@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b4a7e90f-236c-48e1-b463-a16c40591ab1">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b4a7e90f-236c-48e1-b463-a16c40591ab1">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -20,10 +20,11 @@
 FROM
      `gl_monthly_ledger_current` gl_monthly_ledger_current
 WHERE
-     pay = $P{pay_type}
+     (pay = $P{pay_type}
      and year = $P{year}
      and month = $P{month} and
-final_amount !=0 and final_amount >=$P{cash_limit}
+final_amount !=0 and final_amount >=$P{cash_limit}) or (pay = 'CHEQUE' and
+final_amount !=0)
 order by gl_monthly_ledger_current.`sup_id`]]>
 	</queryString>
 	<field name="gl_monthly_ledger_current_year" class="java.lang.String"/>
@@ -48,7 +49,7 @@ order by gl_monthly_ledger_current.`sup_id`]]>
 	<pageHeader>
 		<band height="95" splitType="Stretch">
 			<line>
-				<reportElement x="0" y="53" width="555" height="1" uuid="292404ee-21c4-44ec-86e1-654ddf5dc03b"/>
+				<reportElement x="0" y="53" width="572" height="1" uuid="292404ee-21c4-44ec-86e1-654ddf5dc03b"/>
 				<graphicElement>
 					<pen lineWidth="0.5" lineColor="#666666"/>
 				</graphicElement>
@@ -73,7 +74,7 @@ order by gl_monthly_ledger_current.`sup_id`]]>
 				<text><![CDATA[Report generated:]]></text>
 			</staticText>
 			<line>
-				<reportElement x="0" y="61" width="555" height="1" uuid="e13c4d67-1e7f-4c1c-96d2-2316ab27579e"/>
+				<reportElement x="0" y="61" width="572" height="1" uuid="e13c4d67-1e7f-4c1c-96d2-2316ab27579e"/>
 			</line>
 			<staticText>
 				<reportElement x="339" y="13" width="216" height="27" uuid="75b687d7-fe40-4adf-9851-27816341e992"/>
@@ -83,7 +84,7 @@ order by gl_monthly_ledger_current.`sup_id`]]>
 				<text><![CDATA[Bogoda Group Tea Factory]]></text>
 			</staticText>
 			<line>
-				<reportElement x="0" y="4" width="555" height="1" uuid="aeb39eae-cf99-495a-9b95-9031f30f70b7"/>
+				<reportElement x="0" y="4" width="572" height="1" uuid="aeb39eae-cf99-495a-9b95-9031f30f70b7"/>
 			</line>
 			<staticText>
 				<reportElement x="416" y="34" width="114" height="20" uuid="fe112270-8629-41c5-b43e-d57409be5b2e"/>
@@ -129,7 +130,7 @@ order by gl_monthly_ledger_current.`sup_id`]]>
 	<columnHeader>
 		<band height="27" splitType="Stretch">
 			<line>
-				<reportElement x="1" y="23" width="554" height="1" uuid="8b820536-4e3c-4646-9176-72c78990b115"/>
+				<reportElement x="1" y="23" width="571" height="1" uuid="8b820536-4e3c-4646-9176-72c78990b115"/>
 			</line>
 			<staticText>
 				<reportElement x="2" y="5" width="42" height="20" uuid="bd6a263e-661b-4806-8e8b-95a822794a39"/>
@@ -165,27 +166,33 @@ order by gl_monthly_ledger_current.`sup_id`]]>
 		<band height="25" splitType="Stretch">
 			<textField>
 				<reportElement x="2" y="0" width="42" height="20" uuid="77298cbb-a4c0-486c-aa8a-ed833f84b978"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_sup_id}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="66" y="0" width="164" height="20" uuid="17c0d68c-8377-4e16-bedc-92b4bd8cf5ba"/>
 				<textElement>
-					<font isBold="false"/>
+					<font size="8" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_name}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0.00">
-				<reportElement x="336" y="3" width="69" height="20" uuid="e75abd59-155e-4276-9f60-d92ec26fbc7f"/>
+				<reportElement x="336" y="0" width="69" height="20" uuid="e75abd59-155e-4276-9f60-d92ec26fbc7f"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_final_amount}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement x="416" y="19" width="139" height="1" uuid="f73d8bef-f826-4a7a-af5a-b47d448f50d2"/>
+				<reportElement x="416" y="19" width="156" height="1" uuid="f73d8bef-f826-4a7a-af5a-b47d448f50d2"/>
 				<graphicElement>
 					<pen lineWidth="0.5" lineStyle="Dotted"/>
 				</graphicElement>
 			</line>
 			<line>
-				<reportElement x="2" y="21" width="553" height="1" uuid="33531b7e-bd95-4433-8f3f-0fba5a18e483"/>
+				<reportElement x="2" y="21" width="570" height="1" uuid="33531b7e-bd95-4433-8f3f-0fba5a18e483"/>
 				<graphicElement>
 					<pen lineWidth="0.25" lineStyle="Dotted"/>
 				</graphicElement>
@@ -196,13 +203,20 @@ order by gl_monthly_ledger_current.`sup_id`]]>
 		<band height="11" splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="3" splitType="Stretch">
+		<band height="11" splitType="Stretch">
 			<line>
-				<reportElement x="1" y="-13" width="554" height="1" uuid="0d048f90-0a60-4753-b7bf-906c8bd8f6af"/>
+				<reportElement x="1" y="-13" width="571" height="1" uuid="0d048f90-0a60-4753-b7bf-906c8bd8f6af"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
 			</line>
+			<staticText>
+				<reportElement x="471" y="0" width="96" height="11" uuid="3e709542-151f-4b92-8a79-9527db2b951e"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[softninelights.com]]></text>
+			</staticText>
 		</band>
 	</pageFooter>
 	<summary>

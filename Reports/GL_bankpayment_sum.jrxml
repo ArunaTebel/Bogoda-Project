@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b4a7e90f-236c-48e1-b463-a16c40591ab1">
+	<property name="ireport.zoom" value="1.6500000000000008"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="102"/>
+	<parameter name="USER" class="java.lang.String"/>
+	<parameter name="year" class="java.lang.String"/>
+	<parameter name="month" class="java.lang.String"/>
+	<parameter name="Month" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     bank.`bank_name` AS bank_bank_name,
+     bank_branch.`branch_name` AS bank_branch_branch_name,
+     gl_monthly_ledger_current.`entry` AS gl_monthly_ledger_current_entry,
+     gl_monthly_ledger_current.`year` AS gl_monthly_ledger_current_year,
+     gl_monthly_ledger_current.`month` AS gl_monthly_ledger_current_month,
+     gl_monthly_ledger_current.`sup_id` AS gl_monthly_ledger_current_sup_id,
+     suppliers.`sup_acc_no` AS suppliers_sup_acc_no,
+     gl_monthly_ledger_current.`final_amount` AS gl_monthly_ledger_current_final_amount,
+     gl_monthly_ledger_current.`name` AS gl_monthly_ledger_current_name,
+     gl_monthly_ledger_current.`pay` AS gl_monthly_ledger_current_pay
+FROM
+     `suppliers` suppliers INNER JOIN `gl_monthly_ledger_current` gl_monthly_ledger_current ON suppliers.`sup_id` = gl_monthly_ledger_current.`sup_id`
+     INNER JOIN `bank_branch` bank_branch ON suppliers.`branch_id` = bank_branch.`branch_id`
+     INNER JOIN `bank` bank ON suppliers.`bank_id` = bank.`bank_id`
+WHERE
+     year = $P{year}
+     and month = $P{month}
+     and final_amount > 0
+     and pay = "BANK"
+order by     bank.`bank_name`,bank_branch.`branch_name`,suppliers.`sup_acc_no`]]>
+	</queryString>
+	<field name="bank_bank_name" class="java.lang.String"/>
+	<field name="bank_branch_branch_name" class="java.lang.String"/>
+	<field name="gl_monthly_ledger_current_entry" class="java.lang.String"/>
+	<field name="gl_monthly_ledger_current_year" class="java.lang.String"/>
+	<field name="gl_monthly_ledger_current_month" class="java.lang.String"/>
+	<field name="gl_monthly_ledger_current_sup_id" class="java.lang.Integer"/>
+	<field name="suppliers_sup_acc_no" class="java.lang.String"/>
+	<field name="gl_monthly_ledger_current_final_amount" class="java.lang.Double"/>
+	<field name="gl_monthly_ledger_current_name" class="java.lang.String"/>
+	<field name="gl_monthly_ledger_current_pay" class="java.lang.String"/>
+	<variable name="TITLE" class="java.lang.String"/>
+	<variable name="count" class="java.lang.Integer" resetType="Group" resetGroup="bank_branch_branch_name" calculation="Count">
+		<variableExpression><![CDATA[$F{gl_monthly_ledger_current_year}]]></variableExpression>
+	</variable>
+	<variable name="sum" class="java.lang.Double" resetType="Group" resetGroup="bank_branch_branch_name" calculation="Sum">
+		<variableExpression><![CDATA[$F{gl_monthly_ledger_current_final_amount}]]></variableExpression>
+	</variable>
+	<variable name="pcount" class="java.lang.Integer" resetType="Group" resetGroup="bank_bank_name" incrementType="Report" calculation="Count">
+		<variableExpression><![CDATA[$V{PAGE_COUNT}]]></variableExpression>
+	</variable>
+	<variable name="Alltot" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{gl_monthly_ledger_current_final_amount}]]></variableExpression>
+	</variable>
+	<variable name="full count" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{gl_monthly_ledger_current_entry}]]></variableExpression>
+	</variable>
+	<group name="bank_bank_name">
+		<groupExpression><![CDATA[$F{bank_bank_name}]]></groupExpression>
+	</group>
+	<group name="bank_branch_branch_name">
+		<groupExpression><![CDATA[$F{bank_branch_branch_name}]]></groupExpression>
+		<groupFooter>
+			<band height="19">
+				<textField>
+					<reportElement x="225" y="2" width="100" height="17" uuid="93793c7d-03af-4e90-ba9b-96e38735bc6f"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{count}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00">
+					<reportElement x="431" y="2" width="134" height="17" uuid="aea9be69-e27c-4576-8f41-b2a576efa992"/>
+					<textElement textAlignment="Right">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{sum}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="154" y="2" width="122" height="17" uuid="a22df5d0-a7e4-4687-8c18-d29b002585d3"/>
+					<textElement>
+						<font size="8" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{bank_branch_branch_name}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="10" y="1" width="138" height="18" uuid="1c3da932-5f58-469d-a3e1-3405be26f1f5"/>
+					<textElement>
+						<font size="8" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{bank_bank_name}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="98" splitType="Stretch">
+			<line>
+				<reportElement x="1" y="50" width="571" height="1" uuid="292404ee-21c4-44ec-86e1-654ddf5dc03b"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#666666"/>
+				</graphicElement>
+			</line>
+			<textField evaluationTime="Report">
+				<reportElement x="361" y="53" width="40" height="20" uuid="a28f6025-2bc0-4bc1-a2d3-6de88975440a"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="281" y="53" width="80" height="20" uuid="c7b2c106-44fc-4aed-b3a9-e5ad706e21ea"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="340" y="9" width="216" height="27" uuid="75b687d7-fe40-4adf-9851-27816341e992"/>
+				<textElement>
+					<font fontName="Segoe UI Light" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bogoda Group Tea Factory]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="417" y="30" width="145" height="20" uuid="fe112270-8629-41c5-b43e-d57409be5b2e"/>
+				<text><![CDATA[Kolawenigama, Deniyaya.]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement x="82" y="9" width="100" height="11" uuid="54a20eec-890c-4e8c-9249-a8bf0da283f9"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="15" y="22" width="100" height="20" uuid="a7284fb9-5755-493b-9033-b8778b4d88dd"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{USER}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="1" y="0" width="571" height="1" uuid="aeb39eae-cf99-495a-9b95-9031f30f70b7"/>
+			</line>
+			<staticText>
+				<reportElement x="1" y="9" width="81" height="11" uuid="3e709542-151f-4b92-8a79-9527db2b951e"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Report generated:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="22" width="15" height="20" uuid="b253ceae-65b5-4d6e-bd4d-cd9f29f5de4c"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[by:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="1" y="52" width="571" height="1" uuid="e13c4d67-1e7f-4c1c-96d2-2316ab27579e"/>
+			</line>
+			<staticText>
+				<reportElement x="1" y="53" width="147" height="20" uuid="5ceed5c9-98c6-421e-8aa2-2d355a1dffbb"/>
+				<text><![CDATA[Bank Payment List Summery]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="135" y="53" width="100" height="20" uuid="64ce322d-f7da-4800-86de-339b2efecd01"/>
+				<textFieldExpression><![CDATA[$P{Month}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="12" y="80" width="73" height="18" uuid="ebc83be3-e1e7-4f3b-8c4d-1fd3d734c4be"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bank]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="516" y="80" width="49" height="18" uuid="1e83068b-30ec-40bc-8cd1-3581b62f4ea3"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="135" y="80" width="90" height="18" uuid="9499f6dc-d250-476f-9fa9-27dbcaf0dedb"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Number of entries]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnFooter>
+		<band height="18" splitType="Stretch">
+			<break>
+				<reportElement x="0" y="6" width="100" height="1" uuid="dcd25b34-ec44-4598-bf4f-372d696f884a"/>
+			</break>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="15" splitType="Stretch">
+			<line>
+				<reportElement x="1" y="-13" width="570" height="1" uuid="0d048f90-0a60-4753-b7bf-906c8bd8f6af"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="466" y="0" width="96" height="11" uuid="3e709542-151f-4b92-8a79-9527db2b951e"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[ninelights.lk]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="73" splitType="Stretch">
+			<textField pattern="#,##0.00">
+				<reportElement x="443" y="46" width="122" height="20" uuid="5f4d988e-37dd-44d5-8b56-a1ee23846e97"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{Alltot}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="225" y="46" width="100" height="20" uuid="84157402-da19-4f17-9ee9-f9a638b84838"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{full count}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="216" y="46" width="100" height="20" uuid="5ceed5c9-98c6-421e-8aa2-2d355a1dffbb"/>
+				<text><![CDATA[Count]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="398" y="46" width="100" height="20" uuid="5ceed5c9-98c6-421e-8aa2-2d355a1dffbb"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<line>
+				<reportElement x="431" y="65" width="140" height="1" uuid="6e00ff8f-b03e-41f6-b169-293f6624b5e8"/>
+			</line>
+			<line>
+				<reportElement x="431" y="69" width="140" height="1" uuid="6e00ff8f-b03e-41f6-b169-293f6624b5e8"/>
+			</line>
+			<line>
+				<reportElement x="12" y="30" width="560" height="1" uuid="6e00ff8f-b03e-41f6-b169-293f6624b5e8"/>
+			</line>
+		</band>
+	</summary>
+</jasperReport>

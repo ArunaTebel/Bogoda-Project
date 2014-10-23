@@ -1,8 +1,4 @@
 
-import groovy.json.internal.Exceptions;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.event.ItemEvent;
 import java.awt.event.KeyEvent;
 import java.beans.PropertyVetoException;
 import java.sql.ResultSet;

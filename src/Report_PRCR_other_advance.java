@@ -473,7 +473,7 @@ public class Report_PRCR_other_advance extends javax.swing.JPanel {
                 .addContainerGap(21, Short.MAX_VALUE))
         );
 
-        view.setText("Veiw");
+        view.setText("View");
         view.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 viewMouseClicked(evt);

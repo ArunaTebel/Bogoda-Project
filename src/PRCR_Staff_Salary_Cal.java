@@ -42,6 +42,7 @@ public class PRCR_Staff_Salary_Cal {
     private double ceb_ded;
     private double teacher_ded;
     private double chemical_ded;
+    private double new_1;
     private double payslip_ded;
     private double fine_ded;
     private double welfare_ded;
@@ -160,6 +161,7 @@ int k=0;
                 payslip_ded = query.getDouble("pay_slip");
                 fine_ded = query.getDouble("fine");
                 welfare_ded = query.getDouble("welfare");
+                new_1=query.getDouble("new_1");
                 kovil_ded = query.getDouble("kovil");
                  debit_pay= query.getDouble("prvs_debts_paid");
             }
@@ -185,7 +187,9 @@ int k=0;
 //        coinsbf=Double.parseDouble(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "coinsbf"));
 //       
 //        
-        grosspay = totalBasicSalary + ot_pay + incentive1Amount + incentive2Amount+coinsbf;
+        
+        
+        grosspay = totalBasicSalary + ot_pay + incentive1Amount + incentive2Amount+coinsbf+extra1+extra2;
 
 //        this.EPFRate = Double.parseDouble(dbm.checknReturnData("checkroll_pay_info", "checkroll", "1", "epf"));
 //        EPFRate2 = Double.parseDouble(dbm.checknReturnData("checkroll_pay_info", "checkroll", "1", "epf2"));
@@ -215,7 +219,7 @@ int k=0;
 //        this.welfare_ded = Double.parseDouble(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "welfare"));
 //        this.kovil_ded = Double.parseDouble(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "kovil"));
 
-        this.other_ded1 = ceb_ded + teacher_ded + chemical_ded + payslip_ded + fine_ded + kovil_ded + welfare_ded;
+        this.other_ded1 = ceb_ded + teacher_ded + chemical_ded + payslip_ded + fine_ded + kovil_ded + welfare_ded+new_1;
 
         this.meals_ded = Double.parseDouble(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "meals"));
 

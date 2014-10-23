@@ -1679,5 +1679,196 @@ public class ACC_ledger {
         }
 
     }
+    
+    
+     public double opening_balance_calc_without_op(int account_code, String date1) {
+        
+        
+
+            DatabaseManager dbm = DatabaseManager.getDbCon();
+            String dt;
+            int a;
+            
+            double temp = 0;
+
+            int main_ac_id = Integer.parseInt(dbm.checknReturnData("account_names", "account_id", account_code, "main_account_code"));
+
+            // op_bal = Double.parseDouble(dbm.checknReturnData("account_names","account_id",account_code,"opening_balance"));
+            String year = date1.substring(0, 4);
+            String month = date1.substring(5, 7);
+
+            if (Integer.parseInt(month) < 4) {
+                year = "" + (Integer.parseInt(year) - 1);
+            }
+            
+            String table_name = year + "_balances";
+            
+            //table_name="2014_balances";
+
+            // op_bal=Double.parseDouble(dbm.checknReturnData(table_name,"account_code",account_code,"op_bal"));
+            
+            /*  if(main_ac_id==1||main_ac_id==2||main_ac_id==7||main_ac_id==8){
+            
+             a=1;
+             op_bal=op_bal;
+            
+             }
+        
+             else{
+             a=-1;
+             op_bal=-op_bal;
+             }*/
+           
+
+            // Search and fill in journals
+            try {
+                ResultSet query = dbm.query("SELECT * FROM account_journal_creditside WHERE credit_account_id LIKE '" + account_code + "'");
+                while (query.next()) {
+
+                    dt = dbm.checknReturnData("account_journal_main", "tr_no", query.getInt("tr_no"), "date");
+
+                    java.util.Date dtD = null;
+                    try {
+                        dtD = new SimpleDateFormat("yyyy-MM-dd").parse(dt);
+                    } catch (Exception e) {
+                       // Logger.getLogger(ACC_ledger.class.getName()).log(Level.SEVERE, null, ex);
+                        System.out.println(e);
+                    }
+                    java.util.Date date1D = null;
+                    try {
+                        date1D = new SimpleDateFormat("yyyy-MM-dd").parse(date1);
+                    } catch (Exception ex) {
+                       // Logger.getLogger(ACC_ledger.class.getName()).log(Level.SEVERE, null, ex);
+                        System.out.println(ex);
+                    }
+
+                    if (dtD.before(date1D)) {
+
+                        temp = temp - query.getDouble("credit_amount");
+
+                    }
+
+                }
+
+            } catch (SQLException ex) {
+                Logger.getLogger(Acc_Update_And_Additional_Data.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            try {
+                ResultSet query = dbm.query("SELECT * FROM account_journal_debitside WHERE debit_account_id LIKE '" + account_code + "'");
+                while (query.next()) {
+
+                    dt = dbm.checknReturnData("account_journal_main", "tr_no", query.getInt("tr_no"), "date");
+
+                    java.util.Date dtD = null;
+                    try {
+                        dtD = new SimpleDateFormat("yyyy-MM-dd").parse(dt);
+                    } catch (ParseException ex) {
+                        Logger.getLogger(ACC_ledger.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    java.util.Date date1D = null;
+                    try {
+                        date1D = new SimpleDateFormat("yyyy-MM-dd").parse(date1);
+                    } catch (ParseException ex) {
+                        Logger.getLogger(ACC_ledger.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                    if (dtD.before(date1D)) {
+                        temp = temp + query.getDouble("debit_amount");
+                    }
+                }
+
+            } catch (SQLException ex) {
+                Logger.getLogger(Acc_Update_And_Additional_Data.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            // Search and fill in Payments
+            try {
+                ResultSet query = dbm.query("SELECT * FROM account_payment_debitside WHERE debit_account_id LIKE '" + account_code + "'");
+                while (query.next()) {
+
+                    dt = dbm.checknReturnData("account_payment_creditside", "tr_no", query.getInt("tr_no"), "date");
+
+                    java.util.Date dtD = null;
+                    try {
+                        dtD = new SimpleDateFormat("yyyy-MM-dd").parse(dt);
+                    } catch (ParseException ex) {
+                        Logger.getLogger(ACC_ledger.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    java.util.Date date1D = null;
+                    try {
+                        date1D = new SimpleDateFormat("yyyy-MM-dd").parse(date1);
+                    } catch (ParseException ex) {
+                        Logger.getLogger(ACC_ledger.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                    if (dtD.before(date1D)) {
+                        temp = temp + query.getDouble("debit_amount");
+                    }
+                }
+
+            } catch (SQLException ex) {
+                Logger.getLogger(Acc_Update_And_Additional_Data.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            try {
+                ResultSet query = dbm.query("SELECT * FROM account_payment_creditside WHERE credit_account_id LIKE '" + account_code + "' AND date < '" + date1 + "'");
+                while (query.next()) {
+
+                    temp = temp - query.getDouble("credit_amount");
+                }
+
+            } catch (SQLException ex) {
+                Logger.getLogger(Acc_Update_And_Additional_Data.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            // Search and fill in Receipts
+            try {
+                ResultSet query = dbm.query("SELECT * FROM account_reciept_debitside WHERE debit_account_id LIKE '" + account_code + "' AND date < '" + date1 + "'");
+                while (query.next()) {
+
+                    temp = temp + query.getDouble("debit_amount");
+                }
+
+            } catch (SQLException ex) {
+                Logger.getLogger(Acc_Update_And_Additional_Data.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            try {
+                ResultSet query = dbm.query("SELECT * FROM account_reciept_creditside WHERE credit_account_id LIKE '" + account_code + "'");
+                while (query.next()) {
+
+                    dt = dbm.checknReturnData("account_reciept_debitside", "tr_no", query.getInt("tr_no"), "date");
+
+                    java.util.Date dtD = null;
+                    try {
+                        dtD = new SimpleDateFormat("yyyy-MM-dd").parse(dt);
+                    } catch (ParseException ex) {
+                        Logger.getLogger(ACC_ledger.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    java.util.Date date1D = null;
+                    try {
+                        date1D = new SimpleDateFormat("yyyy-MM-dd").parse(date1);
+                    } catch (ParseException ex) {
+                        Logger.getLogger(ACC_ledger.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                    if (dtD.before(date1D)) {
+                        temp = temp - query.getDouble("credit_amount");
+                    }
+                }
+
+            } catch (SQLException ex) {
+                Logger.getLogger(Acc_Update_And_Additional_Data.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            return temp;
+
+       
+
+    }
+    
+    
+    
 
 }

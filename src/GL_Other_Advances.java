@@ -1301,7 +1301,7 @@ public class GL_Other_Advances extends javax.swing.JPanel {
         int reply = JOptionPane.showConfirmDialog(null,"Are You Sure?" , "Delete Entry", JOptionPane.YES_NO_OPTION);
         
         if(reply==JOptionPane.YES_OPTION){
-            dbm.CheckNDeleteFromDataBase("gl_other_advances","tr_no",Integer.parseInt(edit.getText()));
+            dbm.CheckNDeleteFromDataBase("gl_other_advances","advance_id",Integer.parseInt(edit.getText()));
             supplier_id.setSelectedIndex(0);
             Discription_code.setSelectedIndex(0);
             qty.setText(null);
@@ -1315,8 +1315,10 @@ public class GL_Other_Advances extends javax.swing.JPanel {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         dbm.updateDatabase("rate_details", "Code_name", "GLSET","rate", Double.parseDouble(set_val.getText()));
         Red_message.setText("Set value saved");
-       double a =  bill.bill_sum_cal(Integer.parseInt(supplier_id.getSelectedItem().toString()), yearfield.getText(), datehandler.return_month_as_num(monthfield.getText()), Double.parseDouble(set_val.getText()));
-       allowable.setText(""+a);
+     double a;
+      try{ a =  bill.bill_sum_cal(Integer.parseInt(supplier_id.getSelectedItem().toString()), yearfield.getText(), datehandler.return_month_as_num(monthfield.getText()), Double.parseDouble(set_val.getText()));
+      } catch(Exception ee){ a = 0;}
+      allowable.setText(""+a);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

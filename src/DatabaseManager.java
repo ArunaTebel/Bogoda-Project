@@ -23,13 +23,13 @@ public final class DatabaseManager {
     private DatabaseManager() {
 
        // String url = "jdbc:mysql://192.168.1.50/";
-      //  String userName = "BogodaUser";
+        //String userName = "BogodaUser";
         String url = "jdbc:mysql://localhost:3306/";
-        //String dbName = "arbour";
+       // String dbName = "arbour";
         String dbName = "bogoda";
         String driver = "com.mysql.jdbc.Driver";
-      String userName = "root";
-       // String password = "ninelights@mora";
+        String userName = "root";
+        //String password = "ninelights@mora";
          String password = "";
         try {
             Class.forName(driver).newInstance();
@@ -146,7 +146,7 @@ public final class DatabaseManager {
 
     public Date checknReturnData() {
 
-        String temp;
+     /*   String temp;
         String max_date = "1900-01-01";
         Date date1 = java.sql.Date.valueOf("1900-01-01");
         try {
@@ -165,8 +165,48 @@ public final class DatabaseManager {
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
             return date1;
+        }*/
+        
+        String temp=null;
+        String max_date;
+        Date date1 = java.sql.Date.valueOf("1900-01-01");
+        
+        try {
+            ResultSet query = query("SELECT * FROM accounting_period");
+            while (query.next()) {
+                temp = query.getString("period");
+            }
+            query.close();
+            max_date= temp.substring(0,4);
+            max_date= max_date + "-04-01";
+            Date date = java.sql.Date.valueOf(max_date);
+            return date;
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            return date1;
         }
 
+    }
+    
+    public Date checkNreturnlastDate(){
+        String temp=null;
+        String max_date;
+        Date date1 = java.sql.Date.valueOf("1900-01-01");
+        
+        try {
+            ResultSet query = query("SELECT * FROM accounting_period");
+            while (query.next()) {
+                temp = query.getString("period");
+            }
+            query.close();
+            max_date= "20" + temp.substring(5,7);
+            max_date= max_date + "-03-31";
+            Date date = java.sql.Date.valueOf(max_date);
+            return date;
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            return date1;
+        }
     }
 
     public String filterReturn2StringData(String table_name, String table_column_giving, String row_element, String table_column_giving2, String row_element2, String table_column_need) {
@@ -1112,14 +1152,16 @@ public final class DatabaseManager {
     
     int num_required;
     double[] arr;
+   
+    
     public double[] prcr_emp_code_month_totals(String table_name, String year_month, String table_date_column, String table_emp_code_column, int emp_code, String[] required_columns) {
-
+         Date_Handler datehandler=new Date_Handler();
         num_required = required_columns.length;
 
         arr = new double[num_required];
 
         String start = year_month + "-01";
-        String end = year_month + "-31";
+        String end = year_month + "-"+datehandler.return_enddate(year_month.substring(0,4), year_month.substring(5,7));
         int i = 0;
 
         for (i = 0; i < num_required; i++) {
@@ -1147,10 +1189,10 @@ public final class DatabaseManager {
     int[] arr_2 = new int[2];
     public int[] prcr_emp_code_month_totals_normalOrsunday(String table_name, String year_month, String table_date_column, String table_emp_code_column, int emp_code, String required_column) {
 
-        
+         Date_Handler datehandler=new Date_Handler();
 
         String start = year_month + "-01";
-        String end = year_month + "-31";
+        String end = year_month + "-"+datehandler.return_enddate(year_month.substring(0,4),year_month.substring(5,7));
         int i = 0;
 
         for (i = 0; i < 2; i++) {
@@ -1186,19 +1228,19 @@ public final class DatabaseManager {
         int chk = 1;
 
       //  int[] arr = new int[8000];
-
-        for (i = 0; i < 5000; i++) {
+         Date_Handler datehandler=new Date_Handler();
+        for (i = 0; i < 8000; i++) {
             arr_800[i] = 0;
         }
 
         String start = year_month + "-01";
-        String end = year_month + "-31";
+        String end = year_month + "-"+datehandler.return_enddate(year_month.substring(0,4), year_month.substring(5,7));
 
         try {
             ResultSet query = query("SELECT * FROM " + table_name + " WHERE  " + table_date_column + " BETWEEN '" + start + "' AND '" + end + "'");
             while (query.next()) {
                 chk = 1;
-                for (i = 0; i <= k; i++) {
+                for (i = 0; i < k; i++) {
                     if (query.getInt(table_emp_code_column) == arr_800[i]) {
                         chk = 0;
                         break;
@@ -1260,12 +1302,12 @@ public final class DatabaseManager {
             holy_e = "-" + holiplusone;
         }
 
-        
+         Date_Handler datehandler=new Date_Handler();
 
         start = year_month + "-01";
         holy_first = year_month + holy_s;
         holy_second = year_month + holy_e;
-        end = year_month + "-31";
+        end = year_month + "-"+datehandler.return_enddate(year_month.substring(0,4), year_month.substring(5,7));
         int i = 0;
 
         for (i = 0; i < 4; i++) {
@@ -1310,9 +1352,9 @@ double amount;
     public double prcr_emp_code_other_advance_month_totals(String table_name, String year_month, String table_date_column, String table_emp_code_column, int emp_code, String table_advance_type_column, String advance_type, String required_column) {
 
          amount = 0;
-
+          Date_Handler datehandler=new Date_Handler();
         start = year_month + "-01";
-        end = year_month + "-31";
+        end = year_month + "-"+datehandler.return_enddate(year_month.substring(0,4),year_month.substring(5,7));
 
         try {
             ResultSet query = query("SELECT * FROM " + table_name + " WHERE " + table_emp_code_column + " LIKE '" + emp_code + "' AND " + table_advance_type_column + " LIKE '" + advance_type + "' AND " + table_date_column + " BETWEEN '" + start + "' AND '" + end + "'");

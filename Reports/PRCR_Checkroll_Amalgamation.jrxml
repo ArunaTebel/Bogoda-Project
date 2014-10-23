@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b4a7e90f-236c-48e1-b463-a16c40591ab1">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b4a7e90f-236c-48e1-b463-a16c40591ab1">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -22,7 +22,7 @@ FROM
 	<field name="prcr_checkroll_amalgamation_report_section" class="java.lang.String"/>
 	<field name="prcr_checkroll_amalgamation_report_work_days" class="java.lang.Integer"/>
 	<field name="prcr_checkroll_amalgamation_report_work_days_pay" class="java.lang.Double"/>
-	<field name="prcr_checkroll_amalgamation_report_ot_hours" class="java.lang.Integer"/>
+	<field name="prcr_checkroll_amalgamation_report_ot_hours" class="java.lang.Double"/>
 	<field name="prcr_checkroll_amalgamation_report_ot_hours_pay" class="java.lang.Double"/>
 	<field name="prcr_checkroll_amalgamation_report_coins" class="java.lang.Double"/>
 	<field name="prcr_checkroll_amalgamation_report_grand_total" class="java.lang.Double"/>
@@ -47,7 +47,7 @@ FROM
 				<text><![CDATA[by:]]></text>
 			</staticText>
 			<line>
-				<reportElement x="1" y="57" width="555" height="1" uuid="e13c4d67-1e7f-4c1c-96d2-2316ab27579e"/>
+				<reportElement x="1" y="57" width="571" height="1" uuid="e13c4d67-1e7f-4c1c-96d2-2316ab27579e"/>
 			</line>
 			<staticText>
 				<reportElement x="340" y="9" width="216" height="27" uuid="75b687d7-fe40-4adf-9851-27816341e992"/>
@@ -57,7 +57,7 @@ FROM
 				<text><![CDATA[Bogoda Group Tea Factory]]></text>
 			</staticText>
 			<line>
-				<reportElement x="1" y="0" width="555" height="1" uuid="aeb39eae-cf99-495a-9b95-9031f30f70b7"/>
+				<reportElement x="1" y="0" width="571" height="1" uuid="aeb39eae-cf99-495a-9b95-9031f30f70b7"/>
 			</line>
 			<staticText>
 				<reportElement x="417" y="30" width="114" height="20" uuid="fe112270-8629-41c5-b43e-d57409be5b2e"/>
@@ -79,14 +79,17 @@ FROM
 			</textField>
 			<staticText>
 				<reportElement x="1" y="61" width="181" height="20" uuid="6f74aa29-e21e-4249-b9f4-0a7a44e5c358"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
 				<text><![CDATA[Checkroll Amalgamation List]]></text>
 			</staticText>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="33" splitType="Stretch">
+		<band height="26" splitType="Stretch">
 			<line>
-				<reportElement x="1" y="-26" width="555" height="1" uuid="292404ee-21c4-44ec-86e1-654ddf5dc03b"/>
+				<reportElement x="1" y="-26" width="571" height="1" uuid="292404ee-21c4-44ec-86e1-654ddf5dc03b"/>
 				<graphicElement>
 					<pen lineWidth="0.5" lineColor="#666666"/>
 				</graphicElement>
@@ -114,9 +117,9 @@ FROM
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="27" splitType="Stretch">
+		<band height="33" splitType="Stretch">
 			<line>
-				<reportElement x="1" y="23" width="554" height="1" uuid="8b820536-4e3c-4646-9176-72c78990b115"/>
+				<reportElement x="1" y="31" width="571" height="1" uuid="8b820536-4e3c-4646-9176-72c78990b115"/>
 			</line>
 			<staticText>
 				<reportElement x="0" y="5" width="69" height="20" uuid="8cf9bf68-b9f2-4790-8672-ca3ad8cef629"/>
@@ -127,49 +130,49 @@ FROM
 			</staticText>
 			<staticText>
 				<reportElement x="69" y="5" width="69" height="20" uuid="3b42c3a6-c66b-47fa-a222-7613e4b824f8"/>
-				<textElement>
+				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Section]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="138" y="5" width="69" height="20" uuid="14abc82c-799e-4458-aeb6-443523513b2a"/>
-				<textElement>
+				<textElement textAlignment="Right">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Work Days]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="207" y="5" width="69" height="20" uuid="6fe2bd64-a6ec-4ffc-a1d1-98c45c378b22"/>
-				<textElement>
-					<font isBold="true"/>
+				<reportElement x="213" y="0" width="69" height="31" uuid="6fe2bd64-a6ec-4ffc-a1d1-98c45c378b22"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Work Day's pay]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="276" y="5" width="69" height="20" uuid="16e5c282-571e-44a4-9745-f2b2de883e61"/>
-				<textElement>
+				<reportElement x="291" y="5" width="54" height="20" uuid="16e5c282-571e-44a4-9745-f2b2de883e61"/>
+				<textElement textAlignment="Right">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[OT Hours]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="345" y="5" width="69" height="20" uuid="c7954e9b-8028-43e5-a81a-82f1bbc30a6d"/>
-				<textElement>
+				<textElement textAlignment="Right">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[OT Pay]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="414" y="5" width="69" height="20" uuid="42ec0836-2eae-4652-a174-d0cbadfce6a6"/>
-				<textElement>
+				<reportElement x="419" y="5" width="69" height="20" uuid="42ec0836-2eae-4652-a174-d0cbadfce6a6"/>
+				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Coins]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="483" y="5" width="69" height="20" uuid="3bab2579-2e22-4234-9c24-1ed86d75b2a7"/>
-				<textElement>
+				<reportElement x="492" y="5" width="73" height="20" uuid="3bab2579-2e22-4234-9c24-1ed86d75b2a7"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Grand Total]]></text>
@@ -177,37 +180,39 @@ FROM
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="23" splitType="Stretch">
+		<band height="25" splitType="Stretch">
 			<textField>
 				<reportElement x="0" y="0" width="69" height="20" uuid="2c7deb38-f381-432c-8197-798a5d6628e6"/>
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_amalgamation_report_work_code}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="69" y="0" width="69" height="20" uuid="d11f23bb-d3f4-4c35-98ea-86a88bbd95a2"/>
+				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_amalgamation_report_section}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="138" y="0" width="69" height="20" uuid="ea4c0db6-a13a-4c7b-b4a9-35e2fe3521aa"/>
+				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_amalgamation_report_work_days}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="###0.00">
 				<reportElement x="207" y="0" width="69" height="20" uuid="8be36850-9fde-48d8-bcde-f10423c67968"/>
+				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_amalgamation_report_work_days_pay}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="276" y="0" width="69" height="20" uuid="d89c481e-cd84-40bf-9bc3-6e807f3ceeaa"/>
+				<reportElement x="291" y="0" width="54" height="20" uuid="d89c481e-cd84-40bf-9bc3-6e807f3ceeaa"/>
+				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_amalgamation_report_ot_hours}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="###0.00">
 				<reportElement x="345" y="0" width="69" height="20" uuid="065979a7-0c15-4d0e-a4f2-a9af5719e968"/>
+				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_amalgamation_report_ot_hours_pay}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="414" y="0" width="69" height="20" uuid="cf20134f-8b7a-4372-aada-74431b230138"/>
-				<textFieldExpression><![CDATA[$F{prcr_checkroll_amalgamation_report_coins}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="483" y="0" width="69" height="20" uuid="29979e79-545e-4003-9987-45afbff047a8"/>
+			<textField pattern="###0.00">
+				<reportElement x="492" y="0" width="73" height="20" uuid="29979e79-545e-4003-9987-45afbff047a8"/>
+				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{prcr_checkroll_amalgamation_report_grand_total}]]></textFieldExpression>
 			</textField>
 		</band>
@@ -218,7 +223,7 @@ FROM
 	<pageFooter>
 		<band height="33" splitType="Stretch">
 			<line>
-				<reportElement x="1" y="-13" width="554" height="1" uuid="0d048f90-0a60-4753-b7bf-906c8bd8f6af"/>
+				<reportElement x="1" y="-13" width="571" height="1" uuid="0d048f90-0a60-4753-b7bf-906c8bd8f6af"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>

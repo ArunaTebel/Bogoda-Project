@@ -355,11 +355,12 @@ public class ACC_Journal_View_Table extends javax.swing.JFrame {
         } */
     }//GEN-LAST:event_jButton5ActionPerformed
 
-     ACC_Edit_journals1 edit = new ACC_Edit_journals1();
+     
     
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
 
-       
+        ACC_Edit_journals1 edit = new ACC_Edit_journals1();
+        
         edit.setVisible(true);
         int tr_no,check,row;
         tr_no=0;

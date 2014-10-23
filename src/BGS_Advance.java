@@ -445,7 +445,7 @@ public class BGS_Advance extends javax.swing.JPanel {
         CodeName2.setBackground(new java.awt.Color(0, 102, 0));
         CodeName2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         CodeName2.setForeground(new java.awt.Color(102, 102, 102));
-        CodeName2.setText("SHOP");
+        CodeName2.setText("Shop");
         CodeName2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());

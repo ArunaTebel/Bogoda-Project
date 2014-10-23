@@ -148,7 +148,7 @@ public class pPRCR extends javax.swing.JPanel {
             }
         });
 
-        Add_combo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "---------", "Employee", "Staff pay info", "Chkroll pay info", "Work code details", "Division details", "Leaf Rate", "----------" }));
+        Add_combo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "---------", "Employee", "Staff pay info", "Chkroll pay info", "Work code details", "Division details", "Coins and Debits", "----------" }));
         Add_combo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Add_comboActionPerformed(evt);
@@ -166,7 +166,7 @@ public class pPRCR extends javax.swing.JPanel {
         jButton7.setText("Veiw");
         jButton7.setEnabled(false);
 
-        View_Combo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "---------", "Work Code Details", "Note Analysis", "Transport Code", "Leaf Rate", "----------" }));
+        View_Combo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "---------", "Add Coins and Debits", "Note Analysis", "Transport Code", "Leaf Rate", "----------" }));
         View_Combo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 View_ComboActionPerformed(evt);
@@ -412,7 +412,7 @@ public class pPRCR extends javax.swing.JPanel {
 
     private void View_ComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_View_ComboActionPerformed
         String selection = (String) View_Combo.getSelectedItem();
-        if (selection.equalsIgnoreCase("Work Code Details")) {
+        if (selection.equalsIgnoreCase("Add Coins and Debits")) {
 
             PRCR_view_workCodeDetails workcode = new PRCR_view_workCodeDetails();
 

@@ -590,12 +590,13 @@ public class PRCR_salary_note_anlysis extends javax.swing.JPanel {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel9)
                     .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(enterr)
-                    .addComponent(jButton3)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(debitssss, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(codeeeee, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(codeeeee, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(enterr)
+                        .addComponent(jButton3)))
                 .addGap(6, 6, 6)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton1)
@@ -1005,6 +1006,7 @@ totalllll=0;        // TODO add your handling code here:
             
             dbm.updateDatabase("pr_workdata_2014_06","code",upcode,"next_month",-(jundebts));
             dbm.updateDatabase("pr_workdata_2014_06","code",upcode,"coins",juncoins);
+            dbm.updateDatabase("pr_workdata_2014_06","code",upcode,"active",1);
                 System.out.println("code,coins,debts-"+upcode+","+juncoins+","+jundebts);
                 System.out.println(i++);
             

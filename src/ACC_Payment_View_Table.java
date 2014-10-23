@@ -373,9 +373,10 @@ public class ACC_Payment_View_Table extends javax.swing.JFrame {
         } */
     }//GEN-LAST:event_jButton5ActionPerformed
 
-    ACC_Edit_Payments edit = new ACC_Edit_Payments();
+    
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
 
+        ACC_Edit_Payments edit = new ACC_Edit_Payments();
         edit.setVisible(true);
         int tr_no,check,row;
         tr_no=0;

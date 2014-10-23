@@ -613,6 +613,47 @@ public String get_day(Date date) {
        return year+"-"+MM;
     
     }
+    
+    public int return_enddate(String year, String month){
+    int end= 31;
+    int mnt = Integer.parseInt(month);
+    
+     int yr = Integer.parseInt(year);
+     
+     if(mnt == 2){
+                    if (yr % 4 == 0) {
+                        if (yr % 100 == 0) {
+                            if (yr % 400 == 0) {
+                              end = 29;  // Leap Year
+                            }
+                        }
+                        if (yr % 100 == 0) {
+                            if (yr % 400 != 0) {
+                                end = 28; // not a leap year
+                            }
+                        }
+                        end = 29;      // leap year
+
+                    }
+                    if (yr % 4 != 0) {
+                        end = 28;       // not a leap year
+                    }
+                    
+     }
+     
+     if(mnt == 4 || mnt == 6 || mnt == 9 || mnt == 11)
+     {
+     
+        end = 30;
+     
+     }
+    
+    
+    
+    
+    
+    return end;
+    }
    
    
    

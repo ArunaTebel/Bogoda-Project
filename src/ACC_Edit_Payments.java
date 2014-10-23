@@ -207,8 +207,8 @@ public class ACC_Edit_Payments extends javax.swing.JFrame {
                 tot = tot + Double.parseDouble((String) debit_amount_table.getValueAt(i, 0));
                 i++;
             }
-            total.setText("" + tot);
-            difference.setText("" + (Double.parseDouble(creditAmount.getText()) - tot));
+            total.setText(String.format("%.2f", tot));
+    difference.setText(String.format("%.2f",(Double.parseDouble(creditAmount.getText()) - tot)));
 
         } catch (PropertyVetoException ex) {
             Logger.getLogger(ACC_Edit_Payments.class.getName()).log(Level.SEVERE, null, ex);
@@ -1107,8 +1107,8 @@ public class ACC_Edit_Payments extends javax.swing.JFrame {
             tot = tot + Double.parseDouble((String) debit_amount_table.getValueAt(i, 0));
             i++;
         }
-        total.setText("" + tot);
-        difference.setText("" + (Double.parseDouble(creditAmount.getText()) - tot));
+        total.setText(String.format("%.2f", tot));
+difference.setText(String.format("%.2f",(Double.parseDouble(creditAmount.getText()) - tot)));
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -1129,8 +1129,8 @@ public class ACC_Edit_Payments extends javax.swing.JFrame {
             tot = tot + Double.parseDouble((String) debit_amount_table.getValueAt(i, 0));
             i++;
         }
-        total.setText("" + tot);
-        difference.setText("" + (Double.parseDouble(creditAmount.getText()) - tot));
+        total.setText(String.format("%.2f", tot));
+        difference.setText(String.format("%.2f",(Double.parseDouble(creditAmount.getText()) - tot)));
 
         debit_account_code.requestFocusInWindow();
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -1666,8 +1666,8 @@ public class ACC_Edit_Payments extends javax.swing.JFrame {
                 tot = tot + Double.parseDouble((String) debit_amount_table.getValueAt(i, 0));
                 i++;
             }
-            total.setText("" + tot);
-            difference.setText("" + (Double.parseDouble(creditAmount.getText()) - tot));
+            total.setText(String.format("%.2f", tot));
+    difference.setText(String.format("%.2f",(Double.parseDouble(creditAmount.getText()) - tot)));
 
             if (Double.parseDouble(difference.getText()) == 0) {
                 try {
@@ -1818,8 +1818,8 @@ public class ACC_Edit_Payments extends javax.swing.JFrame {
                 tot = tot + Double.parseDouble((String) debit_amount_table.getValueAt(i, 0));
                 i++;
             }
-            total.setText("" + tot);
-            difference.setText("" + (Double.parseDouble(creditAmount.getText()) - tot));
+            total.setText(String.format("%.2f", tot));
+    difference.setText(String.format("%.2f",(Double.parseDouble(creditAmount.getText()) - tot)));
 
             if (Double.parseDouble(difference.getText()) == 0) {
                 try {
@@ -1989,8 +1989,8 @@ public class ACC_Edit_Payments extends javax.swing.JFrame {
             tot = tot + Double.parseDouble((String) debit_amount_table.getValueAt(i, 0));
             i++;
         }
-        total.setText("" + tot);
-        difference.setText("" + (Double.parseDouble(creditAmount.getText()) - tot));
+        total.setText(String.format("%.2f", tot));
+difference.setText(String.format("%.2f",(Double.parseDouble(creditAmount.getText()) - tot)));
 
         if (Double.parseDouble(difference.getText()) < 0) {
             msg.showMessage("Debit balance is higher than Credit balance", "Please Check Again", "info");
@@ -2015,8 +2015,8 @@ public class ACC_Edit_Payments extends javax.swing.JFrame {
             tot = tot + Double.parseDouble((String) debit_amount_table.getValueAt(i, 0));
             i++;
         }
-        total.setText("" + tot);
-        difference.setText("" + (Double.parseDouble(creditAmount.getText()) - tot));
+        total.setText(String.format("%.2f", tot));
+difference.setText(String.format("%.2f",(Double.parseDouble(creditAmount.getText()) - tot)));
     }//GEN-LAST:event_debit_amount_tableComponentAdded
 
     private void debit_amount_tableKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_debit_amount_tableKeyReleased
@@ -2026,8 +2026,8 @@ public class ACC_Edit_Payments extends javax.swing.JFrame {
             tot = tot + Double.parseDouble((String) debit_amount_table.getValueAt(i, 0));
             i++;
         }
-        total.setText("" + tot);
-        difference.setText("" + (Double.parseDouble(creditAmount.getText()) - tot));
+        total.setText(String.format("%.2f", tot));
+difference.setText(String.format("%.2f",(Double.parseDouble(creditAmount.getText()) - tot)));
     }//GEN-LAST:event_debit_amount_tableKeyReleased
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed

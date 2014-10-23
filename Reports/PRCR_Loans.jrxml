@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b4a7e90f-236c-48e1-b463-a16c40591ab1">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="111"/>
+	<parameter name="USER" class="java.lang.String"/>
+	<parameter name="to_date" class="java.util.Date"/>
+	<parameter name="from_date" class="java.util.Date"/>
+	<queryString>
+		<![CDATA[SELECT
+     prcr_loans.`tr_no` AS gl_loans_tr_id,
+     prcr_loans.`emp_id` AS gl_loans_sup_id,
+     prcr_loans.`loan_id` AS gl_loans_loan_id,
+     prcr_loans.`type` AS gl_loans_type,
+     prcr_loans.`amount` AS gl_loans_amount,
+     prcr_loans.`installments` AS gl_loans_installments,
+     prcr_loans.`rate` AS gl_loans_rate,
+     prcr_loans.`month_year` AS gl_loans_date,
+     prcr_loans.`issue_date` AS gl_loans_issue_date,
+     prcr_loans.`monthly_amount` AS gl_loans_monthly_amount,
+     prcr_loans.`date` AS prcr_loans_date
+FROM
+     `prcr_loans` prcr_loans
+WHERE
+     date >= $P{from_date}
+ AND date <= $P{to_date}
+ORDER BY
+     prcr_loans.`type` ASC]]>
+	</queryString>
+	<field name="gl_loans_tr_id" class="java.lang.Integer"/>
+	<field name="gl_loans_sup_id" class="java.lang.Integer"/>
+	<field name="gl_loans_loan_id" class="java.lang.Integer"/>
+	<field name="gl_loans_type" class="java.lang.String"/>
+	<field name="gl_loans_amount" class="java.lang.Double"/>
+	<field name="gl_loans_installments" class="java.lang.Integer"/>
+	<field name="gl_loans_rate" class="java.lang.Double"/>
+	<field name="gl_loans_date" class="java.lang.String"/>
+	<field name="gl_loans_issue_date" class="java.sql.Date"/>
+	<field name="gl_loans_monthly_amount" class="java.lang.Double"/>
+	<field name="prcr_loans_date" class="java.sql.Date"/>
+	<variable name="TITLE" class="java.lang.String"/>
+	<variable name="sum1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{gl_loans_monthly_amount}]]></variableExpression>
+	</variable>
+	<variable name="sum2" class="java.lang.Double" resetType="Group" resetGroup="gl_loans_type" calculation="Sum">
+		<variableExpression><![CDATA[$F{gl_loans_amount}]]></variableExpression>
+	</variable>
+	<variable name="sum3" class="java.lang.Double" resetType="Group" resetGroup="gl_loans_type" calculation="Sum">
+		<variableExpression><![CDATA[$F{gl_loans_monthly_amount}]]></variableExpression>
+	</variable>
+	<variable name="Gcount" class="java.lang.Integer" resetType="Group" resetGroup="gl_loans_type" calculation="Count">
+		<variableExpression><![CDATA[$F{gl_loans_tr_id}]]></variableExpression>
+	</variable>
+	<variable name="count" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{gl_loans_tr_id}]]></variableExpression>
+	</variable>
+	<group name="gl_loans_type">
+		<groupExpression><![CDATA[$F{gl_loans_type}]]></groupExpression>
+		<groupHeader>
+			<band height="24">
+				<textField>
+					<reportElement uuid="e8e6798d-fcdc-4c29-bf9d-75da38c55315" x="0" y="0" width="115" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="false" isItalic="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{gl_loans_type}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement uuid="644806fd-1cd0-4f88-9ca5-e5dd52dc98b8" x="2" y="19" width="569" height="1"/>
+					<graphicElement>
+						<pen lineWidth="0.5" lineStyle="Solid"/>
+					</graphicElement>
+				</line>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="29">
+				<line>
+					<reportElement uuid="2366a7d9-d5fb-4aa6-b594-e820b1bfad55" x="0" y="3" width="571" height="1"/>
+					<graphicElement>
+						<pen lineWidth="0.5"/>
+					</graphicElement>
+				</line>
+				<line>
+					<reportElement uuid="5eb229dd-2e2f-4ede-9908-a589d5490d5c" x="0" y="27" width="571" height="1"/>
+					<graphicElement>
+						<pen lineWidth="0.5"/>
+					</graphicElement>
+				</line>
+				<textField pattern="#,##0.00">
+					<reportElement uuid="5364a33d-0f08-412c-a2ae-72f544b89eff" x="378" y="9" width="62" height="17" forecolor="#333333"/>
+					<textElement textAlignment="Right" verticalAlignment="Top">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{sum2}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00">
+					<reportElement uuid="542c1fcc-55b2-46f5-baec-50b9d1fe13b5" x="451" y="9" width="70" height="20" forecolor="#333333"/>
+					<textElement textAlignment="Right" verticalAlignment="Top">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{sum3}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="7a4ffceb-7400-419e-a6c1-39b6b9b03998" x="84" y="7" width="80" height="18"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$V{Gcount}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="658f0874-5538-4d95-bf67-1db9edcf44a1" x="15" y="6" width="67" height="20"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[No. of Loans]]></text>
+				</staticText>
+				<line>
+					<reportElement uuid="0d048f90-0a60-4753-b7bf-906c8bd8f6af" x="2" y="25" width="570" height="1"/>
+					<graphicElement>
+						<pen lineWidth="0.5"/>
+					</graphicElement>
+				</line>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="81" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="3e709542-151f-4b92-8a79-9527db2b951e" x="1" y="3" width="81" height="11"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Report generated:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b253ceae-65b5-4d6e-bd4d-cd9f29f5de4c" x="0" y="16" width="15" height="20"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[by:]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="e13c4d67-1e7f-4c1c-96d2-2316ab27579e" x="1" y="57" width="571" height="1"/>
+			</line>
+			<staticText>
+				<reportElement uuid="75b687d7-fe40-4adf-9851-27816341e992" x="340" y="9" width="216" height="27"/>
+				<textElement>
+					<font fontName="Segoe UI Light" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bogoda Group Tea Factory]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="aeb39eae-cf99-495a-9b95-9031f30f70b7" x="1" y="0" width="571" height="1"/>
+			</line>
+			<staticText>
+				<reportElement uuid="fe112270-8629-41c5-b43e-d57409be5b2e" x="417" y="30" width="114" height="20"/>
+				<textElement/>
+				<text><![CDATA[Kolawenigama, Deniyaya]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement uuid="54a20eec-890c-4e8c-9249-a8bf0da283f9" x="82" y="3" width="100" height="11"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="a7284fb9-5755-493b-9033-b8778b4d88dd" x="15" y="17" width="100" height="20"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{USER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="eda0b445-4506-475d-a941-ae8c92d731fa" x="7" y="61" width="115" height="20"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Employee Loans]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="22" splitType="Stretch">
+			<line>
+				<reportElement uuid="292404ee-21c4-44ec-86e1-654ddf5dc03b" x="1" y="-26" width="571" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#666666"/>
+				</graphicElement>
+			</line>
+			<textField evaluationTime="Report">
+				<reportElement uuid="a28f6025-2bc0-4bc1-a2d3-6de88975440a" x="531" y="0" width="40" height="20"/>
+				<textElement>
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="c7b2c106-44fc-4aed-b3a9-e5ad706e21ea" x="451" y="0" width="80" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="27" splitType="Stretch">
+			<line>
+				<reportElement uuid="8b820536-4e3c-4646-9176-72c78990b115" x="1" y="23" width="570" height="1"/>
+			</line>
+			<staticText>
+				<reportElement uuid="658f0874-5538-4d95-bf67-1db9edcf44a1" x="11" y="5" width="42" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tr. No.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="53c1aa03-5ab7-4d5b-b973-6288eb3a1c89" x="61" y="5" width="61" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Emp Code]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="abced93b-1216-4475-9f02-c650eb379eb2" x="204" y="5" width="51" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Loan ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c8ed253f-6db7-49af-8902-2ad95eb6d747" x="405" y="5" width="46" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c678c4c0-671b-40b5-800f-ac09f186feab" x="262" y="5" width="61" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Installments]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="23dae050-d1b9-46ea-af8c-11667db80bcd" x="337" y="5" width="47" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Interest Rate]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="928e08a6-158c-435d-b73b-168784b075d8" x="124" y="5" width="61" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Issued date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4dd30d64-c93d-4988-93f4-374ecd0c099e" x="466" y="5" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[This Period Charge]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<textField>
+				<reportElement uuid="6cb3a441-32d5-4aae-8a69-5bcd3debb12e" x="7" y="0" width="46" height="15"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{gl_loans_tr_id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="ad8206f0-d526-4d6d-8cb1-e9d0358e947f" x="61" y="1" width="43" height="15"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{gl_loans_sup_id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="6162c048-9aaa-47cb-bd26-132162009ba2" x="197" y="0" width="48" height="15"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{gl_loans_loan_id}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="70c566cd-1788-4e8c-9b86-d8c12d3c11a3" x="380" y="0" width="61" height="15"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{gl_loans_amount}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="d50e8918-02f7-49b1-9543-e47f5a704fa8" x="260" y="0" width="61" height="15"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{gl_loans_installments}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00 %">
+				<reportElement uuid="4254036d-2f70-4134-bdca-0324a2894620" x="331" y="0" width="47" height="15"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{gl_loans_rate}/100]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="99d685d5-dcea-40b3-bde0-b5457e97f8b5" x="126" y="0" width="61" height="15"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{gl_loans_issue_date}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="9503fb8e-3a35-4658-9dbc-9c8fcb65f587" x="460" y="0" width="61" height="15"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{gl_loans_monthly_amount}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="8" splitType="Stretch">
+			<line>
+				<reportElement uuid="0d048f90-0a60-4753-b7bf-906c8bd8f6af" x="1" y="3" width="570" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="15" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="3e709542-151f-4b92-8a79-9527db2b951e" x="470" y="4" width="96" height="11"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[softninelights.com]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="48" splitType="Stretch">
+			<textField pattern="#,##0.00">
+				<reportElement uuid="88ff74ac-74c1-491e-b9e2-c637ee9bfd46" x="412" y="21" width="109" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{sum1}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="065284da-ace0-44c4-8b93-1945ba8d8635" x="1" y="21" width="570" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="e6ae8110-482a-4e9d-91ad-616ba2e0b452" x="0" y="40" width="572" height="1"/>
+			</line>
+			<textField>
+				<reportElement uuid="b64b303d-5c26-4d34-84fc-bc8ae5006dab" x="2" y="22" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$V{count}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="e6ae8110-482a-4e9d-91ad-616ba2e0b452" x="0" y="43" width="572" height="1"/>
+			</line>
+		</band>
+	</summary>
+</jasperReport>

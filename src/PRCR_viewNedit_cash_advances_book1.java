@@ -7,6 +7,7 @@ import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.table.DefaultTableModel;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -1333,7 +1334,24 @@ public class PRCR_viewNedit_cash_advances_book1 extends javax.swing.JFrame {
     }//GEN-LAST:event_datePick1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       int PREFEREDROWS=20;
+           int PREFEREDROWS=0;
+        try {
+            ResultSet query = dbm.query("SELECT * FROM prcr_cash_advance_book where date BETWEEN '" + datechooser.Return_date(yearfield1, monthfield1, dayfield1).toString() + "' AND '" + datechooser.Return_date(yearfield2, monthfield2, dayfield2).toString()+ "'");
+            while (query.next()) {
+                PREFEREDROWS++;
+            }
+            query.close();
+        } catch (SQLException ex) {
+
+        } catch (ParseException ex) {
+            Logger.getLogger(PRCR_viewNedit_debit_pay.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        ((DefaultTableModel)table.getModel()).setNumRows(PREFEREDROWS);
+        
+        
+        
         int i, j;
         for (i = 0; i <PREFEREDROWS ; i++) {
             for (j = 0; j < 5; j++) {

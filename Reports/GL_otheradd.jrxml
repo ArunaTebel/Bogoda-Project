@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b4a7e90f-236c-48e1-b463-a16c40591ab1">
-	<property name="ireport.zoom" value="1.5"/>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b4a7e90f-236c-48e1-b463-a16c40591ab1">
+	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="44"/>
+	<property name="ireport.y" value="288"/>
 	<parameter name="USER" class="java.lang.String"/>
 	<parameter name="from_date" class="java.util.Date"/>
 	<parameter name="to_date" class="java.util.Date"/>
 	<queryString>
 		<![CDATA[SELECT
-     gl_other_advances.`tr_no` AS gl_other_advances_tr_no,
      gl_other_advances.`advance_id` AS gl_other_advances_advance_id,
      gl_other_advances.`type` AS gl_other_advances_type,
      gl_other_advances.`Date` AS gl_other_advances_Date,
-     gl_other_advances.`issue_date` AS gl_other_advances_issue_date,
      gl_other_advances.`id` AS gl_other_advances_id,
      gl_other_advances.`item_name` AS gl_other_advances_item_name,
      gl_other_advances.`item_type` AS gl_other_advances_item_type,
@@ -20,18 +18,24 @@
      gl_other_advances.`item_quantity` AS gl_other_advances_item_quantity,
      gl_other_advances.`installments` AS gl_other_advances_installments,
      gl_other_advances.`amount` AS gl_other_advances_amount,
-     gl_other_advances.`total_amount` AS gl_other_advances_total_amount
+     gl_other_advances.`total_amount` AS gl_other_advances_total_amount,
+     suppliers.`sup_name` AS suppliers_sup_name,
+     gl_other_advances.`order_num` AS gl_other_advances_order_num,
+     gl_other_advances.`tr_no` AS gl_other_advances_tr_no
 FROM
-     `gl_other_advances` gl_other_advances
+     `gl_other_advances` gl_other_advances INNER JOIN `suppliers` suppliers ON gl_other_advances.`id` = suppliers.`sup_id`
 WHERE
      Date >= $P{from_date}
- AND Date <= $P{to_date}]]>
+ AND Date <= $P{to_date}
+ORDER BY
+     gl_other_advances.`type` ASC,
+     gl_other_advances.`item_type` ASC,
+     gl_other_advances.`item_name` ASC,
+ gl_other_advances.`tr_no`]]>
 	</queryString>
-	<field name="gl_other_advances_tr_no" class="java.lang.Integer"/>
 	<field name="gl_other_advances_advance_id" class="java.lang.Integer"/>
 	<field name="gl_other_advances_type" class="java.lang.String"/>
 	<field name="gl_other_advances_Date" class="java.sql.Date"/>
-	<field name="gl_other_advances_issue_date" class="java.sql.Date"/>
 	<field name="gl_other_advances_id" class="java.lang.Integer"/>
 	<field name="gl_other_advances_item_name" class="java.lang.String"/>
 	<field name="gl_other_advances_item_type" class="java.lang.String"/>
@@ -40,22 +44,210 @@ WHERE
 	<field name="gl_other_advances_installments" class="java.lang.Integer"/>
 	<field name="gl_other_advances_amount" class="java.lang.Double"/>
 	<field name="gl_other_advances_total_amount" class="java.lang.Double"/>
+	<field name="suppliers_sup_name" class="java.lang.String"/>
+	<field name="gl_other_advances_order_num" class="java.lang.String"/>
+	<field name="gl_other_advances_tr_no" class="java.lang.Integer"/>
 	<variable name="TITLE" class="java.lang.String"/>
-	<group name="gl_other_advances_type">
+	<variable name="Gtotal" class="java.lang.Double" resetType="Group" resetGroup="gl_other_advances_type" calculation="Sum">
+		<variableExpression><![CDATA[$F{gl_other_advances_total_amount}]]></variableExpression>
+	</variable>
+	<variable name="Gcount" class="java.lang.Integer" resetType="Group" resetGroup="gl_other_advances_type" calculation="Count">
+		<variableExpression><![CDATA[$F{gl_other_advances_Date}]]></variableExpression>
+	</variable>
+	<variable name="Total" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{gl_other_advances_total_amount}]]></variableExpression>
+	</variable>
+	<variable name="count" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{gl_other_advances_Date}]]></variableExpression>
+	</variable>
+	<variable name="type qunatity" class="java.lang.Double" resetType="Group" resetGroup="TYPE" calculation="Sum">
+		<variableExpression><![CDATA[$F{gl_other_advances_item_quantity}]]></variableExpression>
+	</variable>
+	<variable name="variable5" class="java.lang.String"/>
+	<variable name="code qunatity" class="java.lang.Double" resetType="Group" resetGroup="CODE" calculation="Sum">
+		<variableExpression><![CDATA[$F{gl_other_advances_item_quantity}]]></variableExpression>
+	</variable>
+	<variable name="Full qunatity" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{gl_other_advances_item_quantity}]]></variableExpression>
+	</variable>
+	<variable name="typeamount" class="java.lang.Double" resetType="Group" resetGroup="TYPE" calculation="Sum">
+		<variableExpression><![CDATA[$F{gl_other_advances_total_amount}]]></variableExpression>
+	</variable>
+	<variable name="codeamount" class="java.lang.Double" resetType="Group" resetGroup="CODE" calculation="Sum">
+		<variableExpression><![CDATA[$F{gl_other_advances_total_amount}]]></variableExpression>
+	</variable>
+	<variable name="type qunatity_1" class="java.lang.Double" resetType="Group" resetGroup="gl_other_advances_type" calculation="Sum">
+		<variableExpression><![CDATA[$F{gl_other_advances_item_quantity}]]></variableExpression>
+	</variable>
+	<variable name="CodeCount" class="java.lang.Integer" resetType="Group" resetGroup="CODE" calculation="Count">
+		<variableExpression><![CDATA[$F{gl_other_advances_Date}]]></variableExpression>
+	</variable>
+	<variable name="typecount" class="java.lang.Integer" resetType="Group" resetGroup="TYPE" calculation="Count">
+		<variableExpression><![CDATA[$F{gl_other_advances_Date}]]></variableExpression>
+	</variable>
+	<group name="gl_other_advances_type" isStartNewPage="true">
 		<groupExpression><![CDATA[$F{gl_other_advances_type}]]></groupExpression>
 		<groupHeader>
 			<band height="21">
 				<textField>
 					<reportElement x="1" y="0" width="100" height="20" uuid="c66d27bd-b20a-492b-b769-7a405c4ecc31"/>
-					<textElement>
-						<font size="12" isBold="false" isItalic="true"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true" isItalic="false" isStrikeThrough="false"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{gl_other_advances_type}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="1" y="19" width="553" height="1" uuid="14cf1d22-85bb-4988-96ef-d2c84f892321"/>
+					<graphicElement>
+						<pen lineStyle="Solid"/>
+					</graphicElement>
+				</line>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="43">
+				<textField pattern="#,##0.00">
+					<reportElement x="486" y="6" width="69" height="20" uuid="5e8eea84-e5e3-40f5-847c-259e1dc4558d"/>
+					<textElement textAlignment="Right">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{Gtotal}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="1" y="6" width="100" height="20" uuid="64a8f4d2-8832-4f76-b626-736abfc0b269"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{Gcount}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="0" y="27" width="554" height="1" uuid="e3724a9d-e274-4782-98a7-6f6c683e8daa"/>
+					<graphicElement>
+						<pen lineWidth="0.5"/>
+					</graphicElement>
+				</line>
+				<line>
+					<reportElement x="0" y="2" width="554" height="1" uuid="2daaec85-bc4a-4cfc-83fa-21e5c8958910"/>
+					<graphicElement>
+						<pen lineWidth="0.5"/>
+					</graphicElement>
+				</line>
+				<textField>
+					<reportElement x="431" y="8" width="29" height="20" uuid="76178ca9-3891-43a9-80ca-950c6dc9da98"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{type qunatity_1}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="2" y="22" width="554" height="1" uuid="0d048f90-0a60-4753-b7bf-906c8bd8f6af"/>
+					<graphicElement>
+						<pen lineWidth="0.75"/>
+					</graphicElement>
+				</line>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="TYPE" isStartNewPage="true">
+		<groupExpression><![CDATA[$F{gl_other_advances_item_type}]]></groupExpression>
+		<groupHeader>
+			<band height="24">
+				<textField>
+					<reportElement x="15" y="1" width="125" height="15" uuid="8f15b7f2-d588-4926-869f-94f3fa76fe3a"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true" isUnderline="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{gl_other_advances_item_type}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupHeader>
 		<groupFooter>
-			<band height="50"/>
+			<band height="31">
+				<textField>
+					<reportElement x="420" y="0" width="29" height="14" uuid="f3c20ba9-527c-4c77-a724-1af1e79db3f3"/>
+					<textElement>
+						<font size="8" isBold="true" isUnderline="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{type qunatity}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="18" y="2" width="100" height="11" uuid="96ae4e8f-30d9-4a13-8f65-03aa1f915e47"/>
+					<textElement>
+						<font size="8" isBold="true" isUnderline="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{typecount}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="0" y="13" width="554" height="1" uuid="0d048f90-0a60-4753-b7bf-906c8bd8f6af"/>
+					<graphicElement>
+						<pen lineWidth="0.5" lineStyle="Dotted"/>
+					</graphicElement>
+				</line>
+				<textField>
+					<reportElement x="513" y="0" width="43" height="15" uuid="1ba7f747-00a1-4297-92b7-cc1b863d31bf"/>
+					<textElement textAlignment="Right">
+						<font size="8" isBold="true" isUnderline="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{typeamount}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="CODE">
+		<groupExpression><![CDATA[$F{gl_other_advances_item_name}]]></groupExpression>
+		<groupHeader>
+			<band height="17">
+				<textField>
+					<reportElement x="14" y="0" width="133" height="15" uuid="0c71c7bf-5ea3-4696-900b-73739585dfa6"/>
+					<textElement>
+						<font size="8" isItalic="true" isUnderline="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{gl_other_advances_item_name}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="18" y="14" width="124" height="1" uuid="f8096330-5ebd-4764-8eb0-609ac8f97809"/>
+					<graphicElement>
+						<pen lineWidth="0.25" lineStyle="Dotted"/>
+					</graphicElement>
+				</line>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="25">
+				<textField>
+					<reportElement x="411" y="0" width="30" height="20" uuid="f7fbc2cd-2ad8-4126-b952-a47725c22c77"/>
+					<textElement>
+						<font size="8" isItalic="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{code qunatity}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="511" y="0" width="43" height="20" uuid="44f1fff0-c7ac-426f-9505-6f2c51d19c0b"/>
+					<textElement textAlignment="Right">
+						<font size="8" isItalic="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{codeamount}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="15" y="1" width="100" height="20" uuid="40198753-12ce-47c7-8b90-6c5779b2e52f"/>
+					<textElement>
+						<font size="8" isItalic="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{CodeCount}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="0" y="0" width="554" height="1" uuid="0d048f90-0a60-4753-b7bf-906c8bd8f6af"/>
+					<graphicElement>
+						<pen lineWidth="0.5"/>
+					</graphicElement>
+				</line>
+				<line>
+					<reportElement x="0" y="16" width="554" height="1" uuid="0d048f90-0a60-4753-b7bf-906c8bd8f6af"/>
+					<graphicElement>
+						<pen lineWidth="0.25" lineStyle="Dotted"/>
+					</graphicElement>
+				</line>
+			</band>
 		</groupFooter>
 	</group>
 	<background>
@@ -118,7 +310,7 @@ WHERE
 		</band>
 	</title>
 	<pageHeader>
-		<band height="33" splitType="Stretch">
+		<band height="38" splitType="Stretch">
 			<line>
 				<reportElement x="1" y="-26" width="555" height="1" uuid="292404ee-21c4-44ec-86e1-654ddf5dc03b"/>
 				<graphicElement>
@@ -145,163 +337,235 @@ WHERE
 				<reportElement x="1" y="23" width="554" height="1" uuid="8b820536-4e3c-4646-9176-72c78990b115"/>
 			</line>
 			<staticText>
-				<reportElement x="0" y="5" width="46" height="20" uuid="4e90050f-d1e6-4ef4-86ca-cb2e073d0452"/>
+				<reportElement x="33" y="5" width="47" height="15" uuid="4e90050f-d1e6-4ef4-86ca-cb2e073d0452"/>
 				<textElement>
-					<font isBold="true"/>
+					<font size="8" isBold="false"/>
 				</textElement>
-				<text><![CDATA[gl_other_advances_tr_no]]></text>
+				<text><![CDATA[Order NO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="46" y="5" width="46" height="20" uuid="52766f15-36c1-4feb-9627-d36562f1d441"/>
+				<reportElement x="73" y="5" width="38" height="20" uuid="4791931b-8855-41e0-8927-d3c5c9622a2e"/>
 				<textElement>
-					<font isBold="true"/>
+					<font size="8" isBold="true"/>
 				</textElement>
-				<text><![CDATA[gl_other_advances_advance_id]]></text>
+				<text><![CDATA[Date]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="92" y="5" width="46" height="20" uuid="4791931b-8855-41e0-8927-d3c5c9622a2e"/>
+				<reportElement x="109" y="5" width="26" height="20" uuid="47c124dd-3377-4e2c-b369-8160cf8284c5"/>
 				<textElement>
-					<font isBold="true"/>
+					<font size="8" isBold="true"/>
 				</textElement>
-				<text><![CDATA[gl_other_advances_Date]]></text>
+				<text><![CDATA[Sup ID]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="138" y="5" width="46" height="20" uuid="bbb78572-943e-456e-9424-b4a3e263bd2d"/>
+				<reportElement x="236" y="5" width="46" height="20" uuid="068c9b33-d77c-464c-aa43-ec200f2b4d75"/>
 				<textElement>
-					<font isBold="true"/>
+					<font size="8" isBold="true"/>
 				</textElement>
-				<text><![CDATA[gl_other_advances_issue_date]]></text>
+				<text><![CDATA[Item]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="184" y="5" width="46" height="20" uuid="47c124dd-3377-4e2c-b369-8160cf8284c5"/>
+				<reportElement x="315" y="5" width="46" height="20" uuid="bc69e3e0-b08d-4ba8-82ef-910716220541"/>
 				<textElement>
-					<font isBold="true"/>
+					<font size="8" isBold="true"/>
 				</textElement>
-				<text><![CDATA[gl_other_advances_id]]></text>
+				<text><![CDATA[Type]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="230" y="5" width="46" height="20" uuid="068c9b33-d77c-464c-aa43-ec200f2b4d75"/>
+				<reportElement x="360" y="5" width="46" height="20" uuid="53c2ef5c-4081-4726-b7a8-0402f794cb25"/>
 				<textElement>
-					<font isBold="true"/>
+					<font size="8" isBold="true"/>
 				</textElement>
-				<text><![CDATA[gl_other_advances_item_name]]></text>
+				<text><![CDATA[Rate]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="276" y="5" width="46" height="20" uuid="bc69e3e0-b08d-4ba8-82ef-910716220541"/>
+				<reportElement x="410" y="5" width="33" height="20" uuid="22345f1b-f2ee-4870-9834-82385b7f8554"/>
 				<textElement>
-					<font isBold="true"/>
+					<font size="8" isBold="true"/>
 				</textElement>
-				<text><![CDATA[gl_other_advances_item_type]]></text>
+				<text><![CDATA[Quantity]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="322" y="5" width="46" height="20" uuid="53c2ef5c-4081-4726-b7a8-0402f794cb25"/>
+				<reportElement x="447" y="5" width="22" height="20" uuid="965b5224-c37a-4b30-b085-cafd942a1316"/>
 				<textElement>
-					<font isBold="true"/>
+					<font size="8" isBold="true"/>
 				</textElement>
-				<text><![CDATA[gl_other_advances_item_rate]]></text>
+				<text><![CDATA[Inst:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="368" y="5" width="46" height="20" uuid="22345f1b-f2ee-4870-9834-82385b7f8554"/>
+				<reportElement x="471" y="5" width="35" height="20" uuid="42085c27-0bfc-4214-ac67-fd1adc2ecbbb"/>
 				<textElement>
-					<font isBold="true"/>
+					<font size="8" isBold="true"/>
 				</textElement>
-				<text><![CDATA[gl_other_advances_item_quantity]]></text>
+				<text><![CDATA[Amount]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="414" y="5" width="46" height="20" uuid="965b5224-c37a-4b30-b085-cafd942a1316"/>
+				<reportElement x="506" y="5" width="49" height="20" uuid="57847a25-2784-4cd2-862a-ae3ab5912524"/>
 				<textElement>
-					<font isBold="true"/>
+					<font size="8" isBold="true"/>
 				</textElement>
-				<text><![CDATA[gl_other_advances_installments]]></text>
+				<text><![CDATA[Month Amnt]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="460" y="5" width="46" height="20" uuid="42085c27-0bfc-4214-ac67-fd1adc2ecbbb"/>
+				<reportElement x="154" y="5" width="47" height="16" uuid="730fcc47-1255-4e68-8872-fbf9b7f2fce2"/>
 				<textElement>
-					<font isBold="true"/>
+					<font size="8" isBold="true"/>
 				</textElement>
-				<text><![CDATA[gl_other_advances_amount]]></text>
+				<text><![CDATA[Name]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="506" y="5" width="46" height="20" uuid="57847a25-2784-4cd2-862a-ae3ab5912524"/>
+				<reportElement x="1" y="5" width="100" height="12" uuid="cb2faaff-4568-44f1-8678-5bf2e1fb4b41"/>
 				<textElement>
-					<font isBold="true"/>
+					<font size="8"/>
 				</textElement>
-				<text><![CDATA[gl_other_advances_total_amount]]></text>
+				<text><![CDATA[Tr_NO]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="23" splitType="Stretch">
-			<textField>
-				<reportElement x="0" y="0" width="46" height="20" uuid="a7ea1c98-a1c6-4651-a486-196053346415"/>
-				<textFieldExpression><![CDATA[$F{gl_other_advances_tr_no}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="46" y="0" width="46" height="20" uuid="adc75c26-40ed-414c-8364-eea7e6e290ad"/>
-				<textFieldExpression><![CDATA[$F{gl_other_advances_advance_id}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="92" y="0" width="46" height="20" uuid="7d768aac-eb02-42d3-9948-70d452827421"/>
+		<band height="21" splitType="Stretch">
+			<textField pattern="yyyy-MM-dd">
+				<reportElement x="71" y="1" width="46" height="15" uuid="7d768aac-eb02-42d3-9948-70d452827421"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{gl_other_advances_Date}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="138" y="0" width="46" height="20" uuid="14fa0ff0-a738-45b0-ade5-b8e301b41953"/>
-				<textFieldExpression><![CDATA[$F{gl_other_advances_issue_date}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="184" y="0" width="46" height="20" uuid="3993803c-7d33-4f98-9a3d-6edee3a2cc27"/>
+				<reportElement x="102" y="1" width="32" height="15" uuid="3993803c-7d33-4f98-9a3d-6edee3a2cc27"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{gl_other_advances_id}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="230" y="0" width="46" height="20" uuid="0c71c7bf-5ea3-4696-900b-73739585dfa6"/>
+				<reportElement x="237" y="1" width="68" height="15" uuid="0c71c7bf-5ea3-4696-900b-73739585dfa6"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{gl_other_advances_item_name}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="276" y="0" width="46" height="20" uuid="8f15b7f2-d588-4926-869f-94f3fa76fe3a"/>
-				<textFieldExpression><![CDATA[$F{gl_other_advances_item_type}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="322" y="0" width="46" height="20" uuid="4e9e8b0b-322a-4e7a-9301-5dac20ba1bc0"/>
+				<reportElement x="362" y="1" width="46" height="15" uuid="4e9e8b0b-322a-4e7a-9301-5dac20ba1bc0"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{gl_other_advances_item_rate}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="368" y="0" width="46" height="20" uuid="33c26c52-bccc-4fb9-8304-52a36ff256b5"/>
-				<textFieldExpression><![CDATA[$F{gl_other_advances_item_quantity}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="414" y="0" width="46" height="20" uuid="cf526a00-a0c9-40d0-ab5b-b10aa98f4c61"/>
+				<reportElement x="448" y="1" width="21" height="15" uuid="cf526a00-a0c9-40d0-ab5b-b10aa98f4c61"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{gl_other_advances_installments}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="460" y="0" width="46" height="20" uuid="3374e7cc-ebca-424e-b79b-e9b60dbabd62"/>
+				<reportElement x="511" y="1" width="44" height="15" uuid="ec54ef99-f9ae-4e54-9419-a1f8b1928154"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{gl_other_advances_total_amount}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="472" y="1" width="35" height="15" uuid="3374e7cc-ebca-424e-b79b-e9b60dbabd62"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{gl_other_advances_amount}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="506" y="0" width="46" height="20" uuid="ec54ef99-f9ae-4e54-9419-a1f8b1928154"/>
-				<textFieldExpression><![CDATA[$F{gl_other_advances_total_amount}]]></textFieldExpression>
+				<reportElement x="411" y="1" width="30" height="15" uuid="33c26c52-bccc-4fb9-8304-52a36ff256b5"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{gl_other_advances_item_quantity}]]></textFieldExpression>
 			</textField>
-			<line>
-				<reportElement x="2" y="0" width="274" height="1" uuid="14cf1d22-85bb-4988-96ef-d2c84f892321"/>
-				<graphicElement>
-					<pen lineStyle="Dotted"/>
-				</graphicElement>
-			</line>
+			<textField>
+				<reportElement x="305" y="1" width="56" height="15" uuid="8f15b7f2-d588-4926-869f-94f3fa76fe3a"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{gl_other_advances_item_type}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="37" y="1" width="34" height="11" uuid="d40872a5-fb57-41a5-9829-1265f8be4159"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{gl_other_advances_order_num}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="140" y="1" width="89" height="20" uuid="913a1c28-a0ab-4666-b80e-30e24f3a7377"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{suppliers_sup_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="1" width="34" height="12" uuid="92940983-012d-4b3b-b815-439faf8a0f62"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{gl_other_advances_tr_no}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="18" splitType="Stretch"/>
-	</columnFooter>
-	<pageFooter>
-		<band height="33" splitType="Stretch">
+		<band height="18" splitType="Stretch">
 			<line>
-				<reportElement x="1" y="-13" width="554" height="1" uuid="0d048f90-0a60-4753-b7bf-906c8bd8f6af"/>
+				<reportElement x="1" y="5" width="554" height="1" uuid="0d048f90-0a60-4753-b7bf-906c8bd8f6af"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
 			</line>
 		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="17" splitType="Stretch">
+			<staticText>
+				<reportElement x="486" y="3" width="69" height="10" uuid="fe112270-8629-41c5-b43e-d57409be5b2e"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[softninelights.com]]></text>
+			</staticText>
+		</band>
 	</pageFooter>
 	<summary>
-		<band height="42" splitType="Stretch"/>
+		<band height="42" splitType="Stretch">
+			<textField pattern="#,##0.00">
+				<reportElement x="486" y="5" width="69" height="20" uuid="a2bebb1f-86f9-4c87-82a5-36f426374ee9"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{Total}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="5" width="58" height="20" uuid="a7cf92ec-3e55-4c1c-a110-980ddf31a4f2"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{count}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="19" width="554" height="1" uuid="e5cbac76-1f0d-401b-8060-d75f7a002671"/>
+				<graphicElement>
+					<pen lineWidth="1.0"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="0" y="2" width="554" height="1" uuid="7b88d864-1d9d-4320-9521-5e21f5f21fff"/>
+				<graphicElement>
+					<pen lineWidth="1.0"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="411" y="5" width="35" height="20" uuid="ab428a37-e629-46db-825d-bb3282e4ac35"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{Full qunatity}]]></textFieldExpression>
+			</textField>
+		</band>
 	</summary>
 </jasperReport>

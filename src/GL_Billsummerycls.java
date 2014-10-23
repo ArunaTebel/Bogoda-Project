@@ -53,7 +53,7 @@ public class GL_Billsummerycls {
         //    System.out.println("on");
         Date Sdate = java.sql.Date.valueOf(year + "-" + month + "-" + "01");
 
-        Date Ldate = java.sql.Date.valueOf(year + "-" + month + "-" + "31");
+        Date Ldate = java.sql.Date.valueOf(year + "-" + month + "-" + datehandler.return_enddate(year, month));
 //System.out.println(Sdate+"   "+ Ldate);
         DatabaseManager dbm = DatabaseManager.getDbCon();
         try {
@@ -92,7 +92,7 @@ public class GL_Billsummerycls {
         //System.out.println("on");
         Date Sdate = java.sql.Date.valueOf(year + "-" + month + "-" + "01");
 
-        Date Ldate = java.sql.Date.valueOf(year + "-" + month + "-" + "31");
+        Date Ldate = java.sql.Date.valueOf(year + "-" + month + "-" + datehandler.return_enddate(year, month));
 //System.out.println(Sdate+"   "+ Ldate);
      //   DatabaseManager dbm = DatabaseManager.getDbCon();
         try {
@@ -135,16 +135,16 @@ public class GL_Billsummerycls {
 //        if (month.equals("12")) {
 //            date4 = java.sql.Date.valueOf(String.valueOf(Integer.parseInt(year) + 1) + "-" + datehandler.get_next_month(month) + "-" + "07");
 //        } else {
-            date4 = java.sql.Date.valueOf(year + "-" + month + "-" + enddate);
+            date4 = java.sql.Date.valueOf(year + "-" + month + "-" + datehandler.return_enddate(year, month));
        // }
 
        // DatabaseManager dbm = DatabaseManager.getDbCon();
         try {
 
-            ResultSet query = dbm.query("SELECT * FROM " + "gl_cash_advance" + " where " + "sup_id" + " = '" + sup_id + " 'AND " + "ordered_date" + " BETWEEN'" + date1 + "' AND '" + date4 + "'");
+            ResultSet query = dbm.query("SELECT * FROM " + "gl_cash_advance" + " where " + "sup_id" + " = '" + sup_id + " 'AND " + "issued_date" + " BETWEEN'" + date1 + "' AND '" + date4 + "'");
 
             while (query.next()) {
-                total[i][0] = datehandler.get_date_as_a_String(query.getDate("ordered_date"));
+                total[i][0] = datehandler.get_date_as_a_String(query.getDate("issued_date"));
                 total[i][1] = "cash";
                 total[i][2] = "none";
                 total[i][3] = "N/A";
@@ -181,7 +181,8 @@ public class GL_Billsummerycls {
 //        if (month.equals("12")) {
 //            date4 = java.sql.Date.valueOf(String.valueOf(Integer.parseInt(year) + 1) + "-" + datehandler.get_next_month(month) + "-" + "07");
 //        } else {
-            date4 = java.sql.Date.valueOf(year + "-" +month + "-" + enddate);
+            date4 = java.sql.Date.valueOf(year + "-" +month + "-" + datehandler.return_enddate(year, month));
+            //System.out.println(datehandler.return_enddate(year, month)+"----"+ month);
    //     }
         //System.out.println(date1);
         // System.out.println(date4);
@@ -236,7 +237,7 @@ public class GL_Billsummerycls {
 //        if (month.equals("12")) {
 //            date4 = java.sql.Date.valueOf(String.valueOf(Integer.parseInt(year) + 1) + "-" + datehandler.get_next_month(month) + "-" + "07");
 //        } else {
-            date4 = java.sql.Date.valueOf(year + "-" + month + "-" + enddate);
+            date4 = java.sql.Date.valueOf(year + "-" + month + "-" + datehandler.return_enddate(year, month));
      //   }
 
         // System.out.println(date1+"----"+date2+"----"+date3+"-----"+date4);
@@ -267,12 +268,12 @@ public class GL_Billsummerycls {
 
         Date date1 = java.sql.Date.valueOf(year + "-" + month + "-" + startdate);
 
-        Date date4 = java.sql.Date.valueOf(year + "-" + month + "-" + enddate);
+        Date date4 = java.sql.Date.valueOf(year + "-" + month + "-" + datehandler.return_enddate(year, month));
 
     //    DatabaseManager dbm = DatabaseManager.getDbCon();
         try {
 
-            ResultSet query = dbm.query("SELECT * FROM " + "gl_cash_advance" + " where " + "sup_id" + " = '" + sup_id + " 'AND " + "ordered_date" + " BETWEEN'" + date1 + "' AND '" + date4 + "'");
+            ResultSet query = dbm.query("SELECT * FROM " + "gl_cash_advance" + " where " + "sup_id" + " = '" + sup_id + " 'AND " + "issued_date" + " BETWEEN'" + date1 + "' AND '" + date4 + "'");
 
             while (query.next()) {
 
@@ -295,7 +296,7 @@ public class GL_Billsummerycls {
 
         Date date1 = java.sql.Date.valueOf(year + "-" + month + "-" + startdate);
 
-        Date date4 = java.sql.Date.valueOf(year + "-" + month + "-" + enddate);
+        Date date4 = java.sql.Date.valueOf(year + "-" + month + "-" + datehandler.return_enddate(year, month));
 
        // DatabaseManager dbm = DatabaseManager.getDbCon();
         try {
@@ -352,7 +353,7 @@ public class GL_Billsummerycls {
 //        if (month.equals("12")) {
 //            date4 = java.sql.Date.valueOf(String.valueOf(Integer.parseInt(year) + 1) + "-" + datehandler.get_next_month(month) + "-" + "07");
 //        } else {
-            date4 = java.sql.Date.valueOf(year + "-" + month + "-" + enddate);
+            date4 = java.sql.Date.valueOf(year + "-" + month + "-" + datehandler.return_enddate(year, month));
       //  }
 
         DatabaseManager dbm = DatabaseManager.getDbCon();

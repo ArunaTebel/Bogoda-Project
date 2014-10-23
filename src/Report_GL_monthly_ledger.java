@@ -222,7 +222,6 @@ public class Report_GL_monthly_ledger extends javax.swing.JPanel {
         monthfield = new javax.swing.JTextField();
         yearfield = new javax.swing.JTextField();
         datePicker1 = new com.michaelbaranov.microba.calendar.DatePicker();
-        view = new javax.swing.JButton();
         jProgressBar1 = new javax.swing.JProgressBar();
         jLabel4 = new javax.swing.JLabel();
         view2 = new javax.swing.JButton();
@@ -300,19 +299,6 @@ public class Report_GL_monthly_ledger extends javax.swing.JPanel {
                 .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        view.setText("Update");
-        view.setEnabled(false);
-        view.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                viewMouseClicked(evt);
-            }
-        });
-        view.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                viewActionPerformed(evt);
-            }
-        });
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel4.setText("Monthly Ledger");
@@ -393,7 +379,6 @@ public class Report_GL_monthly_ledger extends javax.swing.JPanel {
                         .addGap(24, 24, 24)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(view2, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
-                            .addComponent(view, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(view1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(view3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(58, 58, 58)
@@ -416,9 +401,7 @@ public class Report_GL_monthly_ledger extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(view, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(view4, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(view4, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -602,7 +585,7 @@ public class Report_GL_monthly_ledger extends javax.swing.JPanel {
             // dayfield2.selectAll();
 
         }
-         update.update_month_check(view, yearfield, monthfield);
+        // update.update_month_check(view, yearfield, monthfield);
     }//GEN-LAST:event_monthfieldKeyPressed
 
     private void yearfieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_yearfieldKeyPressed
@@ -624,7 +607,7 @@ public class Report_GL_monthly_ledger extends javax.swing.JPanel {
             //  dayfield2.selectAll();
 
         }
-         update.update_month_check(view, yearfield, monthfield);
+        // update.update_month_check(view, yearfield, monthfield);
     }//GEN-LAST:event_yearfieldKeyPressed
 
     private void datePicker1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datePicker1ActionPerformed
@@ -635,23 +618,8 @@ public class Report_GL_monthly_ledger extends javax.swing.JPanel {
         yearfield.setText(datehandler.get_year(datef));
       //  dayfield2.requestFocus();
         // dayfield2.selectAll();
-         update.update_month_check(view, yearfield, monthfield);
+       //  update.update_month_check(view, yearfield, monthfield);
     }//GEN-LAST:event_datePicker1ActionPerformed
-
-    private void viewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewActionPerformed
-     int a= JOptionPane.showConfirmDialog(datechooser, "This will update the Monthly Ledger. it will take several minutes to complete.. Are you sure?");
-        System.out.println(a); 
-         Thread b = new Thread(new report());
-        if(a==0){  b.start();}
-      
-        
-        //b.start();
-        
-    }//GEN-LAST:event_viewActionPerformed
-
-    private void viewMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewMouseClicked
-        // jLabel4.setText("please wait..");
-    }//GEN-LAST:event_viewMouseClicked
 
     private void view2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_view2MouseClicked
         // TODO add your handling code here:
@@ -729,7 +697,6 @@ public class Report_GL_monthly_ledger extends javax.swing.JPanel {
     private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JTextField monthfield;
     private javax.swing.JCheckBox route;
-    private javax.swing.JButton view;
     private javax.swing.JButton view1;
     private javax.swing.JButton view2;
     private javax.swing.JButton view3;

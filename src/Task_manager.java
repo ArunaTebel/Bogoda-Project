@@ -1072,15 +1072,23 @@ public class Task_manager extends javax.swing.JPanel {
     }//GEN-LAST:event_GL4ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-if(update.check_update(yearfield.getText(), datehandler.return_month_as_num(monthfield.getText()))){
- 
-    System.out.println("Updated");
-         
-
-}
+    String aa = dbm.checknReturnData("update_dates", "month", yearfield.getText()+datehandler.return_month_as_num(monthfield.getText()), "last_update");
+    if(aa ==null ){
+     
+       if(update.check_update(yearfield.getText(), datehandler.return_month_as_num(monthfield.getText()))){
+ System.out.println("Updated");
+         }
         
        a = new Thread(new task_green_leaf());
         a.start();
+      
+      
+        } else{
+        
+        
+        JOptionPane.showMessageDialog(advanceC, "You cannot process this month");}
+        
+       
         
         
         
@@ -1194,8 +1202,8 @@ public static Thread b;
     public static javax.swing.JCheckBox prvdebtsC;
     public static javax.swing.JLabel prvdebtsL;
     public static javax.swing.JProgressBar prvdebtsP;
-    public static javax.swing.JProgressBar salaryCalP;
-    public static javax.swing.JLabel salarycalL;
+    private javax.swing.JProgressBar salaryCalP;
+    private javax.swing.JLabel salarycalL;
     public static javax.swing.JCheckBox salarycaloverallC;
     public static javax.swing.JLabel salarycaloverallL;
     public static javax.swing.JProgressBar salarycaloverallP;

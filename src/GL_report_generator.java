@@ -56,7 +56,7 @@ public class GL_report_generator {
 
         Date Sdate = java.sql.Date.valueOf(year + "-" + month + "-" + "01");
 
-        Date Ldate = java.sql.Date.valueOf(year + "-" + month + "-" + "31");
+        Date Ldate = java.sql.Date.valueOf(year + "-" + month + "-" + date_handler.return_enddate(year, month));
 
         //DatabaseManager dbm = DatabaseManager.getDbCon();
         try {
@@ -156,7 +156,7 @@ public class GL_report_generator {
 //        if (month.equals("12")) {
 //            date4 = java.sql.Date.valueOf(String.valueOf(Integer.parseInt(year) + 1) + "-" + date_handler.get_next_month(month) + "-" + endDate);
 //        } else {
-            date4 = java.sql.Date.valueOf(year + "-" + month + "-" + endDate);
+            date4 = java.sql.Date.valueOf(year + "-" + month + "-" + date_handler.return_enddate(year, month));
     //    }
 
         // System.out.println(date1+"-------------"+date4);
@@ -222,7 +222,7 @@ public class GL_report_generator {
 //        if (month.equals("12")) {
 //            date4 = java.sql.Date.valueOf(String.valueOf(Integer.parseInt(year) + 1) + "-" + date_handler.get_next_month(month) + "-" + endDate);
 //        } else {
-            date4 = java.sql.Date.valueOf(year + "-" + month + "-" + endDate);
+            date4 = java.sql.Date.valueOf(year + "-" + month + "-" + date_handler.return_enddate(year, month));
     //    }
 
         // System.out.println(date1+"----"+date2+"----"+date3+"-----"+date4);
@@ -301,7 +301,7 @@ public class GL_report_generator {
 
         // DBCON.disconnect();
         int start = Integer.parseInt(startdate);
-        int end = Integer.parseInt(endDate);
+        int end = date_handler.return_enddate(year, month);
         int p = start;
         int q = 0;
 
@@ -418,7 +418,7 @@ public class GL_report_generator {
 //        if (month.equals("12")) {
 //            date4 = java.sql.Date.valueOf(String.valueOf(Integer.parseInt(year) + 1) + "-" + date_handler.get_next_month(month) + "-" + endDate);
 //        } else {
-            date4 = java.sql.Date.valueOf(year + "-" + month + "-" + endDate);
+            date4 = java.sql.Date.valueOf(year + "-" + month + "-" + date_handler.return_enddate(year, month));
      //   }
 
         // System.out.println(date1+"----"+date2+"----"+date3+"-----"+date4);

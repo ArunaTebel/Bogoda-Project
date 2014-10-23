@@ -398,9 +398,10 @@ public class ACC_Reciept_View_Table extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButton5ActionPerformed
 
-    ACC_Edit_Receipts edit = new ACC_Edit_Receipts();
+    
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
 
+        ACC_Edit_Receipts edit = new ACC_Edit_Receipts();
         edit.setVisible(true);
         int tr_no,check,row;
         tr_no=0;

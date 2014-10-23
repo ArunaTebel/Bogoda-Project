@@ -296,7 +296,7 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/splash/Picture177.png"))); // NOI18N
         jLabel2.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         Main_Content.add(jLabel2);
-        jLabel2.setBounds(390, 210, 470, 200);
+        jLabel2.setBounds(390, 210, 470, 190);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -807,10 +807,10 @@ public class MainWindow extends javax.swing.JFrame {
        String pwd = dbm.checknReturnStringData("user_data", "user_name", User_id.getText(), "pwd");
         if(Pass.getText().equals(pwd)){
          ////////////////////////////////////////////////////Welfare Threads///////////////////////////////////////////////////   
-             Thread t = new Thread(new WelfareThread());
-        Thread t1 = new Thread(new PRCRWelfareThread());
-        t.start();
-        t1.start();
+          //   Thread t = new Thread(new WelfareThread());
+       // Thread t1 = new Thread(new PRCRWelfareThread());
+      //  t.start();
+       // t1.start();
             
          /////////////////////////////////////////////////////time Thread//////////////////////////////////////////////////////   
              String s = User_id.getText();
@@ -1130,7 +1130,7 @@ public class MainWindow extends javax.swing.JFrame {
        // GL_Billsummery bill = new GL_Billsummery(supplier_id.getSelectedItem().toString());
        //  bill.setVisible(true);
         
-         GL_Billsummery bill = new GL_Billsummery("SupID");
+         GL_Billsummery bill = new GL_Billsummery("1");
          bill.setLocation(100,50);
          bill.setVisible(true);
         

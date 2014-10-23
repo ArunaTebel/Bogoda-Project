@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Account Receipt All" language="groovy" pageWidth="993" pageHeight="792" columnWidth="953" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b4a7e90f-236c-48e1-b463-a16c40591ab1">
 	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="70"/>
-	<property name="ireport.y" value="128"/>
+	<property name="ireport.x" value="58"/>
+	<property name="ireport.y" value="115"/>
 	<parameter name="USER" class="java.lang.String"/>
 	<parameter name="a" class="java.lang.String"/>
 	<parameter name="b" class="java.lang.String"/>
@@ -27,13 +27,12 @@
      account_payment_debitside.`debit_account_id` AS account_payment_debitside_debit_account_id,
      account_payment_debitside.`debit_account_name` AS account_payment_debitside_debit_account_name,
      account_payment_debitside.`debit_description` AS account_payment_debitside_debit_description,
-     account_payment_debitside.`debit_amount` AS account_payment_debitside_debit_amount
+     account_payment_debitside.`debit_amount` AS account_payment_debitside_debit_amount,
+     account_payment_creditside.`description` AS account_payment_creditside_description
 FROM
      `account_payment_debitside` account_payment_debitside LEFT OUTER JOIN `account_payment_creditside` account_payment_creditside ON account_payment_debitside.`tr_no` = account_payment_creditside.`tr_no`
-
-where
-
-	$P!{a} = $P{b} ]]>
+WHERE
+     $P!{a} = $P{b}]]>
 	</queryString>
 	<field name="account_payment_creditside_tr_no" class="java.lang.Integer"/>
 	<field name="account_payment_creditside_ref_no" class="java.lang.String"/>
@@ -55,12 +54,33 @@ where
 	<field name="account_payment_debitside_debit_account_name" class="java.lang.String"/>
 	<field name="account_payment_debitside_debit_description" class="java.lang.String"/>
 	<field name="account_payment_debitside_debit_amount" class="java.lang.Double"/>
+	<field name="account_payment_creditside_description" class="java.lang.String"/>
 	<variable name="TITLE" class="java.lang.String"/>
 	<group name="account_payment_creditside_tr_no">
 		<groupExpression><![CDATA[$F{account_payment_creditside_tr_no}]]></groupExpression>
 		<groupHeader>
-			<band height="12"/>
+			<band height="4">
+				<line>
+					<reportElement uuid="ee8f0a64-5795-4e7e-bb7f-22998b3454eb" x="704" y="-1" width="1" height="5"/>
+				</line>
+			</band>
 		</groupHeader>
+		<groupFooter>
+			<band height="17">
+				<line>
+					<reportElement uuid="0d048f90-0a60-4753-b7bf-906c8bd8f6af" x="0" y="8" width="1182" height="1"/>
+					<graphicElement>
+						<pen lineWidth="0.5"/>
+					</graphicElement>
+				</line>
+				<line>
+					<reportElement uuid="ee8f0a64-5795-4e7e-bb7f-22998b3454eb" x="823" y="0" width="1" height="17"/>
+				</line>
+				<line>
+					<reportElement uuid="ee8f0a64-5795-4e7e-bb7f-22998b3454eb" x="704" y="0" width="1" height="17"/>
+				</line>
+			</band>
+		</groupFooter>
 	</group>
 	<background>
 		<band splitType="Stretch"/>
@@ -205,53 +225,25 @@ where
 				<text><![CDATA[Cheque Date]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="dd7b0958-8dfc-412c-9fc5-ce6721134b94" x="408" y="5" width="53" height="20"/>
+				<reportElement uuid="dd7b0958-8dfc-412c-9fc5-ce6721134b94" x="706" y="5" width="53" height="20"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Cr. A/C ID]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="dd7b0958-8dfc-412c-9fc5-ce6721134b94" x="461" y="5" width="66" height="20"/>
-				<textElement>
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Cr. A/C Name]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="dd7b0958-8dfc-412c-9fc5-ce6721134b94" x="530" y="5" width="74" height="20"/>
-				<textElement>
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Cr. Description]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="dd7b0958-8dfc-412c-9fc5-ce6721134b94" x="611" y="5" width="68" height="20"/>
+				<reportElement uuid="dd7b0958-8dfc-412c-9fc5-ce6721134b94" x="759" y="5" width="57" height="20"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Cr. Amount]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="dd7b0958-8dfc-412c-9fc5-ce6721134b94" x="679" y="5" width="48" height="20"/>
+				<reportElement uuid="dd7b0958-8dfc-412c-9fc5-ce6721134b94" x="827" y="5" width="48" height="20"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Dr. A/C ID]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="dd7b0958-8dfc-412c-9fc5-ce6721134b94" x="735" y="5" width="66" height="20"/>
-				<textElement>
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Dr. A/C Name]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="dd7b0958-8dfc-412c-9fc5-ce6721134b94" x="805" y="5" width="72" height="20"/>
-				<textElement>
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Dr. Description]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="dd7b0958-8dfc-412c-9fc5-ce6721134b94" x="898" y="5" width="55" height="20"/>
@@ -259,6 +251,19 @@ where
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Dr. Amount]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="ee8f0a64-5795-4e7e-bb7f-22998b3454eb" x="823" y="1" width="1" height="26"/>
+			</line>
+			<line>
+				<reportElement uuid="ee8f0a64-5795-4e7e-bb7f-22998b3454eb" x="704" y="1" width="1" height="26"/>
+			</line>
+			<staticText>
+				<reportElement uuid="dd7b0958-8dfc-412c-9fc5-ce6721134b94" x="505" y="5" width="60" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Description]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -302,45 +307,25 @@ where
 				<textFieldExpression><![CDATA[$F{account_payment_creditside_cheque_date}.toString()+ "                                                  " + $F{account_payment_creditside_tr_no}.toString()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="1f7ba11e-6ea3-4301-a2d0-de85c2a80a80" isPrintRepeatedValues="false" x="415" y="0" width="38" height="20"/>
+				<reportElement uuid="1f7ba11e-6ea3-4301-a2d0-de85c2a80a80" isPrintRepeatedValues="false" x="713" y="0" width="38" height="20"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{account_payment_creditside_credit_account_id}.toString()+ "                                                  " + $F{account_payment_creditside_tr_no}.toString()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="1f7ba11e-6ea3-4301-a2d0-de85c2a80a80" isPrintRepeatedValues="false" x="461" y="0" width="60" height="20"/>
-				<textElement/>
-				<textFieldExpression><![CDATA[$F{account_payment_creditside_credit_account_name}.toString()+ "                                                  " + $F{account_payment_creditside_tr_no}.toString()]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement uuid="1f7ba11e-6ea3-4301-a2d0-de85c2a80a80" isPrintRepeatedValues="false" x="525" y="0" width="86" height="20"/>
-				<textElement/>
-				<textFieldExpression><![CDATA[$F{account_payment_creditside_credit_description}.toString()+ "                                                  " + $F{account_payment_creditside_tr_no}.toString()]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement uuid="1f7ba11e-6ea3-4301-a2d0-de85c2a80a80" isPrintRepeatedValues="false" x="617" y="0" width="47" height="20"/>
+				<reportElement uuid="1f7ba11e-6ea3-4301-a2d0-de85c2a80a80" isPrintRepeatedValues="false" x="769" y="0" width="47" height="20"/>
 				<textElement verticalAlignment="Top">
 					<font isBold="true" isStrikeThrough="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{account_payment_creditside_credit_amount}.toString()+ "                                     "+ $F{account_payment_creditside_tr_no}.toString()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="1f7ba11e-6ea3-4301-a2d0-de85c2a80a80" x="686" y="0" width="53" height="20"/>
+				<reportElement uuid="1f7ba11e-6ea3-4301-a2d0-de85c2a80a80" x="834" y="0" width="53" height="20"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{account_payment_debitside_debit_account_id}.toString()]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement uuid="1f7ba11e-6ea3-4301-a2d0-de85c2a80a80" x="740" y="0" width="66" height="20"/>
-				<textElement/>
-				<textFieldExpression><![CDATA[$F{account_payment_debitside_debit_account_name}.toString()]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement uuid="1f7ba11e-6ea3-4301-a2d0-de85c2a80a80" x="807" y="0" width="80" height="20"/>
-				<textElement/>
-				<textFieldExpression><![CDATA[$F{account_payment_debitside_debit_description}.toString()]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="1f7ba11e-6ea3-4301-a2d0-de85c2a80a80" x="888" y="0" width="60" height="20"/>
@@ -355,6 +340,22 @@ where
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{account_payment_creditside_tr_no}.toString()]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="ee8f0a64-5795-4e7e-bb7f-22998b3454eb" x="823" y="0" width="1" height="23"/>
+			</line>
+			<line>
+				<reportElement uuid="ee8f0a64-5795-4e7e-bb7f-22998b3454eb" x="823" y="-5" width="1" height="5"/>
+			</line>
+			<line>
+				<reportElement uuid="ee8f0a64-5795-4e7e-bb7f-22998b3454eb" x="704" y="0" width="1" height="23"/>
+			</line>
+			<textField>
+				<reportElement uuid="1f7ba11e-6ea3-4301-a2d0-de85c2a80a80" isPrintRepeatedValues="false" x="409" y="0" width="294" height="20"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{account_payment_creditside_description}.toString()+ "                                                                                                                                                                                                     " + $F{account_payment_creditside_tr_no}.toString()]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

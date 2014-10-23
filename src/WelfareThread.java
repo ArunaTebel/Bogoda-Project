@@ -18,14 +18,22 @@ import javax.swing.JOptionPane;
  * @author Acer
  */
 public class WelfareThread implements Runnable{
+    String day;
+    String MNT;
+    
+    public WelfareThread(String year){
+    day = year;
+   // MNT = month;
+    
+    }
     
     public void run(){
         DatabaseManager dbm =DatabaseManager.getDbCon();
-        Calendar currentDate = Calendar.getInstance();
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        //Calendar currentDate = Calendar.getInstance();
+        //SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         
         int isUpdated = -1;
-        String day = formatter.format(currentDate.getTime());
+        //String day = formatter.format(currentDate.getTime());
         
         int month = Integer.parseInt(day.substring(5, 7));
         int year = Integer.parseInt(day.substring(0, 4));

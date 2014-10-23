@@ -24,6 +24,7 @@ public class GL_BillsummeryPanel extends javax.swing.JPanel {
     GL_Billsummerycls billsum = new GL_Billsummerycls();
 
     Date_Handler datehandler = new Date_Handler();
+    String current = "a";
 
     /**
      * Creates new form GL_BillsummeryPanel
@@ -32,48 +33,62 @@ public class GL_BillsummeryPanel extends javax.swing.JPanel {
         defaults.put("nimbusOrange", defaults.get("nimbusBase"));
         UIManager.getLookAndFeelDefaults().put("nimbusOrange", (new Color(51, 153, 0)));
         initComponents();
-        set_val.setText(dbm.checknReturnStringData("rate_details", "Code_name", "GLSET", "rate")+"");
-       set_zero();
-        
+
+        set_val.setText(dbm.checknReturnStringData("rate_details", "Code_name", "GLSET", "rate") + "");
+        set_zero();
+
         int[] day = new int[31];
         int n = 0;
-        while(n<31){  day[n]=0;  n++;}
+        while (n < 31) {
+            day[n] = 0;
+            n++;
+        }
         set_day_values(day);
         set_max_Kg(10);
     }
-   
-    public void focus(String sup){
-    this.requestFocus();
-    supplier_id.requestFocus();
-    supplier_id.setSelectedItem(sup);
-    supplier_id.getEditor().selectAll();
-    
-    
+
+    public void focus(String sup) {
+        this.requestFocus();
+        supplier_id.requestFocus();
+        supplier_id.setSelectedItem(sup);
+        supplier_id.getEditor().selectAll();
+
     }
-    public void Fill_tables(javax.swing.JTable Supplies, javax.swing.JTable jtable2){
-    String month = monthfield.getText();
+
+    public void enterkey_action() {
+
+        if (current.equals(yearfield.getText() + monthfield.getText())) {
+            supplier_id.requestFocus();
+            supplier_id.getEditor().selectAll();
+        } else {
+
+            set_zero();
+            Fill_tables(Supplies, jTable2);
+            calculate();
+            current = yearfield.getText() + monthfield.getText();
+        }
+
+    }
+
+    public void Fill_tables(javax.swing.JTable Supplies, javax.swing.JTable jtable2) {
+        String month = monthfield.getText();
         String year = yearfield.getText();
         int sup = Integer.parseInt(supplier_id.getSelectedItem().toString());
         ((DefaultTableModel) Supplies.getModel()).setNumRows(0);
        // ((DefaultTableModel) Supplies.getModel()).setNumRows(i + 1);
-       
+
         String[][] values = new String[1000][5];
-               int p = 0;
-               int q = 0;
-               while (p < 1000) {
-                   while (q < 5) {
-                  
-                       values[p][q] = null;
-                       q++;
-                   }
-             p++;
-               }
-        
-        
-        
-        
-        
-        
+        int p = 0;
+        int q = 0;
+        while (p < 1000) {
+            while (q < 5) {
+
+                values[p][q] = null;
+                q++;
+            }
+            p++;
+        }
+
         values = billsum.GL_table(sup, year, datehandler.return_month_as_num(month));
         //System.out.println(values[1][0]);
         double Max_kg = 0;
@@ -83,14 +98,14 @@ public class GL_BillsummeryPanel extends javax.swing.JPanel {
         double[] day_values = new double[31];
         int[] day_values_int = new int[31];
         double total = 0;
-       // String chek = "not null";
-        while (i < 1000 && values[i][0]!=null) {
-            j=0;
+        // String chek = "not null";
+        while (i < 1000 && values[i][0] != null) {
+            j = 0;
             //System.out.println(values[i][0]);
             day = Integer.parseInt(values[i][0].substring(8));
             //System.out.println(day);
             day_values[ day - 1] = day_values[day - 1] + Double.parseDouble(values[i][4]);
-            total+=Double.parseDouble(values[i][4]);
+            total += Double.parseDouble(values[i][4]);
             if (Max_kg < day_values[day - 1]) {
                 Max_kg = day_values[day - 1];
             }
@@ -98,155 +113,135 @@ public class GL_BillsummeryPanel extends javax.swing.JPanel {
             ((DefaultTableModel) Supplies.getModel()).setNumRows(i + 1);
             //chek = values[i][0];
             while (j < 5) {
-                
+
                 Supplies.setValueAt(values[i][j], i, j);
-               // System.out.println("in loop");
+                // System.out.println("in loop");
                 j++;
             }
-                 i++;
+            i++;
         }
-       //System.out.println("loop done");
-         Supply_total.setText("" + total);
-         set_max_Kg((int) Math.round(Max_kg));
-         int k=0;
-         while(k<31){
-           day_values_int[k] = (int) Math.round(day_values[k]);
+        //System.out.println("loop done");
+        Supply_total.setText("" + total);
+        set_max_Kg((int) Math.round(Max_kg));
+        int k = 0;
+        while (k < 31) {
+            day_values_int[k] = (int) Math.round(day_values[k]);
             k++;
-         }
-         set_day_values(day_values_int);
-         //////////////////////////////////////////////////////////////////loans/////////////////////////////////////////////////////
-          ((DefaultTableModel) jTable4.getModel()).setNumRows(0);
-           p = 0;
-                q = 0;
-               while (p < 1000) {
-                   while (q < 5) {
+        }
+        set_day_values(day_values_int);
+        //////////////////////////////////////////////////////////////////loans/////////////////////////////////////////////////////
+        ((DefaultTableModel) jTable4.getModel()).setNumRows(0);
+        p = 0;
+        q = 0;
+        while (p < 1000) {
+            while (q < 5) {
 
-                       values[p][q] = null;
-                       q++;
-                   }
-                p++;
-               }
+                values[p][q] = null;
+                q++;
+            }
+            p++;
+        }
         double loans_tot = 0;
         i = 0;
-             
+
         // if(Integer.parseInt(dayfield.getText())<(Integer.parseInt(datehandler.get_advance_month_split_day())+1))
-      //   {      
-               
+        //   {      
        //      values = billsum.advance_table(sup, year, datehandler.get_prev_month(datehandler.return_month_as_num(month)));}
-      //   else{
-             values= billsum.loans_table(sup, year, datehandler.return_month_as_num(month));//}
-          while (i < 1000 && values[i][0]!=null) {
-            j=0;
-            
-           
+        //   else{
+        values = billsum.loans_table(sup, year, datehandler.return_month_as_num(month));//}
+        while (i < 1000 && values[i][0] != null) {
+            j = 0;
 
             ((DefaultTableModel) jTable4.getModel()).setNumRows(i + 1);
             //chek = values[i][0];
             while (j < 5) {
-                
+
                 jTable4.setValueAt(values[i][j], i, j);
-                
-             
-               
+
                 j++;
             }
-             loans_tot+=Double.parseDouble(values[i][4]); 
-                 i++;
+            loans_tot += Double.parseDouble(values[i][4]);
+            i++;
         }
-       
-         
-         
-         
-         
-         
-         
-         
-        /////////////////////////////////////////////////////////cash advance/////////////////////////////////////////////////////////
-       ((DefaultTableModel) jTable2.getModel()).setNumRows(0);
-           p = 0;
-                q = 0;
-               while (p < 1000) {
-                   while (q < 5) {
 
-                       values[p][q] = null;
-                       q++;
-                   }
-                p++;
-               }
-         double Ad_total= 0;
+        /////////////////////////////////////////////////////////cash advance/////////////////////////////////////////////////////////
+        ((DefaultTableModel) jTable2.getModel()).setNumRows(0);
+        p = 0;
+        q = 0;
+        while (p < 1000) {
+            while (q < 5) {
+
+                values[p][q] = null;
+                q++;
+            }
+            p++;
+        }
+        double Ad_total = 0;
         i = 0;
-             
+
         // if(Integer.parseInt(dayfield.getText())<(Integer.parseInt(datehandler.get_advance_month_split_day())+1))
-      //   {      
-               
+        //   {      
        //      values = billsum.advance_table(sup, year, datehandler.get_prev_month(datehandler.return_month_as_num(month)));}
-      //   else{
-             values= billsum.advance_table(sup, year, datehandler.return_month_as_num(month));//}
-          while (i < 1000 && values[i][0]!=null) {
-            j=0;
-            
-           
+        //   else{
+        values = billsum.advance_table(sup, year, datehandler.return_month_as_num(month));//}
+        while (i < 1000 && values[i][0] != null) {
+            j = 0;
 
             ((DefaultTableModel) jTable2.getModel()).setNumRows(i + 1);
             //chek = values[i][0];
             while (j < 5) {
-                
+
                 jTable2.setValueAt(values[i][j], i, j);
-                
-             
-               
+
                 j++;
             }
-             Ad_total+=Double.parseDouble(values[i][4]); 
-                 i++;
+            Ad_total += Double.parseDouble(values[i][4]);
+            i++;
         }
-       
-      ////////////////////////////////////other advance/////////////////////////////////////  
-        
-          
-            p = 0;
-                q = 0;
-               while (p < 1000) {
-                   while (q < 5) {
 
-                       values[p][q] = null;
-                       q++;
-                   }
-                p++;
-               }
-           
-           int x =0;
-         //if(Integer.parseInt(dayfield.getText())<(Integer.parseInt(datehandler.get_advance_month_split_day())+1))
+      ////////////////////////////////////other advance/////////////////////////////////////  
+        p = 0;
+        q = 0;
+        while (p < 1000) {
+            while (q < 5) {
+
+                values[p][q] = null;
+                q++;
+            }
+            p++;
+        }
+
+        int x = 0;
+        //if(Integer.parseInt(dayfield.getText())<(Integer.parseInt(datehandler.get_advance_month_split_day())+1))
         // {values = billsum.other_advance_table(sup, year, datehandler.get_prev_month(datehandler.return_month_as_num(month)));}
         // else{ 
-           values= billsum.other_advance_table(sup, year, datehandler.return_month_as_num(month));//}
-          while (i < 1000 && values[x][0]!=null) {
-            j=0;
+        values = billsum.other_advance_table(sup, year, datehandler.return_month_as_num(month));//}
+        while (i < 1000 && values[x][0] != null) {
+            j = 0;
             //System.out.println(values[i][0]);
-           
 
             ((DefaultTableModel) jTable2.getModel()).setNumRows(i + 1);
             //chek = values[i][0];
             while (j < 5) {
                 //System.out.println("in loop");
                 jTable2.setValueAt(values[x][j], i, j);
-            
+
                 j++;
             }
-            Ad_total+=Double.parseDouble(values[x][4]);
-             // System.out.println(Ad_total);
-                 i++;
-                 x++;
+            Ad_total += Double.parseDouble(values[x][4]);
+            // System.out.println(Ad_total);
+            i++;
+            x++;
         }
-          
-           Advance_tot.setText(billsum.two_dec_places(""+Ad_total));
-           TotalKG.setText(billsum.two_dec_places(""+total));
-            loantot.setText(billsum.two_dec_places(""+loans_tot));
-            total_ad.setText(billsum.two_dec_places(""+Ad_total));
-            pedet.setText(billsum.two_dec_places(""+dbm.checknReturnDoubleData("supplier_pre_debt_coins", "entry", year+ datehandler.return_month_as_num(month)+sup, "pre_debts")));
-            loans.setText(billsum.two_dec_places(""+loans_tot));
+
+        Advance_tot.setText(billsum.two_dec_places("" + Ad_total));
+        TotalKG.setText(billsum.two_dec_places("" + total));
+        loantot.setText(billsum.two_dec_places("" + loans_tot));
+        total_ad.setText(billsum.two_dec_places("" + Ad_total));
+        pedet.setText(billsum.two_dec_places("" + dbm.checknReturnDoubleData("supplier_pre_debt_coins", "entry", year + datehandler.return_month_as_num(month) + sup, "pre_debts")));
+        loans.setText(billsum.two_dec_places("" + loans_tot));
          //   System.out.println(month);
-       // if(datehandler.return_month_as_num(month).equals("01")){year = (Integer.parseInt(year)-1)+"";}
+        // if(datehandler.return_month_as_num(month).equals("01")){year = (Integer.parseInt(year)-1)+"";}
         //System.out.println(year);
 //             Advance_tot.setText(""+Ad_total);
 //              TotalKG.setText(""+total);
@@ -255,6 +250,7 @@ public class GL_BillsummeryPanel extends javax.swing.JPanel {
 //            pedet.setText(dbm.checknReturnData("supplier_pre_debt_coins", "entry", year+ datehandler.return_month_as_num(month)+sup, "pre_debts"));
 //            loans.setText(""+loans_tot);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -289,6 +285,8 @@ public class GL_BillsummeryPanel extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        welf = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
@@ -486,71 +484,94 @@ public class GL_BillsummeryPanel extends javax.swing.JPanel {
             }
         });
 
+        welf.setBackground(new java.awt.Color(255, 153, 153));
+
+        jLabel11.setText("Welfare");
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(set_val, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel10))
-                        .addGap(2, 2, 2)))
-                .addGap(32, 32, 32)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(TotalKG, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(gross_amount, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(total_ad, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(loans, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pedet, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(final_total))
-                .addContainerGap())
-            .addGroup(jPanel6Layout.createSequentialGroup()
                 .addComponent(jButton1)
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(set_val, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel11))
+                                .addGap(2, 2, 2)))
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addGap(32, 32, 32)
+                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(TotalKG, javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(gross_amount, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(total_ad, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(loans, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                                .addComponent(jLabel10)
+                                .addGap(27, 27, 27)
+                                .addComponent(final_total, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addGap(2, 2, 2)
+                                .addGap(32, 32, 32)
+                                .addComponent(pedet, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(welf, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel8)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel9))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(TotalKG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5))
-                        .addGap(15, 15, 15)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(gross_amount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(set_val, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(total_ad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(loans, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(13, 13, 13)
-                        .addComponent(pedet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(TotalKG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addGap(15, 15, 15)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(gross_amount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(set_val, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(total_ad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(loans, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(welf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11))
+                .addGap(11, 11, 11)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(pedet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(final_total, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addComponent(jButton1))
         );
 
@@ -1232,173 +1253,175 @@ public class GL_BillsummeryPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void supplier_idItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_supplier_idItemStateChanged
-set_zero();
-        
-        try {
-            
-      if(supplier_id.getSelectedIndex()!=0){
-           if(supplier_id.getSelectedItem()!=""){
-               supplier_name.setText(dbm.checknReturnData("suppliers", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "sup_name"));
-    
-               Fill_tables(Supplies, jTable2);
-               calculate();
-/*
-        String month = monthfield.getText();
-        String year = yearfield.getText();
-        int sup = Integer.parseInt(supplier_id.getSelectedItem().toString());
-        ((DefaultTableModel) Supplies.getModel()).setNumRows(0);
-       // ((DefaultTableModel) Supplies.getModel()).setNumRows(i + 1);
+        set_zero();
+
+       // try {
+
+            if (supplier_id.getSelectedIndex() != 0) {
+                if (supplier_id.getSelectedItem() != "") {
+                    supplier_name.setText(dbm.checknReturnData("suppliers", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "sup_name"));
+
+                    Fill_tables(Supplies, jTable2);
+                    calculate();
+                    /*
+                     String month = monthfield.getText();
+                     String year = yearfield.getText();
+                     int sup = Integer.parseInt(supplier_id.getSelectedItem().toString());
+                     ((DefaultTableModel) Supplies.getModel()).setNumRows(0);
+                     // ((DefaultTableModel) Supplies.getModel()).setNumRows(i + 1);
        
-        String[][] values = new String[1000][5];
-               int p = 0;
-               int q = 0;
-               while (p < 1000) {
-                   while (q < 5) {
+                     String[][] values = new String[1000][5];
+                     int p = 0;
+                     int q = 0;
+                     while (p < 1000) {
+                     while (q < 5) {
                   
-                       values[p][q] = null;
-                       q++;
-                   }
-             p++;
-               }
+                     values[p][q] = null;
+                     q++;
+                     }
+                     p++;
+                     }
         
         
         
         
         
         
-        values = billsum.GL_table(sup, year, datehandler.return_month_as_num(month));
-        //System.out.println(values[1][0]);
-        double Max_kg = 0;
-        int i = 0;
-        int j = 0;
-        int day;
-        double[] day_values = new double[31];
-        int[] day_values_int = new int[31];
-        double total = 0;
-       // String chek = "not null";
-        while (i < 1000 && values[i][0]!=null) {
-            j=0;
-            //System.out.println(values[i][0]);
-            day = Integer.parseInt(values[i][0].substring(8));
-            //System.out.println(day);
-            day_values[ day - 1] = day_values[day - 1] + Double.parseDouble(values[i][4]);
-            total+=Double.parseDouble(values[i][4]);
-            if (Max_kg < day_values[day - 1]) {
-                Max_kg = day_values[day - 1];
-            }
+                     values = billsum.GL_table(sup, year, datehandler.return_month_as_num(month));
+                     //System.out.println(values[1][0]);
+                     double Max_kg = 0;
+                     int i = 0;
+                     int j = 0;
+                     int day;
+                     double[] day_values = new double[31];
+                     int[] day_values_int = new int[31];
+                     double total = 0;
+                     // String chek = "not null";
+                     while (i < 1000 && values[i][0]!=null) {
+                     j=0;
+                     //System.out.println(values[i][0]);
+                     day = Integer.parseInt(values[i][0].substring(8));
+                     //System.out.println(day);
+                     day_values[ day - 1] = day_values[day - 1] + Double.parseDouble(values[i][4]);
+                     total+=Double.parseDouble(values[i][4]);
+                     if (Max_kg < day_values[day - 1]) {
+                     Max_kg = day_values[day - 1];
+                     }
 
-            ((DefaultTableModel) Supplies.getModel()).setNumRows(i + 1);
-            //chek = values[i][0];
-            while (j < 5) {
+                     ((DefaultTableModel) Supplies.getModel()).setNumRows(i + 1);
+                     //chek = values[i][0];
+                     while (j < 5) {
                 
-                Supplies.setValueAt(values[i][j], i, j);
-               // System.out.println("in loop");
-                j++;
-            }
-                 i++;
-        }
-       //System.out.println("loop done");
-         Supply_total.setText("" + total);
-         set_max_Kg((int) Math.round(Max_kg));
-         int k=0;
-         while(k<31){
-           day_values_int[k] = (int) Math.round(day_values[k]);
-            k++;
-         }
-         set_day_values(day_values_int);
+                     Supplies.setValueAt(values[i][j], i, j);
+                     // System.out.println("in loop");
+                     j++;
+                     }
+                     i++;
+                     }
+                     //System.out.println("loop done");
+                     Supply_total.setText("" + total);
+                     set_max_Kg((int) Math.round(Max_kg));
+                     int k=0;
+                     while(k<31){
+                     day_values_int[k] = (int) Math.round(day_values[k]);
+                     k++;
+                     }
+                     set_day_values(day_values_int);
          
-        /////////////////////////////////////////////////////////cash advance/////////////////////////////////////////////////////////
-       ((DefaultTableModel) jTable2.getModel()).setNumRows(0);
-           p = 0;
-                q = 0;
-               while (p < 1000) {
-                   while (q < 5) {
+                     /////////////////////////////////////////////////////////cash advance/////////////////////////////////////////////////////////
+                     ((DefaultTableModel) jTable2.getModel()).setNumRows(0);
+                     p = 0;
+                     q = 0;
+                     while (p < 1000) {
+                     while (q < 5) {
 
-                       values[p][q] = null;
-                       q++;
-                   }
-                p++;
-               }
-         double Ad_total= 0;
-        i = 0;
+                     values[p][q] = null;
+                     q++;
+                     }
+                     p++;
+                     }
+                     double Ad_total= 0;
+                     i = 0;
              
-       //  if(Integer.parseInt(dayfield.getText())<(Integer.parseInt(datehandler.get_advance_month_split_day())+1))
-        // {      
+                     //  if(Integer.parseInt(dayfield.getText())<(Integer.parseInt(datehandler.get_advance_month_split_day())+1))
+                     // {      
                
-          //   values = billsum.advance_table(sup, year, datehandler.get_prev_month(datehandler.return_month_as_num(month)));}
-        // else{
-             values= billsum.advance_table(sup, year, datehandler.return_month_as_num(month));//}
-          while (i < 1000 && values[i][0]!=null) {
-            j=0;
+                     //   values = billsum.advance_table(sup, year, datehandler.get_prev_month(datehandler.return_month_as_num(month)));}
+                     // else{
+                     values= billsum.advance_table(sup, year, datehandler.return_month_as_num(month));//}
+                     while (i < 1000 && values[i][0]!=null) {
+                     j=0;
             
            
 
-            ((DefaultTableModel) jTable2.getModel()).setNumRows(i + 1);
-            //chek = values[i][0];
-            while (j < 5) {
+                     ((DefaultTableModel) jTable2.getModel()).setNumRows(i + 1);
+                     //chek = values[i][0];
+                     while (j < 5) {
                 
-                jTable2.setValueAt(values[i][j], i, j);
+                     jTable2.setValueAt(values[i][j], i, j);
                 
              
                
-                j++;
-            }
-             Ad_total+=Double.parseDouble(values[i][4]); 
-                 i++;
-        }
+                     j++;
+                     }
+                     Ad_total+=Double.parseDouble(values[i][4]); 
+                     i++;
+                     }
        
-      ////////////////////////////////////other advance/////////////////////////////////////  
+                     ////////////////////////////////////other advance/////////////////////////////////////  
         
           
-            p = 0;
-                q = 0;
-               while (p < 1000) {
-                   while (q < 5) {
+                     p = 0;
+                     q = 0;
+                     while (p < 1000) {
+                     while (q < 5) {
 
-                       values[p][q] = null;
-                       q++;
-                   }
-                p++;
-               }
+                     values[p][q] = null;
+                     q++;
+                     }
+                     p++;
+                     }
            
-           int x =0;
-       //  if(Integer.parseInt(dayfield.getText())<(Integer.parseInt(datehandler.get_advance_month_split_day())+1))
-       //  {values = billsum.other_advance_table(sup, year, datehandler.get_prev_month(datehandler.return_month_as_num(month)));}
-     //   else{ 
-                values= billsum.other_advance_table(sup, year, datehandler.return_month_as_num(month));
-                //}//}
-          while (i < 1000 && values[x][0]!=null) {
-            j=0;
-            //System.out.println(values[i][0]);
+                     int x =0;
+                     //  if(Integer.parseInt(dayfield.getText())<(Integer.parseInt(datehandler.get_advance_month_split_day())+1))
+                     //  {values = billsum.other_advance_table(sup, year, datehandler.get_prev_month(datehandler.return_month_as_num(month)));}
+                     //   else{ 
+                     values= billsum.other_advance_table(sup, year, datehandler.return_month_as_num(month));
+                     //}//}
+                     while (i < 1000 && values[x][0]!=null) {
+                     j=0;
+                     //System.out.println(values[i][0]);
            
 
-            ((DefaultTableModel) jTable2.getModel()).setNumRows(i + 1);
-            //chek = values[i][0];
-            while (j < 5) {
-                System.out.println("in loop");
-                jTable2.setValueAt(values[x][j], i, j);
+                     ((DefaultTableModel) jTable2.getModel()).setNumRows(i + 1);
+                     //chek = values[i][0];
+                     while (j < 5) {
+                     System.out.println("in loop");
+                     jTable2.setValueAt(values[x][j], i, j);
             
-                j++;
+                     j++;
+                     }
+                     Ad_total+=Double.parseDouble(values[x][4]);
+                     System.out.println(Ad_total);
+                     i++;
+                     x++;
+                     }
+                     Advance_tot.setText(""+Ad_total);
+                     TotalKG.setText(""+total);
+                     total_ad.setText(""+Ad_total);
+                     balBF.setText("0.0");
+                     loans.setText("0.0");
+                     */
+                    monthfield.requestFocus();
+                    monthfield.selectAll();
+                    current = yearfield.getText() + monthfield.getText();
+                }
             }
-            Ad_total+=Double.parseDouble(values[x][4]);
-              System.out.println(Ad_total);
-                 i++;
-                 x++;
-        }
-            Advance_tot.setText(""+Ad_total);
-            TotalKG.setText(""+total);
-            total_ad.setText(""+Ad_total);
-            balBF.setText("0.0");
-            loans.setText("0.0");
-           */
-               monthfield.requestFocus();
-               monthfield.selectAll();
-         }
-       }
- } catch (Exception e) {
-            System.err.println(e.getMessage());  
-        }
-        
+      //  } catch (Exception e) {
+       //     System.err.println(e.getMessage());
+      //      System.out.println("Error here");
+      //  }
+
     }//GEN-LAST:event_supplier_idItemStateChanged
 
     private void supplier_idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supplier_idActionPerformed
@@ -1557,7 +1580,7 @@ set_zero();
         }
         if (evt.getKeyCode() == KeyEvent.VK_LEFT) {
             //dayfield.requestFocus();
-           // dayfield.selectAll();
+            // dayfield.selectAll();
         }
         if (evt.getKeyCode() == KeyEvent.VK_RIGHT) {
             yearfield.requestFocus();
@@ -1565,9 +1588,7 @@ set_zero();
         }
 
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
-           set_zero();
-            Fill_tables(Supplies, jTable2);
-            calculate();
+            enterkey_action();
 
         }
     }//GEN-LAST:event_monthfieldKeyPressed
@@ -1582,15 +1603,13 @@ set_zero();
             yearfield.selectAll();
         }
         if (evt.getKeyCode() == KeyEvent.VK_LEFT) {
-           
+
             monthfield.requestFocus();
             monthfield.selectAll();
         }
 
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
-           set_zero();
-            Fill_tables(Supplies, jTable2);
-            calculate();
+            enterkey_action();
 
         }
     }//GEN-LAST:event_yearfieldKeyPressed
@@ -1605,10 +1624,10 @@ set_zero();
     }//GEN-LAST:event_datePicker1ActionPerformed
 
     private void set_valKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_set_valKeyPressed
-  if(evt.getKeyCode()==KeyEvent.VK_ENTER){         
-              calculate();
-        
-  }
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            calculate();
+
+        }
     }//GEN-LAST:event_set_valKeyPressed
 
     private void monthfieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_monthfieldKeyReleased
@@ -1616,11 +1635,11 @@ set_zero();
     }//GEN-LAST:event_monthfieldKeyReleased
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        dbm.updateDatabase("rate_details", "Code_name", "GLSET","rate", Double.parseDouble(set_val.getText()));
+        dbm.updateDatabase("rate_details", "Code_name", "GLSET", "rate", Double.parseDouble(set_val.getText()));
         calculate();
         //Red_message.setText("Set value saved");
-       // double a =  bill_sum.bill_sum_cal(Integer.parseInt(supplier_id.getSelectedItem().toString()), yearfield.getText(), datehandler.return_month_as_num(monthfield.getText()), Double.parseDouble(Set_val.getText()));
-       // max_allowable.setText(""+a);
+        // double a =  bill_sum.bill_sum_cal(Integer.parseInt(supplier_id.getSelectedItem().toString()), yearfield.getText(), datehandler.return_month_as_num(monthfield.getText()), Double.parseDouble(Set_val.getText()));
+        // max_allowable.setText(""+a);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     public void set_max_Kg(int max) {
@@ -1723,37 +1742,46 @@ set_zero();
         jProgressBar31.setString(Integer.toString(days[30]));
 
     }
-    
-    public void calculate(){
-        
-     if(TotalKG.getText()!= null && total_ad.getText() != null && loans.getText()!= null && pedet.getText()!= null){
-        
-      
-         gross_amount.setText(""+(Double.parseDouble(set_val.getText())*Double.parseDouble(TotalKG.getText())));
-         double rem = Double.parseDouble(gross_amount.getText())-Double.parseDouble(total_ad.getText())-Double.parseDouble(pedet.getText())-Double.parseDouble(loans.getText());
-        final_total.setText(billsum.two_dec_places(""+rem));
-        if(rem>0){
-        
-        final_total.setForeground(new java.awt.Color(0, 153, 0));}
-        else{   final_total.setForeground(new java.awt.Color(204, 0, 0));                    }
-        
-         
-        }}
-    
-    public void set_zero(){
-    String z = "0.0";
-     TotalKG.setText(z);
-     total_ad.setText(z);
-     loans.setText(z);
-     pedet.setText(z);
-    
-    
-    
-    
-    
+
+    public void calculate() {
+
+        if (TotalKG.getText() != null && total_ad.getText() != null && loans.getText() != null && pedet.getText() != null) {
+            String a = "0";
+            try {
+                a = supplier_id.getSelectedItem().toString();
+            } catch (Exception e) {
+
+            }
+
+            String welfare = dbm.checknReturnData("welfare", "entry", yearfield.getText() + datehandler.return_month_as_num(monthfield.getText())+ a, "amount");
+           // System.out.println(welfare);
+            if(welfare== null){welfare = "0.0";}
+            welf.setText(welfare);
+            gross_amount.setText("" + (Double.parseDouble(set_val.getText()) * Double.parseDouble(TotalKG.getText())));
+            
+            
+             double rem = Double.parseDouble(gross_amount.getText()) - Double.parseDouble(total_ad.getText()) - Double.parseDouble(pedet.getText()) - Double.parseDouble(loans.getText()) - Double.parseDouble(welf.getText());
+           final_total.setText(billsum.two_dec_places("" + rem));
+            if (rem > 0) {
+
+                final_total.setForeground(new java.awt.Color(0, 153, 0));
+            } else {
+                final_total.setForeground(new java.awt.Color(204, 0, 0));
+            }
+
+        }
     }
-    
-    
+
+    public void set_zero() {
+        String z = "0.0";
+        TotalKG.setText(z);
+        total_ad.setText(z);
+        loans.setText(z);
+        pedet.setText(z);
+        welf.setText(z);
+
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Advance_tot;
@@ -1798,6 +1826,7 @@ set_zero();
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
@@ -1860,6 +1889,7 @@ set_zero();
     private javax.swing.JComboBox supplier_id;
     private javax.swing.JLabel supplier_name;
     private javax.swing.JTextField total_ad;
+    private javax.swing.JTextField welf;
     private javax.swing.JTextField yearfield;
     // End of variables declaration//GEN-END:variables
 }

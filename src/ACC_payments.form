@@ -30,10 +30,10 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="description" max="32767" attributes="0"/>
                   </Group>
-                  <Component id="jPanel2" alignment="0" min="-2" pref="539" max="-2" attributes="0"/>
+                  <Component id="jPanel2" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jPanel3" min="-2" pref="486" max="-2" attributes="0"/>
+              <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jButton5" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
@@ -60,8 +60,8 @@
                           <Component id="jLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jPanel2" min="-2" pref="104" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jLabel6" min="-2" pref="29" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
@@ -98,7 +98,10 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="debit_account_name" min="-2" pref="119" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Component id="debit_account_name" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                      </Group>
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
                               <Component id="jButton1" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -109,19 +112,25 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
                                   <Component id="jButton2" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="134" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="103" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="1" attributes="0">
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="difference" min="-2" pref="96" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="85" max="-2" attributes="0"/>
-                                      </Group>
+                                      <Component id="jLabel13" alignment="1" min="-2" max="-2" attributes="0"/>
                                       <Group type="102" alignment="1" attributes="0">
                                           <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="210" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                                          <Component id="difference" max="32767" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" attributes="0">
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="total" max="32767" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -131,62 +140,61 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                       <Component id="jScrollPane3" pref="0" max="32767" attributes="0"/>
-                                      <Component id="total" alignment="0" min="-2" pref="97" max="-2" attributes="0"/>
                                       <Component id="debit_amount" alignment="0" pref="98" max="32767" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="-2" pref="109" max="-2" attributes="0"/>
+                                  <EmptySpace min="0" pref="9" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
                   </Group>
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
+                  <Component id="debit_account_name" min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="debit_amount" min="-2" max="-2" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="debit_description" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
-                          <Component id="debit_account_name" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
-                          <Component id="jScrollPane3" min="-2" pref="348" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Component id="jScrollPane2" min="-2" pref="348" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jButton2" min="-2" max="-2" attributes="0"/>
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="total" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel14" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
+                                  <Component id="jScrollPane3" min="-2" pref="348" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="jScrollPane2" min="-2" pref="348" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="difference" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="total" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel14" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="difference" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
                           </Group>
                       </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="debit_account_code" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="debit_description" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="debit_amount" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jScrollPane1" min="-2" pref="348" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
-              </Group>
-              <Group type="102" alignment="0" attributes="0">
-                  <Component id="debit_account_code" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="21" pref="21" max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" min="-2" pref="348" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jButton1" min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -269,6 +277,7 @@
         </Container>
         <Component class="javax.swing.JComboBox" name="debit_account_code">
           <Properties>
+            <Property name="editable" type="boolean" value="true"/>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="new javax.swing.DefaultComboBoxModel(dbm.getStringArray(&quot;account_names&quot;, &quot;account_id&quot;))" type="code"/>
             </Property>
@@ -278,6 +287,7 @@
             <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="debit_account_codeKeyPressed"/>
           </Events>
           <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="debit_account_code.getEditor () .getEditorComponent().addKeyListener(new KeyAdapter() &#xa;    {&#xa;       &#xa;&#xa;    &#xa;&#xa;    public void keyReleased(KeyEvent evt) {&#xa;&#xa;        // if(evt.getKeyCode() != KeyEvent.VK_ENTER)&#xa;        {&#xa;            DatabaseManager dbm = DatabaseManager.getDbCon();&#xa;&#xa;            String code = ((JTextField) debit_account_code.getEditor().getEditorComponent()).getText();&#xa;&#xa;            if (dbm.checkWhetherDataExists(&quot;account_names&quot;, &quot;account_id&quot;, code) == 1) {&#xa;                debit_account_name.setText(dbm.checknReturnData(&quot;account_names&quot;, &quot;account_id&quot;, code, &quot;account_name&quot;));&#xa;&#xa;            } else {&#xa;                debit_account_name.setText(&quot;Invalid Account Code&quot;);&#xa;            }&#xa;&#xa;        }&#xa;        if (evt.getKeyCode() == KeyEvent.VK_UP || evt.getKeyCode() == KeyEvent.VK_DOWN) {&#xa;            chkr = 0;&#xa;            System.out.println(chkr);&#xa;        }&#xa;&#xa;    }&#xa;&#xa;    public void keyPressed(KeyEvent evt) {&#xa;        if (evt.getKeyCode() == KeyEvent.VK_UP || evt.getKeyCode() == KeyEvent.VK_DOWN) {&#xa;            chkr = 0;&#xa;            up = 1;&#xa;        }&#xa;&#xa;        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {&#xa;            if (debit_account_name.getText() != &quot;Invalid Account Code&quot; &amp;&amp; up == 0) {&#xa;                debit_description.requestFocus();&#xa;&#xa;&#xa;            } else if (chkr == 1 &amp;&amp; debit_account_name.getText() == &quot;Invalid Account Code&quot;) {&#xa;                msg.showMessage(&quot;Invalid Account Code&quot;, &quot;Receipt&quot;, &quot;info&quot;);&#xa;                //debit_account_code.setSelectedIndex(0);&#xa;            } else if (chkr == 0) {&#xa;                chkr = 1;&#xa;                up = 0;&#xa;            } else {&#xa;                up = 0;&#xa;            }&#xa;            /* else{&#xa;             chkr =0;&#xa;             }*/&#xa;            up = 0;&#xa;&#xa;        }&#xa;&#xa;    }&#xa;}&#xa;);"/>
             <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="debit_account_code.putClientProperty(&quot;JComboBox.isTableCellEditor&quot;,Boolean.TRUE);"/>
           </AuxValues>
         </Component>
@@ -663,11 +673,8 @@
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="credit_accountName" alignment="0" min="-2" pref="209" max="-2" attributes="0"/>
-                              <Component id="jLabel10" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="148" max="-2" attributes="0"/>
                           <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
@@ -677,23 +684,28 @@
                       </Group>
                   </Group>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="creditAmount" min="-2" pref="101" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="39" max="32767" attributes="0"/>
                           <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                       </Group>
                   </Group>
+              </Group>
+              <Group type="102" alignment="0" attributes="0">
+                  <Component id="credit_accountName" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="credit_accountName" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -706,9 +718,7 @@
                       <Component id="credit_description" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="creditAmount" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="credit_accountName" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -716,6 +726,7 @@
       <SubComponents>
         <Component class="javax.swing.JComboBox" name="credit_accountCode">
           <Properties>
+            <Property name="editable" type="boolean" value="true"/>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="new javax.swing.DefaultComboBoxModel(dbm.getStringArray(&quot;account_names&quot;, &quot;account_id&quot;))" type="code"/>
             </Property>
@@ -727,6 +738,7 @@
           </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JComboBox()"/>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="credit_accountCode.getEditor () .getEditorComponent().addKeyListener(new KeyAdapter() &#xa;    {&#xa;       &#xa;&#xa;    &#xa;&#xa;    public void keyReleased(KeyEvent evt) {&#xa;&#xa;        // if(evt.getKeyCode() != KeyEvent.VK_ENTER)&#xa;        {&#xa;            DatabaseManager dbm = DatabaseManager.getDbCon();&#xa;&#xa;            String code = ((JTextField) credit_accountCode.getEditor().getEditorComponent()).getText();&#xa;&#xa;            if (dbm.checkWhetherDataExists(&quot;account_names&quot;, &quot;account_id&quot;, code) == 1) {&#xa;                credit_accountName.setText(dbm.checknReturnData(&quot;account_names&quot;, &quot;account_id&quot;, code, &quot;account_name&quot;));&#xa;&#xa;            } else {&#xa;                credit_accountName.setText(&quot;Invalid Account Code&quot;);&#xa;            }&#xa;&#xa;        }&#xa;        if (evt.getKeyCode() == KeyEvent.VK_UP || evt.getKeyCode() == KeyEvent.VK_DOWN) {&#xa;            chkr1 = 0;&#xa;            System.out.println(chkr1);&#xa;        }&#xa;&#xa;    }&#xa;&#xa;    public void keyPressed(KeyEvent evt) {&#xa;        if (evt.getKeyCode() == KeyEvent.VK_UP || evt.getKeyCode() == KeyEvent.VK_DOWN) {&#xa;            chkr1 = 0;&#xa;            up1 = 1;&#xa;        }&#xa;&#xa;        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {&#xa;            if (credit_accountName.getText() != &quot;Invalid Account Code&quot; &amp;&amp; up1 == 0) {&#xa;                credit_description.requestFocus();&#xa;&#xa;            } else if (chkr1 == 1 &amp;&amp; credit_accountName.getText() == &quot;Invalid Account Code&quot;) {&#xa;                msg.showMessage(&quot;Invalid Account Code&quot;, &quot;Receipt&quot;, &quot;info&quot;);&#xa;                //credit_accountCode.setSelectedIndex(0);&#xa;            } else if (chkr1 == 0) {&#xa;                chkr1 = 1;&#xa;                up1 = 0;&#xa;            } else {&#xa;                up1 = 0;&#xa;            }&#xa;            /* else{&#xa;             chkr1 =0;&#xa;             }*/&#xa;            up1 = 0;&#xa;&#xa;        }&#xa;&#xa;    }&#xa;}&#xa;);"/>
             <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="credit_accountCode.putClientProperty(&quot;JComboBox.isTableCellEditor&quot;,Boolean.TRUE);"/>
           </AuxValues>
         </Component>

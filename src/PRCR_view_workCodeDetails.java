@@ -1,3 +1,11 @@
+
+
+import java.awt.event.KeyEvent;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import static org.jdesktop.swingx.plaf.synth.SynthUtils.update;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -15,6 +23,9 @@ public class PRCR_view_workCodeDetails extends javax.swing.JPanel {
      */
     
     PRCR_Search spiObject = new PRCR_Search();
+     Date_Handler datehandler = new Date_Handler();
+    DatabaseManager dbm =  DatabaseManager.getDbCon();
+     Interface_Events k=new Interface_Events();
     
     public PRCR_view_workCodeDetails() {
         initComponents();
@@ -30,118 +41,177 @@ public class PRCR_view_workCodeDetails extends javax.swing.JPanel {
     private void initComponents() {
 
         jSeparator1 = new javax.swing.JSeparator();
-        jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        workCode = new javax.swing.JComboBox();
-        jButton2 = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        divisionCode = new javax.swing.JComboBox();
-        jButton3 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        empCodes = new javax.swing.JTextArea();
-        jPanel1 = new javax.swing.JPanel();
-        day = new javax.swing.JTextField();
-        month = new javax.swing.JTextField();
-        year = new javax.swing.JTextField();
-        jLabel13 = new javax.swing.JLabel();
+        textField = new javax.swing.JTextArea();
+        datepanel = new javax.swing.JPanel();
+        monthfield = new javax.swing.JTextField();
+        yearfield = new javax.swing.JTextField();
+        datePicker1 = new com.michaelbaranov.microba.calendar.DatePicker();
+        jPanel4 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        enterr = new javax.swing.JButton();
+        debittotal = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        debitssss = new javax.swing.JTextField();
+        codeeeee = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        coinsss = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
-        jLabel1.setText("Work Code");
+        textField.setColumns(20);
+        textField.setRows(5);
+        jScrollPane1.setViewportView(textField);
 
-        jButton1.setText("View");
+        datepanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        workCode.setEditable(true);
-        workCode.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        workCode.addActionListener(new java.awt.event.ActionListener() {
+        monthfield.setText(datehandler.get_today_month());
+        monthfield.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                workCodeActionPerformed(evt);
+                monthfieldActionPerformed(evt);
             }
         });
-        workCode.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                workCodeFocusLost(evt);
+        monthfield.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                monthfieldKeyPressed(evt);
             }
         });
 
-        jButton2.setText("OK");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        yearfield.setText(datehandler.get_today_year());
+        yearfield.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                yearfieldKeyPressed(evt);
+            }
+        });
+
+        datePicker1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                datePicker1ActionPerformed(evt);
             }
         });
 
-        jLabel2.setText("Division Code");
-
-        divisionCode.setEditable(true);
-        divisionCode.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        divisionCode.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                divisionCodeActionPerformed(evt);
-            }
-        });
-        divisionCode.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                divisionCodeFocusLost(evt);
-            }
-        });
-
-        jButton3.setText("View");
-
-        empCodes.setColumns(20);
-        empCodes.setRows(5);
-        jScrollPane1.setViewportView(empCodes);
-
-        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        day.setText("DD");
-        day.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dayActionPerformed(evt);
-            }
-        });
-
-        month.setText("MM");
-        month.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                monthActionPerformed(evt);
-            }
-        });
-
-        year.setText("YY");
-        year.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                yearActionPerformed(evt);
-            }
-        });
-
-        jLabel13.setText("Date");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(year, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(month, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(day, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout datepanelLayout = new javax.swing.GroupLayout(datepanel);
+        datepanel.setLayout(datepanelLayout);
+        datepanelLayout.setHorizontalGroup(
+            datepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(datepanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(year, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(month, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(day, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel13))
+                .addComponent(monthfield, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(yearfield, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(datePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        datepanelLayout.setVerticalGroup(
+            datepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(datepanelLayout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addGroup(datepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(datePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(datepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(monthfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(yearfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jButton1.setText("reset");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        enterr.setText("enter");
+        enterr.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                enterrActionPerformed(evt);
+            }
+        });
+        enterr.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                enterrFocusGained(evt);
+            }
+        });
+
+        jLabel9.setText("Code");
+
+        jLabel10.setText("Debits");
+
+        debitssss.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                debitssssKeyPressed(evt);
+            }
+        });
+
+        codeeeee.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                codeeeeeKeyPressed(evt);
+            }
+        });
+
+        jLabel11.setText("Coins");
+
+        coinsss.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                coinsssKeyPressed(evt);
+            }
+        });
+
+        jLabel12.setText("debits total");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel11)
+                    .addComponent(jLabel10))
+                .addGap(29, 29, 29)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(enterr)
+                    .addComponent(codeeeee, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(debitssss, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(69, 69, 69)
+                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(debittotal, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1))
+                    .addComponent(coinsss, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(24, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(codeeeee, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(coinsss, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel10)
+                            .addComponent(debitssss, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(debittotal, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel12))
+                        .addGap(20, 20, 20))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addGap(18, 18, 18)))
+                .addComponent(enterr)
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -151,117 +221,322 @@ public class PRCR_view_workCodeDetails extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(4, 4, 4)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(workCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel2)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(divisionCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButton3)
-                                    .addComponent(jButton1))))
-                        .addGap(54, 54, 54)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(24, 24, 24))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jSeparator1)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(5, 5, 5)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel2)
-                                    .addComponent(divisionCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton1))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel1)
-                                    .addComponent(workCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton3)))
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton2)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 377, Short.MAX_VALUE)))))
+                .addComponent(jSeparator1)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void workCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_workCodeActionPerformed
-        // TODO add your handling code here:
+    private void monthfieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_monthfieldKeyPressed
+
+        if (monthfield.getText().equals("Jan")) {
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                monthfield.setText("Dec");
+                int yr = Integer.parseInt(yearfield.getText());
+
+                yearfield.setText("" + (yr - 1));
+                monthfield.selectAll();
+
+            }
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                monthfield.setText("Feb");
+                monthfield.selectAll();
+            }
+
+        } else if (monthfield.getText().equals("Feb")) {
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                monthfield.setText("Jan");
+                int yr = Integer.parseInt(yearfield.getText());
+                monthfield.selectAll();
+
+            }
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                monthfield.setText("Mar");
+                monthfield.selectAll();
+            }
+
+        } else if (monthfield.getText().equals("Mar")) {
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                monthfield.setText("Feb");
+                int yr = Integer.parseInt(yearfield.getText());
+                monthfield.selectAll();
+            }
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                monthfield.setText("Apr");
+                monthfield.selectAll();
+            }
+
+        } else if (monthfield.getText().equals("Apr")) {
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                monthfield.setText("Mar");
+                int yr = Integer.parseInt(yearfield.getText());
+                monthfield.selectAll();
+            }
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                monthfield.setText("May");
+                monthfield.selectAll();
+            }
+
+        } else if (monthfield.getText().equals("May")) {
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                monthfield.setText("Apr");
+                int yr = Integer.parseInt(yearfield.getText());
+                monthfield.selectAll();
+
+            }
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+
+                monthfield.setText("Jun");
+                monthfield.selectAll();
+            }
+
+        } else if (monthfield.getText().equals("Jun")) {
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                monthfield.setText("May");
+                int yr = Integer.parseInt(yearfield.getText());
+                monthfield.selectAll();
+
+            }
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                monthfield.setText("Jul");
+                monthfield.selectAll();
+            }
+
+        } else if (monthfield.getText().equals("Jul")) {
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                monthfield.setText("Jun");
+                int yr = Integer.parseInt(yearfield.getText());
+                monthfield.selectAll();
+
+            }
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                monthfield.setText("Aug");
+                monthfield.selectAll();
+            }
+
+        } else if (monthfield.getText().equals("Aug")) {
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                monthfield.setText("Jul");
+                int yr = Integer.parseInt(yearfield.getText());
+                monthfield.selectAll();
+
+            }
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                monthfield.setText("Sep");
+                monthfield.selectAll();
+            }
+
+        } else if (monthfield.getText().equals("Sep")) {
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                monthfield.setText("Aug");
+                int yr = Integer.parseInt(yearfield.getText());
+                monthfield.selectAll();
+
+            }
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                monthfield.setText("Oct");
+                monthfield.selectAll();
+            }
+
+        } else if (monthfield.getText().equals("Oct")) {
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                monthfield.setText("Sep");
+                int yr = Integer.parseInt(yearfield.getText());
+                monthfield.selectAll();
+
+            }
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                monthfield.setText("Nov");
+                monthfield.selectAll();
+            }
+
+        } else if (monthfield.getText().equals("Nov")) {
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                monthfield.setText("Oct");
+                int yr = Integer.parseInt(yearfield.getText());
+                monthfield.selectAll();
+
+            }
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                monthfield.setText("Dec");
+                monthfield.selectAll();
+            }
+
+        } else if (monthfield.getText().equals("Dec")) {
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                monthfield.setText("Nov");
+                int yr = Integer.parseInt(yearfield.getText());
+                monthfield.selectAll();
+
+            }
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                monthfield.setText("Jan");
+                int yr = Integer.parseInt(yearfield.getText());
+
+                yearfield.setText("" + (yr + 1));
+                monthfield.selectAll();
+            }
+
+        }
+        if (evt.getKeyCode() == KeyEvent.VK_LEFT) {
+            // dayfield.requestFocus();
+            // dayfield.selectAll();
+        }
+        if (evt.getKeyCode() == KeyEvent.VK_RIGHT) {
+            yearfield.requestFocus();
+            yearfield.selectAll();
+        }
+
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
+            String year = yearfield.getText();
+            String month = datehandler.return_month_as_num(monthfield.getText());
+            //set_task_man(year, month);
+
+        }
+ 
+    }//GEN-LAST:event_monthfieldKeyPressed
+
+    private void yearfieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_yearfieldKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_UP) {
+            yearfield.setText("" + (Integer.parseInt(yearfield.getText()) + 1));
+            yearfield.selectAll();
+        }
+        if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+            yearfield.setText("" + (Integer.parseInt(yearfield.getText()) - 1));
+            yearfield.selectAll();
+        }
+        if (evt.getKeyCode() == KeyEvent.VK_LEFT) {
+            monthfield.requestFocus();
+            monthfield.selectAll();
+        }
+
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
+            String year = yearfield.getText();
+            String month = datehandler.return_month_as_num(monthfield.getText());
+            // set_task_man(year, month);
+        }
         
-    }//GEN-LAST:event_workCodeActionPerformed
+    }//GEN-LAST:event_yearfieldKeyPressed
 
-    private void workCodeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_workCodeFocusLost
-        // TODO add your handling code here:
+    private void datePicker1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datePicker1ActionPerformed
+        java.sql.Date datef = new java.sql.Date(datePicker1.getDate().getTime());
+
+        // dayfield.setText(datehandler.get_day(datef));
+        monthfield.setText(datehandler.get_month(datef));
+        yearfield.setText(datehandler.get_year(datef));
+        //  dayfield2.requestFocus();
+        // dayfield2.selectAll();
         
-    }//GEN-LAST:event_workCodeFocusLost
+    }//GEN-LAST:event_datePicker1ActionPerformed
+double totalllll=0;
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        totalllll=0;        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        spiObject.setDate(day.getText(), month.getText(), year.getText());    
-        spiObject.setWorkCode(workCode.getSelectedItem().toString());
-        spiObject.setDivisionCode(divisionCode.getSelectedItem().toString());
-        empCodes.setText(spiObject.searchAndReturn());
-        System.out.println(spiObject.searchAndReturn());
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void enterrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enterrActionPerformed
+        //dbm.updateDatabase("prcr_coins_and_debits","code",Double.parseDouble(codeeeee.getText()),"debits",Double.parseDouble(debitssss.getText()));
+        //
+        //totalllll=Double.parseDouble(debitssss.getText())+totalllll;
+        //        System.out.println(totalllll);
+        //        debittotal.setText(totalllll+"");
+        //        debitssss.setText("");
+        //codeeeee.setText("");
+        //
+        //codeeeee.requestFocus();// TODO add your handling code here:
+             String st;
+        if (datehandler.return_index(monthfield.getText()) < 10) {
+            st = yearfield.getText() + "_0" + datehandler.return_index(monthfield.getText());
+        } else {
+            st = yearfield.getText() + "_" + datehandler.return_index(monthfield.getText());
+        }
+        try {
+            dbm.insert("INSERT INTO prcr_month_coins_debits(month,code,debits,coins) VALUES('" +st + "','" +codeeeee.getText() + "','"+debitssss.getText()+"','" + coinsss.getText() + "')");
+             textField.append("month-"+st+", code-"+codeeeee.getText()+", coins-"+coinsss.getText()+", debits-"+debitssss.getText()+"\n");
+        } catch (SQLException ex) {
+            Logger.getLogger(PRCR_view_workCodeDetails.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        totalllll=Double.parseDouble(debitssss.getText())+totalllll;
+        System.out.println(totalllll);
+        debittotal.setText(totalllll+"");
+        debitssss.setText("");
+        codeeeee.setText("");
+        coinsss.setText("");
+        
+        codeeeee.requestFocus();
+        
+    }//GEN-LAST:event_enterrActionPerformed
 
-    private void divisionCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_divisionCodeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_divisionCodeActionPerformed
+    private void enterrFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_enterrFocusGained
+        k.Respond_enter(enterr, evt);        // TODO add your handling code here:
+    }//GEN-LAST:event_enterrFocusGained
 
-    private void divisionCodeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_divisionCodeFocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_divisionCodeFocusLost
+    private void debitssssKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_debitssssKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
 
-    private void monthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_monthActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_monthActionPerformed
+            enterr.requestFocus();
 
-    private void yearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yearActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_yearActionPerformed
+        }       // TODO add your handling code here:
+    }//GEN-LAST:event_debitssssKeyPressed
 
-    private void dayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dayActionPerformed
+    private void codeeeeeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_codeeeeeKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+
+           coinsss.requestFocus();
+
+        }
+    }//GEN-LAST:event_codeeeeeKeyPressed
+
+    private void coinsssKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_coinsssKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+
+           debitssss.requestFocus();
+
+        } // TODO add your handling code here:
+    }//GEN-LAST:event_coinsssKeyPressed
+
+    private void monthfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_monthfieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_dayActionPerformed
+    }//GEN-LAST:event_monthfieldActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField day;
-    private javax.swing.JComboBox divisionCode;
-    private javax.swing.JTextArea empCodes;
+    private javax.swing.JTextField codeeeee;
+    private javax.swing.JTextField coinsss;
+    private com.michaelbaranov.microba.calendar.DatePicker datePicker1;
+    private javax.swing.JPanel datepanel;
+    private javax.swing.JTextField debitssss;
+    private javax.swing.JLabel debittotal;
+    private javax.swing.JButton enterr;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField month;
-    private javax.swing.JComboBox workCode;
-    private javax.swing.JTextField year;
+    public static javax.swing.JTextField monthfield;
+    private javax.swing.JTextArea textField;
+    public static javax.swing.JTextField yearfield;
     // End of variables declaration//GEN-END:variables
 }

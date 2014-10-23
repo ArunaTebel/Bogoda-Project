@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CashAdvanceBook" language="groovy" pageWidth="595" pageHeight="842" columnWidth="544" leftMargin="31" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b4a7e90f-236c-48e1-b463-a16c40591ab1">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CashAdvanceBook" language="groovy" pageWidth="612" pageHeight="792" columnWidth="561" leftMargin="31" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b4a7e90f-236c-48e1-b463-a16c40591ab1">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -14,7 +14,8 @@
      gl_cash_advance_book.`amount` AS gl_cash_advance_book_amount,
      gl_cash_advance_book.`pay_type` AS gl_cash_advance_book_pay_type,
      gl_cash_advance_book.`special_permission` AS gl_cash_advance_book_special_permission,
-     gl_cash_advance_book.`user` AS gl_cash_advance_book_user
+     gl_cash_advance_book.`user` AS gl_cash_advance_book_user,
+     gl_cash_advance_book.`issue_date` AS gl_cash_advance_book_issue_date
 FROM
      `gl_cash_advance_book` gl_cash_advance_book]]>
 	</queryString>
@@ -27,6 +28,7 @@ FROM
 	<field name="gl_cash_advance_book_pay_type" class="java.lang.String"/>
 	<field name="gl_cash_advance_book_special_permission" class="java.lang.String"/>
 	<field name="gl_cash_advance_book_user" class="java.lang.String"/>
+	<field name="gl_cash_advance_book_issue_date" class="java.sql.Date"/>
 	<variable name="TITLE" class="java.lang.String"/>
 	<variable name="count" class="java.lang.Integer" calculation="Count">
 		<variableExpression><![CDATA[$F{gl_cash_advance_book_entry_no}]]></variableExpression>
@@ -148,11 +150,11 @@ FROM
 				<text><![CDATA[Name]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="183" y="5" width="61" height="20" uuid="078b87fe-3dd0-41ff-9230-555f0c731de8"/>
+				<reportElement x="175" y="5" width="72" height="13" uuid="078b87fe-3dd0-41ff-9230-555f0c731de8"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Order Date]]></text>
+				<text><![CDATA[Ordered Date]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="244" y="5" width="47" height="20" uuid="9e62177e-0c88-4dfc-bd94-27518ea45680"/>
@@ -196,6 +198,13 @@ FROM
 				</textElement>
 				<text><![CDATA[Signature of recepient]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="175" y="18" width="100" height="13" uuid="18e49fe3-91f6-48fa-983a-566a8770e087"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[System Date]]></text>
+			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
@@ -218,8 +227,8 @@ FROM
 				</textElement>
 				<textFieldExpression><![CDATA[$F{gl_cash_advance_book_sup_name}]]></textFieldExpression>
 			</textField>
-			<textField pattern="dd-MM-yyyy">
-				<reportElement x="183" y="0" width="61" height="20" uuid="9f40a889-bcd5-4ddc-ae23-5366efadd63b"/>
+			<textField pattern="yyyy-MM-dd">
+				<reportElement x="175" y="0" width="61" height="20" uuid="9f40a889-bcd5-4ddc-ae23-5366efadd63b"/>
 				<textFieldExpression><![CDATA[$F{gl_cash_advance_book_date}]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -257,19 +266,30 @@ FROM
 					<pen lineWidth="0.25" lineStyle="Dashed"/>
 				</graphicElement>
 			</line>
+			<textField pattern="yyyy-MM-dd">
+				<reportElement x="175" y="19" width="61" height="20" uuid="54c1e52a-5329-494c-9ffa-cbec977d7d74"/>
+				<textFieldExpression><![CDATA[$F{gl_cash_advance_book_issue_date}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="9" splitType="Stretch"/>
+		<band height="13" splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band splitType="Stretch">
+		<band height="15" splitType="Stretch">
 			<line>
 				<reportElement x="1" y="-13" width="554" height="1" uuid="0d048f90-0a60-4753-b7bf-906c8bd8f6af"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
 			</line>
+			<staticText>
+				<reportElement x="465" y="0" width="96" height="11" uuid="3e709542-151f-4b92-8a79-9527db2b951e"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[softninelights.com]]></text>
+			</staticText>
 		</band>
 	</pageFooter>
 	<summary>

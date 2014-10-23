@@ -5,7 +5,7 @@
 	<property name="ireport.y" value="28"/>
 	<parameter name="USER" class="java.lang.String"/>
 	<parameter name="Date" class="java.lang.String"/>
-	<queryString language="SQL">
+	<queryString>
 		<![CDATA[SELECT
      account_names.`account_name` AS account_names_account_name,
      account_names.`account_class` AS account_names_account_class,
@@ -15,21 +15,34 @@
      account_names.`main_account_code` AS account_names_main_account_code,
      account_names.`sub_account_code` AS account_names_sub_account_code,
      main_account_details.`main_account_code` AS main_account_details_main_account_code,
-     main_account_details.`description` AS main_account_details_description,
-     main_account_details.`account_class` AS main_account_details_account_class,
      sub_account_details.`main_account_code` AS sub_account_details_main_account_code,
      sub_account_details.`sub_account_code` AS sub_account_details_sub_account_code,
-     sub_account_details.`description` AS sub_account_details_description
+     sub_account_details.`description` AS sub_account_details_description,
+     main_account_details.`description` AS main_account_details_description,
+     main_account_details.`account_class` AS main_account_details_account_class,
+     acc_trail_balance.`code` AS acc_trail_balance_code,
+     acc_trail_balance.`op_bal` AS acc_trail_balance_op_bal
 FROM
      `main_account_details` main_account_details RIGHT OUTER JOIN `account_names` account_names ON main_account_details.`main_account_code` = account_names.`main_account_code`
      LEFT OUTER JOIN `sub_account_details` sub_account_details ON account_names.`sub_account_code` = sub_account_details.`sub_account_code`
-     AND sub_account_details.`main_account_code` = main_account_details.`main_account_code`]]>
+     AND sub_account_details.`main_account_code` = main_account_details.`main_account_code`,
+     `acc_trail_balance` acc_trail_balance]]>
 	</queryString>
 	<field name="account_names_account_name" class="java.lang.String"/>
+	<field name="account_names_account_class" class="java.lang.String"/>
 	<field name="account_names_account_id" class="java.lang.Integer"/>
+	<field name="account_names_opening_balance" class="java.lang.Double"/>
+	<field name="account_names_current_balance" class="java.lang.Double"/>
 	<field name="account_names_main_account_code" class="java.lang.Integer"/>
 	<field name="account_names_sub_account_code" class="java.lang.Integer"/>
-	<field name="account_names_current_balance" class="java.lang.Double"/>
+	<field name="main_account_details_main_account_code" class="java.lang.Integer"/>
+	<field name="sub_account_details_main_account_code" class="java.lang.Integer"/>
+	<field name="sub_account_details_sub_account_code" class="java.lang.Integer"/>
+	<field name="sub_account_details_description" class="java.lang.String"/>
+	<field name="main_account_details_description" class="java.lang.String"/>
+	<field name="main_account_details_account_class" class="java.lang.String"/>
+	<field name="acc_trail_balance_code" class="java.lang.Integer"/>
+	<field name="acc_trail_balance_op_bal" class="java.lang.Double"/>
 	<variable name="TITLE" class="java.lang.String"/>
 	<variable name="Total Dr" class="java.lang.Double" calculation="Sum">
 		<variableExpression><![CDATA[$V{Dr}]]></variableExpression>
@@ -290,12 +303,12 @@ FROM
 			<textField pattern="#,##0.00">
 				<reportElement uuid="1f7ba11e-6ea3-4301-a2d0-de85c2a80a80" x="470" y="0" width="77" height="20"/>
 				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA[( $F{account_names_main_account_code}==1 || $F{account_names_main_account_code}==2 || $F{account_names_main_account_code}==7 ||$F{account_names_main_account_code}==8  ? ($F{account_names_current_balance}<0 ? -$F{account_names_current_balance} :""): ($F{account_names_current_balance}>=0 ? $F{account_names_current_balance} :"") )]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{acc_trail_balance_op_bal} < 0 ? $F{acc_trail_balance_op_bal} : ""]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
 				<reportElement uuid="1f7ba11e-6ea3-4301-a2d0-de85c2a80a80" x="375" y="0" width="73" height="20"/>
 				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA[( $F{account_names_main_account_code}==1 || $F{account_names_main_account_code}==2 || $F{account_names_main_account_code}==7 ||$F{account_names_main_account_code}==8  ? ($F{account_names_current_balance}>=0 ? $F{account_names_current_balance} :""): ($F{account_names_current_balance}<0 ? -$F{account_names_current_balance} :"") )]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{acc_trail_balance_op_bal} < 0 ? "" : $F{acc_trail_balance_op_bal}]]></textFieldExpression>
 			</textField>
 			<line>
 				<reportElement uuid="6e2f768d-a156-4af9-babd-1ccfc47cd95f" x="460" y="0" width="1" height="20"/>

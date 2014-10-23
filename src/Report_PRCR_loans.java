@@ -449,7 +449,7 @@ UIDefaults defaults = UIManager.getLookAndFeelDefaults();
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        view.setText("Veiw");
+        view.setText("View");
         view.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 viewActionPerformed(evt);

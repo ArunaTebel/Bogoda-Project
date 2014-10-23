@@ -1,6 +1,10 @@
 
 import java.awt.event.ItemEvent;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
@@ -8,6 +12,13 @@ import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.accessibility.AccessibleContext;
+import javax.accessibility.AccessibleState;
+import javax.swing.JComboBox;
+import javax.swing.JList;
+import javax.swing.JTextField;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.plaf.basic.ComboPopup;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -30,8 +41,15 @@ public class ACC_recepts extends javax.swing.JPanel {
 
     Date_Handler datehandler = new Date_Handler();
 
-      DatabaseManager dbm =  DatabaseManager.getDbCon();
-    int chkd=1;
+    DatabaseManager dbm = DatabaseManager.getDbCon();
+    int chkd = 1;
+
+    int chkr = 0;
+    int up = 0;
+    int chkr1 = 0;
+    int up1 = 0;
+
+ 
 
     public ACC_recepts() {
         initComponents();
@@ -222,8 +240,64 @@ public class ACC_recepts extends javax.swing.JPanel {
         credit_account_code_table.setAutoResizeMode(credit_account_code_table.AUTO_RESIZE_OFF);
 
         credit_account_code.putClientProperty("JComboBox.isTableCellEditor",Boolean.TRUE);
+        credit_account_code.setEditable(true);
         DatabaseManager dbm = DatabaseManager.getDbCon();
         credit_account_code.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("account_names", "account_id")));
+        credit_account_code.getEditor () .getEditorComponent().addKeyListener(new KeyAdapter()
+            {
+
+                public void keyReleased(KeyEvent evt) {
+
+                    // if(evt.getKeyCode() != KeyEvent.VK_ENTER)
+                    {
+                        DatabaseManager dbm = DatabaseManager.getDbCon();
+
+                        String code = ((JTextField) credit_account_code.getEditor().getEditorComponent()).getText();
+
+                        if (dbm.checkWhetherDataExists("account_names", "account_id", code) == 1) {
+                            credit_account_name.setText(dbm.checknReturnData("account_names", "account_id", code, "account_name"));
+
+                        } else {
+                            credit_account_name.setText("Invalid Account Code");
+                        }
+
+                    }
+                    if (evt.getKeyCode() == KeyEvent.VK_UP || evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                        chkr1 = 0;
+                        System.out.println(chkr1);
+                    }
+
+                }
+
+                public void keyPressed(KeyEvent evt) {
+                    if (evt.getKeyCode() == KeyEvent.VK_UP || evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                        chkr1 = 0;
+                        up1 = 1;
+                    }
+
+                    if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+                        if (credit_account_name.getText() != "Invalid Account Code" && up1 == 0) {
+                            credit_description.requestFocus();
+
+                        } else if (chkr1 == 1 && credit_account_name.getText() == "Invalid Account Code") {
+                            msg.showMessage("Invalid Account Code", "Receipt", "info");
+                            //credit_account_code.setSelectedIndex(0);
+                        } else if (chkr1 == 0) {
+                            chkr1 = 1;
+                            up1 = 0;
+                        } else {
+                            up1 = 0;
+                        }
+                        /* else{
+                            chkr1 =0;
+                        }*/
+                        up1 = 0;
+
+                    }
+
+                }
+            }
+        );
         credit_account_code.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 credit_account_codeItemStateChanged(evt);
@@ -282,46 +356,48 @@ public class ACC_recepts extends javax.swing.JPanel {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(3, 3, 3)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(credit_account_name, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(credit_account_name, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(credit_account_code, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(credit_account_code, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jButton1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton2)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel14)
-                                .addGap(14, 14, 14))
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(credit_description, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(credit_description, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                    .addComponent(credit_amount, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel13)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(credit_amount, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                            .addComponent(total)
-                            .addComponent(difference))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel13)
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addComponent(jButton1)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jButton2)
+                                        .addGap(20, 20, 20)
+                                        .addComponent(jLabel14)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(total, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
+                                    .addComponent(difference))))))
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(credit_description, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(credit_amount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(credit_account_code, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(1, 1, 1)
+                .addContainerGap()
                 .addComponent(credit_account_name)
-                .addGap(3, 3, 3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(credit_account_code, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(credit_description, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(credit_amount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(8, 8, 8)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
@@ -628,240 +704,320 @@ public class ACC_recepts extends javax.swing.JPanel {
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 0, 0), 2, true), "DEBIT"));
 
         debit_accountCode.putClientProperty("JComboBox.isTableCellEditor",Boolean.TRUE);
+        debit_accountCode.setEditable(true);
         debit_accountCode.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("account_names", "account_id")));
-        debit_accountCode.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                debit_accountCodeItemStateChanged(evt);
-            }
-        });
-        debit_accountCode.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                debit_accountCodeActionPerformed(evt);
-            }
-        });
-        debit_accountCode.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                debit_accountCodeKeyPressed(evt);
-            }
-        });
+        debit_accountCode.getEditor().getEditorComponent().addKeyListener(new KeyAdapter()
+            {
+                public void keyReleased(KeyEvent evt)
+                {
 
-        debit_description.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                debit_descriptionFocusLost(evt);
-            }
-        });
-        debit_description.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                debit_descriptionKeyPressed(evt);
-            }
-        });
+                    // if(evt.getKeyCode() != KeyEvent.VK_ENTER)
+                    {
+                        DatabaseManager dbm = DatabaseManager.getDbCon();
 
-        debitAmount.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        debitAmount.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                debitAmountActionPerformed(evt);
-            }
-        });
-        debitAmount.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                debitAmountKeyPressed(evt);
-            }
-        });
+                        String code = ((JTextField)debit_accountCode.getEditor().getEditorComponent()).getText();
 
-        jLabel10.setText("Account Code");
+                        if(dbm.checkWhetherDataExists("account_names","account_id", code)==1){
+                            debit_accountName.setText(dbm.checknReturnData("account_names","account_id",code,"account_name"));
 
-        jLabel11.setText("Description");
+                        }
+                        else{
+                            debit_accountName.setText("Invalid Account Code");
+                        }
 
-        jLabel12.setText("Amount");
+                    }
+                    if(evt.getKeyCode() == KeyEvent.VK_UP || evt.getKeyCode() == KeyEvent.VK_DOWN){
+                        chkr=0;
+                        System.out.println(chkr);
+                    }
 
-        debit_accountName.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        debit_accountName.setForeground(new java.awt.Color(255, 0, 102));
-        debit_accountName.setText("Account name here");
+                }
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel10)
-                    .addComponent(debit_accountCode, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
+                public void keyPressed(KeyEvent evt)
+                {
+                    if(evt.getKeyCode() == KeyEvent.VK_UP || evt.getKeyCode() == KeyEvent.VK_DOWN){
+                        chkr=0;
+                        up=1;
+                    }
+
+                    if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+                        if(debit_accountName.getText()!="Invalid Account Code" && up==0){
+                            debit_description.requestFocus();
+
+                        }
+                        else if(chkr==1 && debit_accountName.getText()=="Invalid Account Code"){
+                            msg.showMessage("Invalid Account Code", "Receipt", "info");
+                            //debit_accountCode.setSelectedIndex(0);
+                        }
+                        else if(chkr==0){
+                            chkr=1;
+                            up=0;
+                        }
+                        else{
+                            up=0;
+                        }
+                        /* else{
+                            chkr =0;
+                        }*/
+                        up=0;
+
+                    }
+
+                }
+            });
+            debit_accountCode.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+                public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+                }
+                public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+                    debit_accountCodePopupMenuWillBecomeInvisible(evt);
+                }
+                public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+                }
+            });
+            debit_accountCode.addItemListener(new java.awt.event.ItemListener() {
+                public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                    debit_accountCodeItemStateChanged(evt);
+                }
+            });
+            debit_accountCode.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    debit_accountCodeActionPerformed(evt);
+                }
+            });
+            debit_accountCode.addKeyListener(new java.awt.event.KeyAdapter() {
+                public void keyPressed(java.awt.event.KeyEvent evt) {
+                    debit_accountCodeKeyPressed(evt);
+                }
+                public void keyReleased(java.awt.event.KeyEvent evt) {
+                    debit_accountCodeKeyReleased(evt);
+                }
+                public void keyTyped(java.awt.event.KeyEvent evt) {
+                    debit_accountCodeKeyTyped(evt);
+                }
+            });
+
+            debit_description.addFocusListener(new java.awt.event.FocusAdapter() {
+                public void focusLost(java.awt.event.FocusEvent evt) {
+                    debit_descriptionFocusLost(evt);
+                }
+            });
+            debit_description.addKeyListener(new java.awt.event.KeyAdapter() {
+                public void keyPressed(java.awt.event.KeyEvent evt) {
+                    debit_descriptionKeyPressed(evt);
+                }
+            });
+
+            debitAmount.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+            debitAmount.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    debitAmountActionPerformed(evt);
+                }
+            });
+            debitAmount.addKeyListener(new java.awt.event.KeyAdapter() {
+                public void keyPressed(java.awt.event.KeyEvent evt) {
+                    debitAmountKeyPressed(evt);
+                }
+            });
+
+            jLabel10.setText("Account Code");
+
+            jLabel11.setText("Description");
+
+            jLabel12.setText("Amount");
+
+            debit_accountName.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+            debit_accountName.setForeground(new java.awt.Color(255, 0, 102));
+            debit_accountName.setText("Account name here");
+
+            javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+            jPanel2.setLayout(jPanel2Layout);
+            jPanel2Layout.setHorizontalGroup(
+                jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel10)
+                        .addComponent(debit_accountCode, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addGap(19, 19, 19)
+                            .addComponent(jLabel11)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel12)
+                            .addGap(45, 45, 45))
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(debit_description, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(debitAmount, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE))))
+                .addComponent(debit_accountName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            );
+            jPanel2Layout.setVerticalGroup(
+                jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(debit_accountName)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel10)
                         .addComponent(jLabel11)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel12)
-                        .addGap(45, 45, 45))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(debit_description, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(debitAmount))))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(debit_accountName, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(jLabel11)
-                    .addComponent(jLabel12))
-                .addGap(4, 4, 4)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(debit_accountCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(debit_description, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(debitAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(debit_accountName)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+                        .addComponent(jLabel12))
+                    .addGap(4, 4, 4)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(debit_accountCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(debit_description, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(debitAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addContainerGap())
+            );
 
-        jPanel4.setBackground(new java.awt.Color(204, 0, 102));
-        jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 51, 153)));
+            jPanel4.setBackground(new java.awt.Color(204, 0, 102));
+            jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 51, 153)));
 
-        jButton6.setText("Save");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
-            }
-        });
-        jButton6.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jButton6FocusGained(evt);
-            }
-        });
+            jButton6.setText("Save");
+            jButton6.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    jButton6ActionPerformed(evt);
+                }
+            });
+            jButton6.addFocusListener(new java.awt.event.FocusAdapter() {
+                public void focusGained(java.awt.event.FocusEvent evt) {
+                    jButton6FocusGained(evt);
+                }
+            });
 
-        jButton7.setText("Cancel");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
-            }
-        });
+            jButton7.setText("Cancel");
+            jButton7.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    jButton7ActionPerformed(evt);
+                }
+            });
 
-        jButton8.setText("Quit");
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
-            }
-        });
+            jButton8.setText("Quit");
+            jButton8.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    jButton8ActionPerformed(evt);
+                }
+            });
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(18, Short.MAX_VALUE)
-                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton7)
-                .addGap(18, 18, 18)
-                .addComponent(jButton8)
-                .addContainerGap())
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton8)
-                            .addComponent(jButton7))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
+            javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+            jPanel4.setLayout(jPanel4Layout);
+            jPanel4Layout.setHorizontalGroup(
+                jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                    .addContainerGap(18, Short.MAX_VALUE)
+                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jButton7)
+                    .addGap(18, 18, 18)
+                    .addComponent(jButton8)
+                    .addContainerGap())
+            );
+            jPanel4Layout.setVerticalGroup(
+                jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel4Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+                        .addGroup(jPanel4Layout.createSequentialGroup()
+                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jButton8)
+                                .addComponent(jButton7))
+                            .addGap(0, 0, Short.MAX_VALUE)))
+                    .addContainerGap())
+            );
 
-        jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
+            jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
-        jButton5.setText("Send");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
-        jButton5.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jButton5FocusGained(evt);
-            }
-        });
+            jButton5.setText("Send");
+            jButton5.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    jButton5ActionPerformed(evt);
+                }
+            });
+            jButton5.addFocusListener(new java.awt.event.FocusAdapter() {
+                public void focusGained(java.awt.event.FocusEvent evt) {
+                    jButton5FocusGained(evt);
+                }
+            });
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel6.setText("RECEIPTS");
+            jLabel6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+            jLabel6.setText("RECEIPTS");
 
-        jLabel3.setText("Description");
+            jLabel3.setText("Description");
 
-        description.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                descriptionFocusLost(evt);
-            }
-        });
-        description.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                descriptionKeyPressed(evt);
-            }
-        });
+            description.addFocusListener(new java.awt.event.FocusAdapter() {
+                public void focusLost(java.awt.event.FocusEvent evt) {
+                    descriptionFocusLost(evt);
+                }
+            });
+            description.addKeyListener(new java.awt.event.KeyAdapter() {
+                public void keyPressed(java.awt.event.KeyEvent evt) {
+                    descriptionKeyPressed(evt);
+                }
+            });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(4, 4, 4)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(2, 2, 2)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(Cheque_pay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addComponent(jLabel6))
-                        .addGap(0, 35, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(description)))
-                .addGap(18, 18, 18)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton5)
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(3, 3, 3)
-                .addComponent(jSeparator1))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Cheque_pay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(description, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(4, 4, 4)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton5)))
-            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-    }// </editor-fold>//GEN-END:initComponents
+            javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+            this.setLayout(layout);
+            layout.setHorizontalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGap(4, 4, 4)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(description))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGap(2, 2, 2)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(Cheque_pay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(0, 0, Short.MAX_VALUE)))
+                            .addGap(18, 18, 18))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel6)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jButton5)
+                    .addContainerGap())
+            );
+            layout.setVerticalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(3, 3, 3)
+                    .addComponent(jSeparator1))
+                .addGroup(layout.createSequentialGroup()
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(Cheque_pay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel3)
+                                        .addComponent(description, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(4, 4, 4)
+                                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jButton5))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(0, 11, Short.MAX_VALUE))
+            );
+        }// </editor-fold>//GEN-END:initComponents
 
     private void payTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_payTypeActionPerformed
 
@@ -878,6 +1034,9 @@ public class ACC_recepts extends javax.swing.JPanel {
 
         }
     }//GEN-LAST:event_payTypeActionPerformed
+public ListSelectionListener listener;
+
+
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 
@@ -896,8 +1055,10 @@ public class ACC_recepts extends javax.swing.JPanel {
             tot = tot + Double.parseDouble((String) credit_amount_table.getValueAt(i, 0));
             i++;
         }
-        total.setText("" + tot);
-        difference.setText("" + (Double.parseDouble(debitAmount.getText()) - tot));
+        //total.setText("" + tot);
+        total.setText(String.format("%.2f", tot));
+        //difference.setText("" + (Double.parseDouble(debitAmount.getText()) - tot));
+        difference.setText(String.format("%.2f", (Double.parseDouble(debitAmount.getText()) - tot)));
 
         credit_account_code.requestFocusInWindow();
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -1030,8 +1191,14 @@ public class ACC_recepts extends javax.swing.JPanel {
             }
 
             refNo.requestFocus();
-        } catch (ParseException ex) {
-            Logger.getLogger(ACC_recepts.class.getName()).log(Level.SEVERE, null, ex);
+        
+
+
+
+} catch (ParseException ex) {
+            Logger.getLogger(ACC_recepts.class  
+
+.getName()).log(Level.SEVERE, null, ex);
         }
 
 
@@ -1078,42 +1245,54 @@ public class ACC_recepts extends javax.swing.JPanel {
     }//GEN-LAST:event_bankCodeActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        int i = 0;
 
-        while (credit_account_code_table.getValueAt(i, 0) != null) {
-            i++;
-        }
+        if (chk.isDouble(credit_amount.getText()) && credit_amount.getText().length() != 0) {
+            int i = 0;
 
-        credit_account_code_table.setValueAt(credit_account_code.getSelectedItem().toString(), i, 0);
-        credit_description_table.setValueAt(credit_description.getText(), i, 0);
-        credit_amount_table.setValueAt(credit_amount.getText(), i, 0);
-        credit_account_code.setSelectedIndex(0);
-        credit_amount.setText(null);
-        double tot = 0;
-        i = 0;
-        while (credit_account_code_table.getValueAt(i, 0) != null) {
-            tot = tot + Double.parseDouble((String) credit_amount_table.getValueAt(i, 0));
-            i++;
-        }
-        total.setText("" + tot);
-        difference.setText("" + (Double.parseDouble(debitAmount.getText()) - tot));
+            while (credit_account_code_table.getValueAt(i, 0) != null) {
+                i++;
+            }
 
-        if (Double.parseDouble(difference.getText()) < 0) {
-            msg.showMessage("Credit balance is higher than Debit balance", "Please Check Again", "info");
-            jButton2.requestFocusInWindow();
-        } else if (Double.parseDouble(difference.getText()) != 0) {
-            msg.showMessage("There is a difference", "Please Check Again", "info");
-            credit_account_code.requestFocusInWindow();
+            credit_account_code_table.setValueAt(credit_account_code.getSelectedItem().toString(), i, 0);
+            credit_description_table.setValueAt(credit_description.getText(), i, 0);
+            credit_amount_table.setValueAt(credit_amount.getText(), i, 0);
+            credit_account_code.setSelectedIndex(0);
+            credit_amount.setText(null);
+            double tot = 0;
+            i = 0;
+            while (credit_account_code_table.getValueAt(i, 0) != null) {
+                tot = tot + Double.parseDouble((String) credit_amount_table.getValueAt(i, 0));
+                i++;
+            }
+
+            //total.setText(""+tot);
+            // total.setText(new BigDecimal(tot).toPlainString());
+            total.setText(String.format("%.2f", tot));
+
+            // difference.setText("" + (Double.parseDouble(debitAmount.getText()) - tot));
+            difference.setText(String.format("%.2f", (Double.parseDouble(debitAmount.getText()) - tot)));
+
+            if (Double.parseDouble(difference.getText()) < 0) {
+                msg.showMessage("Credit balance is higher than Debit balance", "Please Check Again", "info");
+                jButton2.requestFocusInWindow();
+            } else if (Double.parseDouble(difference.getText()) != 0) {
+                msg.showMessage("There is a difference", "Please Check Again", "info");
+                credit_account_code.requestFocusInWindow();
+            } else {
+
+                if (refNo.getText().length() == 0) {
+                    msg.showMessage("The Reference No. is not entered.", "Please Check Again", "info");
+                    refNo.requestFocusInWindow();
+                } else if (chkd == 1) {
+                    jButton6.setEnabled(true);
+                    jButton6.requestFocusInWindow();
+                }
+            }
         } else {
-           
-            if(refNo.getText().length()==0){
-                msg.showMessage("The Reference No. is not entered.", "Please Check Again", "info");
-                refNo.requestFocusInWindow();
-            }
-             else if(chkd==1){
-            jButton6.setEnabled(true);
-            jButton6.requestFocusInWindow();
-            }
+
+            msg.showMessage("Please enter a valid amount", "Receipt", "info");
+            credit_amount.requestFocus();
+
         }
 
 
@@ -1133,14 +1312,16 @@ public class ACC_recepts extends javax.swing.JPanel {
             tot = tot + Double.parseDouble((String) credit_amount_table.getValueAt(i, 0));
             i++;
         }
-        total.setText("" + tot);
-        difference.setText("" + (Double.parseDouble(debitAmount.getText()) - tot));
+        // total.setText("" + tot);
+        total.setText(String.format("%.2f", tot));
+        // difference.setText("" + (Double.parseDouble(debitAmount.getText()) - tot));
+        difference.setText(String.format("%.2f", (Double.parseDouble(debitAmount.getText()) - tot)));
 
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void credit_account_codeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_credit_account_codeItemStateChanged
-        DatabaseManager dbm = DatabaseManager.getDbCon();
+//        DatabaseManager dbm = DatabaseManager.getDbCon();
         /*  String Name = null;
          if (evt.getStateChange() == ItemEvent.SELECTED) {
          int item = Integer.parseInt(evt.getItem().toString());
@@ -1155,7 +1336,7 @@ public class ACC_recepts extends javax.swing.JPanel {
          }
          credit_description.requestFocusInWindow(); */
 
-        try {
+  /*      try {
             if (dbm.checkWhetherDataExists("account_names", "account_id", Integer.parseInt(credit_account_code.getSelectedItem().toString())) == 1 || credit_account_code.getSelectedIndex() == 0 || credit_account_code.getSelectedItem().toString() == null) {
                 String Name = null;
                 if (evt.getStateChange() == ItemEvent.SELECTED) {
@@ -1169,7 +1350,7 @@ public class ACC_recepts extends javax.swing.JPanel {
                     }
                     credit_account_name.setText("" + Name);
                 }
-               // credit_description.requestFocusInWindow();
+                // credit_description.requestFocusInWindow();
             } else {
                 msg.showMessage("Invalid Account Code", "Receipt", "info");
                 credit_account_code.setSelectedIndex(0);
@@ -1178,7 +1359,7 @@ public class ACC_recepts extends javax.swing.JPanel {
 
         }
 
-
+*/
     }//GEN-LAST:event_credit_account_codeItemStateChanged
 
     private void refNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refNoActionPerformed
@@ -1203,7 +1384,7 @@ public class ACC_recepts extends javax.swing.JPanel {
 
     }//GEN-LAST:event_jButton8ActionPerformed
     Check_Entries chk = new Check_Entries();
-  
+
     private void credit_descriptionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_credit_descriptionKeyPressed
         interface_events.Change_focus_Enterkey_t(credit_amount, evt);
     }//GEN-LAST:event_credit_descriptionKeyPressed
@@ -1213,7 +1394,7 @@ public class ACC_recepts extends javax.swing.JPanel {
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             if (chk.isDouble(credit_amount.getText())) {
                 NumberFormat formatter = new DecimalFormat("0.00");
-                 credit_amount.setText(formatter.format(Double.parseDouble(credit_amount.getText())));
+                credit_amount.setText(formatter.format(Double.parseDouble(credit_amount.getText())));
                 interface_events.Change_focus_Enterkey_t_b(refNo, jButton5, evt);
             } else {
 
@@ -1416,23 +1597,27 @@ public class ACC_recepts extends javax.swing.JPanel {
         }
 
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
-           // recieptNo.requestFocus();
+            // recieptNo.requestFocus();
             try {
 
-            if (datechooser.Return_date(yearfield,monthfield,dayfield).before(dbm.checknReturnData())) {
-                chkd=0;
-                msg.showMessage("Date You Entered is not in this Accounting Period", "Please Check Again", "info");
-                dayfield.requestFocus();
-            }
-            else{
-                chkd=1;
-                payType.requestFocus();
-            }
+                if (datechooser.Return_date(yearfield, monthfield, dayfield).before(dbm.checknReturnData()) || datechooser.Return_date(yearfield, monthfield, dayfield).after(dbm.checkNreturnlastDate())) {
+                    chkd = 0;
+                    msg.showMessage("Date You Entered is not in this Accounting Period", "Please Check Again", "info");
+                    dayfield.requestFocus();
+                } else {
+                    chkd = 1;
+                    payType.requestFocus();
+                
 
-            
-        } catch (ParseException ex) {
-            Logger.getLogger(ACC_recepts.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
+
+}
+
+            } catch (ParseException ex) {
+                Logger.getLogger(ACC_recepts.class  
+
+.getName()).log(Level.SEVERE, null, ex);
+            }
 
         }
     }//GEN-LAST:event_monthfieldKeyPressed
@@ -1452,23 +1637,27 @@ public class ACC_recepts extends javax.swing.JPanel {
         }
 
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
-           // recieptNo.requestFocus();
+            // recieptNo.requestFocus();
             try {
 
-            if (datechooser.Return_date(yearfield,monthfield,dayfield).before(dbm.checknReturnData())) {
-                chkd=0;
-                msg.showMessage("Date You Entered is not in this Accounting Period", "Please Check Again", "info");
-                dayfield.requestFocus();
-            }
-            else{
-                chkd=1;
-                payType.requestFocus();
-            }
+                if (datechooser.Return_date(yearfield, monthfield, dayfield).before(dbm.checknReturnData()) || datechooser.Return_date(yearfield, monthfield, dayfield).after(dbm.checkNreturnlastDate())) {
+                    chkd = 0;
+                    msg.showMessage("Date You Entered is not in this Accounting Period", "Please Check Again", "info");
+                    dayfield.requestFocus();
+                } else {
+                    chkd = 1;
+                    payType.requestFocus();
+                
 
-            
-        } catch (ParseException ex) {
-            Logger.getLogger(ACC_recepts.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
+
+}
+
+            } catch (ParseException ex) {
+                Logger.getLogger(ACC_recepts.class  
+
+.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_yearfieldKeyPressed
 
@@ -1639,21 +1828,25 @@ public class ACC_recepts extends javax.swing.JPanel {
             ////// ChaNGE  focus on enter////////////////
             try {
 
-            if (datechooser.Return_date(yearfield,monthfield,dayfield).before(dbm.checknReturnData())) {
-                chkd=0;
-                msg.showMessage("Date You Entered is not in this Accounting Period", "Please Check Again", "info");
-                dayfield.requestFocus();
-            }
-            else{
-                chkd=1;
-                payType.requestFocus();
-            }
+                if (datechooser.Return_date(yearfield, monthfield, dayfield).before(dbm.checknReturnData()) || datechooser.Return_date(yearfield, monthfield, dayfield).after(dbm.checkNreturnlastDate())) {
+                    chkd = 0;
+                    msg.showMessage("Date You Entered is not in this Accounting Period", "Please Check Again", "info");
+                    dayfield.requestFocus();
+                } else {
+                    chkd = 1;
+                    payType.requestFocus();
+                
 
-            
-        } catch (ParseException ex) {
-            Logger.getLogger(ACC_recepts.class.getName()).log(Level.SEVERE, null, ex);
-        }
-           // recieptNo.requestFocus();
+
+
+}
+
+            } catch (ParseException ex) {
+                Logger.getLogger(ACC_recepts.class  
+
+.getName()).log(Level.SEVERE, null, ex);
+            }
+            // recieptNo.requestFocus();
         }
     }//GEN-LAST:event_dayfieldKeyPressed
 
@@ -1722,8 +1915,10 @@ public class ACC_recepts extends javax.swing.JPanel {
                 tot = tot + Double.parseDouble((String) credit_amount_table.getValueAt(i, 0));
                 i++;
             }
-            total.setText("" + tot);
-            difference.setText("" + (Double.parseDouble(debitAmount.getText()) - tot));
+            //total.setText("" + tot);
+            total.setText(String.format("%.2f", tot));
+            //difference.setText("" + (Double.parseDouble(debitAmount.getText()) - tot));
+            difference.setText(String.format("%.2f", (Double.parseDouble(debitAmount.getText()) - tot)));
 
             if (Double.parseDouble(difference.getText()) < 0) {
                 msg.showMessage("Credit balance is higher than Debit balance", "Please Check Again", "info");
@@ -1732,9 +1927,9 @@ public class ACC_recepts extends javax.swing.JPanel {
                 msg.showMessage("There is a difference", "Please Check Again", "info");
                 credit_account_code.requestFocusInWindow();
             } else {
-                if(chkd==1){
-                jButton6.setEnabled(true);
-                jButton6.requestFocusInWindow();
+                if (chkd == 1) {
+                    jButton6.setEnabled(true);
+                    jButton6.requestFocusInWindow();
                 }
             }
         }
@@ -1767,35 +1962,41 @@ public class ACC_recepts extends javax.swing.JPanel {
 //        credit_description.setText(debit_description.getText());
     }//GEN-LAST:event_debit_descriptionFocusLost
 
+    
     private void debit_accountCodeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_debit_accountCodeKeyPressed
-if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            debit_description.requestFocusInWindow();
-        }
+                
+            
+       
+
+        
+        /*if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+         debit_description.requestFocusInWindow();
+         } */
     }//GEN-LAST:event_debit_accountCodeKeyPressed
 
     private void debit_accountCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_debit_accountCodeActionPerformed
-
+       
     }//GEN-LAST:event_debit_accountCodeActionPerformed
 
     private void debit_accountCodeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_debit_accountCodeItemStateChanged
-        DatabaseManager dbm = DatabaseManager.getDbCon();
+      //  DatabaseManager dbm = DatabaseManager.getDbCon();
         /* String Name = null;
-        if (evt.getStateChange() == ItemEvent.SELECTED) {
-            int item = Integer.parseInt(evt.getItem().toString());
-            try {
-                ResultSet query = dbm.query("SELECT * FROM account_names WHERE account_id =" + item + "");
-                while (query.next()) {
-                    Name = query.getString("account_name");
-                }
-            } catch (SQLException ex) {
-            }
-            debit_accountName.setText("" + Name);
-        }
-        debit_description.requestFocusInWindow(); */
+         if (evt.getStateChange() == ItemEvent.SELECTED) {
+         int item = Integer.parseInt(evt.getItem().toString());
+         try {
+         ResultSet query = dbm.query("SELECT * FROM account_names WHERE account_id =" + item + "");
+         while (query.next()) {
+         Name = query.getString("account_name");
+         }
+         } catch (SQLException ex) {
+         }
+         debit_accountName.setText("" + Name);
+         }
+         debit_description.requestFocusInWindow(); */
 
-        Check_Entries chk = new Check_Entries();
+      //  Check_Entries chk = new Check_Entries();
 
-        try {
+   /*     try {
             if (dbm.checkWhetherDataExists("account_names", "account_id", Integer.parseInt(debit_accountCode.getSelectedItem().toString())) == 1 || debit_accountCode.getSelectedIndex() == 0 || debit_accountCode.getSelectedItem().toString() == null) {
                 String Name = null;
                 if (evt.getStateChange() == ItemEvent.SELECTED) {
@@ -1809,14 +2010,14 @@ if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
                     }
                     debit_accountName.setText("" + Name);
                 }
-              //  debit_description.requestFocusInWindow();
+                //  debit_description.requestFocusInWindow();
             } else {
                 msg.showMessage("Invalid Account Code", "Receipt", "info");
                 debit_accountCode.setSelectedIndex(0);
             }
         } catch (Exception e) {
 
-        }
+        }*/
 
     }//GEN-LAST:event_debit_accountCodeItemStateChanged
 
@@ -1826,14 +2027,30 @@ if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
     }//GEN-LAST:event_descriptionFocusLost
 
     private void descriptionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descriptionKeyPressed
-         interface_events.Change_focus_Enterkey_c(debit_accountCode, evt);
+        interface_events.Change_focus_Enterkey_c(debit_accountCode, evt);
     }//GEN-LAST:event_descriptionKeyPressed
 
     private void credit_account_codeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_credit_account_codeKeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+
+     /*   if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             credit_description.requestFocusInWindow();
-        }
+        }*/
+
+
     }//GEN-LAST:event_credit_account_codeKeyPressed
+
+    private void debit_accountCodeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_debit_accountCodeKeyTyped
+         
+    
+    }//GEN-LAST:event_debit_accountCodeKeyTyped
+
+    private void debit_accountCodeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_debit_accountCodeKeyReleased
+        
+    }//GEN-LAST:event_debit_accountCodeKeyReleased
+
+    private void debit_accountCodePopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_debit_accountCodePopupMenuWillBecomeInvisible
+      
+    }//GEN-LAST:event_debit_accountCodePopupMenuWillBecomeInvisible
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

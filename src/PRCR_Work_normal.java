@@ -1449,7 +1449,7 @@ jRadioButton1.setSelected(true);
             
             division.setText(division_name);
 
-            if ("FAC".equals(division_name)|| "KA".equals(division_name) || "WI".equals(division_name)) {
+            if ("FAC".equals(division_name)|| "TA".equals(division_name) || "WI".equals(division_name)   || "KA".equals(division_name)) {
                 fac_panel.setVisible(true);
             } else {
                 fac_panel.setVisible(false);
