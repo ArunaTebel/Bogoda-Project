@@ -1317,9 +1317,20 @@ public class ACC_ledger {
             //table_name="2014_balances";
 
             // op_bal=Double.parseDouble(dbm.checknReturnData(table_name,"account_code",account_code,"op_bal"));
-            double opd = Double.parseDouble(dbm.checknReturnData(table_name, "account_code", account_code, "op_bal_d"));
-            double opc = Double.parseDouble(dbm.checknReturnData(table_name, "account_code", account_code, "op_bal_c"));
-
+            double opd;
+            try{
+             opd= Double.parseDouble(dbm.checknReturnData(table_name, "account_code", account_code, "op_bal_d"));
+            }
+            catch(Exception e){
+                opd=0;
+            }
+            double opc;
+            try{
+             opc= Double.parseDouble(dbm.checknReturnData(table_name, "account_code", account_code, "op_bal_c"));
+            }
+            catch(Exception e){
+                opc=0;
+            }
             /*  if(main_ac_id==1||main_ac_id==2||main_ac_id==7||main_ac_id==8){
             
              a=1;
