@@ -48,9 +48,9 @@ public class PRCRLedgerFirstHalf implements Runnable{
         int j;
         String[] months = {"jan", "feb", "mar", "apr", "may", "jun"};
         String table, coloumn = "code";
-        String target;
+        String target,month;
         String destTable = "prcr_ledger_first_half";
-        double x, y,active=0;
+        double x, epfbackup=0,etfbackup=0, y,active=0;
         double check=1;
         try {
             dbm.insert("INSERT INTO prcr_ledger_first_half(entry,code) VALUES('" + entry + "','" + code + "')");
@@ -61,12 +61,14 @@ public class PRCRLedgerFirstHalf implements Runnable{
         }
         for(j=1;j<=6;j++){
             table = "pr_workdata_" + year + "_0" + j;
-           
+            
             check=1;
            // System.out.println(dbm.checknReturnData(table, coloumn, code, "active"));
             
            // System.err.println((Integer.parseInt(dbm.checknReturnData(table, coloumn, code, "active"))==1));
-            if(Integer.parseInt(dbm.checknReturnData(table, coloumn, code, "active"))!=1){
+             if(dbm.checknReturnData(table, coloumn, code, "active")==null){
+              check=0;
+            }else if(Integer.parseInt(dbm.checknReturnData(table, coloumn, code, "active"))!=1){
                 
                check=0;
             }
@@ -90,16 +92,27 @@ public class PRCRLedgerFirstHalf implements Runnable{
             target = months[j-1] + "_epf12";
             dbm.updateDatabase(destTable, "entry", entry, target, y);
             
-            x = x + y;
+            
+            month=year + "_0" + j;
+            epfbackup=checknReturnDoubleData2("prcr_epf_etf_backup", "month", month,"code",code,"epf");
+           
+            
+            x = x + y+epfbackup;
             target = months[j-1] + "_epf";
             dbm.updateDatabase(destTable, "entry", entry, target, x);
             
+            
+            etfbackup=checknReturnDoubleData2("prcr_epf_etf_backup", "month", month,"code",code,"etf");
+                         
+            
             target = "etf";
             x = dbm.checknReturnDoubleData(table, coloumn, code, target);
+            x=x+etfbackup;
             target = months[j-1] + "_etf";
             dbm.updateDatabase(destTable, "entry", entry, target, x);
             }
         }
+        //uncomment
         if(active==1){
              dbm.updateDatabase("prcr_ledger_first_half",coloumn,code,"active","1");
         }
@@ -160,5 +173,21 @@ public class PRCRLedgerFirstHalf implements Runnable{
         updateTable();
         Report_PRCR_EPF_6Month.epfPrgrsbr.setValue(100);
     
+    }
+     public double checknReturnDoubleData2(String table_name, String table_column_giving, Object row_element, String table_column_giving2, Object row_element2, String table_column_need) {
+           double d = 0;
+        try{
+               ResultSet query = dbm.query("SELECT * FROM " + table_name + " where " + table_column_giving + " = '" + row_element + "' AND " + table_column_giving2 + " = '" + row_element2 + "'"); 
+            while (query.next()) {
+                d= (query.getDouble(table_column_need));
+            }
+            query.close();
+            return d;
+            
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            // return "" + ex.getErrorCode();
+        }
+        return 0;
     }
 }

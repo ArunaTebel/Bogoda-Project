@@ -934,6 +934,7 @@ public class MainWindow extends javax.swing.JFrame {
         topBar.setEnabled(true);
         //jMenu1.setEnabled(true);
         jMenu2.setEnabled(true);
+        jButton6.setEnabled(true);
        // jMenu3.setEnabled(true);
         }
             

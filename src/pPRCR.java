@@ -148,7 +148,7 @@ public class pPRCR extends javax.swing.JPanel {
             }
         });
 
-        Add_combo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "---------", "Employee", "Staff pay info", "Chkroll pay info", "Work code details", "Division details", "Coins and Debits", "----------" }));
+        Add_combo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "---------", "Employee", "Staff pay info", "Chkroll pay info", "Work code details", "Division details", "Coins and Debits", "EPF and ETF backup", "----------" }));
         Add_combo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Add_comboActionPerformed(evt);
@@ -408,6 +408,21 @@ public class pPRCR extends javax.swing.JPanel {
             validate();
             repaint();
         }
+        if (selection.equalsIgnoreCase("EPF and ETF backup")) {
+
+            PRCR_epf_etf_backup Adddv = new PRCR_epf_etf_backup();
+
+            GL_content.removeAll();
+
+            Adddv.setSize(GL_content.getSize());
+
+            GL_content.add(Adddv);
+            validate();
+            repaint();
+        }
+        
+        
+       
     }//GEN-LAST:event_Add_comboActionPerformed
 
     private void View_ComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_View_ComboActionPerformed

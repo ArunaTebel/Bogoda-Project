@@ -1,4 +1,5 @@
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -46,8 +47,9 @@ public class PRCRLedgerSecondHalf implements Runnable{
         String[] months = {"jul", "aug", "sep", "oct", "nov", "dec"};
         String table, coloumn = "code";
         String target;
+        String month;
         String destTable = "prcr_ledger_second_half";
-        double x, y,active=0;
+        double x, y,epfbackup=0,etfbackup=0,active=0;
         double check=1;
         try {
             dbm.insert("INSERT INTO prcr_ledger_second_half(entry,code) VALUES('" + entry + "','" + code + "')");
@@ -55,30 +57,31 @@ public class PRCRLedgerSecondHalf implements Runnable{
             Logger.getLogger(PRCRLedgerFirstHalf.class.getName()).log(Level.SEVERE, null, ex);
         }
         for(j=1;j<=6;j++){
-            if(j+6<10)
+            if(j+6<10){
                 table = "pr_workdata_" + year + "_0" + (j+6);
-            else
+                month = year + "_0" + (j+6);
+            }
+            else{
                 table = "pr_workdata_" + year + "_" + (j+6);
-            
-            
+                month =year + "_" + (j+6);
+            }
             check=1;
            // System.out.println(dbm.checknReturnData(table, coloumn, code, "active"));
             
            // System.err.println((Integer.parseInt(dbm.checknReturnData(table, coloumn, code, "active"))==1));
-            if(Integer.parseInt(dbm.checknReturnData(table, coloumn, code, "active"))!=1){
+            //System.out.println(dbm.checknReturnData(table, coloumn, code, "active")+table+coloumn+code);
+            if(dbm.checknReturnData(table, coloumn, code, "active")==null){
+              check=0;
+            }else if(Integer.parseInt(dbm.checknReturnData(table, coloumn, code, "active"))!=1){
                 
                check=0;
             }
-            
             
             if(check==1){
                
             active=1;
             
-            target = "total_pay";
-            x = dbm.checknReturnDoubleData(table, coloumn, code, target);
-            target = months[j-1] + "_total_pay";
-            dbm.updateDatabase(destTable, "entry", entry, target, x);
+            
             
             target = "epf10";
             x = dbm.checknReturnDoubleData(table, coloumn, code, target);
@@ -90,20 +93,37 @@ public class PRCRLedgerSecondHalf implements Runnable{
             target = months[j-1] + "_epf12";
             dbm.updateDatabase(destTable, "entry", entry, target, y);
             
-            x = x + y;
+           //epf backup
+           epfbackup=checknReturnDoubleData2("prcr_epf_etf_backup", "month", month,"code",code,"epf");
+                     
+            
+            x = x + y+epfbackup;
             target = months[j-1] + "_epf";
             dbm.updateDatabase(destTable, "entry", entry, target, x);
             
+            
+            //etf backup
+            etfbackup=checknReturnDoubleData2("prcr_epf_etf_backup", "month", month,"code",code,"etf");
+                         
+            
+            
             target = "etf";
             x = dbm.checknReturnDoubleData(table, coloumn, code, target);
+            x=x+etfbackup;
             target = months[j-1] + "_etf";
+            dbm.updateDatabase(destTable, "entry", entry, target, x);
+            
+            target = "total_pay";
+            x = dbm.checknReturnDoubleData(table, coloumn, code, target);
+            
+            target = months[j-1] + "_total_pay";
             dbm.updateDatabase(destTable, "entry", entry, target, x);
             
             }
         }
-        
+        //uncomment 
           if(active==1){
-             dbm.updateDatabase("prcr_ledger_first_half",coloumn,code,"active","1");
+             dbm.updateDatabase("prcr_ledger_second_half",coloumn,code,"active","1");
         }
     }
     
@@ -135,5 +155,21 @@ public class PRCRLedgerSecondHalf implements Runnable{
         updateTable();
         Report_PRCR_EPF_6Month.epfPrgrsbr.setValue(100);
     
+    }
+       public double checknReturnDoubleData2(String table_name, String table_column_giving, Object row_element, String table_column_giving2, Object row_element2, String table_column_need) {
+           double d = 0;
+        try{
+               ResultSet query = dbm.query("SELECT * FROM " + table_name + " where " + table_column_giving + " = '" + row_element + "' AND " + table_column_giving2 + " = '" + row_element2 + "'"); 
+            while (query.next()) {
+                d= (query.getDouble(table_column_need));
+            }
+            query.close();
+            return d;
+            
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            // return "" + ex.getErrorCode();
+        }
+        return 0;
     }
 }
