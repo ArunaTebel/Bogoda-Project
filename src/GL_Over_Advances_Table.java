@@ -72,6 +72,9 @@ public class GL_Over_Advances_Table extends javax.swing.JPanel {
         dbm.Inserting_To_The_Table_ordered(table, "gl_over_advance", "total_kg", 8, bottom, top, "remain");
         dbm.Inserting_To_The_Table_ordered(table, "gl_over_advance", "recovered", 9, bottom, top, "remain");
         dbm.Inserting_To_The_Table_ordered(table, "gl_over_advance", "remain", 10, bottom, top, "remain");
+        
+        remove_nomonths();
+        
 
 // System.out.println("sheeeeeeeeeeet");
     }
@@ -109,15 +112,9 @@ public class GL_Over_Advances_Table extends javax.swing.JPanel {
             String cyear = yearfield2.getText();
             String cmonth = datehandler.return_month_as_num(monthfield2.getText());
 
-            Date date4;                      //INPUT MONTH AS NUMBER EX: 03
+            Date date1 = java.sql.Date.valueOf(year + "-" + month + "-" + "01");
 
-            Date date1 = java.sql.Date.valueOf(year + "-" + month + "-" + "08");
-
-            if (month.equals("12")) {
-                date4 = java.sql.Date.valueOf(String.valueOf(Integer.parseInt(year) + 1) + "-" + datehandler.get_next_month(month) + "-" + "07");
-            } else {
-                date4 = java.sql.Date.valueOf(year + "-" + datehandler.get_next_month(month) + "-" + "07");
-            }
+        Date date4 = java.sql.Date.valueOf(year + "-" + month + "-" + datehandler.return_enddate(year, month));
           //  System.out.println(date1 + "----->" + date4);
 
             ResultSet query = dbm.query("SELECT * FROM gl_cash_advance where  " + "ordered_date" + " BETWEEN'" + date1 + "' AND '" + date4 + "'");
@@ -128,7 +125,7 @@ public class GL_Over_Advances_Table extends javax.swing.JPanel {
             double[] outcurr = new double[5];
             int sup;
             double set = Double.parseDouble(set_val.getText());
-            double remain = 0, remain2 = 0, remain3 = 0, remain4 = 0, remcurrent = 0;
+            double remain = -0.0001, remain2 = -0.0001, remain3 = -0.0001, remain4 = -0.0001, remcurrent = -0.0001;
             String name, cat;
             int kl = 0;
             while (query.next()&& kl<200) {
@@ -138,9 +135,15 @@ public class GL_Over_Advances_Table extends javax.swing.JPanel {
                 // cat = query.getString("cat_id");
                 
                 // System.out.println(temp1[0]+"--"+temp1[1]);
-                
+                if(before.isSelected()){
                  outcurr = overadvance.calculate(sup, cyear, cmonth);
-                 remcurrent = outcurr[0] * set - (outcurr[1] + outcurr[2] + outcurr[3] + outcurr[4]);
+                 remcurrent = outcurr[0] * set - (outcurr[1] + outcurr[2] + outcurr[3] + outcurr[4]);} else {
+                 try{
+                  remcurrent = 0-dbm.checknReturnDoubleData("gl_monthly_ledger_current", "entry", cyear+cmonth+sup, "bal_cf");
+                  
+                  out[1]= dbm.checknReturnDoubleData("gl_monthly_ledger_current", "entry", cyear+cmonth+sup, "cash_advances");
+                  outcurr[0]=dbm.checknReturnDoubleData("gl_monthly_ledger_current", "entry", cyear+cmonth+sup, "total_kg");} catch(Exception e){}
+                }
                  
                  if (remcurrent < Integer.parseInt(margin.getText())) {
                      
@@ -161,15 +164,15 @@ public class GL_Over_Advances_Table extends javax.swing.JPanel {
                   
                   out[1]= dbm.checknReturnDoubleData("gl_monthly_ledger_current", "entry", year+month+sup, "cash_advances");
                   out[0]=dbm.checknReturnDoubleData("gl_monthly_ledger_current", "entry", year+month+sup, "total_kg");} catch(Exception e){}
-                 if(Integer.parseInt(cyear+cmonth)>Integer.parseInt(temp1[0]+temp1[1])){
+                 if(Integer.parseInt(cyear+cmonth)>=Integer.parseInt(temp1[0]+temp1[1])){
                  try{     //  out1 = overadvance.calculate(sup, temp1[0], temp1[1]);
                         remain2 = dbm.checknReturnDoubleData("gl_monthly_ledger_current", "entry", temp1[0]+temp1[1]+sup, "bal_cf");
                         out1[0]= dbm.checknReturnDoubleData("gl_monthly_ledger_current", "entry", temp1[0]+temp1[1]+sup, "total_kg");} catch(Exception e){}
-                       if(Integer.parseInt(cyear+cmonth)>Integer.parseInt(temp2[0]+temp2[1])){
+                       if(Integer.parseInt(cyear+cmonth)>=Integer.parseInt(temp2[0]+temp2[1])){
                     try{      // out2 = overadvance.calculate(sup, temp2[0], temp2[1]);
                           remain3 = dbm.checknReturnDoubleData("gl_monthly_ledger_current", "entry", temp2[0]+temp2[1]+sup, "bal_cf");
                           out2[0]= dbm.checknReturnDoubleData("gl_monthly_ledger_current", "entry", temp2[0]+temp2[1]+sup, "total_kg");}catch(Exception e){}
-                          if(Integer.parseInt(cyear+cmonth)>Integer.parseInt(temp3[0]+temp3[1])){
+                          if(Integer.parseInt(cyear+cmonth)>=Integer.parseInt(temp3[0]+temp3[1])){
                        try{      //out3 = overadvance.calculate(sup, temp3[0], temp3[1]); 
                             remain4 = dbm.checknReturnDoubleData("gl_monthly_ledger_current", "entry", temp3[0]+temp3[1]+sup, "bal_cf");
                             out3[0]= dbm.checknReturnDoubleData("gl_monthly_ledger_current", "entry", temp3[0]+temp3[1]+sup, "total_kg");}catch(Exception e){}
@@ -211,21 +214,23 @@ public class GL_Over_Advances_Table extends javax.swing.JPanel {
                 remain3 = 0-remain3;
                  
                 remain4 = 0-remain4;
+                double remainfinal = remcurrent+((set) * (outcurr[0]))  ;
                 
                 
-               // if(remain<0 && remain<0 && remain<0 && remain<0){
+                if(remain<0 && remain2<0 && remain3<0 && remain4<0  ){
                     //System.out.println("INSERT INTO gl_over_advance(sup_id,sup_name,category_code,cash_ad,other_ad,loans,bal_bf,set,total_kg,recovered,remain) VALUES('" + sup + "','" + name + "','" + cat + "','" + out[1] + "','" + out[2] + "','" + out[3] + "','" + out[4] + "','" + set + "','" + out[0] + "','" + set*out[0] + "','" + remain + "')");
                     try {
-                        dbm.insert("INSERT INTO gl_over_advance(sup_id,sup_name,category_code,cash_ad,other_ad,loans,bal_bf,set_val,total_kg,recovered,remain,m1,m2,m3,m4) VALUES('" + sup + "','" + name + "','" + cat + "','" + out[1] + "','" + remain + "','" + remain2 + "','" + remain3 + "','" + remain4 + "','" + outcurr[0] + "','" + (set) * (outcurr[0]) + "','" + remcurrent + "','" + out[0] + "','" + out1[0] + "','" + out2[0] + "','" + out3[0] + "')");
+                        dbm.insert("INSERT INTO gl_over_advance(sup_id,sup_name,category_code,cash_ad,other_ad,loans,bal_bf,set_val,total_kg,recovered,remain,m1,m2,m3,m4) VALUES('" + sup + "','" + name + "','" + cat + "','" + out[1] + "','" + remain + "','" + remain2 + "','" + remain3 + "','" + remain4 + "','" + outcurr[0] + "','" + (set) * (outcurr[0]) + "','" + remainfinal + "','" + out[0] + "','" + out1[0] + "','" + out2[0] + "','" + out3[0] + "')");
                         progress.setValue(kl);
-                        kl++;
+                       
                       
                     
                     } catch (Exception ee) {
                         System.out.println(ee.getMessage());
 
                     }
-            //    }
+                }
+                 kl++;
                 }
                
             }
@@ -258,7 +263,28 @@ public class GL_Over_Advances_Table extends javax.swing.JPanel {
     
     }
     
+    public void remove_nomonths(){
     
+    int k = 0;
+                    int j = 4;
+                    while (k <= 49) {
+                        j = 4;
+
+                        while (j < 9) {
+                            System.out.println("Removing");
+                            // System.out.println("Minus clearing");
+                     if(table.getValueAt(k, j) != null){     
+                         if(Double.parseDouble(table.getValueAt(k, j).toString())== -0.0001){
+                            table.setValueAt("-", k, j);
+                            }}
+                          ///  table.setValueAt(null, k, j);
+                            j++;
+                        }
+                        k++;
+                    }
+    
+    
+    }
     public void removeSelectedRows(JTable table) {
         int m = i / 50;
         DefaultTableModel model = (DefaultTableModel) this.table.getModel();
@@ -333,6 +359,7 @@ public class GL_Over_Advances_Table extends javax.swing.JPanel {
         margin = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
+        before = new javax.swing.JCheckBox();
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -699,17 +726,21 @@ public class GL_Over_Advances_Table extends javax.swing.JPanel {
             }
         });
 
+        before.setText("Before Update");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(margin, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10)
-                    .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(before)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(margin, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel10)
+                        .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -719,7 +750,9 @@ public class GL_Over_Advances_Table extends javax.swing.JPanel {
                 .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(margin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(before)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -748,7 +781,7 @@ public class GL_Over_Advances_Table extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(67, 67, 67)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(87, 87, 87)
+                        .addGap(51, 51, 51)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(20, 20, 20))
         );
@@ -1349,6 +1382,7 @@ public class GL_Over_Advances_Table extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox before;
     private com.michaelbaranov.microba.calendar.DatePicker datePicker3;
     private com.michaelbaranov.microba.calendar.DatePicker datePicker4;
     private javax.swing.JPanel datepanel2;

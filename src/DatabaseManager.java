@@ -22,14 +22,14 @@ public final class DatabaseManager {
 
     private DatabaseManager() {
 
-     //   String url = "jdbc:mysql://192.168.1.50/";
+      //  String url = "jdbc:mysql://192.168.1.50/";
       //  String userName = "BogodaUser";
         String url = "jdbc:mysql://localhost:3306/";
        // String dbName = "arbour";
         String dbName = "bogoda";
         String driver = "com.mysql.jdbc.Driver";
      String userName = "root";
-      //  String password = "ninelights@mora";
+     //   String password = "ninelights@mora";
          String password = "";
         try {
             Class.forName(driver).newInstance();
