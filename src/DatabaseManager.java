@@ -22,14 +22,14 @@ public final class DatabaseManager {
 
     private DatabaseManager() {
 
-      //  String url = "jdbc:mysql://192.168.1.50/";
-      //  String userName = "BogodaUser";
+       // String url = "jdbc:mysql://192.168.1.50/";
+        //String userName = "BogodaUser";
         String url = "jdbc:mysql://localhost:3306/";
        // String dbName = "arbour";
         String dbName = "bogoda";
         String driver = "com.mysql.jdbc.Driver";
-     String userName = "root";
-     //   String password = "ninelights@mora";
+        String userName = "root";
+        //String password = "ninelights@mora";
          String password = "";
         try {
             Class.forName(driver).newInstance();
@@ -334,6 +334,32 @@ public final class DatabaseManager {
         }
         return null;
     }
+    
+    public String[] getStringArraySorted(String table_name, String column_name) {
+
+        int count = 0;
+
+        try {
+            ResultSet query = query("SELECT " + column_name + " FROM " + table_name + "");
+            while (query.next()) {
+                count++;
+            }
+            query.close();
+            String[] array = new String[count + 1];
+            array[0] = null;
+            count = 1;
+            ResultSet query2 = query("SELECT " + column_name + " FROM " + table_name + " order by "+ column_name +"");
+            while (query2.next()) {
+                array[count] = query2.getString(column_name);
+                count++;
+            }
+            query2.close();
+            return array;
+        } catch (SQLException ex) {
+
+        }
+        return null;
+    }
 
     public String[] getStringArray2(String table_name, String column_name) {
 
@@ -347,7 +373,7 @@ public final class DatabaseManager {
             query.close();
             String[] array = new String[count];
             count = 0;
-            ResultSet query2 = query("SELECT " + column_name + " FROM " + table_name + "");
+            ResultSet query2 = query("SELECT " + column_name + " FROM " + table_name + " order by "+ column_name +"");
             while (query2.next()) {
                 array[count] = query2.getString(column_name);
                 count++;
