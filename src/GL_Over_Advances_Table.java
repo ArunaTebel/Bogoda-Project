@@ -117,7 +117,7 @@ public class GL_Over_Advances_Table extends javax.swing.JPanel {
         Date date4 = java.sql.Date.valueOf(year + "-" + month + "-" + datehandler.return_enddate(year, month));
           //  System.out.println(date1 + "----->" + date4);
 
-            ResultSet query = dbm.query("SELECT * FROM gl_cash_advance where  " + "ordered_date" + " BETWEEN'" + date1 + "' AND '" + date4 + "'");
+            ResultSet query = dbm.query("SELECT distinct sup_id FROM gl_cash_advance where  " + "ordered_date" + " BETWEEN'" + date1 + "' AND '" + date4 + "'");
             double[] out = new double[5];
             double[] out1 = new double[5];
             double[] out2 = new double[5];
@@ -125,10 +125,13 @@ public class GL_Over_Advances_Table extends javax.swing.JPanel {
             double[] outcurr = new double[5];
             int sup;
             double set = Double.parseDouble(set_val.getText());
-            double remain = -0.0001, remain2 = -0.0001, remain3 = -0.0001, remain4 = -0.0001, remcurrent = -0.0001;
+            double remain = 0, remain2 = 0, remain3 = 0, remain4 = 0, remcurrent = 0;
             String name, cat;
             int kl = 0;
+            int kk = 0;
+         
             while (query.next()&& kl<200) {
+                remain = 0.0001; remain2 = 0.0001; remain3 = 0.0001; remain4 = 0.0001; remcurrent = 0.0001;
                 sup = query.getInt("sup_id");
                 outlable.setText("Processing "+sup);
                 // name = query.getString("sup_name");
@@ -137,7 +140,7 @@ public class GL_Over_Advances_Table extends javax.swing.JPanel {
                 // System.out.println(temp1[0]+"--"+temp1[1]);
                 if(before.isSelected()){
                  outcurr = overadvance.calculate(sup, cyear, cmonth);
-                 remcurrent = outcurr[0] * set - (outcurr[1] + outcurr[2] + outcurr[3] + outcurr[4]);} else {
+                 remcurrent = set*outcurr[0] - ((outcurr[1] + outcurr[2] + outcurr[3] + outcurr[4]));} else {
                  try{
                   remcurrent = 0-dbm.checknReturnDoubleData("gl_monthly_ledger_current", "entry", cyear+cmonth+sup, "bal_cf");
                   
@@ -146,8 +149,8 @@ public class GL_Over_Advances_Table extends javax.swing.JPanel {
                 }
                  
                  if (remcurrent < Integer.parseInt(margin.getText())) {
-                     
-                    // outlable.setText("Processing "+sup);
+                     //System.out.println("---------------------------------|||||"+remcurrent+"          "+Integer.parseInt(margin.getText()));
+                     outlable.setText("Processing "+sup);
                      name = dbm.checknReturnData("suppliers", "sup_id", sup, "sup_name");
                 cat = dbm.checknReturnData("suppliers", "sup_id", sup, "cat_id");
                 String[] temp1 = new String[2];
@@ -196,34 +199,38 @@ public class GL_Over_Advances_Table extends javax.swing.JPanel {
                 next2.setHeaderValue(datehandler.Return_month(Integer.parseInt(temp3[1])));
                 current.setHeaderValue(datehandler.Return_month(Integer.parseInt(month)));
                 th.repaint();
-
+              
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                
-                /*remain = out[0] * set - (out[1] + out[2] + out[3] + out[4]);
+              if(before.isSelected()){ 
+                  //System.out.println(remcurrent+"----------"+(Integer.parseInt(cyear+cmonth)-Integer.parseInt(year+month)));
+               if((Integer.parseInt(cyear+cmonth)-Integer.parseInt(year+month))==0){remain = remcurrent;} else{  remain = 0-remain;}
+               if((Integer.parseInt(cyear+cmonth)-Integer.parseInt(year+month))==1){remain2 = remcurrent;} else{  remain2 = 0-remain2;}
+               if((Integer.parseInt(cyear+cmonth)-Integer.parseInt(year+month))==2){remain3 = remcurrent;}else{  remain3 = 0-remain3;} 
+               if((Integer.parseInt(cyear+cmonth)-Integer.parseInt(year+month))==3){remain4 = remcurrent;}else{  remain4 = 0-remain4;}}
+                    
+              else{
+                      remain  = 0-remain;
+                      remain2 = 0-remain2;
+                      remain3 = 0-remain3;
+                      remain4 = 0-remain4;
+                      
+                      
+                      }
                
-                remain2 = out1[0] * set - (out1[1] + out1[2] + out1[3] + out1[4]);
                
-                remain3 = out2[0] * set - (out2[1] + out2[2] + out2[3] + out2[4]);
-                 
-                remain4 = out3[0] * set - (out3[1] + out3[2] + out3[3] + out3[4]); */
+                   double remainfinal = 0;
+               // if(before.isSelected()){
+                          remainfinal = remcurrent;  
+               // } else {  remainfinal= remcurrent  ;            }
                 
-                 remain = 0-remain;
-               
-                remain2 = 0-remain2;
-               
-                remain3 = 0-remain3;
-                 
-                remain4 = 0-remain4;
-                double remainfinal = remcurrent+((set) * (outcurr[0]))  ;
-                
-                
-                if(remain<0 && remain2<0 && remain3<0 && remain4<0  ){
+                if(remain<0 && remain2<0 && remain3<0  ){
                     //System.out.println("INSERT INTO gl_over_advance(sup_id,sup_name,category_code,cash_ad,other_ad,loans,bal_bf,set,total_kg,recovered,remain) VALUES('" + sup + "','" + name + "','" + cat + "','" + out[1] + "','" + out[2] + "','" + out[3] + "','" + out[4] + "','" + set + "','" + out[0] + "','" + set*out[0] + "','" + remain + "')");
                     try {
                         dbm.insert("INSERT INTO gl_over_advance(sup_id,sup_name,category_code,cash_ad,other_ad,loans,bal_bf,set_val,total_kg,recovered,remain,m1,m2,m3,m4) VALUES('" + sup + "','" + name + "','" + cat + "','" + out[1] + "','" + remain + "','" + remain2 + "','" + remain3 + "','" + remain4 + "','" + outcurr[0] + "','" + (set) * (outcurr[0]) + "','" + remainfinal + "','" + out[0] + "','" + out1[0] + "','" + out2[0] + "','" + out3[0] + "')");
                         progress.setValue(kl);
-                       
-                      
+                       kk++;
+                   
+                    
                     
                     } catch (Exception ee) {
                         System.out.println(ee.getMessage());
@@ -235,7 +242,7 @@ public class GL_Over_Advances_Table extends javax.swing.JPanel {
                
             }
             
-            if(kl==200){
+            if(kk==200){
                 JOptionPane.showMessageDialog(table, "Entry Limit exceeded"+"\n"+"Showing first 200 results"+"\n"+"Try adjusting margin");
             
             }
@@ -244,13 +251,15 @@ public class GL_Over_Advances_Table extends javax.swing.JPanel {
             Logger.getLogger(GL_Over_Advances_Table.class.getName()).log(Level.SEVERE, null, ex);
         }
        
- set_table(1, 50);
+ //set_table(1, 50);
      
      
-     
+      supplier_id.setSelectedIndex(1);
      
      progress.setValue(200);
      outlable.setText("Done");
+     supplier_id.setSelectedIndex(4);
+     supplier_id.setSelectedIndex(1);
      
      
      
@@ -271,9 +280,9 @@ public class GL_Over_Advances_Table extends javax.swing.JPanel {
                         j = 4;
 
                         while (j < 9) {
-                            System.out.println("Removing");
+                           // System.out.println("Removing");
                             // System.out.println("Minus clearing");
-                     if(table.getValueAt(k, j) != null){     
+                     if(table.getValueAt(k, j) != null && table.getValueAt(k, j) != "-" ){     
                          if(Double.parseDouble(table.getValueAt(k, j).toString())== -0.0001){
                             table.setValueAt("-", k, j);
                             }}
@@ -295,8 +304,8 @@ public class GL_Over_Advances_Table extends javax.swing.JPanel {
             dbm.CheckNDeleteFromDataBase("gl_over_advance", "sup_id", table.getValueAt(rows[n] - n, 0));
             set_table(i + 1, i + 50);
 
-            //  System.out.println(table.getValueAt(rows[i] - i, 0));
-            // model.removeRow(rows[i] - i);
+              //System.out.println(rows[n] - n);
+            /// model.removeRow(rows[i] - i);
         }
         int k = 0;
         int j = 0;
@@ -309,7 +318,7 @@ public class GL_Over_Advances_Table extends javax.swing.JPanel {
                 j++;
             }
             k++;
-            set_table(i + 1, i + 50);
+            
 
             page_info.setText("Page " + (m + 1) + " of" + " " + no_of_pages);
 
@@ -317,7 +326,7 @@ public class GL_Over_Advances_Table extends javax.swing.JPanel {
             a = dbm.Checking_Length_Of_The_Table("gl_over_advance", "sup_id");
         }
        // return deleted;
-
+set_table(i + 1, i + 50);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -912,7 +921,7 @@ public class GL_Over_Advances_Table extends javax.swing.JPanel {
         if (supplier_id.getSelectedItem().toString().equals("All")) {
             // table_handler.clear_table(table, 10, 50);
             // System.out.println("ok");
-            set_table(1, 50);
+             set_table(1, 50);
             int i = 0;
         }
         if (!supplier_id.getSelectedItem().equals("All")) {
@@ -936,10 +945,10 @@ public class GL_Over_Advances_Table extends javax.swing.JPanel {
     }//GEN-LAST:event_supplier_idActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+table_handler.clear_table(table, 11, 50);        
         Thread a = new Thread(new Cal());
     a.start();
-    supplier_id.setSelectedIndex(1);
+   
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void set_valKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_set_valKeyPressed
@@ -1136,6 +1145,10 @@ public class GL_Over_Advances_Table extends javax.swing.JPanel {
             monthfield2.requestFocus();
             monthfield2.selectAll();
         }
+        if (evt.getKeyCode() == KeyEvent.VK_RIGHT) {
+            monthfield3.requestFocus();
+            monthfield3.selectAll();
+        }
 
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
             //   dayfield2.requestFocus();
@@ -1306,8 +1319,8 @@ public class GL_Over_Advances_Table extends javax.swing.JPanel {
 
         }
         if (evt.getKeyCode() == KeyEvent.VK_LEFT) {
-            // dayfield.requestFocus();
-            // dayfield.selectAll();
+             yearfield2.requestFocus();
+             yearfield2.selectAll();
         }
         if (evt.getKeyCode() == KeyEvent.VK_RIGHT) {
             yearfield3.requestFocus();

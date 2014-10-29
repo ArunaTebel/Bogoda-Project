@@ -2,7 +2,11 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b4a7e90f-236c-48e1-b463-a16c40591ab1">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
+<<<<<<< Upstream, based on origin/master
 	<property name="ireport.y" value="240"/>
+=======
+	<property name="ireport.y" value="96"/>
+>>>>>>> e63f714 Merge origin/master
 	<parameter name="USER" class="java.lang.String"/>
 	<parameter name="year" class="java.lang.String"/>
 	<parameter name="month" class="java.lang.String"/>
@@ -176,11 +180,15 @@ order by     bank.`bank_name`,bank_branch.`branch_name`,suppliers.`sup_acc_no`]]
 				<textElement>
 					<font fontName="Segoe UI Light" size="16" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Bogoda Group Tea Factory]]></text>
+				<text><![CDATA[Arbour Valley Tea Factory]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="417" y="30" width="145" height="20" uuid="fe112270-8629-41c5-b43e-d57409be5b2e"/>
+<<<<<<< Upstream, based on origin/master
 				<text><![CDATA[Kolawenigama, Deniyaya.]]></text>
+=======
+				<text><![CDATA[Kekunadeniya, Beralapanathara]]></text>
+>>>>>>> e63f714 Merge origin/master
 			</staticText>
 			<textField pattern="dd/MM/yyyy HH.mm.ss">
 				<reportElement x="82" y="9" width="100" height="11" uuid="54a20eec-890c-4e8c-9249-a8bf0da283f9"/>
@@ -303,6 +311,7 @@ order by     bank.`bank_name`,bank_branch.`branch_name`,suppliers.`sup_acc_no`]]
 		</band>
 	</pageFooter>
 	<summary>
+<<<<<<< Upstream, based on origin/master
 		<band height="595" splitType="Prevent">
 			<staticText>
 				<reportElement x="255" y="11" width="47" height="20" uuid="5ceed5c9-98c6-421e-8aa2-2d355a1dffbb"/>
@@ -331,6 +340,57 @@ order by     bank.`bank_name`,bank_branch.`branch_name`,suppliers.`sup_acc_no`]]
 			</line>
 			<line>
 				<reportElement x="11" y="69" width="560" height="1" uuid="43d212b5-2ae5-4a05-bc2d-24ad87686703"/>
+=======
+		<band height="653" splitType="Stretch">
+			<staticText>
+				<reportElement x="10" y="10" width="100" height="20" uuid="5ceed5c9-98c6-421e-8aa2-2d355a1dffbb"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bank Payment List ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="105" y="10" width="100" height="20" uuid="64ce322d-f7da-4800-86de-339b2efecd01"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{Month}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="450" y="44" width="122" height="20" uuid="5f4d988e-37dd-44d5-8b56-a1ee23846e97"/>
+				<textFieldExpression><![CDATA[$V{Alltot}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="82" y="44" width="100" height="20" uuid="84157402-da19-4f17-9ee9-f9a638b84838"/>
+				<textFieldExpression><![CDATA[$V{full count}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="16" y="44" width="100" height="20" uuid="5ceed5c9-98c6-421e-8aa2-2d355a1dffbb"/>
+				<text><![CDATA[Count]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="312" y="44" width="100" height="20" uuid="5ceed5c9-98c6-421e-8aa2-2d355a1dffbb"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="240" y="10" width="100" height="20" uuid="5ceed5c9-98c6-421e-8aa2-2d355a1dffbb"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Summery]]></text>
+			</staticText>
+			<line>
+				<reportElement x="431" y="65" width="140" height="1" uuid="6e00ff8f-b03e-41f6-b169-293f6624b5e8"/>
+			</line>
+			<line>
+				<reportElement x="431" y="69" width="140" height="1" uuid="6e00ff8f-b03e-41f6-b169-293f6624b5e8"/>
+			</line>
+			<line>
+				<reportElement x="12" y="30" width="560" height="1" uuid="6e00ff8f-b03e-41f6-b169-293f6624b5e8"/>
+>>>>>>> e63f714 Merge origin/master
 			</line>
 		</band>
 	</summary>

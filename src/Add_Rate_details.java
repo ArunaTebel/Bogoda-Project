@@ -1,4 +1,7 @@
 
+import javax.swing.JOptionPane;
+
+
 /**
  *
  * @author Pramo
@@ -18,8 +21,19 @@ public class Add_Rate_details extends javax.swing.JPanel {
 
     
    public void focus(){
+       
 this.requestFocus();
-Code.requestFocus();;
+
+        
+  
+        
+        
+
+ 
+
+        
+Code.requestFocus();
+
 
 }
     /**
@@ -69,7 +83,7 @@ Code.requestFocus();;
             }
         });
 
-        jButton3.setText("Quit");
+        jButton3.setText("Delete");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -170,7 +184,7 @@ Code.requestFocus();;
 
         Code.putClientProperty("JComboBox.isTableCellEditor", Boolean.TRUE);
         Code.setEditable(true);
-        Code.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("rate_details", "Code_name")));
+        Code.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArraySorted("rate_details", "Code_name")));
         Code.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 CodeItemStateChanged(evt);
@@ -240,7 +254,7 @@ Code.requestFocus();;
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(518, Short.MAX_VALUE))
+                .addContainerGap(515, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -348,7 +362,21 @@ Code.requestFocus();;
     }//GEN-LAST:event_Save1KeyPressed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+       int reply = JOptionPane.showConfirmDialog(Rate,
+                             "Are You sure?", "Confirmation", JOptionPane.YES_NO_OPTION);
+                    if (reply == JOptionPane.NO_OPTION) {}
+                    else if (reply == JOptionPane.YES_OPTION) {
+                    dbm.CheckNDeleteFromDataBase("rate_details", "Code_name", Code.getSelectedItem().toString());
+                    account_name.setText(null);
+                    Code.setSelectedIndex(0);
+                    account_class.setSelectedIndex(0);
+                    Rate.setText(null);
+                    Code.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArraySorted("rate_details", "Code_name")));
+        //Description.setText(null);
+
+                    Code.requestFocus();
+                    }
+                    
     }//GEN-LAST:event_jButton3ActionPerformed
 
 

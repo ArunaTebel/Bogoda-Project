@@ -1,11 +1,8 @@
 
 import java.awt.Color;
-import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.UIDefaults;
 import javax.swing.UIManager;
-import javax.swing.table.DefaultTableModel;
-import org.jdesktop.swingx.renderer.StringValues;
 
 /*
  * To change this license header, choose License Headers in Project Properties.

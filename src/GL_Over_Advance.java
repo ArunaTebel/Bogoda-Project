@@ -213,7 +213,10 @@ public class GL_Over_Advance {
           output[1]= Double.parseDouble(billsum.two_dec_places(""+Ad_total));
           output[2]=Double.parseDouble(billsum.two_dec_places(""+Other_Ad_total));
           output[3]=Double.parseDouble(billsum.two_dec_places(""+loans_tot));
-        output[4]=Double.parseDouble(billsum.two_dec_places(""+dbm.checknReturnDoubleData("supplier_pre_debt_coins", "entry", year+ month+sup, "pre_debts")));
+        output[4]=Double.parseDouble(billsum.two_dec_places(""+dbm.checknReturnDoubleData("supplier_pre_debt_coins", "entry", year+ month+sup, "pre_debts")))+
+                Double.parseDouble(""+dbm.checknReturnDoubleData("welfare", "entry", year+ month+sup, "amount"));
+        // double welfare = Double.parseDouble(""+dbm.checknReturnDoubleData("welfare", "entry", year+ month+sup, "amount"));
+         
          return output;
         
 //Advance_tot.setText(billsum.two_dec_places(""+Ad_total));

@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b4a7e90f-236c-48e1-b463-a16c40591ab1">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="USER" class="java.lang.String"/>
+	<parameter name="from_date" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="to_date" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     gl_cash_advance.`entry_no` AS gl_cash_advance_entry_no,
+     gl_cash_advance.`month_tr_no` AS gl_cash_advance_month_tr_no,
+     gl_cash_advance.`sup_id` AS gl_cash_advance_sup_id,
+     gl_cash_advance.`pay_type` AS gl_cash_advance_pay_type,
+     gl_cash_advance.`ordered_date` AS gl_cash_advance_ordered_date,
+     gl_cash_advance.`issued_date` AS gl_cash_advance_issued_date,
+     gl_cash_advance.`emergency` AS gl_cash_advance_emergency,
+     gl_cash_advance.`special_permission` AS gl_cash_advance_special_permission,
+     gl_cash_advance.`amount` AS gl_cash_advance_amount,
+     gl_cash_advance.`ref_no` AS gl_cash_advance_ref_no,
+     gl_cash_advance.`bank_code` AS gl_cash_advance_bank_code,
+     gl_cash_advance.`cheque_no` AS gl_cash_advance_cheque_no,
+     gl_cash_advance.`cheque_date` AS gl_cash_advance_cheque_date,
+     gl_cash_advance.`date_time` AS gl_cash_advance_date_time,
+     gl_cash_advance.`user` AS gl_cash_advance_user
+FROM
+     `gl_cash_advance` gl_cash_advance
+WHERE
+     issued_date >= $P{from_date}
+ AND issued_date <= $P{to_date}
+ AND special_permission  = "YES"]]>
+	</queryString>
+	<field name="gl_cash_advance_entry_no" class="java.lang.Integer"/>
+	<field name="gl_cash_advance_month_tr_no" class="java.lang.Integer"/>
+	<field name="gl_cash_advance_sup_id" class="java.lang.Integer"/>
+	<field name="gl_cash_advance_pay_type" class="java.lang.String"/>
+	<field name="gl_cash_advance_ordered_date" class="java.sql.Date"/>
+	<field name="gl_cash_advance_issued_date" class="java.sql.Date"/>
+	<field name="gl_cash_advance_emergency" class="java.lang.String"/>
+	<field name="gl_cash_advance_special_permission" class="java.lang.String"/>
+	<field name="gl_cash_advance_amount" class="java.lang.Double"/>
+	<field name="gl_cash_advance_ref_no" class="java.lang.String"/>
+	<field name="gl_cash_advance_bank_code" class="java.lang.Integer"/>
+	<field name="gl_cash_advance_cheque_no" class="java.lang.String"/>
+	<field name="gl_cash_advance_cheque_date" class="java.sql.Date"/>
+	<field name="gl_cash_advance_date_time" class="java.lang.String"/>
+	<field name="gl_cash_advance_user" class="java.lang.String"/>
+	<variable name="TITLE" class="java.lang.String">
+		<initialValueExpression><![CDATA["Special Permission Advances"]]></initialValueExpression>
+	</variable>
+	<variable name="Total" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{gl_cash_advance_amount}]]></variableExpression>
+	</variable>
+	<variable name="Count" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{gl_cash_advance_entry_no}]]></variableExpression>
+	</variable>
+	<variable name="Avarage" class="java.lang.Double" calculation="Average">
+		<variableExpression><![CDATA[$F{gl_cash_advance_amount}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="81" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="3e709542-151f-4b92-8a79-9527db2b951e" x="1" y="3" width="81" height="11"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Report generated:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b253ceae-65b5-4d6e-bd4d-cd9f29f5de4c" x="0" y="16" width="15" height="20"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[by:]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="e13c4d67-1e7f-4c1c-96d2-2316ab27579e" x="0" y="57" width="572" height="1"/>
+			</line>
+			<staticText>
+				<reportElement uuid="75b687d7-fe40-4adf-9851-27816341e992" x="340" y="9" width="216" height="27"/>
+				<textElement>
+					<font fontName="Segoe UI Light" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bogoda Group Tea Factory]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="aeb39eae-cf99-495a-9b95-9031f30f70b7" x="0" y="0" width="572" height="1"/>
+			</line>
+			<staticText>
+				<reportElement uuid="fe112270-8629-41c5-b43e-d57409be5b2e" x="417" y="30" width="114" height="20"/>
+				<textElement/>
+				<text><![CDATA[Kolawenigama, Deniyaya]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="9b4308a9-ed35-425b-8f5f-5ef25592fa06" x="1" y="60" width="261" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TITLE}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement uuid="54a20eec-890c-4e8c-9249-a8bf0da283f9" x="82" y="3" width="100" height="11"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="a7284fb9-5755-493b-9033-b8778b4d88dd" x="15" y="17" width="100" height="20"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{USER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="33" splitType="Stretch">
+			<line>
+				<reportElement uuid="292404ee-21c4-44ec-86e1-654ddf5dc03b" x="0" y="-26" width="572" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#666666"/>
+				</graphicElement>
+			</line>
+			<textField evaluationTime="Report">
+				<reportElement uuid="a28f6025-2bc0-4bc1-a2d3-6de88975440a" x="276" y="6" width="40" height="20"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="c7b2c106-44fc-4aed-b3a9-e5ad706e21ea" x="196" y="6" width="80" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="e98f9243-d437-44e0-9e87-4d2a37742252" x="378" y="6" width="175" height="20" forecolor="#666666"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$V{TITLE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="27" splitType="Stretch">
+			<line>
+				<reportElement uuid="8b820536-4e3c-4646-9176-72c78990b115" x="1" y="23" width="571" height="1"/>
+			</line>
+			<staticText>
+				<reportElement uuid="039454c6-28ae-4f29-aa02-d3bb712887e4" x="0" y="5" width="50" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Entry:no]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d12822c9-a485-4478-b6f5-549ffce234e3" x="50" y="5" width="50" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Month:tr:no]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="03da878a-09f9-45c6-baef-bd935ebcb21b" x="100" y="5" width="50" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[SupID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="529e039f-af1c-403b-b007-2af55c8bcfe3" x="150" y="5" width="50" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Paytype]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="766a8a14-20e8-4eb0-adc7-1aac707b0375" x="200" y="5" width="62" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ordered]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="25f45886-2a97-43ac-96a3-c7ae506167e0" x="278" y="5" width="62" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Issued]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b4a11184-62ca-4a56-8b1b-d4662c738953" x="503" y="5" width="50" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="97f5dfc0-e2be-4113-919c-60f44d210334" x="360" y="5" width="50" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bank]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="847b460b-94cf-436b-bb90-88cc7a5c3bf0" x="410" y="5" width="65" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cheque_no]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="23" splitType="Stretch">
+			<textField>
+				<reportElement uuid="dcf00996-208c-4baf-86fe-9121b3cba6cf" x="0" y="0" width="50" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{gl_cash_advance_entry_no}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="ae26d96e-06d0-4d8d-9280-54234e6fe2e7" x="50" y="0" width="50" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{gl_cash_advance_month_tr_no}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="2e2ca9c5-9535-4d4c-9589-3ff284af7117" x="100" y="0" width="50" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{gl_cash_advance_sup_id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="4b7323e1-8aed-488c-9652-6b53922e14ac" x="150" y="0" width="50" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{gl_cash_advance_pay_type}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd-MM-yyyy">
+				<reportElement uuid="743523bf-e016-4843-b540-28ada0780a33" x="200" y="0" width="62" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{gl_cash_advance_ordered_date}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd-MM-yyyy">
+				<reportElement uuid="dc1907cf-0b65-4be9-9353-4e9f9e431ebf" x="278" y="0" width="62" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{gl_cash_advance_issued_date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="2ff59e17-1393-461d-b0cb-4913f3c8ed85" x="503" y="0" width="50" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{gl_cash_advance_amount}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="f566419b-50b8-40a1-9ac4-b68fd705fa25" x="360" y="0" width="50" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{gl_cash_advance_bank_code}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="f0406888-8881-4730-b88f-8eb6cce23f86" x="410" y="0" width="50" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{gl_cash_advance_cheque_no}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="18" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="18" splitType="Stretch">
+			<line>
+				<reportElement uuid="0d048f90-0a60-4753-b7bf-906c8bd8f6af" x="1" y="-13" width="571" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement uuid="3e709542-151f-4b92-8a79-9527db2b951e" x="476" y="0" width="96" height="11"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[softninelights.com]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="33" splitType="Stretch">
+			<line>
+				<reportElement uuid="64bb787b-2d37-4ae8-85c6-2b99f207fe19" x="3" y="3" width="567" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="9528dcfd-c2be-462a-afec-049353076b74" x="4" y="27" width="567" height="1"/>
+				<graphicElement>
+					<pen lineStyle="Double"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement uuid="a3a3158d-7d2c-4812-b137-10af620ba744" x="503" y="8" width="69" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{Total}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="a5bcfa7a-9ccd-4e66-84c2-962ed1095023" x="300" y="9" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$V{Avarage}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b2628c9d-8dd2-4fe8-91df-264a5ade5724" x="150" y="9" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$V{Count}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="d429b16c-9fa7-4dd5-a371-c7683482587c" x="115" y="9" width="49" height="20"/>
+				<textElement/>
+				<text><![CDATA[Count=]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="36172178-3dc6-40cb-9c0b-f07d013ff58c" x="251" y="9" width="49" height="20"/>
+				<textElement/>
+				<text><![CDATA[Avarage=]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e864977f-ae79-4e2b-8e78-df2ea9008543" x="442" y="9" width="49" height="20"/>
+				<textElement/>
+				<text><![CDATA[Total=]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

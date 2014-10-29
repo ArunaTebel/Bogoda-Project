@@ -7,6 +7,8 @@ import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -47,6 +49,37 @@ public class GLmanual_entry extends javax.swing.JPanel {
         dayfield.requestFocusInWindow();
         dayfield.selectAll();
 
+    }
+    
+     public void removeSelectedRows(JTable table) {
+       // int m = i / 50;
+        DefaultTableModel model = (DefaultTableModel) this.table.getModel();
+        int[] rows = table.getSelectedRows();
+        //  deleted += rows.length;
+        for (int n = 0; n < rows.length; n++) {
+
+           // dbm.CheckNDeleteFromDataBase("gl_over_advance", "sup_id", table.getValueAt(rows[n] - n, 0));
+            //set_table(i + 1, i + 50);
+
+              //System.out.println(rows[n] - n);
+             model.removeRow(rows[n] - n);
+        }
+        int k = 0;
+        int j = 0;
+        while (k <= 99) {
+            j = 0;
+
+            while (j < 10) {
+
+               // table.setValueAt(null, k, j);
+                j++;
+            }
+            k++;
+            
+
+          
+        }
+       
     }
 
     /**
@@ -621,7 +654,7 @@ public class GLmanual_entry extends javax.swing.JPanel {
             }
         });
 
-        jButton7.setText("Clear Last ");
+        jButton7.setText("Clear Selection ");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton7ActionPerformed(evt);
@@ -1304,7 +1337,7 @@ public class GLmanual_entry extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        int i = 0;
+  /*      int i = 0;
         int j = 0;
         while (table.getValueAt(i, 0) != null) {
             i++;
@@ -1314,7 +1347,9 @@ public class GLmanual_entry extends javax.swing.JPanel {
             table.setValueAt(null, i, j);
             j++;
 
-        }
+        }*/
+        
+        removeSelectedRows(table);
 
 
     }//GEN-LAST:event_jButton7ActionPerformed
