@@ -16,11 +16,12 @@
      account_ledger_temp.`date` AS account_ledger_temp_date,
      account_ledger_temp.`description` AS account_ledger_temp_description,
      account_ledger_temp.`debit` AS account_ledger_temp_debit,
-     account_ledger_temp.`credit` AS account_ledger_temp_credit
+     account_ledger_temp.`credit` AS account_ledger_temp_credit,
+     account_ledger_temp.`ref_no` AS account_ledger_temp_ref_no
 FROM
      `account_ledger_temp` account_ledger_temp
 ORDER BY
-	account_ledger_temp.`tr_no`]]>
+     account_ledger_temp.`tr_no` ASC]]>
 	</queryString>
 	<field name="account_ledger_temp_account_code" class="java.lang.Integer"/>
 	<field name="account_ledger_temp_tr_no" class="java.lang.String"/>
@@ -28,6 +29,7 @@ ORDER BY
 	<field name="account_ledger_temp_description" class="java.lang.String"/>
 	<field name="account_ledger_temp_debit" class="java.lang.Double"/>
 	<field name="account_ledger_temp_credit" class="java.lang.Double"/>
+	<field name="account_ledger_temp_ref_no" class="java.lang.String"/>
 	<variable name="TITLE" class="java.lang.String"/>
 	<variable name="Debit_Total" class="java.lang.Double" calculation="Sum">
 		<variableExpression><![CDATA[$F{account_ledger_temp_debit}]]></variableExpression>
@@ -173,14 +175,14 @@ ORDER BY
 				<reportElement uuid="8b820536-4e3c-4646-9176-72c78990b115" x="1" y="23" width="554" height="1"/>
 			</line>
 			<staticText>
-				<reportElement uuid="dd7b0958-8dfc-412c-9fc5-ce6721134b94" x="1" y="3" width="92" height="20"/>
+				<reportElement uuid="dd7b0958-8dfc-412c-9fc5-ce6721134b94" x="1" y="3" width="62" height="20"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Tr. No]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="dd7b0958-8dfc-412c-9fc5-ce6721134b94" x="112" y="3" width="72" height="20"/>
+				<reportElement uuid="dd7b0958-8dfc-412c-9fc5-ce6721134b94" x="127" y="3" width="57" height="20"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
@@ -208,7 +210,7 @@ ORDER BY
 				<text><![CDATA[Credit]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="1ad368e3-fbda-4574-9be1-82a0621fad0f" x="95" y="28" width="92" height="20"/>
+				<reportElement uuid="1ad368e3-fbda-4574-9be1-82a0621fad0f" x="112" y="28" width="75" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$P{From_Date}]]></textFieldExpression>
 			</textField>
@@ -229,12 +231,19 @@ ORDER BY
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[( $P{Op_Bal}>=0 ? "" : -$P{Op_Bal} )]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement uuid="dd7b0958-8dfc-412c-9fc5-ce6721134b94" x="63" y="3" width="49" height="20"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ref. No.]]></text>
+			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="23" splitType="Stretch">
 			<textField pattern="dd/MM/yyyy">
-				<reportElement uuid="1f7ba11e-6ea3-4301-a2d0-de85c2a80a80" x="95" y="0" width="92" height="20"/>
+				<reportElement uuid="1f7ba11e-6ea3-4301-a2d0-de85c2a80a80" x="112" y="0" width="75" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{account_ledger_temp_date}]]></textFieldExpression>
 			</textField>
@@ -254,9 +263,14 @@ ORDER BY
 				<textFieldExpression><![CDATA[( $F{account_ledger_temp_credit}==0 ? "" : $F{account_ledger_temp_credit} )]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="1f7ba11e-6ea3-4301-a2d0-de85c2a80a80" x="25" y="0" width="67" height="20"/>
+				<reportElement uuid="1f7ba11e-6ea3-4301-a2d0-de85c2a80a80" x="17" y="0" width="42" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{account_ledger_temp_tr_no}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="1f7ba11e-6ea3-4301-a2d0-de85c2a80a80" x="67" y="0" width="45" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{account_ledger_temp_ref_no}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

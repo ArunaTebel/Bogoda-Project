@@ -715,7 +715,7 @@ days=null;
             loan = dbm.prcr_emp_code_other_advance_month_totals("prcr_other_advance_book", st, "date", "code", activecodes[i], "type", "LOAN", "amount");
             ceb = dbm.prcr_emp_code_other_advance_month_totals("prcr_other_advance_book", st, "date", "code", activecodes[i], "type", "CEB", "amount");
             teacher = dbm.prcr_emp_code_other_advance_month_totals("prcr_other_advance_book", st, "date", "code", activecodes[i], "type", "TEACHER", "amount");
-            chemical = dbm.prcr_emp_code_other_advance_month_totals("prcr_other_advance_book", st, "date", "code", activecodes[i], "type", "CHMICAL", "amount");
+            chemical = dbm.prcr_emp_code_other_advance_month_totals("prcr_other_advance_book", st, "date", "code", activecodes[i], "type", "CHEMICAL", "amount");
            // payslip = dbm.prcr_emp_code_other_advance_month_totals("prcr_other_advance_book", st, "date", "code", activecodes[i], "type", "PAYSLIP", "amount");
             fine = dbm.prcr_emp_code_other_advance_month_totals("prcr_other_advance_book", st, "date", "code", activecodes[i], "type", "FINE", "amount");
             meals = dbm.prcr_emp_code_other_advance_month_totals("prcr_other_advance_book", st, "date", "code", activecodes[i], "type", "MEALS", "amount");
@@ -892,7 +892,7 @@ days=null;
     public int[] active_staff_codes() {
         int count = 0;
         try {
-            ResultSet query = dbm.query("SELECT * FROM prcr_staff_salary_info WHERE active LIKE '" + 1 + "'");
+            ResultSet query = dbm.query("SELECT * FROM prcr_staff_salary_info_"+this.st+" WHERE active LIKE '" + 1 + "'");
             while (query.next()) {
                 count++;
             }
@@ -903,7 +903,7 @@ days=null;
         int arr[] = new int[count];
         int i = 0;
         try {
-            ResultSet query = dbm.query("SELECT * FROM prcr_staff_salary_info WHERE active LIKE '" + 1 + "'");
+            ResultSet query = dbm.query("SELECT * FROM prcr_staff_salary_info_"+this.st+" WHERE active LIKE '" + 1 + "'");
             while (query.next()) {
                 arr[i] = query.getInt("code");
                 i++;
@@ -924,7 +924,7 @@ days=null;
 
             Task_manager.staffdetailsP.setValue((100 * i) / length + 1);
             try {
-                ResultSet query = dbm.query("SELECT * FROM prcr_staff_salary_info WHERE code LIKE '" + arr[i] + "' ");
+                ResultSet query = dbm.query("SELECT * FROM prcr_staff_salary_info_"+this.st+" WHERE code LIKE '" + arr[i] + "' ");
                 while (query.next()) {
 
                     dbm.updateDatabase(table_name, "code", arr[i], "active", 1);
