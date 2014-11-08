@@ -720,6 +720,24 @@ public class GL_report_generator {
         }
 
     }
+    
+    
+    public void supplierTrack(){
+        try {
+            int k=0;
+            ResultSet query = dbm.query("SELECT distinct sup_id FROM gl_monthly_ledger_current WHERE coins_cf = '" + 0 + "' AND final_amount= '" + 0 + "'AND bal_cf= '" + 0 + "' ");
+            while (query.next()) {
+                k++;
+                System.out.println(query.getInt("sup_id"));
+            }
+            query.close();
+            System.out.println(k);
+        } catch (SQLException ex) {
+            Logger.getLogger(GL_report_generator.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    
+    
+    }
 
     /*
      public void update_welfare(String year, String month) {

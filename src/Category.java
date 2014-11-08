@@ -1,5 +1,9 @@
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 public class Category {
 
@@ -42,15 +46,37 @@ public class Category {
     public double getExtraRate() {
         return extraRate;
     }
+    
+    
+    public int returnnext(){
+        DatabaseManager dbCon = DatabaseManager.getDbCon();
+        int max = 0;
+    try {
+            
+            ResultSet query = dbCon.query("SELECT * FROM category ");
+            while (query.next()) {
+                if(query.getInt("sup_id")> max){max = query.getInt("sup_id");}
+            }
+            query.close();
+            System.out.println(max);
+        } catch (SQLException ex) {
+            Logger.getLogger(GL_report_generator.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    
+    return max+1;
+    }
 
     public void addToDataBase() {
+        
+        if(returnnext()>10000){ JOptionPane.showMessageDialog(null, "Entry limiy exceeded");}
+        else{
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         try {
-            dbCon.insert("INSERT INTO category(category_name,category_id,extra_rate) VALUES('" + categoryName + "','" + categoryCode + "','" + extraRate + "')");
+            dbCon.insert("INSERT INTO category(sup_id,category_name,category_id,extra_rate) VALUES('" + returnnext() + "','" + categoryName + "','" + categoryCode + "','" + extraRate + "')");
         } catch (SQLException ex) {
             MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
         }
-
+        }
     }
     
      public void updateDataBase() {
