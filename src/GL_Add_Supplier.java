@@ -2,6 +2,7 @@
 
 import java.awt.event.KeyEvent;
 import java.beans.PropertyVetoException;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -224,6 +225,7 @@ Date_Handler date_handler = new Date_Handler();
         jLabel10 = new javax.swing.JLabel();
         quit1 = new javax.swing.JButton();
         quit2 = new javax.swing.JButton();
+        quit3 = new javax.swing.JButton();
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
@@ -583,6 +585,19 @@ Date_Handler date_handler = new Date_Handler();
             }
         });
 
+        quit3.setBackground(new java.awt.Color(0, 153, 153));
+        quit3.setText("Auto Generate");
+        quit3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                quit3ActionPerformed(evt);
+            }
+        });
+        quit3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                quit3KeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -631,12 +646,14 @@ Date_Handler date_handler = new Date_Handler();
                                 .addGap(18, 18, 18)
                                 .addComponent(quit1))
                             .addComponent(payment_method, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(4, 416, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(4, 4, 4)
                                 .addComponent(supplier_id, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(quit3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
@@ -696,7 +713,8 @@ Date_Handler date_handler = new Date_Handler();
                         .addGap(12, 12, 12)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
-                            .addComponent(supplier_id, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(supplier_id, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(quit3)))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -1095,6 +1113,34 @@ Date_Handler date_handler = new Date_Handler();
         // TODO add your handling code here:
     }//GEN-LAST:event_quit2KeyPressed
 
+    private void quit3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quit3ActionPerformed
+        clear();
+        //GL_report_generator  rep = new GL_report_generator();
+        //rep.supplierTrack();
+        try {
+        ResultSet query = dbm.query("SELECT * FROM suppliers");
+        int sup;
+        int k = 0;
+        
+        while (query.next()) {
+         sup = query.getInt("sup_id");
+         k++;
+            if(k!=sup){ break;}
+            
+            
+        }
+        
+        supplier_id.getEditor().setItem(k);
+        sup_name.requestFocus();
+    } catch (SQLException ex) {
+        Logger.getLogger(GL_Add_Supplier.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    }//GEN-LAST:event_quit3ActionPerformed
+
+    private void quit3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_quit3KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_quit3KeyPressed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox Cat_code;
@@ -1141,6 +1187,7 @@ Date_Handler date_handler = new Date_Handler();
     private javax.swing.JButton quit;
     private javax.swing.JButton quit1;
     private javax.swing.JButton quit2;
+    private javax.swing.JButton quit3;
     private javax.swing.JButton save;
     private javax.swing.JTextField sup_name;
     private javax.swing.JTextField sup_name_sinhala;

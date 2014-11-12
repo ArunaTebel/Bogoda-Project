@@ -654,7 +654,15 @@ public String get_day(Date date) {
     
     return end;
     }
-   
+    
+    public double roundTo2(double input )
+    {
+    input = Math.round(input*100);
+    input = input/100;
+    
+    
+    return input;
+    }
    
    
 }

@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b4a7e90f-236c-48e1-b463-a16c40591ab1">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="90"/>
+	<property name="ireport.y" value="47"/>
 	<parameter name="USER" class="java.lang.String"/>
 	<parameter name="month" class="java.lang.String"/>
 	<parameter name="Month" class="java.lang.String"/>
@@ -52,6 +52,10 @@ order by category.`category_name`]]>
 		</groupHeader>
 		<groupFooter>
 			<band height="21">
+				<textField pattern="#,##0.00">
+					<reportElement x="267" y="0" width="100" height="20" uuid="dc97a624-2d6d-4ad1-bef0-928c8e9d9135"/>
+					<textFieldExpression><![CDATA[$V{gsum}]]></textFieldExpression>
+				</textField>
 				<line>
 					<reportElement x="1" y="1" width="554" height="1" uuid="b20d7a02-7f12-48ee-8184-a495219e4f8b"/>
 					<graphicElement>
@@ -118,12 +122,12 @@ order by category.`category_name`]]>
 				<textFieldExpression><![CDATA[$P{USER}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="63" y="59" width="100" height="20" uuid="0ddd21b7-9969-4fbd-b6ed-114783ba10f2"/>
+				<reportElement x="106" y="58" width="100" height="20" uuid="0ddd21b7-9969-4fbd-b6ed-114783ba10f2"/>
 				<textFieldExpression><![CDATA[$P{Month}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="15" y="58" width="136" height="20" uuid="44e43332-bf08-4a4a-a0db-cd5adf512783"/>
-				<text><![CDATA[Coins for]]></text>
+				<text><![CDATA[Previous Debts for]]></text>
 			</staticText>
 		</band>
 	</title>
@@ -162,11 +166,11 @@ order by category.`category_name`]]>
 				<text><![CDATA[SupId]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="412" y="5" width="138" height="20" uuid="f1b08a36-03ae-431a-b8cf-0f362808bd87"/>
+				<reportElement x="267" y="5" width="138" height="20" uuid="3b8116bb-1798-49d1-ac23-cc78d8113144"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Coins]]></text>
+				<text><![CDATA[Pre_debts]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="115" y="5" width="100" height="20" uuid="abb2c35d-e01e-4ce8-97a6-6dae3b2a5e47"/>
@@ -184,8 +188,8 @@ order by category.`category_name`]]>
 				<textFieldExpression><![CDATA[$F{supplier_pre_debt_coins_sup_id}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement x="412" y="0" width="138" height="15" uuid="a53a71f1-a276-44dc-a6d8-19b2ecaed1b5"/>
-				<textFieldExpression><![CDATA[$F{supplier_pre_debt_coins_coins}]]></textFieldExpression>
+				<reportElement x="267" y="0" width="138" height="15" uuid="3bcd1652-aa35-4ec3-b935-43e520a6ccb5"/>
+				<textFieldExpression><![CDATA[$F{supplier_pre_debt_coins_pre_debts}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="115" y="0" width="124" height="16" uuid="299adb89-6a69-4108-8be6-da2b9591abeb"/>
@@ -216,8 +220,8 @@ order by category.`category_name`]]>
 	<summary>
 		<band height="42" splitType="Stretch">
 			<textField pattern="#,##0.00">
-				<reportElement x="412" y="3" width="100" height="20" uuid="5fde69f7-2b1c-4a6b-a153-1475a40cbd11"/>
-				<textFieldExpression><![CDATA[$V{variable2}]]></textFieldExpression>
+				<reportElement x="267" y="3" width="100" height="20" uuid="84399408-34db-4478-bbf9-ba2f90ae08b3"/>
+				<textFieldExpression><![CDATA[$V{sum2}]]></textFieldExpression>
 			</textField>
 			<line>
 				<reportElement x="0" y="20" width="556" height="1" uuid="bd7eb96d-dddc-459d-b8d6-1d26d8801eae"/>

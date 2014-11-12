@@ -6,6 +6,8 @@
 	<parameter name="USER" class="java.lang.String"/>
 	<parameter name="from_date" class="java.util.Date"/>
 	<parameter name="to_date" class="java.util.Date"/>
+	<parameter name="p1" class="java.lang.String"/>
+	<parameter name="p2" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT
      gl_other_advances.`advance_id` AS gl_other_advances_advance_id,
@@ -24,7 +26,7 @@
      gl_other_advances.`tr_no` AS gl_other_advances_tr_no
 FROM
      `gl_other_advances` gl_other_advances INNER JOIN `suppliers` suppliers ON gl_other_advances.`id` = suppliers.`sup_id`
-WHERE
+WHERE  $P!{p1} LIKE $P{p2} AND
      Date >= $P{from_date}
  AND Date <= $P{to_date}
 ORDER BY

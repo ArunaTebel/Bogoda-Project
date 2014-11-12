@@ -11,6 +11,8 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JProgressBar;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
@@ -26,7 +28,8 @@ import javax.swing.table.TableColumnModel;
  * @author Pramo
  */
 public class GL_Over_Advances_Table extends javax.swing.JPanel {
-
+    DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
+ 
     // GL_other_advances_class oadvance = new GL_other_advances_class();
     GL_Over_Advance overadvance = new GL_Over_Advance();
     Report_gen gen = new Report_gen();
@@ -88,6 +91,17 @@ public class GL_Over_Advances_Table extends javax.swing.JPanel {
         margin.setText("0");
                 
         table.setAutoCreateRowSorter(true);
+        rightRenderer.setHorizontalAlignment(SwingConstants.RIGHT);
+table.getColumnModel().getColumn(0).setCellRenderer(rightRenderer);
+table.getColumnModel().getColumn(3).setCellRenderer(rightRenderer);
+table.getColumnModel().getColumn(4).setCellRenderer(rightRenderer);
+table.getColumnModel().getColumn(5).setCellRenderer(rightRenderer);
+table.getColumnModel().getColumn(6).setCellRenderer(rightRenderer);
+table.getColumnModel().getColumn(7).setCellRenderer(rightRenderer);
+table.getColumnModel().getColumn(8).setCellRenderer(rightRenderer);
+table.getColumnModel().getColumn(9).setCellRenderer(rightRenderer);
+table.getColumnModel().getColumn(10).setCellRenderer(rightRenderer);
+
        // supplier_id.setSelectedItem("All");
     }
    
@@ -129,6 +143,27 @@ public class GL_Over_Advances_Table extends javax.swing.JPanel {
             String name, cat;
             int kl = 0;
             int kk = 0;
+             String[] temp1 = new String[2];
+                String[] temp2 = new String[2];
+                String[] temp3 = new String[2];
+                temp1 = datehandler.forwad_months(year, month, 1).split("-");
+                temp2 = datehandler.forwad_months(year, month, 2).split("-");
+                temp3 = datehandler.forwad_months(year, month, 3).split("-");
+            ////////////////////////////////////////// table header change////////////////////////////////
+                JTableHeader th = table.getTableHeader();
+                TableColumnModel tcm = th.getColumnModel();
+                TableColumn current = tcm.getColumn(4);
+                TableColumn next = tcm.getColumn(5);
+                TableColumn next1 = tcm.getColumn(6);
+                TableColumn next2 = tcm.getColumn(7);
+
+                next.setHeaderValue(datehandler.Return_month(Integer.parseInt(temp1[1])));
+                next1.setHeaderValue(datehandler.Return_month(Integer.parseInt(temp2[1])));
+                next2.setHeaderValue(datehandler.Return_month(Integer.parseInt(temp3[1])));
+                current.setHeaderValue(datehandler.Return_month(Integer.parseInt(month)));
+                th.repaint();
+              
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
          
             while (query.next()&& kl<200) {
                 remain = 0.0001; remain2 = 0.0001; remain3 = 0.0001; remain4 = 0.0001; remcurrent = 0.0001;
@@ -153,15 +188,10 @@ public class GL_Over_Advances_Table extends javax.swing.JPanel {
                      outlable.setText("Processing "+sup);
                      name = dbm.checknReturnData("suppliers", "sup_id", sup, "sup_name");
                 cat = dbm.checknReturnData("suppliers", "sup_id", sup, "cat_id");
-                String[] temp1 = new String[2];
-                String[] temp2 = new String[2];
-                String[] temp3 = new String[2];
-                temp1 = datehandler.forwad_months(year, month, 1).split("-");
-                temp2 = datehandler.forwad_months(year, month, 2).split("-");
-                temp3 = datehandler.forwad_months(year, month, 3).split("-");
+               
                 if(Integer.parseInt(cyear+cmonth)==Integer.parseInt(year+month)){out =outcurr;  remain = remcurrent;}
                 
-               if(Integer.parseInt(cyear+cmonth)>Integer.parseInt(year+month)){
+               if(Integer.parseInt(cyear+cmonth)>=Integer.parseInt(year+month)){
            try{      //out = overadvance.calculate(sup, year, month);
                   remain = dbm.checknReturnDoubleData("gl_monthly_ledger_current", "entry", year+month+sup, "bal_cf");
                   
@@ -170,15 +200,18 @@ public class GL_Over_Advances_Table extends javax.swing.JPanel {
                  if(Integer.parseInt(cyear+cmonth)>=Integer.parseInt(temp1[0]+temp1[1])){
                  try{     //  out1 = overadvance.calculate(sup, temp1[0], temp1[1]);
                         remain2 = dbm.checknReturnDoubleData("gl_monthly_ledger_current", "entry", temp1[0]+temp1[1]+sup, "bal_cf");
-                        out1[0]= dbm.checknReturnDoubleData("gl_monthly_ledger_current", "entry", temp1[0]+temp1[1]+sup, "total_kg");} catch(Exception e){}
+                        out1[0]= dbm.checknReturnDoubleData("gl_monthly_ledger_current", "entry", temp1[0]+temp1[1]+sup, "total_kg");
+                        out1[1]= dbm.checknReturnDoubleData("gl_monthly_ledger_current", "entry", temp1[0]+temp1[1]+sup, "cash_advances"); } catch(Exception e){}
                        if(Integer.parseInt(cyear+cmonth)>=Integer.parseInt(temp2[0]+temp2[1])){
                     try{      // out2 = overadvance.calculate(sup, temp2[0], temp2[1]);
                           remain3 = dbm.checknReturnDoubleData("gl_monthly_ledger_current", "entry", temp2[0]+temp2[1]+sup, "bal_cf");
-                          out2[0]= dbm.checknReturnDoubleData("gl_monthly_ledger_current", "entry", temp2[0]+temp2[1]+sup, "total_kg");}catch(Exception e){}
+                          out2[0]= dbm.checknReturnDoubleData("gl_monthly_ledger_current", "entry", temp2[0]+temp2[1]+sup, "total_kg");
+                          out2[1]= dbm.checknReturnDoubleData("gl_monthly_ledger_current", "entry", temp2[0]+temp2[1]+sup, "cash_advances");        }catch(Exception e){}
                           if(Integer.parseInt(cyear+cmonth)>=Integer.parseInt(temp3[0]+temp3[1])){
                        try{      //out3 = overadvance.calculate(sup, temp3[0], temp3[1]); 
                             remain4 = dbm.checknReturnDoubleData("gl_monthly_ledger_current", "entry", temp3[0]+temp3[1]+sup, "bal_cf");
-                            out3[0]= dbm.checknReturnDoubleData("gl_monthly_ledger_current", "entry", temp3[0]+temp3[1]+sup, "total_kg");}catch(Exception e){}
+                            out3[0]= dbm.checknReturnDoubleData("gl_monthly_ledger_current", "entry", temp3[0]+temp3[1]+sup, "total_kg");
+                            out3[1]= dbm.checknReturnDoubleData("gl_monthly_ledger_current", "entry", temp3[0]+temp3[1]+sup, "cash_advances");}catch(Exception e){}
                }}}}
                 
                 
@@ -186,21 +219,7 @@ public class GL_Over_Advances_Table extends javax.swing.JPanel {
                 
                
 
-                ////////////////////////////////////////// table header change////////////////////////////////
-                JTableHeader th = table.getTableHeader();
-                TableColumnModel tcm = th.getColumnModel();
-                TableColumn current = tcm.getColumn(4);
-                TableColumn next = tcm.getColumn(5);
-                TableColumn next1 = tcm.getColumn(6);
-                TableColumn next2 = tcm.getColumn(7);
-
-                next.setHeaderValue(datehandler.Return_month(Integer.parseInt(temp1[1])));
-                next1.setHeaderValue(datehandler.Return_month(Integer.parseInt(temp2[1])));
-                next2.setHeaderValue(datehandler.Return_month(Integer.parseInt(temp3[1])));
-                current.setHeaderValue(datehandler.Return_month(Integer.parseInt(month)));
-                th.repaint();
-              
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                
               if(before.isSelected()){ 
                   //System.out.println(remcurrent+"----------"+(Integer.parseInt(cyear+cmonth)-Integer.parseInt(year+month)));
                if((Integer.parseInt(cyear+cmonth)-Integer.parseInt(year+month))==0){remain = remcurrent;} else{  remain = 0-remain;}
@@ -222,12 +241,14 @@ public class GL_Over_Advances_Table extends javax.swing.JPanel {
                // if(before.isSelected()){
                           remainfinal = remcurrent;  
                // } else {  remainfinal= remcurrent  ;            }
-                
-                if(remain<0 && remain2<0 && remain3<0  ){
+                // 
+                if(remain<0 && remain2<0 && remain3<0  && remain4< 0  ){
                     //System.out.println("INSERT INTO gl_over_advance(sup_id,sup_name,category_code,cash_ad,other_ad,loans,bal_bf,set,total_kg,recovered,remain) VALUES('" + sup + "','" + name + "','" + cat + "','" + out[1] + "','" + out[2] + "','" + out[3] + "','" + out[4] + "','" + set + "','" + out[0] + "','" + set*out[0] + "','" + remain + "')");
                     try {
-                        dbm.insert("INSERT INTO gl_over_advance(sup_id,sup_name,category_code,cash_ad,other_ad,loans,bal_bf,set_val,total_kg,recovered,remain,m1,m2,m3,m4) VALUES('" + sup + "','" + name + "','" + cat + "','" + out[1] + "','" + remain + "','" + remain2 + "','" + remain3 + "','" + remain4 + "','" + outcurr[0] + "','" + (set) * (outcurr[0]) + "','" + remainfinal + "','" + out[0] + "','" + out1[0] + "','" + out2[0] + "','" + out3[0] + "')");
+                        
+                        dbm.insert("INSERT INTO gl_over_advance(sup_id,sup_name,category_code,cash_ad,other_ad,loans,bal_bf,set_val,total_kg,recovered,remain,m1,m2,m3,m4,A1,A2,A3) VALUES('" + sup + "','" + name + "','" + cat + "','" + out[1] + "','" + datehandler.roundTo2(remain) + "','" + datehandler.roundTo2(remain2) + "','" + datehandler.roundTo2(remain3) + "','" +datehandler.roundTo2(remain4) + "','" +outcurr[0] + "','" + (set) *outcurr[0] + "','" + datehandler.roundTo2(remainfinal) + "','" + out[0] + "','" + out1[0] + "','" + out2[0] + "','" + out3[0] + "','" + out1[1] + "','" + out2[1] + "','" + out3[1] + "')");
                         progress.setValue(kl);
+                        
                        kk++;
                    
                     
