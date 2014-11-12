@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="9" uuid="b4a7e90f-236c-48e1-b463-a16c40591ab1">
 	<property name="ireport.zoom" value="1.6934217901613318"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="202"/>
 	<parameter name="USER" class="java.lang.String"/>
 	<parameter name="year" class="java.lang.String"/>
 	<parameter name="month" class="java.lang.String"/>
@@ -386,7 +386,7 @@ ORDER BY
 				<textElement>
 					<font fontName="AA Amali" size="12" isBold="false"/>
 				</textElement>
-				<text><![CDATA[oM fmd;a]]></text>
+				<text><![CDATA[,smso%jH]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="8" y="200" width="80" height="16" uuid="112513a5-fb46-476e-a9df-6d9dad4d034d"/>
@@ -449,7 +449,7 @@ ORDER BY
 				<textElement>
 					<font fontName="AA Amali" size="12" isBold="false"/>
 				</textElement>
-				<text><![CDATA[wfkl=;a w;a;sldrus]]></text>
+				<text><![CDATA[wfkl=;a whlsrSus]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="8" y="139" width="86" height="16" uuid="3cc4835e-e591-4095-a7b4-25f91223c94c"/>

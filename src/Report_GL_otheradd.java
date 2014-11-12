@@ -55,7 +55,7 @@ UIDefaults defaults = UIManager.getLookAndFeelDefaults();
            
                 Thread a = new Thread(new Background());
                
-                       if (!supplier.isSelected() && !route.isSelected()) {
+                      
             try {
                 HashMap param = new HashMap();
                 //jProgressBar1.setValue(10);
@@ -63,6 +63,8 @@ UIDefaults defaults = UIManager.getLookAndFeelDefaults();
                // jProgressBar1.setValue(20);
                 Date Return_date2 = datechooser.Return_date(yearfield2, monthfield2, dayfield2);
                 param.put("from_date", Return_date1);
+                param.put("p1", "gl_other_advances.`item_type`");
+                param.put("p2",supplier_id.getSelectedItem().toString());
                 param.put("to_date", Return_date2);
                 param.put("USER",new UserAccountControl().get_current_user());
                 jProgressBar1.setValue(45);
@@ -76,7 +78,7 @@ UIDefaults defaults = UIManager.getLookAndFeelDefaults();
             } catch (ParseException ex) {
                 Logger.getLogger(Report_GL_trans.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
+        
                  /*       if(route.isSelected()&& Cat_code.getSelectedItem()==null){
          try {
                 HashMap param = new HashMap();
@@ -163,8 +165,7 @@ UIDefaults defaults = UIManager.getLookAndFeelDefaults();
         UIManager.getLookAndFeelDefaults().put("nimbusOrange", (new Color(51, 153, 0)));
       
         initComponents();
-        Cat_code.setEnabled(false);
-        supplier_id.setEnabled(false);
+        supplier_id.setSelectedIndex(1);
            jProgressBar1.setStringPainted(true);
     }
     DateChooser_text datechooser = new DateChooser_text();
@@ -201,11 +202,7 @@ UIDefaults defaults = UIManager.getLookAndFeelDefaults();
         datePicker3 = new com.michaelbaranov.microba.calendar.DatePicker();
         jLabel2 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        route = new javax.swing.JCheckBox();
-        supplier = new javax.swing.JCheckBox();
         supplier_id = new javax.swing.JComboBox();
-        Cat_code = new javax.swing.JComboBox();
         view = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jProgressBar1 = new javax.swing.JProgressBar();
@@ -363,34 +360,9 @@ UIDefaults defaults = UIManager.getLookAndFeelDefaults();
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jLabel3.setText("Group by");
-        jLabel3.setEnabled(false);
-
-        route.setText("Route");
-        route.setEnabled(false);
-        route.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                routeItemStateChanged(evt);
-            }
-        });
-
-        supplier.setText("Full report");
-        supplier.setEnabled(false);
-        supplier.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                supplierItemStateChanged(evt);
-            }
-        });
-        supplier.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                supplierActionPerformed(evt);
-            }
-        });
-
         DatabaseManager dbm = DatabaseManager.getDbCon();
-        supplier_id.putClientProperty("JComboBox.isTableCellEditor", Boolean.TRUE);
         supplier_id.setEditable(true);
-        supplier_id.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("suppliers", "sup_id")));
+        supplier_id.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("gl_advance_types", "type")));
         supplier_id.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 supplier_idItemStateChanged(evt);
@@ -401,52 +373,22 @@ UIDefaults defaults = UIManager.getLookAndFeelDefaults();
                 supplier_idActionPerformed(evt);
             }
         });
-        supplier_id.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                supplier_idKeyReleased(evt);
-            }
-        });
-
-        Cat_code.setEditable(true);
-        Cat_code.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("category", "category_id")));
-        Cat_code.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                Cat_codeItemStateChanged(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(route)
-                            .addComponent(supplier))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(Cat_code, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(supplier_id, 0, 1, Short.MAX_VALUE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(39, 39, 39)
+                .addComponent(supplier_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(57, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(route)
-                    .addComponent(Cat_code, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(supplier)
-                    .addComponent(supplier_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(24, 24, 24)
+                .addComponent(supplier_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         view.setText("Veiw");
@@ -1228,10 +1170,6 @@ UIDefaults defaults = UIManager.getLookAndFeelDefaults();
         //jButton1.requestFocus();
     }//GEN-LAST:event_datePicker3ActionPerformed
 
-    private void supplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supplierActionPerformed
-
-    }//GEN-LAST:event_supplierActionPerformed
-
     private void viewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewActionPerformed
         //Thread a  = new Thread(new Background());
         Thread b = new Thread(new report());
@@ -1330,73 +1268,16 @@ UIDefaults defaults = UIManager.getLookAndFeelDefaults();
             jProgressBar1.setValue(95);*/
     }//GEN-LAST:event_viewActionPerformed
 
-    private void routeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_routeItemStateChanged
-        if (route.isEnabled()) {
-            supplier_id.setEnabled(false);
-            supplier.setSelected(false);
-            Cat_code.setEnabled(true);
-        }
-
-    }//GEN-LAST:event_routeItemStateChanged
-
-    private void supplierItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_supplierItemStateChanged
-        if (supplier.isEnabled()) {
-            Cat_code.setEnabled(false);
-            route.setSelected(false);
-            supplier_id.setEnabled(true);
-        }
-    }//GEN-LAST:event_supplierItemStateChanged
-
-    private void supplier_idKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_supplier_idKeyReleased
-
-    }//GEN-LAST:event_supplier_idKeyReleased
-
-    private void supplier_idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supplier_idActionPerformed
-        //  System.out.println("OK");
-    }//GEN-LAST:event_supplier_idActionPerformed
-
     private void supplier_idItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_supplier_idItemStateChanged
-        if (supplier_id.getSelectedIndex() != 0) {
-            try {
-
-                DatabaseManager dbm = DatabaseManager.getDbCon();
-                String Name = null;
-
-                if (evt.getStateChange() == ItemEvent.SELECTED) {
-                    int item = Integer.parseInt(supplier_id.getSelectedItem().toString());
-                    try {
-                        ResultSet query = dbm.query("SELECT * FROM suppliers WHERE sup_id =" + item + "");
-                        while (query.next()) {
-                            Name = query.getString("sup_name");
-                        }
-                    } catch (SQLException ex) {
-                    }
-
-                    // name.setText("" + Name);
-                    // no_of_sacks.requestFocusInWindow();
-                    //jLabel14.setText(" ");
-                }
-
-            } catch (Exception e) {
-
-                supplier_id.setSelectedIndex(0);
-
-            }
-        }
-        // do something with object}
+     
     }//GEN-LAST:event_supplier_idItemStateChanged
 
-    private void Cat_codeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_Cat_codeItemStateChanged
-        // if(Cat_code.getSelectedItem()!=null){
-            //   cat_name.setText(dbm.checknReturnData("category", "category_id", Cat_code.getSelectedItem(), "category_name"));
-
-            // trans_rate.requestFocusInWindow();
-            //  }
-    }//GEN-LAST:event_Cat_codeItemStateChanged
+    private void supplier_idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supplier_idActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_supplier_idActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox Cat_code;
     private com.michaelbaranov.microba.calendar.DatePicker datePicker1;
     private com.michaelbaranov.microba.calendar.DatePicker datePicker3;
     private javax.swing.JPanel datepanel;
@@ -1405,15 +1286,12 @@ UIDefaults defaults = UIManager.getLookAndFeelDefaults();
     private javax.swing.JTextField dayfield2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JTextField monthfield;
     private javax.swing.JTextField monthfield2;
-    private javax.swing.JCheckBox route;
-    private javax.swing.JCheckBox supplier;
     private javax.swing.JComboBox supplier_id;
     private javax.swing.JButton view;
     private javax.swing.JTextField yearfield;
