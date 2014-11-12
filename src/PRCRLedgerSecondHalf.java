@@ -49,7 +49,7 @@ public class PRCRLedgerSecondHalf implements Runnable{
         String target;
         String month;
         String destTable = "prcr_ledger_second_half";
-        double x, y,epfbackup=0,etfbackup=0,active=0;
+        double x, y,epfbackup=0,etfbackup=0,totalpay=0,active=0;
         double check=1;
         try {
             dbm.insert("INSERT INTO prcr_ledger_second_half(entry,code) VALUES('" + entry + "','" + code + "')");
@@ -114,10 +114,12 @@ public class PRCRLedgerSecondHalf implements Runnable{
             dbm.updateDatabase(destTable, "entry", entry, target, x);
             
             target = "total_pay";
+            
+            totalpay=checknReturnDoubleData2("prcr_epf_etf_backup", "month", month,"code",code,"total_pay");
             x = dbm.checknReturnDoubleData(table, coloumn, code, target);
             
             target = months[j-1] + "_total_pay";
-            dbm.updateDatabase(destTable, "entry", entry, target, x);
+            dbm.updateDatabase(destTable, "entry", entry, target, x+totalpay);
             
             }
         }

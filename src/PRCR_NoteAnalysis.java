@@ -179,7 +179,7 @@ public class PRCR_NoteAnalysis {
     //a=1-->checkroll   a=2----->staff
     public void setNotes(int a) {//1.make a array including salary of each worker(code)
                                       //2.set the database values for notes according to the each salary -this is done by 
-                                      //using ChNoteAnalysis() called in the CheckrollSallaryCal object(abc)
+                                      //using ChNoteAnalysis() method in the CheckrollSallaryCal object(abc)
                                       //3.Calculate total number of notes and set N5000,N2000(total number of notes)
         if(a==1){
         int columnSize = 0;
@@ -378,13 +378,13 @@ public class PRCR_NoteAnalysis {
     }
 
     public void ChNoteAnalysis(double salary, int employCode,String s) {
-
-        n_5000 = (int) (salary / 5000);
-        double rem = salary % 5000;
+        double rem=0;
+        n_5000 = 0;//(int) (salary / 5000);
+        //rem = salary % 5000;
         dbm.updateDatabase("pr_workdata_"+s, "code", employCode, "n_5000", n_5000);
 
-        n_2000 = (int) (rem / 2000);
-        rem = rem % 2000;
+        n_2000 = (int) (salary / 2000);
+        rem = salary % 2000;
         dbm.updateDatabase("pr_workdata_"+s, "code", employCode, "n_2000", n_2000);
 
         n_1000 = (int) (rem / 1000);

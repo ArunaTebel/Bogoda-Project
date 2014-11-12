@@ -71,8 +71,15 @@ public class PRCR_Checkroll_Amalgamation_Report {
        
         double otbframnt = checknReturnDoubleTotal("pr_workdata_" + workdatast, "division", division, "ot_before_amount");
         double otaftramnt = checknReturnDoubleTotal("pr_workdata_" + workdatast, "division", division, "ot_after_amount");
+        
+        double otbfrhrsttotal = checknReturnDoubleTotal("pr_workdata_" + workdatast, "division", division, "ot_before_hours");
+        double otaftrhrstotal = checknReturnDoubleTotal("pr_workdata_" + workdatast, "division", division, "ot_after_hours");
 
         double dayRate = (grosspay-otbframnt-otaftramnt) / (normaldaysstotal + sundaysstotal);
+       // double otRate=(otbframnt+otaftramnt)/(otbfrhrsttotal+otaftrhrstotal);
+        //System.out.println("Ot rate-"+otRate+","+otbfrhrsttotal+","+otaftrhrstotal);
+        System.out.println("gross pay-"+grosspay);
+        System.out.println("work days-"+normaldaysstotal+sundaysstotal);
 
         j = 0;
         System.out.println(columnsize);
@@ -92,23 +99,40 @@ public class PRCR_Checkroll_Amalgamation_Report {
 
             if (normaldays != 0 || sundays != 0 || otdayhrs != 0 || otnighthrs != 0) {
 
+               
                 System.out.println(workCode[i] + "---------" + normaldays + "------------" + sundays);
              
                 //write data in to database table for amalgamation to generate reports
                 workdayss = normaldays + sundays;
-                workdayspayy = workdayss * dayRate;
+                 workdaysT=workdaysT+workdayss;
+                
+                 workdayspayy = workdayss * dayRate;
+                workdayspayT=workdayspayT+workdayspayy;
+                
                 othourss = otdayhrs + otnighthrs;
-                othourspayy = otdayhrs * otDayrate + otnighthrs * otNightRate;
+                othoursT=othoursT+othourss;
+              othourspayy = otdayhrs * otDayrate + otnighthrs * otNightRate;
+              // othourspayy=othourss*otRate;
+               othourspayT=othourspayT+othourspayy;
+                
+
                 //double grandtotall=normaldays * normalDaysrate + sundays * sundayrate + otdayhrs * otDayrate + otnighthrs * otNightRate;
                 grandtotall = workdayspayy + othourspayy;
+                grandtotalT=grandtotalT+grandtotall;
                 try {
                     dbm.insert("INSERT INTO prcr_checkroll_amalgamation_report(work_code,section,work_days,work_days_pay,ot_hours,ot_hours_pay,grand_total) VALUES('" + workCode[i] + "','" + Section[i] + "','" + workdayss + "','" + workdayspayy + "','" + othourss + "','" + othourspayy + "','" + grandtotall + "')");
                 } catch (SQLException ex) {
-                    System.out.println("error-couldnt write data in to amalgamation database table");
+                    System.out.println("error-couldnt write data in to amalgamation database table"+ ex.getMessage());
                 }
 
             }
         }
+        
+         try {
+                    dbm.insert("INSERT INTO prcr_checkroll_amalgamation_report(work_code,section,work_days,work_days_pay,ot_hours,ot_hours_pay,grand_total) VALUES('" + " " + "','" + "TOTAL     " + "','" + workdaysT + "','" + workdayspayT + "','" + othoursT + "','" + othourspayT + "','" + grandtotalT + "')");
+                } catch (SQLException ex) {
+                    System.out.println("error-couldnt write data in to amalgamation database table"+ ex.getMessage());
+                }
 
     }
 
