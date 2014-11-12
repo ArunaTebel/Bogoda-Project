@@ -8,6 +8,11 @@
 	<parameter name="month" class="java.lang.String"/>
 	<parameter name="year" class="java.lang.String"/>
 	<parameter name="sort_by" class="java.lang.String"/>
+	<parameter name="p1" class="java.lang.String"/>
+	<parameter name="p2" class="java.lang.String"/>
+	<parameter name="AscDec" class="java.lang.String"/>
+	<parameter name="porder" class="java.lang.String"/>
+	<parameter name="porder2" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT
      daily_transactions_current.`year` AS daily_transactions_current_year,
@@ -45,13 +50,15 @@
      daily_transactions_current.`day_29` AS daily_transactions_current_day_29,
      daily_transactions_current.`day_30` AS daily_transactions_current_day_30,
      daily_transactions_current.`day_31` AS daily_transactions_current_day_31,
-     daily_transactions_current.`Total` AS daily_transactions_current_Total
+     daily_transactions_current.`Total` AS daily_transactions_current_Total,
+     suppliers.`cat_id` AS suppliers_cat_id
 FROM
-     `daily_transactions_current` daily_transactions_current
-WHERE
+     `suppliers` suppliers INNER JOIN `daily_transactions_current` daily_transactions_current ON suppliers.`sup_id` = daily_transactions_current.`sup_id`
+WHERE  $P!{p1} LIKE $P{p2} AND
      year = $P{year}
- AND month = $P{month} AND Total !=0
-order by daily_transactions_current.`sup_id`]]>
+ AND month = $P{month}
+ AND Total != 0
+ORDER by $P!{porder} $P!{AscDec} , $P{porder2} $P!{AscDec}]]>
 	</queryString>
 	<field name="daily_transactions_current_year" class="java.lang.String"/>
 	<field name="daily_transactions_current_month" class="java.lang.String"/>
@@ -89,6 +96,7 @@ order by daily_transactions_current.`sup_id`]]>
 	<field name="daily_transactions_current_day_30" class="java.lang.Double"/>
 	<field name="daily_transactions_current_day_31" class="java.lang.Double"/>
 	<field name="daily_transactions_current_Total" class="java.lang.Double"/>
+	<field name="suppliers_cat_id" class="java.lang.String"/>
 	<variable name="TITLE" class="java.lang.String"/>
 	<variable name="day" class="java.lang.Double" calculation="Sum"/>
 	<variable name="day_1" class="java.lang.Double" calculation="Sum">

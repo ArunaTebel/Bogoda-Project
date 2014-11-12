@@ -2,12 +2,17 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="9" uuid="b4a7e90f-236c-48e1-b463-a16c40591ab1">
 	<property name="ireport.zoom" value="1.6934217901613318"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="236"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="USER" class="java.lang.String"/>
 	<parameter name="year" class="java.lang.String"/>
 	<parameter name="month" class="java.lang.String"/>
 	<parameter name="Month" class="java.lang.String"/>
 	<parameter name="ChekPay" class="java.lang.Double"/>
+	<parameter name="p1" class="java.lang.String"/>
+	<parameter name="p2" class="java.lang.String"/>
+	<parameter name="porder" class="java.lang.String"/>
+	<parameter name="AscDec" class="java.lang.String"/>
+	<parameter name="porder2" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT
      gl_monthly_ledger_current.`sup_id` AS gl_monthly_ledger_current_sup_id,
@@ -89,13 +94,13 @@ FROM
      LEFT OUTER JOIN `suppliers` suppliers ON gl_monthly_ledger_current.`sup_id` = suppliers.`sup_id`
      LEFT OUTER JOIN `bank` bank ON suppliers.`bank_id` = bank.`bank_id`
      LEFT OUTER JOIN `bank_branch` bank_branch ON suppliers.`branch_id` = bank_branch.`branch_id`
-WHERE
+WHERE  $P!{p1} LIKE $P{p2} AND
      gl_monthly_ledger_current.`year` = $P{year}
  AND gl_monthly_ledger_current.`month` = $P{month}
      and (gl_monthly_ledger_current.`final_amount` != 0 OR total_kg != 0)
 ORDER BY
-     suppliers.`cat_id` ASC,
-     gl_monthly_ledger_current.`sup_id` ASC]]>
+     $P!{porder} $P!{AscDec},
+      $P!{porder2} $P!{AscDec}]]>
 	</queryString>
 	<field name="gl_monthly_ledger_current_sup_id" class="java.lang.Integer"/>
 	<field name="gl_monthly_ledger_current_name" class="java.lang.String"/>

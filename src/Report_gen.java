@@ -139,4 +139,38 @@ File myFile = new File(save_location+file_name+dateNow+".pdf");
     report[0] = ".dat";
     return report;
     }
+    
+    
+    public  String[] getFilters(String[] filters,String[] order1, String[] order2, javax.swing.JComboBox filter1,javax.swing.JComboBox filter2,javax.swing.JComboBox ord1,javax.swing.JComboBox ord2, javax.swing.JRadioButton radio ){
+   String[] arr = new String[5];
+        if (filter2.getSelectedIndex() == 0 || filter2.getSelectedIndex() == 1) {
+            arr[0] = filters[0];
+            arr[1] = filter1.getSelectedItem().toString();
+           
+        }
+
+        if (filter1.getSelectedIndex() == 0 || filter1.getSelectedIndex() == 1) {
+            arr[0] = filters[1];
+            arr[1] = filter2.getSelectedItem().toString();
+            
+        }
+        
+        if((filter2.getSelectedIndex() == 0 || filter2.getSelectedIndex() == 1) && (filter1.getSelectedIndex() == 0 || filter1.getSelectedIndex() == 1))
+        {  arr[0] = filters[1];
+            
+            
+                arr[1] = "%";
+             }
+
+        if (radio.isSelected()) {
+            arr[2] = "ASC";
+        } else {
+            arr[2] = "DESC";
+        }
+
+        arr[3] = order1[ord1.getSelectedIndex()];
+        arr[4] = order2[ord2.getSelectedIndex()];
+        
+        return arr;
+}
 }

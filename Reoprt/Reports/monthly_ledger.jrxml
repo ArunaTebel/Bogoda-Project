@@ -7,6 +7,11 @@
 	<parameter name="month" class="java.lang.String"/>
 	<parameter name="year" class="java.lang.String"/>
 	<parameter name="Month" class="java.lang.String"/>
+	<parameter name="p1" class="java.lang.String"/>
+	<parameter name="p2" class="java.lang.String"/>
+	<parameter name="AscDec" class="java.lang.String"/>
+	<parameter name="porder" class="java.lang.String"/>
+	<parameter name="porder2" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT
      gl_monthly_ledger_current.`year` AS gl_monthly_ledger_current_year,
@@ -32,16 +37,19 @@
      gl_monthly_ledger_current.`welfare` AS gl_monthly_ledger_current_welfare,
      gl_monthly_ledger_current.`bal_cf` AS gl_monthly_ledger_current_bal_cf,
      gl_monthly_ledger_current.`extra` AS gl_monthly_ledger_current_extra,
-     gl_monthly_ledger_current.`loans` AS gl_monthly_ledger_current_loans
+     gl_monthly_ledger_current.`loans` AS gl_monthly_ledger_current_loans,
+     suppliers.`cat_id` AS suppliers_cat_id
 FROM
-     `gl_monthly_ledger_current` gl_monthly_ledger_current
+     `suppliers` suppliers INNER JOIN `gl_monthly_ledger_current` gl_monthly_ledger_current ON suppliers.`sup_id` = gl_monthly_ledger_current.`sup_id`
 WHERE
-     year = $P{year}
+     $P!{p1} LIKE $P{p2}
+ AND year = $P{year}
  AND month = $P{month}
- AND ((total_kg!= 0)
-  OR (pre_debts!= 0) or (total_deduction != 0))
+ AND ((total_kg != 0)
+  OR (pre_debts != 0)
+     or (total_deduction != 0))
 ORDER BY
-     gl_monthly_ledger_current.`sup_id` ASC]]>
+     $P!{porder} $P!{AscDec}, $P!{porder2} $P!{AscDec}]]>
 	</queryString>
 	<field name="gl_monthly_ledger_current_year" class="java.lang.String"/>
 	<field name="gl_monthly_ledger_current_month" class="java.lang.String"/>
@@ -67,6 +75,7 @@ ORDER BY
 	<field name="gl_monthly_ledger_current_bal_cf" class="java.lang.Double"/>
 	<field name="gl_monthly_ledger_current_extra" class="java.lang.Double"/>
 	<field name="gl_monthly_ledger_current_loans" class="java.lang.Double"/>
+	<field name="suppliers_cat_id" class="java.lang.String"/>
 	<variable name="TITLE" class="java.lang.String"/>
 	<variable name="tot_kg" class="java.lang.Double" calculation="Sum">
 		<variableExpression><![CDATA[$F{gl_monthly_ledger_current_total_kg}]]></variableExpression>

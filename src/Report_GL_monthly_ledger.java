@@ -1,17 +1,12 @@
 
 import java.awt.Desktop;
-import java.awt.event.ItemEvent;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
-import java.sql.Date;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.ParseException;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -23,7 +18,10 @@ import javax.swing.JOptionPane;
  * @author Pramo
  */
 public class Report_GL_monthly_ledger extends javax.swing.JPanel {
-
+   String[] orderarray = {"default", "Final payment", "Category", "Supplier ID","Name","Debit"};
+    String[] orderarrayReal2 = {"gl_monthly_ledger_current.`sup_id`", "gl_monthly_ledger_current.`final_amount`", "suppliers.`cat_id`", "gl_monthly_ledger_current.`sup_id`","gl_monthly_ledger_current.`name`","gl_monthly_ledger_current.`bal_cf`"};
+    String[] orderarrayReal = {"suppliers.`cat_id`", "gl_monthly_ledger_current.`final_amount`", "suppliers.`cat_id`", "gl_monthly_ledger_current.`sup_id`","gl_monthly_ledger_current.`name`","gl_monthly_ledger_current.`bal_cf`"};
+    String[] filters = {"suppliers.`cat_id`","gl_monthly_ledger_current.`sup_id`"};
     public class Background implements Runnable {
 
         int delay;
@@ -90,9 +88,18 @@ public class Report_GL_monthly_ledger extends javax.swing.JPanel {
 
     }
      public class report_old implements Runnable {
-   String report;
-        public report_old(String rep) {
-            report = rep;
+         String filter;
+        String value;
+        String asc;
+        String order1;
+        String order2;
+   
+        public report_old(String FIL, String Val, String ASC, String OD1, String OD2) {
+             filter = FIL;
+            value = Val;
+            asc = ASC;
+            order1 = OD1;
+            order2 = OD2;
         }
 
         @Override
@@ -109,14 +116,18 @@ public class Report_GL_monthly_ledger extends javax.swing.JPanel {
             param.put("year", yearfield.getText());
             param.put("month", datehandler.return_month_as_num(monthfield.getText()));
             param.put("Month", datehandler.Return_month_full(datehandler.return_index(monthfield.getText())) + " " + yearfield.getText().toString());
-
+            param.put("p1", filter);
+            param.put("p2", value);
+            param.put("AscDec", asc);
+            param.put("porder", order1);
+            param.put("porder2", order2);
             // b.start();
             a.start();
            // t1.run();
 
             String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
 
-           String dateNow= generate.create("Monthly_Ledger", saveloc, param, location, report+".jrxml");
+           String dateNow= generate.create("Monthly_Ledger", saveloc, param, location, "monthly_ledger.jrxml");
             a.stop();
             jProgressBar1.setValue(100);
             try {
@@ -128,7 +139,58 @@ public class Report_GL_monthly_ledger extends javax.swing.JPanel {
         }
 
     }
+ public class report_sum implements Runnable {
+         String filter;
+        String value;
+        String asc;
+        String order1;
+        String order2;
+   
+        public report_sum(String FIL, String Val, String ASC, String OD1, String OD2) {
+             filter = FIL;
+            value = Val;
+            asc = ASC;
+            order1 = OD1;
+            order2 = OD2;
+        }
 
+        @Override
+        public void run() {
+
+            Thread a = new Thread(new Background(55));
+
+           // Thread t1 = new Thread(new update(yearfield.getText(), monthfield.getText()));
+             double limit =dbm.checknReturnDoubleData("rate_details", "Code_name", "CASH_LIMIT", "rate");
+            HashMap param = new HashMap();
+            param.put("USER", user.get_current_user());
+            param.put("Cat",Cat_code.getEditor().getItem().toString());
+            param.put("cash_limit", limit);
+            param.put("year", yearfield.getText());
+            param.put("month", datehandler.return_month_as_num(monthfield.getText()));
+            param.put("Month", datehandler.Return_month_full(datehandler.return_index(monthfield.getText())) + " " + yearfield.getText().toString());
+            param.put("p1", filter);
+            param.put("p2", value);
+            param.put("AscDec", asc);
+            param.put("porder", order1);
+            param.put("porder2", order2);
+            // b.start();
+            a.start();
+           // t1.run();
+
+            String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
+
+           String dateNow= generate.create("Monthly_Ledger", saveloc, param, location, "monthly_ledger Summery.jrxml");
+            a.stop();
+            jProgressBar1.setValue(100);
+            try {
+                generate.savename(dateNow, "Monthly_Ledger", yearfield.getText()+datehandler.return_month_as_num(monthfield.getText()));
+            } catch (SQLException ex) {
+                Logger.getLogger(Report_GL_daily_transactions.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+ }
+    
     public class update implements Runnable {
 
         public GL_report_generator report_gen;
@@ -194,6 +256,8 @@ public class Report_GL_monthly_ledger extends javax.swing.JPanel {
     public Report_GL_monthly_ledger() {
         initComponents();
         jProgressBar1.setStringPainted(true);
+        supplier_id.setSelectedIndex(1);
+        Cat_code.setSelectedIndex(1);
     }
     DateChooser_text datechooser = new DateChooser_text();
     Date_Handler datehandler = new Date_Handler();
@@ -227,10 +291,20 @@ public class Report_GL_monthly_ledger extends javax.swing.JPanel {
         view2 = new javax.swing.JButton();
         view1 = new javax.swing.JButton();
         view3 = new javax.swing.JButton();
-        view4 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        supplier_id = new javax.swing.JComboBox();
         Cat_code = new javax.swing.JComboBox();
-        route = new javax.swing.JCheckBox();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        supplier_id1 = new javax.swing.JComboBox();
+        Cat_code1 = new javax.swing.JComboBox();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        view4 = new javax.swing.JButton();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 6));
 
@@ -339,7 +413,165 @@ public class Report_GL_monthly_ledger extends javax.swing.JPanel {
             }
         });
 
-        view4.setText("Pre Debt Coins");
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Filter by"));
+
+        DatabaseManager dbm = DatabaseManager.getDbCon();
+        supplier_id.putClientProperty("JComboBox.isTableCellEditor", Boolean.TRUE);
+        supplier_id.setEditable(true);
+        supplier_id.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray1("suppliers", "sup_id")));
+        supplier_id.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                supplier_idItemStateChanged(evt);
+            }
+        });
+        supplier_id.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                supplier_idActionPerformed(evt);
+            }
+        });
+        supplier_id.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                supplier_idKeyReleased(evt);
+            }
+        });
+
+        Cat_code.setEditable(true);
+        Cat_code.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray1("category", "category_id")));
+        Cat_code.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                Cat_codeItemStateChanged(evt);
+            }
+        });
+
+        jLabel2.setText("Category");
+
+        jLabel3.setText("Supplier");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(Cat_code, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(supplier_id, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Cat_code, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addGap(11, 11, 11)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(supplier_id))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Order by"));
+
+        supplier_id.putClientProperty("JComboBox.isTableCellEditor", Boolean.TRUE);
+        supplier_id1.setEditable(true);
+        supplier_id1.setModel(new javax.swing.DefaultComboBoxModel(orderarray));
+        supplier_id1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                supplier_id1ItemStateChanged(evt);
+            }
+        });
+        supplier_id1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                supplier_id1ActionPerformed(evt);
+            }
+        });
+        supplier_id1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                supplier_id1KeyReleased(evt);
+            }
+        });
+
+        Cat_code1.setEditable(true);
+        Cat_code1.setModel(new javax.swing.DefaultComboBoxModel(orderarray));
+        Cat_code1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                Cat_code1ItemStateChanged(evt);
+            }
+        });
+
+        jRadioButton1.setSelected(true);
+        jRadioButton1.setText("Ascending");
+        jRadioButton1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jRadioButton1ItemStateChanged(evt);
+            }
+        });
+        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton1ActionPerformed(evt);
+            }
+        });
+
+        jRadioButton2.setText("Descending");
+        jRadioButton2.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jRadioButton2ItemStateChanged(evt);
+            }
+        });
+        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton2ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(jRadioButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(Cat_code1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(jRadioButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                        .addComponent(supplier_id1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Cat_code1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jRadioButton1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(supplier_id1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jRadioButton2)))
+        );
+
+        jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jLabel1.setText("For this month");
+
+        jButton1.setText("Pre-Debts");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        view4.setText("Coins");
         view4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 view4MouseClicked(evt);
@@ -351,22 +583,29 @@ public class Report_GL_monthly_ledger extends javax.swing.JPanel {
             }
         });
 
-        jLabel1.setText("For this month");
-
-        Cat_code.setEditable(true);
-        Cat_code.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("category", "category_id")));
-        Cat_code.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                Cat_codeItemStateChanged(evt);
-            }
-        });
-
-        route.setText("Routewise");
-        route.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                routeItemStateChanged(evt);
-            }
-        });
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel1)
+                    .addComponent(view4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(5, 5, 5)
+                .addComponent(view4, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -374,49 +613,48 @@ public class Report_GL_monthly_ledger extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(view2, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
-                            .addComponent(view1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(view3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(58, 58, 58)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(view4, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1)
-                            .addComponent(route, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Cat_code, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(view1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(view3, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(view2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 23, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(7, 7, 7)
-                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(view4, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(view1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(view3, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(view2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(5, 5, 5)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(route)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Cat_code, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(32, 32, 32)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(view1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(view3, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(view2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(38, 38, 38)
                 .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -642,14 +880,10 @@ public class Report_GL_monthly_ledger extends javax.swing.JPanel {
     }//GEN-LAST:event_view1MouseClicked
 
     private void view1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_view1ActionPerformed
-        if(route.isSelected()){
-        Thread b = new Thread(new report_old("monthly_ledger_root"));
+         String[] filt = generate.getFilters(filters, orderarrayReal, orderarrayReal2, Cat_code, supplier_id, Cat_code1, supplier_id1,jRadioButton1);
+          Thread b = new Thread(new report_old(filt[0], filt[1], filt[2], filt[3], filt[4]));
         b.start();
-        }
-        else{
-         Thread b = new Thread(new report_old("monthly_ledger"));
-        b.start();
-        }
+        
     }//GEN-LAST:event_view1ActionPerformed
 
     private void view3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_view3MouseClicked
@@ -657,8 +891,9 @@ public class Report_GL_monthly_ledger extends javax.swing.JPanel {
     }//GEN-LAST:event_view3MouseClicked
 
     private void view3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_view3ActionPerformed
-         Thread b = new Thread(new report_old("monthly_ledger Summery"));
-        b.start();
+         String[] filt = generate.getFilters(filters, orderarrayReal, orderarrayReal2, Cat_code, supplier_id, Cat_code, supplier_id1,jRadioButton1);
+          Thread b = new Thread(new report_sum(filt[0], filt[1], filt[2], filt[3], filt[4]));
+      b.start();
     }//GEN-LAST:event_view3ActionPerformed
 
     private void view4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_view4MouseClicked
@@ -670,33 +905,88 @@ public class Report_GL_monthly_ledger extends javax.swing.JPanel {
         b.start();
     }//GEN-LAST:event_view4ActionPerformed
 
-    private void Cat_codeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_Cat_codeItemStateChanged
-        // if(Cat_code.getSelectedItem()!=null){
-            //   cat_name.setText(dbm.checknReturnData("category", "category_id", Cat_code.getSelectedItem(), "category_name"));
+    private void supplier_idItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_supplier_idItemStateChanged
+        if (supplier_id.getSelectedIndex() != 1) {
+            Cat_code.setSelectedIndex(1);
+        }        // do something with object}
+    }//GEN-LAST:event_supplier_idItemStateChanged
 
-            // trans_rate.requestFocusInWindow();
-            //  }
+    private void supplier_idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supplier_idActionPerformed
+        //  System.out.println("OK");
+    }//GEN-LAST:event_supplier_idActionPerformed
+
+    private void supplier_idKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_supplier_idKeyReleased
+
+    }//GEN-LAST:event_supplier_idKeyReleased
+
+    private void Cat_codeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_Cat_codeItemStateChanged
+        if (Cat_code.getSelectedIndex() != 1) {
+            supplier_id.setSelectedIndex(1);
+        }
     }//GEN-LAST:event_Cat_codeItemStateChanged
 
-    private void routeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_routeItemStateChanged
-        if (route.isEnabled()) {
-           // supplier_id.setEnabled(false);
-            //supplier.setSelected(false);
-            Cat_code.setEnabled(true);
+    private void supplier_id1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_supplier_id1ItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_supplier_id1ItemStateChanged
+
+    private void supplier_id1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supplier_id1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_supplier_id1ActionPerformed
+
+    private void supplier_id1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_supplier_id1KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_supplier_id1KeyReleased
+
+    private void Cat_code1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_Cat_code1ItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Cat_code1ItemStateChanged
+
+    private void jRadioButton1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jRadioButton1ItemStateChanged
+        if (jRadioButton1.isSelected()) {
+            jRadioButton2.setSelected(false);
         }
-    }//GEN-LAST:event_routeItemStateChanged
+    }//GEN-LAST:event_jRadioButton1ItemStateChanged
+
+    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButton1ActionPerformed
+
+    private void jRadioButton2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jRadioButton2ItemStateChanged
+        if (jRadioButton2.isSelected()) {
+            jRadioButton1.setSelected(false);
+        }
+    }//GEN-LAST:event_jRadioButton2ItemStateChanged
+
+    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+Thread b = new Thread(new report_PreCo("GL_pre_debt"));
+        b.start();        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox Cat_code;
+    private javax.swing.JComboBox Cat_code1;
     private com.michaelbaranov.microba.calendar.DatePicker datePicker1;
     private javax.swing.JPanel datepanel;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JProgressBar jProgressBar1;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JTextField monthfield;
-    private javax.swing.JCheckBox route;
+    private javax.swing.JComboBox supplier_id;
+    private javax.swing.JComboBox supplier_id1;
     private javax.swing.JButton view1;
     private javax.swing.JButton view2;
     private javax.swing.JButton view3;
