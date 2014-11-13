@@ -49,8 +49,6 @@ public class ACC_recepts extends javax.swing.JPanel {
     int chkr1 = 0;
     int up1 = 0;
 
- 
-
     public ACC_recepts() {
         initComponents();
         // set cheque part invisible at the begining
@@ -1034,8 +1032,7 @@ public class ACC_recepts extends javax.swing.JPanel {
 
         }
     }//GEN-LAST:event_payTypeActionPerformed
-public ListSelectionListener listener;
-
+    public ListSelectionListener listener;
 
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -1191,14 +1188,10 @@ public ListSelectionListener listener;
             }
 
             refNo.requestFocus();
-        
 
-
-
-} catch (ParseException ex) {
-            Logger.getLogger(ACC_recepts.class  
-
-.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(ACC_recepts.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
 
 
@@ -1336,30 +1329,30 @@ public ListSelectionListener listener;
          }
          credit_description.requestFocusInWindow(); */
 
-  /*      try {
-            if (dbm.checkWhetherDataExists("account_names", "account_id", Integer.parseInt(credit_account_code.getSelectedItem().toString())) == 1 || credit_account_code.getSelectedIndex() == 0 || credit_account_code.getSelectedItem().toString() == null) {
-                String Name = null;
-                if (evt.getStateChange() == ItemEvent.SELECTED) {
-                    int item = Integer.parseInt(evt.getItem().toString());
-                    try {
-                        ResultSet query = dbm.query("SELECT * FROM account_names WHERE account_id =" + item + "");
-                        while (query.next()) {
-                            Name = query.getString("account_name");
-                        }
-                    } catch (SQLException ex) {
-                    }
-                    credit_account_name.setText("" + Name);
-                }
-                // credit_description.requestFocusInWindow();
-            } else {
-                msg.showMessage("Invalid Account Code", "Receipt", "info");
-                credit_account_code.setSelectedIndex(0);
-            }
-        } catch (Exception e) {
+        /*      try {
+         if (dbm.checkWhetherDataExists("account_names", "account_id", Integer.parseInt(credit_account_code.getSelectedItem().toString())) == 1 || credit_account_code.getSelectedIndex() == 0 || credit_account_code.getSelectedItem().toString() == null) {
+         String Name = null;
+         if (evt.getStateChange() == ItemEvent.SELECTED) {
+         int item = Integer.parseInt(evt.getItem().toString());
+         try {
+         ResultSet query = dbm.query("SELECT * FROM account_names WHERE account_id =" + item + "");
+         while (query.next()) {
+         Name = query.getString("account_name");
+         }
+         } catch (SQLException ex) {
+         }
+         credit_account_name.setText("" + Name);
+         }
+         // credit_description.requestFocusInWindow();
+         } else {
+         msg.showMessage("Invalid Account Code", "Receipt", "info");
+         credit_account_code.setSelectedIndex(0);
+         }
+         } catch (Exception e) {
 
-        }
+         }
 
-*/
+         */
     }//GEN-LAST:event_credit_account_codeItemStateChanged
 
     private void refNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refNoActionPerformed
@@ -1599,24 +1592,24 @@ public ListSelectionListener listener;
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
             // recieptNo.requestFocus();
             try {
-
-                if (datechooser.Return_date(yearfield, monthfield, dayfield).before(dbm.checknReturnData()) || datechooser.Return_date(yearfield, monthfield, dayfield).after(dbm.checkNreturnlastDate())) {
+                if(Integer.parseInt(dayfield.getText()) > datehandler.return_enddate(yearfield.getText(),datehandler.return_month_as_num(monthfield.getText()))){
+                    chkd = 0;
+                    msg.showMessage("Date You Entered is not a valid Date", "Please Check Again", "info");
+                    dayfield.requestFocus();
+                }
+                else if (datechooser.Return_date(yearfield, monthfield, dayfield).before(dbm.checknReturnData()) || datechooser.Return_date(yearfield, monthfield, dayfield).after(dbm.checkNreturnlastDate())) {
                     chkd = 0;
                     msg.showMessage("Date You Entered is not in this Accounting Period", "Please Check Again", "info");
                     dayfield.requestFocus();
                 } else {
                     chkd = 1;
                     payType.requestFocus();
-                
 
-
-
-}
+                }
 
             } catch (ParseException ex) {
-                Logger.getLogger(ACC_recepts.class  
-
-.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ACC_recepts.class
+                        .getName()).log(Level.SEVERE, null, ex);
             }
 
         }
@@ -1639,24 +1632,24 @@ public ListSelectionListener listener;
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
             // recieptNo.requestFocus();
             try {
-
-                if (datechooser.Return_date(yearfield, monthfield, dayfield).before(dbm.checknReturnData()) || datechooser.Return_date(yearfield, monthfield, dayfield).after(dbm.checkNreturnlastDate())) {
+                if(Integer.parseInt(dayfield.getText()) > datehandler.return_enddate(yearfield.getText(),datehandler.return_month_as_num(monthfield.getText()))){
+                    chkd = 0;
+                    msg.showMessage("Date You Entered is not a valid Date", "Please Check Again", "info");
+                    dayfield.requestFocus();
+                }
+                else if (datechooser.Return_date(yearfield, monthfield, dayfield).before(dbm.checknReturnData()) || datechooser.Return_date(yearfield, monthfield, dayfield).after(dbm.checkNreturnlastDate())) {
                     chkd = 0;
                     msg.showMessage("Date You Entered is not in this Accounting Period", "Please Check Again", "info");
                     dayfield.requestFocus();
                 } else {
                     chkd = 1;
                     payType.requestFocus();
-                
 
-
-
-}
+                }
 
             } catch (ParseException ex) {
-                Logger.getLogger(ACC_recepts.class  
-
-.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ACC_recepts.class
+                        .getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//GEN-LAST:event_yearfieldKeyPressed
@@ -1827,24 +1820,26 @@ public ListSelectionListener listener;
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             ////// ChaNGE  focus on enter////////////////
             try {
-
-                if (datechooser.Return_date(yearfield, monthfield, dayfield).before(dbm.checknReturnData()) || datechooser.Return_date(yearfield, monthfield, dayfield).after(dbm.checkNreturnlastDate())) {
+                 if(Integer.parseInt(dayfield.getText()) > datehandler.return_enddate(yearfield.getText(),datehandler.return_month_as_num(monthfield.getText()))){
+                    chkd = 0;
+                    msg.showMessage("Date You Entered is not a valid Date", "Please Check Again", "info");
+                    dayfield.requestFocus();
+                }
+                else if (datechooser.Return_date(yearfield, monthfield, dayfield).before(dbm.checknReturnData()) || datechooser.Return_date(yearfield, monthfield, dayfield).after(dbm.checkNreturnlastDate())) {
                     chkd = 0;
                     msg.showMessage("Date You Entered is not in this Accounting Period", "Please Check Again", "info");
                     dayfield.requestFocus();
-                } else {
+                } 
+               
+                else {
                     chkd = 1;
                     payType.requestFocus();
-                
 
-
-
-}
+                }
 
             } catch (ParseException ex) {
-                Logger.getLogger(ACC_recepts.class  
-
-.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ACC_recepts.class
+                        .getName()).log(Level.SEVERE, null, ex);
             }
             // recieptNo.requestFocus();
         }
@@ -1962,20 +1957,16 @@ public ListSelectionListener listener;
 //        credit_description.setText(debit_description.getText());
     }//GEN-LAST:event_debit_descriptionFocusLost
 
-    
-    private void debit_accountCodeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_debit_accountCodeKeyPressed
-                
-            
-       
 
-        
+    private void debit_accountCodeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_debit_accountCodeKeyPressed
+
         /*if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
          debit_description.requestFocusInWindow();
          } */
     }//GEN-LAST:event_debit_accountCodeKeyPressed
 
     private void debit_accountCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_debit_accountCodeActionPerformed
-       
+
     }//GEN-LAST:event_debit_accountCodeActionPerformed
 
     private void debit_accountCodeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_debit_accountCodeItemStateChanged
@@ -1996,28 +1987,28 @@ public ListSelectionListener listener;
 
       //  Check_Entries chk = new Check_Entries();
 
-   /*     try {
-            if (dbm.checkWhetherDataExists("account_names", "account_id", Integer.parseInt(debit_accountCode.getSelectedItem().toString())) == 1 || debit_accountCode.getSelectedIndex() == 0 || debit_accountCode.getSelectedItem().toString() == null) {
-                String Name = null;
-                if (evt.getStateChange() == ItemEvent.SELECTED) {
-                    int item = Integer.parseInt(evt.getItem().toString());
-                    try {
-                        ResultSet query = dbm.query("SELECT * FROM account_names WHERE account_id =" + item + "");
-                        while (query.next()) {
-                            Name = query.getString("account_name");
-                        }
-                    } catch (SQLException ex) {
-                    }
-                    debit_accountName.setText("" + Name);
-                }
-                //  debit_description.requestFocusInWindow();
-            } else {
-                msg.showMessage("Invalid Account Code", "Receipt", "info");
-                debit_accountCode.setSelectedIndex(0);
-            }
-        } catch (Exception e) {
+        /*     try {
+         if (dbm.checkWhetherDataExists("account_names", "account_id", Integer.parseInt(debit_accountCode.getSelectedItem().toString())) == 1 || debit_accountCode.getSelectedIndex() == 0 || debit_accountCode.getSelectedItem().toString() == null) {
+         String Name = null;
+         if (evt.getStateChange() == ItemEvent.SELECTED) {
+         int item = Integer.parseInt(evt.getItem().toString());
+         try {
+         ResultSet query = dbm.query("SELECT * FROM account_names WHERE account_id =" + item + "");
+         while (query.next()) {
+         Name = query.getString("account_name");
+         }
+         } catch (SQLException ex) {
+         }
+         debit_accountName.setText("" + Name);
+         }
+         //  debit_description.requestFocusInWindow();
+         } else {
+         msg.showMessage("Invalid Account Code", "Receipt", "info");
+         debit_accountCode.setSelectedIndex(0);
+         }
+         } catch (Exception e) {
 
-        }*/
+         }*/
 
     }//GEN-LAST:event_debit_accountCodeItemStateChanged
 
@@ -2032,24 +2023,23 @@ public ListSelectionListener listener;
 
     private void credit_account_codeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_credit_account_codeKeyPressed
 
-     /*   if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            credit_description.requestFocusInWindow();
-        }*/
-
+        /*   if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+         credit_description.requestFocusInWindow();
+         }*/
 
     }//GEN-LAST:event_credit_account_codeKeyPressed
 
     private void debit_accountCodeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_debit_accountCodeKeyTyped
-         
-    
+
+
     }//GEN-LAST:event_debit_accountCodeKeyTyped
 
     private void debit_accountCodeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_debit_accountCodeKeyReleased
-        
+
     }//GEN-LAST:event_debit_accountCodeKeyReleased
 
     private void debit_accountCodePopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_debit_accountCodePopupMenuWillBecomeInvisible
-      
+
     }//GEN-LAST:event_debit_accountCodePopupMenuWillBecomeInvisible
 
 

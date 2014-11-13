@@ -59,8 +59,8 @@ public class Acc_Journal_Report_Help_Database {
                         cr_count++;
                     }
 
-                    System.out.println("Dr" + dr_count);
-                    System.out.println("Cr" + cr_count);
+                  //  System.out.println("Dr" + dr_count);
+                  //  System.out.println("Cr" + cr_count);
                     if (dr_count >= cr_count) {
 
                         count = 0;
@@ -90,7 +90,8 @@ public class Acc_Journal_Report_Help_Database {
                             }
 
                         }
-
+                        query1.close();
+                        query2.close();
                         dr_count = 0;
                         cr_count = 0;
                         count = 0;
@@ -128,6 +129,8 @@ public class Acc_Journal_Report_Help_Database {
                         dr_count = 0;
                         cr_count = 0;
                         count = 0;
+                        query1.close();
+                        query2.close();
                     }
 
                 }

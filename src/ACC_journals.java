@@ -1342,8 +1342,18 @@ public class ACC_journals extends javax.swing.JPanel {
 
             }
         } else {
+            
+            try{
+            if(Integer.parseInt(dbm.checknReturnData("rate_details","Code_name","ACJMSG","rate"))==1)
             msg.showMessage("There is a Difference", "Journal Entry", "info");
+            }
+            catch(Exception e){
+                
+            }
+            if(Double.parseDouble(difference.getText())>0)
             credit_account_code.requestFocus();
+            else
+            debit_account_code.requestFocus();
         }
     }
         
@@ -1586,8 +1596,12 @@ public class ACC_journals extends javax.swing.JPanel {
             // journal_no.requestFocus();
 
             try {
-
-                if (datechooser.Return_date(yearfield,monthfield,dayfield).before(dbm.checknReturnData()) || datechooser.Return_date(yearfield,monthfield,dayfield).after(dbm.checkNreturnlastDate())) {
+                if(Integer.parseInt(dayfield.getText()) > datehandler.return_enddate(yearfield.getText(),datehandler.return_month_as_num(monthfield.getText()))){
+                    chkd = 0;
+                    msg.showMessage("Date You Entered is not a valid Date", "Please Check Again", "info");
+                    dayfield.requestFocus();
+                }
+                else if (datechooser.Return_date(yearfield,monthfield,dayfield).before(dbm.checknReturnData()) || datechooser.Return_date(yearfield,monthfield,dayfield).after(dbm.checkNreturnlastDate())) {
                     chkd = 0;
                     msg.showMessage("Date You Entered is not in this Accounting Period", "Please Check Again", "info");
                     dayfield.requestFocus();
@@ -1620,8 +1634,12 @@ public class ACC_journals extends javax.swing.JPanel {
             //journal_no.requestFocus();
 
             try {
-
-                if (datechooser.Return_date(yearfield,monthfield,dayfield).before(dbm.checknReturnData()) || datechooser.Return_date(yearfield,monthfield,dayfield).after(dbm.checkNreturnlastDate())) {
+                if(Integer.parseInt(dayfield.getText()) > datehandler.return_enddate(yearfield.getText(),datehandler.return_month_as_num(monthfield.getText()))){
+                    chkd = 0;
+                    msg.showMessage("Date You Entered is not a valid Date", "Please Check Again", "info");
+                    dayfield.requestFocus();
+                }
+                else if (datechooser.Return_date(yearfield,monthfield,dayfield).before(dbm.checknReturnData()) || datechooser.Return_date(yearfield,monthfield,dayfield).after(dbm.checkNreturnlastDate())) {
                     chkd = 0;
                     msg.showMessage("Date You Entered is not in this Accounting Period", "Please Check Again", "info");
                     dayfield.requestFocus();
@@ -1803,8 +1821,12 @@ public class ACC_journals extends javax.swing.JPanel {
             // journal_no.requestFocus();
 
             try {
-
-                if (datechooser.Return_date(yearfield,monthfield,dayfield).before(dbm.checknReturnData()) || datechooser.Return_date(yearfield,monthfield,dayfield).after(dbm.checkNreturnlastDate())) {
+                if(Integer.parseInt(dayfield.getText()) > datehandler.return_enddate(yearfield.getText(),datehandler.return_month_as_num(monthfield.getText()))){
+                    chkd = 0;
+                    msg.showMessage("Date You Entered is not a valid Date", "Please Check Again", "info");
+                    dayfield.requestFocus();
+                }
+                else if (datechooser.Return_date(yearfield,monthfield,dayfield).before(dbm.checknReturnData()) || datechooser.Return_date(yearfield,monthfield,dayfield).after(dbm.checkNreturnlastDate())) {
                     chkd = 0;
                     msg.showMessage("Date You Entered is not in this Accounting Period", "Please Check Again", "info");
                     dayfield.requestFocus();
@@ -2020,7 +2042,10 @@ public class ACC_journals extends javax.swing.JPanel {
             }
         }
         else{
+              if(Double.parseDouble(difference.getText())>0)
               credit_account_code.requestFocus();
+              else
+              debit_account_code.requestFocus();
         }
         //////
     }

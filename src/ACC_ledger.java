@@ -42,6 +42,7 @@ public class ACC_ledger {
 
             DatabaseManager dbm =DatabaseManager.getDbCon();
             String dt;
+            String ref;
             try {
                 dbm.insert("Truncate account_ledger_temp");
             } catch (SQLException ex) {
@@ -53,8 +54,9 @@ public class ACC_ledger {
                 while (query.next()) {
 
                     dt = dbm.checknReturnData("account_journal_main", "tr_no", query.getInt("tr_no"), "date");
-
-                    dbm.insert("INSERT INTO account_ledger_temp(account_code,tr_no,date,description,debit,credit) VALUES('" + account_code + "','" + query.getInt("tr_no") + "-J" + "','" + dt + "','" + query.getString("credit_description") + "',0,'" + query.getDouble("credit_amount") + "')");
+                    ref=dbm.checknReturnData("account_journal_main", "tr_no", query.getInt("tr_no"), "ref_no");
+                    
+                    dbm.insert("INSERT INTO account_ledger_temp(account_code,tr_no,date,description,debit,credit,ref_no) VALUES('" + account_code + "','" + query.getInt("tr_no") + "-J" + "','" + dt + "','" + query.getString("credit_description") + "',0,'" + query.getDouble("credit_amount") + "','"+ref+"')");
 
                 }
 
@@ -67,8 +69,8 @@ public class ACC_ledger {
                 while (query.next()) {
 
                     dt = dbm.checknReturnData("account_journal_main", "tr_no", query.getInt("tr_no"), "date");
-
-                    dbm.insert("INSERT INTO account_ledger_temp(account_code,tr_no,date,description,debit,credit) VALUES('" + account_code + "','" + query.getInt("tr_no") + "-J" + "','" + dt + "','" + query.getString("debit_description") + "','" + query.getDouble("debit_amount") + "',0)");
+                    ref=dbm.checknReturnData("account_journal_main", "tr_no", query.getInt("tr_no"), "ref_no");
+                    dbm.insert("INSERT INTO account_ledger_temp(account_code,tr_no,date,description,debit,credit,ref_no) VALUES('" + account_code + "','" + query.getInt("tr_no") + "-J" + "','" + dt + "','" + query.getString("debit_description") + "','" + query.getDouble("debit_amount") + "',0,'"+ref+"')");
 
                 }
 
@@ -82,8 +84,9 @@ public class ACC_ledger {
                 while (query.next()) {
 
                     dt = dbm.checknReturnData("account_payment_creditside", "tr_no", query.getInt("tr_no"), "date");
-
-                    dbm.insert("INSERT INTO account_ledger_temp(account_code,tr_no,date,description,debit,credit) VALUES('" + account_code + "','" + query.getInt("tr_no") + "-P" + "','" + dt + "','" + query.getString("debit_description") + "','" + query.getDouble("debit_amount") + "',0)");
+                    ref=dbm.checknReturnData("account_payment_creditside", "tr_no", query.getInt("tr_no"), "ref_no");
+                    
+                    dbm.insert("INSERT INTO account_ledger_temp(account_code,tr_no,date,description,debit,credit,ref_no) VALUES('" + account_code + "','" + query.getInt("tr_no") + "-P" + "','" + dt + "','" + query.getString("debit_description") + "','" + query.getDouble("debit_amount") + "',0,'"+ref+"')");
 
                 }
 
@@ -96,7 +99,7 @@ public class ACC_ledger {
                 while (query.next()) {
 
                     //      dt = dbm.checknReturnData("account_payment_creditside", "tr_no", query.getInt("tr_no"), "date");
-                    dbm.insert("INSERT INTO account_ledger_temp(account_code,tr_no,date,description,debit,credit) VALUES('" + account_code + "','" + query.getInt("tr_no") + "-P" + "','" + query.getString("date") + "','" + query.getString("credit_description") + "',0,'" + query.getDouble("credit_amount") + "')");
+                    dbm.insert("INSERT INTO account_ledger_temp(account_code,tr_no,date,description,debit,credit,ref_no) VALUES('" + account_code + "','" + query.getInt("tr_no") + "-P" + "','" + query.getString("date") + "','" + query.getString("credit_description") + "',0,'" + query.getDouble("credit_amount") + "','"+query.getString("ref_no")+"')");
 
                 }
 
@@ -110,7 +113,7 @@ public class ACC_ledger {
                 while (query.next()) {
 
                     // dt = dbm.checknReturnData("account_payment_creditside", "tr_no", query.getInt("tr_no"), "date");
-                    dbm.insert("INSERT INTO account_ledger_temp(account_code,tr_no,date,description,debit,credit) VALUES('" + account_code + "','" + query.getInt("tr_no") + "-R" + "','" + query.getString("date") + "','" + query.getString("debit_description") + "','" + query.getDouble("debit_amount") + "',0)");
+                    dbm.insert("INSERT INTO account_ledger_temp(account_code,tr_no,date,description,debit,credit,ref_no) VALUES('" + account_code + "','" + query.getInt("tr_no") + "-R" + "','" + query.getString("date") + "','" + query.getString("debit_description") + "','" + query.getDouble("debit_amount") + "',0,'"+query.getString("ref_no")+"')");
 
                 }
 
@@ -123,8 +126,8 @@ public class ACC_ledger {
                 while (query.next()) {
 
                     dt = dbm.checknReturnData("account_reciept_debitside", "tr_no", query.getInt("tr_no"), "date");
-
-                    dbm.insert("INSERT INTO account_ledger_temp(account_code,tr_no,date,description,debit,credit) VALUES('" + account_code + "','" + query.getInt("tr_no") + "-R" + "','" + dt + "','" + query.getString("credit_description") + "',0,'" + query.getDouble("credit_amount") + "')");
+                    ref=dbm.checknReturnData("account_reciept_debitside", "tr_no", query.getInt("tr_no"), "ref_no");
+                    dbm.insert("INSERT INTO account_ledger_temp(account_code,tr_no,date,description,debit,credit,ref_no) VALUES('" + account_code + "','" + query.getInt("tr_no") + "-R" + "','" + dt + "','" + query.getString("credit_description") + "',0,'" + query.getDouble("credit_amount") + "','"+ref+"')");
 
                 }
 
@@ -260,6 +263,7 @@ public class ACC_ledger {
 
             DatabaseManager dbm = DatabaseManager.getDbCon();
             String dt;
+            String ref;
 
             try {
                 dbm.insert("Truncate account_ledger_temp");
@@ -273,7 +277,7 @@ public class ACC_ledger {
                 while (query.next()) {
 
                     dt = dbm.checknReturnData("account_journal_main", "tr_no", query.getInt("tr_no"), "date");
-
+                    ref=dbm.checknReturnData("account_journal_main", "tr_no", query.getInt("tr_no"), "ref_no");
                     /*  Date dtD = java.sql.Date.valueOf(dt);
                      Date date1D = java.sql.Date.valueOf(date1);
                      Date date2D = java.sql.Date.valueOf(date2);*/
@@ -297,7 +301,7 @@ public class ACC_ledger {
                     }
 
                     if ((dtD.before(date2D) && dtD.after(date1D)) || dtD.equals(date1D) || dtD.equals(date2D)) {
-                        dbm.insert("INSERT INTO account_ledger_temp(account_code,tr_no,date,description,debit,credit) VALUES('" + account_code + "','" + query.getInt("tr_no") + "-J" + "','" + dt + "','" + query.getString("credit_description") + "',0,'" + query.getDouble("credit_amount") + "')");
+                        dbm.insert("INSERT INTO account_ledger_temp(account_code,tr_no,date,description,debit,credit,ref_no) VALUES('" + account_code + "','" + query.getInt("tr_no") + "-J" + "','" + dt + "','" + query.getString("credit_description") + "',0,'" + query.getDouble("credit_amount") + "','"+ref+"')");
 
                     }
 
@@ -312,7 +316,7 @@ public class ACC_ledger {
                 while (query.next()) {
 
                     dt = dbm.checknReturnData("account_journal_main", "tr_no", query.getInt("tr_no"), "date");
-
+                    ref=dbm.checknReturnData("account_journal_main", "tr_no", query.getInt("tr_no"), "date");
                     /*  Date dtD = java.sql.Date.valueOf(dt);
                      Date date1D = java.sql.Date.valueOf(date1);
                      Date date2D = java.sql.Date.valueOf(date2); */
@@ -336,7 +340,7 @@ public class ACC_ledger {
                     }
 
                     if ((dtD.before(date2D) && dtD.after(date1D)) || dtD.equals(date1D) || dtD.equals(date2D)) {
-                        dbm.insert("INSERT INTO account_ledger_temp(account_code,tr_no,date,description,debit,credit) VALUES('" + account_code + "','" + query.getInt("tr_no") + "-J" + "','" + dt + "','" + query.getString("debit_description") + "','" + query.getDouble("debit_amount") + "',0)");
+                        dbm.insert("INSERT INTO account_ledger_temp(account_code,tr_no,date,description,debit,credit,ref_no) VALUES('" + account_code + "','" + query.getInt("tr_no") + "-J" + "','" + dt + "','" + query.getString("debit_description") + "','" + query.getDouble("debit_amount") + "',0,'"+ref+"')");
                     }
                 }
 
@@ -350,7 +354,7 @@ public class ACC_ledger {
                 while (query.next()) {
 
                     dt = dbm.checknReturnData("account_payment_creditside", "tr_no", query.getInt("tr_no"), "date");
-
+                    ref=dbm.checknReturnData("account_payment_creditside", "tr_no", query.getInt("tr_no"), "ref_no");
                     /*  Date dtD = java.sql.Date.valueOf(dt);
                      Date date1D = java.sql.Date.valueOf(date1);
                      Date date2D = java.sql.Date.valueOf(date2); */
@@ -374,7 +378,7 @@ public class ACC_ledger {
                     }
 
                     if ((dtD.before(date2D) && dtD.after(date1D)) || dtD.equals(date1D) || dtD.equals(date2D)) {
-                        dbm.insert("INSERT INTO account_ledger_temp(account_code,tr_no,date,description,debit,credit) VALUES('" + account_code + "','" + query.getInt("tr_no") + "-P" + "','" + dt + "','" + query.getString("debit_description") + "','" + query.getDouble("debit_amount") + "',0)");
+                        dbm.insert("INSERT INTO account_ledger_temp(account_code,tr_no,date,description,debit,credit,ref_no) VALUES('" + account_code + "','" + query.getInt("tr_no") + "-P" + "','" + dt + "','" + query.getString("debit_description") + "','" + query.getDouble("debit_amount") + "',0,'"+ref+"')");
                     }
                 }
 
@@ -387,7 +391,7 @@ public class ACC_ledger {
                 while (query.next()) {
 
                     //      dt = dbm.checknReturnData("account_payment_creditside", "tr_no", query.getInt("tr_no"), "date");
-                    dbm.insert("INSERT INTO account_ledger_temp(account_code,tr_no,date,description,debit,credit) VALUES('" + account_code + "','" + query.getInt("tr_no") + "-P" + "','" + query.getString("date") + "','" + query.getString("credit_description") + "',0,'" + query.getDouble("credit_amount") + "')");
+                    dbm.insert("INSERT INTO account_ledger_temp(account_code,tr_no,date,description,debit,credit,ref_no) VALUES('" + account_code + "','" + query.getInt("tr_no") + "-P" + "','" + query.getString("date") + "','" + query.getString("credit_description") + "',0,'" + query.getDouble("credit_amount") + "','"+query.getString("ref_no")+"')");
 
                 }
 
@@ -401,7 +405,7 @@ public class ACC_ledger {
                 while (query.next()) {
 
                     // dt = dbm.checknReturnData("account_payment_creditside", "tr_no", query.getInt("tr_no"), "date");
-                    dbm.insert("INSERT INTO account_ledger_temp(account_code,tr_no,date,description,debit,credit) VALUES('" + account_code + "','" + query.getInt("tr_no") + "-R" + "','" + query.getString("date") + "','" + query.getString("debit_description") + "','" + query.getDouble("debit_amount") + "',0)");
+                    dbm.insert("INSERT INTO account_ledger_temp(account_code,tr_no,date,description,debit,credit,ref_no) VALUES('" + account_code + "','" + query.getInt("tr_no") + "-R" + "','" + query.getString("date") + "','" + query.getString("debit_description") + "','" + query.getDouble("debit_amount") + "',0,'"+query.getString("ref_no")+"')");
 
                 }
 
@@ -414,7 +418,7 @@ public class ACC_ledger {
                 while (query.next()) {
 
                     dt = dbm.checknReturnData("account_reciept_debitside", "tr_no", query.getInt("tr_no"), "date");
-
+                    ref = dbm.checknReturnData("account_reciept_debitside", "tr_no", query.getInt("tr_no"), "ref_no");
                     /* Date dtD = java.sql.Date.valueOf(dt);
                      Date date1D = java.sql.Date.valueOf(date1);
                      Date date2D = java.sql.Date.valueOf(date2); */
@@ -438,7 +442,7 @@ public class ACC_ledger {
                     }
 
                     if ((dtD.before(date2D) && dtD.after(date1D)) || dtD.equals(date1D) || dtD.equals(date2D)) {
-                        dbm.insert("INSERT INTO account_ledger_temp(account_code,tr_no,date,description,debit,credit) VALUES('" + account_code + "','" + query.getInt("tr_no") + "-R" + "','" + dt + "','" + query.getString("credit_description") + "',0,'" + query.getDouble("credit_amount") + "')");
+                        dbm.insert("INSERT INTO account_ledger_temp(account_code,tr_no,date,description,debit,credit,ref_no) VALUES('" + account_code + "','" + query.getInt("tr_no") + "-R" + "','" + dt + "','" + query.getString("credit_description") + "',0,'" + query.getDouble("credit_amount") + "','"+ref+"')");
                     }
                 }
 
@@ -670,6 +674,7 @@ public class ACC_ledger {
 
             DatabaseManager dbm = DatabaseManager.getDbCon();
             String dt;
+            String ref;
 
             try {
                 dbm.insert("Truncate account_ledger_temp");
@@ -683,8 +688,8 @@ public class ACC_ledger {
                 while (query.next()) {
 
                     dt = dbm.checknReturnData("account_journal_main", "tr_no", query.getInt("tr_no"), "date");
-
-                    dbm.insert("INSERT INTO account_ledger_temp(account_code,tr_no,date,description,debit,credit) VALUES('" + query.getInt("credit_account_id") + "','" + query.getInt("tr_no") + "-J" + "','" + dt + "','" + query.getString("credit_description") + "',0,'" + query.getDouble("credit_amount") + "')");
+                    ref=dbm.checknReturnData("account_journal_main", "tr_no", query.getInt("tr_no"), "ref_no");
+                    dbm.insert("INSERT INTO account_ledger_temp(account_code,tr_no,date,description,debit,credit,ref_no) VALUES('" + query.getInt("credit_account_id") + "','" + query.getInt("tr_no") + "-J" + "','" + dt + "','" + query.getString("credit_description") + "',0,'" + query.getDouble("credit_amount") + "','"+ref+"')");
 
                 }
 
@@ -697,8 +702,8 @@ public class ACC_ledger {
                 while (query.next()) {
 
                     dt = dbm.checknReturnData("account_journal_main", "tr_no", query.getInt("tr_no"), "date");
-
-                    dbm.insert("INSERT INTO account_ledger_temp(account_code,tr_no,date,description,debit,credit) VALUES('" + query.getInt("debit_account_id") + "','" + query.getInt("tr_no") + "-J" + "','" + dt + "','" + query.getString("debit_description") + "','" + query.getDouble("debit_amount") + "',0)");
+                    ref=dbm.checknReturnData("account_journal_main", "tr_no", query.getInt("tr_no"), "ref_no");
+                    dbm.insert("INSERT INTO account_ledger_temp(account_code,tr_no,date,description,debit,credit,ref_no) VALUES('" + query.getInt("debit_account_id") + "','" + query.getInt("tr_no") + "-J" + "','" + dt + "','" + query.getString("debit_description") + "','" + query.getDouble("debit_amount") + "',0,'"+ref+"')");
 
                 }
 
@@ -712,8 +717,8 @@ public class ACC_ledger {
                 while (query.next()) {
 
                     dt = dbm.checknReturnData("account_payment_creditside", "tr_no", query.getInt("tr_no"), "date");
-
-                    dbm.insert("INSERT INTO account_ledger_temp(account_code,tr_no,date,description,debit,credit) VALUES('" + query.getInt("debit_account_id") + "','" + query.getInt("tr_no") + "-P" + "','" + dt + "','" + query.getString("debit_description") + "','" + query.getDouble("debit_amount") + "',0)");
+                    ref=dbm.checknReturnData("account_payment_creditside", "tr_no", query.getInt("tr_no"), "ref_no");
+                    dbm.insert("INSERT INTO account_ledger_temp(account_code,tr_no,date,description,debit,credit,ref_no) VALUES('" + query.getInt("debit_account_id") + "','" + query.getInt("tr_no") + "-P" + "','" + dt + "','" + query.getString("debit_description") + "','" + query.getDouble("debit_amount") + "',0,'"+ref+"')");
 
                 }
 
@@ -726,7 +731,7 @@ public class ACC_ledger {
                 while (query.next()) {
 
                     //      dt = dbm.checknReturnData("account_payment_creditside", "tr_no", query.getInt("tr_no"), "date");
-                    dbm.insert("INSERT INTO account_ledger_temp(account_code,tr_no,date,description,debit,credit) VALUES('" + query.getInt("credit_account_id") + "','" + query.getInt("tr_no") + "-P" + "','" + query.getString("date") + "','" + query.getString("credit_description") + "',0,'" + query.getDouble("credit_amount") + "')");
+                    dbm.insert("INSERT INTO account_ledger_temp(account_code,tr_no,date,description,debit,credit,ref_no) VALUES('" + query.getInt("credit_account_id") + "','" + query.getInt("tr_no") + "-P" + "','" + query.getString("date") + "','" + query.getString("credit_description") + "',0,'" + query.getDouble("credit_amount") + "','"+query.getString("ref_no")+"')");
 
                 }
 
@@ -740,7 +745,7 @@ public class ACC_ledger {
                 while (query.next()) {
 
                     // dt = dbm.checknReturnData("account_payment_creditside", "tr_no", query.getInt("tr_no"), "date");
-                    dbm.insert("INSERT INTO account_ledger_temp(account_code,tr_no,date,description,debit,credit) VALUES('" + query.getInt("debit_account_id") + "','" + query.getInt("tr_no") + "-R" + "','" + query.getString("date") + "','" + query.getString("debit_description") + "','" + query.getDouble("debit_amount") + "',0)");
+                    dbm.insert("INSERT INTO account_ledger_temp(account_code,tr_no,date,description,debit,credit,ref_no) VALUES('" + query.getInt("debit_account_id") + "','" + query.getInt("tr_no") + "-R" + "','" + query.getString("date") + "','" + query.getString("debit_description") + "','" + query.getDouble("debit_amount") + "',0,'"+query.getString("ref_no")+"')");
 
                 }
 
@@ -753,8 +758,8 @@ public class ACC_ledger {
                 while (query.next()) {
 
                     dt = dbm.checknReturnData("account_reciept_debitside", "tr_no", query.getInt("tr_no"), "date");
-
-                    dbm.insert("INSERT INTO account_ledger_temp(account_code,tr_no,date,description,debit,credit) VALUES('" + query.getInt("credit_account_id") + "','" + query.getInt("tr_no") + "-R" + "','" + dt + "','" + query.getString("credit_description") + "',0,'" + query.getDouble("credit_amount") + "')");
+                    ref=dbm.checknReturnData("account_reciept_debitside", "tr_no", query.getInt("tr_no"), "ref_no");
+                    dbm.insert("INSERT INTO account_ledger_temp(account_code,tr_no,date,description,debit,credit,ref_no) VALUES('" + query.getInt("credit_account_id") + "','" + query.getInt("tr_no") + "-R" + "','" + dt + "','" + query.getString("credit_description") + "',0,'" + query.getDouble("credit_amount") + "','"+ref+"')");
 
                 }
 
@@ -892,6 +897,7 @@ public class ACC_ledger {
 
             DatabaseManager dbm = DatabaseManager.getDbCon();
             String dt;
+            String ref;
 
             try {
                 dbm.insert("Truncate account_ledger_temp");
@@ -904,7 +910,7 @@ public class ACC_ledger {
                 while (query.next()) {
 
                     dt = dbm.checknReturnData("account_journal_main", "tr_no", query.getInt("tr_no"), "date");
-
+                    ref = dbm.checknReturnData("account_journal_main", "tr_no", query.getInt("tr_no"), "ref_no");
                     /*  Date dtD = java.sql.Date.valueOf(dt);
                      Date date1D = java.sql.Date.valueOf(date1);
                      Date date2D = java.sql.Date.valueOf(date2);*/
@@ -928,7 +934,7 @@ public class ACC_ledger {
                     }
 
                     if ((dtD.before(date2D) && dtD.after(date1D)) || dtD.equals(date1D) || dtD.equals(date2D)) {
-                        dbm.insert("INSERT INTO account_ledger_temp(account_code,tr_no,date,description,debit,credit) VALUES('" + query.getInt("credit_account_id") + "','" + query.getInt("tr_no") + "-J" + "','" + dt + "','" + query.getString("credit_description") + "',0,'" + query.getDouble("credit_amount") + "')");
+                        dbm.insert("INSERT INTO account_ledger_temp(account_code,tr_no,date,description,debit,credit,ref_no) VALUES('" + query.getInt("credit_account_id") + "','" + query.getInt("tr_no") + "-J" + "','" + dt + "','" + query.getString("credit_description") + "',0,'" + query.getDouble("credit_amount") + "','"+ref+"')");
 
                     }
 
@@ -943,7 +949,7 @@ public class ACC_ledger {
                 while (query.next()) {
 
                     dt = dbm.checknReturnData("account_journal_main", "tr_no", query.getInt("tr_no"), "date");
-
+                    ref=dbm.checknReturnData("account_journal_main", "tr_no", query.getInt("tr_no"), "ref_no");
                     /*  Date dtD = java.sql.Date.valueOf(dt);
                      Date date1D = java.sql.Date.valueOf(date1);
                      Date date2D = java.sql.Date.valueOf(date2); */
@@ -967,7 +973,7 @@ public class ACC_ledger {
                     }
 
                     if ((dtD.before(date2D) && dtD.after(date1D)) || dtD.equals(date1D) || dtD.equals(date2D)) {
-                        dbm.insert("INSERT INTO account_ledger_temp(account_code,tr_no,date,description,debit,credit) VALUES('" + query.getInt("debit_account_id") + "','" + query.getInt("tr_no") + "-J" + "','" + dt + "','" + query.getString("debit_description") + "','" + query.getDouble("debit_amount") + "',0)");
+                        dbm.insert("INSERT INTO account_ledger_temp(account_code,tr_no,date,description,debit,credit,ref_no) VALUES('" + query.getInt("debit_account_id") + "','" + query.getInt("tr_no") + "-J" + "','" + dt + "','" + query.getString("debit_description") + "','" + query.getDouble("debit_amount") + "',0,'"+ref+"')");
                     }
                 }
 
@@ -981,7 +987,7 @@ public class ACC_ledger {
                 while (query.next()) {
 
                     dt = dbm.checknReturnData("account_payment_creditside", "tr_no", query.getInt("tr_no"), "date");
-
+                    ref=dbm.checknReturnData("account_payment_creditside", "tr_no", query.getInt("tr_no"), "ref_no");
                     /*  Date dtD = java.sql.Date.valueOf(dt);
                      Date date1D = java.sql.Date.valueOf(date1);
                      Date date2D = java.sql.Date.valueOf(date2); */
@@ -1005,7 +1011,7 @@ public class ACC_ledger {
                     }
 
                     if ((dtD.before(date2D) && dtD.after(date1D)) || dtD.equals(date1D) || dtD.equals(date2D)) {
-                        dbm.insert("INSERT INTO account_ledger_temp(account_code,tr_no,date,description,debit,credit) VALUES('" + query.getInt("debit_account_id") + "','" + query.getInt("tr_no") + "-P" + "','" + dt + "','" + query.getString("debit_description") + "','" + query.getDouble("debit_amount") + "',0)");
+                        dbm.insert("INSERT INTO account_ledger_temp(account_code,tr_no,date,description,debit,credit,ref_no) VALUES('" + query.getInt("debit_account_id") + "','" + query.getInt("tr_no") + "-P" + "','" + dt + "','" + query.getString("debit_description") + "','" + query.getDouble("debit_amount") + "',0,'"+ref+"')");
                     }
                 }
 
@@ -1018,7 +1024,7 @@ public class ACC_ledger {
                 while (query.next()) {
 
                     //      dt = dbm.checknReturnData("account_payment_creditside", "tr_no", query.getInt("tr_no"), "date");
-                    dbm.insert("INSERT INTO account_ledger_temp(account_code,tr_no,date,description,debit,credit) VALUES('" + query.getInt("credit_account_id") + "','" + query.getInt("tr_no") + "-P" + "','" + query.getString("date") + "','" + query.getString("credit_description") + "',0,'" + query.getDouble("credit_amount") + "')");
+                    dbm.insert("INSERT INTO account_ledger_temp(account_code,tr_no,date,description,debit,credit,ref_no) VALUES('" + query.getInt("credit_account_id") + "','" + query.getInt("tr_no") + "-P" + "','" + query.getString("date") + "','" + query.getString("credit_description") + "',0,'" + query.getDouble("credit_amount") + "','"+query.getString("ref_no")+"')");
 
                 }
 
@@ -1032,7 +1038,7 @@ public class ACC_ledger {
                 while (query.next()) {
 
                     // dt = dbm.checknReturnData("account_payment_creditside", "tr_no", query.getInt("tr_no"), "date");
-                    dbm.insert("INSERT INTO account_ledger_temp(account_code,tr_no,date,description,debit,credit) VALUES('" + query.getInt("debit_account_id") + "','" + query.getInt("tr_no") + "-R" + "','" + query.getString("date") + "','" + query.getString("debit_description") + "','" + query.getDouble("debit_amount") + "',0)");
+                    dbm.insert("INSERT INTO account_ledger_temp(account_code,tr_no,date,description,debit,credit,ref_no) VALUES('" + query.getInt("debit_account_id") + "','" + query.getInt("tr_no") + "-R" + "','" + query.getString("date") + "','" + query.getString("debit_description") + "','" + query.getDouble("debit_amount") + "',0,'"+query.getString("ref_no")+"')");
 
                 }
 
@@ -1045,7 +1051,7 @@ public class ACC_ledger {
                 while (query.next()) {
 
                     dt = dbm.checknReturnData("account_reciept_debitside", "tr_no", query.getInt("tr_no"), "date");
-
+                    ref=dbm.checknReturnData("account_reciept_debitside", "tr_no", query.getInt("tr_no"), "ref_no");
                     /* Date dtD = java.sql.Date.valueOf(dt);
                      Date date1D = java.sql.Date.valueOf(date1);
                      Date date2D = java.sql.Date.valueOf(date2); */
@@ -1069,7 +1075,7 @@ public class ACC_ledger {
                     }
 
                     if ((dtD.before(date2D) && dtD.after(date1D)) || dtD.equals(date1D) || dtD.equals(date2D)) {
-                        dbm.insert("INSERT INTO account_ledger_temp(account_code,tr_no,date,description,debit,credit) VALUES('" + query.getInt("credit_account_id") + "','" + query.getInt("tr_no") + "-R" + "','" + dt + "','" + query.getString("credit_description") + "',0,'" + query.getDouble("credit_amount") + "')");
+                        dbm.insert("INSERT INTO account_ledger_temp(account_code,tr_no,date,description,debit,credit,ref_no) VALUES('" + query.getInt("credit_account_id") + "','" + query.getInt("tr_no") + "-R" + "','" + dt + "','" + query.getString("credit_description") + "',0,'" + query.getDouble("credit_amount") + "','"+ref+"')");
                     }
                 }
 
@@ -1877,9 +1883,6 @@ public class ACC_ledger {
 
        
 
-    }
-    
-    
-    
+    }   
 
 }

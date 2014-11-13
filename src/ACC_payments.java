@@ -1605,8 +1605,12 @@ public class ACC_payments extends javax.swing.JPanel {
             // recieptNo.requestFocus();
 
             try {
-
-                if (datechooser.Return_date(yearfield,monthfield,dayfield).before(dbm.checknReturnData()) || datechooser.Return_date(yearfield,monthfield,dayfield).after(dbm.checkNreturnlastDate())) {
+                if(Integer.parseInt(dayfield.getText()) > datehandler.return_enddate(yearfield.getText(),datehandler.return_month_as_num(monthfield.getText()))){
+                    chkd = 0;
+                    msg.showMessage("Date You Entered is not a valid Date", "Please Check Again", "info");
+                    dayfield.requestFocus();
+                }
+                else if (datechooser.Return_date(yearfield,monthfield,dayfield).before(dbm.checknReturnData()) || datechooser.Return_date(yearfield,monthfield,dayfield).after(dbm.checkNreturnlastDate())) {
                     chkd = 0;
                     msg.showMessage("Date You Entered is not in this Accounting Period", "Please Check Again", "info");
                     dayfield.requestFocus();
@@ -1639,8 +1643,12 @@ public class ACC_payments extends javax.swing.JPanel {
             // recieptNo.requestFocus();
 
             try {
-
-                if (datechooser.Return_date(yearfield,monthfield,dayfield).before(dbm.checknReturnData()) || datechooser.Return_date(yearfield,monthfield,dayfield).after(dbm.checkNreturnlastDate())) {
+                if(Integer.parseInt(dayfield.getText()) > datehandler.return_enddate(yearfield.getText(),datehandler.return_month_as_num(monthfield.getText()))){
+                    chkd = 0;
+                    msg.showMessage("Date You Entered is not a valid Date", "Please Check Again", "info");
+                    dayfield.requestFocus();
+                }
+                else if (datechooser.Return_date(yearfield,monthfield,dayfield).before(dbm.checknReturnData()) || datechooser.Return_date(yearfield,monthfield,dayfield).after(dbm.checkNreturnlastDate())) {
                     chkd = 0;
                     msg.showMessage("Date You Entered is not in this Accounting Period", "Please Check Again", "info");
                     dayfield.requestFocus();
@@ -1821,8 +1829,12 @@ public class ACC_payments extends javax.swing.JPanel {
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
             //  recieptNo.requestFocus();
             try {
-
-                if (datechooser.Return_date(yearfield,monthfield,dayfield).before(dbm.checknReturnData()) || datechooser.Return_date(yearfield,monthfield,dayfield).after(dbm.checkNreturnlastDate())) {
+                if(Integer.parseInt(dayfield.getText()) > datehandler.return_enddate(yearfield.getText(),datehandler.return_month_as_num(monthfield.getText()))){
+                    chkd = 0;
+                    msg.showMessage("Date You Entered is not a valid Date", "Please Check Again", "info");
+                    dayfield.requestFocus();
+                }
+                else if (datechooser.Return_date(yearfield,monthfield,dayfield).before(dbm.checknReturnData()) || datechooser.Return_date(yearfield,monthfield,dayfield).after(dbm.checkNreturnlastDate())) {
                     chkd = 0;
                     msg.showMessage("Date You Entered is not in this Accounting Period", "Please Check Again", "info");
                     dayfield.requestFocus();
