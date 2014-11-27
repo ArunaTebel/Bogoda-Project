@@ -227,11 +227,11 @@ ORDER BY
 				<text><![CDATA[Coins_bf]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="289" y="5" width="53" height="20" uuid="4466035c-d39a-442a-9a54-e6d8df7af3c5"/>
+				<reportElement x="289" y="5" width="53" height="22" uuid="4466035c-d39a-442a-9a54-e6d8df7af3c5"/>
 				<textElement textAlignment="Right">
 					<font size="8" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Total Payable]]></text>
+				<text><![CDATA[Gross Proceeds]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="340" y="5" width="43" height="20" uuid="03b9e562-a3d8-4718-a47b-bb6037f735ae"/>

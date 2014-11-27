@@ -1,4 +1,3 @@
-
 import java.awt.event.KeyEvent;
 import java.beans.PropertyVetoException;
 import java.sql.Date;
@@ -28,13 +27,12 @@ public class GLcash_advance extends javax.swing.JPanel {
     DateChooser_text datechooser = new DateChooser_text();
     GL_Billsummerycls bill_sum = new GL_Billsummerycls();
     Update update = new Update();
-    
 
     public GLcash_advance() {
         initComponents();
       // Emergency.setSelected(true);
-       
-     // Save.setEnabled(true);
+
+        // Save.setEnabled(true);
         String selection = (String) cash_cheque_combo.getSelectedItem();
 
         if (selection.equalsIgnoreCase("Cash")) {
@@ -788,15 +786,7 @@ public class GLcash_advance extends javax.swing.JPanel {
                             "Duplicate Entry" + "\n" + "Cancel?", "Duplicate", JOptionPane.YES_NO_OPTION);
                     if (reply == JOptionPane.NO_OPTION) {
                         try {
-
-                            supplier_name.setText(dbm.checknReturnData("suppliers", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "sup_name"));
-
-                            int gl_cashadvance_set_date_int = 10;   // This has to be taken from the database later
-
-                            Date_Handler date_handler = new Date_Handler();
-                            date_handler.set_glcash_advance_starting_date_int(gl_cashadvance_set_date_int);
-                            // A seperate class glcashadvances may have to be created in the future
-                            amount.requestFocusInWindow();
+                             filldata();
                             try {
                                 max_allowable.setText("" + bill_sum.bill_sum_cal(Integer.parseInt(supplier_id.getSelectedItem().toString()), yearfield.getText(), datehandler.return_month_as_num(monthfield.getText()), (Double.parseDouble(Set_val.getText()))));
                             } catch (NumberFormatException eee) {
@@ -817,14 +807,7 @@ public class GLcash_advance extends javax.swing.JPanel {
                 } else {
                     try {
 
-                        supplier_name.setText(dbm.checknReturnData("suppliers", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "sup_name"));
-
-                        int gl_cashadvance_set_date_int = 10;   // This has to be taken from the database later
-
-                        Date_Handler date_handler = new Date_Handler();
-                        date_handler.set_glcash_advance_starting_date_int(gl_cashadvance_set_date_int);
-                        // A seperate class glcashadvances may have to be created in the future
-                        amount.requestFocusInWindow();
+                       filldata();
                         try {
                             max_allowable.setText("" + bill_sum.bill_sum_cal(Integer.parseInt(supplier_id.getSelectedItem().toString()), yearfield.getText(), datehandler.return_month_as_num(monthfield.getText()), (Double.parseDouble(Set_val.getText()))));
                         } catch (NumberFormatException eee) {
@@ -840,7 +823,27 @@ public class GLcash_advance extends javax.swing.JPanel {
         }
         // Trying to handle duplicates have duplicated the code 
     }//GEN-LAST:event_supplier_idItemStateChanged
+    public void filldata() {
+         String Name =dbm.checknReturnData("suppliers", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "sup_name") ;
+                           if(Name != null){
+                            supplier_name.setText(Name);
 
+                            amount.requestFocusInWindow();
+                            
+                           }
+                           
+                           else {
+                            JOptionPane.showMessageDialog(datechooser, "Invalid Supplier ID");
+                               
+                           supplier_id.getEditor().setItem("");
+                            supplier_name.setText("");
+                            supplier_id.requestFocus();
+                           
+                           }
+        
+    }
+    
+    
     private void amountKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_amountKeyPressed
         interface_events.Change_focus_Enterkey_c(cash_cheque_combo, evt);
     }//GEN-LAST:event_amountKeyPressed

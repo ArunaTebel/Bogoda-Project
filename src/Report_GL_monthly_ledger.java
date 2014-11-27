@@ -19,8 +19,8 @@ import java.util.logging.Logger;
  */
 public class Report_GL_monthly_ledger extends javax.swing.JPanel {
    String[] orderarray = {"default", "Final payment", "Category", "Supplier ID","Name","Debit"};
-    String[] orderarrayReal2 = {"gl_monthly_ledger_current.`sup_id`", "gl_monthly_ledger_current.`final_amount`", "suppliers.`cat_id`", "gl_monthly_ledger_current.`sup_id`","gl_monthly_ledger_current.`name`","gl_monthly_ledger_current.`bal_cf`"};
-    String[] orderarrayReal = {"suppliers.`cat_id`", "gl_monthly_ledger_current.`final_amount`", "suppliers.`cat_id`", "gl_monthly_ledger_current.`sup_id`","gl_monthly_ledger_current.`name`","gl_monthly_ledger_current.`bal_cf`"};
+    String[] orderarrayReal2 = { "suppliers.`cat_id`","gl_monthly_ledger_current.`final_amount`", "suppliers.`cat_id`", "gl_monthly_ledger_current.`sup_id`","gl_monthly_ledger_current.`name`","gl_monthly_ledger_current.`bal_cf`"};
+    String[] orderarrayReal = {"gl_monthly_ledger_current.`sup_id`", "gl_monthly_ledger_current.`final_amount`", "suppliers.`cat_id`", "gl_monthly_ledger_current.`sup_id`","gl_monthly_ledger_current.`name`","gl_monthly_ledger_current.`bal_cf`"};
     String[] filters = {"suppliers.`cat_id`","gl_monthly_ledger_current.`sup_id`"};
     public class Background implements Runnable {
 

@@ -25,8 +25,8 @@ import javax.swing.JOptionPane;
  */
 public class Report_GL_daily_transactions extends javax.swing.JPanel {
     String[] orderarray = {"default", "Month Total", "Category", "Supplier ID","Name"};
-    String[] orderarrayReal2 = {"daily_transactions_current.`sup_id`", "daily_transactions_current.`Total`", "suppliers.`cat_id`", "daily_transactions_current.`sup_id`","daily_transactions_current.`sup_name`"};
-    String[] orderarrayReal = {"suppliers.`cat_id`", "daily_transactions_current.`Total`", "suppliers.`cat_id`", "daily_transactions_current.`sup_id`","daily_transactions_current.`sup_name`"};
+    String[] orderarrayReal2 = { "suppliers.`cat_id`","daily_transactions_current.`Total`", "suppliers.`cat_id`", "daily_transactions_current.`sup_id`","daily_transactions_current.`sup_name`"};
+    String[] orderarrayReal = {"daily_transactions_current.`sup_id`", "daily_transactions_current.`Total`", "suppliers.`cat_id`", "daily_transactions_current.`sup_id`","daily_transactions_current.`sup_name`"};
     String[] filters = {"suppliers.`cat_id`","daily_transactions_current.`sup_id`"};
   
     public class Background implements Runnable {

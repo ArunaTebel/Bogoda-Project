@@ -1,4 +1,3 @@
-
 import java.awt.event.KeyEvent;
 import java.beans.PropertyVetoException;
 import java.sql.ResultSet;
@@ -50,9 +49,9 @@ public class GLmanual_entry extends javax.swing.JPanel {
         dayfield.selectAll();
 
     }
-    
-     public void removeSelectedRows(JTable table) {
-       // int m = i / 50;
+
+    public void removeSelectedRows(JTable table) {
+        // int m = i / 50;
         DefaultTableModel model = (DefaultTableModel) this.table.getModel();
         int[] rows = table.getSelectedRows();
         //  deleted += rows.length;
@@ -60,9 +59,8 @@ public class GLmanual_entry extends javax.swing.JPanel {
 
            // dbm.CheckNDeleteFromDataBase("gl_over_advance", "sup_id", table.getValueAt(rows[n] - n, 0));
             //set_table(i + 1, i + 50);
-
-              //System.out.println(rows[n] - n);
-             model.removeRow(rows[n] - n);
+            //System.out.println(rows[n] - n);
+            model.removeRow(rows[n] - n);
         }
         int k = 0;
         int j = 0;
@@ -71,15 +69,13 @@ public class GLmanual_entry extends javax.swing.JPanel {
 
             while (j < 10) {
 
-               // table.setValueAt(null, k, j);
+                // table.setValueAt(null, k, j);
                 j++;
             }
             k++;
-            
 
-          
         }
-       
+
     }
 
     /**
@@ -917,7 +913,7 @@ public class GLmanual_entry extends javax.swing.JPanel {
     }//GEN-LAST:event_self_transportActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-     //   try {                 // had to put this try catch when calling datechooser.return_date.. used try catch to the block option /////////////////////////
+        //   try {                 // had to put this try catch when calling datechooser.return_date.. used try catch to the block option /////////////////////////
         // adding common data to the database
 
         globject.setCategoryCode(category_code.getSelectedItem().toString());
@@ -926,7 +922,7 @@ public class GLmanual_entry extends javax.swing.JPanel {
         } catch (ParseException ex) {
             Logger.getLogger(GLmanual_entry.class.getName()).log(Level.SEVERE, null, ex);
         }
-         //   double trans = Double.parseDouble(dbm.checknReturnStringData("category", "category_id", category_code.getSelectedItem().toString(), "extra_rate"));
+        //   double trans = Double.parseDouble(dbm.checknReturnStringData("category", "category_id", category_code.getSelectedItem().toString(), "extra_rate"));
         //  System.out.println(trans);
         int i = 0;
         // boolean st;
@@ -948,7 +944,7 @@ public class GLmanual_entry extends javax.swing.JPanel {
                  }*/
 
                 globject.setSelfTransport((double) table.getValueAt(i, 8));
-             // globject.setSelfTransport((double) table.getValueAt(i, 8));
+                // globject.setSelfTransport((double) table.getValueAt(i, 8));
                 //System.out.println(Double.parseDouble((String) table.getValueAt(i, 8)));
 
                 i++;
@@ -1003,54 +999,29 @@ public class GLmanual_entry extends javax.swing.JPanel {
     }//GEN-LAST:event_net_weightActionPerformed
 
     private void supplier_idItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_supplier_idItemStateChanged
+        //System.out.println("Two");
         if (supplier_id.getSelectedIndex() != 0) {
             try {
 
                 DatabaseManager dbm = DatabaseManager.getDbCon();
                 String Name = null;
                 String category = null;
-                String result2= null;
-                 int i = 0;
-                 int item = Integer.parseInt(supplier_id.getSelectedItem().toString());
-            while (table.getValueAt(i, 0) != null) {
-                if(table.getValueAt(i, 0) == item+""){ result2 = item+"";}
-                i++;
-            }
+                String result2 = null;
+                int i = 0;
+                int item = Integer.parseInt(supplier_id.getSelectedItem().toString());
+                while (table.getValueAt(i, 0) != null) {
+                    if (table.getValueAt(i, 0) == item + "") {
+                        result2 = item + "";
+                    }
+                    i++;
+                }
                 //int item = Integer.parseInt(supplier_id.getSelectedItem().toString());
                 String result = dbm.filterReturn2StringData("green_leaf_transactions", "sup_id", item + "", "tr_date", datechooser.Return_date(yearfield, monthfield, dayfield) + "", "tr_id");
-                if (result != null ||result2 != null ) {
+                if (result != null || result2 != null) {
                     int reply = JOptionPane.showConfirmDialog(other,
                             "Duplicate Entry" + "\n" + "Cancel?", "Duplicate ID", JOptionPane.YES_NO_OPTION);
                     if (reply == JOptionPane.NO_OPTION) {
-                        try {
-                            ResultSet query = dbm.query("SELECT * FROM suppliers WHERE sup_id =" + item + "");
-                            while (query.next()) {
-                                Name = query.getString("sup_name");
-                                //category = query.getString("cat_id");
-                            }
-                        } catch (SQLException ex) {
-                            // System.out.println(ex.getMessage());
-                        }
-
-                        try {
-                            ResultSet query = dbm.query("SELECT * FROM suppliers WHERE sup_id =" + item + "");
-                            while (query.next()) {
-                                category = query.getString("cat_id");
-                            }
-                        } catch (SQLException ex) {
-                            // System.out.println(ex.getMessage());
-                        }
-
-                        if (!category_code.getSelectedItem().toString().equals(category)) {
-                            JOptionPane.showMessageDialog(other, "Supplier Category Exception!" + "\n" + "Original root: " + category);
-
-                        }
-
-                        name.setText("" + Name);
-
-                        no_of_sacks.requestFocusInWindow();
-
-                        jLabel14.setText(" ");
+                        FillData(Name, item, category);
 
                     }
 
@@ -1062,36 +1033,7 @@ public class GLmanual_entry extends javax.swing.JPanel {
                     }
 
                 } else {
-                    try {
-                        ResultSet query = dbm.query("SELECT * FROM suppliers WHERE sup_id =" + item + "");
-                        while (query.next()) {
-                            Name = query.getString("sup_name");
-                            //category = query.getString("cat_id");
-                        }
-                    } catch (SQLException ex) {
-                        // System.out.println(ex.getMessage());
-                    }
-
-                    try {
-                        ResultSet query = dbm.query("SELECT * FROM suppliers WHERE sup_id =" + item + "");
-                        while (query.next()) {
-                            category = query.getString("cat_id");
-                        }
-                    } catch (SQLException ex) {
-                        // System.out.println(ex.getMessage());
-                    }
-
-                    if (!category_code.getSelectedItem().toString().equals(category)) {
-                        JOptionPane.showMessageDialog(other, "Supplier Category Exception!" + "\n" + "Original root: " + category);
-
-                    }
-
-                    name.setText("" + Name);
-
-                    no_of_sacks.requestFocusInWindow();
-
-                    jLabel14.setText(" ");
-
+                    FillData(Name, item, category);
                 }
 
             } catch (Exception e) {
@@ -1101,7 +1043,46 @@ public class GLmanual_entry extends javax.swing.JPanel {
             }
             // do something with object}
        }    }//GEN-LAST:event_supplier_idItemStateChanged
+    public void FillData(String Name, int item, String category) {
+        System.out.println(item);
 
+        try {
+
+            ResultSet query = dbm.query("SELECT * FROM suppliers WHERE sup_id =" + item + "");
+            while (query.next()) {
+                Name = query.getString("sup_name");
+                //category = query.getString("cat_id");
+            }
+        } catch (SQLException ex) {
+            // System.out.println(ex.getMessage());
+        }
+
+        try {
+            ResultSet query = dbm.query("SELECT * FROM suppliers WHERE sup_id =" + item + "");
+            while (query.next()) {
+                category = query.getString("cat_id");
+            }
+        } catch (SQLException ex) {
+            // System.out.println(ex.getMessage());
+        }
+
+        if (!category_code.getSelectedItem().toString().equals(category) && Name != null) {
+            JOptionPane.showMessageDialog(other, "Supplier Category Exception!" + "\n" + "Original root: " + category);
+
+        }
+        if (Name != null) {
+            name.setText("" + Name);
+
+            no_of_sacks.requestFocusInWindow();
+
+            jLabel14.setText(" ");
+        } else {
+           // System.out.println(Name);
+            JOptionPane.showMessageDialog(datechooser, "Invalid Supplier ID");
+            supplier_id.getEditor().setItem(null);
+            name.setText("");
+        }
+    }
     private void category_codeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_category_codeItemStateChanged
         if (category_code.getSelectedIndex() != 0) {
             try {
@@ -1114,7 +1095,7 @@ public class GLmanual_entry extends javax.swing.JPanel {
             }
 
         }
-        if (category_code.getSelectedItem().toString().equals("ST")||category_code.getSelectedItem().toString().equals("SELF") || category_code.getSelectedItem().toString().equals("SELF 11")) {
+        if (category_code.getSelectedItem().toString().equals("ST") || category_code.getSelectedItem().toString().equals("SELF") || category_code.getSelectedItem().toString().equals("SELF 11")) {
             self_transport.setSelected(true);
         }
         if (!category_code.getSelectedItem().toString().equals("ST") && !category_code.getSelectedItem().toString().equals("SELF") && !category_code.getSelectedItem().toString().equals("SELF 11")) {
@@ -1337,18 +1318,18 @@ public class GLmanual_entry extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-  /*      int i = 0;
-        int j = 0;
-        while (table.getValueAt(i, 0) != null) {
-            i++;
-        }
-        i--;
-        while (j < 10) {
-            table.setValueAt(null, i, j);
-            j++;
+        /*      int i = 0;
+         int j = 0;
+         while (table.getValueAt(i, 0) != null) {
+         i++;
+         }
+         i--;
+         while (j < 10) {
+         table.setValueAt(null, i, j);
+         j++;
 
-        }*/
-        
+         }*/
+
         removeSelectedRows(table);
 
 

@@ -18,8 +18,8 @@ FROM
      `category` category INNER JOIN `suppliers` suppliers ON category.`category_id` = suppliers.`cat_id`
      INNER JOIN `supplier_pre_debt_coins` supplier_pre_debt_coins ON suppliers.`sup_id` = supplier_pre_debt_coins.`sup_id`
 WHERE
-     month = $P{month}
-order by category.`category_name`]]>
+     month = $P{month} AND pre_debts != 0
+order by category.`category_name`,supplier_pre_debt_coins.`pre_debts` DESC]]>
 	</queryString>
 	<field name="supplier_pre_debt_coins_sup_id" class="java.lang.Integer"/>
 	<field name="supplier_pre_debt_coins_pre_debts" class="java.lang.Double"/>
@@ -53,7 +53,10 @@ order by category.`category_name`]]>
 		<groupFooter>
 			<band height="21">
 				<textField pattern="#,##0.00">
-					<reportElement x="267" y="0" width="100" height="20" uuid="dc97a624-2d6d-4ad1-bef0-928c8e9d9135"/>
+					<reportElement x="305" y="0" width="100" height="20" uuid="dc97a624-2d6d-4ad1-bef0-928c8e9d9135"/>
+					<textElement textAlignment="Right">
+						<font size="10"/>
+					</textElement>
 					<textFieldExpression><![CDATA[$V{gsum}]]></textFieldExpression>
 				</textField>
 				<line>
@@ -166,7 +169,7 @@ order by category.`category_name`]]>
 				<text><![CDATA[SupId]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="267" y="5" width="138" height="20" uuid="3b8116bb-1798-49d1-ac23-cc78d8113144"/>
+				<reportElement x="337" y="5" width="138" height="20" uuid="3b8116bb-1798-49d1-ac23-cc78d8113144"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
@@ -189,12 +192,19 @@ order by category.`category_name`]]>
 			</textField>
 			<textField pattern="#,##0.00">
 				<reportElement x="267" y="0" width="138" height="15" uuid="3bcd1652-aa35-4ec3-b935-43e520a6ccb5"/>
+				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{supplier_pre_debt_coins_pre_debts}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="115" y="0" width="124" height="16" uuid="299adb89-6a69-4108-8be6-da2b9591abeb"/>
 				<textFieldExpression><![CDATA[$F{suppliers_sup_name}]]></textFieldExpression>
 			</textField>
+			<line>
+				<reportElement x="1" y="13" width="554" height="1" uuid="68b41c65-dc1c-4d94-ac73-30e27336c830"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
 		</band>
 	</detail>
 	<columnFooter>
@@ -220,7 +230,10 @@ order by category.`category_name`]]>
 	<summary>
 		<band height="42" splitType="Stretch">
 			<textField pattern="#,##0.00">
-				<reportElement x="267" y="3" width="100" height="20" uuid="84399408-34db-4478-bbf9-ba2f90ae08b3"/>
+				<reportElement x="305" y="2" width="100" height="20" uuid="84399408-34db-4478-bbf9-ba2f90ae08b3"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$V{sum2}]]></textFieldExpression>
 			</textField>
 			<line>

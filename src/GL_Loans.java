@@ -913,9 +913,18 @@ public class GL_Loans extends javax.swing.JPanel {
 
                      max_alw.setText(""+bill.bill_sum_cal(Integer.parseInt(supplier_id.getSelectedItem().toString()), yearfield.getText(), datehandler.return_month_as_num(monthfield.getText()),(Double.parseDouble(set_val.getText()))));
         
+                    if(Name != null){
+                        
                     name.setText("" + Name);
                     
                     amountField.requestFocus();
+                    
+                    }
+                    else{
+                    JOptionPane.showMessageDialog(datechooser, "Invalid Supplier ID ");
+                    supplier_id.getEditor().setItem("");
+                    supplier_id.requestFocus();
+                    }
                     // max_alw.setText(""+bill.bill_sum_cal(Integer.parseInt(supplier_id.getSelectedItem().toString()), yearfield.getText(), datehandler.return_month_as_num(monthfield.getText()),(Double.parseDouble(set_val.getText()))));
         
                 }

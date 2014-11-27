@@ -128,7 +128,7 @@ table.getColumnModel().getColumn(10).setCellRenderer(rightRenderer);
 
             Date date1 = java.sql.Date.valueOf(year + "-" + month + "-" + "01");
 
-        Date date4 = java.sql.Date.valueOf(year + "-" + month + "-" + datehandler.return_enddate(year, month));
+        Date date4 = java.sql.Date.valueOf(cyear + "-" + cmonth + "-" + datehandler.return_enddate(cyear, cmonth));
           //  System.out.println(date1 + "----->" + date4);
 
             ResultSet query = dbm.query("SELECT distinct sup_id FROM gl_cash_advance where  " + "ordered_date" + " BETWEEN'" + date1 + "' AND '" + date4 + "'");
@@ -242,7 +242,7 @@ table.getColumnModel().getColumn(10).setCellRenderer(rightRenderer);
                           remainfinal = remcurrent;  
                // } else {  remainfinal= remcurrent  ;            }
                 // 
-                if(remain<0 && remain2<0 && remain3<0  && remain4< 0  ){
+             ///   if(remain<0 && remain2<0 && remain3<0  && remain4< 0  ){
                     //System.out.println("INSERT INTO gl_over_advance(sup_id,sup_name,category_code,cash_ad,other_ad,loans,bal_bf,set,total_kg,recovered,remain) VALUES('" + sup + "','" + name + "','" + cat + "','" + out[1] + "','" + out[2] + "','" + out[3] + "','" + out[4] + "','" + set + "','" + out[0] + "','" + set*out[0] + "','" + remain + "')");
                     try {
                         
@@ -259,7 +259,7 @@ table.getColumnModel().getColumn(10).setCellRenderer(rightRenderer);
                     }
                 }
                  kl++;
-                }
+               // }
                
             }
             

@@ -690,51 +690,68 @@ public class GL_Other_Advances extends javax.swing.JPanel {
 
     private void supplier_idItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_supplier_idItemStateChanged
         try {
-            try {
-                if (supplier_id.getSelectedItem() != null) {
-                    
-                    String result;
+            if (supplier_id.getSelectedItem() != null) {
+                
+                String result;
 //                try {
 //                    result = dbm.filterReturn2StringData("gl_other_advances", "id", supplier_id.getSelectedItem() + "", "Date", datechooser.Return_date(yearfield, monthfield, dayfield) + "", "tr_no");
 //                } catch (ParseException ex) {
 //                    Logger.getLogger(GLcash_advance.class.getName()).log(Level.SEVERE, null, ex);
 //                    result = null;
 //                }
-                    result = null;
+                result = null;
                 if (result != null) {
                     int reply = JOptionPane.showConfirmDialog(allowable,
                             "Duplicate Entry" + "\n" + "Cancel?", "Duplicate", JOptionPane.YES_NO_OPTION);
                     if (reply == JOptionPane.NO_OPTION) {
-                     supplier_name.setText(dbm.checknReturnData("suppliers", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "sup_name"));
-                      java.sql.Date datef = datechooser.Return_date(yearfield, monthfield, dayfield);
-                    try{  allowable.setText("" + bill.two_dec_places(""+bill.bill_sum_cal(Integer.parseInt(supplier_id.getSelectedItem().toString()), yearfield.getText(), datehandler.return_month_as_num(monthfield.getText()), Double.parseDouble(set_val.getText()))));
-                  } catch(NumberFormatException ee){}
-                    Discription_code.requestFocus();
+                        Filldata();
+                        try{  allowable.setText("" + bill.two_dec_places(""+bill.bill_sum_cal(Integer.parseInt(supplier_id.getSelectedItem().toString()), yearfield.getText(), datehandler.return_month_as_num(monthfield.getText()), Double.parseDouble(set_val.getText()))));
+                        } catch(NumberFormatException ee){}
+                        
                     }
                     if (reply == JOptionPane.YES_OPTION) {
-                    supplier_id.getEditor().selectAll();
-                    supplier_name.setText("");
+                        
+                        supplier_id.getEditor().selectAll();
+                        supplier_name.setText("");
                     }
                     
                     
                 }
-                else{ supplier_name.setText(dbm.checknReturnData("suppliers", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "sup_name"));
-                      java.sql.Date datef = datechooser.Return_date(yearfield, monthfield, dayfield);
-                  try{ allowable.setText("" + bill.two_dec_places(""+bill.bill_sum_cal(Integer.parseInt(supplier_id.getSelectedItem().toString()), yearfield.getText(), datehandler.return_month_as_num(monthfield.getText()), Double.parseDouble(set_val.getText()))));
-                  } catch(NumberFormatException ee){}
-                  Discription_code.requestFocus();}
+                else{
+                    Filldata();
                     
-                    
-                }
-            } catch (ParseException ex) {
-                Logger.getLogger(GL_Other_Advances.class.getName()).log(Level.SEVERE, null, ex);
+                    try{ allowable.setText("" + bill.two_dec_places(""+bill.bill_sum_cal(Integer.parseInt(supplier_id.getSelectedItem().toString()), yearfield.getText(), datehandler.return_month_as_num(monthfield.getText()), Double.parseDouble(set_val.getText()))));
+                    } catch(NumberFormatException ee){}
+                    }
+                
+                
             }
        } catch (NumberFormatException ex) {
             //System.out.println(ex.getMessage());
             supplier_id.setSelectedIndex(0);
         }
     }//GEN-LAST:event_supplier_idItemStateChanged
-
+     public void Filldata(){
+     String Name =   dbm.checknReturnData("suppliers", "sup_id", Integer.parseInt(supplier_id.getSelectedItem().toString()), "sup_name");
+                      if(Name != null){
+         try {
+             supplier_name.setText(Name);
+             java.sql.Date datef = datechooser.Return_date(yearfield, monthfield, dayfield);
+             Discription_code.requestFocus();
+         } catch (ParseException ex) {
+             Logger.getLogger(GL_Other_Advances.class.getName()).log(Level.SEVERE, null, ex);
+         }
+                      } 
+                      else{
+                      JOptionPane.showMessageDialog(datechooser, "Invalid Supplier ID");
+                      supplier_id.getEditor().setItem("");
+                      supplier_name.setText("");
+                      supplier_id.requestFocus();
+                      }
+     
+     
+     
+     }
     private void monthfieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_monthfieldKeyPressed
         if (monthfield.getText().equals("Jan")) {
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {

@@ -122,6 +122,7 @@ public class GL_BillsummeryPanel extends javax.swing.JPanel {
         }
         //System.out.println("loop done");
         Supply_total.setText("" + total);
+        Supply_total1.setText("" + total);
         set_max_Kg((int) Math.round(Max_kg));
         int k = 0;
         while (k < 31) {
@@ -335,6 +336,8 @@ public class GL_BillsummeryPanel extends javax.swing.JPanel {
         day29 = new javax.swing.JLabel();
         day30 = new javax.swing.JLabel();
         day31 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        Supply_total1 = new javax.swing.JTextField();
         jPanel10 = new javax.swing.JPanel();
         jProgressBar16 = new javax.swing.JProgressBar();
         jProgressBar2 = new javax.swing.JProgressBar();
@@ -369,7 +372,7 @@ public class GL_BillsummeryPanel extends javax.swing.JPanel {
         day15 = new javax.swing.JLabel();
         day16 = new javax.swing.JLabel();
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 0), 2), "Supplies", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 102, 0))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 0), 2), "Supplies", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(0, 102, 0)));
 
         Supplies.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -408,7 +411,7 @@ public class GL_BillsummeryPanel extends javax.swing.JPanel {
                     .addComponent(jLabel12)))
         );
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 51, 0), 2), "Loans", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(204, 51, 0))); // NOI18N
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 51, 0), 2), "Loans", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(204, 51, 0)));
 
         jTable4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -573,7 +576,7 @@ public class GL_BillsummeryPanel extends javax.swing.JPanel {
                 .addComponent(jButton1))
         );
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 102, 0), 2), "Total Advances", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(204, 102, 0))); // NOI18N
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 102, 0), 2), "Total Advances", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(204, 102, 0)));
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -734,77 +737,77 @@ public class GL_BillsummeryPanel extends javax.swing.JPanel {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jProgressBar18.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jProgressBar18.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jProgressBar18.setForeground(new java.awt.Color(0, 0, 0));
         jProgressBar18.setValue(50);
         jProgressBar18.setStringPainted(true);
 
-        jProgressBar23.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jProgressBar23.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jProgressBar23.setForeground(new java.awt.Color(0, 0, 0));
         jProgressBar23.setValue(50);
         jProgressBar23.setStringPainted(true);
 
-        jProgressBar21.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jProgressBar21.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jProgressBar21.setForeground(new java.awt.Color(0, 0, 0));
         jProgressBar21.setValue(50);
         jProgressBar21.setStringPainted(true);
 
-        jProgressBar17.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jProgressBar17.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jProgressBar17.setForeground(new java.awt.Color(0, 0, 0));
         jProgressBar17.setValue(50);
         jProgressBar17.setStringPainted(true);
 
-        jProgressBar20.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jProgressBar20.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jProgressBar20.setForeground(new java.awt.Color(0, 0, 0));
         jProgressBar20.setValue(50);
         jProgressBar20.setStringPainted(true);
 
-        jProgressBar19.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jProgressBar19.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jProgressBar19.setForeground(new java.awt.Color(0, 0, 0));
         jProgressBar19.setValue(50);
         jProgressBar19.setStringPainted(true);
 
-        jProgressBar25.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jProgressBar25.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jProgressBar25.setForeground(new java.awt.Color(0, 0, 0));
         jProgressBar25.setValue(50);
         jProgressBar25.setStringPainted(true);
 
-        jProgressBar24.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jProgressBar24.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jProgressBar24.setForeground(new java.awt.Color(0, 0, 0));
         jProgressBar24.setValue(50);
         jProgressBar24.setStringPainted(true);
 
-        jProgressBar28.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jProgressBar28.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jProgressBar28.setForeground(new java.awt.Color(0, 0, 0));
         jProgressBar28.setValue(50);
         jProgressBar28.setStringPainted(true);
 
-        jProgressBar27.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jProgressBar27.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jProgressBar27.setForeground(new java.awt.Color(0, 0, 0));
         jProgressBar27.setValue(50);
         jProgressBar27.setStringPainted(true);
 
-        jProgressBar26.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jProgressBar26.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jProgressBar26.setForeground(new java.awt.Color(0, 0, 0));
         jProgressBar26.setValue(50);
         jProgressBar26.setStringPainted(true);
 
-        jProgressBar22.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jProgressBar22.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jProgressBar22.setForeground(new java.awt.Color(0, 0, 0));
         jProgressBar22.setValue(50);
         jProgressBar22.setStringPainted(true);
 
-        jProgressBar31.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jProgressBar31.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jProgressBar31.setForeground(new java.awt.Color(0, 0, 0));
         jProgressBar31.setValue(50);
         jProgressBar31.setStringPainted(true);
 
-        jProgressBar30.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jProgressBar30.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jProgressBar30.setForeground(new java.awt.Color(0, 0, 0));
         jProgressBar30.setValue(50);
         jProgressBar30.setStringPainted(true);
 
-        jProgressBar29.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jProgressBar29.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jProgressBar29.setForeground(new java.awt.Color(0, 0, 0));
         jProgressBar29.setValue(50);
         jProgressBar29.setStringPainted(true);
@@ -836,36 +839,35 @@ public class GL_BillsummeryPanel extends javax.swing.JPanel {
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel11Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jProgressBar17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
-                .addComponent(jProgressBar18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
-                .addComponent(jProgressBar19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
-                .addComponent(jProgressBar20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
-                .addComponent(jProgressBar21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
-                .addComponent(jProgressBar22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
-                .addComponent(jProgressBar23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
-                .addComponent(jProgressBar24, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
-                .addComponent(jProgressBar25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
-                .addComponent(jProgressBar26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
-                .addComponent(jProgressBar27, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
-                .addComponent(jProgressBar28, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
-                .addComponent(jProgressBar29, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
-                .addComponent(jProgressBar30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
-                .addComponent(jProgressBar31, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jProgressBar17, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jProgressBar18, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jProgressBar19, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jProgressBar20, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jProgressBar21, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jProgressBar22, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jProgressBar23, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jProgressBar24, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jProgressBar25, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jProgressBar26, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jProgressBar27, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jProgressBar28, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jProgressBar29, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jProgressBar30, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jProgressBar31, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -899,149 +901,161 @@ public class GL_BillsummeryPanel extends javax.swing.JPanel {
 
         day31.setText("31");
 
+        jLabel15.setText("Total");
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addContainerGap(16, Short.MAX_VALUE)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(day17, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(day18, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(day19, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(day20, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(day21, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(day22, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(day23, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(day24, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(day25, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(day26, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(day27, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(day28, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(day29, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(day30, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(day31, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(day17, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(day18, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(day19, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(day20, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(day21, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(day22, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(day23, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(day24, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(day25, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(day26, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(day27, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(day28, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(day29, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(day30, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(day31, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                        .addComponent(jLabel15)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(Supply_total1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(day17)
-                .addGap(18, 18, 18)
-                .addComponent(day18)
-                .addGap(18, 18, 18)
-                .addComponent(day19)
-                .addGap(18, 18, 18)
-                .addComponent(day20)
-                .addGap(18, 18, 18)
-                .addComponent(day21)
-                .addGap(18, 18, 18)
-                .addComponent(day22)
-                .addGap(18, 18, 18)
-                .addComponent(day23)
-                .addGap(18, 18, 18)
-                .addComponent(day24)
-                .addGap(18, 18, 18)
-                .addComponent(day25)
-                .addGap(18, 18, 18)
-                .addComponent(day26)
-                .addGap(18, 18, 18)
-                .addComponent(day27)
-                .addGap(18, 18, 18)
-                .addComponent(day28)
-                .addGap(18, 18, 18)
-                .addComponent(day29)
-                .addGap(18, 18, 18)
-                .addComponent(day30)
-                .addGap(18, 18, 18)
-                .addComponent(day31)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(day17)
+                        .addGap(18, 18, 18)
+                        .addComponent(day18)
+                        .addGap(18, 18, 18)
+                        .addComponent(day19)
+                        .addGap(18, 18, 18)
+                        .addComponent(day20)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(day21)
+                        .addGap(18, 18, 18)
+                        .addComponent(day22)
+                        .addGap(18, 18, 18)
+                        .addComponent(day23)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(day24)
+                        .addGap(18, 18, 18)
+                        .addComponent(day25)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(day26)
+                        .addGap(18, 18, 18)
+                        .addComponent(day27)
+                        .addGap(18, 18, 18)
+                        .addComponent(day28)
+                        .addGap(18, 18, 18)
+                        .addComponent(day29)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(day30)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(day31)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Supply_total1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel15))
+                .addContainerGap())
         );
 
-        jProgressBar16.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jProgressBar16.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jProgressBar16.setForeground(new java.awt.Color(0, 0, 0));
         jProgressBar16.setValue(50);
         jProgressBar16.setStringPainted(true);
 
-        jProgressBar2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jProgressBar2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jProgressBar2.setForeground(new java.awt.Color(0, 0, 0));
         jProgressBar2.setValue(50);
         jProgressBar2.setStringPainted(true);
 
-        jProgressBar10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jProgressBar10.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jProgressBar10.setForeground(new java.awt.Color(0, 0, 0));
         jProgressBar10.setValue(50);
         jProgressBar10.setStringPainted(true);
 
-        jProgressBar11.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jProgressBar11.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jProgressBar11.setForeground(new java.awt.Color(0, 0, 0));
         jProgressBar11.setValue(50);
         jProgressBar11.setStringPainted(true);
 
-        jProgressBar15.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jProgressBar15.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jProgressBar15.setForeground(new java.awt.Color(0, 0, 0));
         jProgressBar15.setValue(50);
         jProgressBar15.setStringPainted(true);
 
-        jProgressBar12.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jProgressBar12.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jProgressBar12.setForeground(new java.awt.Color(0, 0, 0));
         jProgressBar12.setValue(50);
         jProgressBar12.setStringPainted(true);
 
         jProgressBar1.setString("12");
-        jProgressBar1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jProgressBar1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jProgressBar1.setForeground(new java.awt.Color(0, 0, 0));
         jProgressBar1.setValue(50);
         jProgressBar1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jProgressBar1.setStringPainted(true);
 
-        jProgressBar8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jProgressBar8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jProgressBar8.setForeground(new java.awt.Color(0, 0, 0));
         jProgressBar8.setValue(50);
         jProgressBar8.setStringPainted(true);
 
-        jProgressBar13.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jProgressBar13.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jProgressBar13.setForeground(new java.awt.Color(0, 0, 0));
         jProgressBar13.setValue(50);
         jProgressBar13.setStringPainted(true);
 
-        jProgressBar3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jProgressBar3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jProgressBar3.setForeground(new java.awt.Color(0, 0, 0));
         jProgressBar3.setValue(50);
         jProgressBar3.setStringPainted(true);
 
-        jProgressBar4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jProgressBar4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jProgressBar4.setForeground(new java.awt.Color(0, 0, 0));
         jProgressBar4.setValue(50);
         jProgressBar4.setStringPainted(true);
 
-        jProgressBar5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jProgressBar5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jProgressBar5.setForeground(new java.awt.Color(0, 0, 0));
         jProgressBar5.setValue(50);
         jProgressBar5.setStringPainted(true);
 
-        jProgressBar7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jProgressBar7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jProgressBar7.setForeground(new java.awt.Color(0, 0, 0));
         jProgressBar7.setValue(50);
         jProgressBar7.setStringPainted(true);
 
-        jProgressBar14.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jProgressBar14.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jProgressBar14.setForeground(new java.awt.Color(0, 0, 0));
         jProgressBar14.setValue(50);
         jProgressBar14.setStringPainted(true);
 
-        jProgressBar9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jProgressBar9.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jProgressBar9.setForeground(new java.awt.Color(0, 0, 0));
         jProgressBar9.setValue(50);
         jProgressBar9.setStringPainted(true);
 
-        jProgressBar6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jProgressBar6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jProgressBar6.setForeground(new java.awt.Color(0, 0, 0));
         jProgressBar6.setValue(50);
         jProgressBar6.setStringPainted(true);
@@ -1074,38 +1088,37 @@ public class GL_BillsummeryPanel extends javax.swing.JPanel {
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
-                .addComponent(jProgressBar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
-                .addComponent(jProgressBar3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
-                .addComponent(jProgressBar4, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
-                .addComponent(jProgressBar5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
-                .addComponent(jProgressBar6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
-                .addComponent(jProgressBar7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
-                .addComponent(jProgressBar8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
-                .addComponent(jProgressBar9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
-                .addComponent(jProgressBar10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
-                .addComponent(jProgressBar11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
-                .addComponent(jProgressBar12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
-                .addComponent(jProgressBar13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
-                .addComponent(jProgressBar14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
-                .addComponent(jProgressBar15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
-                .addComponent(jProgressBar16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jProgressBar2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jProgressBar3, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jProgressBar4, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jProgressBar5, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jProgressBar6, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jProgressBar7, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jProgressBar8, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jProgressBar9, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jProgressBar10, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jProgressBar11, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jProgressBar12, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jProgressBar13, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jProgressBar14, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jProgressBar15, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jProgressBar16, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -1149,28 +1162,28 @@ public class GL_BillsummeryPanel extends javax.swing.JPanel {
                 .addContainerGap(14, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(day10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(day11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(day12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(day13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(day14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(day15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(day16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(day7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(day6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(day5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(day4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(day3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(day2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(day1, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(day2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(day1, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(day10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(day11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(day12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(day13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(day14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(day15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(day16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(day7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(day6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(day5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(day4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(day3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(day8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(10, 10, 10))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(day8, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(day9)
-                        .addGap(18, 18, 18)))
+                        .addGap(15, 15, 15)))
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1183,13 +1196,13 @@ public class GL_BillsummeryPanel extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(day1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(day2)
                 .addGap(18, 18, 18)
                 .addComponent(day3)
                 .addGap(18, 18, 18)
                 .addComponent(day4)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(day5)
                 .addGap(18, 18, 18)
                 .addComponent(day6)
@@ -1197,9 +1210,9 @@ public class GL_BillsummeryPanel extends javax.swing.JPanel {
                 .addComponent(day7)
                 .addGap(18, 18, 18)
                 .addComponent(day8)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(day9)
-                .addGap(18, 18, 18)
+                .addGap(11, 11, 11)
                 .addComponent(day10)
                 .addGap(18, 18, 18)
                 .addComponent(day11)
@@ -1207,13 +1220,13 @@ public class GL_BillsummeryPanel extends javax.swing.JPanel {
                 .addComponent(day12)
                 .addGap(18, 18, 18)
                 .addComponent(day13)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(day14)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(day15)
                 .addGap(18, 18, 18)
                 .addComponent(day16)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -1780,6 +1793,7 @@ public class GL_BillsummeryPanel extends javax.swing.JPanel {
     public void set_zero() {
         String z = "0.0";
         TotalKG.setText(z);
+        
         total_ad.setText(z);
         loans.setText(z);
         pedet.setText(z);
@@ -1792,6 +1806,7 @@ public class GL_BillsummeryPanel extends javax.swing.JPanel {
     private javax.swing.JTextField Advance_tot;
     private javax.swing.JTable Supplies;
     private javax.swing.JTextField Supply_total;
+    private javax.swing.JTextField Supply_total1;
     private javax.swing.JTextField TotalKG;
     private com.michaelbaranov.microba.calendar.DatePicker datePicker1;
     private javax.swing.JPanel datepanel;
@@ -1835,6 +1850,7 @@ public class GL_BillsummeryPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
