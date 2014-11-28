@@ -244,6 +244,12 @@ public class PRCR_salary_payroll extends javax.swing.JPanel {
                 Logger.getLogger(PRCR_salary_payroll.class.getName()).log(Level.SEVERE, null, ex);
             }
             dbm.updateDatabase("personal_info", "code", empCode, "basic_salary", baasic);
+            name.setText(null);
+            basic_sallary.setText(null);
+            ot_rate.setText(null);
+            incentive1.setText(null);
+            code.setSelectedIndex(0);
+            code.requestFocus();
         } else {
             msg.showMessage("Entered Amounts are not Valid. Please check again", "Salary Details", "info");
 
@@ -256,8 +262,13 @@ public class PRCR_salary_payroll extends javax.swing.JPanel {
         double basic_salary = 0;
         double incentive = 0;
         double ot_raten = 0;
+        int item = 0;
         if (evt.getStateChange() == ItemEvent.SELECTED) {
-            int item = Integer.parseInt(evt.getItem().toString());
+            try {
+                item = Integer.parseInt(evt.getItem().toString());
+            } catch (Exception ex) {
+            }
+
             try {
                 ResultSet query = dbm.query("SELECT * FROM personal_info WHERE code LIKE " + item + "");
                 while (query.next()) {

@@ -42,21 +42,16 @@ public class PRCR_work_overtime extends javax.swing.JPanel {
     }
 
     public void fill_table() {
-        
-         if (dbm.TableExistence("prcr_staff_salary_info_" + getDate())) {
+
+        if (dbm.TableExistence("prcr_staff_salary_info_" + getDate())) {
             //dbm.DeleteTable("pr_workdata_" + yr_mnth);
             //dbm.insert("DROP TABLE pr_workdata_" + yr_mnth + "");
-             
-             
-        }else{
-         //create table
-             create_new_table(getDate());
-             initial_fill_database(getDate());
-         }
-        
-        
-        
-        
+
+        } else {
+            //create table
+            create_new_table(getDate());
+            initial_fill_database(getDate());
+        }
 
         int i = 0;
         int j = 0;
@@ -64,7 +59,7 @@ public class PRCR_work_overtime extends javax.swing.JPanel {
         double incentive = 0;
         double basicSalary = 0;
         try {
-            ResultSet query = dbm.query("SELECT * FROM prcr_staff_salary_info_"+getDate());
+            ResultSet query = dbm.query("SELECT * FROM prcr_staff_salary_info_" + getDate());
             while (query.next()) {
                 for (j = 0; j < 13; j++) {
 
@@ -82,44 +77,128 @@ public class PRCR_work_overtime extends javax.swing.JPanel {
         }
     }
 
+    public void fill_edited_salaries_table() {
+        change_edited_salaries();
+        int i = 0;
+        int j = 0;
+        int codet;
+        double incentive = 0;
+        double basicSalary = 0;
+        try {
+            ResultSet query = dbm.query("SELECT * FROM prcr_staff_salary_info_" + getDate());
+            while (query.next()) {
+                table.setValueAt(query.getString(3), i, 2);
+                table.setValueAt(query.getString(5), i, 4);
+                table.setValueAt(query.getString(7), i, 6);
+                table.setValueAt(query.getString(10), i, 9);
+                i++;
+            }
+            query.close();
+            tot_OT();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void change_edited_salaries() {
+        int codet;
+        double incentive = 0;
+        double basicSalary = 0;
+        double ot_rate = 0;
+        double allowance1 = 0;
+        String yr_mnth = getDate();
+        // int reply = JOptionPane.showConfirmDialog(jButton1,
+        //         "Do You Want to DELETE the current entries?", "Delete Entries", JOptionPane.YES_NO_OPTION);
+        // if (reply == JOptionPane.YES_OPTION) {
+        //     try {
+        //         dbm.insert("Truncate prcr_staff_salary_info");
+        //    } catch (SQLException ex) {
+        //         Logger.getLogger(PRCR_work_overtime.class.getName()).log(Level.SEVERE, null, ex);
+        //    }
+        try {
+            ResultSet query = dbm.query("SELECT * FROM personal_info WHERE checkroll_or_staff LIKE'" + "Staff" + "'");
+            while (query.next()) {
+                incentive = 0;
+                codet = query.getInt("code");
+                try {
+                    ResultSet query1 = dbm.query("SELECT * FROM prcr_payroll_incentive WHERE emp_code LIKE '" + codet + "'");
+                    while (query1.next()) {
+                        incentive = query1.getDouble("incentive");
+                    }
+                    query1.close();
+                } catch (Exception e) {
+                    incentive = 0;
+                }
+
+                basicSalary = query.getDouble("basic_salary");
+
+                ot_rate = Math.ceil((basicSalary / 240 * 1.5) * 100.0) / 100.0;
+
+                if (basicSalary > 0) {
+                    allowance1 = 1000.00;
+                    basicSalary = basicSalary - 1000;
+                } else {
+                    basicSalary = 0;
+                    allowance1 = 0;
+                }
+                basicSalary = Math.round(basicSalary);
+                if (dbm.checkWhetherDataExists("prcr_staff_salary_info_" + yr_mnth, "code", codet) == 0) {
+                    System.out.println(codet + "---------");
+                    dbm.insert("INSERT INTO prcr_staff_salary_info_" + yr_mnth + "(code,name,basic_salary,ot_rate,allowance1,Incentive1,active) VALUES('" + codet + "','" + query.getString("name") + "','" + basicSalary + "','" + ot_rate + "','" + allowance1 + "','" + incentive + "',1)");
+
+                } else {
+                    //  table.setValueAt(Math.round((basicSalary / 240 * 1.5) * 100.0) / 100.0, i, 3);
+                    dbm.updateDatabase("prcr_staff_salary_info_" + yr_mnth, "code", codet, "basic_salary", basicSalary);
+                    dbm.updateDatabase("prcr_staff_salary_info_" + yr_mnth, "code", codet, "ot_rate", ot_rate);
+                    dbm.updateDatabase("prcr_staff_salary_info_" + yr_mnth, "code", codet, "allowance1", allowance1);
+                    dbm.updateDatabase("prcr_staff_salary_info_" + yr_mnth, "code", codet, "Incentive1", incentive);
+                // dbm.insert("INSERT INTO prcr_staff_salary_info_" + yr_mnth + "(code,name,basic_salary,ot_rate,allowance1,Incentive1) VALUES('" + codet + "','" + query.getString("name") + "','" + basicSalary + "','" + ot_rate + "','" + allowance1 + "','" + incentive + "')");
+
+                }
+            }
+            query.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     public void save_table(String yr_mnth) {
-        
-        
+
         if (dbm.TableExistence("prcr_staff_salary_info_" + getDate())) {
-             
-        }else{
-         //create table
-             create_new_table(getDate());
-             initial_fill_database(getDate());
-         }
+
+        } else {
+            //create table
+            create_new_table(getDate());
+            initial_fill_database(getDate());
+        }
 
         int i = 0;
         calc();
         while (table.getValueAt(i, 0) != null) {
 
-            dbm.updateDatabase("prcr_staff_salary_info_"+yr_mnth, "code", table.getValueAt(i, 0), "basic_salary", table.getValueAt(i, 2));
-            dbm.updateDatabase("prcr_staff_salary_info_"+yr_mnth, "code", table.getValueAt(i, 0), "ot_hours", table.getValueAt(i, 3));
-            dbm.updateDatabase("prcr_staff_salary_info_"+yr_mnth, "code", table.getValueAt(i, 0), "ot_rate", table.getValueAt(i, 4));
-            dbm.updateDatabase("prcr_staff_salary_info_"+yr_mnth, "code", table.getValueAt(i, 0), "ot_pay", table.getValueAt(i, 5));
-            dbm.updateDatabase("prcr_staff_salary_info_"+yr_mnth, "code", table.getValueAt(i, 0), "allowance1", table.getValueAt(i, 6));
-            dbm.updateDatabase("prcr_staff_salary_info_"+yr_mnth, "code", table.getValueAt(i, 0), "allowance2", table.getValueAt(i, 7));
-            dbm.updateDatabase("prcr_staff_salary_info_"+yr_mnth, "code", table.getValueAt(i, 0), "allowance3", table.getValueAt(i, 8));
-            dbm.updateDatabase("prcr_staff_salary_info_"+yr_mnth, "code", table.getValueAt(i, 0), "Incentive1", table.getValueAt(i, 9));
-            dbm.updateDatabase("prcr_staff_salary_info_"+yr_mnth, "code", table.getValueAt(i, 0), "Incentive2", table.getValueAt(i, 10));
-            dbm.updateDatabase("prcr_staff_salary_info_"+yr_mnth, "code", table.getValueAt(i, 0), "Extra1", table.getValueAt(i, 11));
-            dbm.updateDatabase("prcr_staff_salary_info_"+yr_mnth, "code", table.getValueAt(i, 0), "Extra2", table.getValueAt(i, 12));
+            dbm.updateDatabase("prcr_staff_salary_info_" + yr_mnth, "code", table.getValueAt(i, 0), "basic_salary", table.getValueAt(i, 2));
+            dbm.updateDatabase("prcr_staff_salary_info_" + yr_mnth, "code", table.getValueAt(i, 0), "ot_hours", table.getValueAt(i, 3));
+            dbm.updateDatabase("prcr_staff_salary_info_" + yr_mnth, "code", table.getValueAt(i, 0), "ot_rate", table.getValueAt(i, 4));
+            dbm.updateDatabase("prcr_staff_salary_info_" + yr_mnth, "code", table.getValueAt(i, 0), "ot_pay", table.getValueAt(i, 5));
+            dbm.updateDatabase("prcr_staff_salary_info_" + yr_mnth, "code", table.getValueAt(i, 0), "allowance1", table.getValueAt(i, 6));
+            dbm.updateDatabase("prcr_staff_salary_info_" + yr_mnth, "code", table.getValueAt(i, 0), "allowance2", table.getValueAt(i, 7));
+            dbm.updateDatabase("prcr_staff_salary_info_" + yr_mnth, "code", table.getValueAt(i, 0), "allowance3", table.getValueAt(i, 8));
+            dbm.updateDatabase("prcr_staff_salary_info_" + yr_mnth, "code", table.getValueAt(i, 0), "Incentive1", table.getValueAt(i, 9));
+            dbm.updateDatabase("prcr_staff_salary_info_" + yr_mnth, "code", table.getValueAt(i, 0), "Incentive2", table.getValueAt(i, 10));
+            dbm.updateDatabase("prcr_staff_salary_info_" + yr_mnth, "code", table.getValueAt(i, 0), "Extra1", table.getValueAt(i, 11));
+            dbm.updateDatabase("prcr_staff_salary_info_" + yr_mnth, "code", table.getValueAt(i, 0), "Extra2", table.getValueAt(i, 12));
             if (Boolean.parseBoolean("" + table.getValueAt(i, 13)) == true) {
-                dbm.updateDatabase("prcr_staff_salary_info_"+yr_mnth, "code", table.getValueAt(i, 0), "active", 1);
+                dbm.updateDatabase("prcr_staff_salary_info_" + yr_mnth, "code", table.getValueAt(i, 0), "active", 1);
             } else {
-                dbm.updateDatabase("prcr_staff_salary_info_"+yr_mnth, "code", table.getValueAt(i, 0), "active", 0);
+                dbm.updateDatabase("prcr_staff_salary_info_" + yr_mnth, "code", table.getValueAt(i, 0), "active", 0);
 
             }
             i++;
 
         }
         JOptionPane.showMessageDialog(null, "Done \n", "Message", JOptionPane.INFORMATION_MESSAGE);
-
-        
 
     }
 
@@ -130,55 +209,53 @@ public class PRCR_work_overtime extends javax.swing.JPanel {
         double basicSalary = 0;
         double ot_rate = 0;
         double allowance1 = 0;
-       // int reply = JOptionPane.showConfirmDialog(jButton1,
-       //         "Do You Want to DELETE the current entries?", "Delete Entries", JOptionPane.YES_NO_OPTION);
-       // if (reply == JOptionPane.YES_OPTION) {
-       //     try {
-       //         dbm.insert("Truncate prcr_staff_salary_info");
+        // int reply = JOptionPane.showConfirmDialog(jButton1,
+        //         "Do You Want to DELETE the current entries?", "Delete Entries", JOptionPane.YES_NO_OPTION);
+        // if (reply == JOptionPane.YES_OPTION) {
+        //     try {
+        //         dbm.insert("Truncate prcr_staff_salary_info");
         //    } catch (SQLException ex) {
-       //         Logger.getLogger(PRCR_work_overtime.class.getName()).log(Level.SEVERE, null, ex);
+        //         Logger.getLogger(PRCR_work_overtime.class.getName()).log(Level.SEVERE, null, ex);
         //    }
-            try {
-                ResultSet query = dbm.query("SELECT * FROM personal_info WHERE checkroll_or_staff LIKE'" + "Staff" + "'");
-                while (query.next()) {
+        try {
+            ResultSet query = dbm.query("SELECT * FROM personal_info WHERE checkroll_or_staff LIKE'" + "Staff" + "'");
+            while (query.next()) {
+                incentive = 0;
+                codet = query.getInt("code");
+                try {
+                    ResultSet query1 = dbm.query("SELECT * FROM prcr_payroll_incentive WHERE emp_code LIKE '" + codet + "'");
+                    while (query1.next()) {
+                        incentive = query1.getDouble("incentive");
+                    }
+                    query1.close();
+                } catch (Exception e) {
                     incentive = 0;
-                    codet = query.getInt("code");
-                    try {
-                        ResultSet query1 = dbm.query("SELECT * FROM prcr_payroll_incentive WHERE emp_code LIKE '" + codet + "'");
-                        while (query1.next()) {
-                            incentive = query1.getDouble("incentive");
-                        }
-                        query1.close();
-                    } catch (Exception e) {
-                        incentive = 0;
-                    }
-
-                    basicSalary = query.getDouble("basic_salary");
-
-                    ot_rate = Math.ceil((basicSalary / 240 * 1.5) * 100.0) / 100.0;
-
-                    if (basicSalary > 0) {
-                        allowance1 = 1000.00;
-                        basicSalary = basicSalary - 1000;
-                    } else {
-                        basicSalary = 0;
-                        allowance1 = 0;
-                    }
-                    basicSalary = Math.round(basicSalary);
-
-                    //  table.setValueAt(Math.round((basicSalary / 240 * 1.5) * 100.0) / 100.0, i, 3);
-                    dbm.insert("INSERT INTO prcr_staff_salary_info_"+yr_mnth+"(code,name,basic_salary,ot_rate,allowance1,Incentive1) VALUES('" + codet + "','" + query.getString("name") + "','" + basicSalary + "','" + ot_rate + "','" + allowance1 + "','" + incentive + "')");
                 }
-                query.close();
 
-            } catch (SQLException ex) {
-                Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
+                basicSalary = query.getDouble("basic_salary");
+
+                ot_rate = Math.ceil((basicSalary / 240 * 1.5) * 100.0) / 100.0;
+
+                if (basicSalary > 0) {
+                    allowance1 = 1000.00;
+                    basicSalary = basicSalary - 1000;
+                } else {
+                    basicSalary = 0;
+                    allowance1 = 0;
+                }
+                basicSalary = Math.round(basicSalary);
+
+                //  table.setValueAt(Math.round((basicSalary / 240 * 1.5) * 100.0) / 100.0, i, 3);
+                dbm.insert("INSERT INTO prcr_staff_salary_info_" + yr_mnth + "(code,name,basic_salary,ot_rate,allowance1,Incentive1) VALUES('" + codet + "','" + query.getString("name") + "','" + basicSalary + "','" + ot_rate + "','" + allowance1 + "','" + incentive + "')");
             }
+            query.close();
 
-       // } else if (reply == JOptionPane.NO_OPTION) {
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
-       // }
-
+        // } else if (reply == JOptionPane.NO_OPTION) {
+        // }
     }
 
     public void calc() {
@@ -194,12 +271,12 @@ public class PRCR_work_overtime extends javax.swing.JPanel {
             i++;
         }
     }
-    
-    public void create_new_table(String yr_mnth){
-     /*if (dbm.TableExistence("pr_workdata_" + yr_mnth)) {
-            dbm.DeleteTable("pr_workdata_" + yr_mnth);
-            dbm.insert("DROP TABLE pr_workdata_" + yr_mnth + "");
-        }*/
+
+    public void create_new_table(String yr_mnth) {
+        /*if (dbm.TableExistence("pr_workdata_" + yr_mnth)) {
+         dbm.DeleteTable("pr_workdata_" + yr_mnth);
+         dbm.insert("DROP TABLE pr_workdata_" + yr_mnth + "");
+         }*/
         System.out.println("new table is being created");
         try {
             //use new_1 and new_2 if any other deduction type is needd to be added
@@ -214,8 +291,7 @@ public class PRCR_work_overtime extends javax.swing.JPanel {
             //Logger.getLogger(test.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("in ex");
         }
-    
-    
+
     }
 
     public PRCR_work_overtime() {
@@ -251,9 +327,110 @@ public class PRCR_work_overtime extends javax.swing.JPanel {
         monthfield = new javax.swing.JTextField();
         yearfield = new javax.swing.JTextField();
         datePicker1 = new com.michaelbaranov.microba.calendar.DatePicker();
+        jButton3 = new javax.swing.JButton();
 
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
@@ -363,7 +540,7 @@ public class PRCR_work_overtime extends javax.swing.JPanel {
                 java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, true, true, true, true, true, true, true, false, true, true, true, true
+                false, false, true, true, true, true, true, true, true, true, true, true, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -503,6 +680,13 @@ public class PRCR_work_overtime extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jButton3.setText("Get The Edited Pay Info ");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -535,6 +719,8 @@ public class PRCR_work_overtime extends javax.swing.JPanel {
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton2)
+                .addGap(265, 265, 265)
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -551,7 +737,8 @@ public class PRCR_work_overtime extends javax.swing.JPanel {
                     .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -572,25 +759,24 @@ public class PRCR_work_overtime extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     /*public void CreateNewMonthTableForStaff(String yr_mnth) {
-        DatabaseManager dbm = DatabaseManager.getDbCon();
+     DatabaseManager dbm = DatabaseManager.getDbCon();
 
-        try {
+     try {
 
-            dbm.insert("CREATE TABLE prcr_staffworkdata_" + yr_mnth + "(code INT,"
-                    + "basic_salary DOUBLE,"
-                    + "ot_hours INT," + "full_pay DOUBLE," + "n_5000 INT," + "n_2000 INT," + "n_1000 INT," + "n_500 INT," + "n_100 INT," + "n_50 INT," + "n_20 INT," + "n_10 INT);");
-        } catch (SQLException ex) {
-            //Logger.getLogger(test.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("in ex");
-        }
-        ///DONT DELETE checkroll_personalinfo SQL table
-        //copying worker's codes to newly created table
-        dbm.CopyTable2Columns("staff_personalinfo", "code", "basic_salary", "prcr_staffworkdata_" + yr_mnth, "code", "basic_salary");
-        // dbm.CopyTableColumn("staff_personalinfo", "basic_salary", "prcr_staffworkdata_" + yr_mnth, "basic_salary");
-        System.out.println("table copied");
+     dbm.insert("CREATE TABLE prcr_staffworkdata_" + yr_mnth + "(code INT,"
+     + "basic_salary DOUBLE,"
+     + "ot_hours INT," + "full_pay DOUBLE," + "n_5000 INT," + "n_2000 INT," + "n_1000 INT," + "n_500 INT," + "n_100 INT," + "n_50 INT," + "n_20 INT," + "n_10 INT);");
+     } catch (SQLException ex) {
+     //Logger.getLogger(test.class.getName()).log(Level.SEVERE, null, ex);
+     System.out.println("in ex");
+     }
+     ///DONT DELETE checkroll_personalinfo SQL table
+     //copying worker's codes to newly created table
+     dbm.CopyTable2Columns("staff_personalinfo", "code", "basic_salary", "prcr_staffworkdata_" + yr_mnth, "code", "basic_salary");
+     // dbm.CopyTableColumn("staff_personalinfo", "basic_salary", "prcr_staffworkdata_" + yr_mnth, "basic_salary");
+     System.out.println("table copied");
 
-    }*/
-
+     }*/
     public String getDate() {
 
         String st;
@@ -844,6 +1030,11 @@ public class PRCR_work_overtime extends javax.swing.JPanel {
         update.update_month_check_prcr(jButton6, yearfield, monthfield);
     }//GEN-LAST:event_datePicker1ActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        fill_edited_salaries_table();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.michaelbaranov.microba.calendar.DatePicker datePicker1;
@@ -851,6 +1042,7 @@ public class PRCR_work_overtime extends javax.swing.JPanel {
     private javax.swing.JLabel division_lb;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;

@@ -726,7 +726,7 @@ public class ACC_recepts extends javax.swing.JPanel {
                     }
                     if(evt.getKeyCode() == KeyEvent.VK_UP || evt.getKeyCode() == KeyEvent.VK_DOWN){
                         chkr=0;
-                        System.out.println(chkr);
+                        // System.out.println(chkr);
                     }
 
                 }
@@ -1077,118 +1077,125 @@ public class ACC_recepts extends javax.swing.JPanel {
 
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+
         try {
-            boolean addToDebitDataBase;
-            raobject.setRefNo(refNo.getText());
-            //raobject.setRecieptNo(recieptNo.getText());
-            raobject.setDate(datechooser.Return_date(yearfield, monthfield, dayfield));
-            raobject.setPayType(payType.getSelectedItem().toString());
-            raobject.setDebit_accountCode(Integer.parseInt(debit_accountCode.getSelectedItem().toString()));
-            raobject.setDescription(description.getText());
-
-            DatabaseManager dbm = DatabaseManager.getDbCon();
-
-            raobject.setDebit_accountName(dbm.checknReturnData("account_names", "account_id", raobject.getDebit_accountCode(), "account_name"));
-            raobject.setDebit_description(debit_description.getText());
-
-            raobject.setDebitAmount(Double.parseDouble(debitAmount.getText()));
-
-            if ("Cheque".equals(raobject.getPayType())) {
-
-                raobject.setBankCode(Integer.parseInt(bankCode.getSelectedItem().toString()));
-
-                raobject.setBankName(dbm.checknReturnData("bank", "bank_id", raobject.getBankCode(), "bank_name"));
-                raobject.setBranchCode(Integer.parseInt(branchCode.getSelectedItem().toString()));
-
-                raobject.setBranchName(dbm.checknReturnData("bank_branch", "branch_id", raobject.getBranchCode(), "branch_name"));
-                raobject.setChequeNo(chequeNo.getText());
-
-                java.sql.Date date2 = new java.sql.Date(chequeDate.getDate().getTime());
-                raobject.setChequeDate(date2);
-
-                addToDebitDataBase = raobject.addToDebitDataBaseBank();
+            if (datechooser.Return_date(yearfield, monthfield, dayfield).before(dbm.checknReturnData()) || datechooser.Return_date(yearfield, monthfield, dayfield).after(dbm.checkNreturnlastDate())) {
+                chkd = 0;
+                msg.showMessage("Date You Entered is not in this Accounting Period", "Please Check Again", "info");
+                dayfield.requestFocus();
             } else {
-                raobject.setBankCode(0);
-                raobject.setBankName(null);
-                raobject.setBranchCode(0);
-                raobject.setBranchName(null);
-                raobject.setChequeDate(null);
-                raobject.setChequeNo(null);
-                addToDebitDataBase = raobject.addToDebitDataBaseCash();
-            }
-            // adding the relevant value to the current balance of the debit account
+                boolean addToDebitDataBase;
+                raobject.setRefNo(refNo.getText());
 
-            if (addToDebitDataBase == true) {
+                //raobject.setRecieptNo(recieptNo.getText());
+                raobject.setDate(datechooser.Return_date(yearfield, monthfield, dayfield));
+                raobject.setPayType(payType.getSelectedItem().toString());
+                raobject.setDebit_accountCode(Integer.parseInt(debit_accountCode.getSelectedItem().toString()));
+                raobject.setDescription(description.getText());
 
-                msg.showMessage("Receipt is saved to Transaction no-" + raobject.getTr_no(), "Receipt", "info");
-                double updated_current_balance = Double.parseDouble(dbm.checknReturnData("account_names", "account_id", raobject.getDebit_accountCode(), "current_balance")) + raobject.getDebitAmount();
-                dbm.updateDatabase("account_names", "account_id", raobject.getDebit_accountCode(), "current_balance", updated_current_balance);
-            }
+                DatabaseManager dbm = DatabaseManager.getDbCon();
 
-            // Credit Side of the interface
-            int i = 0;
-            while (credit_account_code_table.getValueAt(i, 0) != null) {
-                i++;
-            }
-            String credit_acnt_name;
+                raobject.setDebit_accountName(dbm.checknReturnData("account_names", "account_id", raobject.getDebit_accountCode(), "account_name"));
+                raobject.setDebit_description(debit_description.getText());
 
-            for (int j = 0; j <= i - 1; j++) {
-                credit_acnt_name = dbm.checknReturnData("account_names", "account_id", Integer.parseInt((String) credit_account_code_table.getValueAt(j, 0)), "account_name");
+                raobject.setDebitAmount(Double.parseDouble(debitAmount.getText()));
 
-                raobject.addToCreditDataBase(Integer.parseInt((String) credit_account_code_table.getValueAt(j, 0)), credit_acnt_name, (String) credit_description_table.getValueAt(j, 0), Double.parseDouble((String) credit_amount_table.getValueAt(j, 0)));
-            }
+                if ("Cheque".equals(raobject.getPayType())) {
 
-            // adding the relevant value to the current balance of the credit account
-            i = 0;
-            String acnt_class;
-            double credit_value;
-            double credit_updated_value;
-            while (credit_account_code_table.getValueAt(i, 0) != null) {
-                credit_value = Double.parseDouble((String) credit_amount_table.getValueAt(i, 0));
-                acnt_class = dbm.checknReturnData("account_names", "account_id", Integer.parseInt((String) credit_account_code_table.getValueAt(i, 0)), "account_class");
-                if ("Current Asset".equals(acnt_class) || "Fixed Asset".equals(acnt_class) || "Expense".equals(acnt_class)) {
-                    credit_updated_value = Double.parseDouble((String) dbm.checknReturnData("account_names", "account_id", Integer.parseInt((String) credit_account_code_table.getValueAt(i, 0)), "current_balance")) - credit_value;
+                    raobject.setBankCode(Integer.parseInt(bankCode.getSelectedItem().toString()));
+
+                    raobject.setBankName(dbm.checknReturnData("bank", "bank_id", raobject.getBankCode(), "bank_name"));
+                    raobject.setBranchCode(Integer.parseInt(branchCode.getSelectedItem().toString()));
+
+                    raobject.setBranchName(dbm.checknReturnData("bank_branch", "branch_id", raobject.getBranchCode(), "branch_name"));
+                    raobject.setChequeNo(chequeNo.getText());
+
+                    java.sql.Date date2 = new java.sql.Date(chequeDate.getDate().getTime());
+                    raobject.setChequeDate(date2);
+
+                    addToDebitDataBase = raobject.addToDebitDataBaseBank();
                 } else {
-                    credit_updated_value = Double.parseDouble((String) dbm.checknReturnData("account_names", "account_id", Integer.parseInt((String) credit_account_code_table.getValueAt(i, 0)), "current_balance")) + credit_value;
+                    raobject.setBankCode(0);
+                    raobject.setBankName(null);
+                    raobject.setBranchCode(0);
+                    raobject.setBranchName(null);
+                    raobject.setChequeDate(null);
+                    raobject.setChequeNo(null);
+                    addToDebitDataBase = raobject.addToDebitDataBaseCash();
                 }
-                dbm.updateDatabase("account_names", "account_id", Integer.parseInt((String) credit_account_code_table.getValueAt(i, 0)), "current_balance", credit_updated_value);
-                i++;
-            }
+                // adding the relevant value to the current balance of the debit account
 
-            // clear all
-            {
-                int j = 0;
-                while (credit_account_code_table.getValueAt(j, 0) != null) {
-                    credit_account_code_table.setValueAt(null, j, 0);
-                    credit_description_table.setValueAt(null, j, 0);
-                    credit_amount_table.setValueAt(null, j, 0);
-                    j++;
+                if (addToDebitDataBase == true) {
+
+                    msg.showMessage("Receipt is saved to Transaction no-" + raobject.getTr_no(), "Receipt", "info");
+                    double updated_current_balance = Double.parseDouble(dbm.checknReturnData("account_names", "account_id", raobject.getDebit_accountCode(), "current_balance")) + raobject.getDebitAmount();
+                    dbm.updateDatabase("account_names", "account_id", raobject.getDebit_accountCode(), "current_balance", updated_current_balance);
                 }
 
-                //recieptNo.setText(null);
-                refNo.setText(null);
-                payType.setSelectedIndex(0);
-                bankCode.setSelectedIndex(0);
-                branchCode.setSelectedIndex(0);
-                bankName.setText(null);
-                branchName.setText(null);
-                chequeNo.setText(null);
-                debit_accountCode.setSelectedIndex(0);
-                debit_description.setText(null);
-                debitAmount.setText(null);
-                debit_accountName.setText(null);
-                credit_account_code.setSelectedIndex(0);
-                credit_account_name.setText(null);
-                credit_description.setText(null);
-                credit_amount.setText(null);
-                total.setText(null);
-                difference.setText(null);
-                description.setText(null);
+                // Credit Side of the interface
+                int i = 0;
+                while (credit_account_code_table.getValueAt(i, 0) != null) {
+                    i++;
+                }
+                String credit_acnt_name;
 
+                for (int j = 0; j <= i - 1; j++) {
+                    credit_acnt_name = dbm.checknReturnData("account_names", "account_id", Integer.parseInt((String) credit_account_code_table.getValueAt(j, 0)), "account_name");
+
+                    raobject.addToCreditDataBase(Integer.parseInt((String) credit_account_code_table.getValueAt(j, 0)), credit_acnt_name, (String) credit_description_table.getValueAt(j, 0), Double.parseDouble((String) credit_amount_table.getValueAt(j, 0)));
+                }
+
+                // adding the relevant value to the current balance of the credit account
+                i = 0;
+                String acnt_class;
+                double credit_value;
+                double credit_updated_value;
+                while (credit_account_code_table.getValueAt(i, 0) != null) {
+                    credit_value = Double.parseDouble((String) credit_amount_table.getValueAt(i, 0));
+                    acnt_class = dbm.checknReturnData("account_names", "account_id", Integer.parseInt((String) credit_account_code_table.getValueAt(i, 0)), "account_class");
+                    if ("Current Asset".equals(acnt_class) || "Fixed Asset".equals(acnt_class) || "Expense".equals(acnt_class)) {
+                        credit_updated_value = Double.parseDouble((String) dbm.checknReturnData("account_names", "account_id", Integer.parseInt((String) credit_account_code_table.getValueAt(i, 0)), "current_balance")) - credit_value;
+                    } else {
+                        credit_updated_value = Double.parseDouble((String) dbm.checknReturnData("account_names", "account_id", Integer.parseInt((String) credit_account_code_table.getValueAt(i, 0)), "current_balance")) + credit_value;
+                    }
+                    dbm.updateDatabase("account_names", "account_id", Integer.parseInt((String) credit_account_code_table.getValueAt(i, 0)), "current_balance", credit_updated_value);
+                    i++;
+                }
+
+                // clear all
+                {
+                    int j = 0;
+                    while (credit_account_code_table.getValueAt(j, 0) != null) {
+                        credit_account_code_table.setValueAt(null, j, 0);
+                        credit_description_table.setValueAt(null, j, 0);
+                        credit_amount_table.setValueAt(null, j, 0);
+                        j++;
+                    }
+
+                    //recieptNo.setText(null);
+                    refNo.setText(null);
+                    payType.setSelectedIndex(0);
+                    bankCode.setSelectedIndex(0);
+                    branchCode.setSelectedIndex(0);
+                    bankName.setText(null);
+                    branchName.setText(null);
+                    chequeNo.setText(null);
+                    debit_accountCode.setSelectedIndex(0);
+                    debit_description.setText(null);
+                    debitAmount.setText(null);
+                    debit_accountName.setText(null);
+                    credit_account_code.setSelectedIndex(0);
+                    credit_account_name.setText(null);
+                    credit_description.setText(null);
+                    credit_amount.setText(null);
+                    total.setText(null);
+                    difference.setText(null);
+                    description.setText(null);
+
+                }
+
+                refNo.requestFocus();
             }
-
-            refNo.requestFocus();
-
         } catch (ParseException ex) {
             Logger.getLogger(ACC_recepts.class
                     .getName()).log(Level.SEVERE, null, ex);
@@ -1592,12 +1599,11 @@ public class ACC_recepts extends javax.swing.JPanel {
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
             // recieptNo.requestFocus();
             try {
-                if(Integer.parseInt(dayfield.getText()) > datehandler.return_enddate(yearfield.getText(),datehandler.return_month_as_num(monthfield.getText()))){
+                if (Integer.parseInt(dayfield.getText()) > datehandler.return_enddate(yearfield.getText(), datehandler.return_month_as_num(monthfield.getText()))) {
                     chkd = 0;
                     msg.showMessage("Date You Entered is not a valid Date", "Please Check Again", "info");
                     dayfield.requestFocus();
-                }
-                else if (datechooser.Return_date(yearfield, monthfield, dayfield).before(dbm.checknReturnData()) || datechooser.Return_date(yearfield, monthfield, dayfield).after(dbm.checkNreturnlastDate())) {
+                } else if (datechooser.Return_date(yearfield, monthfield, dayfield).before(dbm.checknReturnData()) || datechooser.Return_date(yearfield, monthfield, dayfield).after(dbm.checkNreturnlastDate())) {
                     chkd = 0;
                     msg.showMessage("Date You Entered is not in this Accounting Period", "Please Check Again", "info");
                     dayfield.requestFocus();
@@ -1632,12 +1638,11 @@ public class ACC_recepts extends javax.swing.JPanel {
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
             // recieptNo.requestFocus();
             try {
-                if(Integer.parseInt(dayfield.getText()) > datehandler.return_enddate(yearfield.getText(),datehandler.return_month_as_num(monthfield.getText()))){
+                if (Integer.parseInt(dayfield.getText()) > datehandler.return_enddate(yearfield.getText(), datehandler.return_month_as_num(monthfield.getText()))) {
                     chkd = 0;
                     msg.showMessage("Date You Entered is not a valid Date", "Please Check Again", "info");
                     dayfield.requestFocus();
-                }
-                else if (datechooser.Return_date(yearfield, monthfield, dayfield).before(dbm.checknReturnData()) || datechooser.Return_date(yearfield, monthfield, dayfield).after(dbm.checkNreturnlastDate())) {
+                } else if (datechooser.Return_date(yearfield, monthfield, dayfield).before(dbm.checknReturnData()) || datechooser.Return_date(yearfield, monthfield, dayfield).after(dbm.checkNreturnlastDate())) {
                     chkd = 0;
                     msg.showMessage("Date You Entered is not in this Accounting Period", "Please Check Again", "info");
                     dayfield.requestFocus();
@@ -1820,18 +1825,15 @@ public class ACC_recepts extends javax.swing.JPanel {
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             ////// ChaNGE  focus on enter////////////////
             try {
-                 if(Integer.parseInt(dayfield.getText()) > datehandler.return_enddate(yearfield.getText(),datehandler.return_month_as_num(monthfield.getText()))){
+                if (Integer.parseInt(dayfield.getText()) > datehandler.return_enddate(yearfield.getText(), datehandler.return_month_as_num(monthfield.getText()))) {
                     chkd = 0;
                     msg.showMessage("Date You Entered is not a valid Date", "Please Check Again", "info");
                     dayfield.requestFocus();
-                }
-                else if (datechooser.Return_date(yearfield, monthfield, dayfield).before(dbm.checknReturnData()) || datechooser.Return_date(yearfield, monthfield, dayfield).after(dbm.checkNreturnlastDate())) {
+                } else if (datechooser.Return_date(yearfield, monthfield, dayfield).before(dbm.checknReturnData()) || datechooser.Return_date(yearfield, monthfield, dayfield).after(dbm.checkNreturnlastDate())) {
                     chkd = 0;
                     msg.showMessage("Date You Entered is not in this Accounting Period", "Please Check Again", "info");
                     dayfield.requestFocus();
-                } 
-               
-                else {
+                } else {
                     chkd = 1;
                     payType.requestFocus();
 

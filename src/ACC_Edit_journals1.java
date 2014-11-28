@@ -311,6 +311,11 @@ public class ACC_Edit_journals1 extends javax.swing.JFrame {
             }
         ));
         credit_table.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        credit_table.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                credit_tableKeyPressed(evt);
+            }
+        });
         jScrollPane3.setViewportView(credit_table);
         if (credit_table.getColumnModel().getColumnCount() > 0) {
             credit_table.getColumnModel().getColumn(0).setMinWidth(3);
@@ -626,6 +631,11 @@ public class ACC_Edit_journals1 extends javax.swing.JFrame {
             }
         ));
         debit_table.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        debit_table.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                debit_tableKeyPressed(evt);
+            }
+        });
         jScrollPane6.setViewportView(debit_table);
         if (debit_table.getColumnModel().getColumnCount() > 0) {
             debit_table.getColumnModel().getColumn(0).setMinWidth(3);
@@ -2266,6 +2276,35 @@ public class ACC_Edit_journals1 extends javax.swing.JFrame {
     private void descriptionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descriptionKeyPressed
         // TODO add your handling code here:
     }//GEN-LAST:event_descriptionKeyPressed
+
+    private void debit_tableKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_debit_tableKeyPressed
+          if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+        double tot = 0;
+            int i = 0;
+            while (debit_table.getValueAt(i, 0) != null) {
+                tot = tot + Double.parseDouble((String) debit_table.getValueAt(i, 2));
+                i++;
+            }
+            debit_total.setText(String.format("%.2f", tot));
+            difference.setText(String.format("%.2f", (stringToDoubleNum(debit_total.getText()) - stringToDoubleNum(credit_total.getText()))));
+          }
+    }//GEN-LAST:event_debit_tableKeyPressed
+
+    private void credit_tableKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_credit_tableKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            
+            double tot = 0;
+            int i = 0;
+            while (credit_table.getValueAt(i, 0) != null) {
+                tot = tot + Double.parseDouble((String) credit_table.getValueAt(i, 2));
+                i++;
+            }
+            credit_total.setText(String.format("%.2f", tot));
+
+            // Difference Calculation
+            difference.setText(String.format("%.2f", (stringToDoubleNum(debit_total.getText()) - stringToDoubleNum(credit_total.getText()))));
+        }
+    }//GEN-LAST:event_credit_tableKeyPressed
 
     /**
      * @param args the command line arguments

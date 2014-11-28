@@ -1,11 +1,6 @@
 
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Graphics2D;
-import java.awt.SplashScreen;
 import java.awt.event.KeyEvent;
-import java.awt.geom.Rectangle2D;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,10 +19,6 @@ import javax.swing.UIManager;
  * @author Pramo
  */
 public class MainWindow extends javax.swing.JFrame {
-    private static SplashScreen mySplash;
-    private static Rectangle2D.Double splashTextArea;
-    private static Rectangle2D.Double splashProgressArea;
-    private static Graphics2D splashGraphics;
 
     Interface_Events interface_events = new Interface_Events();
     Interface_movements inteface_move = new Interface_movements();
@@ -1236,115 +1227,11 @@ System.exit(0);
         NW.paint(home,"Reports Home");
         NW.setVisible(true);
     }//GEN-LAST:event_jButton15ActionPerformed
-     
-     private static void splashInit()
-    {
-         mySplash = SplashScreen.getSplashScreen();
-        if (mySplash != null)
-        {   // if there are any problems displaying the splash this will be null
-            Dimension ssDim = mySplash.getSize();
-            int height = ssDim.height;
-            int width = ssDim.width;
-            // stake out some area for our status information
-             splashTextArea = new Rectangle2D.Double(15., height*0.75, width * .45, 18);
-             splashProgressArea = new Rectangle2D.Double(width * .01, height*.80, width*.945, 8 );
 
-            // create the Graphics environment for drawing status info
-             splashGraphics = mySplash.createGraphics();
-            Font font = new Font("Arial", Font.PLAIN, 12);
-            splashGraphics.setFont(font);
-            
-            // initialize the status info
-           // splashText("Starting");
-            splashProgress(0);
-        }
-    }
-     
-      /**
-     * Display text in status area of Splash.  Note: no validation it will fit.
-     * @param str - text to be displayed
-     */
-    public static void splashText(String str)
-    {
-        if (mySplash != null && mySplash.isVisible())
-        {   // important to check here so no other methods need to know if there
-            // really is a Splash being displayed
-             System.out.println("Initializing..");
-            // erase the last status text
-             Color aa = new Color(51, 102, 0);
-            splashGraphics.setPaint(aa);
-            splashGraphics.fill(splashTextArea);
-
-            // draw the text
-            splashGraphics.setPaint(Color.BLACK);
-            splashGraphics.drawString(str, (int)(splashTextArea.getX() + 10),(int)(splashTextArea.getY() + 15));
-
-            // make sure it's displayed
-            mySplash.update();
-        }
-    }
-    
-     public static void splashProgress(int pct)
-    {
-        if (mySplash != null && mySplash.isVisible())
-        {
-
-            // Note: 3 colors are used here to demonstrate steps
-            // erase the old one
-            splashGraphics.setPaint(Color.LIGHT_GRAY);
-            splashGraphics.fill(splashProgressArea);
-
-            // draw an outline
-            splashGraphics.setPaint(Color.GRAY);
-            splashGraphics.draw(splashProgressArea);
-
-            // Calculate the width corresponding to the correct percentage
-            int x = (int) splashProgressArea.getMinX();
-            int y = (int) splashProgressArea.getMinY();
-            int wid = (int) splashProgressArea.getWidth();
-            int hgt = (int) splashProgressArea.getHeight();
-
-            int doneWidth = Math.round(pct*wid/100.f);
-            doneWidth = Math.max(0, Math.min(doneWidth, wid-1));  // limit 0-width
-
-            // fill the done part one pixel smaller than the outline
-            Color customColor = new Color(51, 102, 0);
-            splashGraphics.setPaint(customColor);
-            splashGraphics.fillRect(x, y+1, doneWidth, hgt-1);
-
-            // make sure it's displayed
-            mySplash.update();
-        }
-    }
-    /**
-     * just a stub to simulate a long initialization task that updates
-     * the text and progress parts of the status in the Splash
-     */
-    private static void appInit()
-    {
-        for(int i=1;i<=10;i++)
-        {
-            int pctDone = 10*(i+3);
-            //splashText("Doing task #" + i);
-            splashProgress(pctDone);
-            try
-            {
-                Thread.sleep(600-i*45);
-            }
-            catch (InterruptedException ex)
-            {
-                // ignore it
-            }
-        }
-    }
-    
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        
-    
-
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -1375,16 +1262,13 @@ System.exit(0);
 
             @Override
             public void run() {
-                    splashInit();           // initialize splash overlay drawing parameters
-                    appInit();  
-                    MainWindow jf = new MainWindow();
-                   jf.setVisible(true);
-                   jf.setExtendedState(MainWindow.MAXIMIZED_BOTH);// simulate what an application would do 
-                                // before starting
-           //  if (mySplash != null)   // check if we really had a spash screen
-             //{mySplash.close();   }// if so we're now done with it
-                 
-               
+//                  try{System.out.println("going sleep");
+//                      Thread.sleep(1500);
+//                      }
+//                  catch(Exception e) {}
+                MainWindow jf = new MainWindow();
+                jf.setVisible(true);
+                jf.setExtendedState(MainWindow.MAXIMIZED_BOTH);
 
             }
         });
