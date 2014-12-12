@@ -23,14 +23,16 @@ public class Acc_Trail_Balance {
                 if (chk) {
                    // System.out.println(query.getString("account_id"));
                     double bal = ledg.opening_balance_calc(query.getInt("account_id"), date);
+                   
                     dbm.insert("INSERT INTO acc_trail_balance(code,op_bal) VALUES('" + Integer.parseInt(query.getString("account_id")) + "','" + bal + "')");
                 } else {
                     double bal = ledg.opening_balance_calc_without_op(query.getInt("account_id"), date);
-                    
+                   
                     dbm.insert("INSERT INTO acc_trail_balance(code,op_bal) VALUES('" + Integer.parseInt(query.getString("account_id")) + "','" + bal + "')");
                 }
 
             }
+            query.close();
         } catch (SQLException ex) {
             System.out.println(ex);
             //Logger.getLogger(Acc_Trail_Balance.class.getName()).log(Level.SEVERE, null, ex);

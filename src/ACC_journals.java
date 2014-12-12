@@ -14,7 +14,9 @@ import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableCellRenderer;
 
 /**
  *
@@ -470,6 +472,8 @@ public class ACC_journals extends javax.swing.JPanel {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 102, 0), 2, true), "CREDIT"));
 
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment( JLabel.RIGHT );
         credit_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -509,6 +513,7 @@ public class ACC_journals extends javax.swing.JPanel {
             }
         });
         jScrollPane3.setViewportView(credit_table);
+        centerRenderer.setFont(new java.awt.Font("Tahoma", 1, 14));
         if (credit_table.getColumnModel().getColumnCount() > 0) {
             credit_table.getColumnModel().getColumn(0).setMinWidth(3);
             credit_table.getColumnModel().getColumn(0).setPreferredWidth(65);
@@ -519,6 +524,7 @@ public class ACC_journals extends javax.swing.JPanel {
             credit_table.getColumnModel().getColumn(2).setMinWidth(3);
             credit_table.getColumnModel().getColumn(2).setPreferredWidth(70);
             credit_table.getColumnModel().getColumn(2).setMaxWidth(400);
+            credit_table.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
         }
         credit_account_code_table.setAutoResizeMode(credit_account_code_table.AUTO_RESIZE_OFF);
 
@@ -602,9 +608,13 @@ public class ACC_journals extends javax.swing.JPanel {
         });
 
         credit_amount.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        credit_amount.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         credit_amount.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 credit_amountKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                credit_amountKeyReleased(evt);
             }
         });
 
@@ -623,6 +633,7 @@ public class ACC_journals extends javax.swing.JPanel {
         });
 
         credit_total.setBackground(new java.awt.Color(204, 255, 204));
+        credit_total.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
 
         jLabel14.setText("Total");
 
@@ -752,6 +763,7 @@ public class ACC_journals extends javax.swing.JPanel {
             debit_table.getColumnModel().getColumn(2).setMinWidth(3);
             debit_table.getColumnModel().getColumn(2).setPreferredWidth(70);
             debit_table.getColumnModel().getColumn(2).setMaxWidth(400);
+            debit_table.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
         }
         credit_account_code_table.setAutoResizeMode(credit_account_code_table.AUTO_RESIZE_OFF);
 
@@ -840,9 +852,13 @@ public class ACC_journals extends javax.swing.JPanel {
         });
 
         debit_amount.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        debit_amount.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         debit_amount.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 debit_amountKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                debit_amountKeyReleased(evt);
             }
         });
 
@@ -861,6 +877,7 @@ public class ACC_journals extends javax.swing.JPanel {
         });
 
         debit_total.setBackground(new java.awt.Color(255, 204, 204));
+        debit_total.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
 
         jLabel16.setText("Total");
 
@@ -935,6 +952,7 @@ public class ACC_journals extends javax.swing.JPanel {
         );
 
         difference.setBackground(new java.awt.Color(255, 204, 204));
+        difference.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         difference.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 differenceActionPerformed(evt);
@@ -1065,6 +1083,21 @@ public class ACC_journals extends javax.swing.JPanel {
     }//GEN-LAST:event_pay_typeActionPerformed
 
     private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
+        int t = 0;
+        double cred_tot = 0, diff = 0,deb_tot=0;
+        while (credit_table.getValueAt(t, 0) != null) {
+            cred_tot = cred_tot + Double.parseDouble(format.getNumberWithoutCommas((String) credit_table.getValueAt(t, 2)));
+            t++;
+        }
+        t=0;
+         while (debit_table.getValueAt(t, 0) != null) {
+            deb_tot = deb_tot + Double.parseDouble(format.getNumberWithoutCommas((String) debit_table.getValueAt(t, 2)));
+            t++;
+        }
+        diff = deb_tot - cred_tot;
+        diff = Math.round(diff * 100.0) / 100.0;
+        
+        if (diff == 0) {
         try {
             if (datechooser.Return_date(yearfield, monthfield, dayfield).before(dbm.checknReturnData()) || datechooser.Return_date(yearfield, monthfield, dayfield).after(dbm.checkNreturnlastDate())) {
                 chkd = 0;
@@ -1117,7 +1150,7 @@ public class ACC_journals extends javax.swing.JPanel {
 
                     for (int j = 0; j <= i - 1; j++) {
                         debit_acnt_name = dbm.checknReturnData("account_names", "account_id", Integer.parseInt((String) debit_table.getValueAt(j, 0)), "account_name");
-                        jaobject.addToDebitDataBase(Integer.parseInt((String) debit_table.getValueAt(j, 0)), debit_acnt_name, (String) debit_table.getValueAt(j, 1), Double.parseDouble((String) debit_table.getValueAt(j, 2)));
+                        jaobject.addToDebitDataBase(Integer.parseInt((String) debit_table.getValueAt(j, 0)), debit_acnt_name, (String) debit_table.getValueAt(j, 1), Double.parseDouble(format.getNumberWithoutCommas((String) debit_table.getValueAt(j, 2))));
                     }
 
                     // Credit Side of the interface
@@ -1130,7 +1163,7 @@ public class ACC_journals extends javax.swing.JPanel {
 
                     for (int j = 0; j <= i - 1; j++) {
                         credit_acnt_name = dbm.checknReturnData("account_names", "account_id", Integer.parseInt((String) credit_table.getValueAt(j, 0)), "account_name");
-                        jaobject.addToCreditDataBase(Integer.parseInt((String) credit_table.getValueAt(j, 0)), credit_acnt_name, (String) credit_table.getValueAt(j, 1), Double.parseDouble((String) credit_table.getValueAt(j, 2)));
+                        jaobject.addToCreditDataBase(Integer.parseInt((String) credit_table.getValueAt(j, 0)), credit_acnt_name, (String) credit_table.getValueAt(j, 1), Double.parseDouble(format.getNumberWithoutCommas((String) credit_table.getValueAt(j, 2))));
                     }
 
                     // adding the relevant value to the current balance of the debit account
@@ -1139,7 +1172,7 @@ public class ACC_journals extends javax.swing.JPanel {
                     double debit_updated_value;
                     i = 0;
                     while (debit_table.getValueAt(i, 0) != null) {
-                        debit_value = Double.parseDouble((String) debit_table.getValueAt(i, 2));
+                        debit_value = Double.parseDouble(format.getNumberWithoutCommas((String) debit_table.getValueAt(i, 2)));
                         acnt_class = dbm.checknReturnData("account_names", "account_id", Integer.parseInt((String) debit_table.getValueAt(i, 0)), "account_class");
                         if ("Current Asset".equals(acnt_class) || "Fixed Asset".equals(acnt_class) || "Expense".equals(acnt_class)) {
                             debit_updated_value = Double.parseDouble((String) dbm.checknReturnData("account_names", "account_id", Integer.parseInt((String) debit_table.getValueAt(i, 0)), "current_balance")) + debit_value;
@@ -1156,7 +1189,7 @@ public class ACC_journals extends javax.swing.JPanel {
                     double credit_value;
                     double credit_updated_value;
                     while (credit_table.getValueAt(i, 0) != null) {
-                        credit_value = Double.parseDouble((String) credit_table.getValueAt(i, 2));
+                        credit_value = Double.parseDouble(format.getNumberWithoutCommas((String) credit_table.getValueAt(i, 2)));
                         acnt_class = dbm.checknReturnData("account_names", "account_id", Integer.parseInt((String) credit_table.getValueAt(i, 0)), "account_class");
                         if ("Current Asset".equals(acnt_class) || "Fixed Asset".equals(acnt_class) || "Expense".equals(acnt_class)) {
                             credit_updated_value = Double.parseDouble((String) dbm.checknReturnData("account_names", "account_id", Integer.parseInt((String) credit_table.getValueAt(i, 0)), "current_balance")) - credit_value;
@@ -1217,6 +1250,13 @@ public class ACC_journals extends javax.swing.JPanel {
         } catch (ParseException ex) {
             Logger.getLogger(ACC_journals.class.getName()).log(Level.SEVERE, null, ex);
         }
+    } else{
+                debit_total.setText(format.modify_number(format.set_comma("" + deb_tot)));
+                credit_total.setText(format.modify_number(format.set_comma("" + cred_tot)));
+            difference.setText(format.modify_number(format.set_comma("" + diff)));
+            msg.showMessage("There is a difference", "Please Check Again", "info");
+            debit_account_code.requestFocusInWindow();
+                }
 
     }//GEN-LAST:event_saveActionPerformed
 
@@ -1303,18 +1343,27 @@ public class ACC_journals extends javax.swing.JPanel {
 
         double tot = 0;
         i = 0;
-        while (credit_table.getValueAt(i, 0) != null) {
-            tot = tot + Double.parseDouble((String) credit_table.getValueAt(i, 2));
-            i++;
-        }
-        credit_total.setText(String.format("%.2f", tot));
-        difference.setText(String.format("%.2f", (stringToDoubleNum(debit_total.getText()) - stringToDoubleNum(credit_total.getText()))));
+         while (credit_table.getValueAt(i, 0) != null) {
+                 tot = tot + Double.parseDouble(format.getNumberWithoutCommas((String) credit_table.getValueAt(i, 2)));
+                tot = Math.round(tot * 100.0) / 100.0;
+                i++;
+            }
+           // credit_total.setText(String.format("%.2f", tot));
 
+            // Difference Calculation
+          //  difference.setText(String.format("%.2f", (stringToDoubleNum(format.getNumberWithoutCommas(debit_total.getText())) - stringToDoubleNum(format.getNumberWithoutCommas(credit_total.getText())))));
+
+              credit_total.setText(format.modify_number(format.set_comma("" + tot)));
+
+            // difference.setText("" + (Double.parseDouble(debitAmount.getText()) - tot));
+            double dif = Math.round((stringToDoubleNum(format.getNumberWithoutCommas(debit_total.getText())) - stringToDoubleNum(format.getNumberWithoutCommas(credit_total.getText()))) * 100.0) / 100.0;
+            difference.setText(format.modify_number(format.set_comma("" + dif)));
+            
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void send2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_send2ActionPerformed
 
-        if (chk.isDouble(credit_amount.getText()) && credit_amount.getText().length() != 0) {
+        if (chk.isDouble(format.getNumberWithoutCommas(credit_amount.getText())) && credit_amount.getText().length() != 0) {
             int i = 0;
             while (credit_table.getValueAt(i, 0) != null) {
                 i++;
@@ -1330,15 +1379,22 @@ public class ACC_journals extends javax.swing.JPanel {
             double tot = 0;
             i = 0;
             while (credit_table.getValueAt(i, 0) != null) {
-                tot = tot + Double.parseDouble((String) credit_table.getValueAt(i, 2));
+                 tot = tot + Double.parseDouble(format.getNumberWithoutCommas((String) credit_table.getValueAt(i, 2)));
+                tot = Math.round(tot * 100.0) / 100.0;
                 i++;
             }
-            credit_total.setText(String.format("%.2f", tot));
+           // credit_total.setText(String.format("%.2f", tot));
 
             // Difference Calculation
-            difference.setText(String.format("%.2f", (stringToDoubleNum(debit_total.getText()) - stringToDoubleNum(credit_total.getText()))));
+          //  difference.setText(String.format("%.2f", (stringToDoubleNum(format.getNumberWithoutCommas(debit_total.getText())) - stringToDoubleNum(format.getNumberWithoutCommas(credit_total.getText())))));
 
-            if (Double.parseDouble(difference.getText()) == 0) {
+              credit_total.setText(format.modify_number(format.set_comma("" + tot)));
+
+            // difference.setText("" + (Double.parseDouble(debitAmount.getText()) - tot));
+            double dif = Math.round((stringToDoubleNum(format.getNumberWithoutCommas(debit_total.getText())) - stringToDoubleNum(format.getNumberWithoutCommas(credit_total.getText()))) * 100.0) / 100.0;
+            difference.setText(format.modify_number(format.set_comma("" + dif)));
+            
+            if (Double.parseDouble(format.getNumberWithoutCommas(difference.getText())) == 0) {
 
                 if (debit_table.getValueAt(0, 0) != null && credit_table.getValueAt(0, 0) != null) {
                     if (chkd == 1) {
@@ -1356,7 +1412,7 @@ public class ACC_journals extends javax.swing.JPanel {
                 } catch (Exception e) {
 
                 }
-                if (Double.parseDouble(difference.getText()) > 0) {
+                if (Double.parseDouble(format.getNumberWithoutCommas(difference.getText())) > 0) {
                     credit_account_code.requestFocus();
                 } else {
                     debit_account_code.requestFocus();
@@ -1877,13 +1933,24 @@ public class ACC_journals extends javax.swing.JPanel {
 
     private void credit_amountKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_credit_amountKeyPressed
 
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+     /*   if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             if (chk.isDouble(credit_amount.getText())) {
                 NumberFormat formatter = new DecimalFormat("0.00");
                 credit_amount.setText(formatter.format(Double.parseDouble(credit_amount.getText())));
                 interface_events.Change_focus_Enterkey_t_b(ref_no, send2, evt);
             } else {
 
+                msg.showMessage("Enter A Valid Amount Here", "Please Check Again", "info");
+                credit_amount.requestFocus();
+            }
+        }*/
+          
+           if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (chk.isDouble(format.getNumberWithoutCommas(credit_amount.getText()))) {
+                credit_amount.setText(format.modify_number(credit_amount.getText()));
+                interface_events.Change_focus_Enterkey_t_b(ref_no,send2, evt);
+
+            } else {
                 msg.showMessage("Enter A Valid Amount Here", "Please Check Again", "info");
                 credit_amount.requestFocus();
             }
@@ -2006,10 +2073,10 @@ public class ACC_journals extends javax.swing.JPanel {
     private void sendFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_sendFocusGained
         interface_events.Respond_enter(send, evt);
     }//GEN-LAST:event_sendFocusGained
-
+ACC_Number_Formats format = new ACC_Number_Formats();
     private void sendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendActionPerformed
 
-        if (chk.isDouble(debit_amount.getText()) && debit_amount.getText().length() != 0) {
+        if (chk.isDouble(format.getNumberWithoutCommas(debit_amount.getText())) && debit_amount.getText().length() != 0) {
             int i = 0;
             while (debit_table.getValueAt(i, 0) != null) {
                 i++;
@@ -2023,14 +2090,18 @@ public class ACC_journals extends javax.swing.JPanel {
             double tot = 0;
             i = 0;
             while (debit_table.getValueAt(i, 0) != null) {
-                tot = tot + Double.parseDouble((String) debit_table.getValueAt(i, 2));
+                tot = tot + Double.parseDouble(format.getNumberWithoutCommas((String) debit_table.getValueAt(i, 2)));
+                tot = Math.round(tot * 100.0) / 100.0;
                 i++;
             }
-            debit_total.setText(String.format("%.2f", tot));
-            difference.setText(String.format("%.2f", (stringToDoubleNum(debit_total.getText()) - stringToDoubleNum(credit_total.getText()))));
+         //   debit_total.setText(String.format("%.2f", tot));
+         //   difference.setText(String.format("%.2f", (stringToDoubleNum(debit_total.getText()) - stringToDoubleNum(credit_total.getText()))));
 
+            debit_total.setText(format.modify_number(format.set_comma("" + tot)));
+            double dif=Math.round((stringToDoubleNum(format.getNumberWithoutCommas(debit_total.getText())) - stringToDoubleNum(format.getNumberWithoutCommas(credit_total.getText())))*100.0)/100.0;
+            difference.setText(format.modify_number(format.set_comma("" +dif )));
             ///////
-            if (Double.parseDouble(difference.getText()) == 0) {
+            if (Double.parseDouble(format.getNumberWithoutCommas(difference.getText())) == 0) {
 
                 if (debit_table.getValueAt(0, 0) != null && credit_table.getValueAt(0, 0) != null) {
                     if (chkd == 1) {
@@ -2040,7 +2111,7 @@ public class ACC_journals extends javax.swing.JPanel {
 
                 }
             } else {
-                if (Double.parseDouble(difference.getText()) > 0) {
+                if (Double.parseDouble(format.getNumberWithoutCommas(difference.getText())) > 0) {
                     credit_account_code.requestFocus();
                 } else {
                     debit_account_code.requestFocus();
@@ -2068,13 +2139,17 @@ public class ACC_journals extends javax.swing.JPanel {
 
         double tot = 0;
         i = 0;
-        while (debit_table.getValueAt(i, 0) != null) {
-            tot = tot + Double.parseDouble((String) debit_table.getValueAt(i, 2));
-            i++;
-        }
-        debit_total.setText(String.format("%.2f", tot));
-        difference.setText(String.format("%.2f", (stringToDoubleNum(debit_total.getText()) - stringToDoubleNum(credit_total.getText()))));
+       while (debit_table.getValueAt(i, 0) != null) {
+                tot = tot + Double.parseDouble(format.getNumberWithoutCommas((String) debit_table.getValueAt(i, 2)));
+                tot = Math.round(tot * 100.0) / 100.0;
+                i++;
+            }
+         //   debit_total.setText(String.format("%.2f", tot));
+         //   difference.setText(String.format("%.2f", (stringToDoubleNum(debit_total.getText()) - stringToDoubleNum(credit_total.getText()))));
 
+            debit_total.setText(format.modify_number(format.set_comma("" + tot)));
+            double dif=Math.round((stringToDoubleNum(format.getNumberWithoutCommas(debit_total.getText())) - stringToDoubleNum(format.getNumberWithoutCommas(credit_total.getText())))*100.0)/100.0;
+            difference.setText(format.modify_number(format.set_comma("" +dif )));
 
     }//GEN-LAST:event_jButton9ActionPerformed
 
@@ -2097,7 +2172,7 @@ public class ACC_journals extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void debit_amountKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_debit_amountKeyPressed
-        interface_events.Change_focus_Enterkey_t_b(ref_no, send, evt);
+      /*  interface_events.Change_focus_Enterkey_t_b(ref_no, send, evt);
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             if (chk.isDouble(debit_amount.getText())) {
                 NumberFormat formatter = new DecimalFormat("0.00");
@@ -2105,6 +2180,18 @@ public class ACC_journals extends javax.swing.JPanel {
                 interface_events.Change_focus_Enterkey_t_b(ref_no, send, evt);
             } else {
 
+                msg.showMessage("Enter A Valid Amount Here", "Please Check Again", "info");
+                debit_amount.requestFocus();
+            }
+        }*/
+        
+        
+          if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (chk.isDouble(format.getNumberWithoutCommas(debit_amount.getText()))) {
+                debit_amount.setText(format.modify_number(debit_amount.getText()));
+                interface_events.Change_focus_Enterkey_t_b(ref_no,send, evt);
+
+            } else {
                 msg.showMessage("Enter A Valid Amount Here", "Please Check Again", "info");
                 debit_amount.requestFocus();
             }
@@ -2212,6 +2299,34 @@ public class ACC_journals extends javax.swing.JPanel {
     private void differenceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_differenceActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_differenceActionPerformed
+
+    private void debit_amountKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_debit_amountKeyReleased
+          if (chk.isDouble(format.getNumberWithoutCommas(debit_amount.getText())) || debit_amount.getText().length() == 0) {
+
+            String num = format.getNumberWithoutCommas(debit_amount.getText());
+            if (num.length() != 0) {
+                debit_amount.setText(format.set_comma(num));
+            }
+        } else {
+            msg.showMessage("Enter A Valid Amount Here", "Please Check Again", "info");
+            debit_amount.setText(format.remove_last_char(debit_amount.getText()));
+            debit_amount.requestFocus();
+        }
+    }//GEN-LAST:event_debit_amountKeyReleased
+
+    private void credit_amountKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_credit_amountKeyReleased
+          if (chk.isDouble(format.getNumberWithoutCommas(credit_amount.getText())) || credit_amount.getText().length() == 0) {
+
+            String num = format.getNumberWithoutCommas(credit_amount.getText());
+            if (num.length() != 0) {
+                credit_amount.setText(format.set_comma(num));
+            }
+        } else {
+            msg.showMessage("Enter A Valid Amount Here", "Please Check Again", "info");
+            credit_amount.setText(format.remove_last_char(credit_amount.getText()));
+            credit_amount.requestFocus();
+        }
+    }//GEN-LAST:event_credit_amountKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
