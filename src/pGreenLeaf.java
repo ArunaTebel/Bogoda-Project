@@ -1,4 +1,7 @@
 
+import java.awt.Color;
+
+
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -27,6 +30,26 @@ public class pGreenLeaf extends javax.swing.JPanel {
     jButton1.requestFocus();
     
     }
+    public void allgray(){
+    
+    /*jButton1.setBackground(new java.awt.Color(240, 240,240));
+    jButton2.setBackground(new java.awt.Color(204, 204,204));
+    jButton3.setBackground(new java.awt.Color(240, 240,240));
+    jButton4.setBackground(new java.awt.Color(240, 240,240));
+    jButton5.setBackground(new java.awt.Color(240, 240,240));
+    jButton8.setBackground(new java.awt.Color(240, 240,240));
+    jComboBox3.setBackground(new java.awt.Color(240, 240,240));
+    Add_combo.setBackground(new java.awt.Color(240, 240,240));
+    */
+    
+    }
+    
+    
+     public void selectChange(javax.swing.JButton a){
+    /*a.setBackground(new java.awt.Color(0, 0,0));
+        a.setForeground(Color.white);
+    */
+    }
  
     /**
      * This method is called from within the constructor to initialize the form.
@@ -48,6 +71,7 @@ public class pGreenLeaf extends javax.swing.JPanel {
         jButton7 = new javax.swing.JButton();
         GL_content = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jButton8 = new javax.swing.JButton();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 102, 0), 3));
 
@@ -172,7 +196,7 @@ public class pGreenLeaf extends javax.swing.JPanel {
         GL_content.setLayout(GL_contentLayout);
         GL_contentLayout.setHorizontalGroup(
             GL_contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 733, Short.MAX_VALUE)
+            .addGap(0, 792, Short.MAX_VALUE)
         );
         GL_contentLayout.setVerticalGroup(
             GL_contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -182,6 +206,24 @@ public class pGreenLeaf extends javax.swing.JPanel {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Green leaf.png"))); // NOI18N
         jLabel1.setRequestFocusEnabled(false);
         jLabel1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+
+        jButton8.setText("Transport");
+        jButton8.setEnabled(false);
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+        jButton8.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jButton8FocusGained(evt);
+            }
+        });
+        jButton8.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jButton8KeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -194,13 +236,13 @@ public class pGreenLeaf extends javax.swing.JPanel {
                         .addComponent(jButton2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
                         .addComponent(jButton5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jLabel1)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(Add_combo, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jComboBox3, javax.swing.GroupLayout.Alignment.LEADING, 0, 133, Short.MAX_VALUE))
-                    .addComponent(jButton6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jButton4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButton7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBox3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Add_combo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, 0)
                 .addComponent(GL_content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -217,6 +259,8 @@ public class pGreenLeaf extends javax.swing.JPanel {
                 .addGap(0, 0, 0)
                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
+                .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
                 .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(Add_combo, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -224,8 +268,8 @@ public class pGreenLeaf extends javax.swing.JPanel {
                 .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, 0)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, Short.MAX_VALUE))
             .addComponent(GL_content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -239,6 +283,8 @@ public class pGreenLeaf extends javax.swing.JPanel {
        
        
         cashadvance.focus();
+        allgray();
+        selectChange(jButton2);
         
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -338,7 +384,7 @@ public class pGreenLeaf extends javax.swing.JPanel {
         repaint();
         }
     }//GEN-LAST:event_jComboBox3ActionPerformed
-
+   
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         GLmanual_entry glmnEntry = new GLmanual_entry();
 
@@ -350,6 +396,9 @@ public class pGreenLeaf extends javax.swing.JPanel {
         validate();
         repaint();  
         glmnEntry.focus();
+        allgray();
+        selectChange(jButton1);
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -362,6 +411,9 @@ public class pGreenLeaf extends javax.swing.JPanel {
         GL_content.add(otheradd);
         validate();
         repaint(); 
+        
+        allgray();
+        selectChange(jButton3);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -374,6 +426,8 @@ public class pGreenLeaf extends javax.swing.JPanel {
         GL_content.add(wel);
         validate();
         repaint(); 
+        allgray();
+        selectChange(jButton4);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -387,6 +441,8 @@ public class pGreenLeaf extends javax.swing.JPanel {
         validate();
         repaint(); 
         loans.focus();
+        allgray();
+        selectChange(jButton5);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton1KeyReleased
@@ -445,6 +501,29 @@ public class pGreenLeaf extends javax.swing.JPanel {
         interface_events.Respond_enter(jButton5, evt);
     }//GEN-LAST:event_jButton5FocusGained
 
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        GL_TR_main loans = new GL_TR_main();
+
+        GL_content.removeAll();
+
+        loans.setSize(GL_content.getSize());
+
+        GL_content.add(loans);
+        validate();
+        repaint(); 
+        allgray();
+        selectChange(jButton8);
+        //loans.focus();
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton8FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jButton8FocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton8FocusGained
+
+    private void jButton8KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton8KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton8KeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox Add_combo;
@@ -456,6 +535,7 @@ public class pGreenLeaf extends javax.swing.JPanel {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
     private javax.swing.JComboBox jComboBox3;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables

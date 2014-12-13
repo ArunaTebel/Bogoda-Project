@@ -64,6 +64,7 @@ public class Task_manager extends javax.swing.JPanel {
          GLLabel2.setText("");
           GLLabel3.setText("");
            GLLabel4.setText("");
+           GLLabel5.setText("");
           
              
       // set_values(check(year, month, "1"), GLdate7, GLdate1, GL1);
@@ -138,6 +139,21 @@ public class Task_manager extends javax.swing.JPanel {
     
     }  
     }
+     
+     public class tr_monthly_ledger implements Runnable{
+    public void run(){
+   
+        try {
+            report_gen.daily_tr_calc(yearfield.getText(), datehandler.return_month_as_num(monthfield.getText()));
+            report_gen.tr_ledger_calc(yearfield.getText(), datehandler.return_month_as_num(monthfield.getText()));
+            report_gen.TR_pre_debt_and_coin_Update(yearfield.getText(), datehandler.return_month_as_num(monthfield.getText()));
+        } catch (SQLException ex) {
+            Logger.getLogger(Task_manager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+   
+    
+    }  
+    }
 
    
     
@@ -152,6 +168,7 @@ public class Task_manager extends javax.swing.JPanel {
         Thread WA = new Thread(new weekly_advance());
         Thread ML = new Thread(new monthly_ledger());
         Thread PDC = new Thread(new predebts_coins());
+        Thread TR = new Thread(new tr_monthly_ledger());
         
         if(GL1.isSelected()){GLLabel1.setText("Processing.."); DT.run();GLLabel1.setText("Done");  }
         
@@ -163,6 +180,7 @@ public class Task_manager extends javax.swing.JPanel {
     
     
      if(GL4.isSelected()){GLLabel4.setText("Processing..");PDC.run(); GLLabel4.setText("Done");}
+     if(GL5.isSelected()){GLLabel5.setText("Processing..");TR.run(); GLLabel5.setText("Done");}
      if(final_tik.isSelected()){try {
          dbm.insert("INSERT INTO update_dates(month,last_update,user,date_time) values('"+yearfield.getText()+datehandler.return_month_as_num(monthfield.getText())+"','"+"YES"+"','"+new UserAccountControl().get_current_user()+"','"+datehandler.get_today_date_time()+"') ");
          } catch (SQLException ex) {
@@ -209,6 +227,9 @@ public class Task_manager extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        predebprog1 = new javax.swing.JProgressBar();
+        GL5 = new javax.swing.JCheckBox();
+        GLLabel5 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLayeredPane2 = new javax.swing.JLayeredPane();
         salarycaloverallL = new javax.swing.JLabel();
@@ -426,6 +447,25 @@ public class Task_manager extends javax.swing.JPanel {
             }
         });
 
+        predebprog1.setForeground(new java.awt.Color(0, 0, 0));
+        predebprog1.setEnabled(false);
+        predebprog1.setStringPainted(true);
+
+        GL5.setText("Transport Ledger");
+        GL5.setEnabled(false);
+        GL5.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                GL5ItemStateChanged(evt);
+            }
+        });
+        GL5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GL5ActionPerformed(evt);
+            }
+        });
+
+        GLLabel5.setText("jLabel2");
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
@@ -449,7 +489,16 @@ public class Task_manager extends javax.swing.JPanel {
                             .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addComponent(jButton3)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel7Layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(GL5, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(GLLabel5))
+                            .addGroup(jPanel7Layout.createSequentialGroup()
+                                .addComponent(predebprog1, javax.swing.GroupLayout.PREFERRED_SIZE, 427, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(42, 42, 42)
+                                .addComponent(jButton3)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -477,9 +526,15 @@ public class Task_manager extends javax.swing.JPanel {
                 .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(predebprog, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
+                .addGap(3, 3, 3)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(GL5)
+                    .addComponent(GLLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(predebprog1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(8, 8, 8)
                 .addComponent(jButton3)
-                .addContainerGap(189, Short.MAX_VALUE))
+                .addContainerGap(157, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -1151,16 +1206,26 @@ public static Thread b;
                
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void GL5ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_GL5ItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_GL5ItemStateChanged
+
+    private void GL5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GL5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_GL5ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox GL1;
     private javax.swing.JCheckBox GL2;
     private javax.swing.JCheckBox GL3;
     private javax.swing.JCheckBox GL4;
+    private javax.swing.JCheckBox GL5;
     private javax.swing.JLabel GLLabel1;
     private javax.swing.JLabel GLLabel2;
     private javax.swing.JLabel GLLabel3;
     private javax.swing.JLabel GLLabel4;
+    private javax.swing.JLabel GLLabel5;
     public static javax.swing.JTextArea MessageTex;
     public static javax.swing.JCheckBox advanceC;
     public static javax.swing.JLabel advanceL;
@@ -1199,11 +1264,12 @@ public static Thread b;
     public static javax.swing.JLabel newmonthL;
     public static javax.swing.JProgressBar newmonthP;
     public static javax.swing.JProgressBar predebprog;
+    public static javax.swing.JProgressBar predebprog1;
     public static javax.swing.JCheckBox prvdebtsC;
     public static javax.swing.JLabel prvdebtsL;
     public static javax.swing.JProgressBar prvdebtsP;
-    private javax.swing.JProgressBar salaryCalP;
-    private javax.swing.JLabel salarycalL;
+    public static javax.swing.JProgressBar salaryCalP;
+    public static javax.swing.JLabel salarycalL;
     public static javax.swing.JCheckBox salarycaloverallC;
     public static javax.swing.JLabel salarycaloverallL;
     public static javax.swing.JProgressBar salarycaloverallP;

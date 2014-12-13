@@ -2,89 +2,89 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="9" uuid="b4a7e90f-236c-48e1-b463-a16c40591ab1">
 	<property name="ireport.zoom" value="1.6934217901613318"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="341"/>
+	<property name="ireport.y" value="267"/>
 	<parameter name="USER" class="java.lang.String"/>
 	<parameter name="year" class="java.lang.String"/>
 	<parameter name="month" class="java.lang.String"/>
 	<parameter name="Month" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT
-     gl_monthly_ledger_current.`sup_id` AS gl_monthly_ledger_current_sup_id,
-     gl_monthly_ledger_current.`name` AS gl_monthly_ledger_current_name,
-     gl_monthly_ledger_current.`total_kg` AS gl_monthly_ledger_current_total_kg,
-     gl_monthly_ledger_current.`set_value` AS gl_monthly_ledger_current_set_value,
-     gl_monthly_ledger_current.`gross_amount` AS gl_monthly_ledger_current_gross_amount,
-     gl_monthly_ledger_current.`coins_bf` AS gl_monthly_ledger_current_coins_bf,
-     gl_monthly_ledger_current.`total_payable` AS gl_monthly_ledger_current_total_payable,
-     gl_monthly_ledger_current.`pre_debts` AS gl_monthly_ledger_current_pre_debts,
-     gl_monthly_ledger_current.`cash_advances` AS gl_monthly_ledger_current_cash_advances,
-     gl_monthly_ledger_current.`other_advances` AS gl_monthly_ledger_current_other_advances,
-     gl_monthly_ledger_current.`loans` AS gl_monthly_ledger_current_loans,
-     gl_monthly_ledger_current.`cards` AS gl_monthly_ledger_current_cards,
-     gl_monthly_ledger_current.`transport` AS gl_monthly_ledger_current_transport,
-     gl_monthly_ledger_current.`welfare` AS gl_monthly_ledger_current_welfare,
-     gl_monthly_ledger_current.`total_deduction` AS gl_monthly_ledger_current_total_deduction,
-     gl_monthly_ledger_current.`net_amount` AS gl_monthly_ledger_current_net_amount,
-     gl_monthly_ledger_current.`tax` AS gl_monthly_ledger_current_tax,
-     gl_monthly_ledger_current.`final_payable` AS gl_monthly_ledger_current_final_payable,
-     gl_monthly_ledger_current.`coins_cf` AS gl_monthly_ledger_current_coins_cf,
-     gl_monthly_ledger_current.`final_amount` AS gl_monthly_ledger_current_final_amount,
-     gl_monthly_ledger_current.`bal_cf` AS gl_monthly_ledger_current_bal_cf,
-     daily_transactions_current.`day_1` AS daily_transactions_current_day_1,
-     daily_transactions_current.`day_2` AS daily_transactions_current_day_2,
-     daily_transactions_current.`day_3` AS daily_transactions_current_day_3,
-     daily_transactions_current.`day_4` AS daily_transactions_current_day_4,
-     daily_transactions_current.`day_5` AS daily_transactions_current_day_5,
-     daily_transactions_current.`day_6` AS daily_transactions_current_day_6,
-     daily_transactions_current.`day_7` AS daily_transactions_current_day_7,
-     daily_transactions_current.`day_8` AS daily_transactions_current_day_8,
-     daily_transactions_current.`day_9` AS daily_transactions_current_day_9,
-     daily_transactions_current.`day_10` AS daily_transactions_current_day_10,
-     daily_transactions_current.`day_11` AS daily_transactions_current_day_11,
-     daily_transactions_current.`day_12` AS daily_transactions_current_day_12,
-     daily_transactions_current.`day_13` AS daily_transactions_current_day_13,
-     daily_transactions_current.`day_14` AS daily_transactions_current_day_14,
-     daily_transactions_current.`day_15` AS daily_transactions_current_day_15,
-     daily_transactions_current.`day_16` AS daily_transactions_current_day_16,
-     daily_transactions_current.`day_17` AS daily_transactions_current_day_17,
-     daily_transactions_current.`day_18` AS daily_transactions_current_day_18,
-     daily_transactions_current.`day_19` AS daily_transactions_current_day_19,
-     daily_transactions_current.`day_20` AS daily_transactions_current_day_20,
-     daily_transactions_current.`day_21` AS daily_transactions_current_day_21,
-     daily_transactions_current.`day_22` AS daily_transactions_current_day_22,
-     daily_transactions_current.`day_23` AS daily_transactions_current_day_23,
-     daily_transactions_current.`day_24` AS daily_transactions_current_day_24,
-     daily_transactions_current.`day_25` AS daily_transactions_current_day_25,
-     daily_transactions_current.`day_26` AS daily_transactions_current_day_26,
-     daily_transactions_current.`day_27` AS daily_transactions_current_day_27,
-     daily_transactions_current.`day_28` AS daily_transactions_current_day_28,
-     daily_transactions_current.`day_29` AS daily_transactions_current_day_29,
-     daily_transactions_current.`day_30` AS daily_transactions_current_day_30,
-     daily_transactions_current.`day_31` AS daily_transactions_current_day_31,
-     daily_transactions_current.`Total` AS daily_transactions_current_Total,
-     gl_monthly_ledger_current.`year` AS gl_monthly_ledger_current_year,
-     gl_monthly_ledger_current.`month` AS gl_monthly_ledger_current_month,
-     other_advance_totals.`tea` AS other_advance_totals_tea,
-     other_advance_totals.`manure` AS other_advance_totals_manure,
-     other_advance_totals.`chem` AS other_advance_totals_chem,
-     other_advance_totals.`shop` AS other_advance_totals_shop,
-     other_advance_totals.`bags` AS other_advance_totals_bags,
-     other_advance_totals.`tanks` AS other_advance_totals_tanks,
-     other_advance_totals.`other` AS other_advance_totals_other
+     gl_tr_ledger_current.`sup_id` AS gl_monthly_ledger_current_sup_id,
+     gl_tr_ledger_current.`name` AS gl_monthly_ledger_current_name,
+     gl_tr_ledger_current.`total_kg` AS gl_monthly_ledger_current_total_kg,
+     gl_tr_ledger_current.`set_value` AS gl_monthly_ledger_current_set_value,
+     gl_tr_ledger_current.`gross_amount` AS gl_monthly_ledger_current_gross_amount,
+     gl_tr_ledger_current.`coins_bf` AS gl_monthly_ledger_current_coins_bf,
+     gl_tr_ledger_current.`total_payable` AS gl_monthly_ledger_current_total_payable,
+     gl_tr_ledger_current.`pre_debts` AS gl_monthly_ledger_current_pre_debts,
+     gl_tr_ledger_current.`cash_advances` AS gl_monthly_ledger_current_cash_advances,
+     gl_tr_ledger_current.`other_advances` AS gl_monthly_ledger_current_other_advances,
+     gl_tr_ledger_current.`loans` AS gl_monthly_ledger_current_loans,
+     gl_tr_ledger_current.`cards` AS gl_monthly_ledger_current_cards,
+     gl_tr_ledger_current.`transport` AS gl_monthly_ledger_current_transport,
+     gl_tr_ledger_current.`welfare` AS gl_monthly_ledger_current_welfare,
+     gl_tr_ledger_current.`total_deduction` AS gl_monthly_ledger_current_total_deduction,
+     gl_tr_ledger_current.`net_amount` AS gl_monthly_ledger_current_net_amount,
+     gl_tr_ledger_current.`tax` AS gl_monthly_ledger_current_tax,
+     gl_tr_ledger_current.`final_payable` AS gl_monthly_ledger_current_final_payable,
+     gl_tr_ledger_current.`coins_cf` AS gl_monthly_ledger_current_coins_cf,
+     gl_tr_ledger_current.`final_amount` AS gl_monthly_ledger_current_final_amount,
+     gl_tr_ledger_current.`bal_cf` AS gl_monthly_ledger_current_bal_cf,
+     daily_tr_current.`day_1` AS daily_transactions_current_day_1,
+     daily_tr_current.`day_2` AS daily_transactions_current_day_2,
+     daily_tr_current.`day_3` AS daily_transactions_current_day_3,
+     daily_tr_current.`day_4` AS daily_transactions_current_day_4,
+     daily_tr_current.`day_5` AS daily_transactions_current_day_5,
+     daily_tr_current.`day_6` AS daily_transactions_current_day_6,
+     daily_tr_current.`day_7` AS daily_transactions_current_day_7,
+     daily_tr_current.`day_8` AS daily_transactions_current_day_8,
+     daily_tr_current.`day_9` AS daily_transactions_current_day_9,
+     daily_tr_current.`day_10` AS daily_transactions_current_day_10,
+     daily_tr_current.`day_11` AS daily_transactions_current_day_11,
+     daily_tr_current.`day_12` AS daily_transactions_current_day_12,
+     daily_tr_current.`day_13` AS daily_transactions_current_day_13,
+     daily_tr_current.`day_14` AS daily_transactions_current_day_14,
+     daily_tr_current.`day_15` AS daily_transactions_current_day_15,
+     daily_tr_current.`day_16` AS daily_transactions_current_day_16,
+     daily_tr_current.`day_17` AS daily_transactions_current_day_17,
+     daily_tr_current.`day_18` AS daily_transactions_current_day_18,
+     daily_tr_current.`day_19` AS daily_transactions_current_day_19,
+     daily_tr_current.`day_20` AS daily_transactions_current_day_20,
+     daily_tr_current.`day_21` AS daily_transactions_current_day_21,
+     daily_tr_current.`day_22` AS daily_transactions_current_day_22,
+     daily_tr_current.`day_23` AS daily_transactions_current_day_23,
+     daily_tr_current.`day_24` AS daily_transactions_current_day_24,
+     daily_tr_current.`day_25` AS daily_transactions_current_day_25,
+     daily_tr_current.`day_26` AS daily_transactions_current_day_26,
+     daily_tr_current.`day_27` AS daily_transactions_current_day_27,
+     daily_tr_current.`day_28` AS daily_transactions_current_day_28,
+     daily_tr_current.`day_29` AS daily_transactions_current_day_29,
+     daily_tr_current.`day_30` AS daily_transactions_current_day_30,
+     daily_tr_current.`day_31` AS daily_transactions_current_day_31,
+     daily_tr_current.`Total` AS daily_transactions_current_Total,
+     gl_tr_ledger_current.`year` AS gl_monthly_ledger_current_year,
+     gl_tr_ledger_current.`month` AS gl_monthly_ledger_current_month,
+     gl_tr_other_advance_totals.`tea` AS other_advance_totals_tea,
+     gl_tr_other_advance_totals.`manure` AS other_advance_totals_manure,
+     gl_tr_other_advance_totals.`chem` AS other_advance_totals_chem,
+     gl_tr_other_advance_totals.`shop` AS other_advance_totals_shop,
+     gl_tr_other_advance_totals.`bags` AS other_advance_totals_bags,
+     gl_tr_other_advance_totals.`tanks` AS other_advance_totals_tanks,
+     gl_tr_other_advance_totals.`other` AS other_advance_totals_other
 FROM
-     `daily_transactions_current` daily_transactions_current INNER JOIN `gl_monthly_ledger_current` gl_monthly_ledger_current ON daily_transactions_current.`entry` = gl_monthly_ledger_current.`entry`
-     AND gl_monthly_ledger_current.`sup_id` = daily_transactions_current.`sup_id`
-     INNER JOIN `other_advance_totals` other_advance_totals ON gl_monthly_ledger_current.`entry` = other_advance_totals.`entry`
+     `daily_tr_current` daily_tr_current INNER JOIN `gl_tr_ledger_current` gl_tr_ledger_current ON daily_tr_current.`entry` = gl_tr_ledger_current.`entry`
+     AND gl_tr_ledger_current.`sup_id` = daily_tr_current.`sup_id`
+     INNER JOIN `gl_tr_other_advance_totals` gl_tr_other_advance_totals ON gl_tr_ledger_current.`entry` = gl_tr_other_advance_totals.`entry`
 
 WHERE
-     gl_monthly_ledger_current.`year` = $P{year}
- AND gl_monthly_ledger_current.`month` = $P{month}
-and gl_monthly_ledger_current.`final_amount`!= 0
+     gl_tr_ledger_current.`year` = $P{year}
+ AND gl_tr_ledger_current.`month` = $P{month}
+ and (gl_tr_ledger_current.`final_amount` != 0 OR total_kg != 0)
 
 ORDER BY
-     gl_monthly_ledger_current.`sup_id` ASC]]>
+     gl_tr_ledger_current.`sup_id` ASC]]>
 	</queryString>
-	<field name="gl_monthly_ledger_current_sup_id" class="java.lang.Integer"/>
+	<field name="gl_monthly_ledger_current_sup_id" class="java.lang.String"/>
 	<field name="gl_monthly_ledger_current_name" class="java.lang.String"/>
 	<field name="gl_monthly_ledger_current_total_kg" class="java.lang.Double"/>
 	<field name="gl_monthly_ledger_current_set_value" class="java.lang.Double"/>
@@ -162,1063 +162,970 @@ ORDER BY
 	<detail>
 		<band height="378" splitType="Stretch">
 			<rectangle>
-				<reportElement uuid="3066225e-7da7-451a-8756-c10e62ec2dea" x="0" y="0" width="572" height="349"/>
+				<reportElement x="0" y="0" width="572" height="349" uuid="3066225e-7da7-451a-8756-c10e62ec2dea"/>
 			</rectangle>
 			<rectangle>
-				<reportElement uuid="5f32d8b6-d705-4e77-926a-07f20b50a258" x="171" y="265" width="104" height="33"/>
+				<reportElement x="171" y="265" width="104" height="33" uuid="5f32d8b6-d705-4e77-926a-07f20b50a258"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="10">
-				<reportElement uuid="53cc72b4-a734-4ebb-846f-f4beab73cc59" x="292" y="59" width="115" height="144"/>
+				<reportElement x="292" y="59" width="115" height="144" uuid="53cc72b4-a734-4ebb-846f-f4beab73cc59"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
 			</rectangle>
 			<rectangle>
-				<reportElement uuid="425e30f3-cc26-45a3-bf9c-056521964f83" x="413" y="299" width="107" height="33"/>
+				<reportElement x="413" y="299" width="107" height="33" uuid="425e30f3-cc26-45a3-bf9c-056521964f83"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
 			</rectangle>
 			<textField>
-				<reportElement uuid="f9e9431a-a321-475a-aaa7-469c489ad2b7" x="51" y="36" width="36" height="20"/>
-				<textElement>
-					<font isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_sup_id}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement uuid="88d7cdd6-ff62-408c-a8f3-3e0ed3b24e75" x="87" y="34" width="218" height="20"/>
+				<reportElement x="87" y="34" width="218" height="20" uuid="88d7cdd6-ff62-408c-a8f3-3e0ed3b24e75"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_name}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement uuid="3a2eb12b-106b-48dd-8777-76962724c188" x="95" y="59" width="68" height="15"/>
+				<reportElement x="95" y="59" width="68" height="15" uuid="3a2eb12b-106b-48dd-8777-76962724c188"/>
 				<textElement textAlignment="Right">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_total_kg}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement uuid="a05530da-562d-49cc-ba75-205a30ad161a" x="95" y="74" width="68" height="15"/>
+				<reportElement x="95" y="74" width="68" height="15" uuid="a05530da-562d-49cc-ba75-205a30ad161a"/>
 				<textElement textAlignment="Right">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_set_value}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement uuid="4b28f3d1-64db-4083-8b07-e60c8f471622" x="95" y="89" width="68" height="15"/>
+				<reportElement x="95" y="89" width="68" height="15" uuid="4b28f3d1-64db-4083-8b07-e60c8f471622"/>
 				<textElement textAlignment="Right">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_gross_amount}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement uuid="ae2778cc-6c7e-44e4-8533-19d7dbb66dfe" x="95" y="105" width="68" height="15"/>
+				<reportElement x="95" y="105" width="68" height="15" uuid="ae2778cc-6c7e-44e4-8533-19d7dbb66dfe"/>
 				<textElement textAlignment="Right">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_coins_bf}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement uuid="3de7c9ca-99ff-498c-9b7d-7f745da0abf4" x="171" y="107" width="75" height="16"/>
+				<reportElement x="171" y="107" width="75" height="16" uuid="3de7c9ca-99ff-498c-9b7d-7f745da0abf4"/>
 				<textElement textAlignment="Right">
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_total_payable}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement uuid="41dc8e98-ff95-4076-beaa-8b328eb06bbd" x="94" y="125" width="69" height="16"/>
+				<reportElement x="94" y="125" width="69" height="16" uuid="41dc8e98-ff95-4076-beaa-8b328eb06bbd"/>
 				<textElement textAlignment="Right">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_pre_debts}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement uuid="ff331943-633f-4d9d-a44a-6884cce8a85e" x="94" y="139" width="69" height="16"/>
+				<reportElement x="94" y="139" width="69" height="16" uuid="ff331943-633f-4d9d-a44a-6884cce8a85e"/>
 				<textElement textAlignment="Right">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_cash_advances}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement uuid="2eb7bced-2070-447b-a361-5d0bad75fc94" x="94" y="155" width="69" height="16"/>
+				<reportElement x="94" y="155" width="69" height="16" uuid="2eb7bced-2070-447b-a361-5d0bad75fc94"/>
 				<textElement textAlignment="Right">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_other_advances}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement uuid="d00e8a03-5b4b-458c-aed9-e6bad7d04c5b" x="94" y="169" width="69" height="16"/>
+				<reportElement x="94" y="169" width="69" height="16" uuid="d00e8a03-5b4b-458c-aed9-e6bad7d04c5b"/>
 				<textElement textAlignment="Right">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_loans}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement uuid="03fb7c43-730a-48d9-b3cf-6e95e9d3eb16" x="94" y="186" width="69" height="16"/>
-				<textElement textAlignment="Right">
-					<font size="8"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_cards}]]></textFieldExpression>
-			</textField>
-			<textField pattern="#,##0.00">
-				<reportElement uuid="48781aac-476b-43b2-adb8-fd3074a357de" x="94" y="200" width="69" height="16"/>
-				<textElement textAlignment="Right">
-					<font size="8"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_transport}]]></textFieldExpression>
-			</textField>
-			<textField pattern="#,##0.00">
-				<reportElement uuid="47b8bc38-6ba9-4d38-95a9-b3104a6d503b" x="94" y="215" width="69" height="16"/>
-				<textElement textAlignment="Right">
-					<font size="8"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_welfare}]]></textFieldExpression>
-			</textField>
-			<textField pattern="#,##0.00">
-				<reportElement uuid="ff8ce320-1900-4688-b0ef-da48b1257469" x="171" y="215" width="75" height="16"/>
+				<reportElement x="171" y="215" width="75" height="16" uuid="ff8ce320-1900-4688-b0ef-da48b1257469"/>
 				<textElement textAlignment="Right">
 					<font size="10" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_total_deduction}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement uuid="7a77d9fb-667c-46ff-93ee-6fc360fa7d4e" x="171" y="235" width="75" height="15"/>
+				<reportElement x="171" y="235" width="75" height="15" uuid="7a77d9fb-667c-46ff-93ee-6fc360fa7d4e"/>
 				<textElement textAlignment="Right">
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_net_amount}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement uuid="2a611cbd-6f09-4f40-83f5-84c04fe8944c" x="94" y="237" width="69" height="15"/>
-				<textElement textAlignment="Right">
-					<font size="8"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_tax}]]></textFieldExpression>
-			</textField>
-			<textField pattern="#,##0.00">
-				<reportElement uuid="5b84fb5d-f793-4cd0-a854-14fc7e42a811" x="94" y="253" width="69" height="15"/>
+				<reportElement x="94" y="253" width="69" height="15" uuid="5b84fb5d-f793-4cd0-a854-14fc7e42a811"/>
 				<textElement textAlignment="Right">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_final_payable}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="75b687d7-fe40-4adf-9851-27816341e992" x="9" y="6" width="216" height="27"/>
+				<reportElement x="9" y="6" width="216" height="27" uuid="75b687d7-fe40-4adf-9851-27816341e992"/>
 				<textElement>
 					<font fontName="Segoe UI Light" size="16" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Bogoda Group Tea Factory]]></text>
+				<text><![CDATA[Arbour Valley Tea Factory]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="fe112270-8629-41c5-b43e-d57409be5b2e" x="218" y="5" width="114" height="20"/>
-				<textElement/>
-				<text><![CDATA[Kolawenigama, Deniyaya]]></text>
+				<reportElement x="218" y="5" width="152" height="20" uuid="fe112270-8629-41c5-b43e-d57409be5b2e"/>
+				<text><![CDATA[Kekunadeniya, Beralapanathara]]></text>
 			</staticText>
 			<textField pattern="dd/MM/yyyy HH.mm.ss">
-				<reportElement uuid="54a20eec-890c-4e8c-9249-a8bf0da283f9" x="340" y="338" width="100" height="11"/>
+				<reportElement x="340" y="338" width="100" height="11" uuid="54a20eec-890c-4e8c-9249-a8bf0da283f9"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="a7284fb9-5755-493b-9033-b8778b4d88dd" x="452" y="337" width="100" height="11"/>
+				<reportElement x="452" y="337" width="100" height="11" uuid="a7284fb9-5755-493b-9033-b8778b4d88dd"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{USER}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="3e709542-151f-4b92-8a79-9527db2b951e" x="259" y="338" width="81" height="11"/>
+				<reportElement x="259" y="338" width="81" height="11" uuid="3e709542-151f-4b92-8a79-9527db2b951e"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[Report generated:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="b253ceae-65b5-4d6e-bd4d-cd9f29f5de4c" x="437" y="337" width="15" height="11"/>
+				<reportElement x="437" y="337" width="15" height="11" uuid="b253ceae-65b5-4d6e-bd4d-cd9f29f5de4c"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[by:]]></text>
 			</staticText>
 			<line>
-				<reportElement uuid="e13c4d67-1e7f-4c1c-96d2-2316ab27579e" x="1" y="33" width="571" height="1"/>
+				<reportElement x="1" y="33" width="571" height="1" uuid="e13c4d67-1e7f-4c1c-96d2-2316ab27579e"/>
 			</line>
 			<staticText>
-				<reportElement uuid="0467892c-9a71-4c74-850c-f4c85bc94c7e" x="8" y="170" width="44" height="16"/>
+				<reportElement x="8" y="170" width="44" height="16" uuid="0467892c-9a71-4c74-850c-f4c85bc94c7e"/>
 				<textElement>
 					<font size="12" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Loans]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="691ac4ec-d38b-4e96-9e79-b2633e391385" x="8" y="185" width="61" height="16"/>
-				<textElement>
-					<font size="12" isBold="false"/>
-				</textElement>
-				<text><![CDATA[Stationary]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="112513a5-fb46-476e-a9df-6d9dad4d034d" x="8" y="200" width="80" height="16"/>
-				<textElement>
-					<font size="12" isBold="false"/>
-				</textElement>
-				<text><![CDATA[Transport]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="589d4804-4c27-4c2d-92cc-b93cf083356a" x="8" y="215" width="80" height="16"/>
-				<textElement>
-					<font size="12" isBold="false"/>
-				</textElement>
-				<text><![CDATA[Welfare]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="b975201e-f324-4f7b-96a5-1b4e4cfacd65" x="171" y="199" width="88" height="16"/>
+				<reportElement x="171" y="199" width="88" height="16" uuid="b975201e-f324-4f7b-96a5-1b4e4cfacd65"/>
 				<textElement>
 					<font size="12" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Total Deduction]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="7574a7a7-7cac-41a7-b04b-17772fe65769" x="9" y="238" width="79" height="16"/>
-				<textElement>
-					<font size="12" isBold="false"/>
-				</textElement>
-				<text><![CDATA[Stamp]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="29a065d0-cf84-4fb1-93f9-2cc9f46856d0" x="9" y="253" width="78" height="16"/>
+				<reportElement x="9" y="253" width="78" height="16" uuid="29a065d0-cf84-4fb1-93f9-2cc9f46856d0"/>
 				<textElement>
 					<font size="12" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Final Payable]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="782c829a-c42b-4264-a03e-c8c198bff3a5" x="9" y="267" width="63" height="16"/>
+				<reportElement x="9" y="267" width="63" height="16" uuid="782c829a-c42b-4264-a03e-c8c198bff3a5"/>
 				<textElement>
 					<font size="12" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Coins bf]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="b184b3b7-69f7-4707-906a-685b3506b08f" x="171" y="250" width="82" height="16"/>
+				<reportElement x="171" y="250" width="82" height="16" uuid="b184b3b7-69f7-4707-906a-685b3506b08f"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Balance]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="52da3e0e-b604-4648-b721-76153abe6279" x="18" y="290" width="69" height="16"/>
+				<reportElement x="18" y="290" width="69" height="16" uuid="52da3e0e-b604-4648-b721-76153abe6279"/>
 				<textElement>
 					<font size="12" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Balance bf]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="2726d85c-1aea-48b9-9e25-6a3989e4e13c" x="8" y="155" width="80" height="16"/>
+				<reportElement x="8" y="155" width="80" height="16" uuid="2726d85c-1aea-48b9-9e25-6a3989e4e13c"/>
 				<textElement>
 					<font size="12" isBold="false"/>
 				</textElement>
 				<text><![CDATA[OtherAdvances]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="3cc4835e-e591-4095-a7b4-25f91223c94c" x="8" y="139" width="86" height="16"/>
+				<reportElement x="8" y="139" width="86" height="16" uuid="3cc4835e-e591-4095-a7b4-25f91223c94c"/>
 				<textElement>
 					<font size="12" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Cash Advances]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="4f9b0b74-ceea-4c55-bf5b-e38c0b2ff6b3" x="8" y="125" width="80" height="16"/>
+				<reportElement x="8" y="125" width="87" height="16" uuid="4f9b0b74-ceea-4c55-bf5b-e38c0b2ff6b3"/>
 				<textElement>
 					<font size="12" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Previous Debits]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="860b4d72-10a6-4917-bf11-d771257f941c" x="171" y="91" width="75" height="16"/>
+				<reportElement x="171" y="91" width="75" height="16" uuid="860b4d72-10a6-4917-bf11-d771257f941c"/>
 				<textElement>
 					<font size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
 				</textElement>
 				<text><![CDATA[Total Payable]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="5470562b-9634-4f7e-8d32-846dc4e7bc29" x="7" y="105" width="61" height="16"/>
+				<reportElement x="7" y="105" width="61" height="16" uuid="5470562b-9634-4f7e-8d32-846dc4e7bc29"/>
 				<textElement>
 					<font size="12" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Coins cf]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="c11d3336-9092-4826-bb2b-7764f6f160ab" x="7" y="89" width="61" height="16"/>
+				<reportElement x="7" y="89" width="81" height="16" uuid="c11d3336-9092-4826-bb2b-7764f6f160ab"/>
 				<textElement>
 					<font size="12" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Gross Amount]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="63f151a0-6220-431b-9f36-2cc717ae2cb4" x="7" y="74" width="61" height="16"/>
+				<reportElement x="7" y="74" width="87" height="16" uuid="63f151a0-6220-431b-9f36-2cc717ae2cb4"/>
 				<textElement>
 					<font size="12" isBold="false"/>
 				</textElement>
-				<text><![CDATA[Pay Value]]></text>
+				<text><![CDATA[Pay Rate]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="9985080d-ea84-433a-b5ec-cd00ed6b808d" x="7" y="59" width="61" height="16"/>
+				<reportElement x="7" y="59" width="61" height="16" uuid="9985080d-ea84-433a-b5ec-cd00ed6b808d"/>
 				<textElement>
 					<font size="12" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Total KG]]></text>
 			</staticText>
-			<staticText>
-				<reportElement uuid="3df2e9b7-07c7-4563-b558-083aaf679e22" x="8" y="34" width="44" height="20"/>
-				<textElement>
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Card NO]]></text>
-			</staticText>
 			<line>
-				<reportElement uuid="0d048f90-0a60-4753-b7bf-906c8bd8f6af" x="2" y="337" width="570" height="1"/>
+				<reportElement x="2" y="337" width="570" height="1" uuid="0d048f90-0a60-4753-b7bf-906c8bd8f6af"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
 			</line>
 			<textField pattern="#,##0.00">
-				<reportElement uuid="20938bed-9f1c-4493-952a-60b415dfcd55" x="94" y="268" width="69" height="15"/>
+				<reportElement x="94" y="268" width="69" height="15" uuid="20938bed-9f1c-4493-952a-60b415dfcd55"/>
 				<textElement textAlignment="Right">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_coins_cf}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement uuid="08bdaab0-6cb0-4021-bf74-1a8f1fed0eb5" x="171" y="271" width="102" height="22"/>
+				<reportElement x="171" y="271" width="102" height="22" uuid="08bdaab0-6cb0-4021-bf74-1a8f1fed0eb5"/>
 				<textElement textAlignment="Right">
-					<font size="10" isBold="false"/>
+					<font size="12" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_final_amount}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement uuid="5d38c2b5-498f-4ce5-acc5-2eb71eeaed77" x="87" y="290" width="70" height="16"/>
+				<reportElement x="87" y="290" width="70" height="16" uuid="5d38c2b5-498f-4ce5-acc5-2eb71eeaed77"/>
 				<textElement textAlignment="Right">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_bal_cf}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0" isBlankWhenNull="false">
-				<reportElement uuid="d35a163d-094a-4d66-ad6a-c4ff9b582083" x="455" y="57" width="30" height="13"/>
+				<reportElement x="455" y="57" width="30" height="13" uuid="d35a163d-094a-4d66-ad6a-c4ff9b582083"/>
 				<textElement textAlignment="Right">
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_1}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0">
-				<reportElement uuid="97f8c8fd-3d2f-4337-899b-66e553dbed91" x="455" y="69" width="30" height="13"/>
+				<reportElement x="455" y="69" width="30" height="13" uuid="97f8c8fd-3d2f-4337-899b-66e553dbed91"/>
 				<textElement textAlignment="Right">
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_2}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0">
-				<reportElement uuid="87f20add-4e92-471c-98f6-55a450dcf8bf" x="455" y="81" width="30" height="13"/>
+				<reportElement x="455" y="81" width="30" height="13" uuid="87f20add-4e92-471c-98f6-55a450dcf8bf"/>
 				<textElement textAlignment="Right">
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_3}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0">
-				<reportElement uuid="406df993-e233-4da8-a6b8-17d457b39cdb" x="455" y="93" width="30" height="13"/>
+				<reportElement x="455" y="93" width="30" height="13" uuid="406df993-e233-4da8-a6b8-17d457b39cdb"/>
 				<textElement textAlignment="Right">
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_4}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0">
-				<reportElement uuid="e7542dfb-cc8f-4a60-8f16-8e264752429c" x="455" y="105" width="30" height="13"/>
+				<reportElement x="455" y="105" width="30" height="13" uuid="e7542dfb-cc8f-4a60-8f16-8e264752429c"/>
 				<textElement textAlignment="Right">
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_5}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0">
-				<reportElement uuid="e3624104-07cd-4ee0-8a97-ddae97c4eb13" x="455" y="117" width="30" height="13"/>
+				<reportElement x="455" y="117" width="30" height="13" uuid="e3624104-07cd-4ee0-8a97-ddae97c4eb13"/>
 				<textElement textAlignment="Right">
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_6}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0">
-				<reportElement uuid="6d67f4cc-d1a7-43f7-ad22-c24ed78aa5a1" x="455" y="129" width="30" height="13"/>
+				<reportElement x="455" y="129" width="30" height="13" uuid="6d67f4cc-d1a7-43f7-ad22-c24ed78aa5a1"/>
 				<textElement textAlignment="Right">
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_7}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0">
-				<reportElement uuid="b393ac62-bffc-4bdd-9449-85c6c08f2a66" x="455" y="141" width="30" height="13"/>
+				<reportElement x="455" y="141" width="30" height="13" uuid="b393ac62-bffc-4bdd-9449-85c6c08f2a66"/>
 				<textElement textAlignment="Right">
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_8}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0">
-				<reportElement uuid="a6c1c039-1bcb-465d-b1a2-3b9bf30be4de" x="455" y="153" width="30" height="13"/>
+				<reportElement x="455" y="153" width="30" height="13" uuid="a6c1c039-1bcb-465d-b1a2-3b9bf30be4de"/>
 				<textElement textAlignment="Right">
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_9}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0">
-				<reportElement uuid="888846e9-6c96-4041-8f29-a30c8d93bc7d" x="455" y="165" width="30" height="13"/>
+				<reportElement x="455" y="165" width="30" height="13" uuid="888846e9-6c96-4041-8f29-a30c8d93bc7d"/>
 				<textElement textAlignment="Right">
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_10}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0">
-				<reportElement uuid="69d95094-9b87-4987-8eed-7c4d2b07300e" x="455" y="177" width="30" height="13"/>
+				<reportElement x="455" y="177" width="30" height="13" uuid="69d95094-9b87-4987-8eed-7c4d2b07300e"/>
 				<textElement textAlignment="Right">
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_11}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0">
-				<reportElement uuid="195ec96e-af5d-44ba-8323-ae06fc517f72" x="455" y="189" width="30" height="13"/>
+				<reportElement x="455" y="189" width="30" height="13" uuid="195ec96e-af5d-44ba-8323-ae06fc517f72"/>
 				<textElement textAlignment="Right">
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_12}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0">
-				<reportElement uuid="76fd508d-8bff-41de-a1eb-fe5706b28773" x="455" y="201" width="30" height="13"/>
+				<reportElement x="455" y="201" width="30" height="13" uuid="76fd508d-8bff-41de-a1eb-fe5706b28773"/>
 				<textElement textAlignment="Right">
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_13}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0">
-				<reportElement uuid="523f909a-70a9-485c-9648-1404ce158689" x="455" y="214" width="30" height="13"/>
+				<reportElement x="455" y="214" width="30" height="13" uuid="523f909a-70a9-485c-9648-1404ce158689"/>
 				<textElement textAlignment="Right">
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_14}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0">
-				<reportElement uuid="24ec32a8-559d-4e86-9a8c-676e769d7c1c" x="455" y="226" width="30" height="13"/>
+				<reportElement x="455" y="226" width="30" height="13" uuid="24ec32a8-559d-4e86-9a8c-676e769d7c1c"/>
 				<textElement textAlignment="Right">
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_15}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0">
-				<reportElement uuid="4651a233-c110-4a46-89f7-d03e1cef776c" x="455" y="238" width="30" height="13"/>
+				<reportElement x="455" y="238" width="30" height="13" uuid="4651a233-c110-4a46-89f7-d03e1cef776c"/>
 				<textElement textAlignment="Right">
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_16}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0">
-				<reportElement uuid="50f30457-2a6c-4984-84e1-6d7603329401" x="529" y="57" width="30" height="13"/>
+				<reportElement x="529" y="57" width="30" height="13" uuid="50f30457-2a6c-4984-84e1-6d7603329401"/>
 				<textElement textAlignment="Right">
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_17}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0">
-				<reportElement uuid="38dc3661-0f52-43f9-911e-bbc2c8b32cbb" x="529" y="69" width="30" height="13"/>
+				<reportElement x="529" y="69" width="30" height="13" uuid="38dc3661-0f52-43f9-911e-bbc2c8b32cbb"/>
 				<textElement textAlignment="Right">
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_18}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0">
-				<reportElement uuid="01f0503f-4fd6-4fd7-b210-e64c8ad5d6eb" x="529" y="81" width="30" height="13"/>
+				<reportElement x="529" y="81" width="30" height="13" uuid="01f0503f-4fd6-4fd7-b210-e64c8ad5d6eb"/>
 				<textElement textAlignment="Right">
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_19}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0">
-				<reportElement uuid="4278d517-095d-49eb-8145-65a32de591ba" x="529" y="93" width="30" height="13"/>
+				<reportElement x="529" y="93" width="30" height="13" uuid="4278d517-095d-49eb-8145-65a32de591ba"/>
 				<textElement textAlignment="Right">
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_20}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0">
-				<reportElement uuid="f8419935-48ae-4c00-ae65-b87a68647398" x="529" y="105" width="30" height="13"/>
+				<reportElement x="529" y="105" width="30" height="13" uuid="f8419935-48ae-4c00-ae65-b87a68647398"/>
 				<textElement textAlignment="Right">
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_21}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0">
-				<reportElement uuid="1189b090-5a99-4c7e-adb4-0d563c50a082" x="529" y="117" width="30" height="13"/>
+				<reportElement x="529" y="117" width="30" height="13" uuid="1189b090-5a99-4c7e-adb4-0d563c50a082"/>
 				<textElement textAlignment="Right">
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_22}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0">
-				<reportElement uuid="4cedca2e-0841-44f3-a7cc-947241789bdb" x="529" y="129" width="30" height="13"/>
+				<reportElement x="529" y="129" width="30" height="13" uuid="4cedca2e-0841-44f3-a7cc-947241789bdb"/>
 				<textElement textAlignment="Right">
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_23}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0">
-				<reportElement uuid="a8ae693f-aa50-4df8-9928-a13be82e13dd" x="529" y="141" width="30" height="13"/>
+				<reportElement x="529" y="141" width="30" height="13" uuid="a8ae693f-aa50-4df8-9928-a13be82e13dd"/>
 				<textElement textAlignment="Right">
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_24}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0">
-				<reportElement uuid="620b6beb-74ed-401d-b03c-f03e67bdb78f" x="529" y="153" width="30" height="13"/>
+				<reportElement x="529" y="153" width="30" height="13" uuid="620b6beb-74ed-401d-b03c-f03e67bdb78f"/>
 				<textElement textAlignment="Right">
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_25}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0">
-				<reportElement uuid="78e867c6-534d-4748-9a61-324a7153c08e" x="529" y="165" width="30" height="13"/>
+				<reportElement x="529" y="165" width="30" height="13" uuid="78e867c6-534d-4748-9a61-324a7153c08e"/>
 				<textElement textAlignment="Right">
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_26}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0">
-				<reportElement uuid="574fadd7-7348-4fc1-8fce-fa1bcc3f9ed1" x="529" y="177" width="30" height="13"/>
+				<reportElement x="529" y="177" width="30" height="13" uuid="574fadd7-7348-4fc1-8fce-fa1bcc3f9ed1"/>
 				<textElement textAlignment="Right">
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_27}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0">
-				<reportElement uuid="effdd0f1-3cfb-4cd8-afe1-58d0b84fcc11" x="529" y="189" width="30" height="13"/>
+				<reportElement x="529" y="189" width="30" height="13" uuid="effdd0f1-3cfb-4cd8-afe1-58d0b84fcc11"/>
 				<textElement textAlignment="Right">
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_28}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0">
-				<reportElement uuid="0e324d89-b320-44e1-8cea-c6c474112ed9" x="529" y="201" width="30" height="13"/>
+				<reportElement x="529" y="201" width="30" height="13" uuid="0e324d89-b320-44e1-8cea-c6c474112ed9"/>
 				<textElement textAlignment="Right">
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_29}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0">
-				<reportElement uuid="fa1368cd-9ee2-4901-b1c7-d706223e2730" x="529" y="214" width="30" height="13"/>
+				<reportElement x="529" y="214" width="30" height="13" uuid="fa1368cd-9ee2-4901-b1c7-d706223e2730"/>
 				<textElement textAlignment="Right">
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_30}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0">
-				<reportElement uuid="eaceedd2-76b7-482e-b15b-061ccfea8464" x="529" y="226" width="30" height="13"/>
+				<reportElement x="529" y="226" width="30" height="13" uuid="eaceedd2-76b7-482e-b15b-061ccfea8464"/>
 				<textElement textAlignment="Right">
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{daily_transactions_current_day_31}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="13b4c778-6749-4acf-a0ff-d249efffbf68" x="424" y="37" width="40" height="15"/>
+				<reportElement x="424" y="37" width="40" height="15" uuid="13b4c778-6749-4acf-a0ff-d249efffbf68"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[Day]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="65012143-0fdc-49f6-a092-0b99b9616f9c" x="467" y="37" width="18" height="15"/>
+				<reportElement x="467" y="37" width="18" height="15" uuid="65012143-0fdc-49f6-a092-0b99b9616f9c"/>
 				<textElement verticalAlignment="Middle">
 					<font size="10"/>
 				</textElement>
 				<text><![CDATA[Kg]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="95cd69a9-dac0-410b-b895-7e694d648a9f" x="498" y="37" width="39" height="15"/>
+				<reportElement x="498" y="37" width="39" height="15" uuid="95cd69a9-dac0-410b-b895-7e694d648a9f"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[Day]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="3d06f091-3a7b-49cb-bac9-641f6e2a5ea5" x="541" y="37" width="18" height="15"/>
+				<reportElement x="541" y="37" width="18" height="15" uuid="3d06f091-3a7b-49cb-bac9-641f6e2a5ea5"/>
 				<textElement verticalAlignment="Middle">
 					<font size="10"/>
 				</textElement>
 				<text><![CDATA[Kg]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="ce63d44c-caa1-49b9-b53e-50b200a841fb" x="424" y="57" width="30" height="12"/>
+				<reportElement x="424" y="57" width="30" height="12" uuid="ce63d44c-caa1-49b9-b53e-50b200a841fb"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[01]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="ce10be1b-ae76-4549-886b-e1f5152e4039" x="424" y="69" width="30" height="12"/>
+				<reportElement x="424" y="69" width="30" height="12" uuid="ce10be1b-ae76-4549-886b-e1f5152e4039"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[02]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="a352b87a-6539-4092-b7f2-276ccdd42f32" x="424" y="81" width="30" height="12"/>
+				<reportElement x="424" y="81" width="30" height="12" uuid="a352b87a-6539-4092-b7f2-276ccdd42f32"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[03]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="2b629fe8-34f7-494b-a0c1-b5f365abda0c" x="424" y="93" width="30" height="12"/>
+				<reportElement x="424" y="93" width="30" height="12" uuid="2b629fe8-34f7-494b-a0c1-b5f365abda0c"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[04]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="882a3907-cfa7-4494-860a-41a5c37171c3" x="424" y="105" width="30" height="12"/>
+				<reportElement x="424" y="105" width="30" height="12" uuid="882a3907-cfa7-4494-860a-41a5c37171c3"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[05]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="c6e6ec29-f635-4f84-b49f-14c1c7822d84" x="424" y="117" width="30" height="12"/>
+				<reportElement x="424" y="117" width="30" height="12" uuid="c6e6ec29-f635-4f84-b49f-14c1c7822d84"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[06]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="3fb7a58c-1a6f-40c8-aaa0-69b5d0b1ddd1" x="424" y="129" width="30" height="12"/>
+				<reportElement x="424" y="129" width="30" height="12" uuid="3fb7a58c-1a6f-40c8-aaa0-69b5d0b1ddd1"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[07]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="203a725d-64b6-4ae1-a14a-1669b1b2e151" x="424" y="141" width="30" height="12"/>
+				<reportElement x="424" y="141" width="30" height="12" uuid="203a725d-64b6-4ae1-a14a-1669b1b2e151"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[08]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="a8a4e5c4-9911-4121-82d6-ceb711d3898d" x="424" y="153" width="30" height="12"/>
+				<reportElement x="424" y="153" width="30" height="12" uuid="a8a4e5c4-9911-4121-82d6-ceb711d3898d"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[09]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="69344d9f-2a50-406c-babe-fb675a0df412" x="424" y="165" width="30" height="12"/>
+				<reportElement x="424" y="165" width="30" height="12" uuid="69344d9f-2a50-406c-babe-fb675a0df412"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[10]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="fb90d340-d33f-4802-bafe-9e6c7365b667" x="424" y="177" width="30" height="12"/>
+				<reportElement x="424" y="177" width="30" height="12" uuid="fb90d340-d33f-4802-bafe-9e6c7365b667"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[11]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="0f8f9b30-6b29-4c6e-94a0-57a8b8a835ba" x="424" y="189" width="30" height="12"/>
+				<reportElement x="424" y="189" width="30" height="12" uuid="0f8f9b30-6b29-4c6e-94a0-57a8b8a835ba"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[12]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="a3710551-1cb0-4939-a40b-dba1d6b234d4" x="424" y="201" width="30" height="12"/>
+				<reportElement x="424" y="201" width="30" height="12" uuid="a3710551-1cb0-4939-a40b-dba1d6b234d4"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[13]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="a8cf51db-1090-48fb-82b4-011e29799e90" x="424" y="214" width="30" height="12"/>
+				<reportElement x="424" y="214" width="30" height="12" uuid="a8cf51db-1090-48fb-82b4-011e29799e90"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[14]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="7837146a-5200-4aaa-8f1d-23bb5e54a4ae" x="424" y="226" width="30" height="12"/>
+				<reportElement x="424" y="226" width="30" height="12" uuid="7837146a-5200-4aaa-8f1d-23bb5e54a4ae"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[15]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="42340644-1c68-4888-bb76-63b657094c9a" x="424" y="238" width="30" height="12"/>
+				<reportElement x="424" y="238" width="30" height="12" uuid="42340644-1c68-4888-bb76-63b657094c9a"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[16]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="1dea5985-9df4-423d-93e3-e4e68cb2d83b" x="498" y="57" width="30" height="12"/>
+				<reportElement x="498" y="57" width="30" height="12" uuid="1dea5985-9df4-423d-93e3-e4e68cb2d83b"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[17]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="13a39c32-ef9e-4575-ac67-db0ed963dbfb" x="498" y="69" width="30" height="12"/>
+				<reportElement x="498" y="69" width="30" height="12" uuid="13a39c32-ef9e-4575-ac67-db0ed963dbfb"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[18]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="dfc323ce-9528-4b95-9346-917bf44e605e" x="498" y="81" width="30" height="12"/>
+				<reportElement x="498" y="81" width="30" height="12" uuid="dfc323ce-9528-4b95-9346-917bf44e605e"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[19]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="621606a0-ebd2-4157-91c5-2e571df11e63" x="498" y="93" width="30" height="12"/>
+				<reportElement x="498" y="93" width="30" height="12" uuid="621606a0-ebd2-4157-91c5-2e571df11e63"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[20]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="6b52bee2-35a6-45cf-bdfc-71c0903b26a4" x="498" y="105" width="30" height="12"/>
+				<reportElement x="498" y="105" width="30" height="12" uuid="6b52bee2-35a6-45cf-bdfc-71c0903b26a4"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[21]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="22c4e5eb-6917-4f28-affa-476e34f80f59" x="498" y="117" width="30" height="12"/>
+				<reportElement x="498" y="117" width="30" height="12" uuid="22c4e5eb-6917-4f28-affa-476e34f80f59"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[22]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="85a20590-f2dd-4186-ae34-23750acef4e4" x="498" y="129" width="30" height="12"/>
+				<reportElement x="498" y="129" width="30" height="12" uuid="85a20590-f2dd-4186-ae34-23750acef4e4"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[23]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="05602f7d-e92f-41a0-987b-7fa6cb2dbd1c" x="498" y="141" width="30" height="12"/>
+				<reportElement x="498" y="141" width="30" height="12" uuid="05602f7d-e92f-41a0-987b-7fa6cb2dbd1c"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[24]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="567cc21a-2c34-4ad4-8bfb-3a6ba947178e" x="498" y="153" width="30" height="12"/>
+				<reportElement x="498" y="153" width="30" height="12" uuid="567cc21a-2c34-4ad4-8bfb-3a6ba947178e"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[25]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="b2f326a1-757a-42af-8128-fda2e0ca6ac4" x="498" y="165" width="30" height="12"/>
+				<reportElement x="498" y="165" width="30" height="12" uuid="b2f326a1-757a-42af-8128-fda2e0ca6ac4"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[26]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="f6e3fdbe-f69f-4763-b8bb-609158bfde79" x="498" y="177" width="30" height="12"/>
+				<reportElement x="498" y="177" width="30" height="12" uuid="f6e3fdbe-f69f-4763-b8bb-609158bfde79"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[27]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="17c0a758-fd3c-49c8-bff2-291264430707" x="498" y="189" width="30" height="12"/>
+				<reportElement x="498" y="189" width="30" height="12" uuid="17c0a758-fd3c-49c8-bff2-291264430707"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[28]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="60bb1461-427a-4c2d-a70e-1e88c73681b1" x="498" y="201" width="30" height="12"/>
+				<reportElement x="498" y="201" width="30" height="12" uuid="60bb1461-427a-4c2d-a70e-1e88c73681b1"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[29]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="209ab5c6-f649-4110-ad10-3d4f9f8c5c74" x="498" y="214" width="30" height="12"/>
+				<reportElement x="498" y="214" width="30" height="12" uuid="209ab5c6-f649-4110-ad10-3d4f9f8c5c74"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[30]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="be3b5d46-fc89-4b8b-9780-24d4eac5eceb" x="498" y="226" width="30" height="12"/>
+				<reportElement x="498" y="226" width="30" height="12" uuid="be3b5d46-fc89-4b8b-9780-24d4eac5eceb"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[31]]></text>
 			</staticText>
 			<line>
-				<reportElement uuid="6c2a5af9-bb69-4fe5-a82a-1322cc366055" x="491" y="37" width="1" height="213"/>
+				<reportElement x="491" y="37" width="1" height="213" uuid="6c2a5af9-bb69-4fe5-a82a-1322cc366055"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
 			</line>
 			<line>
-				<reportElement uuid="84eb98a1-b776-4d20-b733-02dba3888c06" x="422" y="252" width="150" height="1"/>
+				<reportElement x="422" y="252" width="150" height="1" uuid="84eb98a1-b776-4d20-b733-02dba3888c06"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
 			</line>
 			<line>
-				<reportElement uuid="d92a9e26-2bad-4b5c-8e26-cebe5abba87c" x="6" y="122" width="157" height="1"/>
+				<reportElement x="6" y="122" width="157" height="1" uuid="d92a9e26-2bad-4b5c-8e26-cebe5abba87c"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
 			</line>
 			<line>
-				<reportElement uuid="e8e3c7cf-3002-4e5d-909d-e17edcd14526" x="8" y="233" width="155" height="1"/>
+				<reportElement x="8" y="233" width="155" height="1" uuid="e8e3c7cf-3002-4e5d-909d-e17edcd14526"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
 			</line>
 			<line>
-				<reportElement uuid="7376fcdf-d764-4c89-875a-83b9971cf034" x="10" y="287" width="153" height="1"/>
+				<reportElement x="10" y="287" width="153" height="1" uuid="7376fcdf-d764-4c89-875a-83b9971cf034"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
 			</line>
 			<line>
-				<reportElement uuid="9795c657-87db-47dc-ac55-63f0fdd6e9b0" x="298" y="198" width="104" height="1"/>
+				<reportElement x="298" y="198" width="104" height="1" uuid="9795c657-87db-47dc-ac55-63f0fdd6e9b0"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
 			</line>
 			<line>
-				<reportElement uuid="e7d1e084-b4d1-465b-a842-4ccbcb7602eb" x="422" y="37" width="1" height="216"/>
+				<reportElement x="422" y="37" width="1" height="216" uuid="e7d1e084-b4d1-465b-a842-4ccbcb7602eb"/>
 				<graphicElement>
 					<pen lineWidth="0.5" lineStyle="Dotted"/>
 				</graphicElement>
 			</line>
 			<line>
-				<reportElement uuid="e14238c6-49e7-4ffb-81dc-a0ad51756b93" x="277" y="55" width="1" height="282"/>
+				<reportElement x="277" y="55" width="1" height="282" uuid="e14238c6-49e7-4ffb-81dc-a0ad51756b93"/>
 				<graphicElement>
 					<pen lineWidth="0.5" lineStyle="Dotted"/>
 				</graphicElement>
 			</line>
 			<textField>
-				<reportElement uuid="394390d2-07e5-417f-bc94-9aec75fd668e" x="442" y="8" width="121" height="20"/>
+				<reportElement x="442" y="8" width="121" height="20" uuid="394390d2-07e5-417f-bc94-9aec75fd668e"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{Month}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="5180f572-92c3-4bbc-b8d8-dd24a053fa87" x="298" y="77" width="58" height="16"/>
+				<reportElement x="298" y="77" width="58" height="16" uuid="5180f572-92c3-4bbc-b8d8-dd24a053fa87"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Tea]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="237852cc-7cb6-4e5d-995e-30626d9187d7" x="357" y="77" width="45" height="15"/>
+				<reportElement x="357" y="77" width="45" height="15" uuid="237852cc-7cb6-4e5d-995e-30626d9187d7"/>
 				<textElement textAlignment="Right">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{other_advance_totals_tea}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="00bbdd57-85f8-4d62-98e8-b758599bdab5" x="298" y="91" width="58" height="16"/>
+				<reportElement x="298" y="91" width="58" height="16" uuid="00bbdd57-85f8-4d62-98e8-b758599bdab5"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Manure]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="fe90c16e-e9df-438c-ba7f-aae97e37b217" x="357" y="92" width="45" height="15"/>
+				<reportElement x="357" y="92" width="45" height="15" uuid="fe90c16e-e9df-438c-ba7f-aae97e37b217"/>
 				<textElement textAlignment="Right">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{other_advance_totals_manure}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="4cc14c9e-d647-4352-ad74-e87308635a7c" x="298" y="107" width="59" height="16"/>
+				<reportElement x="298" y="107" width="59" height="16" uuid="4cc14c9e-d647-4352-ad74-e87308635a7c"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Chemicals]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="436c4643-f905-430b-b816-2990032df5bb" x="356" y="107" width="46" height="15"/>
+				<reportElement x="356" y="107" width="46" height="15" uuid="436c4643-f905-430b-b816-2990032df5bb"/>
 				<textElement textAlignment="Right">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{other_advance_totals_chem}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="a7a6854c-00c9-4f5e-8f76-b04e17ba4be6" x="298" y="120" width="59" height="16"/>
+				<reportElement x="298" y="120" width="59" height="16" uuid="a7a6854c-00c9-4f5e-8f76-b04e17ba4be6"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Shop]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="efbf22ca-920b-4727-a0f7-9894b8bcbaab" x="357" y="121" width="45" height="15"/>
+				<reportElement x="357" y="121" width="45" height="15" uuid="efbf22ca-920b-4727-a0f7-9894b8bcbaab"/>
 				<textElement textAlignment="Right">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{other_advance_totals_shop}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="f4f00f01-3544-45e4-8372-a02a27e1da5a" x="298" y="136" width="59" height="16"/>
+				<reportElement x="298" y="136" width="59" height="16" uuid="f4f00f01-3544-45e4-8372-a02a27e1da5a"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Bags]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="86d3d6c4-4d5d-4ae7-8863-e75cf960b7d1" x="357" y="136" width="45" height="15"/>
+				<reportElement x="357" y="136" width="45" height="15" uuid="86d3d6c4-4d5d-4ae7-8863-e75cf960b7d1"/>
 				<textElement textAlignment="Right">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{other_advance_totals_bags}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="32a2734f-1fc7-4c5a-b2c3-d872869d6aed" x="298" y="150" width="59" height="16"/>
+				<reportElement x="298" y="150" width="59" height="16" uuid="32a2734f-1fc7-4c5a-b2c3-d872869d6aed"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Spray tank]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="78bf0ca5-907f-4842-a0d6-2faf3a842e57" x="357" y="151" width="45" height="15"/>
+				<reportElement x="357" y="151" width="45" height="15" uuid="78bf0ca5-907f-4842-a0d6-2faf3a842e57"/>
 				<textElement textAlignment="Right">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{other_advance_totals_tanks}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="bff340e5-87a1-422e-9631-d34b1603063b" x="298" y="166" width="59" height="16"/>
+				<reportElement x="298" y="166" width="59" height="16" uuid="bff340e5-87a1-422e-9631-d34b1603063b"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Other]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="8109cc40-f53d-4ced-aa78-0673f5ca4140" x="357" y="166" width="45" height="15"/>
+				<reportElement x="357" y="166" width="45" height="15" uuid="8109cc40-f53d-4ced-aa78-0673f5ca4140"/>
 				<textElement textAlignment="Right">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{other_advance_totals_other}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement uuid="205e7f43-8362-496f-90f2-bfc3c2630d24" x="343" y="182" width="60" height="15"/>
+				<reportElement x="343" y="182" width="60" height="15" uuid="205e7f43-8362-496f-90f2-bfc3c2630d24"/>
 				<textElement textAlignment="Right">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_other_advances}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="484d6474-2245-48ec-9df0-7efc7cfb456c" x="311" y="60" width="92" height="16"/>
+				<reportElement x="311" y="60" width="92" height="16" uuid="484d6474-2245-48ec-9df0-7efc7cfb456c"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Advances]]></text>
 			</staticText>
 			<line>
-				<reportElement uuid="24e79a5d-3af1-4b25-9668-f5d4c42fd311" x="298" y="182" width="102" height="1"/>
+				<reportElement x="298" y="182" width="102" height="1" uuid="24e79a5d-3af1-4b25-9668-f5d4c42fd311"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
 			</line>
 			<staticText>
-				<reportElement uuid="422c5b65-9c25-45bc-a4cb-173ba9432830" x="522" y="320" width="39" height="11"/>
+				<reportElement x="522" y="320" width="39" height="11" uuid="422c5b65-9c25-45bc-a4cb-173ba9432830"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[Signature]]></text>
 			</staticText>
 			<line>
-				<reportElement uuid="b93ab047-a153-40e3-8354-f8e14b74ec45" x="171" y="233" width="76" height="1"/>
+				<reportElement x="171" y="233" width="76" height="1" uuid="b93ab047-a153-40e3-8354-f8e14b74ec45"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
 			</line>
 			<line>
-				<reportElement uuid="de523205-bf8a-4b7c-81ad-e53e6d58dc7b" x="0" y="54" width="422" height="1"/>
+				<reportElement x="0" y="54" width="422" height="1" uuid="de523205-bf8a-4b7c-81ad-e53e6d58dc7b"/>
 				<graphicElement>
 					<pen lineWidth="0.5" lineStyle="Dotted"/>
 				</graphicElement>
 			</line>
 			<line>
-				<reportElement uuid="59479b8a-ca3e-4dd1-9f65-67c7033fceee" x="424" y="54" width="135" height="1"/>
+				<reportElement x="424" y="54" width="135" height="1" uuid="59479b8a-ca3e-4dd1-9f65-67c7033fceee"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
 			</line>
 			<staticText>
-				<reportElement uuid="534477a0-860f-4573-9cdb-eb1173205318" x="281" y="272" width="99" height="12"/>
+				<reportElement x="281" y="272" width="99" height="12" uuid="534477a0-860f-4573-9cdb-eb1173205318"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[Legal statement here]]></text>
 			</staticText>
-			<textField pattern="#,##0.00">
-				<reportElement uuid="dfdc7360-5359-4eab-8af9-5cd73dfc84df" x="87" y="306" width="70" height="16"/>
-				<textElement textAlignment="Right">
-					<font size="8"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_bal_cf}]]></textFieldExpression>
-			</textField>
-			<textField pattern="#,##0.00">
-				<reportElement uuid="08b452e1-4dc2-4b8e-8e2d-9d9144e4c5ce" x="87" y="321" width="70" height="16"/>
-				<textElement textAlignment="Right">
-					<font size="8"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{gl_monthly_ledger_current_bal_cf}]]></textFieldExpression>
-			</textField>
 			<line>
-				<reportElement uuid="53143397-9a14-4771-ab4e-a394070f1c12" x="167" y="56" width="1" height="282"/>
+				<reportElement x="167" y="56" width="1" height="282" uuid="53143397-9a14-4771-ab4e-a394070f1c12"/>
 				<graphicElement>
 					<pen lineWidth="0.25" lineStyle="Dotted"/>
 				</graphicElement>
 			</line>
 			<staticText>
-				<reportElement uuid="01a8ebaa-38ac-4791-9f08-b304734880eb" x="218" y="18" width="114" height="20"/>
-				<textElement/>
+				<reportElement x="218" y="18" width="114" height="20" uuid="01a8ebaa-38ac-4791-9f08-b304734880eb"/>
 				<text><![CDATA[Reg No: M.F.1407]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="56bd8d99-4d0d-41f1-afa9-7f5847073c19" x="171" y="301" width="88" height="16"/>
+				<reportElement x="171" y="301" width="88" height="16" uuid="56bd8d99-4d0d-41f1-afa9-7f5847073c19"/>
 				<textElement>
 					<font size="12" isBold="false"/>
 				</textElement>
 				<text><![CDATA[PAY TYPE]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="467ee130-9526-4e51-8108-726648feab13" x="347" y="5" width="33" height="13"/>
-				<textElement>
-					<font size="8"/>
-				</textElement>
-				<text><![CDATA[Bill No:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="fe112270-8629-41c5-b43e-d57409be5b2e" x="518" y="338" width="69" height="10"/>
+				<reportElement x="518" y="338" width="69" height="10" uuid="fe112270-8629-41c5-b43e-d57409be5b2e"/>
 				<textElement>
 					<font size="6"/>
 				</textElement>

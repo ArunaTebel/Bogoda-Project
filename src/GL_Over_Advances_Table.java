@@ -165,7 +165,7 @@ table.getColumnModel().getColumn(10).setCellRenderer(rightRenderer);
               
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
          
-            while (query.next()&& kl<200) {
+            while (query.next()) {
                 remain = 0.0001; remain2 = 0.0001; remain3 = 0.0001; remain4 = 0.0001; remcurrent = 0.0001;
                 sup = query.getInt("sup_id");
                 outlable.setText("Processing "+sup);
@@ -180,10 +180,11 @@ table.getColumnModel().getColumn(10).setCellRenderer(rightRenderer);
                   remcurrent = 0-dbm.checknReturnDoubleData("gl_monthly_ledger_current", "entry", cyear+cmonth+sup, "bal_cf");
                   
                   out[1]= dbm.checknReturnDoubleData("gl_monthly_ledger_current", "entry", cyear+cmonth+sup, "cash_advances");
+                  // current month advance is read^
                   outcurr[0]=dbm.checknReturnDoubleData("gl_monthly_ledger_current", "entry", cyear+cmonth+sup, "total_kg");} catch(Exception e){}
                 }
                  
-                 if (remcurrent < Integer.parseInt(margin.getText())) {
+                 if (remcurrent < Integer.parseInt(margin.getText()) && kl<200) {
                      //System.out.println("---------------------------------|||||"+remcurrent+"          "+Integer.parseInt(margin.getText()));
                      outlable.setText("Processing "+sup);
                      name = dbm.checknReturnData("suppliers", "sup_id", sup, "sup_name");
@@ -197,17 +198,25 @@ table.getColumnModel().getColumn(10).setCellRenderer(rightRenderer);
                   
                   out[1]= dbm.checknReturnDoubleData("gl_monthly_ledger_current", "entry", year+month+sup, "cash_advances");
                   out[0]=dbm.checknReturnDoubleData("gl_monthly_ledger_current", "entry", year+month+sup, "total_kg");} catch(Exception e){}
-                 if(Integer.parseInt(cyear+cmonth)>=Integer.parseInt(temp1[0]+temp1[1])){
+                 
+           
+           
+                  if(Integer.parseInt(cyear+cmonth)>=Integer.parseInt(temp1[0]+temp1[1])){
                  try{     //  out1 = overadvance.calculate(sup, temp1[0], temp1[1]);
                         remain2 = dbm.checknReturnDoubleData("gl_monthly_ledger_current", "entry", temp1[0]+temp1[1]+sup, "bal_cf");
                         out1[0]= dbm.checknReturnDoubleData("gl_monthly_ledger_current", "entry", temp1[0]+temp1[1]+sup, "total_kg");
                         out1[1]= dbm.checknReturnDoubleData("gl_monthly_ledger_current", "entry", temp1[0]+temp1[1]+sup, "cash_advances"); } catch(Exception e){}
-                       if(Integer.parseInt(cyear+cmonth)>=Integer.parseInt(temp2[0]+temp2[1])){
+                      
+                 
+                     if(Integer.parseInt(cyear+cmonth)>=Integer.parseInt(temp2[0]+temp2[1])){
                     try{      // out2 = overadvance.calculate(sup, temp2[0], temp2[1]);
                           remain3 = dbm.checknReturnDoubleData("gl_monthly_ledger_current", "entry", temp2[0]+temp2[1]+sup, "bal_cf");
                           out2[0]= dbm.checknReturnDoubleData("gl_monthly_ledger_current", "entry", temp2[0]+temp2[1]+sup, "total_kg");
                           out2[1]= dbm.checknReturnDoubleData("gl_monthly_ledger_current", "entry", temp2[0]+temp2[1]+sup, "cash_advances");        }catch(Exception e){}
-                          if(Integer.parseInt(cyear+cmonth)>=Integer.parseInt(temp3[0]+temp3[1])){
+                        
+                    
+                    
+                         if(Integer.parseInt(cyear+cmonth)>=Integer.parseInt(temp3[0]+temp3[1])){
                        try{      //out3 = overadvance.calculate(sup, temp3[0], temp3[1]); 
                             remain4 = dbm.checknReturnDoubleData("gl_monthly_ledger_current", "entry", temp3[0]+temp3[1]+sup, "bal_cf");
                             out3[0]= dbm.checknReturnDoubleData("gl_monthly_ledger_current", "entry", temp3[0]+temp3[1]+sup, "total_kg");
@@ -257,8 +266,9 @@ table.getColumnModel().getColumn(10).setCellRenderer(rightRenderer);
                         System.out.println(ee.getMessage());
 
                     }
+                     kl++;
                 }
-                 kl++;
+                
                // }
                
             }
