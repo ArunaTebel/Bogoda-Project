@@ -77,11 +77,13 @@ public class Report_Acc_TB extends javax.swing.JPanel {
         public void run() {
             String date1 = null;
             try {
+               
                 date1 = datechooser.Return_date(yearfield, monthfield, dayfield).toString();
+                System.out.println(date1);
             } catch (ParseException ex) {
                 Logger.getLogger(Report_Acc_TB.class.getName()).log(Level.SEVERE, null, ex);
             }
-
+            
             Acc_Trail_Balance tb = new Acc_Trail_Balance();
             jProgressBar1.setValue(45);
             jProgressBar1.repaint();

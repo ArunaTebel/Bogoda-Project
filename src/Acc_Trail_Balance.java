@@ -22,7 +22,7 @@ public class Acc_Trail_Balance {
             while (query.next()) {
                 if (chk) {
                    // System.out.println(query.getString("account_id"));
-                    double bal = ledg.opening_balance_calc(query.getInt("account_id"), date);
+                    double bal = ledg.opening_balance_calc_for_tb(query.getInt("account_id"), date);
                    
                     dbm.insert("INSERT INTO acc_trail_balance(code,op_bal) VALUES('" + Integer.parseInt(query.getString("account_id")) + "','" + bal + "')");
                 } else {
