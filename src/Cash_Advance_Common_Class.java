@@ -15,7 +15,7 @@ public class Cash_Advance_Common_Class {
     double max_allowable;
     double amount;
     Date date, issue_date, cheque_date;
-    String pay;
+    String pay, cat_id;
     String user = UserAC.get_current_user();
     int month_tr;
 
@@ -32,6 +32,10 @@ public class Cash_Advance_Common_Class {
     // Setters
     public void set_sup_id(int sup_id) {
         this.sup_id = sup_id;
+    }
+    
+     public void set_cat_id(String sup_id) {
+        this.cat_id = sup_id;
     }
 
     public void set_bank(int sup_id) {
@@ -135,6 +139,20 @@ public class Cash_Advance_Common_Class {
         try {
             dbCon.insert("INSERT INTO gl_cash_advance(month_tr_no,sup_id,pay_type,ordered_date,issued_date,emergency,special_permission,amount,ref_no,bank_code,cheque_no,cheque_date,date_time,user)"
                     + " VALUES('" + month_tr + "','" + sup_id + "','" + pay + "','" + date + "','" + issue_date + "','" + emrg + "','" + special_permission + "','" + amount + "','" + ref_no + "','" + bank + "','" + cheque + "','" + cheque_date + "','" + date_time + "','" + user + "')");
+        } catch (SQLException ex) {
+            MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
+            return false;
+        }
+        return true;
+    }
+    
+    public boolean addToDataBasemainTR() {
+        date_time = date_handler.get_today_date_time();
+
+        DatabaseManager dbCon = DatabaseManager.getDbCon();
+        try {
+            dbCon.insert("INSERT INTO gl_tr_cash_advance(month_tr_no,sup_id,pay_type,ordered_date,issued_date,emergency,special_permission,amount,ref_no,bank_code,cheque_no,cheque_date,date_time,user)"
+                    + " VALUES('" + month_tr + "','" + cat_id + "','" + pay + "','" + date + "','" + issue_date + "','" + emrg + "','" + special_permission + "','" + amount + "','" + ref_no + "','" + bank + "','" + cheque + "','" + cheque_date + "','" + date_time + "','" + user + "')");
         } catch (SQLException ex) {
             MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
             return false;

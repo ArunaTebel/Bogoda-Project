@@ -19,6 +19,7 @@ public class GL_other_advances_class {
     Date date;
     String item_name, date_time;
     String item_type;
+    String cat_id;
     double item_rate;
     double quantity;
     int inst;
@@ -41,6 +42,10 @@ public class GL_other_advances_class {
     // Setters
     public void set_sup_id(int sup_id) {
         this.sup_id = sup_id;
+    }
+    
+     public void set_cat_id(String sup_id) {
+        this.cat_id = sup_id;
     }
 
     public void set_installments(int INST) {
@@ -116,6 +121,9 @@ public class GL_other_advances_class {
         }
         return true;
     }
+    
+    
+    
 
     public boolean tranfer() {
         date_time = date_handler.get_today_date_time();
@@ -301,4 +309,45 @@ public class GL_other_advances_class {
         
 
     }
+      
+       public void enter_directlyTR() throws SQLException {
+        date_time = date_handler.get_today_date_time();
+        DatabaseManager dbCon = DatabaseManager.getDbCon();
+        double rate, monthlyPay;
+        int installments, supId;
+        String Nmonth, year, day, month;
+       // Date date;
+        
+
+       
+            try {
+
+                Nmonth = date_handler.get_month(date);
+                month = date_handler.return_month_as_num(Nmonth);
+                year = date_handler.get_year(date);
+                day = date_handler.get_day(date);
+               
+                double total_amount = amount;
+//
+//                
+              int tr_no=0; 
+             dbCon.insert("INSERT INTO gl_tr_other_advances(advance_id,type,Date,order_num,id,item_name,item_type,item_rate,item_quantity,installments,amount,total_amount,date_time,user)"
+                        + " VALUES('" + 1 + "','Current month','" + date + "','" + order_num + "','" + cat_id + "','" + item_name + "','" + item_type + "','" + item_rate + "','" + quantity + "','" + "1" + "','" + amount + "','" + total_amount + "','" + date_time + "','" + user + "')");
+             
+             ResultSet rs = dbCon.query("SELECT LAST_INSERT_ID()");
+            while (rs.next()) {
+                tr_no = rs.getInt(1);
+            }
+            
+            dbm.updateDatabase("gl_tr_other_advances","tr_no",tr_no,"order_num",tr_no);
+            rs.close();
+              
+            } catch (Exception ex) {
+                Logger.getLogger(GL_Loans.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        
+
+    }
+      
 }
