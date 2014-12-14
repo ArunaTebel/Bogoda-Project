@@ -1975,12 +1975,14 @@ public class ACC_ledger {
                     try {
                         dtD = new SimpleDateFormat("yyyy-MM-dd").parse(dt);
                     } catch (ParseException ex) {
+                        System.out.println(ex);
                         Logger.getLogger(ACC_ledger.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     java.util.Date date1D = null;
                     try {
                         date1D = new SimpleDateFormat("yyyy-MM-dd").parse(date1);
                     } catch (ParseException ex) {
+                        System.out.println(ex);
                         Logger.getLogger(ACC_ledger.class.getName()).log(Level.SEVERE, null, ex);
                     }
 
@@ -1990,7 +1992,9 @@ public class ACC_ledger {
                 }
 
             } catch (SQLException ex) {
+                System.out.println(ex);
                 Logger.getLogger(Acc_Update_And_Additional_Data.class.getName()).log(Level.SEVERE, null, ex);
+                
             }
 
             // Search and fill in Payments
@@ -2002,14 +2006,17 @@ public class ACC_ledger {
 
                     java.util.Date dtD = null;
                     try {
+                       // System.out.println(query.getInt("tr_no"));
                         dtD = new SimpleDateFormat("yyyy-MM-dd").parse(dt);
                     } catch (ParseException ex) {
+                        System.out.println(ex);
                         Logger.getLogger(ACC_ledger.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     java.util.Date date1D = null;
                     try {
                         date1D = new SimpleDateFormat("yyyy-MM-dd").parse(date1);
                     } catch (ParseException ex) {
+                        System.out.println(ex);
                         Logger.getLogger(ACC_ledger.class.getName()).log(Level.SEVERE, null, ex);
                     }
 
@@ -2019,7 +2026,9 @@ public class ACC_ledger {
                 }
 
             } catch (SQLException ex) {
+                System.out.println(ex);
                 Logger.getLogger(Acc_Update_And_Additional_Data.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println(ex);
             }
 
             try {
@@ -2030,6 +2039,7 @@ public class ACC_ledger {
                 }
 
             } catch (SQLException ex) {
+                System.out.println(ex);
                 Logger.getLogger(Acc_Update_And_Additional_Data.class.getName()).log(Level.SEVERE, null, ex);
             }
 
@@ -2042,6 +2052,7 @@ public class ACC_ledger {
                 }
 
             } catch (SQLException ex) {
+                System.out.println(ex);
                 Logger.getLogger(Acc_Update_And_Additional_Data.class.getName()).log(Level.SEVERE, null, ex);
             }
 
@@ -2055,12 +2066,14 @@ public class ACC_ledger {
                     try {
                         dtD = new SimpleDateFormat("yyyy-MM-dd").parse(dt);
                     } catch (ParseException ex) {
+                        System.out.println(ex);
                         Logger.getLogger(ACC_ledger.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     java.util.Date date1D = null;
                     try {
                         date1D = new SimpleDateFormat("yyyy-MM-dd").parse(date1);
                     } catch (ParseException ex) {
+                        System.out.println(ex);
                         Logger.getLogger(ACC_ledger.class.getName()).log(Level.SEVERE, null, ex);
                     }
 
@@ -2070,6 +2083,7 @@ public class ACC_ledger {
                 }
 
             } catch (SQLException ex) {
+                System.out.println(ex);
                 Logger.getLogger(Acc_Update_And_Additional_Data.class.getName()).log(Level.SEVERE, null, ex);
             }
 
