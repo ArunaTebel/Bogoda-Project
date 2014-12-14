@@ -1,6 +1,7 @@
 
 import java.awt.event.ItemEvent;
 import java.awt.event.KeyEvent;
+import java.beans.EventHandler;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -636,6 +637,9 @@ public class Report_Acc_Ledger extends javax.swing.JPanel {
 
         debit_accountCode.putClientProperty("JComboBox.isTableCellEditor",Boolean.TRUE);
         account_code.setEditable(true);
+        ///
+
+        //
         account_code.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("account_names", "account_id")));
         account_code.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -650,6 +654,9 @@ public class Report_Acc_Ledger extends javax.swing.JPanel {
         account_code.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 account_codeKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                account_codeKeyReleased(evt);
             }
         });
 
@@ -783,7 +790,7 @@ public class Report_Acc_Ledger extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(6, 6, 6)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addGap(19, 19, 19)
                 .addComponent(account_name, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1629,7 +1636,10 @@ public class Report_Acc_Ledger extends javax.swing.JPanel {
     }//GEN-LAST:event_account_codeActionPerformed
 
     private void account_codeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_account_codeKeyPressed
-        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            System.out.println("sdcscs");
+         date_range.requestFocusInWindow();
+         } 
     }//GEN-LAST:event_account_codeKeyPressed
 
     private void allActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allActionPerformed
@@ -1669,6 +1679,13 @@ public class Report_Acc_Ledger extends javax.swing.JPanel {
             date_check.setSelected(true);
         }
     }//GEN-LAST:event_trans_checkItemStateChanged
+
+    private void account_codeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_account_codeKeyReleased
+          if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            System.out.println("sdcscs");
+         date_range.requestFocusInWindow();
+         } 
+    }//GEN-LAST:event_account_codeKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

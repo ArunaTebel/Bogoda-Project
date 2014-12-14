@@ -157,6 +157,8 @@ public class DateChooser_text extends javax.swing.JPanel {
 
         return Datef;
     }
+  
+   
 
     /**
      * This method is called from within the constructor to initialize the form.
