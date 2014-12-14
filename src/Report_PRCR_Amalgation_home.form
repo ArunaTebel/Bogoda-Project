@@ -39,11 +39,7 @@
                               <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                               <Component id="division_jc" min="-2" pref="71" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="view2" max="32767" attributes="0"/>
-                              <Component id="view" max="32767" attributes="0"/>
-                              <Component id="view1" alignment="0" min="-2" pref="110" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="view1" alignment="0" min="-2" pref="110" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -63,13 +59,9 @@
                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="division_jc" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-              <Component id="view" min="-2" pref="33" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
               <Component id="view1" min="-2" pref="33" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="view2" min="-2" pref="33" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
               <Component id="jProgressBar1" min="-2" pref="29" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -175,15 +167,6 @@
         </Container>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="view">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Update"/>
-      </Properties>
-      <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="viewMouseClicked"/>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="viewActionPerformed"/>
-      </Events>
-    </Component>
     <Component class="javax.swing.JProgressBar" name="jProgressBar1">
       <Properties>
         <Property name="stringPainted" type="boolean" value="true"/>
@@ -200,18 +183,9 @@
         <Property name="text" type="java.lang.String" value="Amalgamation"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="view2">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Open last"/>
-      </Properties>
-      <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="view2MouseClicked"/>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="view2ActionPerformed"/>
-      </Events>
-    </Component>
     <Component class="javax.swing.JButton" name="view1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Veiw"/>
+        <Property name="text" type="java.lang.String" value="View"/>
       </Properties>
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="view1MouseClicked"/>

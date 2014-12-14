@@ -26,7 +26,7 @@ public class Report_PRCR_other_advance extends javax.swing.JPanel {
         @Override
         public void run() {
             //  jProgressBar1.setIndeterminate(true);
-            view.setEnabled(false);
+            //view.setEnabled(false);
             jProgressBar1.setVisible(true);
             int a = (int) (Math.random() * 500);
             //System.out.println(a);
@@ -40,6 +40,7 @@ public class Report_PRCR_other_advance extends javax.swing.JPanel {
                     Logger.getLogger(Reports_GL.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
+             view.setEnabled(true);
 
         }
     }

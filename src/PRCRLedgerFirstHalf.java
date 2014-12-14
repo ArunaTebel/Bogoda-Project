@@ -137,13 +137,13 @@ public class PRCRLedgerFirstHalf implements Runnable{
         int count = 0;
         DatabaseManager dbm = DatabaseManager.getDbCon();
         try {
-            ResultSet query = dbm.query("SELECT " + column_name + " FROM " + table_name + " WHERE register_or_casual LIKE'"+1+"'");
+            ResultSet query = dbm.query("SELECT " + column_name + " FROM " + table_name + " WHERE register_or_casual LIKE '1'");
             while (query.next()) {
                 count++;
             }
             int[] array = new int[count];
             count = 0;
-            ResultSet query2 = dbm.query("SELECT " + column_name + " FROM " + table_name + " WHERE register_or_casual LIKE'"+1+"'");
+            ResultSet query2 = dbm.query("SELECT " + column_name + " FROM " + table_name + " WHERE register_or_casual LIKE '1'");
             while (query2.next()) {
                 array[count] = query2.getInt(column_name);
                 count++;
@@ -195,4 +195,8 @@ public class PRCRLedgerFirstHalf implements Runnable{
         }
         return 0;
     }
+     
+     
+     
+     
 }

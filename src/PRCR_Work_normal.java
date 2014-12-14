@@ -585,6 +585,7 @@ jRadioButton1.setSelected(true);
 
         jLabel3.setText("Date");
 
+        table.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 255)));
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
@@ -730,7 +731,7 @@ jRadioButton1.setSelected(true);
             table.getColumnModel().getColumn(4).setPreferredWidth(40);
         }
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 153)));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 255)));
 
         jLabel1.setText("Employee Code");
 
@@ -774,7 +775,7 @@ jRadioButton1.setSelected(true);
                         .addGap(21, 21, 21))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(empName, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(74, Short.MAX_VALUE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -863,7 +864,7 @@ jRadioButton1.setSelected(true);
             }
         });
 
-        datepanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 153)));
+        datepanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 255)));
 
         monthfield1.setText(datehandler.get_today_month());
         monthfield1.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -927,7 +928,7 @@ jRadioButton1.setSelected(true);
             }
         });
 
-        jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 153)));
+        jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 255)));
 
         workCode.putClientProperty("JComboBox.isTableCellEditor", Boolean.TRUE);
         workCode.setEditable(true);
@@ -971,7 +972,7 @@ jRadioButton1.setSelected(true);
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(W_code, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
                 .addComponent(workCode, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -988,7 +989,7 @@ jRadioButton1.setSelected(true);
                 .addContainerGap())
         );
 
-        fac_panel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 153)));
+        fac_panel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 255)));
 
         jLabel8.setText("Over Time");
 
@@ -1198,7 +1199,7 @@ jRadioButton1.setSelected(true);
                 .addContainerGap())
         );
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 153)));
+        jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 255)));
 
         sunday.setText("Sunday");
 
@@ -1228,22 +1229,19 @@ jRadioButton1.setSelected(true);
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(fac_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel3)
-                                        .addGap(8, 8, 8)
-                                        .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(46, 46, 46)
-                                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jLabel3)
+                                .addGap(8, 8, 8)
+                                .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(46, 46, 46)
+                                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(fac_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(263, 263, 263))
@@ -1909,7 +1907,36 @@ jRadioButton1.setSelected(true);
 
     private void workCodeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_workCodeKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
-            otday.requestFocus();
+           int a=0;
+            ResultSet query = null;
+            try {
+                query = dbm.query("SELECT * FROM workcode_details");
+            } catch (SQLException ex) {
+                Logger.getLogger(PRCR_Work_normal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+             try {
+                while(query.next()){
+                    
+                    //JOptionPane.showMessageDialog(null, "Duplicate entry!\n", "Message", JOptionPane.INFORMATION_MESSAGE);
+                    if(query.getString("code").equals(W_code.getText())){
+                        a=1;
+                    }
+                    
+                    
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(PRCR_Work_normal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            if(a==1){
+                otday.requestFocus();
+            }else{
+                 msg.showMessage("Error in work code!", "Check-Roll", "info");
+                W_code.setText("");
+                W_code.requestFocus();
+            }
+            
 
         }        // TODO add your handling code here:
     }//GEN-LAST:event_workCodeKeyPressed
@@ -1941,8 +1968,32 @@ jRadioButton1.setSelected(true);
 
     private void W_codeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_W_codeKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-          
-               workCode.setSelectedItem(W_code.getText());
+              int a=0;
+            ResultSet query = null;
+            try {
+                query = dbm.query("SELECT * FROM workcode_details");
+            } catch (SQLException ex) {
+                Logger.getLogger(PRCR_Work_normal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+             try {
+                while(query.next()){
+                    
+                    //JOptionPane.showMessageDialog(null, "Duplicate entry!\n", "Message", JOptionPane.INFORMATION_MESSAGE);
+                    if(query.getString("code").equals(W_code.getText())){
+                        a=1;
+                    }
+                    
+                    
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(PRCR_Work_normal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            if(a==1){
+                
+                   workCode.setSelectedItem(W_code.getText());
+               
            
             
             if ("FAC".equals(division.getText()) || "TA".equals(division.getText()) || "FAC1".equals(division.getText())) {
@@ -1956,6 +2007,30 @@ jRadioButton1.setSelected(true);
                 jButton1.requestFocus();
             }
               workCode.setSelectedItem(W_code.getText());
+            }else{
+                 msg.showMessage("Error in work code!", "Check-Roll", "info");
+                W_code.setText("");
+                W_code.requestFocus();
+            }
+            
+            
+            
+          
+//               workCode.setSelectedItem(W_code.getText());
+//               
+//           
+//            
+//            if ("FAC".equals(division.getText()) || "TA".equals(division.getText()) || "FAC1".equals(division.getText())) {
+//                if (jRadioButton1.isSelected()) {
+//                    otday.requestFocus();
+//                } else {
+//                    in.requestFocus();
+//                }
+//            } else {
+//     
+//                jButton1.requestFocus();
+//            }
+//              workCode.setSelectedItem(W_code.getText());
 
         }
     }//GEN-LAST:event_W_codeKeyPressed
