@@ -208,7 +208,6 @@ public class pGreenLeaf extends javax.swing.JPanel {
         jLabel1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
         jButton8.setText("Transport");
-        jButton8.setEnabled(false);
         jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton8ActionPerformed(evt);

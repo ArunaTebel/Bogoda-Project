@@ -22,12 +22,11 @@ import javax.swing.JOptionPane;
  *
  * @author Pramo
  */
-public class Report_GL_monthly_totals extends javax.swing.JPanel {
-   
+public class Report_GL_welfare_type2 extends javax.swing.JPanel {
+
     public class Background implements Runnable {
 
         int delay;
-        
 
         public Background(int Delay) {
             delay = Delay;
@@ -54,35 +53,41 @@ public class Report_GL_monthly_totals extends javax.swing.JPanel {
 
         }
     }
-
     
+    /*
+ 
+
+    */
      public class report_old implements Runnable {
 
-        public report_old() {
+       public report_old() {
         }
 
         @Override
         public void run() {
-
             Thread a = new Thread(new Background(55));
+            a.start();
+            Report_cal.welfare_type2_calc(yearfield.getText(), datehandler.return_month_as_num(monthfield.getText()), yearfield1.getText(), datehandler.return_month_as_num(monthfield1.getText()));
+            
+            
 
            // Thread t1 = new Thread(new update(yearfield.getText(), monthfield.getText()));
             HashMap param = new HashMap();
-              param.put("sup", Integer.parseInt(supplier_id.getSelectedItem().toString()));
+              //param.put("sup", Integer.parseInt(supplier_id.getSelectedItem().toString()));
             param.put("USER", user.get_current_user());
-            param.put("from_year", yearfield.getText());
-            param.put("from_month", datehandler.return_month_as_num(monthfield.getText()));
-            param.put("to_year", yearfield1.getText());
-            param.put("to_month", datehandler.return_month_as_num(monthfield1.getText()));
+            //param.put("from_year", yearfield.getText());
+            //param.put("from_month", datehandler.return_month_as_num(monthfield.getText()));
+            //param.put("to_year", yearfield1.getText());
+            //param.put("to_month", datehandler.return_month_as_num(monthfield1.getText()));
             //param.put("Month", datehandler.Return_month_full(datehandler.return_index(monthfield.getText())) + " " + yearfield.getText().toString());
 
             // b.start();
-            a.start();
+            
            // t1.run();
 
             String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
 
-           String dateNow= generate.create("Monthly_Totals", saveloc, param, location, "GL_monthly_totals.jrxml");
+           String dateNow= generate.create("Welf_type2", saveloc, param, location, "GL_welfare2.jrxml");
             a.stop();
             jProgressBar1.setValue(100);
             try {
@@ -90,8 +95,8 @@ public class Report_GL_monthly_totals extends javax.swing.JPanel {
             } catch (SQLException ex) {
                 Logger.getLogger(Report_GL_daily_transactions.class.getName()).log(Level.SEVERE, null, ex);
             }
-
         }
+
     }
 
    
@@ -100,7 +105,7 @@ public class Report_GL_monthly_totals extends javax.swing.JPanel {
     /**
      *
      */
-    public Report_GL_monthly_totals() {
+    public Report_GL_welfare_type2() {
         initComponents();
         jProgressBar1.setStringPainted(true);
     }
@@ -110,7 +115,7 @@ public class Report_GL_monthly_totals extends javax.swing.JPanel {
     UserAccountControl user = new UserAccountControl();
     DatabaseManager dbm =  DatabaseManager.getDbCon();
     String saveloc = dbm.checknReturnStringData("file_locations", "description", "ReportSave", "location");
-     
+    GL_report_generator Report_cal= new GL_report_generator();
 
     public void focus() {
         monthfield.requestFocus();
@@ -220,7 +225,7 @@ public class Report_GL_monthly_totals extends javax.swing.JPanel {
         );
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel4.setText("Monthly Totals");
+        jLabel4.setText("Welfare Report");
 
         view2.setText("Open last");
         view2.addMouseListener(new java.awt.event.MouseAdapter() {

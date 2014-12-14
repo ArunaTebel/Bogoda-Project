@@ -271,7 +271,6 @@ Date_Handler date_handler = new Date_Handler();
         });
 
         jButton17.setText("Transport Reports");
-        jButton17.setEnabled(false);
         jButton17.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton17ActionPerformed(evt);
@@ -549,6 +548,28 @@ Date_Handler date_handler = new Date_Handler();
     }//GEN-LAST:event_jButton15ActionPerformed
 
     private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
+      int type = 2;   //arbour valley
+        
+       if(type == 2) {
+        Report_GL_welfare_type2 pgreenleaf=new Report_GL_welfare_type2();
+
+        content.removeAll();
+
+        pgreenleaf.setSize(content.getSize());
+
+        content.add(pgreenleaf);
+        validate();
+        repaint();
+        pgreenleaf.focus();
+       
+       
+       
+       
+       
+       
+       
+       }
+       else{
         Date_Handler datehandler = new Date_Handler();
         HashMap param = new HashMap();
                 //jProgressBar1.setValue(10);
@@ -568,6 +589,7 @@ Date_Handler date_handler = new Date_Handler();
         
         generate.create("GL_welfare", Slocation, param, location, "welfareCross.jrxml");
           progress.setValue(100);
+       }
     }//GEN-LAST:event_jButton16ActionPerformed
 
     private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
