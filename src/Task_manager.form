@@ -508,7 +508,6 @@
                             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                               <Color blue="0" green="0" red="0" type="rgb"/>
                             </Property>
-                            <Property name="enabled" type="boolean" value="false"/>
                             <Property name="stringPainted" type="boolean" value="true"/>
                           </Properties>
                           <AuxValues>
@@ -518,7 +517,6 @@
                         <Component class="javax.swing.JCheckBox" name="GL5">
                           <Properties>
                             <Property name="text" type="java.lang.String" value="Transport Ledger"/>
-                            <Property name="enabled" type="boolean" value="false"/>
                           </Properties>
                           <Events>
                             <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="GL5ItemStateChanged"/>

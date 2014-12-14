@@ -488,6 +488,9 @@ int size= 0;
     }
 
     public void monthly_ledger_calc(String year, String month) throws SQLException {
+        int type = 2;   // different calculation methods for different types 
+        
+        
         CheckNDeleteFromDataBase("gl_monthly_ledger_current", "year","month", year,month);
         int k = 0;
         int sup;
@@ -597,8 +600,15 @@ int size= 0;
             welf = 0;
             cash_advance=0;
             other_advance=0;
-
+            
+            if(type ==2){              // type change for arbourvalley tea factory
+            welf = total_kg;
+             
+            }
+            else{
             welf = dbm.checknReturnDoubleData("welfare", "entry", year + month + sup, "amount");
+               
+            }
             // System.out.println("WELFARE OK"+welf);
 
              ////cash_advance = dbm.checknReturnDoubleData("weekly_advance_current", "entry", year + month + sup, "cash_total");
@@ -660,6 +670,9 @@ int size= 0;
                 Task_manager.monthlegprog.setValue(k);
             } catch (Exception hee) {
             }
+        }
+        if(type ==2 ){
+        Welfare_type2(year, month);
         }
 
         query.close();
@@ -1334,31 +1347,92 @@ int size= 0;
       
       
       
-      public void testfunc() throws SQLException{
-      
-    //  "SELECT distinct sup_id FROM " + "green_leaf_transactions" + " where " + "tr_date" + " BETWEEN'" + Sdate + "' AND '" + Ldate + "'"
-        
-             
-                          
-                           
-
-        //Date date4;
-//        if (month.equals("12")) {
-//            date4 = java.sql.Date.valueOf(String.valueOf(Integer.parseInt(year) + 1) + "-" + date_handler.get_next_month(month) + "-" + endDate);
-//        } else {
-            
-     //   }
-
-        // System.out.println(date1+"----"+date2+"----"+date3+"-----"+date4);
-        // DatabaseManager dbm = DatabaseManager.getDbCon();
-      
-
-        // String loansquery =  "SELECT  sup_id FROM " + "gl_loans" + " where " + "date" + " BETWEEN'" + date1 + "' AND '" + date4 + "'";
-
-      // ResultSet query = dbm.query("SELECT distinct sup_id FROM " + "gl_cash_advance" + " where issued_date" + " BETWEEN'" + date1 + "' AND '" + date4 + "'");
-
+      public void Welfare_type2(String year,String month) {
+       try {
+                    dbm.insert("INSERT INTO welfare_type_2(entry,value) VALUES('" +year+month+ "','" + 1 +"')");
+                } catch (Exception e) {
+           try {
+               dbm.insert("UPDATE welfare_type_2 SET value ='" + 1 + "' WHERE entry = '" + year+month + "'");
+           } catch (SQLException ex) {
+               Logger.getLogger(GL_report_generator.class.getName()).log(Level.SEVERE, null, ex);
+           }
+                }
       
       }
+      
+      
+      public void welfare_type2_calc(String year, String month, String cyear, String cmonth){
+      int sup_id = 0;
+      double[] totz = new double[12];
+      double total = 0;
+      int   tempmonth ;
+      String value = "0";
+      
+      
+      
+        try {
+            dbm.insert("Truncate welfare_type2_current");
+            ResultSet query = dbm.query("SELECT * From suppliers");
+            
+            while(query.next()){
+                total = 0;
+              sup_id = query.getInt("sup_id");
+              
+              
+              
+              for(int i = 0;i <12 ; i++){
+                  totz[i]= 0;
+              tempmonth = Integer.parseInt(date_handler.forwad_months(year, month, i).split("-")[0]+date_handler.forwad_months(year, month, i).split("-")[1]);
+                  
+            value = dbm.checknReturnData("welfare_type_2","entry",tempmonth,"value");
+                 
+              if(tempmonth <= Integer.parseInt(cyear+cmonth) &&  value !=null)
+              {
+                  
+                  totz[i] = month_totals(tempmonth+"", sup_id);
+                 
+                  total += totz[i];
+                   
+                    }
+                
+              }
+              
+              dbm.insert("INSERT INTO welfare_type2_current(entry,sup_id,m1,m2,m3,m4,m5,m6,m7,m8,m9,m10,m11,m12,total) VALUES('"+sup_id+ "','" + sup_id +"','" + totz[0] +"','" + totz[1] +"','" + totz[2] +"','" + totz[3] +"','" + totz[4] +"','" + totz[5] +"','" + totz[6] +"','" + totz[7]+"','" +totz[8] +"','" + totz[9] +"','" +totz[10] +"','" + totz[11] +"','" + total +"')");
+            
+                
+            } } catch (SQLException ex) {
+            Logger.getLogger(GL_report_generator.class.getName()).log(Level.SEVERE, null, ex);
+        }
+      
+      
+      
+      
+      
+      
+      
+      }
+      
+      public double month_totals(String month, int sup){
+        try {
+            double total= 0;
+            ResultSet query1 = dbm.query("SELECT * FROM daily_transactions_current WHERE entry LIKE '" + month + sup + "' ");
+            while (query1.next()) {
+                
+                total = query1.getDouble("Total");
+            }
+            query1.close();
+            
+            
+            
+            
+            return total;
+        } catch (SQLException ex) {
+            Logger.getLogger(GL_report_generator.class.getName()).log(Level.SEVERE, null, ex);
+            return 0;
+        }
+      }
+      
+           
     /*
      public void update_welfare(String year, String month) {
      DatabaseManager dbCon = DatabaseManager.getDbCon();

@@ -448,11 +448,9 @@ public class Task_manager extends javax.swing.JPanel {
         });
 
         predebprog1.setForeground(new java.awt.Color(0, 0, 0));
-        predebprog1.setEnabled(false);
         predebprog1.setStringPainted(true);
 
         GL5.setText("Transport Ledger");
-        GL5.setEnabled(false);
         GL5.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 GL5ItemStateChanged(evt);
