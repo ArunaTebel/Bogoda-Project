@@ -182,7 +182,6 @@ public class Report_PRCR_ETF_6Month extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         first6 = new javax.swing.JRadioButton();
         last6 = new javax.swing.JRadioButton();
-        view = new javax.swing.JButton();
         jProgressBar1 = new javax.swing.JProgressBar();
         jLabel4 = new javax.swing.JLabel();
         view2 = new javax.swing.JButton();
@@ -260,18 +259,6 @@ public class Report_PRCR_ETF_6Month extends javax.swing.JPanel {
                     .addGap(24, 24, 24)))
         );
 
-        view.setText("Update");
-        view.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                viewMouseClicked(evt);
-            }
-        });
-        view.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                viewActionPerformed(evt);
-            }
-        });
-
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel4.setText("ETF 6 Month");
 
@@ -313,7 +300,6 @@ public class Report_PRCR_ETF_6Month extends javax.swing.JPanel {
                                 .addGap(45, 45, 45)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(view2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(view, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(view1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
@@ -328,37 +314,14 @@ public class Report_PRCR_ETF_6Month extends javax.swing.JPanel {
                 .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(view, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(45, 45, 45)
                 .addComponent(view1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(view2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(30, 30, 30)
                 .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void viewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewActionPerformed
-// int year = Integer.parseInt(yearField.getText());
-//        if(first6.isSelected()){
-//            PRCRLedgerFirstHalf ex = new PRCRLedgerFirstHalf(year);
-//   Thread b=new Thread(ex);
-//   b.start();
-//        }
-//        else if(last6.isSelected()){
-//            PRCRLedgerSecondHalf ex = new PRCRLedgerSecondHalf(year);
-//            Thread c=new Thread(ex);
-//            c.start();
-//        }
-//        else
-//            JOptionPane.showMessageDialog(null, "Select Period of the year!");
-//        
-    }//GEN-LAST:event_viewActionPerformed
-
-    private void viewMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewMouseClicked
-        // jLabel4.setText("please wait..");
-    }//GEN-LAST:event_viewMouseClicked
 
     private void view2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_view2MouseClicked
         // TODO add your handling code here:
@@ -441,7 +404,6 @@ public class Report_PRCR_ETF_6Month extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JRadioButton last6;
-    private javax.swing.JButton view;
     private javax.swing.JButton view1;
     private javax.swing.JButton view2;
     private javax.swing.JTextField yearField;

@@ -36,7 +36,7 @@ public class PRCRLedgerSecondHalf implements Runnable{
     public void getWorkCodes(){
         String table = "checkroll_personalinfo";
         String coloumn = "code";
-        workCodes = dbm.getArray(table, coloumn);
+        workCodes = getArray(table, coloumn);
     }
     
     public void updateWorker(int i){
@@ -158,7 +158,7 @@ public class PRCRLedgerSecondHalf implements Runnable{
         Report_PRCR_EPF_6Month.epfPrgrsbr.setValue(100);
     
     }
-       public double checknReturnDoubleData2(String table_name, String table_column_giving, Object row_element, String table_column_giving2, Object row_element2, String table_column_need) {
+     public double checknReturnDoubleData2(String table_name, String table_column_giving, Object row_element, String table_column_giving2, Object row_element2, String table_column_need) {
            double d = 0;
         try{
                ResultSet query = dbm.query("SELECT * FROM " + table_name + " where " + table_column_giving + " = '" + row_element + "' AND " + table_column_giving2 + " = '" + row_element2 + "'"); 
@@ -173,5 +173,31 @@ public class PRCRLedgerSecondHalf implements Runnable{
             // return "" + ex.getErrorCode();
         }
         return 0;
+    }
+     
+     
+     public int[] getArray(String table_name, String column_name) {
+
+        int count = 0;
+
+        try {
+            ResultSet query = dbm.query("SELECT " + column_name + " FROM " + table_name + " WHERE register_or_casual LIKE '1'");
+            while (query.next()) {
+                count++;
+            }
+            query.close();
+            int[] array = new int[count];
+            count = 0;
+            ResultSet query2 = dbm.query("SELECT " + column_name + " FROM " + table_name + " WHERE register_or_casual LIKE '1'");
+            while (query2.next()) {
+                array[count] = query2.getInt(column_name);
+                count++;
+            }
+            query2.close();
+            return array;
+        } catch (SQLException ex) {
+
+        }
+        return null;
     }
 }

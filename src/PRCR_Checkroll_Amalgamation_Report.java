@@ -79,7 +79,10 @@ public class PRCR_Checkroll_Amalgamation_Report {
        // double otRate=(otbframnt+otaftramnt)/(otbfrhrsttotal+otaftrhrstotal);
         //System.out.println("Ot rate-"+otRate+","+otbfrhrsttotal+","+otaftrhrstotal);
         System.out.println("gross pay-"+grosspay);
+        System.out.println("otbframnt-"+otbframnt);
+        System.out.println("otaftramnt-"+otaftramnt);
         System.out.println("work days-"+normaldaysstotal+sundaysstotal);
+        
 
         j = 0;
         System.out.println(columnsize);
@@ -141,7 +144,7 @@ public class PRCR_Checkroll_Amalgamation_Report {
         int tot = 0;
 
         try {
-            ResultSet query = dbm.query("SELECT * FROM " + table_name + "");
+            ResultSet query = dbm.query("SELECT * FROM " + table_name + " WHERE active LIKE '1'");
 
             while (query.next()) {
 
@@ -164,7 +167,7 @@ public class PRCR_Checkroll_Amalgamation_Report {
        // DatabaseManager dbm = DatabaseManager.getDbCon();
         double tot = 0;
         try {
-            ResultSet query = dbm.query("SELECT * FROM " + table_name + "");
+            ResultSet query = dbm.query("SELECT * FROM " + table_name + " WHERE active LIKE '1'");
             while (query.next()) {
 
                 if (query.getString(division_column).equals(division)) {

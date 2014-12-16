@@ -183,6 +183,7 @@ public class Acc_Change_Period extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 153)));
 
         acc_2008.setText("2008-09");
+        acc_2008.setEnabled(false);
         acc_2008.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 acc_2008ItemStateChanged(evt);
@@ -195,6 +196,7 @@ public class Acc_Change_Period extends javax.swing.JFrame {
         });
 
         acc_2009.setText("2009-10");
+        acc_2009.setEnabled(false);
         acc_2009.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 acc_2009ItemStateChanged(evt);
@@ -219,6 +221,7 @@ public class Acc_Change_Period extends javax.swing.JFrame {
         });
 
         acc_2010.setText("2010-11");
+        acc_2010.setEnabled(false);
         acc_2010.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 acc_2010ItemStateChanged(evt);
@@ -243,6 +246,7 @@ public class Acc_Change_Period extends javax.swing.JFrame {
         });
 
         acc_2011.setText("2011-12");
+        acc_2011.setEnabled(false);
         acc_2011.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 acc_2011ItemStateChanged(evt);
@@ -267,6 +271,7 @@ public class Acc_Change_Period extends javax.swing.JFrame {
         });
 
         acc_2012.setText("2012-13");
+        acc_2012.setEnabled(false);
         acc_2012.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 acc_2012ItemStateChanged(evt);

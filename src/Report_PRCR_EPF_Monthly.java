@@ -155,6 +155,7 @@ public class Report_PRCR_EPF_Monthly extends javax.swing.JPanel {
                     while(query.next()){
                         grandtotal=grandtotal+query.getDouble("total_epf");
                     }
+                    grandtotal=(Math.round(grandtotal*100.0))/100.0;
                     param.put("grandtotalP",grandtotal);
                 } catch (SQLException ex) {
                     Logger.getLogger(Report_PRCR_EPF_Monthly.class.getName()).log(Level.SEVERE, null, ex);

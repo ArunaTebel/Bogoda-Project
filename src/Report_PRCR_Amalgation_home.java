@@ -105,6 +105,7 @@ public class Report_PRCR_Amalgation_home extends javax.swing.JPanel {
             HashMap param = new HashMap();
             param.put("USER", user.get_current_user());
             param.put("DIVISION",division_jc.getSelectedItem().toString());
+            param.put("MONTH", yearfield.getText()+"  "+monthfield.getText());
 //            param.put("month", datehandler.return_month_as_num(monthfield.getText()));
 //            param.put("Month", datehandler.Return_month_full(datehandler.return_index(monthfield.getText())) + " " + yearfield.getText().toString());
 
@@ -183,10 +184,8 @@ public class Report_PRCR_Amalgation_home extends javax.swing.JPanel {
         monthfield = new javax.swing.JTextField();
         yearfield = new javax.swing.JTextField();
         datePicker1 = new com.michaelbaranov.microba.calendar.DatePicker();
-        view = new javax.swing.JButton();
         jProgressBar1 = new javax.swing.JProgressBar();
         jLabel4 = new javax.swing.JLabel();
-        view2 = new javax.swing.JButton();
         view1 = new javax.swing.JButton();
         division_jc = new javax.swing.JComboBox();
         jLabel2 = new javax.swing.JLabel();
@@ -259,36 +258,12 @@ public class Report_PRCR_Amalgation_home extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        view.setText("Update");
-        view.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                viewMouseClicked(evt);
-            }
-        });
-        view.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                viewActionPerformed(evt);
-            }
-        });
-
         jProgressBar1.setStringPainted(true);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel4.setText("Amalgamation");
 
-        view2.setText("Open last");
-        view2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                view2MouseClicked(evt);
-            }
-        });
-        view2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                view2ActionPerformed(evt);
-            }
-        });
-
-        view1.setText("Veiw");
+        view1.setText("View");
         view1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 view1MouseClicked(evt);
@@ -334,10 +309,7 @@ public class Report_PRCR_Amalgation_home extends javax.swing.JPanel {
                                 .addComponent(jLabel2)
                                 .addGap(34, 34, 34)
                                 .addComponent(division_jc, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(view2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(view, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(view1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addComponent(view1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(93, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -351,13 +323,9 @@ public class Report_PRCR_Amalgation_home extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(division_jc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33)
-                .addComponent(view, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(72, 72, 72)
                 .addComponent(view1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(view2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(57, 57, 57)
                 .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -559,31 +527,6 @@ public class Report_PRCR_Amalgation_home extends javax.swing.JPanel {
         // dayfield2.selectAll();
     }//GEN-LAST:event_datePicker1ActionPerformed
 
-    private void viewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewActionPerformed
-
-        
-    }//GEN-LAST:event_viewActionPerformed
-
-    private void viewMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewMouseClicked
-        // jLabel4.setText("please wait..");
-    }//GEN-LAST:event_viewMouseClicked
-
-    private void view2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_view2MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_view2MouseClicked
-
-    private void view2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_view2ActionPerformed
-//        String save_location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
-//        
-//        String file_name= dbm.checknReturnStringData("last_report", "type", "Weekly_Advances_", "filename");
-//        File myFile = new File("D:\\"+file_name+".pdf");
-//        try {
-//            Desktop.getDesktop().open(myFile);
-//        } catch (IOException ex) {
-//            Logger.getLogger(Report_GL_daily_transactions.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-    }//GEN-LAST:event_view2ActionPerformed
-
     private void view1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_view1MouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_view1MouseClicked
@@ -643,9 +586,7 @@ public class Report_PRCR_Amalgation_home extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     public static javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JTextField monthfield;
-    private javax.swing.JButton view;
     private javax.swing.JButton view1;
-    private javax.swing.JButton view2;
     private javax.swing.JTextField yearfield;
     // End of variables declaration//GEN-END:variables
 }

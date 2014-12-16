@@ -266,7 +266,7 @@ public class ACC_View_Database_Handling_Payment {
         }
 
         if (current.equals(given_period)) {
-
+           
             int num_of_rows_filled_in_table = 0;
             int num_of_rows_in_the_database = 0;
             int count = 0;
@@ -279,6 +279,8 @@ public class ACC_View_Database_Handling_Payment {
 
             try {
                 ResultSet query = dbm.query("SELECT * FROM account_payment_creditside where " + column_filtering + " LIKE '" + element + "'");
+               // System.out.println(query.getString("tr_no")+"---"+query.getString("credit_amount"));
+               
                 while (query.next()) {
                     ResultSet query1 = dbm.query("SELECT * FROM account_payment_debitside where tr_no = '" + query.getInt("tr_no") + "'");
                     while (query1.next()) {
@@ -288,9 +290,11 @@ public class ACC_View_Database_Handling_Payment {
                 }
                 query.close();
             } catch (SQLException ex) {
-
+                System.out.println(ex);
             }
-
+            if(num_of_rows_in_the_database==0){
+                num_of_rows_in_the_database=1;
+            }
             if (key == 1) {
 
                 if (num_of_rows_in_the_database >= bottom) {
@@ -304,9 +308,13 @@ public class ACC_View_Database_Handling_Payment {
                                 count++;
                                 num++;
                             }
+                            // if only one side is present.. detect errors
+                            if(count==0){
+                                count=1;
+                            }
                             query1.close();
                             if (count < bottom) {
-
+                                
                             } else if (count >= bottom && count <= top) {
                                 table.setValueAt(query.getString(column_name), num_of_rows_filled_in_table, table_column_num);
                                 num_of_rows_filled_in_table = num_of_rows_filled_in_table + num;
