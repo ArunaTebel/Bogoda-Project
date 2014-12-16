@@ -89,11 +89,11 @@ public class Acc_Trail_Balance {
                 ResultSet query2 = dbm.query("SELECT * from account_journal_creditside WHERE tr_no LIKE '" + query.getString("tr_no") + "'");
                 double totc = 0;
                 while (query2.next()) {
-                    totc = totc + query1.getDouble("credit_amount");
+                    totc = totc + query2.getDouble("credit_amount");
                 }
                 query2.close();
                 if (totd != totc) {
-                    System.out.println("Tr. No. " + query.getString("tr_no"));
+                    System.out.println("Tr. No. " + query.getString("tr_no")+"totd"+totd +"  totc"+totc);
                 }
             }
             query.close();
