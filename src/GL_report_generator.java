@@ -488,7 +488,8 @@ int size= 0;
     }
 
     public void monthly_ledger_calc(String year, String month) throws SQLException {
-        int type = 2;   // different calculation methods for different types 
+        int type = 1;   // different calculation methods for different types  
+         // arbour 2t
         
         
         CheckNDeleteFromDataBase("gl_monthly_ledger_current", "year","month", year,month);

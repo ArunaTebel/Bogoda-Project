@@ -43,8 +43,8 @@ public class MainWindow extends javax.swing.JFrame {
       //   defaults.put("nimbusOrange", defaults.get("nimbusBase"));
         UIManager.getLookAndFeelDefaults().put("nimbusOrange", (new Color(51, 153, 0)));
         initComponents();
-         setTitle("Management System. Arbour Valley Tea Factory");
-         // setTitle("Management System. Bogoda Group Tea Factory");
+         //setTitle("Management System. Arbour Valley Tea Factory");
+          setTitle("Management System. Bogoda Group Tea Factory");
     //    String ss = System.getProperty("user.name");
         
        int a = (int) (Math.random()*4);
@@ -305,7 +305,7 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/splash/Picture177.png"))); // NOI18N
         jLabel2.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         Main_Content.add(jLabel2);
-        jLabel2.setBounds(390, 210, 470, 110);
+        jLabel2.setBounds(390, 210, 470, 200);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
