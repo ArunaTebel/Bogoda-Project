@@ -21,27 +21,40 @@ public final class DatabaseManager {
      ResultSet res;
 
     private DatabaseManager() {
+         String url = null;
+        String dbName = null;
+       
+        String userName = null;
+        
+        String password = null;
+        
+        
        if(Main_versioning.SoftwareVersion()==2){
-           String url = "jdbc:mysql://localhost:3306/";
-           String userName = "root";
-           String dbName = "arbour";
-           String password = "ninelights@mora";
+           url = "jdbc:mysql://localhost:3306/";
+            userName = "root";
+            dbName = "arbour";
+            password = "ninelights@mora";
        }
        if(Main_versioning.SoftwareVersion()==1){
-           String url = "jdbc:mysql://192.168.1.50/";
-           String userName = "BogodaUser";
-           String dbName = "bogoda";
-           String password = "ninelights@mora";
+            url = "jdbc:mysql://192.168.1.50/";
+            userName = "BogodaUser";
+            dbName = "bogoda";
+            password = "ninelights@mora";
        } 
        
+      // url = "jdbc:mysql://localhost:3306/";
+        // dbName = "bogoda";
        
-       
-        String url = "jdbc:mysql://localhost:3306/";
-        String dbName = "bogoda";
-        String driver = "com.mysql.jdbc.Driver";
-        String userName = "root";
+        //userName = "root";
         
-        String password = "";
+       // password = "";
+       
+       
+    
+       
+        String driver = "com.mysql.jdbc.Driver";
+       
+        
        
         
         
