@@ -1,4 +1,5 @@
 
+import groovyx.gpars.extra166y.CustomConcurrentHashMap;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -7,8 +8,6 @@ import java.awt.SplashScreen;
 import java.awt.event.KeyEvent;
 import java.awt.geom.Rectangle2D;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.UIDefaults;
 import javax.swing.UIManager;
@@ -36,31 +35,51 @@ public class MainWindow extends javax.swing.JFrame {
     Date_Handler datehandler = new Date_Handler();
     UserAccountControl userAC = new UserAccountControl();
     UIDefaults defaults = UIManager.getLookAndFeelDefaults();
-
+    
+    
+    
+    public void costomize(String Main_title, String icon, String Backgrounds, int wallpaper_count, String Text){
+    setTitle(Main_title);
+       
+         int a = (int) (Math.random()*wallpaper_count);
+         
+         try{
+      
+        
+      this.setIconImage(new ImageIcon(getClass().getResource(icon)).getImage());
+      jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource(Backgrounds+a+".jpg")));
+      jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource(Text)));
+       } catch(NullPointerException e){
+           System.out.println("fail"+a);
+       // jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("BogodaAreal"+7+".jpg")));
+       }
+    
+    
+    }
     public MainWindow() {
         userAC.validate();
         
       //   defaults.put("nimbusOrange", defaults.get("nimbusBase"));
         UIManager.getLookAndFeelDefaults().put("nimbusOrange", (new Color(51, 153, 0)));
         initComponents();
-         //setTitle("Management System. Arbour Valley Tea Factory");
-          setTitle("Management System. Bogoda Group Tea Factory");
-    //    String ss = System.getProperty("user.name");
         
-       int a = (int) (Math.random()*4);
+        
+        if(Main_versioning.SoftwareVersion()==2){
+         
+            costomize("Management System. Arbour Valley Tea Factory", "Iconpng.png","BogodaAreal", 4,"/splash/Picture178.png");
+               
+        
+        }
+        if(Main_versioning.SoftwareVersion()==1){
+         
+        
+        costomize("Management System. Bogoda Group Tea Factory", "Iconpng.png", "BogodaAreal", 4,"/splash/Picture177.png");
        
-       
+        }
 
        
      //  System.out.println(a);
-       try{
-      
-      this.setIconImage(new ImageIcon(getClass().getResource("Iconpng.png")).getImage());
-      jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("BogodaAreal"+a+".jpg")));
-       } catch(NullPointerException e){
-           System.out.println("fail"+a);
-       // jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("BogodaAreal"+7+".jpg")));
-       }
+       
       
         Info.setText("");
         
@@ -305,7 +324,7 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/splash/Picture177.png"))); // NOI18N
         jLabel2.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         Main_Content.add(jLabel2);
-        jLabel2.setBounds(390, 210, 470, 200);
+        jLabel2.setBounds(420, 200, 470, 200);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));

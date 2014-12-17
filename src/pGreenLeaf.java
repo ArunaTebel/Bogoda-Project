@@ -21,6 +21,15 @@ public class pGreenLeaf extends javax.swing.JPanel {
      */
     public pGreenLeaf() {
         initComponents();
+        
+        if(Main_versioning.SoftwareVersion()==2){
+        jButton8.setEnabled(true);
+         }
+        
+        if(Main_versioning.SoftwareVersion()==1){
+        jButton8.setEnabled(false);
+         }
+        
        
          
     }

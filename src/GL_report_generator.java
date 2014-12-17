@@ -488,7 +488,7 @@ int size= 0;
     }
 
     public void monthly_ledger_calc(String year, String month) throws SQLException {
-        int type = 1;   // different calculation methods for different types  
+        int version = Main_versioning.SoftwareVersion();   // different calculation methods for different types  
          // arbour 2t
         
         
@@ -602,7 +602,7 @@ int size= 0;
             cash_advance=0;
             other_advance=0;
             
-            if(type ==2){              // type change for arbourvalley tea factory
+            if(version ==2){              // type change for arbourvalley tea factory
             welf = total_kg;
              
             }
@@ -672,7 +672,7 @@ int size= 0;
             } catch (Exception hee) {
             }
         }
-        if(type ==2 ){
+        if(version ==2 ){
         Welfare_type2(year, month);
         }
 
@@ -710,10 +710,14 @@ int size= 0;
          int j = 0;
         
         try {
-            try (ResultSet query = dbm.query("SELECT * FROM supplers ")) {
+            try (ResultSet query = dbm.query("SELECT * FROM suppliers ")) {
                 while (query.next()) {
                     j++;
+                    
                 }
+                
+               // System.out.println(j+"---------------------------------------------------");
+                       
             }
         } catch (Exception ee) {
         }    
@@ -726,7 +730,7 @@ int size= 0;
         
             j = 0;
             try{
-         ResultSet  query1=dbm.query("SELECT * from supplier_pre_debt_coins Where year = '" + year + "' AND month= '" + month + "' ");
+         ResultSet  query1=dbm.query("SELECT * from supplier_pre_debt_coins Where  month= '" + year+month + "' ");
          while(query1.next()){
                 coin = query1.getDouble("coins");
                 debts = query1.getDouble("pre_debts");
@@ -737,11 +741,14 @@ int size= 0;
                 } catch (Exception e) {
                     dbm.insert("UPDATE supplier_pre_debt_coins SET sup_id ='" + sup + "', pre_debts= '" + debts + "',coins = '" + coin + "',month = '" + temp[0] + temp[1] + "' WHERE entry = '" + temp[0] + temp[1] + sup + "'");
                 }
-         
+              //  System.out.println("forwading..");
+              // System.out.println(j+"=======================");
               j++;
          try {
                     Task_manager.predebprog.setValue(j);
                 } catch (Exception ree) {
+                     Logger.getLogger(GL_report_generator.class.getName()).log(Level.SEVERE, null, ree);
+                    
                 }
          
          
@@ -787,7 +794,7 @@ int size= 0;
                     //dbm.insert("INSERT INTO supplier_pre_debt_coins(entry,sup_id,pre_debts,coins,month) VALUES('" + temp[0] + temp[1] + sup + "','" + sup + "','" + debts + "','" + coin + "','" + temp[0] + temp[1] + "')");
                 
                     dbm.insert("UPDATE supplier_pre_debt_coins SET sup_id ='" + sup + "', pre_debts= '" + debts + "',coins = '" + coin + "',month = '" + temp[0] + temp[1] + "' WHERE entry = '" + temp[0] + temp[1] + sup + "'");
-                
+                  // System.out.println("Updating");
 
                 k++;
                 try {

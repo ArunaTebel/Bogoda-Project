@@ -21,16 +21,30 @@ public final class DatabaseManager {
      ResultSet res;
 
     private DatabaseManager() {
-
-        //String url = "jdbc:mysql://192.168.1.50/";
-        //String userName = "BogodaUser";
+       if(Main_versioning.SoftwareVersion()==2){
+           String url = "jdbc:mysql://localhost:3306/";
+           String userName = "root";
+           String dbName = "arbour";
+           String password = "ninelights@mora";
+       }
+       if(Main_versioning.SoftwareVersion()==1){
+           String url = "jdbc:mysql://192.168.1.50/";
+           String userName = "BogodaUser";
+           String dbName = "bogoda";
+           String password = "ninelights@mora";
+       } 
+       
+       
+       
         String url = "jdbc:mysql://localhost:3306/";
-        //String dbName = "arbour";
         String dbName = "bogoda";
         String driver = "com.mysql.jdbc.Driver";
         String userName = "root";
-        //String password = "ninelights@mora";
+        
         String password = "";
+       
+        
+        
         try {
             Class.forName(driver).newInstance();
             this.conn = (Connection) DriverManager.getConnection(url + dbName, userName, password);

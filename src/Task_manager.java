@@ -38,6 +38,9 @@ public class Task_manager extends javax.swing.JPanel {
         String month = datehandler.return_month_as_num(monthfield.getText());
         set_task_man();
         
+        
+        
+        
     }
     
     
@@ -65,6 +68,12 @@ public class Task_manager extends javax.swing.JPanel {
           GLLabel3.setText("");
            GLLabel4.setText("");
            GLLabel5.setText("");
+           
+           if(Main_versioning.SoftwareVersion()==2){
+           GL5.setEnabled(true); GLLabel5.setEnabled(true); predebprog1.setEnabled(true);}
+           
+           if(Main_versioning.SoftwareVersion()==1){
+           GL5.setEnabled(false); GLLabel5.setEnabled(false); predebprog1.setEnabled(false);}
           
              
       // set_values(check(year, month, "1"), GLdate7, GLdate1, GL1);

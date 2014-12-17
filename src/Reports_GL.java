@@ -1,20 +1,10 @@
 
 import java.awt.Color;
-import java.sql.Date;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.text.ParseException;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIDefaults;
 import javax.swing.UIManager;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.view.JasperViewer;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -41,6 +31,12 @@ Date_Handler date_handler = new Date_Handler();
         UIManager.getLookAndFeelDefaults().put("nimbusOrange", (new Color(51, 153, 0)));
         initComponents();
         progress.setStringPainted(true);
+        
+        
+        if(Main_versioning.SoftwareVersion()==2){
+        jButton17.setEnabled(true);}
+         if(Main_versioning.SoftwareVersion()==1){
+        jButton17.setEnabled(false);}
        
     }
     DatabaseManager dbm =  DatabaseManager.getDbCon();
