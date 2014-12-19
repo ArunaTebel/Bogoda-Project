@@ -531,6 +531,10 @@ public class ACC_View_Database_Handling_Payment {
             }
             System.out.println(num_of_rows_in_the_database);
 
+            if(num_of_rows_in_the_database==0){
+                num_of_rows_in_the_database=1;
+            }
+            
             if (key == 1) {
                 tr_no = 0;
                 if (num_of_rows_in_the_database >= bottom) {

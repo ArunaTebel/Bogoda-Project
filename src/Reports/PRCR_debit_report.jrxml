@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b4a7e90f-236c-48e1-b463-a16c40591ab1">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="USER" class="java.lang.String"/>
+	<parameter name="from_date" class="java.util.Date"/>
+	<parameter name="to_date" class="java.util.Date"/>
+	<parameter name="column1" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="column2" class="java.lang.String"/>
+	<parameter name="column3" class="java.lang.String"/>
+	<parameter name="division" class="java.lang.String"/>
+	<parameter name="report_name" class="java.lang.String"/>
+	<parameter name="table_name" class="java.lang.String"/>
+	<parameter name="division_column" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="lowerthan" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="greaterthan" class="java.lang.Double">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="register" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="register_column" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     $P!{column2} AS prcr_cash_advance_book_entry,
+     $P!{column1} AS prcr_cash_advance_book_code,
+     $P!{column3} AS prcr_cash_advance_book_amount
+FROM
+     $P!{table_name}
+WHERE
+     $P!{division_column}=$P{division} AND $P!{column3}<$P{lowerthan} AND $P!{column3}>$P{greaterthan}
+AND $P!{register_column}=$P{register}]]>
+	</queryString>
+	<field name="prcr_cash_advance_book_entry" class="java.lang.Object"/>
+	<field name="prcr_cash_advance_book_code" class="java.lang.Integer"/>
+	<field name="prcr_cash_advance_book_amount" class="java.lang.Double"/>
+	<variable name="TITLE" class="java.lang.String"/>
+	<variable name="total" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{prcr_cash_advance_book_amount}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="81" splitType="Stretch">
+			<staticText>
+				<reportElement x="1" y="3" width="81" height="11" uuid="3e709542-151f-4b92-8a79-9527db2b951e"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Report generated:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="16" width="15" height="20" uuid="b253ceae-65b5-4d6e-bd4d-cd9f29f5de4c"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[by:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="1" y="57" width="555" height="1" uuid="e13c4d67-1e7f-4c1c-96d2-2316ab27579e"/>
+			</line>
+			<staticText>
+				<reportElement x="340" y="9" width="216" height="27" uuid="75b687d7-fe40-4adf-9851-27816341e992"/>
+				<textElement>
+					<font fontName="Segoe UI Light" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bogoda Group Tea Factory]]></text>
+			</staticText>
+			<line>
+				<reportElement x="1" y="0" width="555" height="1" uuid="aeb39eae-cf99-495a-9b95-9031f30f70b7"/>
+			</line>
+			<staticText>
+				<reportElement x="417" y="30" width="114" height="20" uuid="fe112270-8629-41c5-b43e-d57409be5b2e"/>
+				<text><![CDATA[Kolawenigama, Deniyaya]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement x="82" y="3" width="100" height="11" uuid="54a20eec-890c-4e8c-9249-a8bf0da283f9"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="15" y="17" width="100" height="20" uuid="a7284fb9-5755-493b-9033-b8778b4d88dd"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{USER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="61" width="339" height="20" uuid="29e96a64-9e5a-460b-94b3-0863c39721c2"/>
+				<textElement>
+					<font size="15"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{report_name}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="33" splitType="Stretch">
+			<line>
+				<reportElement x="1" y="-26" width="555" height="1" uuid="292404ee-21c4-44ec-86e1-654ddf5dc03b"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#666666"/>
+				</graphicElement>
+			</line>
+			<textField evaluationTime="Report">
+				<reportElement x="276" y="6" width="40" height="20" uuid="a28f6025-2bc0-4bc1-a2d3-6de88975440a"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="196" y="6" width="80" height="20" uuid="c7b2c106-44fc-4aed-b3a9-e5ad706e21ea"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="27" splitType="Stretch">
+			<line>
+				<reportElement x="1" y="23" width="554" height="1" uuid="8b820536-4e3c-4646-9176-72c78990b115"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="5" width="111" height="20" uuid="65446ce5-7314-422e-96e9-bb0b0f12ddf5"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Emp Code]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="222" y="3" width="111" height="20" uuid="c9126328-ab99-4f90-9f63-d20a59403983"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Register or Casual]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="412" y="4" width="111" height="20" uuid="f0027e12-5566-4f5c-9642-a0b93220843f"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Amount]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="23" splitType="Stretch">
+			<textField>
+				<reportElement x="222" y="0" width="111" height="20" uuid="e66c15e9-7346-4978-974d-8317a9a7a1ef"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{prcr_cash_advance_book_entry}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="0" width="111" height="20" uuid="4dbd92bf-b263-417c-a676-c3d5c5e7d681"/>
+				<textFieldExpression><![CDATA[$F{prcr_cash_advance_book_code}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00">
+				<reportElement x="412" y="0" width="111" height="20" uuid="412cf0f8-0549-408b-aad3-fd40172b0436"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{prcr_cash_advance_book_amount}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="18" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="14" splitType="Stretch">
+			<line>
+				<reportElement x="1" y="-13" width="554" height="1" uuid="0d048f90-0a60-4753-b7bf-906c8bd8f6af"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="41" splitType="Stretch">
+			<rectangle>
+				<reportElement x="243" y="14" width="281" height="20" uuid="31721cf8-8edd-4a91-8ac2-8f9e1946dab7"/>
+			</rectangle>
+			<textField pattern="###0.00">
+				<reportElement x="411" y="14" width="111" height="20" uuid="38e11c74-a1c4-477e-ab42-28455f25daec"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{total}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="243" y="14" width="111" height="20" uuid="55203e01-a161-40c5-a0d8-8d01988fa366"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="3" width="554" height="1" uuid="c44e6ff4-c6f9-4c0c-9bfa-2494a7ed7d49"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+		</band>
+	</summary>
+</jasperReport>

@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b4a7e90f-236c-48e1-b463-a16c40591ab1">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="3"/>
+	<parameter name="USER" class="java.lang.String"/>
+	<parameter name="from_date" class="java.util.Date"/>
+	<parameter name="to_date" class="java.util.Date"/>
+	<parameter name="division" class="java.lang.String"/>
+	<parameter name="register" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     prcr_checkroll_workentry.`entry` AS prcr_checkroll_workentry_entry,
+     prcr_checkroll_workentry.`date` AS prcr_checkroll_workentry_date,
+     prcr_checkroll_workentry.`normalday_or_sunday` AS prcr_checkroll_workentry_normalday_or_sunday,
+     prcr_checkroll_workentry.`emp_code` AS prcr_checkroll_workentry_emp_code,
+     prcr_checkroll_workentry.`work_code` AS prcr_checkroll_workentry_work_code,
+     prcr_checkroll_workentry.`ot_day` AS prcr_checkroll_workentry_ot_day,
+     prcr_checkroll_workentry.`ot_night` AS prcr_checkroll_workentry_ot_night,
+     prcr_checkroll_workentry.`division` AS prcr_checkroll_workentry_division
+FROM
+     `prcr_checkroll_workentry` prcr_checkroll_workentry
+WHERE division=$P{division}
+AND  date<=$P{to_date} AND date>=$P{from_date}
+ORDER BY prcr_checkroll_workentry.`emp_code`]]>
+	</queryString>
+	<field name="prcr_checkroll_workentry_entry" class="java.lang.Integer"/>
+	<field name="prcr_checkroll_workentry_date" class="java.sql.Date"/>
+	<field name="prcr_checkroll_workentry_normalday_or_sunday" class="java.lang.String"/>
+	<field name="prcr_checkroll_workentry_emp_code" class="java.lang.Integer"/>
+	<field name="prcr_checkroll_workentry_work_code" class="java.lang.String"/>
+	<field name="prcr_checkroll_workentry_ot_day" class="java.lang.Double"/>
+	<field name="prcr_checkroll_workentry_ot_night" class="java.lang.Double"/>
+	<field name="prcr_checkroll_workentry_division" class="java.lang.String"/>
+	<variable name="TITLE" class="java.lang.String"/>
+	<variable name="total" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<variable name="numer_of_days" class="java.lang.Number" resetType="Group" resetGroup="emp_code" calculation="Count">
+		<variableExpression><![CDATA[$F{prcr_checkroll_workentry_emp_code}]]></variableExpression>
+	</variable>
+	<variable name="otday" class="java.lang.Double" resetType="Group" resetGroup="emp_code" calculation="Sum">
+		<variableExpression><![CDATA[$F{prcr_checkroll_workentry_ot_day}]]></variableExpression>
+	</variable>
+	<variable name="otnight" class="java.lang.Double" resetType="Group" resetGroup="emp_code" calculation="Sum">
+		<variableExpression><![CDATA[$F{prcr_checkroll_workentry_ot_night}]]></variableExpression>
+	</variable>
+	<group name="emp_code">
+		<groupExpression><![CDATA[$F{prcr_checkroll_workentry_emp_code}]]></groupExpression>
+		<groupFooter>
+			<band height="22">
+				<textField pattern="###0">
+					<reportElement x="128" y="0" width="79" height="20" uuid="e1c3e61f-23d2-483c-a98c-8aba4e033459"/>
+					<textElement textAlignment="Right"/>
+					<textFieldExpression><![CDATA[$V{numer_of_days}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="14" y="0" width="38" height="20" uuid="4dbd92bf-b263-417c-a676-c3d5c5e7d681"/>
+					<textElement textAlignment="Right"/>
+					<textFieldExpression><![CDATA[$F{prcr_checkroll_workentry_emp_code}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="255" y="0" width="111" height="20" uuid="a24ebf04-1a81-4240-a77f-1fe84d51e907"/>
+					<textElement textAlignment="Right"/>
+					<textFieldExpression><![CDATA[$V{otday}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="447" y="0" width="84" height="20" uuid="48e5b2be-460b-4a3c-a169-eea406a0dcae"/>
+					<textElement textAlignment="Right"/>
+					<textFieldExpression><![CDATA[$V{otnight}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="81" splitType="Stretch">
+			<staticText>
+				<reportElement x="1" y="3" width="81" height="11" uuid="3e709542-151f-4b92-8a79-9527db2b951e"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Report generated:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="16" width="15" height="20" uuid="b253ceae-65b5-4d6e-bd4d-cd9f29f5de4c"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[by:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="1" y="57" width="555" height="1" uuid="e13c4d67-1e7f-4c1c-96d2-2316ab27579e"/>
+			</line>
+			<staticText>
+				<reportElement x="340" y="9" width="216" height="27" uuid="75b687d7-fe40-4adf-9851-27816341e992"/>
+				<textElement>
+					<font fontName="Segoe UI Light" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bogoda Group Tea Factory]]></text>
+			</staticText>
+			<line>
+				<reportElement x="1" y="0" width="555" height="1" uuid="aeb39eae-cf99-495a-9b95-9031f30f70b7"/>
+			</line>
+			<staticText>
+				<reportElement x="417" y="30" width="114" height="20" uuid="fe112270-8629-41c5-b43e-d57409be5b2e"/>
+				<text><![CDATA[Kolawenigama, Deniyaya]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement x="82" y="3" width="100" height="11" uuid="54a20eec-890c-4e8c-9249-a8bf0da283f9"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="15" y="17" width="100" height="20" uuid="a7284fb9-5755-493b-9033-b8778b4d88dd"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{USER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="12" y="58" width="114" height="20" uuid="252cf26e-ed26-4013-abee-20e49971a674"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Work Summary]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="33" splitType="Stretch">
+			<line>
+				<reportElement x="1" y="-26" width="555" height="1" uuid="292404ee-21c4-44ec-86e1-654ddf5dc03b"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#666666"/>
+				</graphicElement>
+			</line>
+			<textField evaluationTime="Report">
+				<reportElement x="276" y="6" width="40" height="20" uuid="a28f6025-2bc0-4bc1-a2d3-6de88975440a"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="196" y="6" width="80" height="20" uuid="c7b2c106-44fc-4aed-b3a9-e5ad706e21ea"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="29" splitType="Stretch">
+			<line>
+				<reportElement x="1" y="23" width="554" height="1" uuid="8b820536-4e3c-4646-9176-72c78990b115"/>
+			</line>
+			<staticText>
+				<reportElement x="14" y="4" width="111" height="20" uuid="65446ce5-7314-422e-96e9-bb0b0f12ddf5"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Emp Code]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="255" y="4" width="111" height="20" uuid="c9126328-ab99-4f90-9f63-d20a59403983"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[OT Day Hours]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="447" y="4" width="84" height="20" uuid="f0027e12-5566-4f5c-9642-a0b93220843f"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[OT Night Hours]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="128" y="3" width="79" height="20" uuid="0913f28b-da71-40e2-ac8f-da20443d24f9"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Days]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<columnFooter>
+		<band height="18" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="14" splitType="Stretch">
+			<line>
+				<reportElement x="1" y="-13" width="554" height="1" uuid="0d048f90-0a60-4753-b7bf-906c8bd8f6af"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="38" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="3" width="554" height="1" uuid="c44e6ff4-c6f9-4c0c-9bfa-2494a7ed7d49"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+		</band>
+	</summary>
+</jasperReport>

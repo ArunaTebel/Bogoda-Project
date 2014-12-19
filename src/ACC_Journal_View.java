@@ -22,6 +22,8 @@ public class ACC_Journal_View extends javax.swing.JPanel {
         initComponents();
         jPanel4.setVisible(false);
         jPanel2.setVisible(false);
+        drEr.setVisible(false);
+        crEr.setVisible(false);
         
     }
     
@@ -105,6 +107,9 @@ public class ACC_Journal_View extends javax.swing.JPanel {
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
         jButton1 = new javax.swing.JButton();
+        drEr = new javax.swing.JRadioButton();
+        crEr = new javax.swing.JRadioButton();
+        erChk = new javax.swing.JCheckBox();
 
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -368,6 +373,27 @@ public class ACC_Journal_View extends javax.swing.JPanel {
             }
         });
 
+        drEr.setText("Check Errors in Debit Side");
+        drEr.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                drErItemStateChanged(evt);
+            }
+        });
+
+        crEr.setText("Check Errors in Credit Side");
+        crEr.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                crErItemStateChanged(evt);
+            }
+        });
+
+        erChk.setText("Check for Errors");
+        erChk.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                erChkItemStateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -380,28 +406,42 @@ public class ACC_Journal_View extends javax.swing.JPanel {
                     .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(35, 35, 35)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(drEr)
+                            .addComponent(crEr)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(54, 54, 54)
+                        .addComponent(erChk)))
+                .addContainerGap(10, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator2)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(30, 30, 30)
-                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(34, 34, 34)
+                                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(46, 46, 46)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(34, 34, 34)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 121, Short.MAX_VALUE))
-                    .addComponent(jSeparator2))
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(53, 53, 53)
+                                .addComponent(erChk)
+                                .addGap(18, 18, 18)
+                                .addComponent(drEr)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(crEr)))
+                        .addGap(0, 121, Short.MAX_VALUE)))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -453,13 +493,14 @@ public class ACC_Journal_View extends javax.swing.JPanel {
             } catch (ParseException ex) {
                 Logger.getLogger(ACC_Reciept_View.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } else if ("Credit Account ID".equals(search.getText()) || "Credit Description".equals(search.getText()) || "Credit Amount".equals(search.getText())) {
-
+        } else if ("Credit Account ID".equals(search.getText()) || "Credit Description".equals(search.getText()) || "Credit Amount".equals(search.getText()) || ( "Transaction No.".equals(search.getText()) && erChk.isSelected() && crEr.isSelected()) ) {
+            System.out.println("credit");
             tbl.Table_Fill_Credit_Search(Return_String_Field(search.getText()), field.getText());
-        } else if ("Transaction No.".equals(search.getText()) || "Reference No.".equals(search.getText()) || "Journal No.".equals(search.getText())) {
-
+        } else if (( "Transaction No.".equals(search.getText()) && !erChk.isSelected() ) || "Reference No.".equals(search.getText()) || "Journal No.".equals(search.getText())) {
+            System.out.println("main");
             tbl.Table_Fill_Main_Search(Return_String_Field(search.getText()), field.getText());
         } else {
+            System.out.println("debit");
             tbl.Table_Fill_Debit_Search(Return_String_Field(search.getText()), field.getText());
 
         }
@@ -1236,14 +1277,47 @@ public class ACC_Journal_View extends javax.swing.JPanel {
            interface_events.Respond_enter(jButton1, evt);
     }//GEN-LAST:event_jButton1FocusGained
 
+    private void erChkItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_erChkItemStateChanged
+        if(erChk.isSelected()){
+            drEr.setVisible(true);
+            crEr.setVisible(true);
+            drEr.setSelected(true);
+        }
+        else{
+            drEr.setVisible(false);
+            crEr.setVisible(false);
+        }
+    }//GEN-LAST:event_erChkItemStateChanged
+
+    private void drErItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_drErItemStateChanged
+        if(drEr.isSelected()){
+            crEr.setSelected(false);
+        }
+        else{
+            crEr.setSelected(true);
+        }
+    }//GEN-LAST:event_drErItemStateChanged
+
+    private void crErItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_crErItemStateChanged
+        if(crEr.isSelected()){
+            drEr.setSelected(false);
+        }
+        else{
+            drEr.setSelected(true);
+        }
+    }//GEN-LAST:event_crErItemStateChanged
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JRadioButton crEr;
     private com.michaelbaranov.microba.calendar.DatePicker datePicker1;
     private com.michaelbaranov.microba.calendar.DatePicker datePicker3;
     private javax.swing.JPanel datepanel;
     private javax.swing.JPanel datepanel2;
     private javax.swing.JTextField dayfield;
     private javax.swing.JTextField dayfield2;
+    private javax.swing.JRadioButton drEr;
+    private javax.swing.JCheckBox erChk;
     private javax.swing.JTextField field;
     private javax.swing.JComboBox field_choice;
     private javax.swing.JButton jButton1;

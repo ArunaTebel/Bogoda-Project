@@ -480,6 +480,11 @@ public class Report_Acc_Ledger extends javax.swing.JPanel {
                 jButton1ActionPerformed(evt);
             }
         });
+        jButton1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jButton1FocusGained(evt);
+            }
+        });
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -1534,11 +1539,11 @@ public class Report_Acc_Ledger extends javax.swing.JPanel {
     }//GEN-LAST:event_dayfield2KeyPressed
 
     private void datePicker3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datePicker3ActionPerformed
-        java.sql.Date datef = new java.sql.Date(datePicker1.getDate().getTime());
+        java.sql.Date datef = new java.sql.Date(datePicker3.getDate().getTime());
 
-        dayfield.setText(datehandler.get_day(datef));
-        monthfield.setText(datehandler.get_month(datef));
-        yearfield.setText(datehandler.get_year(datef));
+        dayfield2.setText(datehandler.get_day(datef));
+        monthfield2.setText(datehandler.get_month(datef));
+        yearfield2.setText(datehandler.get_year(datef));
         jButton1.requestFocus();
     }//GEN-LAST:event_datePicker3ActionPerformed
 
@@ -1686,6 +1691,10 @@ public class Report_Acc_Ledger extends javax.swing.JPanel {
          date_range.requestFocusInWindow();
          } 
     }//GEN-LAST:event_account_codeKeyReleased
+    Interface_Events interface_events = new Interface_Events();
+    private void jButton1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jButton1FocusGained
+        interface_events.Respond_enter(jButton1, evt);
+    }//GEN-LAST:event_jButton1FocusGained
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

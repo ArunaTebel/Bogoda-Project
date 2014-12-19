@@ -1,8 +1,14 @@
 
+import java.awt.event.ItemEvent;
 import java.awt.event.KeyEvent;
+import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -11,65 +17,98 @@ import java.util.logging.Logger;
  */
 /**
  *
- * @author Iddamalgoda
+ * @author Pramo
  */
-public class ACC_Payment_View extends javax.swing.JPanel {
+public class Report_PRCR_workday_summary extends javax.swing.JPanel {
 
-    /**
-     * Creates new form ACC_Payment_View
-     */
-    public ACC_Payment_View() {
-        initComponents();
-        jPanel4.setVisible(false);
-        jPanel2.setVisible(false);
-    }
-    
-    public void focus(){  
-        
-        this.requestFocus();
-        field_choice.requestFocus();
-    }
+    public class Background implements Runnable {
 
-    String[] combo = new String[10];
+        @Override
+        public void run() {
+            //  jProgressBar1.setIndeterminate(true);
+            view.setEnabled(false);
+            jProgressBar1.setVisible(true);
+            int a = (int) (Math.random() * 500);
+            //System.out.println(a);
+            for (int i = 0; i <= 3000 + a; i++) {
+                jProgressBar1.setValue(100 * i / 4000);
+                jProgressBar1.repaint();
 
-    public void Set_Combo() {
-
-        String s;
-        String[] arr2 = new String[10];
-
-        String[] arr = new String[11];
-        arr[0] = null;
-        arr[1] = "Transaction No.";
-        arr[2] = "Date";
-        arr[3] = "Receipt No.";
-        arr[4] = "Reference No.";
-        arr[5] = "Credit Account ID";
-        arr[6] = "Credit Description";
-        arr[7] = "Credit Amount";
-        arr[8] = "Debit Account ID";
-        arr[9] = "Debit Account Description";
-        arr[10] = "Debit Amount";
-
-        if (field_choice.getSelectedIndex() != 0) {
-            int i = 0;
-            int j = field_choice.getSelectedIndex();
-            for (i = 0; i < j; i++) {
-                arr2[i] = arr[i];
+                try {
+                    Thread.sleep(1);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Reports_GL.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
-            for (i = j + 1; i < 11; i++) {
-                arr2[i - 1] = arr[i];
-            }
-            combo = arr2;
-        } else {
-           
+            
+            view.setEnabled(true);
+            
 
         }
-
     }
 
-    DateChooser_text datechooser = new DateChooser_text();
+    public class report implements Runnable {
 
+        @Override
+        public void run() {
+            //  jProgressBar1.setIndeterminate(true);
+
+            Thread a = new Thread(new Background());
+      
+                try {
+                    HashMap param = new HashMap();
+                    a.start();
+                    Date Return_date1 = datechooser.Return_date(yearfield, monthfield, dayfield);
+                    Date Return_date2 = datechooser.Return_date(yearfield2, monthfield2, dayfield2);
+
+                    param.put("from_date", Return_date1);
+                    param.put("to_date", Return_date2);
+                    param.put("USER", user.get_current_user());
+                    param.put("division",division_jc.getSelectedItem().toString());
+                    
+                    
+
+                    String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
+
+                    generate.create("PRCR_workday_summary", "D:\\", param, location, "PRCR_workday_summary.jrxml");
+                    a.stop();
+                    jProgressBar1.setValue(100);
+                } catch (ParseException ex) {
+                    Logger.getLogger(Report_GL_trans.class.getName()).log(Level.SEVERE, null, ex);
+                } 
+            
+            
+            
+            
+        }
+
+        private void viewMouseClicked(java.awt.event.MouseEvent evt) {
+            // jLabel4.setText("please wait..");
+        }
+
+        private void supplier_idItemStateChanged(java.awt.event.ItemEvent evt) {
+            
+
+        }
+    }
+
+    /**
+     *
+     */
+    public Report_PRCR_workday_summary() {
+        initComponents();
+        jProgressBar1.setStringPainted(true);
+    }
+    DateChooser_text datechooser = new DateChooser_text();
     Date_Handler datehandler = new Date_Handler();
+    Report_gen generate = new Report_gen();
+    UserAccountControl user = new UserAccountControl();
+   DatabaseManager dbm =  DatabaseManager.getDbCon();
+
+    public void focus() {
+        dayfield.requestFocus();
+        dayfield.selectAll();
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -80,16 +119,8 @@ public class ACC_Payment_View extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        jPanel4 = new javax.swing.JPanel();
-        field_choice1 = new javax.swing.JComboBox();
-        jPanel5 = new javax.swing.JPanel();
-        field1 = new javax.swing.JTextField();
-        search1 = new javax.swing.JLabel();
-        jPanel6 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         datepanel = new javax.swing.JPanel();
         monthfield = new javax.swing.JTextField();
         yearfield = new javax.swing.JTextField();
@@ -100,99 +131,19 @@ public class ACC_Payment_View extends javax.swing.JPanel {
         yearfield2 = new javax.swing.JTextField();
         dayfield2 = new javax.swing.JTextField();
         datePicker3 = new com.michaelbaranov.microba.calendar.DatePicker();
-        jPanel3 = new javax.swing.JPanel();
-        field_choice = new javax.swing.JComboBox();
+        jLabel2 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        field = new javax.swing.JTextField();
-        search = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        andbutton = new javax.swing.JRadioButton();
-        erChk = new javax.swing.JCheckBox();
+        divisionbox = new javax.swing.JCheckBox();
+        division_jc = new javax.swing.JComboBox();
+        view = new javax.swing.JButton();
+        jProgressBar1 = new javax.swing.JProgressBar();
+        jLabel4 = new javax.swing.JLabel();
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jButton1.setText("SEARCH");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        jButton1.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jButton1FocusGained(evt);
-            }
-        });
-
-        jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        field_choice1.setModel(new javax.swing.DefaultComboBoxModel(combo));
-        field_choice1.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                field_choice1ItemStateChanged(evt);
-            }
-        });
-        field_choice1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                field_choice1ActionPerformed(evt);
-            }
-        });
-
-        jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        field1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                field1ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(search1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46)
-                .addComponent(field1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(field1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(search1))
-                .addContainerGap())
-        );
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(field_choice1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(109, 109, 109))
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(field_choice1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-
-        jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 6));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jLabel1.setText("FROM");
-
-        jLabel2.setText("TO");
+        jLabel1.setText("From");
 
         datepanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -210,7 +161,7 @@ public class ACC_Payment_View extends javax.swing.JPanel {
             }
         });
 
-        dayfield.setText(""+Integer.parseInt(datehandler.get_today_day()));
+        dayfield.setText(Integer.parseInt(datehandler.get_today_day())+"");
         dayfield.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 dayfieldKeyPressed(evt);
@@ -267,7 +218,7 @@ public class ACC_Payment_View extends javax.swing.JPanel {
             }
         });
 
-        dayfield2.setText(""+Integer.parseInt(datehandler.get_today_day()));
+        dayfield2.setText(Integer.parseInt(datehandler.get_today_day())+"");
         dayfield2.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 dayfield2KeyPressed(evt);
@@ -308,59 +259,74 @@ public class ACC_Payment_View extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jLabel2.setText("To");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(datepanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                    .addComponent(datepanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(datepanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                    .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(5, 5, 5)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(datepanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
-
-        field_choice.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "All", "Transaction No.", "Date", "Reference No.", "Debit Account ID", "Debit Description", "Debit Amount", "Credit Account ID", "Credit Description", "Credit Amount" }));
-        field_choice.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                field_choiceItemStateChanged(evt);
-            }
-        });
-        field_choice.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                field_choiceActionPerformed(evt);
-            }
-        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        field.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fieldActionPerformed(evt);
+        divisionbox.setText("Division");
+        divisionbox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                divisionboxItemStateChanged(evt);
             }
         });
-        field.addKeyListener(new java.awt.event.KeyAdapter() {
+        divisionbox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                divisionboxActionPerformed(evt);
+            }
+        });
+
+        division_jc.putClientProperty("JComboBox.isTableCellEditor", Boolean.TRUE);
+        division_jc.setEditable(true);
+        division_jc.setModel(new javax.swing.DefaultComboBoxModel(dbm.getStringArray("division_details", "code")));
+        division_jc.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                division_jcItemStateChanged(evt);
+            }
+        });
+        division_jc.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                fieldKeyPressed(evt);
+                division_jcKeyPressed(evt);
+            }
+        });
+
+        view.setText("View");
+        view.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                viewMouseClicked(evt);
+            }
+        });
+        view.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewActionPerformed(evt);
             }
         });
 
@@ -368,243 +334,64 @@ public class ACC_Payment_View extends javax.swing.JPanel {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(search, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-                .addComponent(field, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(divisionbox)
+                        .addGap(36, 36, 36)
+                        .addComponent(division_jc, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(view, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(63, 63, 63))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(search, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(59, 59, 59)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(divisionbox)
+                    .addComponent(division_jc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(view, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
+                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
-        jLabel3.setText("Select Search filters");
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(field_choice, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(54, 54, 54)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(75, Short.MAX_VALUE))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(field_choice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
-        );
-
-        andbutton.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        andbutton.setText("AND");
-        andbutton.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                andbuttonItemStateChanged(evt);
-            }
-        });
-        andbutton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                andbuttonActionPerformed(evt);
-            }
-        });
-
-        erChk.setText("Search for Errors");
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel4.setText("Work Details");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(48, 48, 48)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(andbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(202, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(75, 75, 75))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(42, 42, 42)
-                                .addComponent(erChk)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(10, 10, 10)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(57, 57, 57)
-                        .addComponent(erChk)
-                        .addGap(100, 100, 100)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(19, 19, 19)
-                .addComponent(andbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addGap(7, 7, 7)
+                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(75, 75, 75))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    public String Return_String_Field(String s) {
-        switch (s) {
-            case "Transaction No.":
-                return "tr_no";
-            case "Date":
-                return "date";
-            case "Receipt No.":
-                return "reciept_no";
-            case "Reference No.":
-                return "ref_no";
-            case "Credit Account ID":
-                return "credit_account_id";
-            case "Credit Description":
-                return "credit_description";
-            case "Credit Amount":
-                return "credit_amount";
-            case "Debit Account ID":
-                return "debit_account_id";
-            case "Debit Description":
-                return "debit_description";
-            case "Debit Amount":
-                return "debit_amount";
-            default:
-                return null;
-        }
-
-    }
-
-    public void Start() {
-        jPanel1.setVisible(false);
-        jPanel2.setVisible(false);
-    }
-    ACC_Payment_View_Table tbl = new ACC_Payment_View_Table();
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        tbl.Clear_Table();
-        tbl.setVisible(true);
-        if (search.getText() == "All") {
-            tbl.Table_Fill_All();
-        } else if (andbutton.isSelected()) {
-            if ("Date".equals(search.getText())) {
-                if ((search1.getText() == "Debit Account ID" || search1.getText() == "Debit Description" || search1.getText() == "Debit Amount")) {
-                    try {
-                        tbl.Table_Fill_Date_Debit_Search(Return_String_Field(search.getText()), datechooser.Return_date(yearfield, monthfield, dayfield), datechooser.Return_date(yearfield2, monthfield2, dayfield2), Return_String_Field(search1.getText()), field1.getText());
-                    } catch (ParseException ex) {
-                        Logger.getLogger(ACC_Payment_View.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                } else {
-                    try {
-                        tbl.Table_Fill_Date_Credit_Search(Return_String_Field(search.getText()), datechooser.Return_date(yearfield, monthfield, dayfield), datechooser.Return_date(yearfield2, monthfield2, dayfield2), Return_String_Field(search1.getText()), field1.getText());
-                    } catch (ParseException ex) {
-                        Logger.getLogger(ACC_Payment_View.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-            } else if (search.getText() == "Debit Account ID" || search.getText() == "Debit Description" || search.getText() == "Debit Amount") {
-                if (search1.getText() == "Debit Account ID" || search1.getText() == "Debit Description" || search1.getText() == "Debit Amount") {
-                    tbl.Table_Fill_Debit_Debit_Search(Return_String_Field(search.getText()), field.getText(), Return_String_Field(search1.getText()), field1.getText());
-                } else {
-                    tbl.Table_Fill_Credit_Debit_Search(Return_String_Field(search1.getText()), field1.getText(), Return_String_Field(search.getText()), field.getText());
-                }
-            } else {
-                if (search1.getText() == "Debit Account ID" || search1.getText() == "Debit Description" || search1.getText() == "Debit Amount") {
-                    tbl.Table_Fill_Credit_Debit_Search(Return_String_Field(search.getText()), field.getText(), Return_String_Field(search1.getText()), field1.getText());
-                } else {
-                    tbl.Table_Fill_Credit_Credit_Search(Return_String_Field(search.getText()), field.getText(), Return_String_Field(search1.getText()), field1.getText());
-                }
-            }
-
-        } else {
-            if ("Date".equals(search.getText())) {
-                try {
-                    tbl.Table_Fill_Date_Search(Return_String_Field(search.getText()), datechooser.Return_date(yearfield, monthfield, dayfield), datechooser.Return_date(yearfield2, monthfield2, dayfield2));
-                } catch (ParseException ex) {
-                    Logger.getLogger(ACC_Payment_View.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            } else if (search.getText() == "Debit Account ID" || search.getText() == "Debit Description" || search.getText() == "Debit Amount" || (search.getText()=="Transaction No." && erChk.isSelected())) {
-
-               // System.out.println();
-                tbl.Table_Fill_Debit_Search(Return_String_Field(search.getText()), field.getText());
-            } else {
-                tbl.Table_Fill_Credit_Search(Return_String_Field(search.getText()), field.getText());
-              //  System.out.println(field.getText());
-            }
-        }
-
-
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void field_choiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_field_choiceActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_field_choiceActionPerformed
-
-    private void fieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fieldActionPerformed
-
-    private void field_choiceItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_field_choiceItemStateChanged
-        if ("Date".equals(field_choice.getSelectedItem().toString())) {
-            jPanel2.setVisible(true);
-            jPanel1.setVisible(false);
-        } else {
-            jPanel1.setVisible(true);
-            jPanel2.setVisible(false);
-        }
-        search.setText(field_choice.getSelectedItem().toString());
-
-        dayfield.requestFocusInWindow();
-        dayfield.selectAll();
-
-        Set_Combo();
-
-
-    }//GEN-LAST:event_field_choiceItemStateChanged
 
     private void monthfieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_monthfieldKeyPressed
         if (monthfield.getText().equals("Jan")) {
@@ -1134,10 +921,9 @@ public class ACC_Payment_View extends javax.swing.JPanel {
         }
 
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
-            jButton1.requestFocus();
+            // jButton1.requestFocus();
 
         }
-
     }//GEN-LAST:event_monthfield2KeyPressed
 
     private void yearfield2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_yearfield2KeyPressed
@@ -1155,7 +941,7 @@ public class ACC_Payment_View extends javax.swing.JPanel {
         }
 
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
-            jButton1.requestFocus();
+            //jButton1.requestFocus();
 
         }
     }//GEN-LAST:event_yearfield2KeyPressed
@@ -1324,84 +1110,86 @@ public class ACC_Payment_View extends javax.swing.JPanel {
         }
 
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
-            jButton1.requestFocus();
+            // jButton1.requestFocus();
 
         }
     }//GEN-LAST:event_dayfield2KeyPressed
 
     private void datePicker3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datePicker3ActionPerformed
-        java.sql.Date datef = new java.sql.Date(datePicker1.getDate().getTime());
+        java.sql.Date datef = new java.sql.Date(datePicker3.getDate().getTime());
 
-        dayfield.setText(datehandler.get_day(datef));
-        monthfield.setText(datehandler.get_month(datef));
-        yearfield.setText(datehandler.get_year(datef));
-        jButton1.requestFocus();
+        dayfield2.setText(datehandler.get_day(datef));
+        monthfield2.setText(datehandler.get_month(datef));
+        yearfield2.setText(datehandler.get_year(datef));
+        //jButton1.requestFocus();
     }//GEN-LAST:event_datePicker3ActionPerformed
 
-    private void field_choice1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_field_choice1ItemStateChanged
-        search1.setText(field_choice1.getSelectedItem().toString());
+    private void viewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewActionPerformed
+       Thread b = new Thread(new report());
+       b.start();
+    }//GEN-LAST:event_viewActionPerformed
 
+    private void viewMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewMouseClicked
+        // jLabel4.setText("please wait..");
+    }//GEN-LAST:event_viewMouseClicked
 
-    }//GEN-LAST:event_field_choice1ItemStateChanged
-
-    private void field_choice1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_field_choice1ActionPerformed
+    private void divisionboxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_divisionboxItemStateChanged
         // TODO add your handling code here:
-    }//GEN-LAST:event_field_choice1ActionPerformed
+    }//GEN-LAST:event_divisionboxItemStateChanged
 
-    private void field1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_field1ActionPerformed
+    private void divisionboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_divisionboxActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_field1ActionPerformed
+    }//GEN-LAST:event_divisionboxActionPerformed
 
-    private void andbuttonItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_andbuttonItemStateChanged
-        jPanel4.setVisible(true);
-        Set_Combo();
-    }//GEN-LAST:event_andbuttonItemStateChanged
+    private void division_jcItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_division_jcItemStateChanged
+        DatabaseManager dbma = DatabaseManager.getDbCon();
+        String Name = null;
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            String item = evt.getItem().toString();
 
-    private void andbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_andbuttonActionPerformed
-        field_choice1.setModel(new javax.swing.DefaultComboBoxModel(combo));
-    }//GEN-LAST:event_andbuttonActionPerformed
-
-    Interface_Events interface_events = new Interface_Events();
-    
-    private void fieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldKeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            
-                interface_events.Change_focus_Enterkey_t_b(field, jButton1, evt);
+            try {
+                ResultSet query = dbma.query("SELECT * FROM division_details WHERE code =" + item + "");
+                while (query.next()) {
+                    Name = query.getString("division");
+                    System.out.println(Name);
+                }
+            } catch (SQLException ex) {
+                System.out.println("error");
             }
-    }//GEN-LAST:event_fieldKeyPressed
 
-    private void jButton1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jButton1FocusGained
-        interface_events.Respond_enter(jButton1, evt);
-    }//GEN-LAST:event_jButton1FocusGained
+           
+        }
+
+
+
+    }//GEN-LAST:event_division_jcItemStateChanged
+
+    private void division_jcKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_division_jcKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {  ////// ChaNGE  focus on enter////////////////
+            
+
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_division_jcKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JRadioButton andbutton;
     private com.michaelbaranov.microba.calendar.DatePicker datePicker1;
     private com.michaelbaranov.microba.calendar.DatePicker datePicker3;
     private javax.swing.JPanel datepanel;
     private javax.swing.JPanel datepanel2;
     private javax.swing.JTextField dayfield;
     private javax.swing.JTextField dayfield2;
-    private javax.swing.JCheckBox erChk;
-    private javax.swing.JTextField field;
-    private javax.swing.JTextField field1;
-    private javax.swing.JComboBox field_choice;
-    private javax.swing.JComboBox field_choice1;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JComboBox division_jc;
+    private javax.swing.JCheckBox divisionbox;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
+    private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JTextField monthfield;
     private javax.swing.JTextField monthfield2;
-    private javax.swing.JLabel search;
-    private javax.swing.JLabel search1;
+    private javax.swing.JButton view;
     private javax.swing.JTextField yearfield;
     private javax.swing.JTextField yearfield2;
     // End of variables declaration//GEN-END:variables

@@ -1911,6 +1911,7 @@ public class ACC_journals extends javax.swing.JPanel {
 
     private void ref_noKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ref_noKeyPressed
         interface_events.Change_focus_Enterkey_t(dayfield, evt);
+        dayfield.selectAll();
     }//GEN-LAST:event_ref_noKeyPressed
 
     private void pay_typeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pay_typeKeyPressed

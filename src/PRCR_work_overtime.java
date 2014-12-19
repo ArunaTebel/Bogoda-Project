@@ -37,6 +37,9 @@ public class PRCR_work_overtime extends javax.swing.JPanel {
             tot_pay = tot_pay + chk.string_to_double(table.getValueAt(i, 5).toString());
             i++;
         }
+        tot_hours = Math.round(tot_hours*100.0)/100.0;
+        tot_pay = Math.round(tot_pay*100.0)/100.0;
+        
         tot_hrs.setText("" + tot_hours);
         total_pay.setText("" + tot_pay);
     }
@@ -153,7 +156,7 @@ public class PRCR_work_overtime extends javax.swing.JPanel {
                     dbm.updateDatabase("prcr_staff_salary_info_" + yr_mnth, "code", codet, "ot_rate", ot_rate);
                     dbm.updateDatabase("prcr_staff_salary_info_" + yr_mnth, "code", codet, "allowance1", allowance1);
                     dbm.updateDatabase("prcr_staff_salary_info_" + yr_mnth, "code", codet, "Incentive1", incentive);
-                // dbm.insert("INSERT INTO prcr_staff_salary_info_" + yr_mnth + "(code,name,basic_salary,ot_rate,allowance1,Incentive1) VALUES('" + codet + "','" + query.getString("name") + "','" + basicSalary + "','" + ot_rate + "','" + allowance1 + "','" + incentive + "')");
+                    // dbm.insert("INSERT INTO prcr_staff_salary_info_" + yr_mnth + "(code,name,basic_salary,ot_rate,allowance1,Incentive1) VALUES('" + codet + "','" + query.getString("name") + "','" + basicSalary + "','" + ot_rate + "','" + allowance1 + "','" + incentive + "')");
 
                 }
             }
@@ -200,6 +203,14 @@ public class PRCR_work_overtime extends javax.swing.JPanel {
         }
         JOptionPane.showMessageDialog(null, "Done \n", "Message", JOptionPane.INFORMATION_MESSAGE);
 
+    }
+
+    public void clear_ot_hours() {
+        int i = 0;
+        while (table.getValueAt(i, 0) != null) {
+            table.setValueAt(0, i, 3);
+            i++;
+        }
     }
 
     public void initial_fill_database(String yr_mnth) {
@@ -328,6 +339,7 @@ public class PRCR_work_overtime extends javax.swing.JPanel {
         yearfield = new javax.swing.JTextField();
         datePicker1 = new com.michaelbaranov.microba.calendar.DatePicker();
         jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
 
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -687,6 +699,14 @@ public class PRCR_work_overtime extends javax.swing.JPanel {
             }
         });
 
+        jButton4.setForeground(new java.awt.Color(255, 0, 0));
+        jButton4.setText("Clear All");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -719,8 +739,10 @@ public class PRCR_work_overtime extends javax.swing.JPanel {
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton2)
-                .addGap(265, 265, 265)
+                .addGap(18, 18, 18)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -738,7 +760,8 @@ public class PRCR_work_overtime extends javax.swing.JPanel {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1035,6 +1058,15 @@ public class PRCR_work_overtime extends javax.swing.JPanel {
         fill_edited_salaries_table();
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        int reply = JOptionPane.showConfirmDialog(null, "Are You Sure you want to clear all entered OT hours?", "Clear OT hours", JOptionPane.YES_NO_OPTION);
+        if (reply == JOptionPane.YES_OPTION) {
+            clear_ot_hours();
+            calc();
+            tot_OT();
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.michaelbaranov.microba.calendar.DatePicker datePicker1;
@@ -1043,6 +1075,7 @@ public class PRCR_work_overtime extends javax.swing.JPanel {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;

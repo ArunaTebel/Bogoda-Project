@@ -71,7 +71,7 @@ public class pAccounts extends javax.swing.JPanel {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        view.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "---------", "Receipts", "Payments", "Journals", "Opening Balances", "----------" }));
+        view.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "---------", "Receipts", "Payments", "Journals", "Opening Balances", "Error Detection", "----------" }));
         view.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 viewItemStateChanged(evt);
@@ -324,6 +324,10 @@ public class pAccounts extends javax.swing.JPanel {
             repaint();
             // jview.focus();
         }
+        if(selection.equalsIgnoreCase("Error Detection")){
+            Acc_Error_Detection error = new Acc_Error_Detection();
+            error.setVisible(true);
+        }
     }//GEN-LAST:event_viewActionPerformed
 
     private void Add_comboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Add_comboActionPerformed
@@ -491,6 +495,10 @@ public class pAccounts extends javax.swing.JPanel {
             repaint();
             AddAcc.focus();
         }
+       /* if(view.getSelectedItem().toString() == "Error Detection"){
+            Acc_Error_Detection error = new Acc_Error_Detection();
+            error.setVisible(true);
+        }*/
 
     }//GEN-LAST:event_viewItemStateChanged
 
