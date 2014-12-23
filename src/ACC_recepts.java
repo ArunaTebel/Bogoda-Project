@@ -1078,11 +1078,15 @@ public class ACC_recepts extends javax.swing.JPanel {
             tot = tot + Double.parseDouble(format.getNumberWithoutCommas((String) credit_amount_table.getValueAt(i, 0)));
             i++;
         }
-        total.setText(format.modify_number(format.set_comma("" + tot)));
+     ////   total.setText(format.modify_number(format.set_comma("" + tot)));
+        
+         NumberFormat formatter = new DecimalFormat("#0.00");
+        total.setText(format.modify_number(format.set_comma(formatter.format(tot))));
 
         // difference.setText("" + (Double.parseDouble(debitAmount.getText()) - tot));
         double dif = Math.round((Double.parseDouble(format.getNumberWithoutCommas(debitAmount.getText())) - tot) * 100.0) / 100.0;
-        difference.setText(format.modify_number(format.set_comma("" + dif)));
+       //// difference.setText(format.modify_number(format.set_comma("" + dif)));
+        difference.setText(format.modify_number(format.set_comma(formatter.format(dif))));
         credit_account_code.requestFocusInWindow();
     }//GEN-LAST:event_jButton2ActionPerformed
     public int stringToIntNum(String s) {
@@ -1237,8 +1241,12 @@ public class ACC_recepts extends javax.swing.JPanel {
                         .getName()).log(Level.SEVERE, null, ex);
             }
         } else {
-            total.setText(format.modify_number(format.set_comma("" + tot)));
-            difference.setText(format.modify_number(format.set_comma("" + diff)));
+         ////   total.setText(format.modify_number(format.set_comma("" + tot)));
+            
+             NumberFormat formatter = new DecimalFormat("#0.00");
+        total.setText(format.modify_number(format.set_comma(formatter.format(tot))));
+          ////  difference.setText(format.modify_number(format.set_comma("" + diff)));
+        difference.setText(format.modify_number(format.set_comma(formatter.format(diff))));
             msg.showMessage("There is a difference", "Please Check Again", "info");
             credit_account_code.requestFocusInWindow();
         }
@@ -1304,17 +1312,18 @@ public class ACC_recepts extends javax.swing.JPanel {
             i = 0;
             while (credit_account_code_table.getValueAt(i, 0) != null) {
                 tot = tot + Double.parseDouble(format.getNumberWithoutCommas((String) credit_amount_table.getValueAt(i, 0)));
+
                 tot = Math.round(tot * 100.0) / 100.0;
+
                 i++;
             }
+            NumberFormat formatter = new DecimalFormat("#0.00");
 
-            //total.setText(""+tot);
-            // total.setText(new BigDecimal(tot).toPlainString());
-            total.setText(format.modify_number(format.set_comma("" + tot)));
-
+         ////   total.setText(format.modify_number(format.set_comma("" + tot)));
+            total.setText(format.modify_number(format.set_comma(formatter.format(tot))));
             // difference.setText("" + (Double.parseDouble(debitAmount.getText()) - tot));
             double dif = Math.round((Double.parseDouble(format.getNumberWithoutCommas(debitAmount.getText())) - tot) * 100.0) / 100.0;
-            difference.setText(format.modify_number(format.set_comma("" + dif)));
+            difference.setText(format.modify_number(format.set_comma(formatter.format(dif))));
 
             if (Double.parseDouble(format.getNumberWithoutCommas(difference.getText())) < 0) {
                 msg.showMessage("Credit balance is higher than Debit balance", "Please Check Again", "info");
@@ -1357,7 +1366,9 @@ public class ACC_recepts extends javax.swing.JPanel {
             i++;
         }
         // total.setText("" + tot);
-        total.setText(format.modify_number(format.set_comma("" + tot)));
+       //// total.setText(format.modify_number(format.set_comma("" + tot)));
+         NumberFormat formatter = new DecimalFormat("#0.00");
+        total.setText(format.modify_number(format.set_comma(formatter.format(tot))));
         // difference.setText("" + (Double.parseDouble(debitAmount.getText()) - tot));
         difference.setText(String.format("%.2f", (Double.parseDouble(format.getNumberWithoutCommas(debitAmount.getText())) - tot)));
 
@@ -1961,7 +1972,7 @@ public class ACC_recepts extends javax.swing.JPanel {
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
 
             jButton6.setEnabled(false);
-            double tot = 0;
+          /*  double tot = 0;
             int i = 0;
             while (credit_account_code_table.getValueAt(i, 0) != null) {
                 tot = tot + Double.parseDouble((String) credit_amount_table.getValueAt(i, 0));
@@ -1979,6 +1990,37 @@ public class ACC_recepts extends javax.swing.JPanel {
                 msg.showMessage("There is a difference", "Please Check Again", "info");
                 credit_account_code.requestFocusInWindow();
             } else {
+                if (chkd == 1) {
+                    jButton6.setEnabled(true);
+                    jButton6.requestFocusInWindow();
+                }
+            }*/
+            
+            
+             double tot = 0;
+            int i = 0;
+            while (credit_account_code_table.getValueAt(i, 0) != null) {
+                tot = tot + Double.parseDouble(format.getNumberWithoutCommas((String) credit_amount_table.getValueAt(i, 0)));
+
+                tot = Math.round(tot * 100.0) / 100.0;
+
+                i++;
+            }
+            NumberFormat formatter = new DecimalFormat("#0.00");
+
+         ////   total.setText(format.modify_number(format.set_comma("" + tot)));
+            total.setText(format.modify_number(format.set_comma(formatter.format(tot))));
+            // difference.setText("" + (Double.parseDouble(debitAmount.getText()) - tot));
+            double dif = Math.round((Double.parseDouble(format.getNumberWithoutCommas(debitAmount.getText())) - tot) * 100.0) / 100.0;
+            difference.setText(format.modify_number(format.set_comma(formatter.format(dif))));
+
+            if (Double.parseDouble(format.getNumberWithoutCommas(difference.getText())) < 0) {
+                msg.showMessage("Credit balance is higher than Debit balance", "Please Check Again", "info");
+                jButton2.requestFocusInWindow();
+            } else if (Double.parseDouble(format.getNumberWithoutCommas(difference.getText())) != 0) {
+                msg.showMessage("There is a difference", "Please Check Again", "info");
+                credit_account_code.requestFocusInWindow();
+            }else {
                 if (chkd == 1) {
                     jButton6.setEnabled(true);
                     jButton6.requestFocusInWindow();
