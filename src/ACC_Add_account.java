@@ -1,6 +1,8 @@
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /*
@@ -23,6 +25,7 @@ public class ACC_Add_account extends javax.swing.JPanel {
      */
     public ACC_Add_account() {
         initComponents();
+        op_panel.setVisible(false);
     }
 
     public void focus() {
@@ -43,29 +46,30 @@ public class ACC_Add_account extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         account_name = new javax.swing.JTextField();
         account_code = new javax.swing.JTextField();
-        opening_balance = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        jButton7 = new javax.swing.JButton();
         account_class = new javax.swing.JComboBox();
-        jLabel5 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         save = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         save1 = new javax.swing.JButton();
+        save2 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
-        jLabel6 = new javax.swing.JLabel();
-        current_balance = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         account_code_label = new javax.swing.JLabel();
-        opening_balance_label = new javax.swing.JLabel();
+        op_panel = new javax.swing.JPanel();
+        current_balance = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
         current_balance_label = new javax.swing.JLabel();
+        opening_balance_label = new javax.swing.JLabel();
+        opening_balance = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         jLabel1.setText("Account Name");
 
@@ -91,28 +95,6 @@ public class ACC_Add_account extends javax.swing.JPanel {
             }
         });
 
-        opening_balance.setEditable(false);
-        opening_balance.setText("0");
-        opening_balance.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-            }
-            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
-                opening_balanceInputMethodTextChanged(evt);
-            }
-        });
-        opening_balance.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                opening_balanceKeyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                opening_balanceKeyReleased(evt);
-            }
-        });
-
-        jLabel4.setText("Opening Balance");
-
-        jButton7.setText("View");
-
         account_class.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Current Asset", "Fixed Asset", "Current Liability", "Fixed Liability", "Expense", "Income", "Equity" }));
         account_class.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -129,8 +111,6 @@ public class ACC_Add_account extends javax.swing.JPanel {
                 account_classKeyPressed(evt);
             }
         });
-
-        jLabel5.setText("Rs");
 
         jLabel3.setText("Account Class");
 
@@ -174,6 +154,18 @@ public class ACC_Add_account extends javax.swing.JPanel {
             }
         });
 
+        save2.setText("Delete");
+        save2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                save2ActionPerformed(evt);
+            }
+        });
+        save2.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                save2FocusGained(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -183,7 +175,9 @@ public class ACC_Add_account extends javax.swing.JPanel {
                 .addComponent(save, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(save1, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(save2, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addComponent(jButton2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton3)
@@ -199,7 +193,8 @@ public class ACC_Add_account extends javax.swing.JPanel {
                         .addComponent(jButton3))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(save, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(save1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(save1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(save2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -242,7 +237,9 @@ public class ACC_Add_account extends javax.swing.JPanel {
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
-        jLabel6.setText("Current Balance");
+        jLabel8.setForeground(new java.awt.Color(255, 0, 0));
+
+        account_code_label.setForeground(new java.awt.Color(255, 0, 51));
 
         current_balance.setEditable(false);
         current_balance.setText("0");
@@ -252,15 +249,82 @@ public class ACC_Add_account extends javax.swing.JPanel {
             }
         });
 
-        jLabel7.setText("Rs");
+        jLabel4.setText("Opening Balance");
 
-        jLabel8.setForeground(new java.awt.Color(255, 0, 0));
-
-        account_code_label.setForeground(new java.awt.Color(255, 0, 51));
+        current_balance_label.setForeground(new java.awt.Color(255, 0, 0));
 
         opening_balance_label.setForeground(new java.awt.Color(255, 0, 51));
 
-        current_balance_label.setForeground(new java.awt.Color(255, 0, 0));
+        opening_balance.setEditable(false);
+        opening_balance.setText("0");
+        opening_balance.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+                opening_balanceInputMethodTextChanged(evt);
+            }
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
+        });
+        opening_balance.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                opening_balanceKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                opening_balanceKeyReleased(evt);
+            }
+        });
+
+        jLabel7.setText("Rs");
+
+        jLabel6.setText("Current Balance");
+
+        jLabel5.setText("Rs");
+
+        javax.swing.GroupLayout op_panelLayout = new javax.swing.GroupLayout(op_panel);
+        op_panel.setLayout(op_panelLayout);
+        op_panelLayout.setHorizontalGroup(
+            op_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(op_panelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(op_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(op_panelLayout.createSequentialGroup()
+                        .addGap(237, 237, 237)
+                        .addGroup(op_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(opening_balance_label, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(current_balance_label, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(op_panelLayout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(current_balance, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(jLabel7))
+                    .addGroup(op_panelLayout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(opening_balance, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(jLabel5)))
+                .addContainerGap(163, Short.MAX_VALUE))
+        );
+        op_panelLayout.setVerticalGroup(
+            op_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(op_panelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(op_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(op_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(opening_balance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel5))
+                    .addGroup(op_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel4)
+                        .addComponent(opening_balance_label, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(op_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(current_balance_label, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(op_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel6)
+                        .addComponent(current_balance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel7)))
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -269,62 +333,35 @@ public class ACC_Add_account extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel2))
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel2))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(account_class, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(50, 50, 50)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(current_balance_label, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addGroup(layout.createSequentialGroup()
-                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                            .addGroup(layout.createSequentialGroup()
-                                                                .addComponent(account_code_label, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                .addGap(215, 215, 215))
-                                                            .addComponent(opening_balance_label, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE)
-                                                        .addComponent(jButton7))))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(account_name, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(0, 0, Short.MAX_VALUE)))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(account_code, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(account_class, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(50, 50, 50)
+                                        .addComponent(account_code_label, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(account_name))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 280, Short.MAX_VALUE)
+                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel6)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(current_balance, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(10, 10, 10)
-                                        .addComponent(jLabel7))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel4)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(opening_balance, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(10, 10, 10)
-                                        .addComponent(jLabel5)))
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap())
+                                .addComponent(account_code, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(op_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -332,21 +369,13 @@ public class ACC_Add_account extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(opening_balance_label, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(opening_balance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel5))))
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                             .addGap(95, 95, 95)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(account_code_label, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jButton7)))
+                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                             .addContainerGap()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -362,15 +391,10 @@ public class ACC_Add_account extends javax.swing.JPanel {
                                 .addComponent(account_class, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGap(3, 3, 3))))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(current_balance_label, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel6)
-                        .addComponent(current_balance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel7)))
-                .addGap(142, 142, 142)
+                .addComponent(op_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(61, 61, 61)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(36, 36, 36))
             .addComponent(jSeparator1)
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -386,9 +410,8 @@ public class ACC_Add_account extends javax.swing.JPanel {
 
         aobject.setAccountName(account_name.getText());
 
-       // aobject.setAccountClass(account_class.getSelectedItem().toString());
-        
-       // aobject.setAccountClass(a);
+        // aobject.setAccountClass(account_class.getSelectedItem().toString());
+        // aobject.setAccountClass(a);
         if (chk.isInteger(account_code.getText()) == true) {
             account_code_label.setText(null);
         }
@@ -526,28 +549,28 @@ public class ACC_Add_account extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     Check_Entries chk = new Check_Entries();
-    
+
     private void account_codeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_account_codeKeyReleased
-        
-         DatabaseManager dbm = DatabaseManager.getDbCon();
-         int count=0;
+
+        DatabaseManager dbm = DatabaseManager.getDbCon();
+        int count = 0;
         try {
             ResultSet query = dbm.query("SELECT * FROM account_names WHERE account_id =" + chk.string_to_int(account_code.getText()) + "");
             while (query.next()) {
                 count++;
             }
-            if(count!=0){
+            if (count != 0) {
                 ResultSet query1 = dbm.query("SELECT * FROM account_names WHERE account_id =" + chk.string_to_int(account_code.getText()) + "");
-            while (query1.next()) {
-                account_name.setText(query1.getString("account_name"));
-                account_class.setSelectedItem(query1.getString("account_class"));
-                opening_balance.setText(query1.getString("opening_balance"));
-                double bal = Double.parseDouble(query1.getString("current_balance"));
-                bal = Math.ceil((bal) * 100.0) / 100.0;
-                current_balance.setText(""+bal);
-            }
-            query1.close();
-                count=0;
+                while (query1.next()) {
+                    account_name.setText(query1.getString("account_name"));
+                    account_class.setSelectedItem(query1.getString("account_class"));
+                    opening_balance.setText(query1.getString("opening_balance"));
+                    double bal = Double.parseDouble(query1.getString("current_balance"));
+                    bal = Math.ceil((bal) * 100.0) / 100.0;
+                    current_balance.setText("" + bal);
+                }
+                query1.close();
+                count = 0;
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -555,18 +578,45 @@ public class ACC_Add_account extends javax.swing.JPanel {
     }//GEN-LAST:event_account_codeKeyReleased
 
     private void save1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_save1ActionPerformed
-        
+
         DatabaseManager dbm = DatabaseManager.getDbCon();
-        
-        dbm.updateDatabase("account_names","account_id",chk.string_to_int(account_code.getText()),"account_name",account_name.getText());
-        dbm.updateDatabase("account_names","account_id",chk.string_to_int(account_code.getText()),"account_class",account_class.getSelectedItem().toString());
-        dbm.updateDatabase("account_names","account_id",chk.string_to_int(account_code.getText()),"opening_balance",Double.parseDouble(opening_balance.getText()));
-        dbm.updateDatabase("account_names","account_id",chk.string_to_int(account_code.getText()),"current_balance",Double.parseDouble(current_balance.getText()));
+
+        dbm.updateDatabase("account_names", "account_id", chk.string_to_int(account_code.getText()), "account_name", account_name.getText());
+        dbm.updateDatabase("account_names", "account_id", chk.string_to_int(account_code.getText()), "account_class", account_class.getSelectedItem().toString());
+        dbm.updateDatabase("account_names", "account_id", chk.string_to_int(account_code.getText()), "opening_balance", Double.parseDouble(opening_balance.getText()));
+        dbm.updateDatabase("account_names", "account_id", chk.string_to_int(account_code.getText()), "current_balance", Double.parseDouble(current_balance.getText()));
     }//GEN-LAST:event_save1ActionPerformed
 
     private void save1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_save1FocusGained
         // TODO add your handling code here:
     }//GEN-LAST:event_save1FocusGained
+
+    private void save2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_save2ActionPerformed
+        DatabaseManager dbm = DatabaseManager.getDbCon();
+        int reply = JOptionPane.showConfirmDialog(null, "Are You Sure?", "Delete Entry", JOptionPane.YES_NO_OPTION);
+
+        if (reply == JOptionPane.YES_OPTION) {
+            try {
+                dbm.insert("DELETE FROM `account_names` where `account_id` LIKE '" + account_code.getText() + "'");
+            } catch (SQLException ex) {
+                System.out.println(ex);
+                Logger.getLogger(ACC_Add_account.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            account_name.setText(null);
+            account_class.setSelectedIndex(1);
+            account_code.setText(null);
+            opening_balance.setText(null);
+            current_balance.setText(null);
+            account_code_label.setText(null);
+            opening_balance_label.setText(null);
+            current_balance_label.setText(null);
+            account_name.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_save2ActionPerformed
+
+    private void save2FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_save2FocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_save2FocusGained
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -581,7 +631,6 @@ public class ACC_Add_account extends javax.swing.JPanel {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -593,9 +642,11 @@ public class ACC_Add_account extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JPanel op_panel;
     private javax.swing.JTextField opening_balance;
     private javax.swing.JLabel opening_balance_label;
     private javax.swing.JButton save;
     private javax.swing.JButton save1;
+    private javax.swing.JButton save2;
     // End of variables declaration//GEN-END:variables
 }

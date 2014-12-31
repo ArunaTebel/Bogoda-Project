@@ -58,6 +58,10 @@ public class Reciepts_accounts {
     }
 
     // Setters
+    
+    public void setTrNo(int tr_no){
+        this.tr_no=tr_no;
+    }
     public void setRefNo(String refNo) {
         this.refNo = refNo;
     }
@@ -372,6 +376,17 @@ public class Reciepts_accounts {
         return true;
     }
     
+     public boolean addToDebitDataBaseBankEdit() {
+        DatabaseManager dbCon = DatabaseManager.getDbCon();
+        try {
+            dbCon.insert("INSERT INTO account_reciept_debitside(tr_no,ref_no,date,pay_type,debit_account_id,debit_account_name,description,debit_description,bank_id,bank_name,branch_id,branch_name,cheque_no,cheque_date,debit_amount) VALUES('" + tr_no + "','" + refNo + "','" + date + "','" + payType + "','" + debit_accountCode + "','" + debit_accountName + "','"+description+"','" + debit_description + "','" + bankCode + "','" + bankName + "','" + branchCode + "','" + branchName + "','" + chequeNo + "','" + chequeDate + "','" + debitAmount + "')");
+        } catch (SQLException ex) {
+            MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
+            return false;
+        }
+        return true;
+    }
+    
      public boolean addToDebitDataBaseBankall() {
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         try {
@@ -414,6 +429,19 @@ public class Reciepts_accounts {
         }
         return true;
     }
+    
+     public boolean addToDebitDataBaseCashEdit() {
+        DatabaseManager dbCon = DatabaseManager.getDbCon();
+        try {
+            dbCon.insert("INSERT INTO account_reciept_debitside(tr_no,ref_no,date,pay_type,debit_account_id,debit_account_name,description,debit_description,debit_amount) VALUES('" + tr_no + "','" + refNo + "','" + date + "','" + payType + "','" + debit_accountCode + "','" + debit_accountName + "','"+description+"','" + debit_description + "','" + debitAmount + "')");
+
+        } catch (SQLException ex) {
+            MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
+            return false;
+        }
+        return true;
+    }
+    
       public boolean addToDebitDataBaseCashall() {
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         try {

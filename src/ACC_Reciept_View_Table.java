@@ -401,8 +401,21 @@ public class ACC_Reciept_View_Table extends javax.swing.JFrame {
     
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
 
-        ACC_Edit_Receipts edit = new ACC_Edit_Receipts();
-        edit.setVisible(true);
+       /* ACC_Edit_receipts edit = new ACC_Edit_receipts();
+        edit.setVisible(true);*/
+        
+        ///////////////
+        
+        New_window NW = new New_window();
+        NW.setVisible(true);
+        ACC_Edit_Receipts_new edit = new ACC_Edit_Receipts_new();
+        NW.paint(edit, "Edit Receipts");
+        NW.setVisible(true);
+        
+        /////////////////
+        
+        
+        
         int tr_no,check,row;
         tr_no=0;
         check=0;
