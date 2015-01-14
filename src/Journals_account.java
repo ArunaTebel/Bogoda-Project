@@ -139,6 +139,18 @@ public class Journals_account {
 
         return true;
     }
+    
+     public boolean addToMainJournalDataBaseBankEdit() {
+        DatabaseManager dbCon = DatabaseManager.getDbCon();
+        try {
+            dbCon.insert("INSERT INTO account_journal_main(tr_no,ref_no,date,pay_type,description,bank_id,bank_name,branch_id,branch_name,cheque_no,cheque_date) VALUES('" + tr_no + "','" + refNo + "','" + date + "','" + payType + "','" + description + "','" + bankCode + "','" + bankName + "','" + branchCode + "','" + branchName + "','" + chequeNo + "','" + chequeDate + "')");
+        } catch (SQLException ex) {
+            MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
+            return false;
+        }
+
+        return true;
+    }
 
     public boolean addToMainJournalDataBaseBankall() {
         DatabaseManager dbCon = DatabaseManager.getDbCon();
@@ -176,6 +188,18 @@ public class Journals_account {
                 tr_no = rs.getInt(1);
             }
 
+        } catch (SQLException ex) {
+            MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
+            return false;
+        }
+
+        return true;
+    }
+    
+     public boolean addToMainJournalDataBaseCashEdit() {
+        DatabaseManager dbCon = DatabaseManager.getDbCon();
+        try {
+            dbCon.insert("INSERT INTO account_journal_main(tr_no,ref_no,date,pay_type,description) VALUES('" + tr_no + "','" + refNo + "','" + date + "','" + payType + "','" + description + "')");
         } catch (SQLException ex) {
             MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
             return false;

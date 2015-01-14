@@ -520,6 +520,7 @@ public class Acc_Change_Period extends javax.swing.JFrame {
                 query.close();
                 dbm.insert("Truncate accounting_period");
                 dbm.insert("INSERT INTO accounting_period (period) VALUES ('"+return_period()+"')");
+                this.dispose();
             } catch (SQLException ex) {
                 Logger.getLogger(Acc_Change_Period.class.getName()).log(Level.SEVERE, null, ex);
             } 

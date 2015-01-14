@@ -409,9 +409,19 @@ public class ACC_Journal_View_Table extends javax.swing.JFrame {
     
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
 
-        ACC_Edit_journals1 edit = new ACC_Edit_journals1();
+        /*ACC_Edit_journals1 edit = new ACC_Edit_journals1();
+        edit.setVisible(true);*/
         
-        edit.setVisible(true);
+        ///////////////
+        
+        New_window NW = new New_window();
+        NW.setVisible(true);
+        ACC_Edit_Journals_new edit = new ACC_Edit_Journals_new();
+        NW.paint(edit, "Edit Payments");
+        NW.setVisible(true);
+        
+        /////////////////
+        
         int tr_no,check,row;
         tr_no=0;
         check=0;

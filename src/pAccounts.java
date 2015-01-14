@@ -71,7 +71,7 @@ public class pAccounts extends javax.swing.JPanel {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        view.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "---------", "Receipts", "Payments", "Journals", "Opening Balances", "Error Detection", "----------" }));
+        view.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "---------", "Receipts", "Payments", "Journals", "Opening Balances", "Error Detection", "Control Panel", "----------" }));
         view.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 viewItemStateChanged(evt);
@@ -328,6 +328,11 @@ public class pAccounts extends javax.swing.JPanel {
             Acc_Error_Detection error = new Acc_Error_Detection();
             error.setVisible(true);
         }
+        
+        if(selection.equalsIgnoreCase("Control Panel")){
+            Acc_Control_Panel ctrl = new Acc_Control_Panel();
+            ctrl.setVisible(true);
+        }
     }//GEN-LAST:event_viewActionPerformed
 
     private void Add_comboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Add_comboActionPerformed
@@ -483,13 +488,9 @@ public class pAccounts extends javax.swing.JPanel {
             pview.focus();
         }
         if (view.getSelectedItem().toString() == "Opening Balances") {
-
             Acc_Change_Op_Bal AddAcc = new Acc_Change_Op_Bal();
-
             GL_content.removeAll();
-
             AddAcc.setSize(GL_content.getSize());
-
             GL_content.add(AddAcc);
             validate();
             repaint();
