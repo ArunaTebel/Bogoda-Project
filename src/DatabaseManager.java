@@ -42,12 +42,12 @@ public final class DatabaseManager {
             password = "ninelights@mora";
        } 
        
-      // url = "jdbc:mysql://localhost:3306/";
-        // dbName = "bogoda";
+     //  url = "jdbc:mysql://localhost:3306/";
+       //  dbName = "bogoda";
        
         //userName = "root";
         
-       // password = "";
+      //  password = "";
        
        
     
