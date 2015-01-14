@@ -1,16 +1,16 @@
 
-
 import java.awt.event.KeyEvent;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import static org.jdesktop.swingx.plaf.synth.SynthUtils.update;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Pramo
@@ -20,12 +20,11 @@ public class PRCR_epf_etf_backup extends javax.swing.JPanel {
     /**
      * Creates new form PRCR_salary_payroll
      */
-    
     PRCR_Search spiObject = new PRCR_Search();
-     Date_Handler datehandler = new Date_Handler();
-    DatabaseManager dbm =  DatabaseManager.getDbCon();
-     Interface_Events k=new Interface_Events();
-    
+    Date_Handler datehandler = new Date_Handler();
+    DatabaseManager dbm = DatabaseManager.getDbCon();
+    Interface_Events k = new Interface_Events();
+
     public PRCR_epf_etf_backup() {
         initComponents();
     }
@@ -448,7 +447,7 @@ public class PRCR_epf_etf_backup extends javax.swing.JPanel {
             //set_task_man(year, month);
 
         }
- 
+
     }//GEN-LAST:event_monthfieldKeyPressed
 
     private void yearfieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_yearfieldKeyPressed
@@ -470,7 +469,7 @@ public class PRCR_epf_etf_backup extends javax.swing.JPanel {
             String month = datehandler.return_month_as_num(monthfield.getText());
             // set_task_man(year, month);
         }
-        
+
     }//GEN-LAST:event_yearfieldKeyPressed
 
     private void datePicker1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datePicker1ActionPerformed
@@ -481,37 +480,78 @@ public class PRCR_epf_etf_backup extends javax.swing.JPanel {
         yearfield.setText(datehandler.get_year(datef));
         //  dayfield2.requestFocus();
         // dayfield2.selectAll();
-        
-    }//GEN-LAST:event_datePicker1ActionPerformed
-double totalllll=0;
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        totalllll=0;        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
 
+    }//GEN-LAST:event_datePicker1ActionPerformed
+    double totalllll = 0;
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        totalllll = 0;        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+    int checkexistence(String st, String code) throws SQLException {
+        ResultSet rs = null;
+        try {
+            rs = dbm.query("SELECT * FROM prcr_epf_etf_backup WHERE month LIKE '" + st + "' AND code LIKE '" + code + "'");
+
+        } catch (SQLException ex) {
+            Logger.getLogger(PRCR_epf_etf_backup.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        if (rs.next()) {
+
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+    ;
     private void enterrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enterrActionPerformed
-       
-             String st;
+
+        String st;
         if (datehandler.return_index(monthfield.getText()) < 10) {
             st = yearfield.getText() + "_0" + datehandler.return_index(monthfield.getText());
         } else {
             st = yearfield.getText() + "_" + datehandler.return_index(monthfield.getText());
         }
+        int check = 0;
         try {
-            dbm.insert("INSERT INTO prcr_epf_etf_backup(month,code,epf,etf,total_pay) VALUES('" +st + "','" +codeeeee.getText() + "','"+epf.getText()+"','" + etf.getText() + "','" + total_pay.getText() + "')");
-             textField.append("month-"+st+", code-"+codeeeee.getText()+", epf-"+epf.getText()+", etf-"+etf.getText()+", total pay-"+total_pay.getText()+"\n");
+            check = checkexistence(st, codeeeee.getText());
         } catch (SQLException ex) {
-            Logger.getLogger(PRCR_view_workCodeDetails.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PRCR_epf_etf_backup.class.getName()).log(Level.SEVERE, null, ex);
         }
-        totalllll=Double.parseDouble(epf.getText())+totalllll;
-       // System.out.println(totalllll);
-        epf_total.setText(totalllll+"");
+
+        if (check == 0) {//insert data if data is not exist.otherwise update
+
+            try {
+                dbm.insert("INSERT INTO prcr_epf_etf_backup(month,code,epf,etf,total_pay) VALUES('" + st + "','" + codeeeee.getText() + "','" + epf.getText() + "','" + etf.getText() + "','" + total_pay.getText() + "')");
+            } catch (SQLException ex) {
+                Logger.getLogger(PRCR_view_workCodeDetails.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        } else {
+
+            try {
+                dbm.insert("UPDATE prcr_epf_etf_backup SET epf='" + epf.getText() + "' WHERE month='" + st + " 'AND code='" + codeeeee.getText() + "'");
+                dbm.insert("UPDATE prcr_epf_etf_backup SET etf='" + etf.getText() + "' WHERE month='" + st + " 'AND code='" + codeeeee.getText() + "'");
+                dbm.insert("UPDATE prcr_epf_etf_backup SET total_pay='" + total_pay.getText() + "' WHERE month='" + st + " 'AND code='" + codeeeee.getText() + "'");
+
+            } catch (SQLException ex) {
+                Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+
+        textField.append("month-" + st + ", code-" + codeeeee.getText() + ", epf-" + epf.getText() + ", etf-" + etf.getText() + ", total pay-" + total_pay.getText() + "\n");
+
+        totalllll = Double.parseDouble(epf.getText()) + totalllll;
+        // System.out.println(totalllll);
+        epf_total.setText(totalllll + "");
         etf.setText("");
         codeeeee.setText("");
         epf.setText("");
         total_pay.setText("");
-        
+
         codeeeee.requestFocus();
-        
+
     }//GEN-LAST:event_enterrActionPerformed
 
     private void enterrFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_enterrFocusGained
@@ -527,9 +567,33 @@ double totalllll=0;
     }//GEN-LAST:event_etfKeyPressed
 
     private void codeeeeeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_codeeeeeKeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
 
-           total_pay.requestFocus();
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            String st;
+            if (datehandler.return_index(monthfield.getText()) < 10) {
+                st = yearfield.getText() + "_0" + datehandler.return_index(monthfield.getText());
+            } else {
+                st = yearfield.getText() + "_" + datehandler.return_index(monthfield.getText());
+            }
+
+            try {
+                ResultSet rs = dbm.query("SELECT * FROM prcr_epf_etf_backup WHERE month LIKE '" + st + "' AND code LIKE '" + codeeeee.getText() + "'");
+                if (rs.next()) {
+
+                    System.out.println(rs.getDouble("epf"));
+                    epf.setText(String.valueOf(rs.getDouble("epf")));
+                    etf.setText(String.valueOf(rs.getDouble("etf")));
+                    total_pay.setText(String.valueOf(rs.getDouble("total_pay")));
+                } else {
+                    epf.setText("");
+                    etf.setText("");
+                    total_pay.setText("");
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(PRCR_epf_etf_backup.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            total_pay.requestFocus();
 
         }
     }//GEN-LAST:event_codeeeeeKeyPressed
@@ -537,7 +601,7 @@ double totalllll=0;
     private void epfKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_epfKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
 
-           etf.requestFocus();
+            etf.requestFocus();
 
         } // TODO add your handling code here:
     }//GEN-LAST:event_epfKeyPressed
@@ -547,9 +611,9 @@ double totalllll=0;
     }//GEN-LAST:event_monthfieldActionPerformed
 
     private void total_payKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_total_payKeyPressed
-               if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
 
-           epf.requestFocus();
+            epf.requestFocus();
 
         }  // TODO add your handling code here:
     }//GEN-LAST:event_total_payKeyPressed

@@ -10,12 +10,10 @@ public class Check_Entries extends javax.swing.JTextField {
             if (isDouble(s.split(".")[0])) {
                 num = Double.parseDouble(s);
                 super.setText(set_comma(num));
-            }
-            else{
+            } else {
                 super.setText(s);
             }
-        }
-        else{
+        } else {
             super.setText(s);
         }
     }
@@ -60,5 +58,26 @@ public class Check_Entries extends javax.swing.JTextField {
         DecimalFormat myFormatter = new DecimalFormat("###,###.###");
         String output = myFormatter.format(num);
         return output;
+    }
+
+    public int verify_combo_box(javax.swing.JComboBox combo, String databaseTable, String tableColumn) {
+
+        DatabaseManager dbm = DatabaseManager.getDbCon();
+        MessageBox msg = new MessageBox();
+        if (combo.getSelectedItem() == null) {
+            msg.showMessage("Invalid Account Code", "Receipt", "info");
+            combo.requestFocus();
+            return 0;
+        } else {
+            String item = combo.getSelectedItem().toString();
+            if (dbm.checkWhetherDataExists(databaseTable, tableColumn, item) == 0) {
+                msg.showMessage("Invalid Account Code", "Receipt", "info");
+                combo.setSelectedItem(null);
+                combo.requestFocus();
+                return 0;
+            } else {
+                return 1;
+            }
+        }
     }
 }

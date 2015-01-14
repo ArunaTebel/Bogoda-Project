@@ -742,6 +742,7 @@ days=null;
             dbm.updateDatabase("pr_workdata_" + this.st, "code", activecodes[i], "new_2", other2);
 
             dbm.updateDatabase("pr_workdata_" + this.st, "code", activecodes[i], "active", 1);
+            System.out.println(dbm.checknReturnData("checkroll_personalinfo", "code", activecodes[i], "register_or_casual") +"-"+activecodes[i]);
             if(Integer.parseInt(dbm.checknReturnData("checkroll_personalinfo", "code", activecodes[i], "register_or_casual")) == 1 ){
             dbm.updateDatabase("pr_workdata_" + this.st, "code", activecodes[i],"pay_slip",payslip);
             }

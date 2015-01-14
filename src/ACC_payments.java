@@ -299,6 +299,11 @@ public class ACC_payments extends javax.swing.JPanel {
                 debit_account_codeItemStateChanged(evt);
             }
         });
+        debit_account_code.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                debit_account_codeFocusGained(evt);
+            }
+        });
         debit_account_code.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 debit_account_codeKeyPressed(evt);
@@ -708,6 +713,11 @@ public class ACC_payments extends javax.swing.JPanel {
         credit_accountCode.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 credit_accountCodeActionPerformed(evt);
+            }
+        });
+        credit_accountCode.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                credit_accountCodeFocusGained(evt);
             }
         });
         credit_accountCode.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -2102,6 +2112,14 @@ public class ACC_payments extends javax.swing.JPanel {
     private void credit_descriptionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_credit_descriptionKeyReleased
         description.setText(credit_description.getText());
     }//GEN-LAST:event_credit_descriptionKeyReleased
+
+    private void credit_accountCodeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_credit_accountCodeFocusGained
+        credit_accountCode.getEditor().selectAll();
+    }//GEN-LAST:event_credit_accountCodeFocusGained
+
+    private void debit_account_codeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_debit_account_codeFocusGained
+        debit_account_code.getEditor().selectAll();
+    }//GEN-LAST:event_debit_account_codeFocusGained
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

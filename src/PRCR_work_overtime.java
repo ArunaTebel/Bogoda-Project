@@ -209,6 +209,11 @@ public class PRCR_work_overtime extends javax.swing.JPanel {
         int i = 0;
         while (table.getValueAt(i, 0) != null) {
             table.setValueAt(0, i, 3);
+            table.setValueAt(0, i, 7);
+            table.setValueAt(0, i, 8);
+            table.setValueAt(0, i, 10);
+            table.setValueAt(0, i, 11);
+            table.setValueAt(0, i, 12);
             i++;
         }
     }

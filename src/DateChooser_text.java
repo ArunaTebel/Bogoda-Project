@@ -139,26 +139,87 @@ public class DateChooser_text extends javax.swing.JPanel {
             month = "0" + m;
 
         } else {
-            month = ""+m;
+            month = "" + m;
         }
-        
-        d = Day.getText();
-        if(Integer.parseInt(d.toString())<10  )
-        {
-        d="0"+d;
-        }
-        
-        All = y+"-"+month+"-"+d;
-      
 
-         Datef=java.sql.Date.valueOf(All);
-        
-        
+        d = Day.getText();
+        if (Integer.parseInt(d.toString()) < 10) {
+            d = "0" + d;
+        }
+
+        All = y + "-" + month + "-" + d;
+
+        Datef = java.sql.Date.valueOf(All);
 
         return Datef;
     }
-  
-   
+    Date_Handler dt = new Date_Handler();
+
+    public java.sql.Date Return_date_sart_for_COP(javax.swing.JTextField Year, javax.swing.JTextField Month, javax.swing.JTextField Day) throws ParseException {
+        java.sql.Date Datef = null;
+        String y, d, month, All;
+        int m = 0;
+        y = Year.getText();
+        m = this.return_index(Month.getText());
+        if (m == 1) {
+            m = 12;
+            y = "" + (Integer.parseInt(y) - 1);
+        } else {
+            m = m - 1;
+        }
+        if (m < 10) {
+            month = "0" + m;
+
+        } else {
+            month = "" + m;
+        }
+
+        /* d = Day.getText();
+         if(Integer.parseInt(d.toString())<10  )
+         {
+         d="0"+d;
+         }*/
+        d = "" + dt.return_lastDate(dt.Return_month(m), y);
+
+        All = y + "-" + month + "-" + d;
+
+        Datef = java.sql.Date.valueOf(All);
+
+        return Datef;
+    }
+    
+    public java.sql.Date Return_date_end_for_COP(javax.swing.JTextField Year, javax.swing.JTextField Month, javax.swing.JTextField Day) throws ParseException {
+        java.sql.Date Datef = null;
+        String y, d, month, All;
+        int m = 0;
+        y = Year.getText();
+        m = this.return_index(Month.getText());
+        if (m == 12) {
+            m = 1;
+            y = "" + (Integer.parseInt(y) + 1);
+        } else {
+            m = m + 1;
+        }
+        if (m < 10) {
+            month = "0" + m;
+
+        } else {
+            month = "" + m;
+        }
+
+        /* d = Day.getText();
+         if(Integer.parseInt(d.toString())<10  )
+         {
+         d="0"+d;
+         }*/
+        d = "01";
+
+        All = y + "-" + month + "-" + d;
+
+        Datef = java.sql.Date.valueOf(All);
+
+        return Datef;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -287,7 +348,7 @@ public class DateChooser_text extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void dayfieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dayfieldKeyPressed
-      ///////////////////////////////////////////////////  Days Decrement/////////////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////  Days Decrement/////////////////////////////////////////////////////////////////////////////
 
         if (dayfield.getText().equals("1")) {           // Jumping to 31 and 30 from 1st 
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
@@ -632,7 +693,7 @@ public class DateChooser_text extends javax.swing.JPanel {
     private void datePicker1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datePicker1ActionPerformed
         java.sql.Date datef = new java.sql.Date(datePicker1.getDate().getTime());
 
-        dayfield.setText(Integer.parseInt(datehandler.get_day(datef))+"");
+        dayfield.setText(Integer.parseInt(datehandler.get_day(datef)) + "");
         monthfield.setText(datehandler.get_month(datef));
         yearfield.setText(datehandler.get_year(datef));
         dayfield.selectAll();

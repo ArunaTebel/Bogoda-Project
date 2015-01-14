@@ -323,6 +323,57 @@ public String get_day(Date date) {
 
         return index;
     }
+        
+         public int return_lastDate(String month,String year) {
+        int index = 0;
+
+        switch (month) {
+            case "Jan":
+                index = 31;
+                break;
+            case "Feb":
+                if(Integer.parseInt(year)%4==0 && Integer.parseInt(year)%400!=0){
+                index = 28;
+                } 
+                else{
+                    index=27;
+                }
+                break;
+            case "Mar":
+                index = 31;
+                break;
+            case "Apr":
+                index = 30;
+                break;
+            case "May":
+                index = 31;
+                break;
+            case "Jun":
+                index = 30;
+                break;
+            case "Jul":
+                index = 31;
+                break;
+            case "Aug":
+                index = 31;
+                break;
+            case "Sep":
+                index = 30;
+                break;
+            case "Oct":
+                index = 31;
+                break;
+            case "Nov":
+                index = 30;
+                break;
+            case "Dec":
+                index = 31;
+                break;
+
+        }
+
+        return index;
+    }
 
     public String Return_month(int index) {
         String month = null;

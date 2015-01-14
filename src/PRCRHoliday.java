@@ -82,7 +82,7 @@ public class PRCRHoliday extends javax.swing.JPanel {
         Calendar currentDate = Calendar.getInstance();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM");
         int month = Integer.parseInt(formatter.format(currentDate.getTime()).substring(5));
-        if(month!=3)
+        if(month==3)
             JOptionPane.showMessageDialog(null, "Holiday Pay for Factory Workers should be Updated ONLY in March every year!");
         else{
             PRCRHolidayPayFactory ex = new PRCRHolidayPayFactory();

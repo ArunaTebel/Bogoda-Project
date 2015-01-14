@@ -6,6 +6,7 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,7 +22,7 @@ import javax.swing.UIManager;
  *
  * @author IDDAMALGODA
  */
-public class Report_Acc_Ledger extends javax.swing.JPanel {
+public class Report_Acc_COP extends javax.swing.JPanel {
 
     UIDefaults defaults = UIManager.getLookAndFeelDefaults();
     DatabaseManager dbm = DatabaseManager.getDbCon();
@@ -29,16 +30,92 @@ public class Report_Acc_Ledger extends javax.swing.JPanel {
     Date_Handler dt = new Date_Handler();
 
     /**
-     * Creates new form Report_Acc_Reciepts
+     * Creates new form Report_Acc_COP
      */
-    public Report_Acc_Ledger() {
+    public Report_Acc_COP() {
         initComponents();
-        jPanel2.setVisible(false);
-
+        jPanel2.setVisible(true);
+        allExp.setSelected(true);
+        dayfield.setVisible(false);
+        dayfield2.setVisible(false);
     }
 
-    public void start() {
-        date_check.setSelected(true);
+    public double getGL(Date fromDate, Date toDate) {
+        String month = datehandler.get_month_as_num(fromDate);
+        String year = datehandler.get_year(fromDate);
+
+        String startDate = year + "-" + month;
+
+        String month2 = datehandler.get_month_as_num(toDate);
+        String year2 = datehandler.get_year(toDate);
+
+        String endDate = year2 + "-" + month2 + "-32";
+
+        System.out.println("Start-" + startDate);
+        System.out.println("End-" + endDate);
+
+        double tot = 0;
+        double value = 0;
+
+        try {
+            ResultSet query = dbm.query("SELECT * FROM account_cost_of_pay WHERE date >= '" + startDate + "' and date < '" + endDate + "' ");
+            while (query.next()) {
+                value = query.getDouble("green_leaf_qty");
+                tot = tot + value;
+
+                if (query.getString("date").split("-").length == 2) {
+                    if (Integer.parseInt(query.getString("date").split("-")[1]) == Integer.parseInt(month)) {
+                        tot = value;
+                        break;
+                    }
+                }
+            }
+            query.close();
+            return tot;
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            Logger.getLogger(ACC_COP.class.getName()).log(Level.SEVERE, null, ex);
+            return tot;
+        }
+    }
+
+    public double getMadeTea(Date fromDate, Date toDate) {
+        String month = datehandler.get_month_as_num(fromDate);
+        String year = datehandler.get_year(fromDate);
+
+        String startDate = year + "-" + month;
+
+        String month2 = datehandler.get_month_as_num(toDate);
+        String year2 = datehandler.get_year(toDate);
+
+        String endDate = year2 + "-" + month2 + "-32";
+
+        System.out.println("Start-" + startDate);
+        System.out.println("End-" + endDate);
+
+        double tot = 0;
+        double value = 0;
+
+        try {
+            ResultSet query = dbm.query("SELECT * FROM account_cost_of_pay WHERE date >= '" + startDate + "' and date < '" + endDate + "' ");
+            while (query.next()) {
+                value = query.getDouble("net_made_tea_qty");
+                tot = tot + value;
+
+                if (query.getString("date").split("-").length == 2) {
+                    if (Integer.parseInt(query.getString("date").split("-")[1]) == Integer.parseInt(month)) {
+                        tot = value;
+                        break;
+                    }
+                }
+            }
+            query.close();
+            return tot;
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            Logger.getLogger(ACC_COP.class.getName()).log(Level.SEVERE, null, ex);
+            return tot;
+        }
     }
 
     public class Background implements Runnable {
@@ -68,310 +145,93 @@ public class Report_Acc_Ledger extends javax.swing.JPanel {
 
         Thread a = new Thread(new Background());
 
-        ACC_ledger ledg = new ACC_ledger();
-
+        Acc_Trail_Balance tb = new Acc_Trail_Balance();
         ACC_Update updt = new ACC_Update();
-
         Date_Handler dt = new Date_Handler();
-
         DateChooser_text date_chooser = new DateChooser_text();
-
         DatabaseManager dbm = DatabaseManager.getDbCon();
 
         @Override
         public void run() {
             //  jProgressBar1.setIndeterminate(true);
 
-            String from_date;
-            String to_date;
-            String account_name;
-            int accountCode;
+            String from_date = null;
+            String to_date = null;
+            int fromAccountCode;
+            int toAccountCode;
 
             double op_bal;
 
-            if (!date_range.isSelected()) {
+            /////
+            jProgressBar1.setValue(45);
+            jProgressBar1.repaint();
 
-                if (!all.isSelected()) {
+            a.start();
 
-                    if (date_check.isSelected()) {
-                        jProgressBar1.setValue(45);
-                        jProgressBar1.repaint();
-
-                        a.start();
-
-                        accountCode = Integer.parseInt(account_code.getSelectedItem().toString());
-
-                        account_name = dbm.checknReturnData("account_names", "account_id", accountCode, "account_name");
-
-                        ledg.fill_account_code(accountCode);
-
-                        HashMap param = new HashMap();
-
-                        from_date = updt.checknReturnDataN();
-
-                        to_date = dt.get_today_date();
-
-                        //  op_bal = Double.parseDouble(dbm.checknReturnData("account_names", "account_id", accountCode, "opening_balance"));
-                        String d = dt.get_today_date().substring(0, 4);
-
-                        String dated = d + "-04-01";
-
-                        if (op_bal_tick.isSelected()) {
-                            op_bal = 0;
-                        } else {
-                            op_bal = ledg.opening_balance_calc(accountCode, dated);
-                        }
-
-                        param.put("USER", new UserAccountControl().get_current_user());
-                        param.put("Account_Code", accountCode);
-                        param.put("Account_Name", account_name);
-                        param.put("From_Date", from_date);
-                        param.put("To_Date", to_date);
-                        param.put("Op_Bal", op_bal);
-
-                       // jProgressBar1.setValue(45);
-                        // jProgressBar1.repaint();
-                        String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
-                        // a.start();
-                        generate.create("Account Ledgers", "D:\\", param, location, "Report_ACC_LedgerAccounts.jrxml");
-                        a.stop();
-                        ;
-                        jProgressBar1.setValue(100);
-                    } else if (trans_check.isSelected()) {
-
-                        jProgressBar1.setValue(45);
-                        jProgressBar1.repaint();
-
-                        a.start();
-                        accountCode = Integer.parseInt(account_code.getSelectedItem().toString());
-
-                        account_name = dbm.checknReturnData("account_names", "account_id", accountCode, "account_name");
-
-                        ledg.fill_account_code(accountCode);
-
-                        HashMap param = new HashMap();
-
-                        from_date = updt.checknReturnDataN();
-
-                        to_date = dt.get_today_date();
-
-                        //  op_bal = Double.parseDouble(dbm.checknReturnData("account_names", "account_id", accountCode, "opening_balance"));
-                        String d = dt.get_today_date().substring(0, 4);
-
-                        String dated = d + "-04-01";
-
-                        if (op_bal_tick.isSelected()) {
-                            op_bal = 0;
-                        } else {
-                            op_bal = ledg.opening_balance_calc(accountCode, dated);
-                        }
-
-                        param.put("USER", new UserAccountControl().get_current_user());
-                        param.put("Account_Code", accountCode);
-                        param.put("Account_Name", account_name);
-                        param.put("From_Date", from_date);
-                        param.put("To_Date", to_date);
-                        param.put("Op_Bal", op_bal);
-
-                      //  jProgressBar1.setValue(45);
-                        //  jProgressBar1.repaint();
-                        String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
-                        //  a.start();
-                        generate.create("Account Ledgers", "D:\\", param, location, "Report_ACC_LedgerAccounts_Sort_TR.jrxml");
-                        a.stop();
-                        ;
-                        jProgressBar1.setValue(100);
-                    }
-                } else {
-
-                    if (date_check.isSelected()) {
-                        jProgressBar1.setValue(45);
-                        jProgressBar1.repaint();
-                        a.start();
-                        HashMap param = new HashMap();
-                        from_date = updt.checknReturnDataN();
-                        to_date = dt.get_today_date();
-
-                        ledg.fill_all();
-                        param.put("USER", new UserAccountControl().get_current_user());
-                        param.put("From_Date", from_date);
-                        param.put("To_Date", to_date);
-
-                        String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
-
-                        generate.create("Account Ledgers", "D:\\", param, location, "Report_ACC_LedgerAccounts_All.jrxml");
-                        a.stop();
-                        ;
-                        jProgressBar1.setValue(100);
-                    } else if (trans_check.isSelected()) {
-                        jProgressBar1.setValue(45);
-                        jProgressBar1.repaint();
-                        a.start();
-                        HashMap param = new HashMap();
-                        from_date = updt.checknReturnDataN();
-                        to_date = dt.get_today_date();
-
-                        ledg.fill_all();
-                        param.put("USER", new UserAccountControl().get_current_user());
-                        param.put("From_Date", from_date);
-                        param.put("To_Date", to_date);
-
-                        String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
-
-                        generate.create("Account Ledgers", "D:\\", param, location, "Report_ACC_LedgerAccounts_All_Sort_Tr.jrxml");
-                        a.stop();
-                        ;
-                        jProgressBar1.setValue(100);
-                    }
-                }
-
+            if (all.isSelected()) {
+                fromAccountCode = 50000;
+                toAccountCode = 90000;
+            } else if (oneAccount.isSelected()) {
+                fromAccountCode = Integer.parseInt(account_code.getSelectedItem().toString());
+                toAccountCode = fromAccountCode + 1;
+            } else if (turnover.isSelected()) {
+                fromAccountCode = 50000;
+                toAccountCode = 60000;
+            } else if (otherIncome.isSelected()) {
+                fromAccountCode = 60000;
+                toAccountCode = 70000;
+            } else if (directExpenses.isSelected()) {
+                fromAccountCode = 70000;
+                toAccountCode = 80000;
+            } else if (adminExp.isSelected()) {
+                fromAccountCode = 80000;
+                toAccountCode = 90000;
             } else {
-
-                if (!all.isSelected()) {
-
-                    if (date_check.isSelected()) {
-                        try {
-                            jProgressBar1.setValue(45);
-                            jProgressBar1.repaint();
-
-                            a.start();
-
-                            accountCode = Integer.parseInt(account_code.getSelectedItem().toString());
-
-                            account_name = dbm.checknReturnData("account_names", "account_id", accountCode, "account_name");
-
-                            HashMap param = new HashMap();
-
-                            to_date = dt.get_date_as_a_String(date_chooser.Return_date(yearfield2, monthfield2, dayfield2));
-                            from_date = dt.get_date_as_a_String(date_chooser.Return_date(yearfield, monthfield, dayfield));
-
-                            if (op_bal_tick.isSelected()) {
-                                op_bal = 0;
-                            } else {
-                                op_bal = ledg.opening_balance_calc(accountCode, from_date);
-                            }
-
-                            ledg.fill_account_code_filtered_date(accountCode, from_date, to_date);
-
-                            param.put("USER", new UserAccountControl().get_current_user());
-                            param.put("Account_Code", accountCode);
-                            param.put("Account_Name", account_name);
-                            param.put("From_Date", from_date);
-                            param.put("To_Date", to_date);
-                            param.put("Op_Bal", op_bal);
-
-                           // jProgressBar1.setValue(45);
-                            // jProgressBar1.repaint();
-                            String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
-                            //  a.start();
-                            generate.create("Account Ledgers", "D:\\", param, location, "Report_ACC_LedgerAccounts.jrxml");
-                            a.stop();
-                            ;
-                            jProgressBar1.setValue(100);
-                        } catch (ParseException ex) {
-                            Logger.getLogger(Report_Acc_Ledger.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                    } else if (trans_check.isSelected()) {
-                        try {
-                            jProgressBar1.setValue(45);
-                            jProgressBar1.repaint();
-
-                            a.start();
-                            accountCode = Integer.parseInt(account_code.getSelectedItem().toString());
-
-                            account_name = dbm.checknReturnData("account_names", "account_id", accountCode, "account_name");
-
-                            HashMap param = new HashMap();
-
-                            to_date = dt.get_date_as_a_String(date_chooser.Return_date(yearfield2, monthfield2, dayfield2));
-                            from_date = dt.get_date_as_a_String(date_chooser.Return_date(yearfield, monthfield, dayfield));
-
-                            if (op_bal_tick.isSelected()) {
-                                op_bal = 0;
-                            } else {
-                                op_bal = ledg.opening_balance_calc(accountCode, from_date);
-                            }
-
-                            ledg.fill_account_code_filtered_date(accountCode, from_date, to_date);
-
-                            param.put("USER", new UserAccountControl().get_current_user());
-                            param.put("Account_Code", accountCode);
-                            param.put("Account_Name", account_name);
-                            param.put("From_Date", from_date);
-                            param.put("To_Date", to_date);
-                            param.put("Op_Bal", op_bal);
-
-                          //  jProgressBar1.setValue(45);
-                            //  jProgressBar1.repaint();
-                            String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
-                            //  a.start();
-                            generate.create("Account Ledgers", "D:\\", param, location, "Report_ACC_LedgerAccounts_Sort_TR.jrxml");
-                            a.stop();
-                            ;
-                            jProgressBar1.setValue(100);
-                        } catch (ParseException ex) {
-                            Logger.getLogger(Report_Acc_Ledger.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                    }
-                } else {
-
-                    if (date_check.isSelected()) {
-                        try {
-                            jProgressBar1.setValue(45);
-                            jProgressBar1.repaint();
-
-                            a.start();
-                            HashMap param = new HashMap();
-                            to_date = dt.get_date_as_a_String(date_chooser.Return_date(yearfield2, monthfield2, dayfield2));
-                            from_date = dt.get_date_as_a_String(date_chooser.Return_date(yearfield, monthfield, dayfield));
-
-                            ledg.fill_all_filtered_date(from_date, to_date);
-
-                            param.put("USER", new UserAccountControl().get_current_user());
-                            param.put("From_Date", from_date);
-                            param.put("To_Date", to_date);
-                          //  jProgressBar1.setValue(45);
-                            //  jProgressBar1.repaint();
-                            String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
-                            //  a.start();
-                            generate.create("Account Ledgers", "D:\\", param, location, "Report_ACC_LedgerAccounts_All.jrxml");
-                            a.stop();
-                            ;
-                            jProgressBar1.setValue(100);
-                        } catch (ParseException ex) {
-                            Logger.getLogger(Report_Acc_Ledger.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                    } else if (trans_check.isSelected()) {
-                        try {
-
-                            jProgressBar1.setValue(45);
-                            jProgressBar1.repaint();
-
-                            a.start();
-                            HashMap param = new HashMap();
-                            to_date = dt.get_date_as_a_String(date_chooser.Return_date(yearfield2, monthfield2, dayfield2));
-                            from_date = dt.get_date_as_a_String(date_chooser.Return_date(yearfield, monthfield, dayfield));
-
-                            ledg.fill_all_filtered_date(from_date, to_date);
-
-                            param.put("USER", new UserAccountControl().get_current_user());
-                            param.put("From_Date", from_date);
-                            param.put("To_Date", to_date);
-                            //jProgressBar1.setValue(45);
-                            //jProgressBar1.repaint();
-                            String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
-                            //a.start();
-                            generate.create("Account Ledgers", "D:\\", param, location, "Report_ACC_LedgerAccounts_All_Sort_Tr.jrxml");
-                            a.stop();
-                            ;
-                            jProgressBar1.setValue(100);
-                        } catch (ParseException ex) {
-                            Logger.getLogger(Report_Acc_Ledger.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                    }
-                }
-
+                fromAccountCode = 70000;
+                toAccountCode = 90000;
             }
+
+            HashMap param = new HashMap();
+            try {
+                to_date = dt.get_date_as_a_String(date_chooser.Return_date_end_for_COP(yearfield2, monthfield2, dayfield2));
+            } catch (ParseException ex) {
+                Logger.getLogger(Report_Acc_COP.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+                from_date = dt.get_date_as_a_String(date_chooser.Return_date_sart_for_COP(yearfield, monthfield, dayfield));
+            } catch (ParseException ex) {
+                Logger.getLogger(Report_Acc_COP.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            tb.create_table_cop(from_date, to_date, fromAccountCode, toAccountCode);
+            double glQty = 0;
+            double madeTeaQty = 0;
+            try {
+                glQty = getGL(date_chooser.Return_date(yearfield, monthfield, dayfield), date_chooser.Return_date(yearfield2, monthfield2, dayfield));
+            } catch (ParseException ex) {
+                Logger.getLogger(Report_Acc_COP.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+                madeTeaQty = getMadeTea(date_chooser.Return_date(yearfield, monthfield, dayfield), date_chooser.Return_date(yearfield2, monthfield2, dayfield));
+            } catch (ParseException ex) {
+                Logger.getLogger(Report_Acc_COP.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            param.put("USER", new UserAccountControl().get_current_user());
+            param.put("glQty", glQty);
+            param.put("madeTeaQty", madeTeaQty);
+            // param.put("From_Date", from_date);
+            // param.put("To_Date", to_date);
+            // param.put("Op_Bal", op_bal);
+
+             // jProgressBar1.setValue(45);
+            // jProgressBar1.repaint();
+            String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
+            //  a.start();
+            generate.create("Account Ledgers", "D:\\", param, location, "Report_Acc_Cost_Of_Pay.jrxml");
+            a.stop();
+            jProgressBar1.setValue(100);
+
         }
     }
     DateChooser_text datechooser = new DateChooser_text();
@@ -408,18 +268,19 @@ public class Report_Acc_Ledger extends javax.swing.JPanel {
         dayfield2 = new javax.swing.JTextField();
         datePicker3 = new com.michaelbaranov.microba.calendar.DatePicker();
         jSeparator3 = new javax.swing.JSeparator();
-        account_code = new javax.swing.JComboBox();
-        all = new javax.swing.JCheckBox();
         jLabel3 = new javax.swing.JLabel();
-        account_name = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        date_check = new javax.swing.JRadioButton();
-        trans_check = new javax.swing.JRadioButton();
-        jPanel3 = new javax.swing.JPanel();
-        op_bal_tick = new javax.swing.JCheckBox();
-        date_range = new javax.swing.JCheckBox();
+        turnover = new javax.swing.JRadioButton();
+        oneAccount = new javax.swing.JRadioButton();
+        otherIncome = new javax.swing.JRadioButton();
+        all = new javax.swing.JRadioButton();
+        directExpenses = new javax.swing.JRadioButton();
+        allExp = new javax.swing.JRadioButton();
+        adminExp = new javax.swing.JRadioButton();
+        account_name = new javax.swing.JLabel();
+        acCodePanel = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
+        account_code = new javax.swing.JComboBox();
 
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -530,7 +391,7 @@ public class Report_Acc_Ledger extends javax.swing.JPanel {
                 .addComponent(yearfield, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(datePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         datepanelLayout.setVerticalGroup(
             datepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -618,12 +479,12 @@ public class Report_Acc_Ledger extends javax.swing.JPanel {
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(datepanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
+                .addGap(2, 2, 2)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(datepanel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
@@ -633,8 +494,144 @@ public class Report_Acc_Ledger extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(datepanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel3.setText("Accounts Ledger");
+
+        turnover.setText("Turnover ");
+        turnover.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                turnoverItemStateChanged(evt);
+            }
+        });
+        turnover.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                turnoverActionPerformed(evt);
+            }
+        });
+
+        oneAccount.setText("Only one A/C");
+        oneAccount.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                oneAccountItemStateChanged(evt);
+            }
+        });
+        oneAccount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                oneAccountActionPerformed(evt);
+            }
+        });
+
+        otherIncome.setText("Other Income");
+        otherIncome.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                otherIncomeItemStateChanged(evt);
+            }
+        });
+        otherIncome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                otherIncomeActionPerformed(evt);
+            }
+        });
+
+        all.setText("All Accounts");
+        all.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                allItemStateChanged(evt);
+            }
+        });
+        all.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                allActionPerformed(evt);
+            }
+        });
+
+        directExpenses.setText("Direct Expenses");
+        directExpenses.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                directExpensesItemStateChanged(evt);
+            }
+        });
+        directExpenses.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                directExpensesActionPerformed(evt);
+            }
+        });
+
+        allExp.setText("All Expenses");
+        allExp.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                allExpItemStateChanged(evt);
+            }
+        });
+        allExp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                allExpActionPerformed(evt);
+            }
+        });
+
+        adminExp.setText("General & Admin Expenses");
+        adminExp.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                adminExpItemStateChanged(evt);
+            }
+        });
+        adminExp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                adminExpActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(turnover)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(otherIncome))
+                    .addComponent(adminExp))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(allExp)
+                        .addGap(18, 18, 18)
+                        .addComponent(all, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(directExpenses)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(oneAccount)))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(turnover)
+                    .addComponent(otherIncome)
+                    .addComponent(directExpenses)
+                    .addComponent(oneAccount))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(adminExp)
+                            .addComponent(allExp)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(all)))
+                .addContainerGap())
+        );
+
+        account_name.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+
+        jLabel5.setText("Account Code");
 
         debit_accountCode.putClientProperty("JComboBox.isTableCellEditor",Boolean.TRUE);
         account_code.setEditable(true);
@@ -661,98 +658,26 @@ public class Report_Acc_Ledger extends javax.swing.JPanel {
             }
         });
 
-        all.setText("ALL");
-        all.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                allItemStateChanged(evt);
-            }
-        });
-        all.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                allActionPerformed(evt);
-            }
-        });
-
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel3.setText("Accounts Ledger");
-
-        account_name.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-
-        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        jLabel4.setText("Ordered By ");
-
-        date_check.setText("Date");
-        date_check.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                date_checkItemStateChanged(evt);
-            }
-        });
-
-        trans_check.setText("Transaction No.");
-        trans_check.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                trans_checkItemStateChanged(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout acCodePanelLayout = new javax.swing.GroupLayout(acCodePanel);
+        acCodePanel.setLayout(acCodePanelLayout);
+        acCodePanelLayout.setHorizontalGroup(
+            acCodePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(acCodePanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(date_check)
-                .addGap(18, 18, 18)
-                .addComponent(trans_check)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(account_code, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        acCodePanelLayout.setVerticalGroup(
+            acCodePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(acCodePanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(acCodePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(account_code, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(date_check)
-                    .addComponent(trans_check)
-                    .addComponent(jLabel4))
-                .addContainerGap())
-        );
-
-        jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        op_bal_tick.setText("No Opening Balance");
-
-        date_range.setText("Date Range");
-        date_range.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                date_rangeItemStateChanged(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(date_range)
-                .addGap(10, 10, 10)
-                .addComponent(op_bal_tick)
-                .addContainerGap(28, Short.MAX_VALUE))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(date_range)
-                    .addComponent(op_bal_tick))
-                .addContainerGap())
-        );
-
-        jLabel5.setText("Account Code");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -762,53 +687,47 @@ public class Report_Acc_Ledger extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(account_code, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(all, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(89, 89, 89))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(account_name, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(account_name, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 8, Short.MAX_VALUE))
+                            .addComponent(acCodePanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(6, 6, 6)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(7, 7, 7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(8, 8, 8)
                 .addComponent(account_name, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(1, 1, 1)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(account_code, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(all)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(acCodePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(62, 62, 62)))
                 .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(69, 69, 69))
+                .addGap(62, 62, 62))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -1545,18 +1464,17 @@ public class Report_Acc_Ledger extends javax.swing.JPanel {
 
     ACC_Reciept_View_Table tbl = new ACC_Reciept_View_Table();
     Check_Entries chk = new Check_Entries();
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
-        if (all.isSelected()) {
-            Thread s = new Thread(new report());
-            s.start();
-        } else {
+        if (oneAccount.isSelected()) {
             if (chk.verify_combo_box(account_code, "account_names", "account_id") == 1) {
                 Thread s = new Thread(new report());
                 s.start();
             }
+        } else {
+            Thread s = new Thread(new report());
+            s.start();
         }
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void debit_accountCodeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_debit_accountCodeItemStateChanged
@@ -1649,50 +1567,13 @@ public class Report_Acc_Ledger extends javax.swing.JPanel {
     private void account_codeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_account_codeKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             System.out.println("sdcscs");
-            date_range.requestFocusInWindow();
+            dayfield.requestFocus();
         }
     }//GEN-LAST:event_account_codeKeyPressed
-
-    private void allActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_allActionPerformed
-
-    private void date_rangeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_date_rangeItemStateChanged
-        if (date_range.isSelected()) {
-            jPanel2.setVisible(true);
-        } else {
-            jPanel2.setVisible(false);
-        }
-    }//GEN-LAST:event_date_rangeItemStateChanged
-
-    private void allItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_allItemStateChanged
-        if (all.isSelected()) {
-            account_code.setEnabled(false);
-        } else {
-            account_code.setEnabled(true);
-        }
-    }//GEN-LAST:event_allItemStateChanged
-
-    private void date_checkItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_date_checkItemStateChanged
-        if (date_check.isSelected()) {
-            trans_check.setSelected(false);
-        } else {
-            trans_check.setSelected(true);
-        }
-    }//GEN-LAST:event_date_checkItemStateChanged
-
-    private void trans_checkItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_trans_checkItemStateChanged
-        if (trans_check.isSelected()) {
-            date_check.setSelected(false);
-        } else {
-            date_check.setSelected(true);
-        }
-    }//GEN-LAST:event_trans_checkItemStateChanged
 
     private void account_codeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_account_codeKeyReleased
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             System.out.println("sdcscs");
-            date_range.requestFocusInWindow();
         }
     }//GEN-LAST:event_account_codeKeyReleased
     Interface_Events interface_events = new Interface_Events();
@@ -1700,37 +1581,150 @@ public class Report_Acc_Ledger extends javax.swing.JPanel {
         interface_events.Respond_enter(jButton1, evt);
     }//GEN-LAST:event_jButton1FocusGained
 
+    private void turnoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_turnoverActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_turnoverActionPerformed
+
+    private void otherIncomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_otherIncomeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_otherIncomeActionPerformed
+
+    private void directExpensesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_directExpensesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_directExpensesActionPerformed
+
+    private void adminExpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminExpActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_adminExpActionPerformed
+
+    private void allExpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allExpActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_allExpActionPerformed
+
+    private void oneAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_oneAccountActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_oneAccountActionPerformed
+
+    private void allActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_allActionPerformed
+
+    private void turnoverItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_turnoverItemStateChanged
+        if (turnover.isSelected()) {
+            directExpenses.setSelected(false);
+            allExp.setSelected(false);
+            adminExp.setSelected(false);
+            otherIncome.setSelected(false);
+            oneAccount.setSelected(false);
+            all.setSelected(false);
+            acCodePanel.setVisible(false);
+        }
+    }//GEN-LAST:event_turnoverItemStateChanged
+
+    private void otherIncomeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_otherIncomeItemStateChanged
+        if (otherIncome.isSelected()) {
+            directExpenses.setSelected(false);
+            allExp.setSelected(false);
+            adminExp.setSelected(false);
+            turnover.setSelected(false);
+            oneAccount.setSelected(false);
+            all.setSelected(false);
+            acCodePanel.setVisible(false);
+        }
+    }//GEN-LAST:event_otherIncomeItemStateChanged
+
+    private void directExpensesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_directExpensesItemStateChanged
+        if (directExpenses.isSelected()) {
+            otherIncome.setSelected(false);
+            allExp.setSelected(false);
+            adminExp.setSelected(false);
+            turnover.setSelected(false);
+            oneAccount.setSelected(false);
+            all.setSelected(false);
+            acCodePanel.setVisible(false);
+        }
+    }//GEN-LAST:event_directExpensesItemStateChanged
+
+    private void oneAccountItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_oneAccountItemStateChanged
+        if (oneAccount.isSelected()) {
+            otherIncome.setSelected(false);
+            allExp.setSelected(false);
+            adminExp.setSelected(false);
+            turnover.setSelected(false);
+            directExpenses.setSelected(false);
+            all.setSelected(false);
+            acCodePanel.setVisible(true);
+        }
+    }//GEN-LAST:event_oneAccountItemStateChanged
+
+    private void adminExpItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_adminExpItemStateChanged
+        if (adminExp.isSelected()) {
+            otherIncome.setSelected(false);
+            allExp.setSelected(false);
+            directExpenses.setSelected(false);
+            turnover.setSelected(false);
+            oneAccount.setSelected(false);
+            all.setSelected(false);
+            acCodePanel.setVisible(false);
+        }
+    }//GEN-LAST:event_adminExpItemStateChanged
+
+    private void allExpItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_allExpItemStateChanged
+        if (allExp.isSelected()) {
+            otherIncome.setSelected(false);
+            adminExp.setSelected(false);
+            directExpenses.setSelected(false);
+            turnover.setSelected(false);
+            oneAccount.setSelected(false);
+            all.setSelected(false);
+            acCodePanel.setVisible(false);
+        }
+    }//GEN-LAST:event_allExpItemStateChanged
+
+    private void allItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_allItemStateChanged
+        if (all.isSelected()) {
+            otherIncome.setSelected(false);
+            allExp.setSelected(false);
+            directExpenses.setSelected(false);
+            turnover.setSelected(false);
+            oneAccount.setSelected(false);
+            adminExp.setSelected(false);
+            acCodePanel.setVisible(false);
+        }
+    }//GEN-LAST:event_allItemStateChanged
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel acCodePanel;
     private javax.swing.JComboBox account_code;
     private javax.swing.JLabel account_name;
-    private javax.swing.JCheckBox all;
+    private javax.swing.JRadioButton adminExp;
+    private javax.swing.JRadioButton all;
+    private javax.swing.JRadioButton allExp;
     private com.michaelbaranov.microba.calendar.DatePicker datePicker1;
     private com.michaelbaranov.microba.calendar.DatePicker datePicker3;
-    private javax.swing.JRadioButton date_check;
-    private javax.swing.JCheckBox date_range;
     private javax.swing.JPanel datepanel;
     private javax.swing.JPanel datepanel2;
     private javax.swing.JTextField dayfield;
     private javax.swing.JTextField dayfield2;
     private javax.swing.JComboBox debit_accountCode;
+    private javax.swing.JRadioButton directExpenses;
     private javax.swing.JButton jButton1;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JTextField monthfield;
     private javax.swing.JTextField monthfield2;
-    private javax.swing.JCheckBox op_bal_tick;
-    private javax.swing.JRadioButton trans_check;
+    private javax.swing.JRadioButton oneAccount;
+    private javax.swing.JRadioButton otherIncome;
+    private javax.swing.JRadioButton turnover;
     private javax.swing.JTextField yearfield;
     private javax.swing.JTextField yearfield2;
     // End of variables declaration//GEN-END:variables

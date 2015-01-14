@@ -322,6 +322,11 @@ public class ACC_recepts extends javax.swing.JPanel {
                 credit_account_codeItemStateChanged(evt);
             }
         });
+        credit_account_code.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                credit_account_codeFocusGained(evt);
+            }
+        });
         credit_account_code.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 credit_account_codeKeyPressed(evt);
@@ -815,6 +820,11 @@ public class ACC_recepts extends javax.swing.JPanel {
             debit_accountCode.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     debit_accountCodeActionPerformed(evt);
+                }
+            });
+            debit_accountCode.addFocusListener(new java.awt.event.FocusAdapter() {
+                public void focusGained(java.awt.event.FocusEvent evt) {
+                    debit_accountCodeFocusGained(evt);
                 }
             });
             debit_accountCode.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -2198,7 +2208,6 @@ public class ACC_recepts extends javax.swing.JPanel {
 
     private void debitAmountKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_debitAmountKeyReleased
         if (chk.isDouble(format.getNumberWithoutCommas(debitAmount.getText())) || debitAmount.getText().length() == 0) {
-
             String num = format.getNumberWithoutCommas(debitAmount.getText());
             if (num.length() != 0) {
                 debitAmount.setText(format.set_comma(num));
@@ -2232,6 +2241,14 @@ public class ACC_recepts extends javax.swing.JPanel {
     private void chequeNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chequeNoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_chequeNoActionPerformed
+
+    private void debit_accountCodeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_debit_accountCodeFocusGained
+        debit_accountCode.getEditor().selectAll();
+    }//GEN-LAST:event_debit_accountCodeFocusGained
+
+    private void credit_account_codeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_credit_account_codeFocusGained
+        credit_account_code.getEditor().selectAll();
+    }//GEN-LAST:event_credit_account_codeFocusGained
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

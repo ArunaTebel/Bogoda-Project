@@ -41,6 +41,31 @@ public class Acc_Trail_Balance {
         }
 
     }
+    
+     public void create_table_cop(String date1,String date2, int startCode,int endCode) {
+
+        try {
+            try {
+                dbm.insert("Truncate acc_trail_balance");
+            } catch (SQLException ex) {
+                Logger.getLogger(ACC_ledger.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            ResultSet query = dbm.query("SELECT * FROM account_names WHERE account_id >= '"+startCode+"' and account_id < '"+endCode+"' ");
+            while (query.next()) {
+                
+                    double bal = ledg.balance_cal_for_cop(query.getInt("account_id"), date1,date2);
+                    dbm.insert("INSERT INTO acc_trail_balance(code,op_bal) VALUES('" + Integer.parseInt(query.getString("account_id")) + "','" + bal + "')");
+                
+
+            }
+            query.close();
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            //Logger.getLogger(Acc_Trail_Balance.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
 
     public void check() {
         try {

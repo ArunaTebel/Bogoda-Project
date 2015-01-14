@@ -81,7 +81,7 @@ public class Report_Acc_OP_Bal extends javax.swing.JPanel {
                 String column;
                 String year;
                 String name;
-                String db_name=null;
+                String db_name = null;
 
                 double op_bal;
 
@@ -113,7 +113,7 @@ public class Report_Acc_OP_Bal extends javax.swing.JPanel {
                 param.put("column", column);
                 param.put("name", name);
 
-                        // jProgressBar1.setValue(45);
+                // jProgressBar1.setValue(45);
                 // jProgressBar1.repaint();
                 String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
                 //  a.start();
@@ -293,9 +293,18 @@ public class Report_Acc_OP_Bal extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     ACC_Reciept_View_Table tbl = new ACC_Reciept_View_Table();
+    Check_Entries chk = new Check_Entries();
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Thread s = new Thread(new report());
-        s.start();
+        if (all.isSelected()) {
+            Thread s = new Thread(new report());
+            s.start();
+        } else {
+            if (chk.verify_combo_box(account_code, "account_names", "account_id") == 1) {
+                Thread s = new Thread(new report());
+                s.start();
+            }
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void debit_accountCodeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_debit_accountCodeItemStateChanged

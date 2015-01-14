@@ -38,6 +38,7 @@
                   <Component id="view" max="32767" attributes="0"/>
                   <Component id="jButton8" alignment="0" max="32767" attributes="0"/>
                   <Component id="jButton11" max="32767" attributes="0"/>
+                  <Component id="jButton12" alignment="1" max="32767" attributes="0"/>
               </Group>
               <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -68,6 +69,8 @@
                   <Component id="jButton10" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+              <Component id="jButton12" min="-2" pref="35" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
               <Component id="jButton4" min="-2" pref="35" max="-2" attributes="0"/>
               <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
               <Component id="jButton11" min="-2" pref="35" max="-2" attributes="0"/>
@@ -81,7 +84,7 @@
               <Component id="jButton7" min="-2" pref="13" max="-2" attributes="0"/>
               <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
               <Component id="view" min="-2" pref="35" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="jLabel1" pref="246" max="32767" attributes="0"/>
           </Group>
           <Component id="GL_content" alignment="0" max="32767" attributes="0"/>
@@ -245,6 +248,16 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton11ActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="jButton12">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Cost of Pay"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton12ActionPerformed"/>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jButton12FocusGained"/>
+        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jButton12KeyReleased"/>
       </Events>
     </Component>
   </SubComponents>

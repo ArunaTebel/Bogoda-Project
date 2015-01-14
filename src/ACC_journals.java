@@ -17,6 +17,7 @@ import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -80,6 +81,25 @@ public class ACC_journals extends javax.swing.JPanel {
         save.setEnabled(false);
         ref_no.requestFocus();
     }
+    
+    public void clearSelectedInaTable(javax.swing.JTable table){
+        int row;
+        DefaultTableModel model = (DefaultTableModel)table.getModel();
+        int[] rows = table.getSelectedRows();
+        row=rows[0];
+        int i=row;
+        while(table.getValueAt(i+1,0)!=null){
+            table.setValueAt(table.getValueAt(i+1,0),i,0);
+            table.setValueAt(table.getValueAt(i+1,1),i,1);
+            table.setValueAt(table.getValueAt(i+1,2),i,2);
+            i++;
+        }
+        table.setValueAt(null,i,0);
+        table.setValueAt(null,i,1);
+        table.setValueAt(null,i,2);
+        
+        
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -131,6 +151,7 @@ public class ACC_journals extends javax.swing.JPanel {
         jLabel14 = new javax.swing.JLabel();
         send2 = new javax.swing.JButton();
         credit_account_name = new javax.swing.JLabel();
+        jButton10 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
         debit_table = new javax.swing.JTable();
@@ -143,6 +164,7 @@ public class ACC_journals extends javax.swing.JPanel {
         jLabel16 = new javax.swing.JLabel();
         send = new javax.swing.JButton();
         debit_account_name = new javax.swing.JLabel();
+        jButton6 = new javax.swing.JButton();
         difference = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
@@ -597,6 +619,11 @@ public class ACC_journals extends javax.swing.JPanel {
                 credit_account_codeItemStateChanged(evt);
             }
         });
+        credit_account_code.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                credit_account_codeFocusGained(evt);
+            }
+        });
         credit_account_code.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 credit_account_codeKeyPressed(evt);
@@ -655,6 +682,13 @@ public class ACC_journals extends javax.swing.JPanel {
         credit_account_name.setForeground(new java.awt.Color(255, 0, 102));
         credit_account_name.setText("Account name here");
 
+        jButton10.setText("Clear Selected");
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -679,9 +713,11 @@ public class ACC_journals extends javax.swing.JPanel {
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(jButton1)
-                                .addGap(16, 16, 16)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton2)
-                                .addGap(123, 123, 123)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton10)
+                                .addGap(48, 48, 48)
                                 .addComponent(jLabel14)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(credit_total, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -708,7 +744,8 @@ public class ACC_journals extends javax.swing.JPanel {
                         .addComponent(jLabel14))
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButton1)
-                        .addComponent(jButton2)))
+                        .addComponent(jButton2)
+                        .addComponent(jButton10)))
                 .addGap(12, 12, 12))
         );
 
@@ -836,6 +873,11 @@ public class ACC_journals extends javax.swing.JPanel {
                 debit_account_codeItemStateChanged(evt);
             }
         });
+        debit_account_code.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                debit_account_codeFocusGained(evt);
+            }
+        });
         debit_account_code.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 debit_account_codeKeyPressed(evt);
@@ -899,6 +941,13 @@ public class ACC_journals extends javax.swing.JPanel {
         debit_account_name.setForeground(new java.awt.Color(255, 0, 102));
         debit_account_name.setText("Account name here");
 
+        jButton6.setText("Clear Selected");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -910,6 +959,8 @@ public class ACC_journals extends javax.swing.JPanel {
                         .addComponent(jButton5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel16)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -949,7 +1000,8 @@ public class ACC_journals extends javax.swing.JPanel {
                             .addComponent(jLabel16)))
                     .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButton9)
-                        .addComponent(jButton5)))
+                        .addComponent(jButton5)
+                        .addComponent(jButton6)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1001,33 +1053,35 @@ public class ACC_journals extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20)
-                        .addComponent(Cheque_pay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(description, javax.swing.GroupLayout.PREFERRED_SIZE, 946, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(20, 20, 20)
+                                .addComponent(Cheque_pay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(22, 22, 22)
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(description, javax.swing.GroupLayout.PREFERRED_SIZE, 946, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(63, 63, 63)
+                                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(37, 37, 37)
+                                        .addComponent(jLabel11))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(483, 483, 483)
+                                        .addComponent(jLabel13)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(difference, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addContainerGap(24, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(10, 10, 10)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 515, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(63, 63, 63)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(37, 37, 37)
-                                .addComponent(jLabel11))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(483, 483, 483)
-                                .addComponent(jLabel13)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(difference, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2441,6 +2495,56 @@ public class ACC_journals extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_credit_amountKeyReleased
 
+    private void debit_account_codeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_debit_account_codeFocusGained
+        debit_account_code.getEditor().selectAll();
+    }//GEN-LAST:event_debit_account_codeFocusGained
+
+    private void credit_account_codeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_credit_account_codeFocusGained
+        credit_account_code.getEditor().selectAll();
+    }//GEN-LAST:event_credit_account_codeFocusGained
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        clearSelectedInaTable(debit_table);
+        double tot = 0;
+        int i = 0;
+        while (debit_table.getValueAt(i, 0) != null) {
+            tot = tot + Double.parseDouble(format.getNumberWithoutCommas((String) debit_table.getValueAt(i, 2)));
+            tot = Math.round(tot * 100.0) / 100.0;
+            i++;
+        }
+       
+        NumberFormat formatter = new DecimalFormat("#0.00");
+        debit_total.setText(format.modify_number(format.set_comma(formatter.format(tot))));
+       
+        double dif = Math.round((stringToDoubleNum(format.getNumberWithoutCommas(debit_total.getText())) - stringToDoubleNum(format.getNumberWithoutCommas(credit_total.getText()))) * 100.0) / 100.0;
+        
+        difference.setText(format.modify_number(format.set_comma(formatter.format(dif))));
+        
+        debit_account_code.requestFocus();
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        
+        clearSelectedInaTable(credit_table);
+        
+        double tot = 0;
+        int i = 0;
+        while (credit_table.getValueAt(i, 0) != null) {
+            tot = tot + Double.parseDouble(format.getNumberWithoutCommas((String) credit_table.getValueAt(i, 2)));
+            tot = Math.round(tot * 100.0) / 100.0;
+            i++;
+        }
+        
+        NumberFormat formatter = new DecimalFormat("#0.00");
+        credit_total.setText(format.modify_number(format.set_comma(formatter.format(tot))));
+
+        double dif = Math.round((stringToDoubleNum(format.getNumberWithoutCommas(debit_total.getText())) - stringToDoubleNum(format.getNumberWithoutCommas(credit_total.getText()))) * 100.0) / 100.0;
+       
+        difference.setText(format.modify_number(format.set_comma(formatter.format(dif))));
+        
+        credit_account_code.requestFocus();
+    }//GEN-LAST:event_jButton10ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Cheque_pay;
@@ -2469,10 +2573,12 @@ public class ACC_journals extends javax.swing.JPanel {
     private javax.swing.JTextField description;
     private javax.swing.JTextField difference;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
