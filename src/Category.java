@@ -72,7 +72,7 @@ public class Category {
         else{
         DatabaseManager dbCon = DatabaseManager.getDbCon();
         try {
-            dbCon.insert("INSERT INTO category(sup_id,category_name,category_id,extra_rate) VALUES('" + returnnext() + "','" + categoryName + "','" + categoryCode + "','" + extraRate + "')");
+            dbCon.insert("INSERT INTO category(category_name,category_id,extra_rate) VALUES('" + categoryName + "','" + categoryCode + "','" + extraRate + "')");
         } catch (SQLException ex) {
             MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
         }

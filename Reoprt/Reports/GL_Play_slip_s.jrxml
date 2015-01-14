@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="9" uuid="b4a7e90f-236c-48e1-b463-a16c40591ab1">
-	<property name="ireport.zoom" value="1.6934217901613318"/>
+	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="202"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="USER" class="java.lang.String"/>
 	<parameter name="year" class="java.lang.String"/>
 	<parameter name="month" class="java.lang.String"/>
@@ -13,6 +13,7 @@
 	<parameter name="porder" class="java.lang.String"/>
 	<parameter name="AscDec" class="java.lang.String"/>
 	<parameter name="porder2" class="java.lang.String"/>
+	<parameter name="sup" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT
      gl_monthly_ledger_current.`sup_id` AS gl_monthly_ledger_current_sup_id,
@@ -90,14 +91,16 @@
 FROM
      `daily_transactions_current` daily_transactions_current INNER JOIN `gl_monthly_ledger_current` gl_monthly_ledger_current ON daily_transactions_current.`entry` = gl_monthly_ledger_current.`entry`
      AND gl_monthly_ledger_current.`sup_id` = daily_transactions_current.`sup_id`
-     INNER JOIN `other_advance_totals` other_advance_totals ON gl_monthly_ledger_current.`entry` = other_advance_totals.`entry`
+     LEFT OUTER JOIN `other_advance_totals` other_advance_totals ON gl_monthly_ledger_current.`entry` = other_advance_totals.`entry`
      LEFT OUTER JOIN `suppliers` suppliers ON gl_monthly_ledger_current.`sup_id` = suppliers.`sup_id`
      LEFT OUTER JOIN `bank` bank ON suppliers.`bank_id` = bank.`bank_id`
      LEFT OUTER JOIN `bank_branch` bank_branch ON suppliers.`branch_id` = bank_branch.`branch_id`
+
 WHERE  $P!{p1} LIKE $P{p2} AND
      gl_monthly_ledger_current.`year` = $P{year}
  AND gl_monthly_ledger_current.`month` = $P{month}
-     and (gl_monthly_ledger_current.`final_amount` != 0 OR total_kg != 0)
+     and ( $P!{sup} )
+
 ORDER BY
      $P!{porder} $P!{AscDec},
       $P!{porder2} $P!{AscDec}]]>
@@ -1058,7 +1061,7 @@ ORDER BY
 				</textElement>
 				<text><![CDATA[f;a]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="357" y="77" width="45" height="15" uuid="237852cc-7cb6-4e5d-995e-30626d9187d7"/>
 				<textElement textAlignment="Right">
 					<font size="8"/>
@@ -1072,7 +1075,7 @@ ORDER BY
 				</textElement>
 				<text><![CDATA[fmdfydr]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="357" y="92" width="45" height="15" uuid="fe90c16e-e9df-438c-ba7f-aae97e37b217"/>
 				<textElement textAlignment="Right">
 					<font size="8"/>
@@ -1086,7 +1089,7 @@ ORDER BY
 				</textElement>
 				<text><![CDATA[ridhk]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="356" y="107" width="46" height="15" uuid="436c4643-f905-430b-b816-2990032df5bb"/>
 				<textElement textAlignment="Right">
 					<font size="8"/>
@@ -1100,7 +1103,7 @@ ORDER BY
 				</textElement>
 				<text><![CDATA[fj<|ie,]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="357" y="121" width="45" height="15" uuid="efbf22ca-920b-4727-a0f7-9894b8bcbaab"/>
 				<textElement textAlignment="Right">
 					<font size="8"/>
@@ -1114,7 +1117,7 @@ ORDER BY
 				</textElement>
 				<text><![CDATA[f.daKs]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="357" y="136" width="45" height="15" uuid="86d3d6c4-4d5d-4ae7-8863-e75cf960b7d1"/>
 				<textElement textAlignment="Right">
 					<font size="8"/>
@@ -1128,7 +1131,7 @@ ORDER BY
 				</textElement>
 				<text><![CDATA[oshr bisk]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="357" y="151" width="45" height="15" uuid="78bf0ca5-907f-4842-a0d6-2faf3a842e57"/>
 				<textElement textAlignment="Right">
 					<font size="8"/>
@@ -1142,7 +1145,7 @@ ORDER BY
 				</textElement>
 				<text><![CDATA[fjk;a]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="357" y="166" width="45" height="15" uuid="8109cc40-f53d-4ced-aa78-0673f5ca4140"/>
 				<textElement textAlignment="Right">
 					<font size="8"/>

@@ -170,7 +170,7 @@ public class GL_report_generator {
 
     }
 
-    public double get_other_advance_total(int sup, String year, String month) {
+    public double get_other_advance_total(int sup, String year, String month,String Previous) {
         double Total = 0;
         Date date1 = java.sql.Date.valueOf(year + "-" + month + "-" + startdate);
 
@@ -185,7 +185,7 @@ public class GL_report_generator {
         //  DatabaseManager dbm = DatabaseManager.getDbCon();
         try {
 
-            ResultSet query = dbm.query("SELECT * FROM " + "gl_other_advances" + " where " + "id" + " = '" + sup + " 'AND " + "Date" + " BETWEEN'" + date1 + "' AND '" + date4 + "'");
+            ResultSet query = dbm.query("SELECT * FROM " + "gl_other_advances" + " where " + "id" + " = '" + sup + " 'AND " + "Date" + " BETWEEN'" + date1 + "' AND '" + date4 + "' AND type='"+Previous+"'");
 
             while (query.next()) {
                 //System.out.println("query 1");
@@ -444,7 +444,7 @@ int size= 0;
         //update_taskmanager(year, month, task);
     }
 
-    public double get_loans(int sup_id, String year, String month) //take year and month and return daily totals for the specific user 
+    public double get_loans(int sup_id, String year, String month,String Previous) //take year and month and return daily totals for the specific user 
     {
         // double[] cash_total = new double[32];
         // double[] other_total = new double[32];
@@ -466,9 +466,13 @@ int size= 0;
         // System.out.println(date1+"----"+date2+"----"+date3+"-----"+date4);
         // DatabaseManager dbm = DatabaseManager.getDbCon();
         try {
+             ResultSet query = null;
+            if(Previous.equals("Previous")){
 
-            ResultSet query = dbm.query("SELECT * FROM " + "gl_loans" + " where " + "sup_id" + " = '" + sup_id + " 'AND " + "date" + " BETWEEN'" + date1 + "' AND '" + date4 + "'");
-
+             query = dbm.query("SELECT * FROM " + "gl_loans" + " where " + "sup_id" + " = '" + sup_id + " 'AND " + "date" + " BETWEEN'" + date1 + "' AND '" + date4 + "' AND type='"+Previous+"'");
+            }
+            else{  query = dbm.query("SELECT * FROM " + "gl_loans" + " where " + "sup_id" + " = '" + sup_id + " 'AND " + "date" + " BETWEEN'" + date1 + "' AND '" + date4 + "'");
+         }
             while (query.next()) {
                 //System.out.println("query 1");
                 // int dates = Integer.parseInt(date_handler.get_day(query.getDate("ordered_date")));
@@ -552,10 +556,10 @@ int size= 0;
             //String trans_code = query.getString("")
 
             // System.out.println(pay);
-            loans = get_loans(sup, year, month);
+            loans = get_loans(sup, year, month,"current");
             temp = date_handler.forwad_months(year, month, 1).split("-");
-            loans_next = get_loans(sup, temp[0], temp[1]);
-            other_next = get_other_advance_total(sup, temp[0], temp[1]);
+            loans_next = get_loans(sup, temp[0], temp[1],"Previous");
+            other_next = get_other_advance_total(sup, temp[0], temp[1],"Previous");
 
             // String trans_code = dbm.checknReturnData("suppliers", "sup_id", sup, "trans_rate");
             //System.out.println(trans_code);
@@ -1067,7 +1071,8 @@ int size= 0;
               leaf_rate = dbm.checknReturnDoubleData("category", "category_id",sup, "extra_rate");
             supply = get_tr_day_total(sup, year, month);
             total_kg=supply[0];
-            trans=supply[0]*leaf_rate;
+            trans=supply[0]*leaf_rate+supply[1];
+            System.out.println(supply[1]+"--------------------------------------");
             //ResultSet query1 = dbm.query("SELECT * FROM daily_transactions_current WHERE entry LIKE '" + year + month + sup + "' ");
            // while (query1.next()) {
                // trans = query1.getDouble("trans");
@@ -1158,12 +1163,12 @@ int size= 0;
                 // System.out.println(k);
                 //double Grand_total =
                 dbm.insert("INSERT INTO gl_tr_ledger_current(entry,year,month,sup_id,name,pay,total_kg,set_value,extra,gross_amount,coins_bf,total_payable,pre_debts,cash_advances,other_advances,loans,cards,transport,welfare,total_deduction,net_amount,tax,final_payable,coins_cf,final_amount,bal_cf,nloans,nother) "
-                        + "VALUES('" + year + month + sup + "','" + year + "','" + month + "','" + sup + "','" + name + "','" + pay + "','" + total_kg + "','" + leaf_rate + "','" + extra + "','" + trans + "','" + coinsbf + "','" + (+extra+coinsbf + trans) + "','" + pre_debts + "','" + cash_advance + "','" + other_advance + "','" + loans + "','" + cards + "','" + "0" + "','" + welf + "','" + (pre_debts + cash_advance + other_advance + cards + loans + welf) + "','" + net_amount + "','" + plusTax + "','" + (net_amount - plusTax) + "','" + coinscf + "','" + final_total + "','" + bal_cf + "','" + loans_next + "','" + other_next + "')");
+                        + "VALUES('" + year + month + sup + "','" + year + "','" + month + "','" + sup + "','" + name + "','" + pay + "','" + total_kg + "','" + leaf_rate + "','" + extra + "','" + trans + "','" + coinsbf + "','" + (extra+coinsbf + trans) + "','" + pre_debts + "','" + cash_advance + "','" + other_advance + "','" + loans + "','" + cards + "','" + "0" + "','" + welf + "','" + (pre_debts + cash_advance + other_advance + cards + loans + welf) + "','" + net_amount + "','" + plusTax + "','" + (net_amount - plusTax) + "','" + coinscf + "','" + final_total + "','" + bal_cf + "','" + loans_next + "','" + other_next + "')");
                 //  dbCon.insert("INSERT INTO daily_transactions_current(year,month,sup_id,day_1,Total) VALUES('" + year + "','" + month + "','"  + sup + "','" + day_totals[0] +  "','"+ total + "')");
 
             } catch (SQLException ex) {
                 //MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
-                dbm.insert("UPDATE  gl_tr_ledger_current SET year='" + year + "',month='" + month + "',sup_id='" + sup + "',name='" + name + "',pay='" + pay + "',total_kg='" + total_kg + "',set_value='" + leaf_rate + "',extra='" + extra + "',gross_amount='" + trans + "',coins_bf='" + coinsbf + "',total_payable='" + (+extra+coinsbf + trans) + "',pre_debts='" + pre_debts + "',cash_advances='" + cash_advance + "',other_advances='" + other_advance + "',loans ='" + loans + "',cards='" + cards + "',transport='" + "0" + "',welfare = '" + welf + "',total_deduction='" + (pre_debts + cash_advance + other_advance + cards + trans+welf+loans) + "',net_amount='" + net_amount + "',tax='" + plusTax + "',final_payable='" + (net_amount - plusTax) + "',coins_cf='" + coinscf + "',final_amount='" + final_total + "',bal_cf='" + bal_cf + "',nloans='" + loans_next + "',nother='" + other_next + "' Where entry = '" + year + month + sup + "'");
+                dbm.insert("UPDATE  gl_tr_ledger_current SET year='" + year + "',month='" + month + "',sup_id='" + sup + "',name='" + name + "',pay='" + pay + "',total_kg='" + total_kg + "',set_value='" + leaf_rate + "',extra='" + extra + "',gross_amount='" + trans + "',coins_bf='" + coinsbf + "',total_payable='" + (+extra+coinsbf + trans) + "',pre_debts='" + pre_debts + "',cash_advances='" + cash_advance + "',other_advances='" + other_advance + "',loans ='" + loans + "',cards='" + cards + "',transport='" + "0" + "',welfare = '" + welf + "',total_deduction='" + (pre_debts + cash_advance + other_advance + cards +welf+loans) + "',net_amount='" + net_amount + "',tax='" + plusTax + "',final_payable='" + (net_amount - plusTax) + "',coins_cf='" + coinscf + "',final_amount='" + final_total + "',bal_cf='" + bal_cf + "',nloans='" + loans_next + "',nother='" + other_next + "' Where entry = '" + year + month + sup + "'");
 
             }//}
             try {
