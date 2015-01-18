@@ -1,7 +1,9 @@
 
 import java.awt.event.KeyEvent;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,13 +22,15 @@ import javax.swing.UIManager;
 public class Report_Acc_Journals extends javax.swing.JPanel {
 
     UIDefaults defaults = UIManager.getLookAndFeelDefaults();
-    DatabaseManager dbm =  DatabaseManager.getDbCon();
+    DatabaseManager dbm = DatabaseManager.getDbCon();
     Report_gen generate = new Report_gen();
 
     /**
      * Creates new form Report_Acc_Journals
      */
     public Report_Acc_Journals() {
+        
+        Set_Combo_First();
         initComponents();
         jPanel5.setVisible(false);
         jPanel2.setVisible(false);
@@ -62,115 +66,201 @@ public class Report_Acc_Journals extends javax.swing.JPanel {
         public void run() {
             //  jProgressBar1.setIndeterminate(true);
 
-            Thread a = new Thread(new Background());
+            if (dbm.checkWhetherDataExists("account_control_panel_details", "control", "report_new") == 0) {
+                try {
+                    dbm.insert("INSERT INTO account_control_panel_details(control,value) VALUES('" + "report_new" + "','" + 0 + "')");
+                } catch (SQLException ex) {
+                    Logger.getLogger(Report_Acc_Payments.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (dbm.checkWhetherDataExists("account_control_panel_details", "control", "report_receipt_color") == 0) {
+                try {
+                    dbm.insert("INSERT INTO account_control_panel_details(control,value) VALUES('" + "report_journal_color" + "','" + 1 + "')");
+                } catch (SQLException ex) {
+                    Logger.getLogger(Report_Acc_Payments.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            String reportOldOrNew = dbm.checknReturnStringData("account_control_panel_details", "control", "report_new", "value");
+            String color = "colored";
+            if (Integer.parseInt(dbm.checknReturnStringData("account_control_panel_details", "control", "report_journal_color", "value")) == 0) {
+                color = "black";
+            }
+            Thread a = new Thread(new Report_Acc_Journals.Background());
 
-            Acc_Journal_Report_Help_Database help = new Acc_Journal_Report_Help_Database();
+////////// This part can be deleted later//////////////////////////////////////////
+            if (Integer.parseInt(reportOldOrNew) == 0) {
 
-            help.create_database();
+                Acc_Journal_Report_Help_Database help = new Acc_Journal_Report_Help_Database();
 
-            if (!andbutton.isSelected()) {
+                help.create_database();
 
-                if (field_choice1.getSelectedItem().toString() == "All") {
-                    jProgressBar1.setValue(45);
-                    jProgressBar1.repaint();
-                    a.start();
+                if (!andbutton.isSelected()) {
 
-                    HashMap param = new HashMap();
-                    param.put("USER", new UserAccountControl().get_current_user());
-
-                    String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
-
-                    generate.create("Account Journals", "D:\\", param, location, "Account Journal All.jrxml");
-                    a.stop();
-                    ;
-                    jProgressBar1.setValue(100);
-                } else if (field_choice1.getSelectedItem().toString() == "Date") {
-                    try {
+                    if (field_choice1.getSelectedItem().toString() == "All") {
                         jProgressBar1.setValue(45);
                         jProgressBar1.repaint();
                         a.start();
+
                         HashMap param = new HashMap();
                         param.put("USER", new UserAccountControl().get_current_user());
-                        param.put("Date1", datechooser.Return_date(yearfield, monthfield, dayfield));
-                        param.put("Date2", datechooser.Return_date(yearfield2, monthfield2, dayfield2));
-                        // jProgressBar1.setValue(45);
-                        //jProgressBar1.repaint();
+
                         String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
-                        // a.start();
-                        generate.create("Account Journals", "D:\\", param, location, "Account Journal Date.jrxml");
+
+                        generate.create("Account Journals", "D:\\", param, location, "Account Journal All.jrxml");
                         a.stop();
                         ;
                         jProgressBar1.setValue(100);
-                    } catch (ParseException ex) {
-                        Logger.getLogger(Report_Acc_Journals.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                } else {
-                    jProgressBar1.setValue(45);
-                    jProgressBar1.repaint();
-                    a.start();
-                    HashMap param = new HashMap();
-                    param.put("USER", new UserAccountControl().get_current_user());
-                    param.put("a", Return_String_Field(search.getText()));
-                    param.put("b", field.getText());
-                    // jProgressBar1.setValue(45);
-                    // jProgressBar1.repaint();
-                    String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
-                    // a.start();
-                    generate.create("Account Journals", "D:\\", param, location, "Account Journal.jrxml");
-                    a.stop();
-                    ;
-                    jProgressBar1.setValue(100);
-                }
-            } else {
-                //////// When andbutton is not activated
-
-                if (field_choice1.getSelectedItem().toString() == "Date") {
-
-                    try {
+                    } else if (field_choice1.getSelectedItem().toString() == "Date") {
+                        try {
+                            jProgressBar1.setValue(45);
+                            jProgressBar1.repaint();
+                            a.start();
+                            HashMap param = new HashMap();
+                            param.put("USER", new UserAccountControl().get_current_user());
+                            param.put("Date1", datechooser.Return_date(yearfield, monthfield, dayfield));
+                            param.put("Date2", datechooser.Return_date(yearfield2, monthfield2, dayfield2));
+                        // jProgressBar1.setValue(45);
+                            //jProgressBar1.repaint();
+                            String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
+                            // a.start();
+                            generate.create("Account Journals", "D:\\", param, location, "Account Journal Date.jrxml");
+                            a.stop();
+                            ;
+                            jProgressBar1.setValue(100);
+                        } catch (ParseException ex) {
+                            Logger.getLogger(Report_Acc_Journals.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    } else {
                         jProgressBar1.setValue(45);
                         jProgressBar1.repaint();
                         a.start();
                         HashMap param = new HashMap();
                         param.put("USER", new UserAccountControl().get_current_user());
-                        param.put("Date1", datechooser.Return_date(yearfield, monthfield, dayfield));
-                        param.put("Date2", datechooser.Return_date(yearfield2, monthfield2, dayfield2));
-                        param.put("a", Return_String_Field(search1.getText()));
-                        param.put("b", field1.getText());
-                       // jProgressBar1.setValue(45);
+                        param.put("a", Return_String_Field(search.getText()));
+                        param.put("b", field.getText());
+                    // jProgressBar1.setValue(45);
                         // jProgressBar1.repaint();
                         String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
                         // a.start();
-                        generate.create("Account Journals", "D:\\", param, location, "Account Journal AndDate.jrxml");
+                        generate.create("Account Journals", "D:\\", param, location, "Account Journal.jrxml");
                         a.stop();
                         ;
                         jProgressBar1.setValue(100);
+                    }
+                } else {
+                    //////// When andbutton is not activated
+
+                    if (field_choice1.getSelectedItem().toString() == "Date") {
+
+                        try {
+                            jProgressBar1.setValue(45);
+                            jProgressBar1.repaint();
+                            a.start();
+                            HashMap param = new HashMap();
+                            param.put("USER", new UserAccountControl().get_current_user());
+                            param.put("Date1", datechooser.Return_date(yearfield, monthfield, dayfield));
+                            param.put("Date2", datechooser.Return_date(yearfield2, monthfield2, dayfield2));
+                            param.put("a", Return_String_Field(search1.getText()));
+                            param.put("b", field1.getText());
+                       // jProgressBar1.setValue(45);
+                            // jProgressBar1.repaint();
+                            String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
+                            // a.start();
+                            generate.create("Account Journals", "D:\\", param, location, "Account Journal AndDate.jrxml");
+                            a.stop();
+                            ;
+                            jProgressBar1.setValue(100);
+                        } catch (ParseException ex) {
+                            Logger.getLogger(Report_Acc_Journals.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+
+                    } else {
+
+                        jProgressBar1.setValue(45);
+                        jProgressBar1.repaint();
+                        a.start();
+                        HashMap param = new HashMap();
+                        param.put("USER", new UserAccountControl().get_current_user());
+                        param.put("a", Return_String_Field(search.getText()));
+                        param.put("b", field.getText());
+                        param.put("c", Return_String_Field(search1.getText()));
+                        param.put("d", field1.getText());
+                    // jProgressBar1.setValue(45);
+                        //jProgressBar1.repaint();
+                        String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
+                        //a.start();
+                        generate.create("Account Journals", "D:\\", param, location, "Account Journal AndNormal.jrxml");
+                        a.stop();
+                        ;
+                        jProgressBar1.setValue(100);
+
+                    }
+
+                }
+            }/////////////////////////////////////////////////////////////////////////
+            else {
+                Date_Handler dt = new Date_Handler();
+                String data1 = "1";
+                String data2 = "1";
+                String columnFiltering1 = "1";
+                String columnFiltering2 = "1";
+                String database = "account_journal";
+                java.util.Date date1 = null;
+                try {
+                    date1 = new SimpleDateFormat("yyyy-MM-dd").parse("2007-01-01");
+                } catch (ParseException ex) {
+                    Logger.getLogger(ACC_ledger.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                java.util.Date date2 = null;
+                try {
+                    date2 = new SimpleDateFormat("yyyy-MM-dd").parse("2021-01-01");
+                } catch (ParseException ex) {
+                    Logger.getLogger(ACC_ledger.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                if (field_choice1.getSelectedItem().toString() == "All") {
+
+                } else if (field_choice1.getSelectedItem().toString() == "Date") {
+                    try {
+                        date1 = datechooser.Return_date(yearfield, monthfield, dayfield);
+                        date2 = datechooser.Return_date(yearfield2, monthfield2, dayfield2);
                     } catch (ParseException ex) {
-                        Logger.getLogger(Report_Acc_Journals.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(Report_Acc_Payments.class.getName()).log(Level.SEVERE, null, ex);
                     }
 
                 } else {
+                    columnFiltering1 = Return_String_Field(search.getText());
+                    data1 = field.getText();
+                }
+                if (andbutton.isSelected()) {
 
-                    jProgressBar1.setValue(45);
-                    jProgressBar1.repaint();
-                    a.start();
-                    HashMap param = new HashMap();
-                    param.put("USER", new UserAccountControl().get_current_user());
-                    param.put("a", Return_String_Field(search.getText()));
-                    param.put("b", field.getText());
-                    param.put("c", Return_String_Field(search1.getText()));
-                    param.put("d", field1.getText());
-                    // jProgressBar1.setValue(45);
-                    //jProgressBar1.repaint();
-                    String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
-                    //a.start();
-                    generate.create("Account Journals", "D:\\", param, location, "Account Journal AndNormal.jrxml");
-                    a.stop();
-                    ;
-                    jProgressBar1.setValue(100);
+                    columnFiltering2 = Return_String_Field(search1.getText());
+                    data2 = field1.getText();
 
                 }
+                jProgressBar1.setValue(45);
+                jProgressBar1.repaint();
+                a.start();
 
+                HashMap param = new HashMap();
+                param.put("USER", new UserAccountControl().get_current_user());
+                param.put("filterColumn1", columnFiltering1);
+                param.put("filterColumn2", columnFiltering2);
+                param.put("data1", data1);
+                param.put("data2", data2);
+                param.put("date1", date1);
+                param.put("date2", date2);
+                param.put("color", color);
+                param.put("database", database);
+                String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
+
+                generate.create("Account Payments", "D:\\", param, location, "Account Report.jrxml");
+                a.stop();
+                ;
+                jProgressBar1.setValue(100);
             }
+
         }
     }
     DateChooser_text datechooser = new DateChooser_text();
@@ -178,38 +268,92 @@ public class Report_Acc_Journals extends javax.swing.JPanel {
     Date_Handler datehandler = new Date_Handler();
 
     String[] combo = new String[10];
+    String[] comboFirst;
+    
+     public void Set_Combo_First() {
+
+        if (Integer.parseInt(dbm.checknReturnStringData("account_control_panel_details", "control", "report_new", "value")) == 0) {
+         
+            String[] arr = new String[11];
+            arr[0] = null;
+            arr[1]= "All";
+            arr[2] = "Transaction No.";
+            arr[3] = "Date";
+            arr[4] = "Reference No.";
+            arr[5] = "Debit Account ID";
+            arr[6] = "Debit Description";
+            arr[7] = "Debit Amount";
+            arr[8] = "Credit Account ID";
+            arr[9] = "Credit Account Description";
+            arr[10] = "Credit Amount";
+            
+            comboFirst=arr;
+            
+        } else {
+            String[] arr = new String[5];
+            arr[0] = null;
+            arr[1] = "All";
+            arr[2] = "Transaction No.";
+            arr[3] = "Date";
+            arr[4] = "Reference No.";
+
+            comboFirst=arr;
+            
+        }
+
+    }
 
     public void Set_Combo() {
 
-        String s;
-        String[] arr2 = new String[10];
-
-        String[] arr = new String[11];
-        arr[0] = null;
-        arr[1] = "Transaction No.";
-        arr[2] = "Date";
-        arr[3] = "Receipt No.";
-        arr[4] = "Reference No.";
-        arr[5] = "Debit Account ID";
-        arr[6] = "Debit Description";
-        arr[7] = "Debit Amount";
-        arr[8] = "Credit Account ID";
-        arr[9] = "Credit Account Description";
-        arr[10] = "Credit Amount";
-
-        if (field_choice1.getSelectedIndex() != 0) {
-            int i = 0;
-            int j = field_choice1.getSelectedIndex() - 1;
-            for (i = 0; i < j; i++) {
-                arr2[i] = arr[i];
+        if (Integer.parseInt(dbm.checknReturnStringData("account_control_panel_details", "control", "report_new", "value")) == 0) {
+            String[] arr2 = new String[9];
+            String[] arr = new String[10];
+            arr[0] = null;
+            arr[1] = "Transaction No.";
+            arr[2] = "Date";
+            arr[3] = "Reference No.";
+            arr[4] = "Debit Account ID";
+            arr[5] = "Debit Description";
+            arr[6] = "Debit Amount";
+            arr[7] = "Credit Account ID";
+            arr[8] = "Credit Account Description";
+            arr[9] = "Credit Amount";
+            
+            if (field_choice1.getSelectedIndex() != 0) {
+                int i = 0;
+                int j = field_choice1.getSelectedIndex()-1;
+                for (i = 0; i < j; i++) {
+                    arr2[i] = arr[i];
+                }
+                for (i = j + 1; i < 11; i++) {
+                    arr2[i - 1] = arr[i];
+                }
+                combo = arr2;
+            } else {
+                
             }
-            for (i = j + 1; i < 11; i++) {
-                arr2[i - 1] = arr[i];
-            }
-            combo = arr2;
         } else {
-            System.out.println("aaaa");
-
+            String[] arr2 = new String[3];
+            String[] arr = new String[4];
+            arr[0] = null;
+            arr[1] = "Transaction No.";
+            arr[2] = "Date";
+            arr[3] = "Reference No.";
+            
+            if (field_choice1.getSelectedIndex() != 0) {
+                int i = 0;
+                int j = field_choice1.getSelectedIndex()-1;
+               
+                for (i = 0; i < j; i++) {
+                    arr2[i] = arr[i];
+                }
+                for (i = j + 1; i < 4; i++) {
+                    arr2[i - 1] = arr[i];
+                }
+                combo = arr2;
+            } else {
+                
+            }
         }
 
     }
@@ -285,7 +429,7 @@ public class Report_Acc_Journals extends javax.swing.JPanel {
 
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        field_choice1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " ", "All", "Transaction No.", "Date", "Receipt No.", "Reference No.", "Debit Account ID", "Debit Description", "Debit Amount", "Credit Account ID", "Credit Description", "Credit Amount" }));
+        field_choice1.setModel(new javax.swing.DefaultComboBoxModel(comboFirst));
         field_choice1.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 field_choice1ItemStateChanged(evt);
@@ -609,9 +753,9 @@ public class Report_Acc_Journals extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(andbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(0, 0, 0))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addComponent(wait, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -631,7 +775,7 @@ public class Report_Acc_Journals extends javax.swing.JPanel {
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(wait, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1430,66 +1574,7 @@ public class Report_Acc_Journals extends javax.swing.JPanel {
 
     ACC_Reciept_View_Table tbl = new ACC_Reciept_View_Table();
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        /*  tbl.Clear_Table();
 
-         tbl.setVisible(true);
-         tbl.setExtendedState(ACC_Reciept_View_Table.MAXIMIZED_BOTH);
-         if (search.getText() == "All") {
-         tbl.Table_Fill_All();
-
-         } else if (andbutton.isSelected()) {
-         if ("Date".equals(search.getText())) {
-         if ((search1.getText() == "Credit Account ID" || search1.getText() == "Credit Description" || search1.getText() == "Credit Amount")) {
-         try {
-         tbl.Table_Fill_Date_Credit_Search(Return_String_Field(search.getText()), datechooser.Return_date(yearfield, monthfield, dayfield), datechooser.Return_date(yearfield2, monthfield2, dayfield2), Return_String_Field(search1.getText()), field1.getText());
-         } catch (ParseException ex) {
-         Logger.getLogger(ACC_Reciept_View.class.getName()).log(Level.SEVERE, null, ex);
-         }
-         } else {
-         try {
-         tbl.Table_Fill_Date_Debit_Search(Return_String_Field(search.getText()), datechooser.Return_date(yearfield, monthfield, dayfield), datechooser.Return_date(yearfield2, monthfield2, dayfield2), Return_String_Field(search1.getText()), field1.getText());
-         } catch (ParseException ex) {
-         Logger.getLogger(ACC_Reciept_View.class.getName()).log(Level.SEVERE, null, ex);
-         }
-         }
-         } else if (search.getText() == "Credit Account ID" || search.getText() == "Credit Description" || search.getText() == "Credit Amount") {
-         if (search1.getText() == "Credit Account ID" || search1.getText() == "Credit Description" || search1.getText() == "Credit Amount") {
-         tbl.Table_Fill_Credit_Credit_Search(Return_String_Field(search.getText()), field.getText(), Return_String_Field(search1.getText()), field1.getText());
-         } else {
-         tbl.Table_Fill_Debit_Credit_Search(Return_String_Field(search1.getText()), field1.getText(), Return_String_Field(search.getText()), field.getText());
-         }
-         } else {
-         if (search1.getText() == "Credit Account ID" || search1.getText() == "Credit Description" || search1.getText() == "Credit Amount") {
-         tbl.Table_Fill_Debit_Credit_Search(Return_String_Field(search.getText()), field.getText(), Return_String_Field(search1.getText()), field1.getText());
-         } else {
-         tbl.Table_Fill_Debit_Debit_Search(Return_String_Field(search.getText()), field.getText(), Return_String_Field(search1.getText()), field1.getText());
-         }
-         }
-
-         } else {
-
-         if ("Date".equals(search.getText())) {
-         try {
-         tbl.Table_Fill_Date_Search(Return_String_Field(search.getText()), datechooser.Return_date(yearfield, monthfield, dayfield), datechooser.Return_date(yearfield2, monthfield2, dayfield2));
-         } catch (ParseException ex) {
-         Logger.getLogger(ACC_Reciept_View.class.getName()).log(Level.SEVERE, null, ex);
-         }
-         } else if (search.getText() == "Credit Account ID" || search.getText() == "Credit Description" || search.getText() == "Credit Amount") {
-
-         tbl.Table_Fill_Credit_Search(Return_String_Field(search.getText()), field.getText());
-         } else {
-         tbl.Table_Fill_Debit_Search(Return_String_Field(search.getText()), field.getText());
-
-         }
-         }*/
-
-        /* if(!andbutton.isSelected()){
-         String fieldv = Return_String_Field(search.getText());
-         String para =  field.getText();
-            
-         HashMap rep = new HashMap();
-            
-         } */
         wait.setText("WAIT....");
         Thread s = new Thread(new report());
         s.start();

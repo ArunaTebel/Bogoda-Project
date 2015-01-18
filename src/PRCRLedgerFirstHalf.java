@@ -63,15 +63,17 @@ public class PRCRLedgerFirstHalf implements Runnable{
             table = "pr_workdata_" + year + "_0" + j;
             
             check=1;
-           // System.out.println(dbm.checknReturnData(table, coloumn, code, "active"));
+           
+             //following code was commented in 2015-01-18 for the following reason
+            //When a worker who is not active in a certain month and gets a backup payment for that month, his backup payment will not 
+            //be included in 6 month report if following code segment is executed
             
-           // System.err.println((Integer.parseInt(dbm.checknReturnData(table, coloumn, code, "active"))==1));
-             if(dbm.checknReturnData(table, coloumn, code, "active")==null){
-              check=0;
-            }else if(Integer.parseInt(dbm.checknReturnData(table, coloumn, code, "active"))!=1){
-                
-               check=0;
-            }
+//             if(dbm.checknReturnData(table, coloumn, code, "active")==null){
+//              check=0;
+//            }else if(Integer.parseInt(dbm.checknReturnData(table, coloumn, code, "active"))!=1){
+//                
+//               check=0;
+//            }
             
             
             if(check==1){

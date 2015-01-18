@@ -15,23 +15,24 @@ import javax.swing.JOptionPane;
  *
  * @author Acer
  */
-public class PRCRLedgerSecondHalf implements Runnable{
-    DatabaseManager dbm = DatabaseManager.getDbCon();
+public class PRCRLedgerFirstHalf implements Runnable{
+    DatabaseManager dbm=DatabaseManager.getDbCon();
     int[] workCodes;
     int year;
     
-    public PRCRLedgerSecondHalf(int year){
-        
-        this.year = year;
-          try {
+    public PRCRLedgerFirstHalf(int year){
+       // dbm = new DatabaseManager();
+           this.year = year;
+            try {
           
-            dbm.insert("Truncate prcr_ledger_second_half");
+            dbm.insert("Truncate prcr_ledger_first_half");
           
         } catch (SQLException e) {
             //Logger.getLogger(PRCRLedgerFirstHalf.class.getName()).log(Level.SEVERE, null, ex);
-              System.out.println(e.getMessage());
+            System.out.println(e.getMessage());
         }
-    }
+      
+    } 
     
     public void getWorkCodes(){
         String table = "checkroll_personalinfo";
@@ -40,51 +41,51 @@ public class PRCRLedgerSecondHalf implements Runnable{
     }
     
     public void updateWorker(int i){
+        
         Report_PRCR_EPF_6Month.epfPrgrsbr.setValue((100*i)/workCodes.length+1);
         int code = workCodes[i];
         int entry = Integer.parseInt(year + "" + code);
         int j;
-        String[] months = {"jul", "aug", "sep", "oct", "nov", "dec"};
+        String[] months = {"jan", "feb", "mar", "apr", "may", "jun"};
         String table, coloumn = "code";
-        String target;
-        String month;
-        String destTable = "prcr_ledger_second_half";
-        double x, y,epfbackup=0,etfbackup=0,totalpay=0,active=0;
+        String target,month;
+        String destTable = "prcr_ledger_first_half";
+        double x, epfbackup=0,etfbackup=0,totalpay=0, y,active=0;
         double check=1;
         try {
-            dbm.insert("INSERT INTO prcr_ledger_second_half(entry,code) VALUES('" + entry + "','" + code + "')");
+            dbm.insert("INSERT INTO prcr_ledger_first_half(entry,code) VALUES('" + entry + "','" + code + "')");
+            
         } catch (SQLException ex) {
-            Logger.getLogger(PRCRLedgerFirstHalf.class.getName()).log(Level.SEVERE, null, ex);
+           // Logger.getLogger(PRCRLedgerFirstHalf.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getMessage());
         }
         for(j=1;j<=6;j++){
-            if(j+6<10){
-                table = "pr_workdata_" + year + "_0" + (j+6);
-                month = year + "_0" + (j+6);
-            }
-            else{
-                table = "pr_workdata_" + year + "_" + (j+6);
-                month =year + "_" + (j+6);
-            }
-            check=1;
-           
+            table = "pr_workdata_" + year + "_0" + j;
             
-            //following code was commented in 2015-01-18 for the following reason
-            //When a worker who is not active in a certain month and gets a backup payment for that month, his backup payment will not 
-            //be included in 6 month report if following code segment is executed
-          
-           
-//            if(dbm.checknReturnData(table, coloumn, code, "active")==null){
-//              check=0;
-//            }else if(Integer.parseInt(dbm.checknReturnData(table, coloumn, code, "active"))!=1){
-//                
-//               check=0;
-//            }
+            check=1;
+           // System.out.println(dbm.checknReturnData(table, coloumn, code, "active"));
+            
+           // System.err.println((Integer.parseInt(dbm.checknReturnData(table, coloumn, code, "active"))==1));
+             if(dbm.checknReturnData(table, coloumn, code, "active")==null){
+              check=0;
+            }else if(Integer.parseInt(dbm.checknReturnData(table, coloumn, code, "active"))!=1){
+                
+               check=0;
+            }
+            
             
             if(check==1){
                
             active=1;
+            month=year + "_0" + j;
             
+            target = "total_pay";
+            x = dbm.checknReturnDoubleData(table, coloumn, code, target);
             
+            totalpay=checknReturnDoubleData2("prcr_epf_etf_backup", "month", month,"code",code,"total_pay");
+            
+            target = months[j-1] + "_total_pay";
+            dbm.updateDatabase(destTable, "entry", entry, target, x+totalpay);
             
             target = "epf10";
             x = dbm.checknReturnDoubleData(table, coloumn, code, target);
@@ -96,39 +97,29 @@ public class PRCRLedgerSecondHalf implements Runnable{
             target = months[j-1] + "_epf12";
             dbm.updateDatabase(destTable, "entry", entry, target, y);
             
-           //epf backup
-           epfbackup=checknReturnDoubleData2("prcr_epf_etf_backup", "month", month,"code",code,"epf");
-                     
+            
+            //month=year + "_0" + j;
+            epfbackup=checknReturnDoubleData2("prcr_epf_etf_backup", "month", month,"code",code,"epf");
+           
             
             x = x + y+epfbackup;
             target = months[j-1] + "_epf";
             dbm.updateDatabase(destTable, "entry", entry, target, x);
             
             
-            //etf backup
             etfbackup=checknReturnDoubleData2("prcr_epf_etf_backup", "month", month,"code",code,"etf");
                          
-            
             
             target = "etf";
             x = dbm.checknReturnDoubleData(table, coloumn, code, target);
             x=x+etfbackup;
             target = months[j-1] + "_etf";
             dbm.updateDatabase(destTable, "entry", entry, target, x);
-            
-            target = "total_pay";
-            
-            totalpay=checknReturnDoubleData2("prcr_epf_etf_backup", "month", month,"code",code,"total_pay");
-            x = dbm.checknReturnDoubleData(table, coloumn, code, target);
-            
-            target = months[j-1] + "_total_pay";
-            dbm.updateDatabase(destTable, "entry", entry, target, x+totalpay);
-            
             }
         }
-        //uncomment 
-          if(active==1){
-             dbm.updateDatabase("prcr_ledger_second_half",coloumn,code,"active","1");
+        //uncomment
+        if(active==1){
+             dbm.updateDatabase("prcr_ledger_first_half",coloumn,code,"active","1");
         }
     }
     
@@ -136,20 +127,47 @@ public class PRCRLedgerSecondHalf implements Runnable{
         int i;
         for(i=0;i<workCodes.length;i++){
             updateWorker(i);
+            System.out.println(i+" done -"+workCodes[i]);
         }
         JOptionPane.showMessageDialog(null, "Updated!");
     }
     
+       public int[] getArray(String table_name, String column_name) {
+
+        int count = 0;
+        DatabaseManager dbm = DatabaseManager.getDbCon();
+        try {
+            ResultSet query = dbm.query("SELECT " + column_name + " FROM " + table_name + " WHERE register_or_casual LIKE '1'");
+            while (query.next()) {
+                count++;
+            }
+            int[] array = new int[count];
+            count = 0;
+            ResultSet query2 = dbm.query("SELECT " + column_name + " FROM " + table_name + " WHERE register_or_casual LIKE '1'");
+            while (query2.next()) {
+                array[count] = query2.getInt(column_name);
+                count++;
+            }
+            return array;
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        return null;
+    }
+    
     public static void main(String[] args){
-        PRCRLedgerSecondHalf ex = new PRCRLedgerSecondHalf(2013);
+        DatabaseManager dbm=DatabaseManager.getDbCon();
+        PRCRLedgerFirstHalf ex = new PRCRLedgerFirstHalf(2014);
+
         ex.getWorkCodes();
         int i;
         for(i=0;i<ex.workCodes.length;i++)
             System.out.println(ex.workCodes[i]);
+        System.out.println(ex.workCodes.length);
         ex.updateTable();
     }
-    
-     @Override
+
+    @Override
     public void run() {
       getWorkCodes();
       int i;
@@ -179,28 +197,6 @@ public class PRCRLedgerSecondHalf implements Runnable{
     }
      
      
-     public int[] getArray(String table_name, String column_name) {
-
-        int count = 0;
-
-        try {
-            ResultSet query = dbm.query("SELECT " + column_name + " FROM " + table_name + " WHERE register_or_casual LIKE '1'");
-            while (query.next()) {
-                count++;
-            }
-            query.close();
-            int[] array = new int[count];
-            count = 0;
-            ResultSet query2 = dbm.query("SELECT " + column_name + " FROM " + table_name + " WHERE register_or_casual LIKE '1'");
-            while (query2.next()) {
-                array[count] = query2.getInt(column_name);
-                count++;
-            }
-            query2.close();
-            return array;
-        } catch (SQLException ex) {
-
-        }
-        return null;
-    }
+     
+     
 }
