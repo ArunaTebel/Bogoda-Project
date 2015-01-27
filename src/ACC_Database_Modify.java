@@ -134,6 +134,60 @@ public class ACC_Database_Modify {
             Logger.getLogger(ACC_Database_Modify.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    
+    public void deleteTables(){
+         try {
+            dbm.insert("DELETE TABLE `account_journal` ");
+            dbm.insert("DELETE TABLE `account_journal_2008-09` ");
+            dbm.insert("DELETE TABLE `account_journal_2009-10` ");
+            dbm.insert("DELETE TABLE `account_journal_2010-11` ");
+            dbm.insert("DELETE TABLE `account_journal_2011-12` ");
+            dbm.insert("DELETE TABLE `account_journal_2012-13` ");
+            dbm.insert("DELETE TABLE `account_journal_2013-14` ");
+            dbm.insert("DELETE TABLE `account_journal_2015-16` ");
+            dbm.insert("DELETE TABLE `account_journal_2016-17` ");
+            dbm.insert("DELETE TABLE `account_journal_2017-18` ");
+            dbm.insert("DELETE TABLE `account_journal_2018-19` ");
+            dbm.insert("DELETE TABLE `account_journal_2019-20` ");
+        } catch (SQLException ex) {
+            Logger.getLogger(ACC_Database_Modify.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        try {
+            dbm.insert("DELETE TABLE `account_reciept` ");
+            dbm.insert("DELETE TABLE `account_reciept_2008-09` ");
+            dbm.insert("DELETE TABLE `account_reciept_2009-10` ");
+            dbm.insert("DELETE TABLE `account_reciept_2010-11` ");
+            dbm.insert("DELETE TABLE `account_reciept_2011-12` ");
+            dbm.insert("DELETE TABLE `account_reciept_2012-13` ");
+            dbm.insert("DELETE TABLE `account_reciept_2013-14` ");
+            dbm.insert("DELETE TABLE `account_reciept_2015-16` ");
+            dbm.insert("DELETE TABLE `account_reciept_2016-17` ");
+            dbm.insert("DELETE TABLE `account_reciept_2017-18` ");
+            dbm.insert("DELETE TABLE `account_reciept_2018-19` ");
+            dbm.insert("DELETE TABLE `account_reciept_2019-20` ");
+        } catch (SQLException ex) {
+            Logger.getLogger(ACC_Database_Modify.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        try {
+            dbm.insert("DELETE TABLE `account_payment` ");
+            dbm.insert("DELETE TABLE `account_payment_2008-09` ");
+            dbm.insert("DELETE TABLE `account_payment_2009-10` ");
+            dbm.insert("DELETE TABLE `account_payment_2010-11` ");
+            dbm.insert("DELETE TABLE `account_payment_2011-12` ");
+            dbm.insert("DELETE TABLE `account_payment_2012-13` ");
+            dbm.insert("DELETE TABLE `account_payment_2013-14` ");
+            dbm.insert("DELETE TABLE `account_payment_2015-16` ");
+            dbm.insert("DELETE TABLE `account_payment_2016-17` ");
+            dbm.insert("DELETE TABLE `account_payment_2017-18` ");
+            dbm.insert("DELETE TABLE `account_payment_2018-19` ");
+            dbm.insert("DELETE TABLE `account_payment_2019-20` ");
+        } catch (SQLException ex) {
+            Logger.getLogger(ACC_Database_Modify.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 // This is for Receipts
 
     public void copy_entries(String fromTable, String toTable, String fromSupportTable) {

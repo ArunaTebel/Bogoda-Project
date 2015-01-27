@@ -1219,25 +1219,33 @@ public class ACC_recepts extends javax.swing.JPanel {
                         credit_acnt_name = dbm.checknReturnData("account_names", "account_id", Integer.parseInt((String) credit_account_code_table.getValueAt(j, 0)), "account_name");
 
                         raobject.addToCreditDataBase(Integer.parseInt((String) credit_account_code_table.getValueAt(j, 0)), credit_acnt_name, (String) credit_description_table.getValueAt(j, 0), Double.parseDouble(format.getNumberWithoutCommas((String) credit_amount_table.getValueAt(j, 0))));
+
+                        //// Adding to new database
+                        if ("Cheque".equals(raobject.getPayType())) {
+                            raobject.newAddToCreditDataBaseBank(Integer.parseInt((String) credit_account_code_table.getValueAt(j, 0)), credit_acnt_name, (String) credit_description_table.getValueAt(j, 0), Double.parseDouble(format.getNumberWithoutCommas((String) credit_amount_table.getValueAt(j, 0))));
+                        } else {
+                            raobject.newAddToCreditDataBaseCash(Integer.parseInt((String) credit_account_code_table.getValueAt(j, 0)), credit_acnt_name, (String) credit_description_table.getValueAt(j, 0), Double.parseDouble(format.getNumberWithoutCommas((String) credit_amount_table.getValueAt(j, 0))));
+                        }
+
                     }
                     acc.getFromDebitCombo(debit_accountCode);
                     acc.setCreditCache(lastAccountCode);
                     // adding the relevant value to the current balance of the credit account
                 /*    i = 0;
-                    String acnt_class;
-                    double credit_value;
-                    double credit_updated_value;
-                    while (credit_account_code_table.getValueAt(i, 0) != null) {
-                        credit_value = Double.parseDouble(format.getNumberWithoutCommas((String) credit_amount_table.getValueAt(i, 0)));
-                        acnt_class = dbm.checknReturnData("account_names", "account_id", Integer.parseInt((String) credit_account_code_table.getValueAt(i, 0)), "account_class");
-                        if ("Current Asset".equals(acnt_class) || "Fixed Asset".equals(acnt_class) || "Expense".equals(acnt_class)) {
-                            credit_updated_value = Double.parseDouble((String) dbm.checknReturnData("account_names", "account_id", Integer.parseInt((String) credit_account_code_table.getValueAt(i, 0)), "current_balance")) - credit_value;
-                        } else {
-                            credit_updated_value = Double.parseDouble((String) dbm.checknReturnData("account_names", "account_id", Integer.parseInt((String) credit_account_code_table.getValueAt(i, 0)), "current_balance")) + credit_value;
-                        }
-                        dbm.updateDatabase("account_names", "account_id", Integer.parseInt((String) credit_account_code_table.getValueAt(i, 0)), "current_balance", credit_updated_value);
-                        i++;
-                    } */
+                     String acnt_class;
+                     double credit_value;
+                     double credit_updated_value;
+                     while (credit_account_code_table.getValueAt(i, 0) != null) {
+                     credit_value = Double.parseDouble(format.getNumberWithoutCommas((String) credit_amount_table.getValueAt(i, 0)));
+                     acnt_class = dbm.checknReturnData("account_names", "account_id", Integer.parseInt((String) credit_account_code_table.getValueAt(i, 0)), "account_class");
+                     if ("Current Asset".equals(acnt_class) || "Fixed Asset".equals(acnt_class) || "Expense".equals(acnt_class)) {
+                     credit_updated_value = Double.parseDouble((String) dbm.checknReturnData("account_names", "account_id", Integer.parseInt((String) credit_account_code_table.getValueAt(i, 0)), "current_balance")) - credit_value;
+                     } else {
+                     credit_updated_value = Double.parseDouble((String) dbm.checknReturnData("account_names", "account_id", Integer.parseInt((String) credit_account_code_table.getValueAt(i, 0)), "current_balance")) + credit_value;
+                     }
+                     dbm.updateDatabase("account_names", "account_id", Integer.parseInt((String) credit_account_code_table.getValueAt(i, 0)), "current_balance", credit_updated_value);
+                     i++;
+                     } */
 
                     // clear all
                     {

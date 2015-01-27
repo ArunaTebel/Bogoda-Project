@@ -1,0 +1,521 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Report_ACC_LedgerAccounts" language="groovy" pageWidth="595" pageHeight="842" columnWidth="567" leftMargin="14" rightMargin="14" topMargin="20" bottomMargin="20" uuid="b4a7e90f-236c-48e1-b463-a16c40591ab1">
+	<property name="ireport.zoom" value="1.6500000000000004"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="113"/>
+	<style name="transac_details">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$P{color}=="colored"]]></conditionExpression>
+			<style mode="Transparent" forecolor="#660066"/>
+		</conditionalStyle>
+	</style>
+	<style name="credit_amount">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$P{color} == "colored" && $F{debit_credit} == "credit"]]></conditionExpression>
+			<style forecolor="#006600"/>
+		</conditionalStyle>
+	</style>
+	<style name="debit_amount">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$P{color} == "colored" && $F{debit_credit} == "debit"]]></conditionExpression>
+			<style forecolor="#000066"/>
+		</conditionalStyle>
+	</style>
+	<style name="account_id_and_name">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$P{color} == "colored"]]></conditionExpression>
+			<style forecolor="#666600"/>
+		</conditionalStyle>
+	</style>
+	<style name="op_bal_description">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$P{color} == "colored"]]></conditionExpression>
+			<style forecolor="#660000"/>
+		</conditionalStyle>
+	</style>
+	<style name="op_bal_amount">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$P{color} == "colored"]]></conditionExpression>
+			<style forecolor="#660000"/>
+		</conditionalStyle>
+	</style>
+	<style name="tot_debit">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$P{color}=="colored"]]></conditionExpression>
+			<style forecolor="#000066"/>
+		</conditionalStyle>
+	</style>
+	<style name="tot_credit">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$P{color}=="colored"]]></conditionExpression>
+			<style forecolor="#006600"/>
+		</conditionalStyle>
+	</style>
+	<style name="bal_bf">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$P{color}=="colored"]]></conditionExpression>
+			<style forecolor="#660000"/>
+		</conditionalStyle>
+	</style>
+	<style name="fromDateNToDate">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$P{color}=="colored"]]></conditionExpression>
+			<style forecolor="#003333"/>
+		</conditionalStyle>
+	</style>
+	<style name="title">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$P{color}=="colored"]]></conditionExpression>
+			<style forecolor="#330033"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="USER" class="java.lang.String"/>
+	<parameter name="Account_Code" class="java.lang.String"/>
+	<parameter name="From_Date" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="To_Date" class="java.util.Date"/>
+	<parameter name="orderColumn" class="java.lang.String"/>
+	<parameter name="color" class="java.lang.String"/>
+	<parameter name="opBalDebit" class="java.lang.Double"/>
+	<parameter name="opBalCredit" class="java.lang.Double"/>
+	<queryString>
+		<![CDATA[SELECT
+     account_reciept.`account_id` AS account_id,
+     account_reciept.`account_name` AS account_name,
+     account_reciept.`debit_credit` AS debit_credit,
+     account_reciept.`ref_no` AS ref_no,
+     account_reciept.`cheque_no` AS cheque_no,
+     account_reciept.`tr_no` AS tr_no,
+     CONCAT('R-',account_reciept.`tr_no`) AS tr_no_string,
+     account_reciept.`date` AS date,
+     account_reciept.`description` AS description,
+     account_reciept.`amount` AS amount
+FROM
+     `account_reciept` account_reciept
+
+WHERE
+	`date` between $P{From_Date} and $P{To_Date}
+	and
+	`account_id` = $P{Account_Code}
+
+UNION ALL
+
+SELECT
+     account_payment.`account_id` AS account_id,
+     account_payment.`account_name` AS account_name,
+     account_payment.`debit_credit` AS debit_credit,
+     account_payment.`ref_no` AS ref_no,
+     account_payment.`cheque_no` AS cheque_no,
+     account_payment.`tr_no` AS tr_no,
+     CONCAT('P-',account_payment.`tr_no`) AS tr_no_string,
+     account_payment.`date` AS date,
+     account_payment.`description` AS description,
+     account_payment.`amount` AS amount
+FROM
+	`account_payment` account_payment
+
+WHERE
+	`date` between $P{From_Date} and $P{To_Date}
+	and
+	`account_id` = $P{Account_Code}
+
+UNION ALL
+
+SELECT
+     account_journal.`account_id` AS account_id,
+     account_journal.`account_name` AS account_name,
+     account_journal.`debit_credit` AS debit_credit,
+     account_journal.`ref_no` AS ref_no,
+     account_journal.`cheque_no` AS cheque_no,
+     account_journal.`tr_no` AS tr_no,
+     CONCAT('J-',account_journal.`tr_no`) AS tr_no_string,
+     account_journal.`date` AS date,
+     account_journal.`description` AS description,
+     account_journal.`amount` AS amount
+FROM
+    `account_journal` account_journal
+
+WHERE
+	`date` between $P{From_Date} and $P{To_Date}
+	and
+	`account_id` = $P{Account_Code}
+
+ORDER BY
+	`account_id`,
+	$P!{orderColumn}]]>
+	</queryString>
+	<field name="account_id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tr_no" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="account_name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ref_no" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="debit_credit" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cheque_no" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tr_no_string" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="date" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="description" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="amount" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="TITLE" class="java.lang.String"/>
+	<variable name="Debit_Total" class="java.lang.Double" resetType="Group" resetGroup="Ac_Code" calculation="Sum">
+		<variableExpression><![CDATA[$F{debit_credit}=="debit" ? $F{amount} : 0]]></variableExpression>
+	</variable>
+	<variable name="Credit_Total" class="java.lang.Double" resetType="Group" resetGroup="Ac_Code" calculation="Sum">
+		<variableExpression><![CDATA[$F{debit_credit}=="credit" ? $F{amount} : 0]]></variableExpression>
+	</variable>
+	<group name="Ac_Code">
+		<groupExpression><![CDATA[$F{account_id}]]></groupExpression>
+		<groupHeader>
+			<band height="46">
+				<textField>
+					<reportElement uuid="1f7ba11e-6ea3-4301-a2d0-de85c2a80a80" style="account_id_and_name" x="13" y="13" width="55" height="20"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{account_id}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="deab5d02-c153-4fc6-845c-3a50b7fe605e" style="account_id_and_name" x="70" y="13" width="176" height="20"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{account_name}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00">
+					<reportElement uuid="1f7ba11e-6ea3-4301-a2d0-de85c2a80a80" style="op_bal_amount" x="416" y="20" width="72" height="20"/>
+					<textElement textAlignment="Right">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{opBalDebit}==0 ? "" : $P{opBalDebit}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00">
+					<reportElement uuid="1f7ba11e-6ea3-4301-a2d0-de85c2a80a80" style="op_bal_amount" x="489" y="20" width="72" height="20"/>
+					<textElement textAlignment="Right">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{opBalCredit}==0 ? "" : $P{opBalCredit}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement uuid="8b820536-4e3c-4646-9176-72c78990b115" x="0" y="5" width="567" height="1" forecolor="#999900"/>
+					<graphicElement>
+						<pen lineStyle="Dashed"/>
+					</graphicElement>
+				</line>
+				<staticText>
+					<reportElement uuid="dd7b0958-8dfc-412c-9fc5-ce6721134b94" style="op_bal_description" x="257" y="20" width="130" height="18" isRemoveLineWhenBlank="true"/>
+					<textElement textAlignment="Center">
+						<font size="12" isBold="true" isItalic="true"/>
+					</textElement>
+					<text><![CDATA[Openning Balance]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="69">
+				<textField pattern="#,##0.00">
+					<reportElement uuid="c22e6042-ff93-4d71-8846-f909962d4c47" style="tot_debit" x="415" y="34" width="72" height="20"/>
+					<textElement textAlignment="Right">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[( $V{Debit_Total} + $P{opBalDebit} ) >= ( $V{Credit_Total} + $P{opBalCredit} ) ? ( $V{Debit_Total} + $P{opBalDebit} ) : ( $V{Credit_Total} + $P{opBalCredit} )]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00">
+					<reportElement uuid="220817d7-ea3f-4cdb-b9e2-b6383a173b0d" style="tot_credit" x="489" y="34" width="72" height="20"/>
+					<textElement textAlignment="Right">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[($V{Debit_Total} + $P{opBalDebit}) >= ($V{Credit_Total} + $P{opBalCredit}) ? ($V{Debit_Total} + $P{opBalDebit}) : ($V{Credit_Total} + $P{opBalCredit})]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement uuid="8b820536-4e3c-4646-9176-72c78990b115" x="422" y="31" width="65" height="1"/>
+				</line>
+				<line>
+					<reportElement uuid="8b820536-4e3c-4646-9176-72c78990b115" x="494" y="31" width="65" height="1"/>
+				</line>
+				<line>
+					<reportElement uuid="8b820536-4e3c-4646-9176-72c78990b115" x="422" y="54" width="65" height="1"/>
+				</line>
+				<line>
+					<reportElement uuid="8b820536-4e3c-4646-9176-72c78990b115" x="422" y="58" width="65" height="1"/>
+				</line>
+				<line>
+					<reportElement uuid="8b820536-4e3c-4646-9176-72c78990b115" x="494" y="54" width="65" height="1"/>
+				</line>
+				<line>
+					<reportElement uuid="8b820536-4e3c-4646-9176-72c78990b115" x="494" y="58" width="65" height="1"/>
+				</line>
+				<textField pattern="#,##0.00">
+					<reportElement uuid="c22e6042-ff93-4d71-8846-f909962d4c47" style="bal_bf" x="415" y="9" width="72" height="20"/>
+					<textElement textAlignment="Right">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[($V{Debit_Total} + $P{opBalDebit}) > ($V{Credit_Total} + $P{opBalCredit}) ? "" : ( ($V{Credit_Total} + $P{opBalCredit}) - ($V{Debit_Total} + $P{opBalDebit}) )]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00">
+					<reportElement uuid="220817d7-ea3f-4cdb-b9e2-b6383a173b0d" style="bal_bf" x="489" y="9" width="72" height="20"/>
+					<textElement textAlignment="Right">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[($V{Debit_Total} + $P{opBalDebit}) > ($V{Credit_Total} + $P{opBalCredit}) ? (($V{Debit_Total} + $P{opBalDebit}) - ($V{Credit_Total} + $P{opBalCredit}) ) : ""]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="dd7b0958-8dfc-412c-9fc5-ce6721134b94" style="op_bal_description" x="267" y="9" width="130" height="18" isRemoveLineWhenBlank="true"/>
+					<textElement textAlignment="Center">
+						<font size="10" isBold="true" isItalic="false"/>
+					</textElement>
+					<text><![CDATA[Balance B/F]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="3e709542-151f-4b92-8a79-9527db2b951e" x="1" y="3" width="81" height="11"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Report generated:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b253ceae-65b5-4d6e-bd4d-cd9f29f5de4c" x="2" y="16" width="15" height="13"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[by:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="75b687d7-fe40-4adf-9851-27816341e992" x="363" y="2" width="216" height="27"/>
+				<textElement>
+					<font fontName="Segoe UI Light" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bogoda Group Tea Factory]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="aeb39eae-cf99-495a-9b95-9031f30f70b7" x="1" y="-3" width="578" height="1"/>
+			</line>
+			<staticText>
+				<reportElement uuid="fe112270-8629-41c5-b43e-d57409be5b2e" x="440" y="26" width="114" height="20"/>
+				<textElement/>
+				<text><![CDATA[Kolawenigama, Deniyaya]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement uuid="54a20eec-890c-4e8c-9249-a8bf0da283f9" x="82" y="3" width="87" height="11"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="a7284fb9-5755-493b-9033-b8778b4d88dd" x="17" y="16" width="100" height="13"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{USER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="3e709542-151f-4b92-8a79-9527db2b951e" style="title" x="192" y="34" width="167" height="23"/>
+				<textElement>
+					<font size="16" isBold="true" isItalic="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Ledger Account List]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="23" splitType="Stretch">
+			<textField evaluationTime="Report">
+				<reportElement uuid="a28f6025-2bc0-4bc1-a2d3-6de88975440a" x="513" y="3" width="40" height="12"/>
+				<textElement>
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="c7b2c106-44fc-4aed-b3a9-e5ad706e21ea" x="433" y="3" width="80" height="12"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="a6e84ccc-a0ed-43e4-a974-e68a9e0eb142" style="fromDateNToDate" x="69" y="1" width="100" height="16"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}==1 ? $P{From_Date} : ""]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="4a6bd2cc-986c-4cf9-8b74-d9ed73daf5ed" style="fromDateNToDate" x="241" y="1" width="100" height="16"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}==1 ? $P{To_Date} : ""]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="e13c4d67-1e7f-4c1c-96d2-2316ab27579e" x="1" y="22" width="578" height="1"/>
+			</line>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="a6e84ccc-a0ed-43e4-a974-e68a9e0eb142" style="fromDateNToDate" x="7" y="1" width="62" height="16"/>
+				<textElement>
+					<font isBold="false" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}==1 ? "From Date" : ""]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="a6e84ccc-a0ed-43e4-a974-e68a9e0eb142" style="fromDateNToDate" x="199" y="1" width="42" height="16"/>
+				<textElement>
+					<font isBold="false" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}==1 ? "To Date" : ""]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="28" splitType="Stretch">
+			<line>
+				<reportElement uuid="8b820536-4e3c-4646-9176-72c78990b115" x="1" y="23" width="578" height="1"/>
+			</line>
+			<staticText>
+				<reportElement uuid="dd7b0958-8dfc-412c-9fc5-ce6721134b94" x="-1" y="3" width="40" height="18"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tr. No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="dd7b0958-8dfc-412c-9fc5-ce6721134b94" x="154" y="3" width="56" height="18"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="dd7b0958-8dfc-412c-9fc5-ce6721134b94" x="210" y="3" width="195" height="18"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Description]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="dd7b0958-8dfc-412c-9fc5-ce6721134b94" x="418" y="3" width="72" height="18"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Debit]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="dd7b0958-8dfc-412c-9fc5-ce6721134b94" x="491" y="3" width="72" height="18"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Credit]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="dd7b0958-8dfc-412c-9fc5-ce6721134b94" x="42" y="3" width="44" height="18"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ref. No.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="dd7b0958-8dfc-412c-9fc5-ce6721134b94" x="91" y="3" width="56" height="18"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cheque No.]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="23" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="1f7ba11e-6ea3-4301-a2d0-de85c2a80a80" style="transac_details" x="154" y="0" width="56" height="20"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="1f7ba11e-6ea3-4301-a2d0-de85c2a80a80" style="transac_details" x="210" y="0" width="195" height="20"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="1f7ba11e-6ea3-4301-a2d0-de85c2a80a80" style="debit_amount" x="416" y="0" width="72" height="20"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{debit_credit}=="debit" ? $F{amount} : ""]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="1f7ba11e-6ea3-4301-a2d0-de85c2a80a80" style="credit_amount" x="489" y="0" width="72" height="20"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{debit_credit}=="credit" ? $F{amount} : ""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="1f7ba11e-6ea3-4301-a2d0-de85c2a80a80" style="transac_details" x="0" y="0" width="39" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tr_no_string}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="1f7ba11e-6ea3-4301-a2d0-de85c2a80a80" style="transac_details" x="42" y="0" width="40" height="20"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ref_no}=="" || $F{ref_no}=="null" || $F{ref_no}==null || $F{ref_no}=="NULL" ? "------" : $F{ref_no}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="1f7ba11e-6ea3-4301-a2d0-de85c2a80a80" style="transac_details" x="91" y="0" width="56" height="20"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cheque_no} == 0 || $F{cheque_no} == null || $F{cheque_no} == "NULL" ||  $F{cheque_no} == "" || $F{cheque_no} == "null" ? "------------" : $F{cheque_no}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="11" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="5" splitType="Stretch">
+			<line>
+				<reportElement uuid="0d048f90-0a60-4753-b7bf-906c8bd8f6af" x="1" y="-13" width="578" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="54" splitType="Stretch"/>
+	</summary>
+</jasperReport>

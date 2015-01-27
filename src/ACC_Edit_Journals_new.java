@@ -1217,6 +1217,8 @@ public class ACC_Edit_Journals_new extends javax.swing.JPanel {
                     jaobject.setPayType(pay_type.getSelectedItem().toString());
                     jaobject.setDescription(description.getText());
                     DatabaseManager dbm = DatabaseManager.getDbCon();
+                    
+                    dbm.CheckNDeleteFromDataBase("account_journal", "tr_no", tr_no);
 
                     // Adding main common parts of the interface
                     if ("Cheque".equals(jaobject.getPayType())) {
@@ -1233,6 +1235,9 @@ public class ACC_Edit_Journals_new extends javax.swing.JPanel {
                         jaobject.setChequeDate(date2);
 
                         dbm.CheckNDeleteFromDataBase("account_journal_main", "tr_no", tr_no);
+
+                        
+
                         addToMainJournalDataBase = jaobject.addToMainJournalDataBaseBankEdit();
                     } else {
                         jaobject.setBankCode(0);
@@ -1257,6 +1262,12 @@ public class ACC_Edit_Journals_new extends javax.swing.JPanel {
                         for (int j = 0; j <= i - 1; j++) {
                             debit_acnt_name = dbm.checknReturnData("account_names", "account_id", Integer.parseInt((String) debit_table.getValueAt(j, 0)), "account_name");
                             jaobject.addToDebitDataBase(Integer.parseInt((String) debit_table.getValueAt(j, 0)), debit_acnt_name, (String) debit_table.getValueAt(j, 1), Double.parseDouble(format.getNumberWithoutCommas((String) debit_table.getValueAt(j, 2))));
+
+                            if ("Cheque".equals(jaobject.getPayType())) {
+                                jaobject.newAddToDebitDataBaseBank(Integer.parseInt((String) debit_table.getValueAt(j, 0)), debit_acnt_name, (String) debit_table.getValueAt(j, 1), Double.parseDouble(format.getNumberWithoutCommas((String) debit_table.getValueAt(j, 2))));
+                            } else {
+                                jaobject.newAddToDebitDataBaseCash(Integer.parseInt((String) debit_table.getValueAt(j, 0)), debit_acnt_name, (String) debit_table.getValueAt(j, 1), Double.parseDouble(format.getNumberWithoutCommas((String) debit_table.getValueAt(j, 2))));
+                            }
                         }
 
                         // Credit Side of the interface
@@ -1270,10 +1281,15 @@ public class ACC_Edit_Journals_new extends javax.swing.JPanel {
                         for (int j = 0; j <= i - 1; j++) {
                             credit_acnt_name = dbm.checknReturnData("account_names", "account_id", Integer.parseInt((String) credit_table.getValueAt(j, 0)), "account_name");
                             jaobject.addToCreditDataBase(Integer.parseInt((String) credit_table.getValueAt(j, 0)), credit_acnt_name, (String) credit_table.getValueAt(j, 1), Double.parseDouble(format.getNumberWithoutCommas((String) credit_table.getValueAt(j, 2))));
+
+                            if ("Cheque".equals(jaobject.getPayType())) {
+                                jaobject.newAddToCreditDataBaseBank(Integer.parseInt((String) credit_table.getValueAt(j, 0)), credit_acnt_name, (String) credit_table.getValueAt(j, 1), Double.parseDouble(format.getNumberWithoutCommas((String) credit_table.getValueAt(j, 2))));
+                            } else {
+                                jaobject.newAddToCreditDataBaseCash(Integer.parseInt((String) credit_table.getValueAt(j, 0)), credit_acnt_name, (String) credit_table.getValueAt(j, 1), Double.parseDouble(format.getNumberWithoutCommas((String) credit_table.getValueAt(j, 2))));
+                            }
                         }
 
                         msg.showMessage("Journal Entry is updated to Transaction no-" + jaobject.Get_Tr_no(), "Receipt", "info");
-
 
                         ref_no.setText(null);
                         // journal_no.setText(null);
@@ -2504,6 +2520,8 @@ public class ACC_Edit_Journals_new extends javax.swing.JPanel {
             dbm.CheckNDeleteFromDataBase("account_journal_main", "tr_no", tr_no);
             dbm.CheckNDeleteFromDataBase("account_journal_debitside", "tr_no", tr_no);
             dbm.CheckNDeleteFromDataBase("account_journal_creditside", "tr_no", tr_no);
+            
+            dbm.CheckNDeleteFromDataBase("account_journal", "tr_no", tr_no);
 
             ref_no.setText(null);
             //journal_no.setText(null);

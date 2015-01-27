@@ -75,30 +75,86 @@ public class Report_Acc_TB extends javax.swing.JPanel {
 
         @Override
         public void run() {
-            String date1 = null;
-            try {
-               
-                date1 = datechooser.Return_date(yearfield, monthfield, dayfield).toString();
-                System.out.println(date1);
-            } catch (ParseException ex) {
-                Logger.getLogger(Report_Acc_TB.class.getName()).log(Level.SEVERE, null, ex);
+
+            if (dbm.checkWhetherDataExists("account_control_panel_details", "control", "report_new") == 0) {
+                try {
+                    dbm.insert("INSERT INTO account_control_panel_details(control,value) VALUES('" + "report_new" + "','" + 1 + "')");
+                } catch (SQLException ex) {
+                    Logger.getLogger(Report_Acc_Payments.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
-            
-            Acc_Trail_Balance tb = new Acc_Trail_Balance();
-            jProgressBar1.setValue(45);
-            jProgressBar1.repaint();
-            a.start();
-            tb.create_table(date1, chk.isSelected());
+            if (dbm.checkWhetherDataExists("account_control_panel_details", "control", "report_trailbalance_color") == 0) {
+                try {
+                    dbm.insert("INSERT INTO account_control_panel_details(control,value) VALUES('" + "report_trailbalance_color" + "','" + 1 + "')");
+                } catch (SQLException ex) {
+                    Logger.getLogger(Report_Acc_Payments.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            String reportOldOrNew = dbm.checknReturnStringData("account_control_panel_details", "control", "report_new", "value");
+            String color = "colored";
+            if (Integer.parseInt(dbm.checknReturnStringData("account_control_panel_details", "control", "report_trailbalance_color", "value")) == 0) {
+                color = "black";
+            }
 
-            HashMap param = new HashMap();
-            param.put("USER", new UserAccountControl().get_current_user());
-            param.put("Date", date1);
-            String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
-            generate.create("Account Ledgers", "D:\\", param, location, "Report_Acc_Trail_Balance.jrxml");
-            a.stop();
-            ;
-            jProgressBar1.setValue(100);
+            if (Integer.parseInt(reportOldOrNew) == 0) {
+                
+                String date1 = null;
+                try {
 
+                    date1 = datechooser.Return_date(yearfield, monthfield, dayfield).toString();
+                    System.out.println(date1);
+                } catch (ParseException ex) {
+                    Logger.getLogger(Report_Acc_TB.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                Acc_Trail_Balance tb = new Acc_Trail_Balance();
+                jProgressBar1.setValue(45);
+                jProgressBar1.repaint();
+                a.start();
+                tb.create_table(date1, chk.isSelected());
+
+                HashMap param = new HashMap();
+                param.put("USER", new UserAccountControl().get_current_user());
+                param.put("Date", date1);
+                String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
+                generate.create("Account Ledgers", "D:\\", param, location, "Report_Acc_Trail_Balance.jrxml");
+                a.stop();
+                ;
+                jProgressBar1.setValue(100);
+
+            } else {
+                ////// New Report ///////////////////////////////////////
+                
+                Date date1 = null;
+                try {
+
+                    date1 = datechooser.Return_date(yearfield, monthfield, dayfield);
+                    System.out.println(date1);
+                } catch (ParseException ex) {
+                    Logger.getLogger(Report_Acc_TB.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                Acc_Trail_Balance tb = new Acc_Trail_Balance();
+                jProgressBar1.setValue(45);
+                jProgressBar1.repaint();
+                a.start();
+                
+                if(chk.isSelected()){
+                    tb.create_table_from_new_tables(date1);
+                }else{
+                    tb.create_table_from_new_tables_without_op_bal(date1);
+                }
+
+                HashMap param = new HashMap();
+                param.put("USER", new UserAccountControl().get_current_user());
+                param.put("Date", date1.toString());
+                param.put("color",color);
+                String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
+                generate.create("Account Ledgers", "D:\\", param, location, "Report_Acc_Trail_Balance_New_Report.jrxml");
+                a.stop();
+                ;
+                jProgressBar1.setValue(100);
+            }
         }
     }
     DateChooser_text datechooser = new DateChooser_text();

@@ -35,7 +35,7 @@ public class ACC_payments extends javax.swing.JPanel {
     int up1 = 0;
 
     Account acc = new Account();
-    
+
     public ACC_payments() {
         initComponents();
         jButton6.setEnabled(false);
@@ -49,7 +49,7 @@ public class ACC_payments extends javax.swing.JPanel {
         if (acc.checkCache("payment_credit") == 1) {
             acc.setCreditCombo(credit_accountCode);
         }
-        
+
         if (selection.equalsIgnoreCase("Cash")) {
             Cheque_pay.setVisible(false);
         }
@@ -433,7 +433,7 @@ public class ACC_payments extends javax.swing.JPanel {
                             .addComponent(debit_amount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(7, 7, 7)
                         .addComponent(jButton1))))
         );
 
@@ -1151,7 +1151,7 @@ public class ACC_payments extends javax.swing.JPanel {
         double tot = 0, diff = 0;
         String lastAccountCode = null;
         while (debit_account_code_table.getValueAt(t, 0) != null) {
-            lastAccountCode=debit_account_code_table.getValueAt(t, 0).toString();
+            lastAccountCode = debit_account_code_table.getValueAt(t, 0).toString();
             tot = tot + Double.parseDouble(format.getNumberWithoutCommas((String) debit_amount_table.getValueAt(t, 0)));
             t++;
         }
@@ -1224,27 +1224,34 @@ public class ACC_payments extends javax.swing.JPanel {
                     for (int j = 0; j <= i - 1; j++) {
                         debit_acnt_name = dbm.checknReturnData("account_names", "account_id", Integer.parseInt((String) debit_account_code_table.getValueAt(j, 0)), "account_name");
                         raobject.addToDebitDataBase(Integer.parseInt((String) debit_account_code_table.getValueAt(j, 0)), debit_acnt_name, (String) debit_description_table.getValueAt(j, 0), Double.parseDouble(format.getNumberWithoutCommas((String) debit_amount_table.getValueAt(j, 0))));
+
+                        /// Adding data to the new database
+                        if ("Cheque".equals(raobject.getPayType())) {
+                            raobject.newAddToDebitDataBaseBank(Integer.parseInt((String) debit_account_code_table.getValueAt(j, 0)), debit_acnt_name, (String) debit_description_table.getValueAt(j, 0), Double.parseDouble(format.getNumberWithoutCommas((String) debit_amount_table.getValueAt(j, 0))));
+                        } else {
+                            raobject.newAddToDebitDataBaseCash(Integer.parseInt((String) debit_account_code_table.getValueAt(j, 0)), debit_acnt_name, (String) debit_description_table.getValueAt(j, 0), Double.parseDouble(format.getNumberWithoutCommas((String) debit_amount_table.getValueAt(j, 0))));
+                        }
+
                     }
                     acc.getFromCreditCombo(credit_accountCode);
                     acc.setDebitCache(lastAccountCode);
 
                     // adding the relevant value to the current balance of the debit account
                  /*   i = 0;
-                    String acnt_class;
-                    double debit_value;
-                    double debit_updated_value;
-                    while (debit_account_code_table.getValueAt(i, 0) != null) {
-                        debit_value = Double.parseDouble(format.getNumberWithoutCommas((String) debit_amount_table.getValueAt(i, 0)));
-                        acnt_class = dbm.checknReturnData("account_names", "account_id", Integer.parseInt((String) debit_account_code_table.getValueAt(i, 0)), "account_class");
-                        if ("Current Asset".equals(acnt_class) || "Fixed Asset".equals(acnt_class) || "Expense".equals(acnt_class)) {
-                            debit_updated_value = Double.parseDouble((String) dbm.checknReturnData("account_names", "account_id", Integer.parseInt((String) debit_account_code_table.getValueAt(i, 0)), "current_balance")) + debit_value;
-                        } else {
-                            debit_updated_value = Double.parseDouble((String) dbm.checknReturnData("account_names", "account_id", Integer.parseInt((String) debit_account_code_table.getValueAt(i, 0)), "current_balance")) - debit_value;
-                        }
-                        dbm.updateDatabase("account_names", "account_id", Integer.parseInt((String) debit_account_code_table.getValueAt(i, 0)), "current_balance", debit_updated_value);
-                        i++;
-                    } */
-
+                     String acnt_class;
+                     double debit_value;
+                     double debit_updated_value;
+                     while (debit_account_code_table.getValueAt(i, 0) != null) {
+                     debit_value = Double.parseDouble(format.getNumberWithoutCommas((String) debit_amount_table.getValueAt(i, 0)));
+                     acnt_class = dbm.checknReturnData("account_names", "account_id", Integer.parseInt((String) debit_account_code_table.getValueAt(i, 0)), "account_class");
+                     if ("Current Asset".equals(acnt_class) || "Fixed Asset".equals(acnt_class) || "Expense".equals(acnt_class)) {
+                     debit_updated_value = Double.parseDouble((String) dbm.checknReturnData("account_names", "account_id", Integer.parseInt((String) debit_account_code_table.getValueAt(i, 0)), "current_balance")) + debit_value;
+                     } else {
+                     debit_updated_value = Double.parseDouble((String) dbm.checknReturnData("account_names", "account_id", Integer.parseInt((String) debit_account_code_table.getValueAt(i, 0)), "current_balance")) - debit_value;
+                     }
+                     dbm.updateDatabase("account_names", "account_id", Integer.parseInt((String) debit_account_code_table.getValueAt(i, 0)), "current_balance", debit_updated_value);
+                     i++;
+                     } */
                     // clear all
                     {
                         int j = 0;
@@ -1263,14 +1270,14 @@ public class ACC_payments extends javax.swing.JPanel {
                         bankName.setText(null);
                         branchName.setText(null);
                         chequeNo.setText(null);
-                        if(acc.checkCache("payment_credit")==1){
+                        if (acc.checkCache("payment_credit") == 1) {
                             credit_accountCode.setSelectedIndex(0);
                         }
                         credit_description.setText(null);
                         creditAmount.setText(null);
                         credit_accountName.setText(null);
                         debit_account_code.setSelectedIndex(0);
-                        if(acc.checkCache("payment_debit")==1){
+                        if (acc.checkCache("payment_debit") == 1) {
                             acc.setDebitCombo(debit_account_code);
                         }
                         debit_account_name.setText(null);

@@ -202,8 +202,24 @@ public class Report_Acc_COP extends javax.swing.JPanel {
             } catch (ParseException ex) {
                 Logger.getLogger(Report_Acc_COP.class.getName()).log(Level.SEVERE, null, ex);
             }
-
-            tb.create_table_cop(from_date, to_date, fromAccountCode, toAccountCode);
+            
+            // Check for the dtabase type
+            
+            if (dbm.checkWhetherDataExists("account_control_panel_details", "control", "report_new") == 0) {
+                try {
+                    dbm.insert("INSERT INTO account_control_panel_details(control,value) VALUES('" + "report_new" + "','" + 1 + "')");
+                } catch (SQLException ex) {
+                    Logger.getLogger(Report_Acc_Payments.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            String reportOldOrNew = dbm.checknReturnStringData("account_control_panel_details", "control", "report_new", "value");
+            
+            if (Integer.parseInt(reportOldOrNew) == 0) {
+                tb.create_table_cop(from_date, to_date, fromAccountCode, toAccountCode);
+            }else{
+                /// For new databases
+                tb.create_table_cop_new_databases(from_date, to_date, fromAccountCode, toAccountCode);
+            }
             double glQty = 0;
             double madeTeaQty = 0;
             try {
@@ -224,7 +240,7 @@ public class Report_Acc_COP extends javax.swing.JPanel {
             // param.put("To_Date", to_date);
             // param.put("Op_Bal", op_bal);
 
-             // jProgressBar1.setValue(45);
+            // jProgressBar1.setValue(45);
             // jProgressBar1.repaint();
             String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
             //  a.start();

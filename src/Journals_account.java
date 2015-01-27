@@ -2,6 +2,8 @@
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Journals_account {
 
@@ -241,6 +243,30 @@ public class Journals_account {
         }
         return true;
     }
+    
+    
+    public boolean newAddToDebitDataBaseBank(int debit_acnt_code, String debit_acnt_name, String debit_descriptn, double debit_amount) {
+        DatabaseManager dbCon = DatabaseManager.getDbCon();
+        
+        try {
+            dbCon.insert("INSERT INTO account_journal(tr_no,debit_credit,ref_no,date,pay_type,account_id,account_name,description_long,description,bank_id,bank_name,branch_id,branch_name,cheque_no,cheque_date,amount) VALUES('" + tr_no + "','" + "debit" + "','" + refNo + "','" + date + "','" + payType + "','" + debit_acnt_code + "','" + debit_acnt_name + "','"+description+"','" + debit_descriptn + "','" + bankCode + "','" + bankName + "','" + branchCode + "','" + branchName + "','" + chequeNo + "','" + chequeDate + "','" + debit_amount + "')");
+        } catch (SQLException ex) {
+            Logger.getLogger(Reciepts_accounts.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return true; 
+    }
+    
+    
+    public boolean newAddToDebitDataBaseCash(int debit_acnt_code, String debit_acnt_name, String debit_descriptn, double debit_amount) {
+        DatabaseManager dbCon = DatabaseManager.getDbCon();
+        try {
+            dbCon.insert("INSERT INTO account_journal(tr_no,debit_credit,ref_no,date,pay_type,account_id,account_name,description_long,description,amount) VALUES('" + tr_no + "','" + "debit" + "','" + refNo + "','" + date + "','" + payType + "','" + debit_acnt_code + "','" + debit_acnt_name + "','"+description+"','" + debit_descriptn + "','" + debit_amount + "')");
+        } catch (SQLException ex) {
+            Logger.getLogger(Reciepts_accounts.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        return true; 
+    }
 
     public boolean addToDebitDataBaseall(int debit_acnt_code, String debit_acnt_name, String debit_descriptn, double debit_amount) {
         DatabaseManager dbCon = DatabaseManager.getDbCon();
@@ -264,6 +290,28 @@ public class Journals_account {
             return false;
         }
         return true;
+    }
+    
+    public boolean newAddToCreditDataBaseBank(int credit_acnt_code, String credit_acnt_name, String credit_descriptn, double credit_amount) {
+        DatabaseManager dbCon = DatabaseManager.getDbCon();
+        
+        try {
+            dbCon.insert("INSERT INTO account_journal(tr_no,debit_credit,ref_no,date,pay_type,account_id,account_name,description_long,description,bank_id,bank_name,branch_id,branch_name,cheque_no,cheque_date,amount) VALUES('" + tr_no + "','" + "credit" + "','" + refNo + "','" + date + "','" + payType + "','" + credit_acnt_code + "','" + credit_acnt_name + "','"+description+"','" + credit_descriptn + "','" + bankCode + "','" + bankName + "','" + branchCode + "','" + branchName + "','" + chequeNo + "','" + chequeDate + "','" + credit_amount + "')");
+        } catch (SQLException ex) {
+            Logger.getLogger(Reciepts_accounts.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return true;
+    }
+    
+    public boolean newAddToCreditDataBaseCash(int credit_acnt_code, String credit_acnt_name, String credit_descriptn, double credit_amount) {
+        DatabaseManager dbCon = DatabaseManager.getDbCon();
+        try {
+            dbCon.insert("INSERT INTO account_journal(tr_no,debit_credit,ref_no,date,pay_type,account_id,account_name,description_long,description,amount) VALUES('" + tr_no + "','" + "credit" + "','" + refNo + "','" + date + "','" + payType + "','" + credit_acnt_code + "','" + credit_acnt_name + "','"+description+"','" + credit_descriptn + "','" + credit_amount + "')");
+        } catch (SQLException ex) {
+            Logger.getLogger(Reciepts_accounts.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        return true;  
     }
 
     public boolean addToCreditDataBaseall(int credit_acnt_code, String credit_acnt_name, String credit_descriptn, double credit_amount) {

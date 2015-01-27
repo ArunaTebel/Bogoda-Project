@@ -2936,5 +2936,37 @@ public class ACC_View_Database_Handling {
         Inserting_To_The_Table_Filtered_Reciept_Debit_Credit_Search(table, "credit_description", 10, bottom, top, filtering_column, element, filtering_column2, element2, 0);
         Inserting_To_The_Table_Filtered_Reciept_Debit_Credit_Search(table, "credit_amount", 11, bottom, top, filtering_column, element, filtering_column2, element2, 0);
     }
+    
+    public void table3Fill(String databaseTableName,javax.swing.JTable table1,javax.swing.JTable table2,javax.swing.JTable table3,String debit_credit,int tr_no){
+        try {
+            ResultSet query = dbm.query("SELECT * FROM `"+databaseTableName+"` WHERE tr_no LIKE '"+tr_no+"' AND debit_credit LIKE '"+debit_credit+"' ");
+            int i=0;
+            while(query.next()){
+                table1.setValueAt(query.getString("account_id"),i,0);
+                table2.setValueAt(query.getString("description"), i, 0);
+                table3.setValueAt(query.getString("amount"), i, 0);
+                i++;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ACC_View_Database_Handling.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    
+    public void table1Fill(String databaseTableName,javax.swing.JTable table,String debit_credit,int tr_no){
+        try {
+            ResultSet query = dbm.query("SELECT * FROM `"+databaseTableName+"` WHERE tr_no LIKE '"+tr_no+"' AND debit_credit LIKE '"+debit_credit+"' ");
+            int i=0;
+            while(query.next()){
+                table.setValueAt(query.getString("account_id"),i,0);
+                table.setValueAt(query.getString("description"), i, 1);
+                table.setValueAt(query.getString("amount"), i, 2);
+                i++;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ACC_View_Database_Handling.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
 
 }

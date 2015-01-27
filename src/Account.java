@@ -266,6 +266,31 @@ public class Account {
         }
     }
       
+       public void setEditMode(javax.swing.JRadioButton newMode, javax.swing.JRadioButton oldMode) {
+        DatabaseManager dbm = DatabaseManager.getDbCon();
+        if (newMode.isSelected()) {
+            dbm.updateDatabase("account_control_panel_details", "control", "editInterface", "value", 1);
+        }
+        else if (oldMode.isSelected()) {
+            dbm.updateDatabase("account_control_panel_details", "control", "editInterface", "value", 0);
+        }
+    }
+       
+    public void setEditRadioButtonAtTheBegining(javax.swing.JRadioButton newMode, javax.swing.JRadioButton oldMode) {
+        DatabaseManager dbm = DatabaseManager.getDbCon();
+        
+        int editInterface =  Integer.parseInt(dbm.checknReturnData("account_control_panel_details", "control", "editInterface", "value"));
+        
+        if(editInterface==1){
+            newMode.setSelected(true);
+            oldMode.setSelected(false);
+        }else{
+            newMode.setSelected(false);
+            oldMode.setSelected(true);
+        }
+    }
+       
+      
       public void setSelectedRadioButtonAtTheBegining(javax.swing.JRadioButton debit, javax.swing.JRadioButton credit, javax.swing.JRadioButton both, javax.swing.JRadioButton none,String str){
           debit.setSelected(false);
           credit.setSelected(false);

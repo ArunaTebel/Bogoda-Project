@@ -375,6 +375,14 @@ public class Payments_accounts {
             MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
             return false;
         }
+        
+        try {
+            dbCon.insert("INSERT INTO account_payment(tr_no,debit_credit,ref_no,date,pay_type,account_id,account_name,description_long,description,bank_id,bank_name,branch_id,branch_name,cheque_no,cheque_date,amount) VALUES('" + tr_no + "','" + "credit" + "','" + refNo + "','" + date + "','" + payType + "','" + credit_accountCode + "','" + credit_accountName + "','" + description + "','" + credit_description + "','" + bankCode + "','" + bankName + "','" + branchCode + "','" + branchName + "','" + chequeNo + "','" + chequeDate + "','" + creditAmount + "')");
+        } catch (SQLException ex) {
+            MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
+            return false;
+        }
+        
         return true;
     }
 
@@ -386,8 +394,17 @@ public class Payments_accounts {
             MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
             return false;
         }
+        
+        try {
+            dbCon.insert("INSERT INTO account_payment(tr_no,debit_credit,ref_no,date,pay_type,account_id,account_name,description_long,description,bank_id,bank_name,branch_id,branch_name,cheque_no,cheque_date,amount) VALUES('" + tr_no + "','" + "credit" + "','" + refNo + "','" + date + "','" + payType + "','" + credit_accountCode + "','" + credit_accountName + "','" + description + "','" + credit_description + "','" + bankCode + "','" + bankName + "','" + branchCode + "','" + branchName + "','" + chequeNo + "','" + chequeDate + "','" + creditAmount + "')");
+        } catch (SQLException ex) {
+            MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
+            return false;
+        }
+        
         return true;
     }
+    
 
     public boolean addToCreditDataBaseBankall() {
         DatabaseManager dbCon = DatabaseManager.getDbCon();
@@ -429,6 +446,14 @@ public class Payments_accounts {
             MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
             return false;
         }
+        
+        try {
+            dbCon.insert("INSERT INTO account_payment(tr_no,debit_credit,ref_no,date,pay_type,account_id,account_name,description_long,description,amount) VALUES('" + tr_no + "','" + "credit" + "','" + refNo + "','" + date + "','" + payType + "','" + credit_accountCode + "','" + credit_accountName + "','" + description + "','" + credit_description + "','" + creditAmount + "')");
+        } catch (SQLException ex) {
+            MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
+            return false;
+        }
+        
         return true;
     }
 
@@ -441,6 +466,14 @@ public class Payments_accounts {
             MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
             return false;
         }
+        
+        try {
+            dbCon.insert("INSERT INTO account_payment(tr_no,debit_credit,ref_no,date,pay_type,account_id,account_name,description_long,description,amount) VALUES('" + tr_no + "','" + "credit" + "','" + refNo + "','" + date + "','" + payType + "','" + credit_accountCode + "','" + credit_accountName + "','" + description + "','" + credit_description + "','" + creditAmount + "')");
+        } catch (SQLException ex) {
+            MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
+            return false;
+        }
+        
         return true;
     }
 
@@ -471,6 +504,28 @@ public class Payments_accounts {
         try {
             dbCon.insert("INSERT INTO account_payment_debitside(tr_no,debit_account_id,debit_account_name,debit_description,debit_amount) VALUES('" + tr_no + "','" + debit_acnt_code + "','" + debit_acnt_name + "','" + debit_descriptn + "','" + debit_amount + "')");
 
+        } catch (SQLException ex) {
+            MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
+            return false;
+        }
+        return true;
+    }
+    
+    public boolean newAddToDebitDataBaseCash(int debit_acnt_code, String debit_acnt_name, String debit_descriptn, double debit_amount) {
+        DatabaseManager dbCon = DatabaseManager.getDbCon();
+        try {
+            dbCon.insert("INSERT INTO account_payment(tr_no,debit_credit,ref_no,date,pay_type,account_id,account_name,description_long,description,amount) VALUES('" + tr_no + "','" + "debit" + "','" + refNo + "','" + date + "','" + payType + "','" + debit_acnt_code + "','" + debit_acnt_name + "','" + description + "','" + debit_descriptn + "','" + debit_amount + "')");
+        } catch (SQLException ex) {
+            MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
+            return false;
+        }
+        return true;
+    }
+    
+    public boolean newAddToDebitDataBaseBank(int debit_acnt_code, String debit_acnt_name, String debit_descriptn, double debit_amount) {
+        DatabaseManager dbCon = DatabaseManager.getDbCon();
+         try {
+            dbCon.insert("INSERT INTO account_payment(tr_no,debit_credit,ref_no,date,pay_type,account_id,account_name,description_long,description,bank_id,bank_name,branch_id,branch_name,cheque_no,cheque_date,amount) VALUES('" + tr_no + "','" + "debit" + "','" + refNo + "','" + date + "','" + payType + "','" + debit_acnt_code + "','" + debit_acnt_name + "','" + description + "','" + debit_descriptn + "','" + bankCode + "','" + bankName + "','" + branchCode + "','" + branchName + "','" + chequeNo + "','" + chequeDate + "','" + debit_amount + "')");
         } catch (SQLException ex) {
             MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
             return false;

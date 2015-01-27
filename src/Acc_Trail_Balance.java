@@ -1,4 +1,5 @@
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -41,8 +42,135 @@ public class Acc_Trail_Balance {
         }
 
     }
+
+    public double return_debit_or_credit_sum_of_a_table(String tabel, String account_id, String debit_credit, java.util.Date date) {
+        double amount = 0;
+        try {
+            ResultSet query = dbm.query("SELECT SUM(`amount`) as sum FROM `" + tabel + "` WHERE `debit_credit` LIKE '" + debit_credit + "' AND `account_id` LIKE '" + account_id + "' AND `date` < '" + date + "' ");
+            while (query.next()) {
+                amount = query.getDouble("sum");
+            }
+            query.close();
+        } catch (SQLException ex) {
+            amount = 0;
+            Logger.getLogger(Acc_Trail_Balance.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        amount = Math.round(amount * 100.0) / 100.0;
+        return amount;
+    }
+
+    public double return_total_debit_or_credit_sum(String account_id, String debit_credit, java.util.Date date) {
+        return (return_debit_or_credit_sum_of_a_table("account_reciept", account_id, debit_credit, date) + return_debit_or_credit_sum_of_a_table("account_payment", account_id, debit_credit, date) + return_debit_or_credit_sum_of_a_table("account_journal", account_id, debit_credit, date));
+    }
+
+    public double get_op_bal(String account_id, java.util.Date date) {
+
+        double op_bal = 0;
+
+        String date_string = date.toString();
+        String year = date_string.substring(0, 4);
+        String month = date_string.substring(5, 7);
+
+        if (Integer.parseInt(month) < 4) {
+            year = "" + (Integer.parseInt(year) - 1);
+        }
+
+        String table_name = year + "_balances";
+
+        double opd;
+        try {
+            opd = Double.parseDouble(dbm.checknReturnData(table_name, "account_code", account_id, "op_bal_d"));
+        } catch (Exception e) {
+            opd = 0;
+        }
+        double opc;
+        try {
+            opc = Double.parseDouble(dbm.checknReturnData(table_name, "account_code", account_id, "op_bal_c"));
+        } catch (Exception e) {
+            opc = 0;
+        }
+
+        op_bal = opd - opc;
+
+        return op_bal;
+    }
+
+    public void create_table_from_new_tables(java.util.Date date) {
+
+        double totDebit = 0;
+        double totCredit = 0;
+        double returnAmount = 0;
+        try {
+            try {
+                dbm.insert("Truncate acc_trail_balance");
+            } catch (SQLException ex) {
+                Logger.getLogger(ACC_ledger.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            ResultSet query = dbm.query("SELECT * FROM account_names");
+            while (query.next()) {
+                totDebit = return_total_debit_or_credit_sum(query.getString("account_id"), "debit", date);
+                totCredit = return_total_debit_or_credit_sum(query.getString("account_id"), "credit", date);
+
+                returnAmount = totDebit - totCredit + get_op_bal(query.getString("account_id"), date);
+
+                dbm.insert("INSERT INTO acc_trail_balance(code,op_bal) VALUES('" + Integer.parseInt(query.getString("account_id")) + "','" + returnAmount + "')");
+
+            }
+            query.close();
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            //Logger.getLogger(Acc_Trail_Balance.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
     
-     public void create_table_cop(String date1,String date2, int startCode,int endCode) {
+    public void create_table_from_new_tables_without_op_bal(java.util.Date date) {
+
+        double totDebit = 0;
+        double totCredit = 0;
+        double returnAmount = 0;
+        try {
+            try {
+                dbm.insert("Truncate acc_trail_balance");
+            } catch (SQLException ex) {
+                Logger.getLogger(ACC_ledger.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            ResultSet query = dbm.query("SELECT * FROM account_names");
+            while (query.next()) {
+                totDebit = return_total_debit_or_credit_sum(query.getString("account_id"), "debit", date);
+                totCredit = return_total_debit_or_credit_sum(query.getString("account_id"), "credit", date);
+
+                returnAmount = totDebit - totCredit;
+
+                dbm.insert("INSERT INTO acc_trail_balance(code,op_bal) VALUES('" + Integer.parseInt(query.getString("account_id")) + "','" + returnAmount + "')");
+
+            }
+            query.close();
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            //Logger.getLogger(Acc_Trail_Balance.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    public double op_balance_of_single_account_from_new_tables(String account_id, java.util.Date date) {
+
+        double totDebit = 0;
+        double totCredit = 0;
+        double returnAmount = 0;
+
+        totDebit = return_total_debit_or_credit_sum(account_id, "debit", date);
+        totCredit = return_total_debit_or_credit_sum(account_id, "credit", date);
+
+        returnAmount = totDebit - totCredit + get_op_bal(account_id, date);
+        
+        return returnAmount;
+
+    }
+
+    public void create_table_cop(String date1, String date2, int startCode, int endCode) {
 
         try {
             try {
@@ -51,12 +179,35 @@ public class Acc_Trail_Balance {
                 Logger.getLogger(ACC_ledger.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-            ResultSet query = dbm.query("SELECT * FROM account_names WHERE account_id >= '"+startCode+"' and account_id < '"+endCode+"' ");
+            ResultSet query = dbm.query("SELECT * FROM account_names WHERE account_id >= '" + startCode + "' and account_id < '" + endCode + "' ");
             while (query.next()) {
-                
-                    double bal = ledg.balance_cal_for_cop(query.getInt("account_id"), date1,date2);
-                    dbm.insert("INSERT INTO acc_trail_balance(code,op_bal) VALUES('" + Integer.parseInt(query.getString("account_id")) + "','" + bal + "')");
-                
+
+                double bal = ledg.balance_cal_for_cop(query.getInt("account_id"), date1, date2);
+                dbm.insert("INSERT INTO acc_trail_balance(code,op_bal) VALUES('" + Integer.parseInt(query.getString("account_id")) + "','" + bal + "')");
+
+            }
+            query.close();
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            //Logger.getLogger(Acc_Trail_Balance.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+    
+    public void create_table_cop_new_databases(String date1, String date2, int startCode, int endCode) {
+
+        try {
+            try {
+                dbm.insert("Truncate acc_trail_balance");
+            } catch (SQLException ex) {
+                Logger.getLogger(ACC_ledger.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            ResultSet query = dbm.query("SELECT * FROM account_names WHERE account_id >= '" + startCode + "' and account_id < '" + endCode + "' ");
+            while (query.next()) {
+
+                double bal = ledg.tot_balance_between_two_dates(query.getString("account_id"), date1, date2);
+                dbm.insert("INSERT INTO acc_trail_balance(code,op_bal) VALUES('" + Integer.parseInt(query.getString("account_id")) + "','" + bal + "')");
 
             }
             query.close();
@@ -138,9 +289,8 @@ public class Acc_Trail_Balance {
         DefaultTableModel paModel = (DefaultTableModel) payments.getModel();
 
         int r = 0, p = 0, j = 0;
-        
+
         // reciept debit side
-        
         try {
             ResultSet query = dbm.query("SELECT * from account_reciept_debitside");
             while (query.next()) {
@@ -161,19 +311,18 @@ public class Acc_Trail_Balance {
         } catch (SQLException ex) {
             Logger.getLogger(Acc_Trail_Balance.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         // check in the reciept creditside
-        
-         try {
+        try {
             ResultSet query = dbm.query("SELECT * from account_reciept_creditside");
             while (query.next()) {
                 ResultSet query1 = dbm.query("SELECT * from account_reciept_debitside WHERE tr_no LIKE '" + query.getString("tr_no") + "'");
-                int count=0;
+                int count = 0;
                 while (query1.next()) {
                     count++;
                 }
                 query1.close();
-                if (count==0) {
+                if (count == 0) {
                     reModel.setRowCount(r + 1);
                     //  System.out.println("Tr. No. " + query.getString("tr_no"));
                     reciepts.setValueAt(query.getString("tr_no"), r, 0);
@@ -184,9 +333,8 @@ public class Acc_Trail_Balance {
         } catch (SQLException ex) {
             Logger.getLogger(Acc_Trail_Balance.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-         // payment credit side
 
+        // payment credit side
         try {
             ResultSet query = dbm.query("SELECT * from account_payment_creditside");
             while (query.next()) {
@@ -207,10 +355,9 @@ public class Acc_Trail_Balance {
         } catch (SQLException ex) {
             Logger.getLogger(Acc_Trail_Balance.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         // Search in payment debitside
-        
-          try {
+        try {
             ResultSet query = dbm.query("SELECT * from account_payment_debitside");
             while (query.next()) {
                 ResultSet query1 = dbm.query("SELECT * from account_payment_creditside WHERE tr_no LIKE '" + query.getString("tr_no") + "'");
@@ -219,7 +366,7 @@ public class Acc_Trail_Balance {
                     count++;
                 }
                 query1.close();
-                if (count==0) {
+                if (count == 0) {
                     paModel.setRowCount(p + 1);
                     // System.out.println("Tr. No. " + query.getString("tr_no"));
                     payments.setValueAt(query.getString("tr_no"), p, 0);
@@ -231,8 +378,7 @@ public class Acc_Trail_Balance {
             Logger.getLogger(Acc_Trail_Balance.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-          // journal main
-          
+        // journal main
         try {
             ResultSet query = dbm.query("SELECT * from account_journal_main");
             while (query.next()) {
@@ -251,9 +397,9 @@ public class Acc_Trail_Balance {
                     totc = totc + query2.getDouble("credit_amount");
                 }
                 query2.close();
-                
-                totc = Math.round(totc*100.0)/100.0;
-                
+
+                totc = Math.round(totc * 100.0) / 100.0;
+
                 if (totd != totc) {
                     jrModel.setRowCount(j + 1);
                     //  System.out.println("Tr. No. " + query.getString("tr_no")+"totd"+totd +"  totc"+totc);
@@ -265,10 +411,9 @@ public class Acc_Trail_Balance {
         } catch (SQLException ex) {
             Logger.getLogger(Acc_Trail_Balance.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-         //  Search in journal debitside
-        
-          try {
+
+        //  Search in journal debitside
+        try {
             ResultSet query = dbm.query("SELECT * from account_journal_debitside");
             while (query.next()) {
                 ResultSet query1 = dbm.query("SELECT * from account_journal_main WHERE tr_no LIKE '" + query.getString("tr_no") + "'");
@@ -277,7 +422,7 @@ public class Acc_Trail_Balance {
                     count++;
                 }
                 query1.close();
-                if (count==0) {
+                if (count == 0) {
                     jrModel.setRowCount(j + 1);
                     // System.out.println("Tr. No. " + query.getString("tr_no"));
                     journals.setValueAt(query.getString("tr_no"), j, 0);
@@ -288,10 +433,9 @@ public class Acc_Trail_Balance {
         } catch (SQLException ex) {
             Logger.getLogger(Acc_Trail_Balance.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-          // Search in journal creditside
-          
-             try {
+
+        // Search in journal creditside
+        try {
             ResultSet query = dbm.query("SELECT * from account_journal_creditside");
             while (query.next()) {
                 ResultSet query1 = dbm.query("SELECT * from account_journal_main WHERE tr_no LIKE '" + query.getString("tr_no") + "'");
@@ -300,7 +444,7 @@ public class Acc_Trail_Balance {
                     count++;
                 }
                 query1.close();
-                if (count==0) {
+                if (count == 0) {
                     jrModel.setRowCount(j + 1);
                     // System.out.println("Tr. No. " + query.getString("tr_no"));
                     journals.setValueAt(query.getString("tr_no"), j, 0);
@@ -311,14 +455,12 @@ public class Acc_Trail_Balance {
         } catch (SQLException ex) {
             Logger.getLogger(Acc_Trail_Balance.class.getName()).log(Level.SEVERE, null, ex);
         }
-          
+
         MessageBox msg = new MessageBox();
-        if(r==0 && p==0 && j==0){
+        if (r == 0 && p == 0 && j == 0) {
             msg.showMessage("There are no Errors", "No Errors", "info");
         }
-        
-        
-       
+
     }
 
     public void move_arbour() {

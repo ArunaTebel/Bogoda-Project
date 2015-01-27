@@ -2192,5 +2192,31 @@ public class ACC_ledger {
 
         return temp;
     }
+    
+    public double balance_between_two_dates(String table,String account_id,String date1,String date2){
+        double balance=0;
+        try {
+            ResultSet query = dbm.query("SELECT * FROM `"+table+"` WHERE `account_id` LIKE '"+account_id+"' AND `date` > '" + date1 + "' AND `date` < '" + date2 + "' ");
+            while(query.next()){
+                if("debit".equals(query.getString("debit_credit"))){
+                    balance = balance + query.getDouble("amount");
+                }
+                else{
+                    balance = balance - query.getDouble("amount");
+                }
+            }
+            query.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ACC_ledger.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return balance;
+    }
+    
+    public double tot_balance_between_two_dates(String account_id,String date1,String date2){
+        
+        return ( balance_between_two_dates("account_reciept", account_id, date1, date2) + balance_between_two_dates("account_payment", account_id, date1, date2) + balance_between_two_dates("account_journal", account_id, date1, date2) );
+    
+    }
+    
 
 }

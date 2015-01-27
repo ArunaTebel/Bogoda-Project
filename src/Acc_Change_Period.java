@@ -513,6 +513,12 @@ public class Acc_Change_Period extends javax.swing.JFrame {
                 change_databases("account_journal_debitside");
                 change_databases("account_journal_creditside");
                 change_databases("account_names");
+                
+                // new databases
+                change_databases("account_reciept");
+                change_databases("account_payment");
+                change_databases("account_journal");
+                
                  ResultSet query = dbm.query("SELECT * FROM accounting_period");
                 while(query.next()){
                     prev_period=query.getString("period");

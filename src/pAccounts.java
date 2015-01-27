@@ -1,4 +1,7 @@
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -58,6 +61,9 @@ public class pAccounts extends javax.swing.JPanel {
         jButton8 = new javax.swing.JButton();
         jButton11 = new javax.swing.JButton();
         jButton12 = new javax.swing.JButton();
+        jButton13 = new javax.swing.JButton();
+        jButton14 = new javax.swing.JButton();
+        jButton15 = new javax.swing.JButton();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 0, 153), 3));
 
@@ -69,10 +75,10 @@ public class pAccounts extends javax.swing.JPanel {
         );
         GL_contentLayout.setVerticalGroup(
             GL_contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 609, Short.MAX_VALUE)
         );
 
-        view.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "---------", "Receipts", "Payments", "Journals", "Opening Balances", "Error Detection", "Control Panel", "----------" }));
+        view.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "---------", "Opening Balances", "Error Detection", "Control Panel", "----------" }));
         view.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 viewItemStateChanged(evt);
@@ -94,6 +100,11 @@ public class pAccounts extends javax.swing.JPanel {
 
         jButton6.setText("Add");
         jButton6.setEnabled(false);
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         Add_combo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "---------", "Accounts", "Main Accounts", "Sub Accounts", "----------" }));
         Add_combo.addActionListener(new java.awt.event.ActionListener() {
@@ -243,6 +254,57 @@ public class pAccounts extends javax.swing.JPanel {
             }
         });
 
+        jButton13.setText("Edit Receipts");
+        jButton13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton13ActionPerformed(evt);
+            }
+        });
+        jButton13.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jButton13FocusGained(evt);
+            }
+        });
+        jButton13.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jButton13KeyReleased(evt);
+            }
+        });
+
+        jButton14.setText("Edit Payments");
+        jButton14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton14ActionPerformed(evt);
+            }
+        });
+        jButton14.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jButton14FocusGained(evt);
+            }
+        });
+        jButton14.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jButton14KeyReleased(evt);
+            }
+        });
+
+        jButton15.setText("Edit Journals");
+        jButton15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton15ActionPerformed(evt);
+            }
+        });
+        jButton15.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jButton15FocusGained(evt);
+            }
+        });
+        jButton15.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jButton15KeyReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -260,7 +322,10 @@ public class pAccounts extends javax.swing.JPanel {
                     .addComponent(view, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButton12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton15, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, 0)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -284,6 +349,12 @@ public class pAccounts extends javax.swing.JPanel {
                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, 0)
+                .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jButton15, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
                 .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -299,8 +370,8 @@ public class pAccounts extends javax.swing.JPanel {
                 .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(view, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 246, Short.MAX_VALUE))
+                .addGap(0, 0, 0)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
             .addComponent(GL_content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -345,12 +416,12 @@ public class pAccounts extends javax.swing.JPanel {
             repaint();
             // jview.focus();
         }
-        if(selection.equalsIgnoreCase("Error Detection")){
+        if (selection.equalsIgnoreCase("Error Detection")) {
             Acc_Error_Detection error = new Acc_Error_Detection();
             error.setVisible(true);
         }
-        
-        if(selection.equalsIgnoreCase("Control Panel")){
+
+        if (selection.equalsIgnoreCase("Control Panel")) {
             Acc_Control_Panel ctrl = new Acc_Control_Panel();
             ctrl.setVisible(true);
         }
@@ -491,8 +562,6 @@ public class pAccounts extends javax.swing.JPanel {
 
     private void viewItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_viewItemStateChanged
 
-        
-
         if (view.getSelectedItem().toString() == "Journals") {
             ACC_Journal_View jview = new ACC_Journal_View();
             jview.setVisible(true);
@@ -517,10 +586,10 @@ public class pAccounts extends javax.swing.JPanel {
             repaint();
             AddAcc.focus();
         }
-       /* if(view.getSelectedItem().toString() == "Error Detection"){
-            Acc_Error_Detection error = new Acc_Error_Detection();
-            error.setVisible(true);
-        }*/
+        /* if(view.getSelectedItem().toString() == "Error Detection"){
+         Acc_Error_Detection error = new Acc_Error_Detection();
+         error.setVisible(true);
+         }*/
 
     }//GEN-LAST:event_viewItemStateChanged
 
@@ -599,6 +668,137 @@ public class pAccounts extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton12KeyReleased
 
+    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+        DatabaseManager dbm = DatabaseManager.getDbCon();
+
+        if (dbm.checkWhetherDataExists("account_control_panel_details", "control", "editInterface") == 0) {
+            try {
+                dbm.insert("INSERT INTO account_control_panel_details(control,value) VALUES('" + "editInterface" + "','" + 1 + "')");
+            } catch (SQLException ex) {
+                Logger.getLogger(pAccounts.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        if (Integer.parseInt(dbm.checknReturnData("account_control_panel_details", "control", "editInterface", "value")) == 1) {
+         //   ACC_Edit_Receipts_new_database receiptEdit = new ACC_Edit_Receipts_new_database();
+         //   receiptEdit.setVisible(true);
+
+            New_window NW = new New_window();
+            NW.setVisible(true);
+            ACC_Edit_Receipts_new_database receiptEdit = new ACC_Edit_Receipts_new_database();
+            NW.paint(receiptEdit, "Edit Receipts");
+            NW.setVisible(true);
+            
+        } else {
+            ACC_Reciept_View rview = new ACC_Reciept_View();
+
+            GL_content.removeAll();
+
+            rview.setSize(GL_content.getSize());
+
+            GL_content.add(rview);
+            validate();
+            repaint();
+        }
+    }//GEN-LAST:event_jButton13ActionPerformed
+
+    private void jButton13FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jButton13FocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton13FocusGained
+
+    private void jButton13KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton13KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton13KeyReleased
+
+    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
+        DatabaseManager dbm = DatabaseManager.getDbCon();
+
+        if (dbm.checkWhetherDataExists("account_control_panel_details", "control", "editInterface") == 0) {
+            try {
+                dbm.insert("INSERT INTO account_control_panel_details(control,value) VALUES('" + "editInterface" + "','" + 1 + "')");
+            } catch (SQLException ex) {
+                Logger.getLogger(pAccounts.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        if (Integer.parseInt(dbm.checknReturnData("account_control_panel_details", "control", "editInterface", "value")) == 1) {
+          //  ACC_Edit_Payments_new_database paymentEdit = new ACC_Edit_Payments_new_database();
+          //  paymentEdit.setVisible(true);
+            
+            New_window NW = new New_window();
+            NW.setVisible(true);
+            ACC_Edit_Payments_new_database paymentEdit = new ACC_Edit_Payments_new_database();
+            NW.paint(paymentEdit, "Edit Paymnets");
+            NW.setVisible(true);
+            
+        } else {
+            ACC_Payment_View pview = new ACC_Payment_View();
+
+            GL_content.removeAll();
+
+            pview.setSize(GL_content.getSize());
+
+            GL_content.add(pview);
+            validate();
+            repaint();
+        }
+    }//GEN-LAST:event_jButton14ActionPerformed
+
+    private void jButton14FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jButton14FocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton14FocusGained
+
+    private void jButton14KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton14KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton14KeyReleased
+
+    private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
+        DatabaseManager dbm = DatabaseManager.getDbCon();
+
+        if (dbm.checkWhetherDataExists("account_control_panel_details", "control", "editInterface") == 0) {
+            try {
+                dbm.insert("INSERT INTO account_control_panel_details(control,value) VALUES('" + "editInterface" + "','" + 1 + "')");
+            } catch (SQLException ex) {
+                Logger.getLogger(pAccounts.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        if (Integer.parseInt(dbm.checknReturnData("account_control_panel_details", "control", "editInterface", "value")) == 1) {
+          //  ACC_Edit_Journals_new_database journalEdit = new ACC_Edit_Journals_new_database();
+          //  journalEdit.setVisible(true);
+            
+            New_window NW = new New_window();
+            NW.setVisible(true);
+            ACC_Edit_Journals_new_database journalEdit = new ACC_Edit_Journals_new_database();
+            NW.paint(journalEdit, "Edit Journals");
+            NW.setVisible(true);
+            
+        } else {
+            ACC_Journal_View jview = new ACC_Journal_View();
+
+            GL_content.removeAll();
+
+            jview.setSize(GL_content.getSize());
+
+            GL_content.add(jview);
+            validate();
+            repaint();
+        }
+
+    }//GEN-LAST:event_jButton15ActionPerformed
+
+    private void jButton15FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jButton15FocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton15FocusGained
+
+    private void jButton15KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton15KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton15KeyReleased
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton6ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox Add_combo;
@@ -607,6 +807,9 @@ public class pAccounts extends javax.swing.JPanel {
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
+    private javax.swing.JButton jButton13;
+    private javax.swing.JButton jButton14;
+    private javax.swing.JButton jButton15;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
