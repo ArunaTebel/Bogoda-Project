@@ -87,6 +87,7 @@ public class PRCRHolidayPayFactory {
                 maleRanges[i][0] = rs1.getInt(coloumn);
                 i++;
             }
+            rs1.close();
         } catch (SQLException ex) {
             Logger.getLogger(PRCRHolidayPayFactory.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -98,6 +99,7 @@ public class PRCRHolidayPayFactory {
                 maleRanges[i][1] = rs2.getInt(coloumn);
                 i++;
             }
+            rs2.close();
         } catch (SQLException ex) {
             Logger.getLogger(PRCRHolidayPayFactory.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -111,6 +113,7 @@ public class PRCRHolidayPayFactory {
                 femaleRanges[i][0] = rs1.getInt(coloumn);
                 i++;
             }
+            rs1.close();
         } catch (SQLException ex) {
             Logger.getLogger(PRCRHolidayPayFactory.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -122,6 +125,7 @@ public class PRCRHolidayPayFactory {
                 femaleRanges[i][1] = rs2.getInt(coloumn);
                 i++;
             }
+            rs2.close();
         } catch (SQLException ex) {
             Logger.getLogger(PRCRHolidayPayFactory.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -137,12 +141,15 @@ public class PRCRHolidayPayFactory {
         neededColoumn = "gender";
         genderCodes = dbm.getValuesArray(table, coloumn, neededColoumn, factoryCode);
     }
-
-    public void getWorkDaysNPayment() {
-        Calendar currentDate = Calendar.getInstance();
+    MessageBox msg = new MessageBox();
+    
+    public void getWorkDaysNPayment(int inputYear) {
+      /*  Calendar currentDate = Calendar.getInstance();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy");
-        int year = Integer.parseInt(formatter.format(currentDate.getTime()));
-
+        int year = Integer.parseInt(formatter.format(currentDate.getTime())); */
+        
+        int year = inputYear;
+        
         int i, j, workerCode;
         int length = factoryWorkerCodes.length;
         workDaysPerMonth = new int[length][12];
@@ -180,17 +187,21 @@ public class PRCRHolidayPayFactory {
                             paymentPerMonth[i][j] = rs.getDouble("paid_amount");
                         }
                     }
+                    rs.close();
                 } catch (SQLException ex) {
+                 //   msg.showMessage("Details for "+table.split("_")[2]+" doesn't exxist", "Data Incomplete", "info");
                     Logger.getLogger(PRCRHolidayPayFactory.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
     }
 
-    public void getLastYearHolidays() {
-        Calendar currentDate = Calendar.getInstance();
+    public void getLastYearHolidays(int inputYear) {
+       /* Calendar currentDate = Calendar.getInstance();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy");
-        int year = Integer.parseInt(formatter.format(currentDate.getTime())) - 1;
+        int year = Integer.parseInt(formatter.format(currentDate.getTime())) - 1;*/
+        
+        int year = inputYear-1;
 
         String table = "holiday_pay_factory";
         String coloumn = "entry";
@@ -205,16 +216,19 @@ public class PRCRHolidayPayFactory {
                 while (rs.next()) {
                     lastYearHolidays[i] = rs.getInt(neededColoumn);
                 }
+                rs.close();
             } catch (SQLException ex) {
                 Logger.getLogger(PRCRHolidayPayFactory.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
 
-    public void updateTable() {
-        Calendar currentDate = Calendar.getInstance();
+    public void updateTable(int inputYear) {
+       /* Calendar currentDate = Calendar.getInstance();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy");
-        int year = Integer.parseInt(formatter.format(currentDate.getTime()));
+        int year = Integer.parseInt(formatter.format(currentDate.getTime()));*/
+        
+        int year = inputYear;
         int entry, total1, total2, payDueDates = 0, i, j;
         double totalPay, averagePay, payDue, epf, amount;
 
@@ -294,11 +308,11 @@ public class PRCRHolidayPayFactory {
         }
     }
 
-    public static void main(String[] args) {
+    public void doAllSteps(int inputYear) {
         PRCRHolidayPayFactory ex = new PRCRHolidayPayFactory();
         ex.getFactoryWorkerCodes();
-        ex.getWorkDaysNPayment();
-        ex.getLastYearHolidays();
-        ex.updateTable();
+        ex.getWorkDaysNPayment(inputYear);
+        ex.getLastYearHolidays(inputYear);
+        ex.updateTable(inputYear);
     }
 }

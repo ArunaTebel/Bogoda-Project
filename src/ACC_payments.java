@@ -60,6 +60,44 @@ public class ACC_payments extends javax.swing.JPanel {
         refNo.requestFocus();
     }
 
+    public void clear() {
+        {
+            int j = 0;
+            while (debit_account_code_table.getValueAt(j, 0) != null) {
+                debit_account_code_table.setValueAt(null, j, 0);
+                debit_description_table.setValueAt(null, j, 0);
+                debit_amount_table.setValueAt(null, j, 0);
+                j++;
+            }
+
+//                recieptNo.setText(null);
+            refNo.setText(null);
+            payType.setSelectedIndex(0);
+            bankCode.setSelectedIndex(0);
+            branchCode.setSelectedIndex(0);
+            bankName.setText(null);
+            branchName.setText(null);
+            chequeNo.setText(null);
+            if (acc.checkCache("payment_credit") == 1) {
+                credit_accountCode.setSelectedIndex(0);
+            }
+            credit_description.setText(null);
+            creditAmount.setText(null);
+            credit_accountName.setText(null);
+            debit_account_code.setSelectedIndex(0);
+            if (acc.checkCache("payment_debit") == 1) {
+                acc.setDebitCombo(debit_account_code);
+            }
+            debit_account_name.setText(null);
+            debit_description.setText(null);
+            debit_amount.setText(null);
+            total.setText(null);
+            difference.setText(null);
+            description.setText(null);
+
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -1166,7 +1204,12 @@ public class ACC_payments extends javax.swing.JPanel {
                     msg.showMessage("Date You Entered is not in this Accounting Period", "Please Check Again", "info");
                     dayfield.requestFocus();
                 } else {
-                    boolean addToCreditDataBase;
+                    boolean addToCreditDataBase = false;;
+                    boolean addToDebitDataBase = false;;
+
+                    boolean addToNewDatabaseDebit = false;;
+                    boolean addToNewDatabaseCredit = false;
+
                     raobject.setRefNo(refNo.getText());
 //            raobject.setRecieptNo(recieptNo.getText());
 
@@ -1209,87 +1252,51 @@ public class ACC_payments extends javax.swing.JPanel {
 
                     if (addToCreditDataBase == true) {
 
-                        msg.showMessage("Payment is saved to Transaction no-" + raobject.getTr_no(), "Receipt", "info");
-                        double updated_current_balance = Double.parseDouble(dbm.checknReturnData("account_names", "account_id", raobject.getCredit_accountCode(), "current_balance")) + raobject.getCreditAmount();
-                        dbm.updateDatabase("account_names", "account_id", raobject.getCredit_accountCode(), "current_balance", updated_current_balance);
-                    }
+                        // Debit Side of the interface
+                        int i = 0;
+                        while (debit_account_code_table.getValueAt(i, 0) != null) {
+                            i++;
+                        }
+                        String debit_acnt_name;
 
-                    // Debit Side of the interface
-                    int i = 0;
-                    while (debit_account_code_table.getValueAt(i, 0) != null) {
-                        i++;
-                    }
-                    String debit_acnt_name;
+                        for (int j = 0; j <= i - 1; j++) {
+                            debit_acnt_name = dbm.checknReturnData("account_names", "account_id", Integer.parseInt((String) debit_account_code_table.getValueAt(j, 0)), "account_name");
+                            addToDebitDataBase = raobject.addToDebitDataBase(Integer.parseInt((String) debit_account_code_table.getValueAt(j, 0)), debit_acnt_name, (String) debit_description_table.getValueAt(j, 0), Double.parseDouble(format.getNumberWithoutCommas((String) debit_amount_table.getValueAt(j, 0))));
 
-                    for (int j = 0; j <= i - 1; j++) {
-                        debit_acnt_name = dbm.checknReturnData("account_names", "account_id", Integer.parseInt((String) debit_account_code_table.getValueAt(j, 0)), "account_name");
-                        raobject.addToDebitDataBase(Integer.parseInt((String) debit_account_code_table.getValueAt(j, 0)), debit_acnt_name, (String) debit_description_table.getValueAt(j, 0), Double.parseDouble(format.getNumberWithoutCommas((String) debit_amount_table.getValueAt(j, 0))));
+                            /// Adding data to the new database
+                            if ("Cheque".equals(raobject.getPayType())) {
+                                addToNewDatabaseDebit = raobject.newAddToDebitDataBaseBank(Integer.parseInt((String) debit_account_code_table.getValueAt(j, 0)), debit_acnt_name, (String) debit_description_table.getValueAt(j, 0), Double.parseDouble(format.getNumberWithoutCommas((String) debit_amount_table.getValueAt(j, 0))));
+                            } else {
+                                addToNewDatabaseDebit = raobject.newAddToDebitDataBaseCash(Integer.parseInt((String) debit_account_code_table.getValueAt(j, 0)), debit_acnt_name, (String) debit_description_table.getValueAt(j, 0), Double.parseDouble(format.getNumberWithoutCommas((String) debit_amount_table.getValueAt(j, 0))));
+                            }
 
-                        /// Adding data to the new database
-                        if ("Cheque".equals(raobject.getPayType())) {
-                            raobject.newAddToDebitDataBaseBank(Integer.parseInt((String) debit_account_code_table.getValueAt(j, 0)), debit_acnt_name, (String) debit_description_table.getValueAt(j, 0), Double.parseDouble(format.getNumberWithoutCommas((String) debit_amount_table.getValueAt(j, 0))));
+                            if (addToNewDatabaseDebit == false || addToDebitDataBase == false) {
+                                break;
+                            }
+
+                        }
+                        if (addToNewDatabaseDebit == true && addToDebitDataBase == true) {
+
+                            msg.showMessage("Payment is saved to Transaction no-" + raobject.getTr_no(), "Paymnet", "info");
+
+                            acc.getFromCreditCombo(credit_accountCode);
+                            acc.setDebitCache(lastAccountCode);
+
+                            clear();
+                            refNo.requestFocus();
                         } else {
-                            raobject.newAddToDebitDataBaseCash(Integer.parseInt((String) debit_account_code_table.getValueAt(j, 0)), debit_acnt_name, (String) debit_description_table.getValueAt(j, 0), Double.parseDouble(format.getNumberWithoutCommas((String) debit_amount_table.getValueAt(j, 0))));
+                            msg.showMessage("Payment Entry could not be saved. Problem in the debitside", "Payment", "info");
+                            raobject.deleteEntryInAllTables();
                         }
 
                     }
-                    acc.getFromCreditCombo(credit_accountCode);
-                    acc.setDebitCache(lastAccountCode);
-
-                    // adding the relevant value to the current balance of the debit account
-                 /*   i = 0;
-                     String acnt_class;
-                     double debit_value;
-                     double debit_updated_value;
-                     while (debit_account_code_table.getValueAt(i, 0) != null) {
-                     debit_value = Double.parseDouble(format.getNumberWithoutCommas((String) debit_amount_table.getValueAt(i, 0)));
-                     acnt_class = dbm.checknReturnData("account_names", "account_id", Integer.parseInt((String) debit_account_code_table.getValueAt(i, 0)), "account_class");
-                     if ("Current Asset".equals(acnt_class) || "Fixed Asset".equals(acnt_class) || "Expense".equals(acnt_class)) {
-                     debit_updated_value = Double.parseDouble((String) dbm.checknReturnData("account_names", "account_id", Integer.parseInt((String) debit_account_code_table.getValueAt(i, 0)), "current_balance")) + debit_value;
-                     } else {
-                     debit_updated_value = Double.parseDouble((String) dbm.checknReturnData("account_names", "account_id", Integer.parseInt((String) debit_account_code_table.getValueAt(i, 0)), "current_balance")) - debit_value;
-                     }
-                     dbm.updateDatabase("account_names", "account_id", Integer.parseInt((String) debit_account_code_table.getValueAt(i, 0)), "current_balance", debit_updated_value);
-                     i++;
-                     } */
-                    // clear all
-                    {
-                        int j = 0;
-                        while (debit_account_code_table.getValueAt(j, 0) != null) {
-                            debit_account_code_table.setValueAt(null, j, 0);
-                            debit_description_table.setValueAt(null, j, 0);
-                            debit_amount_table.setValueAt(null, j, 0);
-                            j++;
-                        }
-
-//                recieptNo.setText(null);
-                        refNo.setText(null);
-                        payType.setSelectedIndex(0);
-                        bankCode.setSelectedIndex(0);
-                        branchCode.setSelectedIndex(0);
-                        bankName.setText(null);
-                        branchName.setText(null);
-                        chequeNo.setText(null);
-                        if (acc.checkCache("payment_credit") == 1) {
-                            credit_accountCode.setSelectedIndex(0);
-                        }
-                        credit_description.setText(null);
-                        creditAmount.setText(null);
-                        credit_accountName.setText(null);
-                        debit_account_code.setSelectedIndex(0);
-                        if (acc.checkCache("payment_debit") == 1) {
-                            acc.setDebitCombo(debit_account_code);
-                        }
-                        debit_account_name.setText(null);
-                        debit_description.setText(null);
-                        debit_amount.setText(null);
-                        total.setText(null);
-                        difference.setText(null);
-                        description.setText(null);
-
+                    else{
+                         msg.showMessage("Payment Entry could not be saved. Problem in the creditside", "Payment", "info");
+                         raobject.deleteEntryInAllTables();
                     }
+
                 }
-                refNo.requestFocus();
+
             } catch (ParseException ex) {
                 Logger.getLogger(ACC_payments.class.getName()).log(Level.SEVERE, null, ex);
             }

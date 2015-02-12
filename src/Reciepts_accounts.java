@@ -480,6 +480,7 @@ public class Reciepts_accounts {
             dbCon.insert("INSERT INTO account_reciept(tr_no,debit_credit,ref_no,date,pay_type,account_id,account_name,description_long,description,bank_id,bank_name,branch_id,branch_name,cheque_no,cheque_date,amount) VALUES('" + tr_no + "','" + "credit" + "','" + refNo + "','" + date + "','" + payType + "','" + credit_acnt_code + "','" + credit_acnt_name + "','"+description+"','" + credit_descriptn + "','" + bankCode + "','" + bankName + "','" + branchCode + "','" + branchName + "','" + chequeNo + "','" + chequeDate + "','" + credit_amount + "')");
         } catch (SQLException ex) {
             Logger.getLogger(Reciepts_accounts.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
         
         return true;
@@ -491,6 +492,7 @@ public class Reciepts_accounts {
             dbCon.insert("INSERT INTO account_reciept(tr_no,debit_credit,ref_no,date,pay_type,account_id,account_name,description_long,description,amount) VALUES('" + tr_no + "','" + "credit" + "','" + refNo + "','" + date + "','" + payType + "','" + credit_acnt_code + "','" + credit_acnt_name + "','"+description+"','" + credit_descriptn + "','" + credit_amount + "')");
         } catch (SQLException ex) {
             Logger.getLogger(Reciepts_accounts.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         } 
         return true;  
     }
@@ -534,6 +536,20 @@ public class Reciepts_accounts {
         try {
             dbCon.insert("INSERT INTO account_reciept_creditside_all(tr_no,credit_account_id,credit_account_name,credit_description,credit_amount) VALUES('" + tr_no + "','" + credit_acnt_code + "','" + credit_acnt_name + "','" + credit_descriptn + "','" + credit_amount + "')");
 
+        } catch (SQLException ex) {
+            MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
+            return false;
+        }
+        return true;
+    }
+      
+      public boolean deleteEntryInAllTables(){
+        DatabaseManager dbCon = DatabaseManager.getDbCon();
+        try {
+            dbCon.insert("DELETE FROM `account_reciept_debitside` WHERE `tr_no` LIKE '"+tr_no+"' ");
+            dbCon.insert("DELETE FROM `account_reciept` WHERE `tr_no` LIKE '"+tr_no+"' ");
+            dbCon.insert("DELETE FROM `account_reciept_creditside` WHERE `tr_no` LIKE '"+tr_no+"' ");
+        
         } catch (SQLException ex) {
             MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
             return false;

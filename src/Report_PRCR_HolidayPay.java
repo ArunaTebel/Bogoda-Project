@@ -24,8 +24,8 @@ import javax.swing.JOptionPane;
  */
 public class Report_PRCR_HolidayPay extends javax.swing.JPanel {
 
-    PRCR_Checkroll_Summary_Report rep=new PRCR_Checkroll_Summary_Report();
-    
+    PRCR_Checkroll_Summary_Report rep = new PRCR_Checkroll_Summary_Report();
+
     public class Background implements Runnable {
 
         int delay;
@@ -38,7 +38,7 @@ public class Report_PRCR_HolidayPay extends javax.swing.JPanel {
         @Override
         public void run() {
             //  jProgressBar1.setIndeterminate(true);
-           // view.setEnabled(false);
+            // view.setEnabled(false);
             jProgressBar1.setVisible(true);
             int a = (int) (Math.random() * 500);
             //System.out.println(a);
@@ -79,11 +79,11 @@ public class Report_PRCR_HolidayPay extends javax.swing.JPanel {
 
             String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
 
-           String dateNow= generate.create("Weekly_Advances_", "D:\\", param, location, "Weekly_Advances.jrxml");
+            String dateNow = generate.create("Weekly_Advances_", "D:\\", param, location, "Weekly_Advances.jrxml");
             a.stop();
             jProgressBar1.setValue(100);
             try {
-                generate.savename(dateNow, "Weekly_Advances_", yearfield.getText()+datehandler.return_month_as_num(monthfield.getText()));
+                generate.savename(dateNow, "Weekly_Advances_", yearfield.getText() + datehandler.return_month_as_num(monthfield.getText()));
             } catch (SQLException ex) {
                 Logger.getLogger(Report_GL_daily_transactions.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -91,7 +91,8 @@ public class Report_PRCR_HolidayPay extends javax.swing.JPanel {
         }
 
     }
-     public class report_old implements Runnable {
+
+    public class report_old implements Runnable {
 
         public report_old() {
         }
@@ -101,27 +102,26 @@ public class Report_PRCR_HolidayPay extends javax.swing.JPanel {
 
             Thread a = new Thread(new Background(55));
 
-           // Thread t1 = new Thread(new update(yearfield.getText(), monthfield.getText()));
+            // Thread t1 = new Thread(new update(yearfield.getText(), monthfield.getText()));
             HashMap param = new HashMap();
             param.put("USER", user.get_current_user());
-           // param.put("DIVISION",division_jc.getSelectedItem().toString());
+            // param.put("DIVISION",division_jc.getSelectedItem().toString());
 //         param.put("Month", datehandler.return_month_as_num(monthfield.getText()));
-         //  param.put("Month", datehandler.Return_month_full(datehandler.return_index(monthfield.getText())) + " " + yearfield.getText().toString());
+            //  param.put("Month", datehandler.Return_month_full(datehandler.return_index(monthfield.getText())) + " " + yearfield.getText().toString());
 
-            
             a.start();
-           // t1.run();
-             String dateNow;
+            // t1.run();
+            String dateNow;
             String location = dbm.checknReturnStringData("file_locations", "description", "Reports", "location");
-            if(divisionJC.getSelectedItem().toString().equals("FAC")){
-           dateNow= generate.create("PRCR_Holidaypay_Factory_", "D:\\", param, location, "PRCR_HolidayPay_Factory.jrxml");
-            }else{
-        dateNow= generate.create("PRCR_Holidaypay_Ground_", "D:\\", param, location, "PRCR_HolidayPay_Ground.jrxml");
-        } 
-           a.stop();
+            if (divisionJC.getSelectedItem().toString().equals("FAC")) {
+                dateNow = generate.create("PRCR_Holidaypay_Factory_", "D:\\", param, location, "PRCR_HolidayPay_Factory.jrxml");
+            } else {
+                dateNow = generate.create("PRCR_Holidaypay_Ground_", "D:\\", param, location, "PRCR_HolidayPay_Ground.jrxml");
+            }
+            a.stop();
             jProgressBar1.setValue(100);
             try {
-                generate.savename(dateNow, "PRCR_Holidaypay_Ground_", yearfield.getText()+datehandler.return_month_as_num(monthfield.getText()));
+                generate.savename(dateNow, "PRCR_Holidaypay_Ground_", yearfield.getText() + datehandler.return_month_as_num(monthfield.getText()));
             } catch (SQLException ex) {
                 Logger.getLogger(Report_GL_daily_transactions.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -149,8 +149,6 @@ public class Report_PRCR_HolidayPay extends javax.swing.JPanel {
 
         }
     }
-    
-    
 
     /**
      *
@@ -163,7 +161,7 @@ public class Report_PRCR_HolidayPay extends javax.swing.JPanel {
     Date_Handler datehandler = new Date_Handler();
     Report_gen generate = new Report_gen();
     UserAccountControl user = new UserAccountControl();
-    DatabaseManager dbm =  DatabaseManager.getDbCon();
+    DatabaseManager dbm = DatabaseManager.getDbCon();
 
     public void focus() {
         //dayfield.requestFocus();
@@ -301,7 +299,7 @@ public class Report_PRCR_HolidayPay extends javax.swing.JPanel {
 
         jLabel2.setText("Division");
 
-        divisionJC.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "FAC", "STATES" }));
+        divisionJC.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "FAC", "ESTATES" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -501,7 +499,7 @@ public class Report_PRCR_HolidayPay extends javax.swing.JPanel {
 
         }
         if (evt.getKeyCode() == KeyEvent.VK_LEFT) {
-           // dayfield.requestFocus();
+            // dayfield.requestFocus();
             // dayfield.selectAll();
         }
         if (evt.getKeyCode() == KeyEvent.VK_RIGHT) {
@@ -543,19 +541,28 @@ public class Report_PRCR_HolidayPay extends javax.swing.JPanel {
         // dayfield.setText(datehandler.get_day(datef));
         monthfield.setText(datehandler.get_month(datef));
         yearfield.setText(datehandler.get_year(datef));
-      //  dayfield2.requestFocus();
+        //  dayfield2.requestFocus();
         // dayfield2.selectAll();
     }//GEN-LAST:event_datePicker1ActionPerformed
-
+    PRCRHolidayPayFactory fac = new PRCRHolidayPayFactory();
+    PRCRHolidayPayGround grnd = new PRCRHolidayPayGround();
+    
+    MessageBox msg = new MessageBox();
     private void viewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewActionPerformed
-//     int a= JOptionPane.showConfirmDialog(datechooser, "This will update the Daily transactions list. it will take several minutes to complete.. Are you sure?");
-//        System.out.println(a); 
-//         Thread b = new Thread(new report());
-//        if(a==0){  b.start();}
-      
+       /* int a = JOptionPane.showConfirmDialog(datechooser, "This will update the Daily transactions list. it will take several minutes to complete.. Are you sure?");
+        System.out.println(a);
+        Thread b = new Thread(new report());
+        if (a == 0) {
+            if (divisionJC.getSelectedItem().toString() == "FAC") {
+                fac.doAllSteps(Integer.parseInt(yearfield.getText()));
+            } else {
+                grnd.doAllSteps(Integer.parseInt(yearfield.getText()));
+            }
+        } */
         
-        //b.start();
-        
+        msg.showMessage("Make sure you have updated the Holiday pay", "Holiday Pay", "info");
+
+
     }//GEN-LAST:event_viewActionPerformed
 
     private void viewMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewMouseClicked
@@ -584,18 +591,18 @@ public class Report_PRCR_HolidayPay extends javax.swing.JPanel {
 
     private void view1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_view1ActionPerformed
 
-       // rep.createReport(getST(monthfield.getText(), yearfield.getText()),division_jc.getSelectedItem().toString());
+        // rep.createReport(getST(monthfield.getText(), yearfield.getText()),division_jc.getSelectedItem().toString());
         Thread b = new Thread(new report_old());
         b.start();
     }//GEN-LAST:event_view1ActionPerformed
- public String getST(String month, String year) {
+    public String getST(String month, String year) {
         String st;
         if (datehandler.return_index(month) < 10) {
             st = year + "_0" + datehandler.return_index(month);
         } else {
             st = year + "_" + datehandler.return_index(month);
         }
-        
+
         return st;
     }
 

@@ -544,6 +544,21 @@ public class Payments_accounts {
         }
         return true;
     }
+    
+    public boolean deleteEntryInAllTables(){
+        DatabaseManager dbCon = DatabaseManager.getDbCon();
+        try {
+            dbCon.insert("DELETE FROM `account_payment_creditside` WHERE `tr_no` LIKE '"+tr_no+"' ");
+            dbCon.insert("DELETE FROM `account_payment` WHERE `tr_no` LIKE '"+tr_no+"' ");
+            dbCon.insert("DELETE FROM `account_payment_debitside` WHERE `tr_no` LIKE '"+tr_no+"' ");
+            
+
+        } catch (SQLException ex) {
+            MessageBox.showMessage(ex.getMessage(), "SQL Error", "error");
+            return false;
+        }
+        return true;
+    }
 
     public boolean UpdateCreditDatabaseBank(int tr_no) {
         DatabaseManager dbCon = DatabaseManager.getDbCon();
