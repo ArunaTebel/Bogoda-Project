@@ -34,6 +34,8 @@ public class PRCRHoliday extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        year = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
 
         jButton1.setText("For Factory Workers");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -51,17 +53,26 @@ public class PRCRHoliday extends javax.swing.JPanel {
 
         jLabel1.setText("Update Holiday Pay");
 
+        jLabel2.setText("Enter the Year ");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE))
-                .addGap(0, 217, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(year, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(40, 40, 40))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(49, 49, 49))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -69,8 +80,12 @@ public class PRCRHoliday extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addGap(2, 2, 2)
+                .addComponent(year, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(9, 9, 9)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(136, Short.MAX_VALUE))
         );
@@ -87,9 +102,9 @@ public class PRCRHoliday extends javax.swing.JPanel {
         else{
             PRCRHolidayPayFactory ex = new PRCRHolidayPayFactory();
             ex.getFactoryWorkerCodes();
-            ex.getWorkDaysNPayment();
-            ex.getLastYearHolidays();
-            ex.updateTable();
+            ex.getWorkDaysNPayment(Integer.parseInt(year.getText()));
+            ex.getLastYearHolidays(Integer.parseInt(year.getText()));
+            ex.updateTable(Integer.parseInt(year.getText()));
             JOptionPane.showMessageDialog(null, "Holiday Pay for Factory Workers Updated.");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -104,9 +119,9 @@ public class PRCRHoliday extends javax.swing.JPanel {
         else{
             PRCRHolidayPayGround ex = new PRCRHolidayPayGround();
             ex.getFactoryWorkerCodes();
-            ex.getWorkDaysNPayment();
-            ex.getLastYearHolidays();
-            ex.updateTable();
+            ex.getWorkDaysNPayment(Integer.parseInt(year.getText()));
+            ex.getLastYearHolidays(Integer.parseInt(year.getText()));
+            ex.updateTable(Integer.parseInt(year.getText()));
             JOptionPane.showMessageDialog(null, "Holiday Pay for Plantation Workers Updated.");
         }
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -116,5 +131,7 @@ public class PRCRHoliday extends javax.swing.JPanel {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JTextField year;
     // End of variables declaration//GEN-END:variables
 }
