@@ -265,6 +265,12 @@ public class GL_report_generator {
             System.out.println(ex.getMessage());
 
         }
+        
+        try {
+            dbm.insert("DELETE from `other_advance_totals` WHERE `year` LIKE '" + year + "' AND `month` LIKE '" + month + "' ");
+        } catch (SQLException ex) {
+            Logger.getLogger(GL_report_generator.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         try {
 
@@ -303,6 +309,8 @@ public class GL_report_generator {
                 }
             }
             query.close();
+            
+            
 
             try {
                 dbm.insert("INSERT INTO other_advance_totals(entry,year,month,sup_id,tea,manure,chem,shop,bags,tanks,other) VALUES('" + year + month + sup_id + "','" + year + "','" + month + "','" + sup_id + "','" + cat_totals[0] + "','" + cat_totals[1] + "','" + cat_totals[2] + "','" + cat_totals[3] + "','" + cat_totals[4] + "','" + cat_totals[5] + "','" + cat_totals[6] + "')");
@@ -734,10 +742,10 @@ int size= 0;
         
             j = 0;
             try{
-         ResultSet  query1=dbm.query("SELECT * from supplier_pre_debt_coins Where  month= '" + year+month + "' ");
+         ResultSet  query1=dbm.query("SELECT sup_id FROM suppliers" );
          while(query1.next()){
-                coin = query1.getDouble("coins");
-                debts = query1.getDouble("pre_debts");
+                coin = dbm.checknReturnDoubleData("supplier_pre_debt_coins", "entry", year+month+query1.getInt("sup_id"), "coins");
+                debts = dbm.checknReturnDoubleData("supplier_pre_debt_coins", "entry", year+month+query1.getInt("sup_id"), "pre_debts");
                 sup = query1.getInt("sup_id");
 
                 try {
@@ -1013,7 +1021,7 @@ int size= 0;
         int k = 0;
         String sup;
         String name;
-        String pay;
+       double pay;
         double loans = 0;
         String[] temp = new String[2];
         double loans_next = 0;
@@ -1051,7 +1059,7 @@ int size= 0;
         while (query.next()) {
             sup = query.getString("category_id");
             name = query.getString("category_name");
-            pay = "CASH";
+          
               System.out.println("category="+name);
            // extra = dbm.checknReturnDoubleData("gl_extra_pay", "entry", year+month+sup,"amount");
             //String trans_code = query.getString("")
@@ -1071,7 +1079,8 @@ int size= 0;
               leaf_rate = dbm.checknReturnDoubleData("category", "category_id",sup, "extra_rate");
             supply = get_tr_day_total(sup, year, month);
             total_kg=supply[0];
-            trans=supply[0]*leaf_rate+supply[1];
+            trans=supply[0]*leaf_rate;
+              pay = supply[1];
             System.out.println(supply[1]+"--------------------------------------");
             //ResultSet query1 = dbm.query("SELECT * FROM daily_transactions_current WHERE entry LIKE '" + year + month + sup + "' ");
            // while (query1.next()) {
@@ -1443,6 +1452,50 @@ int size= 0;
             Logger.getLogger(GL_report_generator.class.getName()).log(Level.SEVERE, null, ex);
             return 0;
         }
+      }
+      
+      
+      public void testFunc(){
+         double total= 0;
+            double total2= 0; 
+        try {
+            
+            
+            ResultSet query1 = dbm.query("SELECT * from welfare WHERE month2 = '201501'");
+            while (query1.next()) {
+                
+                total += query1.getDouble("amount");
+                int sup = query1.getInt("sup_id");
+                 try {
+            
+                     System.out.println(sup+"$"+query1.getDouble("amount"));
+            ResultSet query2 = dbm.query("SELECT * from gl_monthly_ledger_current WHERE entry = '201501"+sup+"' ");
+            while (query2.next()) {
+                
+                total2 += query2.getDouble("welfare");
+              // if(query1.getDouble("amount") != query2.getDouble("welfare")){
+                   System.out.println(sup+"--------"+query1.getDouble("amount")+" <===+++++++==>"+query2.getDouble("welfare"));
+            
+           // }
+            }
+            query2.close();
+        } catch (SQLException ex2) {
+            Logger.getLogger(GL_report_generator.class.getName()).log(Level.SEVERE, null, ex2);
+        }
+                
+                
+                
+                
+            }
+            query1.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(GL_report_generator.class.getName()).log(Level.SEVERE, null, ex);
+        }
+          System.out.println(total2+"-----------"+total);
+       
+      
+      
+      
       }
       
            
