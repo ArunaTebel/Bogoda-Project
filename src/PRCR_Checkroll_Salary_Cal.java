@@ -85,7 +85,7 @@ public class PRCR_Checkroll_Salary_Cal {
     private String division;
     private double extrapaycash;
     private double extrapayoverkilos;
-    private double extrapayholidaypay;
+    private double holidaypay;
     private double extrapaymay;
     private double totalextrapay;
     private String s = null;
@@ -159,7 +159,7 @@ public class PRCR_Checkroll_Salary_Cal {
                 sundaysbfr17 = query.getInt("sundays_bfr17");
                 extrapaycash = query.getDouble("extra_pay_cash");
                 extrapayoverkilos = query.getDouble("extra_pay_overkilos");
-                extrapayholidaypay = query.getDouble("extra_pay_holiday");
+                holidaypay = query.getDouble("extra_pay_holiday");
                 tea_ded = query.getDouble("tea");
                 salary_adv = query.getDouble("salary_adv");
                 fest_adv = query.getDouble("fest_adv");
@@ -191,7 +191,7 @@ public class PRCR_Checkroll_Salary_Cal {
         this.sundaysAmount = sundays * sundayRate;
 
         this.workdays = sundays + normalDays;
-        this.totalBasicSalary = sundaysAmount + normalDaysAmount;
+        this.totalBasicSalary = sundaysAmount + normalDaysAmount+holidaypay;
 
         // this.coinsbf= Double.parseDouble(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "coinsbf"));
 //        this.incentive1Rate = Double.parseDouble(dbm.checknReturnData("checkroll_pay_info", "checkroll", "1", "incentive_1"));
@@ -224,7 +224,7 @@ public class PRCR_Checkroll_Salary_Cal {
         // this.extrapaycash = Double.parseDouble(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "extra_pay_cash"));
         // this.extrapayoverkilos = Double.parseDouble(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "extra_pay_overkilos"));
         // this.extrapayholidaypay = Double.parseDouble(dbm.checknReturnData("pr_workdata_" + st, "code", employCode, "extra_pay_holiday"));
-        this.totalextrapay = extrapaycash + extrapayoverkilos + extrapayholidaypay + extrapaymay;
+        this.totalextrapay = extrapaycash + extrapayoverkilos + extrapaymay;
 
         this.grosspay = totalBasicSalary + totalIncentiveAmount + OTBeforeAmount + OTAfterAmount + totalextrapay + coinsbf;
 

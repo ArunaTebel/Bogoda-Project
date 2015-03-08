@@ -1330,7 +1330,7 @@ public class PRCR_viewNedit_extra_payment_book extends javax.swing.JFrame {
         
         dbm.updateDatabase("prcr_extrapayment_book", "entry", index, "type", table.getValueAt(row[i], 3));
         
-        dbm.updateDatabase("prcr_extrapayment_book", "entry", index, "amount", table.getValueAt(row[i], 4));
+        dbm.updateDatabase("prcr_extrapayment_book", "entry", index, "amount", table.getValueAt(row[i], 6));
         
         //dbm.updateDatabase("prcr_debit_pay", "entry", index, "division", table.getValueAt(row[i], 5));
         }

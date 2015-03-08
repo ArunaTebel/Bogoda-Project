@@ -438,6 +438,7 @@ public class PRCR_Checkroll_Monthly_workdata_database_update_class implements Ru
             }
         }
         workentryst = st.replace("_", "-");
+        
         if (Task_manager.workdetailsC.isSelected() == false) {
 
             Task_manager.workdetailsL.setText("Work Details are being updated");
@@ -806,6 +807,7 @@ days=null;
         //DatabaseManager dbm = DatabaseManager.getDbCon();
         double tot = 0;
         double overkilos = 0;
+        double holidaypay = 0;
         double cash = 0;
         double holiday = 0;
         double may = 0;
@@ -826,9 +828,12 @@ days=null;
             for (int i = 0; i < nofentries1; i++) {
                 overkilos = dbm.prcr_emp_code_other_advance_month_totals("prcr_extrapayment_book", st, "date", "code", activecodes[i], "type", "OVERKILOS", "amount");
                 cash = dbm.prcr_emp_code_other_advance_month_totals("prcr_extrapayment_book", st, "date", "code", activecodes[i], "type", "CASHWORK", "amount");
-
+                holidaypay=dbm.prcr_emp_code_other_advance_month_totals("prcr_extrapayment_book", st, "date", "code", activecodes[i], "type", "HOLIDAYPAY", "amount");
                 dbm.updateDatabase("pr_workdata_" + this.st, "code", activecodes[i], "extra_pay_overkilos", overkilos);
                 dbm.updateDatabase("pr_workdata_" + this.st, "code", activecodes[i], "extra_pay_cash", cash);
+                if(holidaypay>0){
+                 dbm.updateDatabase("pr_workdata_" + this.st, "code", activecodes[i], "extra_pay_holiday", holidaypay);
+                }
                 dbm.updateDatabase("pr_workdata_" + this.st, "code", activecodes[i], "active", 1);
                 if(Integer.parseInt(dbm.checknReturnData("checkroll_personalinfo", "code", activecodes[i], "register_or_casual")) == 1 ){
                 dbm.updateDatabase("pr_workdata_" + this.st, "code", activecodes[i],"pay_slip",payslip);

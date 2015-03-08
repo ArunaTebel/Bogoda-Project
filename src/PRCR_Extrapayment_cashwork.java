@@ -398,7 +398,7 @@ public class PRCR_Extrapayment_cashwork extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        cashworkC.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "CASHWORK", "OVERKILOS" }));
+        cashworkC.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "CASHWORK", "OVERKILOS", "HOLIDAYPAY" }));
         cashworkC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cashworkCActionPerformed(evt);
@@ -425,7 +425,7 @@ public class PRCR_Extrapayment_cashwork extends javax.swing.JPanel {
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(cashworkC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 203, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 198, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(layout.createSequentialGroup()
@@ -656,7 +656,38 @@ public void ClearTable(){
                 amountT.setText(null);
                 daysT.setText(null);
                 empCode_JC.requestFocus();
-            }else{
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Enter the employ code\n", "Message", JOptionPane.INFORMATION_MESSAGE);
+                empCode_JC.requestFocus();
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Enter the employee code\n", "Message", JOptionPane.INFORMATION_MESSAGE);
+            empCode_JC.requestFocus();
+        }
+                
+                }
+        else if(cashworkC.getSelectedItem().toString().equals("HOLIDAYPAY")){
+                try{
+            if(empCode_JC.getSelectedItem().toString().length()!=0){
+                table.setValueAt(empCode_JC.getSelectedItem(), rows, 0);
+                table.setValueAt(empName2.getText(), rows, 1);
+                table.setValueAt("HOLIDAYPAY", rows, 2);
+                if (amountT.getText().length() == 0) {
+                    table.setValueAt("0", rows, 3);
+                    JOptionPane.showMessageDialog(null, "Enter amount\n", "Message", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    table.setValueAt(amountT.getText(), rows, 3);
+                }
+                table.setValueAt(daysT.getText(), rows, 5);
+                rows++;
+                // TODO add your handling code here:
+                empCode_JC.setSelectedItem(null);
+                amountT.setText(null);
+                daysT.setText(null);
+                empCode_JC.requestFocus();
+            }
+            else{
                 JOptionPane.showMessageDialog(null, "Enter the employ code\n", "Message", JOptionPane.INFORMATION_MESSAGE);
                 empCode_JC.requestFocus();
             }

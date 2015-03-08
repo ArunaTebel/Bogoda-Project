@@ -38,7 +38,7 @@
                               <Component id="jLabel2" min="-2" pref="66" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="cashworkC" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="203" max="32767" attributes="0"/>
+                              <EmptySpace pref="198" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <Group type="103" groupAlignment="1" attributes="0">
@@ -545,9 +545,10 @@
     <Component class="javax.swing.JComboBox" name="cashworkC">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="2">
+          <StringArray count="3">
             <StringItem index="0" value="CASHWORK"/>
             <StringItem index="1" value="OVERKILOS"/>
+            <StringItem index="2" value="HOLIDAYPAY"/>
           </StringArray>
         </Property>
       </Properties>
